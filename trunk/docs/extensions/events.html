@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="static/css/site.css" rel="stylesheet" type="text/css">
+    <link href="static/css/print.css" rel="stylesheet" type="text/css" media="print">
+    <link href="static/css/prettify.css" rel="stylesheet" type="text/css">
+    <link href="//www.google.com/images/icons/product/chrome-16.png" rel="icon" type="image/ico">
+    <link href="static/css/api.css" rel="stylesheet" type="text/css">
+    <title>chrome.events - Google Chrome</title>
+  </head>
+  <body>
+    <a id="top"></a>
+    <div id="header">
+      <span id="logo">
+        <a href="http://code.google.com/"><img src="static/images/chrome_logo.gif" alt="Google Code Labs"></a>
+      </span>
+      <span id="cse">
+        <gcse:searchbox-only enableAutoComplete="true" autoCompleteMatchTyple="prefix"></gcse:searchbox-only>
+      </span>
+    </div>
+    <a id="gc-topnav-anchor"></a>
+    <div id="gc-topnav">
+      <h1>Google Chrome 扩展程序（非官方中文版）</h1>
+      <ul id="home" class="gc-topnav-tabs">
+        <li id="home_link">
+          <!--@<a href="index.html" title="Google Chrome 扩展程序 home page"><div>Home</div></a>-->
+          <a href="index.html" title="Google Chrome 扩展程序主页"><div>主页</div></a>
+        </li>
+        <li id="docs_link">
+          <!--@<a href="docs.html" title="Official Google Chrome 扩展程序 documentation"><div>Docs</div></a>-->
+          <a href="docs.html" title="Google Chrome 扩展程序文档"><div>文档</div></a>
+        </li>
+        <li id="faq_link">
+          <!--@<a href="faq.html" title="Answers to frequently asked questions about Google Chrome 扩展程序"><div>FAQ</div></a>-->
+          <a href="faq.html" title="关于 Google Chrome 扩展程序常见问题的答案"><div>常见问题</div></a>
+        </li>
+        <li id="samples_link">
+          <!--@<a href="samples.html" title="Sample 扩展程序 (with source code)"><div>Samples</div></a>-->
+          <a href="samples.html" title="示例扩展程序（包含源代码）"><div>示例</div></a>
+        </li>
+        <li id="group_link">
+          <!--<a href="http://groups.google.com/a/chromium.org/group/chromium-extensions" title="Google Chrome 扩展程序 developer forum"><div>Group</div></a>-->
+          <a href="http://groups.google.com/a/chromium.org/group/chromium-extensions" title="Google Chrome 扩展程序开发人员论坛"><div>论坛（英文）</div></a>
+        </li>
+        <li id="so_link">
+          <!--<a href="http://stackoverflow.com/questions/tagged/google-chrome-extension" title="[google-chrome-extension] tag on Stack Overflow"><div>Questions?</div></a>-->
+          <a href="http://stackoverflow.com/questions/tagged/google-chrome-extension" title="Stack Overflow 上的 [google-chrome-extension] 标签"><div>问题？（英文）</div></a>
+        </li>
+      </ul>
+    </div>
+    <div id="gc-container">
+      <div id="gc-sidebar">
+        <ul 
+            class="level1 ">
+          <li class="level2">
+                <a href="getstarted.html" class="level2 ">入门</a>
+          </li>
+          <li class="level2">
+                <a href="overview.html" class="level2 ">概述</a>
+          </li>
+          <li class="level2">
+                <a href="whats_new.html" class="level2 ">新增功能</a>
+          </li>
+          <li class="level2">
+                <a href="devguide.html" class="level2 "></a>
+              <ul 
+                  class="level2 ">
+                <li class="level3">
+                    <a class="button level3">
+                      <span class="level3">浏览器用户界面</span>
+                      <div class="toggleIndicator level3"></div>
+                    </a>
+                    <ul toggleable
+                        class="level3 hidden">
+                      <li class="level4">
+                            <a href="browserAction.html" class="level4 ">浏览器按钮</a>
+                      </li>
+                      <li class="level4">
+                            <a href="contextMenus.html" class="level4 ">右键菜单</a>
+                      </li>
+                      <li class="level4">
+                            <a href="notifications.html" class="level4 ">桌面通知</a>
+                      </li>
+                      <li class="level4">
+                            <a href="omnibox.html" class="level4 ">多功能框</a>
+                      </li>
+                      <li class="level4">
+                            <a href="options.html" class="level4 ">选项页面</a>
+                      </li>
+                      <li class="level4">
+                            <a href="override.html" class="level4 ">替代页面</a>
+                      </li>
+                      <li class="level4">
+                            <a href="pageAction.html" class="level4 ">页面按钮</a>
+                      </li>
+                    </ul>
+                </li>
+                <li class="level3">
+                    <a class="button level3">
+                      <span class="level3">浏览器交互</span>
+                      <div class="toggleIndicator level3 toggled"></div>
+                    </a>
+                    <ul toggleable
+                        class="level3 ">
+                      <li class="level4">
+                            <a href="bookmarks.html" class="level4 ">书签</a>
+                      </li>
+                      <li class="level4">
+                            <a href="cookies.html" class="level4 ">Cookie</a>
+                      </li>
+                      <li class="level4">
+                            <a href="devtools.html" class="level4 ">开发人员工具</a>
+                      </li>
+                      <li class="level4">
+                            <a  class="level4 selected">事件</a>
+                      </li>
+                      <li class="level4">
+                            <a href="history.html" class="level4 ">历史记录</a>
+                      </li>
+                      <li class="level4">
+                            <a href="management.html" class="level4 ">管理</a>
+                      </li>
+                      <li class="level4">
+                            <a href="tabs.html" class="level4 ">标签页</a>
+                      </li>
+                      <li class="level4">
+                            <a href="windows.html" class="level4 ">窗口</a>
+                      </li>
+                    </ul>
+                </li>
+                <li class="level3">
+                    <a class="button level3">
+                      <span class="level3">实现</span>
+                      <div class="toggleIndicator level3"></div>
+                    </a>
+                    <ul toggleable
+                        class="level3 hidden">
+                      <li class="level4">
+                            <a href="a11y.html" class="level4 ">辅助功能</a>
+                      </li>
+                      <li class="level4">
+                            <a href="event_pages.html" class="level4 ">事件页面</a>
+                      </li>
+                      <li class="level4">
+                            <a href="contentSecurityPolicy.html" class="level4 ">内容安全策略</a>
+                      </li>
+                      <li class="level4">
+                            <a href="content_scripts.html" class="level4 ">内容脚本</a>
+                      </li>
+                      <li class="level4">
+                            <a href="xhr.html" class="level4 ">跨站XHR</a>
+                      </li>
+                      <li class="level4">
+                            <a href="i18n.html" class="level4 ">国际化支持</a>
+                      </li>
+                      <li class="level4">
+                            <a href="messaging.html" class="level4 ">消息传递</a>
+                      </li>
+                      <li class="level4">
+                            <a href="permissions.html" class="level4 ">可选权限</a>
+                      </li>
+                      <li class="level4">
+                            <a href="npapi.html" class="level4 ">NPAPI 插件</a>
+                      </li>
+                    </ul>
+                </li>
+                <li class="level3">
+                    <a class="button level3">
+                      <span class="level3">完成</span>
+                      <div class="toggleIndicator level3"></div>
+                    </a>
+                    <ul toggleable
+                        class="level3 hidden">
+                      <li class="level4">
+                            <a href="hosting.html" class="level4 ">托管</a>
+                      </li>
+                      <li class="level4">
+                            <a href="external_extensions.html" class="level4 ">其他发布选项</a>
+                      </li>
+                    </ul>
+                </li>
+              </ul>
+          </li>
+          <li class="level2">
+                <a href="tutorials.html" class="level2 ">教程</a>
+              <ul 
+                  class="level2 ">
+                <li class="level3">
+                      <a href="tut_migration_to_manifest_v2.html" class="level3 ">清单文件版本2</a>
+                </li>
+                <li class="level3">
+                      <a href="tut_debugging.html" class="level3 ">调试</a>
+                </li>
+                <li class="level3">
+                      <a href="tut_analytics.html" class="level3 ">Google Analytics（分析）</a>
+                </li>
+                <li class="level3">
+                      <a href="tut_oauth.html" class="level3 ">OAuth</a>
+                </li>
+              </ul>
+          </li>
+          <li class="level2">
+                <span class="level2">参考</span>
+              <ul 
+                  class="level2 ">
+                <li class="level3">
+                    <a class="button level3">
+                      <span class="level3">格式</span>
+                      <div class="toggleIndicator level3"></div>
+                    </a>
+                    <ul toggleable
+                        class="level3 hidden">
+                      <li class="level4">
+                            <a href="manifest.html" class="level4 ">清单文件</a>
+                      </li>
+                      <li class="level4">
+                            <a href="match_patterns.html" class="level4 ">匹配表达式</a>
+                      </li>
+                    </ul>
+                </li>
+                <li class="level3">
+                      <a href="permission_warnings.html" class="level3 ">权限警告</a>
+                </li>
+                <li class="level3">
+                      <a href="api_index.html" class="level3 ">chrome.* API</a>
+                </li>
+                <li class="level3">
+                      <a href="api_other.html" class="level3 ">其他 API</a>
+                </li>
+              </ul>
+          </li>
+          <li class="level2">
+                <span class="level2">更多</span>
+              <ul 
+                  class="level2 ">
+                <li class="level3">
+                      <a href="https://code.google.com/chrome/webstore/docs/index.html" class="level3 ">Chrome 网上应用店</a>
+                </li>
+                <li class="level3">
+                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用程序</a>
+                </li>
+                <li class="level3">
+                      <a href="themes.html" class="level3 ">主题背景</a>
+                </li>
+              </ul>
+          </li>
+        </ul>
+      </div>
+      <div id="gc-pagecontent">
+        <h1 class="page_title">chrome.events</h1>
+        
+        
+        
+        <div id="toc">
+          <h2><!--@Contents-->目录</h2>
+          <ol>
+            <li>
+              <a href=#declarative>声明式事件处理程序</a>
+              <ol>
+                <li><a href=#rules>规则</a></li><li><a href=#eventobjects>事件对象</a></li><li><a href=#addingrules>添加规则</a></li><li><a href=#removingrules>移除规则</a></li><li><a href=#retrievingrules>获取规则</a></li>
+              </ol>
+            </li>
+            <li>
+              <a href=#filtered>事件过滤</a>
+            </li>
+            <li>
+              <a href="#apiReference"><!--@API reference: -->API 参考：chrome.events</a>
+              <ol>
+                  <li><a href="#types"><!--@Types-->类型</a><ol>  <li>    <a href="#type-Rule">Rule</a>  </li>  <li>    <a href="#type-Event">Event</a><ol><li>      <a href="#Event-methods"><!--@Methods-->方法</a>      <ol>        <li><a href="#method-Event-addListener">addListener</a></li>        <li><a href="#method-Event-removeListener">removeListener</a></li>        <li><a href="#method-Event-hasListener">hasListener</a></li>        <li><a href="#method-Event-hasListeners">hasListeners</a></li>        <li><a href="#method-Event-addRules">addRules</a></li>        <li><a href="#method-Event-getRules">getRules</a></li>        <li><a href="#method-Event-removeRules">removeRules</a></li>      </ol>    </li></ol>  </li>  <li>    <a href="#type-UrlFilter">UrlFilter</a>  </li></ol></li>
+                  
+                  
+                  
+                  
+              </ol>
+            </li>
+          </ol>
+        </div>
+
+<p>
+<!--@An <code>Event</code> is an object
+that allows you to be notified
+when something interesting happens.
+Here's an example of using the
+<code>chrome.tabs.onCreated</code> event
+to be notified whenever there's a new tab:-->
+当发生一些您感兴趣的事情时，<code>Event</code> 对象可以使您收到通知。如下是一个使用 <a href="tabs.html#event-onCreated">tabs.onCreated</a> 事件的例子，每当打开新标签页时就收到通知：
+</p>
+
+<pre>
+chrome.tabs.onCreated.<b>addListener(function(</b>tab<b>) {</b>
+  appendToLog('tabs.onCreated --'
+              + ' 窗口：' + tab.windowId
+              + ' 标签页：'    + tab.id
+              + ' 索引：'  + tab.index
+              + ' URL：'    + tab.url);
+<b>});</b>
+</pre>
+
+<p>
+<!--@As the example shows,
+you register for notification using <code>addListener()</code>.
+The argument to <code>addListener()</code>
+is always a function that you define to handle the event,
+but the parameters to the function depend on
+which event you're handling.
+Checking the documentation for
+<a href="tabs.html#event-onCreated">tabs.onCreated</a>,
+you can see that the function has a single parameter:
+a <a href="tabs.html#type-Tab">tabs.Tab</a> object
+that has details about the newly created tab.-->
+如这一例子所示，您使用 <code>addListener()</code>
+注册来接收通知。<code>addListener()</code>
+的参数总是一个您定义的处理事件的函数，但是函数的参数取决于您处理的事件。参考
+<a href="tabs.html#event-onCreated">tabs.onCreated</a> 的文档，您会看到该函数有一个参数：包含新创建标签页详情的
+<a href="tabs.html#type-Tab">tabs.Tab</a> 对象。
+</p>
+
+
+<div class="doc-family extensions">
+<h2 id="declarative"><!--@Declarative Event Handlers-->声明式事件处理程序</h2>
+
+<p>
+<!--@The declarative event handlers provide a means to define rules consisting of
+declarative conditions and actions. Conditions are evaluated in the browser
+rather than the JavaScript engine which reduces roundtrip latencies and allows
+for very high efficiency.-->
+声明式事件处理程序提供了一种方式，来定义由声明式条件与操作组成的规则。条件将在浏览器而不是
+JavaScript 引擎中求值，因而减少了来回的延迟，并提供极高的效率。
+</p>
+
+<p><!--@Declarative event handlers are used for example in the <a
+  href="declarativeWebRequest.html">Declarative Web Request API</a> and possibly
+further extension APIs in the future. This page describes the underlying
+concepts of all declarative event handlers.-->
+声明式事件处理程序在声明式网络请求 API
+的例子中使用，将来也可能进一步地用于其它扩展程序 API。该页面描述所有声明式
+API 背后的概念。
+</p>
+
+<h3 id="rules"><!--@Rules-->规则</h3>
+
+<p><!--@The simplest possible rule consists of one or more conditions and one or more
+actions:-->
+最简单的规则包含一个或多个条件以及一个或多个操作：
+</p>
+<pre>
+var rule = {
+  conditions: [ /* 我的条件 */ ],
+  actions: [ /* 我的规则 */ ]
+};
+</pre>
+
+<p><!--@If any of the conditions is fulfilled, all actions are executed.-->
+如果任何一个条件满足，则执行所有的操作。
+</p>
+
+<p><!--@In addition to conditions and actions you may give each rule an identifier,
+which simplifies unregistering previously registered rules, and a priority to
+define precedences among rules. Priorities are only considered if rules conflict
+each other or need to be executed in a specific order. Actions are executed in
+decendending order of the priority of their rules.-->
+除了条件和操作外，您还可以为每一条规则提供标志符，这样可以更简单地取消注册之前注册的规则，以及通过优先级定义规则间的优先顺序。只有当规则互相之间冲突或者需要以特定的顺序执行时才会考虑优先级。操作以对应规则优先级从大到小的顺序执行。
+</p>
+
+<pre>
+var rule = {
+  id: "my rule",  // 可选，如果没有设置会自动生成。
+  priority: 100,  // 可选，默认为 100。
+  conditions: [ /* 我的条件 */ ],
+  actions: [ /* 我的操作 */ ]
+};
+</pre>
+
+<h3 id="eventobjects"><!--@Event objects-->事件对象</h3>
+
+<p>
+<!--@<a href="events.html">Event objects</a> may support rules. These event objects
+don't call a callback function when events happen but test whether any
+registered rule has at least one fulfilled condition and execute the actions
+associated with this rule. Event objects supporting the declarative API have
+three relevant methods: <a href="events.html#method-Event-addRules">Event.addRules</a>,
+<a href="events.html#method-Event-removeRules">Event.removeRules</a>, and
+<a href="events.html#method-Event-getRules">Event.getRules</a>.-->
+<a href="events.html#type-Event">事件对象</a>可以支持规则。这样的事件对象在事件发生时不调用回调函数，而是测试已注册的规则中是否有至少一个满足的条件，并执行与该规则相关联的操作。支持声明式
+API
+的事件对象有三个有关方法：<a href="events.html#method-Event-addRules">Event.addRules</a>、<a href="events.html#method-Event-removeRules">Event.removeRules</a>
+以及 <a href="events.html#method-Event-getRules">Event.getRules</a>。
+</p>
+
+<h3 id="addingrules"><!--@Adding rules-->添加规则</h3>
+
+<p>
+<!--@To add rules call the <code>addRules()</code> function of the event object. It
+takes an array of rule instances as its first parameter and a callback function
+that is called on completion.-->
+要添加规则，请调用事件对象的 <code>addRules()</code>
+函数。它的第一个参数为包含规则实例的数组，第二个参数为完成时的回调函数。
+</p>
+
+<pre>
+var rule_list = [rule1, rule2, ...];
+function addRules(rule_list, function callback(details) {...});
+</pre>
+
+<p>
+<!--@If the rules were inserted successfully, the <code>details</code> parameter
+contains an array of inserted rules appearing in the same order as in the passed
+<code>rule_list</code> where the optional parameters <code>id</code> and
+<code>priority</code> were filled with the generated values. If any rule is
+invalid, e.g., because it contained an invalid condition or action, none of the
+rules are added and the 
+  <a href="runtime.html#property-lastError">runtime.lastError</a> variable is set when
+the callback function is called. Each rule in <code>rule_list</code> must
+contain a unique identifier that is not currently used by another rule or an
+empty identifier.-->
+如果规则成功插入，<code>details</code> 参数将包含已插入规则的数组，顺序与
+<code>rule_list</code> 中相同，可选参数 <code>id</code> 和
+<code>priority</code>
+将用生成的值填充。如果某条规则无效，例如因为它包含无效的条件或操作，所有的规则都不会添加，并且
+<a href="runtime.html#property-lastError">runtime.lastError</a> 变量将在回调函数调用时设置。
+<code>rule_list</code>
+中的每条规则都必须包含其它规则当前没有使用的唯一标志符，或者为空标志符。
+</p>
+
+<p class="note">
+<!--@<strong>Note:</strong> Rules are persistent across browsing sessions. Therefore,
+you should install rules during extension installation time using the
+<code><a href="runtime.html#event-onInstalled">runtime.onInstalled</a></code>
+event. Note that this event is also triggered when an extension is updated.
+Therefore, you should first clear previously installed rules and then register
+new rules.-->
+<strong>注意：</strong>规则在浏览器会话间持久存在，所以您应该使用
+<code><a href="runtime.html#event-onInstalled">runtime.onInstalled</a></code>
+在扩展程序安装期间安装规则。注意该事件在扩展程序更新时也会触发，所以您应该首先清除之前安装的规则并注册新规则。
+</p>
+
+<h3 id="removingrules"><!--@Removing rules-->移除规则</h3>
+
+<p>
+<!--@To remove rules call the <code>removeRules()</code> function. It accepts an
+optional array of rule identifiers as its first parameter and a callback
+function as its second parameter.-->
+要移除规则，请调用 <code>removeRules()</code>
+函数。它接受的第一个参数为可选的规则标志符数组，第二个参数为回调函数。
+</p>
+
+<pre>
+var rule_ids = ["id1", "id2", ...];
+function removeRules(rule_ids, function callback() {...});
+</pre>
+
+<p>
+<!--@If <code>rule_ids</code> is an array of identifiers, all rules having
+identifiers listed in the array are removed. If <code>rule_ids</code> lists an
+identifier, that is unknown, this identifier is silently ignored. If
+<code>rule_ids</code> is <code>undefined</code>, all registered rules of this
+extension are removed. The <code>callback()</code> function is called when the
+rules were removed.-->
+如果 <code>rule_ids</code>
+为包含标志符的数组，将移除具有数组中所列出的标志符的规则。如果
+<code>rule_ids</code> 包含未知标志符，将忽略该标志符。如果
+<code>rule_ids</code> 为
+<code>undefined</code>，将移除当前扩展程序注册的所有规则。规则移除后将调用
+<code>callback()</code>函数。
+</p>
+
+<h3 id="retrievingrules"><!--@Retrieving rules-->获取规则</h3>
+
+<p>
+<!--@To retrieve a list of currently registered rules, call the
+<code>getRules()</code> function. It accepts an optional array of rule
+identifiers with the same semantics as <code>removeRules</code> and a callback
+function.-->
+要获取当前已注册规则的列表，请调用 <code>getRules()</code>
+函数，它接受的第一个参数为可选的规则标志符数组，与 <code>removeRules</code>
+具有相同的意义，第二个参数为回调函数。
+</p>
+
+<pre>
+var rule_ids = ["id1", "id2", ...];
+function getRules(rule_ids, function callback(details) {...});
+</pre>
+
+<p>
+<!--@The <code>details</code> parameter passed to the <code>calback()</code> function
+refers to an array of rules including filled optional parameters.-->
+传递给 <code>callback()</code> 函数的 <code>details</code>
+参数指向含有自动填充的可选参数的规则数组。
+</p>
+</div>
+
+<div class="doc-family extensions">
+<h2 id="filtered"><!--@Filtered events-->事件过滤</h2>
+
+<p><!--@Filtered events are a mechanism that allows listeners to specify a subset of
+events that they are interested in. A listener that makes use of a filter won't
+be invoked for events that don't pass the filter, which makes the listening
+code more declarative and efficient - an <a href="event_pages.html">event
+  page</a> page need not be woken up to handle events it doesn't care
+about.-->
+事件过滤是一种让监听者指定感兴趣的事件子集的机制。利用过滤器的监听者不会为不符合过滤规则的事件调用，使监听代码更具有声明性也更高效——事件页面也不必为了处理它不关心的事件而唤醒。
+</p>
+
+<p><!--@Filtered events are intended to allow a transition from manual filtering
+code like this:-->
+事件过滤是为了允许将如下所示手动过滤的代码：
+</p>
+
+<pre>
+chrome.webNavigation.onCommitted.addListener(function(e) {
+  if (hasHostSuffix(e.url, 'google.com') ||
+      hasHostSuffix(e.url, 'google.com.au')) {
+    // ...
+  }
+});
+</pre>
+
+<p><!--@into this:-->过渡到如下代码：</p>
+
+<pre>
+chrome.webNavigation.onCommitted.addListener(function(e) {
+  // ...
+}, {url: [{hostSuffix: 'google.com'},
+          {hostSuffix: 'google.com.au'}]});
+</pre>
+
+<p><!--@Events support specific filters that are meaningful to that event. The list
+of filters that an event supports will be listed in the documentation for that
+event in the "filters" section.-->
+事件支持对于某个事件有意义的特定过滤器，事件支持的过滤器列表将在事件文档的“过滤器”部分列出。
+</p>
+
+<p><!--@When matching URLs (as in the example above), event filters support the same
+URL matching capabilities as expressable with a 
+  <a href="events.html#type-UrlFilter">UrlFilter</a>, except for scheme and port
+matching.-->
+当匹配 URL 时（如上如例子所示），除了协议与端口的匹配，事件过滤器支持与
+<a href="events.html#type-UrlFilter">UrlFilter</a> 相同的 URL 匹配能力。
+</p>
+
+</div>
+        <h2 id="apiReference"><!--@API Reference: chrome.events-->API 参考：chrome.events</h2>
+        <div class="api_reference">
+            <h3 id="types"><!--@Types-->类型</h3>
+              <div>
+                <h3 id="type-Rule">Rule</h3>
+                <div>
+                  <dt><span class="type_name">  (    <span id="typeTemplate">object</span>  )</span></dt>
+              <dd>
+                    对用于处理事件的一条声明式规则的描述。
+                  </dd>    <h4 id="Rule-properties">
+                    <!--@Properties of --><a href="#type-Rule">Rule</a>
+                    的属性
+                  </h4>
+                  <dd><dl>      <div>
+                      <a name="property-Rule-id"></a>
+                      <dt>
+                        <span class="variable">id</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">string</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        用于引用这一条规则的可选标志符。
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-Rule-conditions"></a>
+                      <dt>
+                        <span class="variable">conditions</span>
+                        <span class="property">
+                          (
+                            
+                            <span id="typeTemplate">array of any</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        可以触发指定操作的条件列表。
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-Rule-actions"></a>
+                      <dt>
+                        <span class="variable">actions</span>
+                        <span class="property">
+                          (
+                            
+                            <span id="typeTemplate">array of any</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        任何一个条件满足时触发的操作列表。
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-Rule-priority"></a>
+                      <dt>
+                        <span class="variable">priority</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">integer</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        该规则的优先级（可选），默认为 100。
+                      </dd>
+                    </div>
+              </dl></dd>
+                </div>
+              </div>
+              <div>
+                <h3 id="type-Event">Event</h3>
+                <div>
+                  <dt><span class="type_name">  (    <span id="typeTemplate">object</span>  )</span></dt>
+              <dd>
+                    允许添加、删除 Chrome 浏览器事件监听器的对象。
+                  </dd>    <h4 id="Event-methods">
+                    <!--@Methods of --><a href="#type-Event">Event</a>
+                    的方法
+                  </h4>
+                  <dd><dl>      <div>
+                      <h4 id="method-Event-addListener">addListener</h4>
+                      <div class="summary lower">
+                        <span>Event.</span>addListener</span>(<span>function <span class="variable">callback</span></span>)
+                      </div>
+                      <div class="description">
+                        <p>
+                          为事件注册事件监听器的回调函数。
+                        </p>
+                        <h4><!--@Parameters-->参数</h4>
+                        <dl>
+                            <div>
+                              <a name="property-addListener-callback"></a>
+                              <dt>
+                                <span class="variable">callback</span>
+                                <span class="property">
+                                  (
+                                    
+                                    <span id="typeTemplate">function</span>
+                                  )
+                                </span>
+                              </dt>
+                              <dd>
+                                事件发生时调用，该函数的参数取决于事件类型。
+                              </dd>
+                            </div>
+                        </dl>
+                          <h4><!--@Callback-->回调函数</h4>
+                          <p>
+                                <!--@The <em>callback</em> parameter should specify a function
+                                that looks like this:-->
+                                <em>callback</em> 参数应该指定一个如下形式的函数：
+                          </p>
+                          <pre>function() <span class="subdued">{...}</span>;</pre>
+                      </div>
+                    </div>
+                    <div>
+                      <h4 id="method-Event-removeListener">removeListener</h4>
+                      <div class="summary lower">
+                        <span>Event.</span>removeListener</span>(<span>function <span class="variable">callback</span></span>)
+                      </div>
+                      <div class="description">
+                        <p>
+                          为事件取消注册事件监听器的回调函数。
+                        </p>
+                        <h4><!--@Parameters-->参数</h4>
+                        <dl>
+                            <div>
+                              <a name="property-removeListener-callback"></a>
+                              <dt>
+                                <span class="variable">callback</span>
+                                <span class="property">
+                                  (
+                                    
+                                    <span id="typeTemplate">function</span>
+                                  )
+                                </span>
+                              </dt>
+                              <dd>
+                                要取消注册的监听器。
+                              </dd>
+                            </div>
+                        </dl>
+                          <h4><!--@Callback-->回调函数</h4>
+                          <p>
+                                <!--@The <em>callback</em> parameter should specify a function
+                                that looks like this:-->
+                                <em>callback</em> 参数应该指定一个如下形式的函数：
+                          </p>
+                          <pre>function() <span class="subdued">{...}</span>;</pre>
+                      </div>
+                    </div>
+                    <div>
+                      <h4 id="method-Event-hasListener">hasListener</h4>
+                      <div class="summary">
+                        <span>boolean Event.</span>hasListener</span>(<span>function <span class="variable">callback</span></span>)
+                      </div>
+                      <div class="description">
+                        <h4><!--@Parameters-->参数</h4>
+                        <dl>
+                            <div>
+                              <a name="property-hasListener-callback"></a>
+                              <dt>
+                                <span class="variable">callback</span>
+                                <span class="property">
+                                  (
+                                    
+                                    <span id="typeTemplate">function</span>
+                                  )
+                                </span>
+                              </dt>
+                              <dd>
+                                要测试注册状态的监听器。
+                              </dd>
+                            </div>
+                        </dl>
+                          <h4><!--@Returns-->返回值</h4>
+                          <dl>
+                            <dt><span class="property">
+                              ( boolean )
+                            </span></dt>
+                            <dd>
+                            如果 <em>callback</em> 已注册至该事件则为 true。
+                            </dd>
+                          </dl>
+                          <h4><!--@Callback-->回调函数</h4>
+                          <p>
+                                <!--@The <em>callback</em> parameter should specify a function
+                                that looks like this:-->
+                                <em>callback</em> 参数应该指定一个如下形式的函数：
+                          </p>
+                          <pre>function() <span class="subdued">{...}</span>;</pre>
+                      </div>
+                    </div>
+                    <div>
+                      <h4 id="method-Event-hasListeners">hasListeners</h4>
+                      <div class="summary">
+                        <span>boolean Event.</span>hasListeners</span>()
+                      </div>
+                      <div class="description">
+                          <h4><!--@Returns-->返回值</h4>
+                          <dl>
+                            <dt><span class="property">
+                              ( boolean )
+                            </span></dt>
+                            <dd>
+                            如果有事件监听器注册至该事件则为 true。
+                            </dd>
+                          </dl>
+                      </div>
+                    </div>
+                    <div>
+                      <h4 id="method-Event-addRules">addRules</h4>
+                      <div class="summary lower">
+                        <span>Event.</span>addRules</span>(<span>array of <a href="events.html#type-Rule">Rule</a> <span class="variable">rules</span></span>, <span class="optional">function <span class="variable">callback</span></span>)
+                      </div>
+                      <div class="description">
+                        <p>
+                          注册规则来处理事件。
+                        </p>
+                        <h4><!--@Parameters-->参数</h4>
+                        <dl>
+                            <div>
+                              <a name="property-addRules-rules"></a>
+                              <dt>
+                                <span class="variable">rules</span>
+                                <span class="property">
+                                  (
+                                    
+                                    <span id="typeTemplate">array of <a href="events.html#type-Rule">Rule</a></span>
+                                  )
+                                </span>
+                              </dt>
+                              <dd>
+                                要注册的规则，它们不会替换之前注册的规则。
+                              </dd>
+                            </div>
+                            <div>
+                              <a name="property-addRules-callback"></a>
+                              <dt>
+                                <span class="variable">callback</span>
+                                <span class="property">
+                                  (
+                                    <span class="optional">optional</span>
+                                    <span id="typeTemplate">function</span>
+                                  )
+                                </span>
+                              </dt>
+                              <dd>
+                                规则注册后调用。
+                              </dd>
+                            </div>
+                        </dl>
+                          <h4><!--@Callback-->回调函数</h4>
+                          <p>
+                                <!--@If you specify the <em>callback</em> parameter, it should
+                                specify a function that looks like this:-->
+                                如果您指定了 <em>callback</em> 参数，它应该指定一个如下形式的函数：
+                          </p>
+                          <pre>function(array of <a href="events.html#type-Rule">Rule</a> rules) <span class="subdued">{...}</span>;</pre>
+                          <dl>
+                              <div>
+                                <a name="property-callback-rules"></a>
+                                <dt>
+                                  <span class="variable">rules</span>
+                                  <span class="property">
+                                    (
+                                      
+                                      <span id="typeTemplate">array of <a href="events.html#type-Rule">Rule</a></span>
+                                    )
+                                  </span>
+                                </dt>
+                                <dd>
+                                  已注册的规则，可选参数将用默认值填充。
+                                </dd>
+                              </div>
+                          </dl>
+                      </div>
+                    </div>
+                    <div>
+                      <h4 id="method-Event-getRules">getRules</h4>
+                      <div class="summary lower">
+                        <span>Event.</span>getRules</span>(<span class="optional">array of string <span class="variable">ruleIdentifiers</span></span>, <span>function <span class="variable">callback</span></span>)
+                      </div>
+                      <div class="description">
+                        <p>
+                          返回当前注册的规则。
+                        </p>
+                        <h4><!--@Parameters-->参数</h4>
+                        <dl>
+                            <div>
+                              <a name="property-getRules-ruleIdentifiers"></a>
+                              <dt>
+                                <span class="variable">ruleIdentifiers</span>
+                                <span class="property">
+                                  (
+                                    <span class="optional">optional</span>
+                                    <span id="typeTemplate">array of string</span>
+                                  )
+                                </span>
+                              </dt>
+                              <dd>
+                                如果传递了数组，只返回该数组中包含的标志符所对应的规则。
+                              </dd>
+                            </div>
+                            <div>
+                              <a name="property-getRules-callback"></a>
+                              <dt>
+                                <span class="variable">callback</span>
+                                <span class="property">
+                                  (
+                                    
+                                    <span id="typeTemplate">function</span>
+                                  )
+                                </span>
+                              </dt>
+                              <dd>
+                                调用时传递已注册的规则。
+                              </dd>
+                            </div>
+                        </dl>
+                          <h4><!--@Callback-->回调函数</h4>
+                          <p>
+                                <!--@The <em>callback</em> parameter should specify a function
+                                that looks like this:-->
+                                <em>callback</em> 参数应该指定一个如下形式的函数：
+                          </p>
+                          <pre>function(array of <a href="events.html#type-Rule">Rule</a> rules) <span class="subdued">{...}</span>;</pre>
+                          <dl>
+                              <div>
+                                <a name="property-callback-rules"></a>
+                                <dt>
+                                  <span class="variable">rules</span>
+                                  <span class="property">
+                                    (
+                                      
+                                      <span id="typeTemplate">array of <a href="events.html#type-Rule">Rule</a></span>
+                                    )
+                                  </span>
+                                </dt>
+                                <dd>
+                                  已注册的规则，可选参数将用默认值填充。
+                                </dd>
+                              </div>
+                          </dl>
+                      </div>
+                    </div>
+                    <div>
+                      <h4 id="method-Event-removeRules">removeRules</h4>
+                      <div class="summary lower">
+                        <span>Event.</span>removeRules</span>(<span class="optional">array of string <span class="variable">ruleIdentifiers</span></span>, <span class="optional">function <span class="variable">callback</span></span>)
+                      </div>
+                      <div class="description">
+                        <p>
+                          取消注册当前已注册的规则。
+                        </p>
+                        <h4><!--@Parameters-->参数</h4>
+                        <dl>
+                            <div>
+                              <a name="property-removeRules-ruleIdentifiers"></a>
+                              <dt>
+                                <span class="variable">ruleIdentifiers</span>
+                                <span class="property">
+                                  (
+                                    <span class="optional">optional</span>
+                                    <span id="typeTemplate">array of string</span>
+                                  )
+                                </span>
+                              </dt>
+                              <dd>
+                                如果传递了数组，只移除该数组中包含的标志符所对应的规则。
+                              </dd>
+                            </div>
+                            <div>
+                              <a name="property-removeRules-callback"></a>
+                              <dt>
+                                <span class="variable">callback</span>
+                                <span class="property">
+                                  (
+                                    <span class="optional">optional</span>
+                                    <span id="typeTemplate">function</span>
+                                  )
+                                </span>
+                              </dt>
+                              <dd>
+                                规则移除后调用。
+                              </dd>
+                            </div>
+                        </dl>
+                          <h4><!--@Callback-->回调函数</h4>
+                          <p>
+                                <!--@If you specify the <em>callback</em> parameter, it should
+                                specify a function that looks like this:-->
+                                如果您指定了 <em>callback</em> 参数，它应该指定一个如下形式的函数：
+                          </p>
+                          <pre>function() <span class="subdued">{...}</span>;</pre>
+                      </div>
+                    </div>
+              </dl></dd>
+                </div>
+              </div>
+              <div>
+                <h3 id="type-UrlFilter">UrlFilter</h3>
+                <div>
+                  <dt><span class="type_name">  (    <span id="typeTemplate">object</span>  )</span></dt>
+              <dd>
+                    通过多种条件过滤 URL，参见<a href='#filtered'>事件过滤</a>。所有条件都区分大小写。
+                  </dd>    <h4 id="UrlFilter-properties">
+                    <!--@Properties of --><a href="#type-UrlFilter">UrlFilter</a>
+                    的属性
+                  </h4>
+                  <dd><dl>      <div>
+                      <a name="property-UrlFilter-hostContains"></a>
+                      <dt>
+                        <span class="variable">hostContains</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">string</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        如果 URL 中的主机名包含指定字符串则匹配。要测试主机名是否包含前缀 'foo'，请使用 hostContains: '.foo'，将匹配 'www.foobar.com' 和 'foo.com'，因为主机名前面会添加隐式的点。类似地，hostContains 可以用于匹配某一部分的后缀（'foo.'），或者精确匹配某一部分（'.foo.'）。最后一部分的后缀匹配和精确匹配需要单独用 hostSuffix 实现，因为主机名末尾不会添加隐式的点。
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-UrlFilter-hostEquals"></a>
+                      <dt>
+                        <span class="variable">hostEquals</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">string</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        如果 URL 中的主机名与指定字符串相等则匹配。
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-UrlFilter-hostPrefix"></a>
+                      <dt>
+                        <span class="variable">hostPrefix</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">string</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-UrlFilter-hostSuffix"></a>
+                      <dt>
+                        <span class="variable">hostSuffix</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">string</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        如果 URL 中的主机名以指定字符串结尾则匹配。
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-UrlFilter-pathContains"></a>
+                      <dt>
+                        <span class="variable">pathContains</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">string</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        如果 URL 中的路径部分包含指定字符串则匹配。
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-UrlFilter-pathEquals"></a>
+                      <dt>
+                        <span class="variable">pathEquals</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">string</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        如果 URL 中的路径部分与指定字符串相等则匹配。
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-UrlFilter-pathPrefix"></a>
+                      <dt>
+                        <span class="variable">pathPrefix</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">string</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        如果 URL 中的路径部分以指定字符串开始则匹配。
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-UrlFilter-pathSuffix"></a>
+                      <dt>
+                        <span class="variable">pathSuffix</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">string</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        如果 URL 中的路径部分以指定字符串结尾则匹配。
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-UrlFilter-queryContains"></a>
+                      <dt>
+                        <span class="variable">queryContains</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">string</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        如果 URL 中的查询部分包含指定字符串则匹配。
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-UrlFilter-queryEquals"></a>
+                      <dt>
+                        <span class="variable">queryEquals</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">string</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        如果 URL 中的查询部分与指定字符串相等则匹配。
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-UrlFilter-queryPrefix"></a>
+                      <dt>
+                        <span class="variable">queryPrefix</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">string</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        如果 URL 中的查询部分以指定字符串开始则匹配。
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-UrlFilter-querySuffix"></a>
+                      <dt>
+                        <span class="variable">querySuffix</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">string</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        如果 URL 中的查询部分以指定字符串结尾则匹配。
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-UrlFilter-urlContains"></a>
+                      <dt>
+                        <span class="variable">urlContains</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">string</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        如果 URL（不包括片段标识符）包含指定字符串则匹配。端口号如果匹配默认端口号则将从 URL 中去除。
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-UrlFilter-urlEquals"></a>
+                      <dt>
+                        <span class="variable">urlEquals</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">string</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        如果 URL（没有片段标识符）与指定字符串相等则匹配。端口号如果匹配默认端口号则将从 URL 中去除。
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-UrlFilter-urlMatches"></a>
+                      <dt>
+                        <span class="variable">urlMatches</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">string</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        如果 URL（不包括片段标识符）匹配指定正则表达式则匹配。端口号如果匹配默认端口号则将从 URL 中去除。正则表达式使用 <a href="http://code.google.com/p/re2/wiki/Syntax">RE2语法</a>。
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-UrlFilter-urlPrefix"></a>
+                      <dt>
+                        <span class="variable">urlPrefix</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">string</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        如果 URL（不包括片段标识符）以指定字符串开始则匹配。端口号如果匹配默认端口号则将从 URL 中去除。
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-UrlFilter-urlSuffix"></a>
+                      <dt>
+                        <span class="variable">urlSuffix</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">string</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        如果 URL（不包括片段标识符）以指定字符串结尾则匹配。端口号如果匹配默认端口号则将从 URL 中去除。
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-UrlFilter-schemes"></a>
+                      <dt>
+                        <span class="variable">schemes</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">array of string</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        如果 URL 的协议与数组中指定的任意一种协议相同则匹配。
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-UrlFilter-ports"></a>
+                      <dt>
+                        <span class="variable">ports</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">array of integer or array of integer</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        如果 URL 的端口包含在指定的端口列表中则匹配。例如 [80, 443, [1000, 1200]] 匹配端口为 80、443 或者在 1000—2000 范围内的所有请求。
+                      </dd>
+                    </div>
+              </dl></dd>
+                </div>
+              </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    window.bootstrap = {
+      api_names: [{"name":"alarms"},{"name":"bookmarks"},{"name":"browserAction"},{"name":"browsingData"},{"name":"commands"},{"name":"contentSettings"},{"name":"contextMenus"},{"name":"cookies"},{"name":"debugger"},{"name":"declarativeWebRequest"},{"name":"devtools.inspectedWindow"},{"name":"devtools.network"},{"name":"devtools.panels"},{"name":"downloads"},{"name":"events"},{"name":"extension"},{"name":"fileBrowserHandler"},{"name":"fontSettings"},{"name":"history"},{"name":"i18n"},{"name":"idle"},{"name":"input.ime"},{"name":"management"},{"name":"omnibox"},{"name":"pageAction"},{"name":"pageCapture"},{"name":"permissions"},{"name":"privacy"},{"name":"proxy"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"scriptBadge"},{"name":"sessionRestore"},{"name":"storage"},{"name":"tabCapture"},{"name":"tabs"},{"name":"topSites"},{"name":"tts"},{"name":"ttsEngine"},{"name":"types"},{"name":"webNavigation"},{"name":"webRequest"},{"name":"webstore"},{"last":true,"name":"windows"}].concat(
+          [{"name":"experimental.devtools.audits"},{"name":"experimental.devtools.console"},{"name":"experimental.discovery"},{"name":"experimental.history"},{"name":"experimental.identity"},{"name":"experimental.infobars"},{"name":"experimental.processes"},{"name":"experimental.record"},{"name":"experimental.speechInput"},{"name":"experimental.systemInfo.cpu"},{"last":true,"name":"experimental.systemInfo.storage"}]),
+      branchInfo: {"channels":[{"path":"stable","name":"Stable"},{"path":"dev","name":"Dev"},{"path":"beta","name":"Beta"},{"path":"trunk","name":"Trunk"}],"current":"stable","showWarning":false}
+    };
+  </script>
+  <div id="gc-footer">
+    <div class="text">
+      <p>
+        <!--@Except as otherwise <a href="http://code.google.com/policies.html#restrictions">noted</a>,
+        the content of this page is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons
+        Attribution 3.0 License</a>, and code samples are licensed under the
+        <a rel="license" href="http://code.google.com/google_bsd_license.html">BSD License</a>.-->
+        该页面翻译自
+        <a href="https://developer.chrome.com/extensions/">Google Chrome Extensions</a>
+        与
+        <a href="https://developer.chrome.com/apps/">Google Chrome Apps</a>。除非特别<a href="https://code.google.com/policies.html#restrictions">说明</a>，该页面的内容遵循
+        <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0
+        License</a>，代码示例遵循
+        <a rel="license" href="http://code.google.com/google_bsd_license.html">BSD License</a>。
+      </p>
+      <p>
+        <!--@©2012 Google-->
+      </p>
+      <script src="static/js/branch.js" type="text/javascript"></script>
+      <script src="static/js/sidebar.js" type="text/javascript"></script>
+      <script src="static/js/prettify.js" type="text/javascript"></script>
+      <script>
+        (function() {
+          // Auto syntax highlight all pre tags.
+          var preElements = document.getElementsByTagName('pre');
+          for (var i = 0; i < preElements.length; i++)
+            preElements[i].classList.add('prettyprint');
+          prettyPrint();
+        })();
+      </script>
+      <script src="https://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+      <script src="https://www.google-analytics.com/ga.js" type="text/javascript"></script>
+      <script type="text/javascript">
+        // chrome doc tracking
+        try {
+          var engdocs = _gat._getTracker("YT-10763712-2");
+          engdocs._trackPageview();
+        } catch(err) {}
+        // code.google.com site-wide tracking
+        try {
+          _uacct="UA-18071-1";
+          _uanchor=1;
+          _uff=0;
+          urchinTracker();
+        }
+        catch(e) {/* urchinTracker not available. */}
+      </script>
+      <script>
+        (function() {
+          var cx = '002967670403910741006:61_cvzfqtno';
+          var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+          gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+            '//www.google.com/cse/cse.js?cx=' + cx;
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+        })();
+      </script>
+  
+    </div>
+  </div>
+</html>
+
