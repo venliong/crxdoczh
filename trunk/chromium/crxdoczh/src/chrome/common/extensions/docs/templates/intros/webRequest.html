@@ -1,0 +1,425 @@
+<p id="classSummary">
+<!--@Use the-->使用 <code>chrome.webRequest</code> <!--@module to intercept, block,
+or modify requests in-flight and to observe and analyze traffic.-->
+模块可以实时地拦截、阻止或者修改请求，并且还可以监控与分析流量。
+</p>
+
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
+<p><!--@You must declare the "webRequest" permission in the <a
+  href="manifest.html">extension manifest</a> to use the web request
+API, along with <a href="manifest.html#permissions">host permissions</a>
+for any hosts whose network requests you want to access. If you want to
+use the web request API in a blocking fashion, you need to request
+the "webRequestBlocking" permission in addition.
+For example:-->
+要使用网络请求 API，您必须在<a
+ href="manifest.html">扩展程序的清单文件</a>中声明 "webRequest"
+ 权限，以及您需要访问网络请求的所有主机的主机权限。如果您需要以阻塞方式使用网络请求
+ API，您还需要另外请求 "webRequestBlocking" 权限。例如：
+</p>
+<pre>{
+  "name": "我的扩展程序",
+  ...
+  <b>"permissions": [
+    "webRequest",
+    "*://*.google.com"
+  ]</b>,
+  ...
+}</pre>
+
+<h2 id="life_cycle"><!--@Life cycle of requests-->请求的生命周期</h2>
+
+<p>
+<!--@The web request API defines a set of events that follow the life cycle of a web
+request. You can use these events to observe and analyze traffic. Certain
+synchronous events will allow you to intercept, block, or modify a request.-->
+网络请求 API
+定义了一系列事件，在一次网络请求的生命周期内产生，您可以使用这些事件监控和分析流量。某些同步事件还允许您截获、阻止或者修改请求。
+</p>
+
+<p>
+<!--@The event life cycle for successful requests is illustrated here, followed by
+event definitions:-->
+对于成功请求的事件生命周期如下图所示，接下来是事件的定义：
+<br/>
+<img src="{{static}}/images/webrequestapi.png"
+  width="385" height="503"
+  alt="Life cycle of a web request from the perspective of the webrequest API"
+  style="margin-left: auto; margin-right: auto; display: block"/>
+</p>
+
+<p>
+<dl>
+  <dt><code>onBeforeRequest</code><!--@ (optionally synchronous)-->（可以为同步）</dt>
+  <dd><!--@Fires when a request is about to occur. This event is sent before any TCP
+  connection is made and can be used to cancel or redirect requests.-->
+  当请求即将发出时产生。这一事件在 TCP
+  连接建立前发送，可以用来取消或重定向请求。
+  </dd>
+  <dt><code>onBeforeSendHeaders</code><!--@ (optionally synchronous)-->（可以为同步）</dt>
+  <dd><!--@Fires when a request is about to occur and the initial headers have been
+  prepared. The event is intended to allow extensions to add, modify, and delete
+  request headers <a href="#life_cycle_footnote">(*)</a>. The
+  <code>onBeforeSendHeaders</code> event is passed to all subscribers, so
+  different subscribers may attempt to modify the request; see the <a
+    href="#implementation">Implementation details</a> section for how this is
+  handled. This event can be used to cancel the request.-->
+  当请求即将发出并且初始头信息已经准备好时产生。这一事件是为了使扩展程序能够添加、修改和删除请求头信息<a
+  href="#life_cycle_footnote">（*）</a>。<code>onBeforeSendHeaders</code>
+  事件将传递给所有订阅者，所以不同的订阅者都可以尝试修改请求。有关具体如何处理的细节，请参见<a
+  href="#implementation">实现细节</a>部分。这一事件可以用来取消请求。
+  </dd>
+  <dt><code>onSendHeaders</code></dt>
+  <dd><!--@Fires after all extensions have had a chance to modify the request
+  headers, and presents the final <a href="#life_cycle_footnote">(*)</a>
+  version. The event is triggered before the headers are sent to the network.
+  This event is informational and handled asynchronously. It does not allow
+  modifying or cancelling the request.-->
+  当所有扩展程序已经修改完请求头信息并且展现最终<a
+  href="#life_cycle_footnote">（*）</a>版本时产生。这一事件在头信息发送至网络前触发，仅用于提供信息，并且以异步方式处理，不允许修改或取消请求。
+  </dd>
+  <dt><code>onHeadersReceived</code><!--@ (optionally synchronous)-->（可以为同步）</dt>
+  <dd><!--@Fires each time that an HTTP(S) response header is received. Due
+  to redirects and authentication requests this can happen multiple times per
+  request. This event is intended to allow extensions to add, modify, and delete
+  response headers, such as incoming Set-Cookie headers.-->
+  每当接收到 HTTP(S)
+  响应头信息时产生。由于重定向以及认证请求，对于每次请求这一事件可以多次产生。这一事件是为了使扩展程序能够添加、修改和删除响应头信息，例如传入的
+  Set-Cookie 头信息。
+  </dd>
+  <dt><code>onAuthRequired</code><!--@ (optionally synchronous)-->（可以为同步）</dt>
+  <dd><!--@Fires when a request requires authentication of the user. This event can
+  be handled synchronously to provide authentication credentials. Note that
+  extensions may provide invalid credentials. Take care not to enter an infinite
+  loop by repeatedly providing invalid credentials.-->
+  当请求需要用户认证时产生。这一事件可以同步处理，提供认证凭据。注意，扩展程序提供的凭据可能无效，注意不要重复提供无效凭据，陷入无限循环。
+  </dd>
+  <dt><code>onBeforeRedirect</code></dt>
+  <dd><!--@Fires when a redirect is about to be executed. A redirection can be
+  triggered by an HTTP response code or by an extension. This event is
+  informational and handled asynchronously. It does not allow you to modify or
+  cancel the request. -->
+  当重定向即将执行时产生，重定向可以由 HTTP
+  响应代码或扩展程序触发。这一事件仅用于提供信息，并以异步方式处理，不允许修改或取消请求。
+  </dd>
+  <dt><code>onResponseStarted</code></dt>
+  <dd><!--@Fires when the first byte of the response body is received. For HTTP
+  requests, this means that the status line and response headers are
+  available. This event is informational and handled asynchronously. It does not
+  allow modifying or cancelling the request.-->
+  当接收到响应正文的第一个字节时产生。对于 HTTP
+  请求，这意味着状态行和响应头信息已经可用。这一事件仅用于提供信息，并以异步方式处理，不允许修改或取消请求。
+  </dd>
+  <dt><code>onCompleted</code></dt>
+  <dd><!--@Fires when a request has been processed successfully.-->
+  当请求成功处理后产生。
+  </dd>
+  <dt><code>onErrorOccurred</code></dt>
+  <dd><!--@Fires when a request could not be processed successfully.-->
+  当请求不能成功处理时产生。
+  </dd>
+</dl>
+<!--@The web request API guarantees that for each request either
+<code>onCompleted</code> or <code>onErrorOccurred</code> is fired as the final
+event with one exception: If a request is redirected to a <code>data://</code>
+URL, <code>onBeforeRedirect</code> is the last reported event.-->
+网络请求 API 保证对于每一个请求，<code>onCompleted</code> 或
+<code>onErrorOccurred</code>
+是最终产生的事件，除了如下例外：如果请求重定向至
+<code>data://</code> URL，<code>onBeforeRedirect</code>
+将是最后报告的事件。
+</p>
+
+<p id="life_cycle_footnote"><!--@(*) Note that the web request API presents an
+abstraction of the network stack to the extension. Internally, one URL request
+can be split into several HTTP requests (for example to fetch individual byte
+ranges from a large file) or can be handled by the network stack without
+communicating with the network. For this reason, the API does not provide the
+final HTTP headers that are sent to the network. For example, all headers that
+are related to caching are invisible to the extension.-->
+（*）注意网络请求 API 向扩展程序展现的是网络栈的一种抽象。单个 URL
+请求在内部可以分割为几个 HTTP 
+请求（例如从一个大文件获取单独的字节范围）或者可以不与网络通信就由网络栈处理。由于这一原因，这一
+API 不会提供最终发送至网络的的 HTTP 
+头信息。例如，所有与缓存相关的头信息对扩展程序都是不可见的。
+</p>
+
+<p><!--The following headers are currently <b>not provided</b> to the
+<code>onBeforeSendHeaders</code> event. This list is not guaranteed to be
+complete nor stable.-->
+如下是当前<b>不提供</b>给 onBeforeSendHeaders
+事件的头信息列表，这一列表不保证是完整的或者不会变化：
+<ul>
+  <li>Authorization</li>
+  <li>Cache-Control</li>
+  <li>Connection</li>
+  <li>Content-Length</li>
+  <li>Host</li>
+  <li>If-Modified-Since</li>
+  <li>If-None-Match</li>
+  <li>If-Range</li>
+  <li>Partial-Data</li>
+  <li>Pragma</li>
+  <li>Proxy-Authorization</li>
+  <li>Proxy-Connection</li>
+  <li>Transfer-Encoding</li>
+</ul>
+</p>
+
+<p>
+<!--@The webRequest API only exposes requests that the extension has
+permission to see, given its
+<a href="manifest.html#permissions">host permissions</a>.
+Moreover, only the following schemes are accessible:-->
+只有扩展程序具有相应的主机权限时，网络请求 API
+才会暴露相关的请求。此外，只能访问下列协议的请求：<!--@
+<code>http://</code>,
+<code>https://</code>,
+<code>ftp://</code>,
+<code>file://</code>, or
+<code>chrome-extension://</code>.--><code>http://</code>、<code
+>https://</code>、<code>ftp://</code>、<code>file://</code> 或
+<code>chrome-extension://</code>。
+<!--@In addition, even certain requests with URLs using one of the above schemes
+are hidden, e.g.,
+<code>chrome-extension://other_extension_id</code> where
+<code>other_extension_id</code> is not the ID of the extension to handle
+the request,
+<code>https://www.google.com/chrome</code>,
+and others (this list is not complete). Also synchronous XMLHttpRequests from
+your extension are hidden from blocking event handlers in order to prevent
+deadlocks.-->
+此外，某些请求的 URL 即使使用了以上某种协议也会被隐藏。例如，<code
+>chrome-extension://other_extension_id</code>，其中
+<code>other_extension_id</code>不是处理该请求的扩展程序标识符；还有
+<code>https://www.google.com/chrome</code>
+及其它（该列表并不完整）。此外来自您的扩展程序的同步 XMLHttpRequest
+将对阻塞的事件处理函数隐藏，以免产生死锁。
+</p>
+
+<h2 id="concepts"><!--@Concepts-->概念</h2>
+
+<p><!--@As the following sections explain, events in the web request API use request
+IDs, and you can optionally specify filters and extra information when you
+register event listeners.-->
+如以下几节所述，网络请求 API
+的事件使用请求标识符，当您注册事件监听器时您还可以指定过滤器以及可选的额外信息。
+</p>
+
+<h3 id="Request IDs"><!--@Request IDs-->请求标识符</h3>
+
+<p><!--@Each request is identified by a request ID. This ID is unique within a
+browser session and the context of an extension. It remains constant during the
+the life cycle of a request and can be used to match events for the same
+request. Note that several HTTP requests are mapped to one web request in case
+of HTTP redirection or HTTP authentication.-->
+每一个请求由请求标识符标识，这一标识符在浏览器会话以及扩展程序的上下文中保证唯一，在请求的生命周期内保持不变，可以用来匹配同一请求的其它事件。注意在
+HTTP 重定向或 HTTP 认证时，多个 HTTP
+请求将映射至同一个网络请求。
+</p>
+
+<h3 id="subscription"><!--@Registering event listeners-->注册事件监听器</h3>
+
+<p><!--@To register an event listener for a web request, you use a variation on the
+<a href="events.html">usual <code>addListener()</code> function</a>.
+In addition to specifying a callback function,
+you have to specify a filter argument and you may specify an optional extra info
+argument.-->
+要为网络请求注册事件处理函数，您使用通常
+<code>addListener()</code>
+函数的一种变形。除了指定回调函数，您还必须指定过滤器参数，另外您还可以指定一个可选的额外信息参数。
+</p>
+
+<p><!--@The three arguments to the web request API's <code>addListener()</code> have
+the following definitions:-->
+网络请求API的 <code>addListener()</code> 三个参数定义如下：
+</p>
+<pre>
+var callback = function(details) {...};
+var filter = {...};
+var opt_extraInfoSpec = [...];
+</pre>
+
+<p><!--@Here's an example of listening for the <code>onBeforeRequest</code>
+event:-->
+如下是监听 <code>onBeforeRequest</code> 事件的一个例子：
+</p>
+<pre>
+chrome.webRequest.onBeforeRequest.addListener(
+  callback, filter, opt_extraInfoSpec);
+</pre>
+
+<p><!--@Each <code>addListener()</code> call takes a mandatory callback function as
+the first parameter. This callback function is passed a dictionary containing
+information about the current URL request. The information in this dictionary
+depends on the specific event type as well as the content of
+<code>opt_extraInfoSpec</code>.-->
+每一个 <code>addListener()</code>
+调用必须传递回调函数，作为第一个参数。将向这一回调函数传递包含当前
+URL 请求详情的词典，词典中的信息取决于具体事件类型以及
+<code>opt_extraInfoSpec</code> 的内容。
+</p>
+
+<p><!--@If the optional <code>opt_extraInfoSpec</code> array contains the string
+<code>'blocking'</code> (only allowed for specific events), the callback
+function is handled synchronously. That means that the request is blocked until
+the callback function returns. In this case, the callback can return a 
+  $ref:webRequest.BlockingResponse that determines the further
+life cycle of the request. Depending on the context, this response allows
+cancelling or redirecting a request (<code>onBeforeRequest</code>), cancelling a
+request or modifying headers (<code>onBeforeSendHeaders</code>,
+<code>onHeadersReceived</code>), or providing authentication credentials
+(<code>onAuthRequired</code>).-->
+如果可选的 <code>opt_extraInfoSpec</code> 数组包含 <code>'blocking'</code>
+字符串（仅允许用于特定事件），回调函数将以同步方式处理。这意味着请求将阻塞，直到回调函数返回。在这一种情况下，回调函数可以返回
+$ref:webRequest.BlockingResponse
+对象，确定这一请求进一步的生命周期。取决于当前上下文，这一响应允许取消或重定向某个请求（<code
+>OnBeforeRequest</code>），取消请求或修改头信息（<code
+>onBeforeSendHeaders</code>），或者提供认证凭据（<code
+>onAuthRequired</code>）。
+</p>
+
+<p><!--@The $ref:webRequest.RequestFilter
+<code>filter</code> allows limiting the requests for which events are
+triggered in various dimensions:-->
+$ref:webRequest.RequestFilter 类型的 <code>filter</code>
+参数允许通过不同的方式限制为哪些请求产生事件：
+<dl>
+  <dt>URLs</dt>
+  <dd><a href="match_patterns.html">URL
+  <!--@ patterns-->匹配表达式</a><!--@ such as
+  <code>*://www.google.com/foo*bar</code>.
+  -->，例如 <code>*://www.google.com/foo*bar</code>。</dd>
+  <dt><!--@Types-->类型</dt>
+  <dd><!--@Request types such as <code>main_frame</code> (a document that is loaded
+  for a top-level frame), <code>sub_frame</code> (a document that is loaded for
+  an embedded frame), and <code>image</code> (an image on a web site).
+  See $ref:webRequest.RequestFilter.-->
+  请求类型，例如 <code>"main_frame"</code>（为顶层框架载入的文档）、<code
+  >"sub_frame"</code>（为内嵌框架载入的文档）和
+  <code>"image"</code>（网站上的图片）。请参见
+  $ref:webRequest.RequestFilter。
+  </dd>
+  <dt><!--@Tab ID-->标签页标识符</dt>
+  <dd><!--@The identifier for one tab.-->某个标签页的标识符。</dd>
+  <dt><!--@Window ID-->窗口标识符</dt>
+  <dd><!--@The identifier for a window.-->某个窗口的标识符。</dd>
+</p>
+
+<p><!--Depending on the event type, you can specify strings in
+<code>opt_extraInfoSpec</code> to ask for additional information about the
+request. This is used to provide detailed information on request's data only
+if explicitly requested.-->
+取决于事件类型，您可以在 <code>opt_extraInfoSpec</code>
+中指定字符串，获取有关请求的附加信息。这样是为了仅在明确请求时才提供请求数据的有关详情。
+</p>
+
+<h2 id="implementation"><!--@Implementation details-->实现细节</h2>
+
+<p><!--@Several implementation details can be important to understand when developing
+an extension that uses the web request API:-->
+在开发使用网络请求API的扩展程序时，理解如下几个实现细节是很重要的：
+</p>
+
+<h3 id="conflict_resolution"><!--@Conflict resolution-->冲突的解决</h3>
+<p><!--@In the current implementation of the web request API, a request is considered
+as cancelled if at least one extension instructs to cancel the request. If
+an extension cancels a request, all extensions are notified by an
+<code>onErrorOccurred</code> event. Only one extension is allowed to redirect a
+request or modify a header at a time. If more than one extension attempts to
+modify the request, the most recently installed extension wins and all others
+are ignored. An extension is not notified if its instruction to modify or
+redirect has been ignored.-->
+在网络请求 API
+的当前实现中，如果至少一个扩展程序要求取消请求，则请求将被取消。如果一个扩展程序取消了一个请求，所有扩展程序都会收到
+<code>onErrorOccurred</code>
+事件的通知。一次只有一个扩展程序允许重定向请求或者修改头信息。如果多于一个扩展程序尝试修改请求，最近安装的扩展程序具有优先级，而忽略所有其它扩展程序。如果扩展程序修改或重定向的要求被忽略，也不会收到通知。
+</p>
+
+<h3 id="caching"><!--@Caching-->缓存</h3>
+<p>
+<!--@Chrome employs two caches &mdash; an on-disk cache and a very fast in-memory
+cache.  The lifetime of an in-memory cache is attached to the lifetime of a
+render process, which roughly corresponds to a tab. Requests that are answered
+from the in-memory cache are invisible to the web request API. If a request
+handler changes its behavior (for example, the behavior according to which
+requests are blocked), a simple page refresh might not respect this changed
+behavior.  To make sure the behavior change goes through, call
+<code>handlerBehaviorChanged()</code> to flush the in-memory cache. But don't do
+it often; flushing the cache is a very expensive operation. You don't need to
+call <code>handlerBehaviorChanged()</code> after registering or unregistering an
+event listener.-->
+Chrome
+浏览器使用两种缓存：磁盘缓存和十分快速的内存缓存。内存缓存的生命周期与渲染器进程（大致与每个标签页对应）的生命周期相关，通过内存缓存响应的请求对网络请求API不可见。如果请求处理函数更改了它的行为（例如根据哪些请求被阻止而作出的行为），简单的页面刷新不一定能够体现这一更改的行为。要确保行为更改生效，请调用
+<code>handlerBehaviorChanged()</code>
+来清洗内存缓存。然而不要经常调用，清洗缓存是一项十分昂贵的操作。您不需要在注册或取消注册事件处理函数后调用
+<code>handlerBehaviorChanged()</code>。
+</p>
+
+<h3 id="timestamps"><!--@Timestamps-->时间戳</h3>
+<p>
+<!--@The <code>timestamp</code> property of web request events is only guaranteed to
+be <i>internally</i> consistent. Comparing one event to another event will give
+you the correct offset between them, but comparing them to the current time
+inside the extension (via <code>(new Date()).getTime()</code>, for instance)
+might give unexpected results.-->
+网络请求事件的 <code>timeStamp</code>
+属性仅保证<i>内部的</i>一致性，将两个事件的时间相比较会得到它们之间正确的时间差，但是与扩展程序内的当前时间（例如通过
+<code>(new Date()).getTime()</code>）比较则可能会导致不可预料的结果。
+</p>
+
+<h2 id="examples"><!--@Examples-->例子</h2>
+
+<p><!--@The following example illustrates how to block all requests to
+<code>www.evil.com</code>:-->
+如下例子演示如何阻止所有发送至 <code>www.evil.com</code> 的请求：
+</p>
+<pre>
+chrome.webRequest.onBeforeRequest.addListener(
+  function(details) {
+    return {cancel: details.url.indexOf("://www.evil.com/") != -1};
+  },
+  {urls: ["&lt;all_urls&gt;"]},
+  ["blocking"]);
+</pre>
+
+<p><!--@As this function uses a blocking event handler, it requires the "webRequest"
+as well as the "webRequestBlocking" permission in the manifest file.-->
+由于这一函数使用了阻塞事件处理函数，您将需要在清单文件中声明
+"webRequest" 以及 "webRequestBlocking" 权限。
+</p>
+
+<p><!--@The following example achieves the same goal in a more efficient way because
+requests that are not targeted to <code>www.evil.com</code> do not need to be
+passed to the extension:-->
+以下例子通过另一种更高效的方式达到相同目的，因为不发送至 <code>www.evil.com</code> 的请求不必传递给扩展程序：
+</p>
+<pre>
+chrome.webRequest.onBeforeRequest.addListener(
+  function(details) { return {cancel: true}; },
+  {urls: ["*://www.evil.com/*"]},
+  ["blocking"]);
+</pre>
+
+<p><!--@The following example illustrates how to delete the User-Agent header from
+all requests:-->
+以下例子演示如何将所有请求中的 User-Agent 头信息删除：
+</p>
+<pre>
+chrome.webRequest.onBeforeSendHeaders.addListener(
+  function(details) {
+    for (var i = 0; i < details.requestHeaders.length; ++i) {
+      if (details.requestHeaders[i].name === 'User-Agent') {
+        details.requestHeaders.splice(i, 1);
+        break;
+      }
+    }
+    return {requestHeaders: details.requestHeaders};
+  },
+  {urls: ["&lt;all_urls&gt;"]},
+  ["blocking", "requestHeaders"]);
+</pre>
+
+<p><!--@ For more example code, see the -->有关更多示例代码，请参见<a
+href="samples.html#webrequest"><!--@web request
+samples-->网络请求示例</a><!--@.-->。</p>

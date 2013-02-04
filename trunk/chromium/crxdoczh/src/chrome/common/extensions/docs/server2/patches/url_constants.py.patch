@@ -1,0 +1,27 @@
+Index: url_constants.py
+===================================================================
+--- url_constants.py	(revision 176288)
++++ url_constants.py	(working copy)
+@@ -6,16 +6,16 @@
+ GITHUB_BASE = 'https://github.com/GoogleChrome/chrome-app-samples/tree/master'
+ RAW_GITHUB_BASE = ('https://github.com/GoogleChrome/chrome-app-samples/raw/'
+                    'master')
+-OMAHA_PROXY_URL = 'http://omahaproxy.appspot.com/json'
+-SVN_URL = 'http://src.chromium.org/chrome'
+-VIEWVC_URL = 'http://src.chromium.org/viewvc/chrome'
++OMAHA_PROXY_URL = 'https://omahaproxy.appspot.com/json'
++SVN_URL = 'https://src.chromium.org/chrome'
++VIEWVC_URL = 'https://src.chromium.org/viewvc/chrome'
+ SVN_TRUNK_URL = SVN_URL + '/trunk'
+ SVN_BRANCH_URL = SVN_URL + '/branches'
+ OPEN_ISSUES_CSV_URL = (
+-    'http://code.google.com/p/chromium/issues/csv?can=1&'
++    'https://code.google.com/p/chromium/issues/csv?can=1&'
+     'q=Hotlist%3DKnownIssue%20Feature%3DApps+is%3Aopen')
+ CLOSED_ISSUES_CSV_URL = (
+-    'http://code.google.com/p/chromium/issues/csv?can=1&'
++    'https://code.google.com/p/chromium/issues/csv?can=1&'
+     'q=Hotlist%3DKnownIssue+Feature%3DApps+-is%3Aopen')
+-EXTENSIONS_SAMPLES = ('http://src.chromium.org/viewvc/chrome/trunk/src/chrome/'
++EXTENSIONS_SAMPLES = ('https://src.chromium.org/viewvc/chrome/trunk/src/chrome/'
+                       'common/extensions/docs/examples/')
