@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="static/css/site.css" rel="stylesheet" type="text/css">
+    <link href="static/css/print.css" rel="stylesheet" type="text/css" media="print">
+    <link href="static/css/prettify.css" rel="stylesheet" type="text/css">
+    <link href="//www.google.com/images/icons/product/chrome-16.png" rel="icon" type="image/ico">
+    <link href="static/css/api.css" rel="stylesheet" type="text/css">
+    <title>chrome.webNavigation - Google Chrome</title>
+  </head>
+  <body>
+    <a id="top"></a>
+    <div id="header">
+      <span id="logo">
+        <a href="http://code.google.com/"><img src="static/images/chrome_logo.gif" alt="Google Code Labs"></a>
+      </span>
+      <span id="cse">
+        <gcse:searchbox-only enableAutoComplete="true" autoCompleteMatchTyple="prefix"></gcse:searchbox-only>
+      </span>
+    </div>
+    <a id="gc-topnav-anchor"></a>
+    <div id="gc-topnav">
+      <h1>Google Chrome 扩展程序（非官方中文版）</h1>
+      <ul id="home" class="gc-topnav-tabs">
+        <li id="home_link">
+          <!--@<a href="index.html" title="Google Chrome 扩展程序 home page"><div>Home</div></a>-->
+          <a href="index.html" title="Google Chrome 扩展程序主页"><div>主页</div></a>
+        </li>
+        <li id="docs_link">
+          <!--@<a href="docs.html" title="Official Google Chrome 扩展程序 documentation"><div>Docs</div></a>-->
+          <a href="docs.html" title="Google Chrome 扩展程序文档"><div>文档</div></a>
+        </li>
+        <li id="faq_link">
+          <!--@<a href="faq.html" title="Answers to frequently asked questions about Google Chrome 扩展程序"><div>FAQ</div></a>-->
+          <a href="faq.html" title="关于 Google Chrome 扩展程序常见问题的答案"><div>常见问题</div></a>
+        </li>
+        <li id="samples_link">
+          <!--@<a href="samples.html" title="Sample 扩展程序 (with source code)"><div>Samples</div></a>-->
+          <a href="samples.html" title="示例扩展程序（包含源代码）"><div>示例</div></a>
+        </li>
+        <li id="group_link">
+          <!--<a href="http://groups.google.com/a/chromium.org/group/chromium-extensions" title="Google Chrome 扩展程序 developer forum"><div>Group</div></a>-->
+          <a href="http://groups.google.com/a/chromium.org/group/chromium-extensions" title="Google Chrome 扩展程序开发人员论坛"><div>论坛（英文）</div></a>
+        </li>
+        <li id="so_link">
+          <!--<a href="http://stackoverflow.com/questions/tagged/google-chrome-extension" title="[google-chrome-extension] tag on Stack Overflow"><div>Questions?</div></a>-->
+          <a href="http://stackoverflow.com/questions/tagged/google-chrome-extension" title="Stack Overflow 上的 [google-chrome-extension] 标签"><div>问题？（英文）</div></a>
+        </li>
+      </ul>
+    </div>
+    <div id="gc-container">
+      <div id="gc-sidebar">
+        <ul 
+            class="level1 ">
+          <li class="level2">
+                <a href="getstarted.html" class="level2 ">入门</a>
+          </li>
+          <li class="level2">
+                <a href="overview.html" class="level2 ">概述</a>
+          </li>
+          <li class="level2">
+                <a href="whats_new.html" class="level2 ">新增功能</a>
+          </li>
+          <li class="level2">
+                <a href="devguide.html" class="level2 "></a>
+              <ul 
+                  class="level2 ">
+                <li class="level3">
+                    <a class="button level3">
+                      <span class="level3">浏览器用户界面</span>
+                      <div class="toggleIndicator level3"></div>
+                    </a>
+                    <ul toggleable
+                        class="level3 hidden">
+                      <li class="level4">
+                            <a href="browserAction.html" class="level4 ">浏览器按钮</a>
+                      </li>
+                      <li class="level4">
+                            <a href="contextMenus.html" class="level4 ">右键菜单</a>
+                      </li>
+                      <li class="level4">
+                            <a href="notifications.html" class="level4 ">桌面通知</a>
+                      </li>
+                      <li class="level4">
+                            <a href="omnibox.html" class="level4 ">多功能框</a>
+                      </li>
+                      <li class="level4">
+                            <a href="options.html" class="level4 ">选项页面</a>
+                      </li>
+                      <li class="level4">
+                            <a href="override.html" class="level4 ">替代页面</a>
+                      </li>
+                      <li class="level4">
+                            <a href="pageAction.html" class="level4 ">页面按钮</a>
+                      </li>
+                    </ul>
+                </li>
+                <li class="level3">
+                    <a class="button level3">
+                      <span class="level3">浏览器交互</span>
+                      <div class="toggleIndicator level3"></div>
+                    </a>
+                    <ul toggleable
+                        class="level3 hidden">
+                      <li class="level4">
+                            <a href="bookmarks.html" class="level4 ">书签</a>
+                      </li>
+                      <li class="level4">
+                            <a href="cookies.html" class="level4 ">Cookie</a>
+                      </li>
+                      <li class="level4">
+                            <a href="devtools.html" class="level4 ">开发人员工具</a>
+                      </li>
+                      <li class="level4">
+                            <a href="events.html" class="level4 ">事件</a>
+                      </li>
+                      <li class="level4">
+                            <a href="history.html" class="level4 ">历史记录</a>
+                      </li>
+                      <li class="level4">
+                            <a href="management.html" class="level4 ">管理</a>
+                      </li>
+                      <li class="level4">
+                            <a href="tabs.html" class="level4 ">标签页</a>
+                      </li>
+                      <li class="level4">
+                            <a href="windows.html" class="level4 ">窗口</a>
+                      </li>
+                    </ul>
+                </li>
+                <li class="level3">
+                    <a class="button level3">
+                      <span class="level3">实现</span>
+                      <div class="toggleIndicator level3"></div>
+                    </a>
+                    <ul toggleable
+                        class="level3 hidden">
+                      <li class="level4">
+                            <a href="a11y.html" class="level4 ">辅助功能</a>
+                      </li>
+                      <li class="level4">
+                            <a href="event_pages.html" class="level4 ">事件页面</a>
+                      </li>
+                      <li class="level4">
+                            <a href="contentSecurityPolicy.html" class="level4 ">内容安全策略</a>
+                      </li>
+                      <li class="level4">
+                            <a href="content_scripts.html" class="level4 ">内容脚本</a>
+                      </li>
+                      <li class="level4">
+                            <a href="xhr.html" class="level4 ">跨站XHR</a>
+                      </li>
+                      <li class="level4">
+                            <a href="i18n.html" class="level4 ">国际化支持</a>
+                      </li>
+                      <li class="level4">
+                            <a href="messaging.html" class="level4 ">消息传递</a>
+                      </li>
+                      <li class="level4">
+                            <a href="permissions.html" class="level4 ">可选权限</a>
+                      </li>
+                      <li class="level4">
+                            <a href="npapi.html" class="level4 ">NPAPI 插件</a>
+                      </li>
+                    </ul>
+                </li>
+                <li class="level3">
+                    <a class="button level3">
+                      <span class="level3">完成</span>
+                      <div class="toggleIndicator level3"></div>
+                    </a>
+                    <ul toggleable
+                        class="level3 hidden">
+                      <li class="level4">
+                            <a href="hosting.html" class="level4 ">托管</a>
+                      </li>
+                      <li class="level4">
+                            <a href="external_extensions.html" class="level4 ">其他发布选项</a>
+                      </li>
+                    </ul>
+                </li>
+              </ul>
+          </li>
+          <li class="level2">
+                <a href="tutorials.html" class="level2 ">教程</a>
+              <ul 
+                  class="level2 ">
+                <li class="level3">
+                      <a href="tut_migration_to_manifest_v2.html" class="level3 ">清单文件版本2</a>
+                </li>
+                <li class="level3">
+                      <a href="tut_debugging.html" class="level3 ">调试</a>
+                </li>
+                <li class="level3">
+                      <a href="tut_analytics.html" class="level3 ">Google Analytics（分析）</a>
+                </li>
+                <li class="level3">
+                      <a href="tut_oauth.html" class="level3 ">OAuth</a>
+                </li>
+              </ul>
+          </li>
+          <li class="level2">
+                <span class="level2">参考</span>
+              <ul 
+                  class="level2 ">
+                <li class="level3">
+                    <a class="button level3">
+                      <span class="level3">格式</span>
+                      <div class="toggleIndicator level3"></div>
+                    </a>
+                    <ul toggleable
+                        class="level3 hidden">
+                      <li class="level4">
+                            <a href="manifest.html" class="level4 ">清单文件</a>
+                      </li>
+                      <li class="level4">
+                            <a href="match_patterns.html" class="level4 ">匹配表达式</a>
+                      </li>
+                    </ul>
+                </li>
+                <li class="level3">
+                      <a href="permission_warnings.html" class="level3 ">权限警告</a>
+                </li>
+                <li class="level3">
+                      <a href="api_index.html" class="level3 ">chrome.* API</a>
+                </li>
+                <li class="level3">
+                      <a href="api_other.html" class="level3 ">其他 API</a>
+                </li>
+              </ul>
+          </li>
+          <li class="level2">
+                <span class="level2">更多</span>
+              <ul 
+                  class="level2 ">
+                <li class="level3">
+                      <a href="https://code.google.com/chrome/webstore/docs/index.html" class="level3 ">Chrome 网上应用店</a>
+                </li>
+                <li class="level3">
+                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用程序</a>
+                </li>
+                <li class="level3">
+                      <a href="themes.html" class="level3 ">主题背景</a>
+                </li>
+              </ul>
+          </li>
+        </ul>
+      </div>
+      <div id="gc-pagecontent">
+        <h1 class="page_title">chrome.webNavigation</h1>
+        
+        
+        
+        <div id="toc">
+          <h2><!--@Contents-->目录</h2>
+          <ol>
+            <li>
+              <a href=#manifest>清单文件</a>
+            </li>
+            <li>
+              <a href=#examples>例子</a>
+            </li>
+            <li>
+              <a href=#event_order>事件顺序</a>
+            </li>
+            <li>
+              <a href=#relation_to_webRequest>与网络请求事件间的关系</a>
+            </li>
+            <li>
+              <a href=#tab_ids>有关标签页标识符的说明</a>
+            </li>
+            <li>
+              <a href=#timestamps>有关时间戳的说明</a>
+            </li>
+            <li>
+              <a href=#frame_ids>有关框架和进程标识符的说明</a>
+            </li>
+            <li>
+              <a href=#transition_types>过渡类型和限定符</a>
+            </li>
+            <li>
+              <a href="#apiReference"><!--@API reference: -->API 参考：chrome.webNavigation</a>
+              <ol>
+                  
+                  
+                  <li><a href="#methods"><!--@Methods-->方法</a><ol>  <li><a href="#method-getFrame">getFrame</a></li>  <li><a href="#method-getAllFrames">getAllFrames</a></li></ol></li>
+                  <li><a href="#events"><!--@Events-->事件</a><ol>  <li><a href="#event-onBeforeNavigate">onBeforeNavigate</a></li>  <li><a href="#event-onCommitted">onCommitted</a></li>  <li><a href="#event-onDOMContentLoaded">onDOMContentLoaded</a></li>  <li><a href="#event-onCompleted">onCompleted</a></li>  <li><a href="#event-onErrorOccurred">onErrorOccurred</a></li>  <li><a href="#event-onCreatedNavigationTarget">onCreatedNavigationTarget</a></li>  <li><a href="#event-onReferenceFragmentUpdated">onReferenceFragmentUpdated</a></li>  <li><a href="#event-onTabReplaced">onTabReplaced</a></li>  <li><a href="#event-onHistoryStateUpdated">onHistoryStateUpdated</a></li></ol></li>
+                  <li><a href="#samples"><!--@Sample -->示例扩展程序</a></li>
+              </ol>
+            </li>
+          </ol>
+        </div>
+
+<p id="classSummary">
+<!--@Use the <code>chrome.webNavigation</code> module to receive
+notifications about the status of navigations requests in-flight.-->
+使用 <code>chrome.webNavigation</code>
+模块实时地接收有关导航请求状态的通知。
+</p>
+
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
+<p>
+<!--@All <code>chrome.webNavigation</code> methods and events require you to declare
+the "webNavigation" permission in the <a href="manifest.html">extension
+manifest</a>.
+For example:-->
+所有 <code>chrome.webNavigation</code>
+方法和事件要求您在<a href="manifest.html">扩展程序的清单文件</a>中声明
+"webNavigation" 权限。例如：
+</p>
+
+<pre>{
+  "name": "我的扩展程序",
+  ...
+  <b>"permissions": [
+    "webNavigation"
+  ]</b>,
+  ...
+}</pre>
+
+
+<h2 id="examples"><!--@Examples-->例子</h2>
+
+<p>
+<!--@You can find simple examples of using the tabs module in the-->
+您可以在
+<a href="http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/api/webNavigation/">examples/api/webNavigation</a>
+<!--@directory.
+For other examples and for help in viewing the source code, see
+<a href="samples.html">Samples</a>.-->
+目录中找到使用网页导航模块的简单例子。有关其它例子以及查看源代码的帮助，请参见<a href="samples.html">示例</a>。
+</p>
+
+<h2 id="event_order"><!--@Event order-->事件顺序</h2>
+<p>
+<!--@For a navigation that is successfully completed, events are fired in the
+following order:-->
+对于一次成功完成的导航，事件按照如下顺序产生：
+<pre>
+onBeforeNavigate -&gt; onCommitted -&gt; onDOMContentLoaded -&gt; onCompleted
+</pre>
+</p>
+<p>
+<!--@Any error that occurs during the process results in an
+<code>onErrorOccurred</code> event. For a specific navigation, there are no
+further events fired after <code>onErrorOccurred</code>.-->
+在这一过程中如果发生任何错误都将产生 <code>onErrorOccurred</code>
+事件。对于一次导航，在 <code>onErrorOccurred</code>
+之后不会再产生进一步的事件。
+</p>
+<p>
+<!--@If a navigating frame contains subframes, its <code>onCommitted</code> is fired
+before any of its children's <code>onBeforeNavigate</code>; while
+<code>onCompleted</code> is fired after all of its children's
+<code>onCompleted</code>.-->
+如果导航中的框架包含子框架，它的 <code>onCommitted</code>
+事件将在所有子框架的 <code>onBeforeNavigate</code> 事件之前产生，而
+<code>onCompleted</code> 事件将在所有子框架的 <code>onCompleted</code>
+事件之后产生。
+</p>
+<p>
+<!--@If the reference fragment of a frame is changed, a
+<code>onReferenceFragmentUpdated</code> event is fired. This event can fire any
+time after <code>onDOMContentLoaded</code>, even after
+<code>onCompleted</code>.-->
+<!--@如果框架的引用片段发生更改，将产生 onReferenceFragmentUpdated 事件。这一事件可以在 onDOMContentLoaded 之后，甚至 onCompleted 之后的任何时间产生。-->
+</p>
+<p>
+<!--@If the history API is used to modify the state of a frame (e.g. using
+<code>history.pushState()</code>, a <code>onHistoryStateUpdated</code> event is
+fired. This event can fire any time after <code>onDOMContentLoaded</code>.-->
+如果使用了 <code>history</code> API 修改框架的状态（例如使用
+<code>history.pushState()</code>），将产生
+<code>onHistoryStateUpdated</code> 事件。这一事件可以在
+<code>onDOMContentLoaded</code> 之后的任何时候产生。
+</p>
+<p>
+<!--If a navigation was triggered via <a
+href="https://support.google.com/chrome/bin/answer.py?answer=177873">Chrome
+Instant</a> or <a
+href="https://support.google.com/chrome/bin/answer.py?answer=1385029">Instant
+Pages</a>, a completely loaded page is swapped into the current tab. In that
+case, an <code>onTabReplaced</code> event is fired.-->
+如果导航通过 <a
+href="https://support.google.com/chrome/bin/answer.py?answer=177873">Chrome
+即搜即得</a>功能或<a href="https://support.google.com/chrome/bin/answer.py?answer=1385029">网页即时看</a>功能触发，已完全载入的页面将与当前标签页中的页面交换，这种情况下将产生
+<code>onTabReplaced</code> 事件。
+</p>
+
+<h2 id="relation_to_webRequest"><!--@Relation to webRequest events-->与网络请求事件间的关系</h2>
+<p>
+<!--@There is no defined ordering between events of the <a
+href="webRequest.html">webRequest API</a> and the events of the
+webNavigation API. It is possible that webRequest events are still received for
+frames that already started a new navigation, or that a navigation only
+proceeds after the network resources are already fully loaded.-->
+在<a href="webRequest.html">网络请求 API</a> 与网页导航 API
+产生的事件之间没有确定的顺序。已经开始新导航的框架可能还会收到网络请求事件，或者也可能导航仅在网络资源完全载入后才继续进行。
+</p>
+<p>
+<!--@In general, the webNavigation events are closely related to the navigation
+state that is displayed in the UI, while the webRequest events correspond to
+the state of the network stack which is generally opaque to the user.-->
+大体上说，网页导航事件与用户界面中显示的导航状态密切相关，而网络请求事件对应于通常对用户来说不可见的网络栈状态。
+</p>
+
+<h2 id="tab_ids"><!--@A note about tab IDs-->有关标签页标识符的说明</h2>
+<p>
+<!--@Not all navigating tabs correspond to actual tabs in Chrome's UI, e.g., a tab
+that is being pre-rendered. Such tabs are not accessible via the
+<a href="tabs.html">tabs API</a> nor can you request information about them via
+<code>webNavigation.getFrame</code> or <code>webNavigation.getAllFrames</code>.
+Once such a tab is swapped in, an <code>onTabReplaced</code> event is fired and
+they become accessible via these APIs.-->
+并不是所有正在导航的标签页都对应于 Chrome 
+浏览器用户界面中的真实标签页，例如预呈现标签页。这样的标签页不能通过<a
+href=“tabs.html">标签页 API</a> 访问，您也不能通过
+<code>webRequest.getFrame</code> 或 <code>webRequest.getAllFrames</code>
+请求有关信息。一旦这样的标签页交换进来，将产生 <code>onTabReplced</code>
+事件，并且它们也可以通过这些 API 访问了。
+</p>
+
+<h2 id="timestamps"><!--@A note about timestamps-->有关时间戳的说明</h2>
+<p>
+<!--@It's important to note that some technical oddities in the OS's handling
+of distinct Chrome processes can cause the clock to be skewed between the
+browser itself and extension processes. That means that WebNavigation's events'
+<code>timeStamp</code> property is only guaranteed to be <i>internally</i>
+consistent. Comparing one event to another event will give you the correct
+offset between them, but comparing them to the current time inside the
+extension (via <code>(new Date()).getTime()</code>, for instance) might give
+unexpected results.-->
+值得重视的是，操作系统对不同的 Chrome
+浏览器进程在某些技术上的反常可能会导致时钟在浏览器自身以及扩展程序进程间不一致。这意味着网络请求事件的
+<code>timeStamp</code>
+属性仅保证内部的一致性，将两个事件的时间相比较会得到它们之间正确的时间差，但是与扩展程序内的当前时间（例如通过(
+<code>new Date()).getTime()</code>）比较可能会导致不可预料的结果。
+</p>
+
+<h2 id="frame_ids"><!--@A note about frame and process IDs-->有关框架和进程标识符的说明</h2>
+<p>
+<!--@Due to the multi-process nature of Chrome, a tab might use different processes
+to render the source and destination of a web page. Therefore, if a navigation
+takes place in a new process, you might receive events both from the new and
+the old page until the new navigation is committed (i.e. the
+<code>onCommitted</code> event is send for the new main frame). Because frame
+IDs are only unique for a given process, the webNavigation events include a
+process ID, so you can still determine which frame a navigation came from.-->
+由于 Chrome
+浏览器使用多进程的基本架构，标签页可能会使用不同的进程来渲染网页的源和目标。因此，如果导航在新的进程中进行，您可能会同时接收到来自新旧页面的事件，直到新的导航已提交（即为新的主框架发送了
+<code>onCommitted</code>
+事件）。因为框架标识符对于给定进程是唯一的，网页导航事件包含进程标识符，所以您仍然可以确定导航来自哪个标签页。
+</p>
+<p>
+<!--@Also note that during a provisional load the process might be switched several
+times. This happens when the load is redirected to a different site. In this
+case, you will receive repeated <code>onBeforeNavigate</code> and
+<code>onErrorOccurred</code> events, until you receive the final
+<code>onCommitted</code> event.-->
+同时也请注意，在临时载入的过程中，进程可能会多次切换。当载入过程需要重定向至另一个站点时就会发生这种情况。在这种情况下，您会多次收到
+<code>onBeforeNavigate</code> 和 <code>onErrorOccurred</code>
+事件，直到您接收到最终的 <code>onCommitted</code> 事件。
+</p>
+
+<h2 id="transition_types"><!--@Transition types and qualifiers-->过渡类型和限定符</h2>
+<p>
+<!--@The webNavigation API's <code>onCommitted</code> event has a
+<code>transitionType</code> and a <code>transitionQualifiers</code> property.
+The <em>transition type</em> is the same as used in the <a
+href="history.html#transition_types">history API</a> describing how the browser
+navigated to this particular URL. In addition, several <em>transition
+qualifiers</em> can be returned that further define the navigation.-->
+网页导航 API 的 <code>onCommitted</code> 事件包含
+<code>transitionType</code> 与 <code>transitionQualifiers</code>
+属性。过渡类型与<a href="history.html#transition_types">历史记录 API</a>
+中所使用的相同，描述浏览器如何导航至这一特定的 URL。此外，还会返回几种过渡限定符，进一步定义本次导航。
+</p>
+<p>
+<!--@The following transition qualifiers exist:-->
+存在如下几种过渡限定符：
+</p>
+<table>
+<tr>
+  <th> <!--@Transition qualifier-->过渡限定符 </th> <th> <!--@Description-->描述 </th>
+</tr>
+<tr>
+  <td>"client_redirect"</td>
+  <td>
+    <!--@One or more redirects caused by JavaScript or meta refresh tags on the page
+    happened during the navigation.-->
+    导航过程中由页面上的 JavaScript 或 meta 刷新标记产生的一次或多次重定向。
+  </td>
+</tr>
+<tr>
+  <td>"server_redirect"</td>
+  <td>
+    <!--@One or more redirects caused by HTTP headers sent from the server happened
+    during the navigation.-->
+    导航过程中由服务器发送的 HTTP 头产生的一次或多次重定向。
+  </td>
+</tr>
+<tr>
+  <td>"forward_back"</td>
+  <td>
+    <!--@The user used the Forward or Back button to initiate the navigation.-->
+    用户使用“前进”、“后退”按钮开始导航。
+  </td>
+</tr>
+<tr>
+  <td>"from_address_bar"</td>
+  <td>
+    <!--@The user initiated the navigation from the address bar (aka Omnibox).-->
+    用户从地址栏（即多功能框）开始导航。
+  </td>
+</tr>
+</table>
+        <h2 id="apiReference"><!--@API Reference: chrome.webNavigation-->API 参考：chrome.webNavigation</h2>
+        <div class="api_reference">
+            <h3 id="methods"><!--@Methods-->方法</h3>
+              <div>
+                <h4 id="method-getFrame">getFrame</h4>
+                <div class="summary lower">
+                  <span><span class="subdued">chrome.webNavigation.</span>getFrame</span>(<span>object <span class="variable">details</span></span>, <span>function <span class="variable">callback</span></span>)
+                </div>
+                <div class="description">
+                  <p>
+                    获取指定框架的有关信息。框架指网页中的 &lt;iframe&gt; 或者 &lt;frame&gt; 元素，通过标签页标识符以及框架标识符指定。
+                  </p>
+                  <h4><!--@Parameters-->参数</h4>
+                  <dl>
+                      <div>
+                        <a name="property-getFrame-details"></a>
+                        <dt>
+                          <span class="variable">details</span>
+                          <span class="property">
+                            (
+                              
+                              <span id="typeTemplate">object</span>
+                            )
+                          </span>
+                        </dt>
+                        <dd>
+                          要获取信息的框架的有关信息。
+                        </dd>
+                        <dd>
+                          <dl>
+                            <div>
+                              <a name="property-details-tabId"></a>
+                              <dt>
+                                <span class="variable">tabId</span>
+                                <span class="property">
+                                  (
+                                    
+                                    <span id="typeTemplate">integer</span>
+                                  )
+                                </span>
+                              </dt>
+                              <dd>
+                                框架所在的标签页标识符。
+                              </dd>
+                            </div>
+                            <div>
+                              <a name="property-details-processId"></a>
+                              <dt>
+                                <span class="variable">processId</span>
+                                <span class="property">
+                                  (
+                                    
+                                    <span id="typeTemplate">integer</span>
+                                  )
+                                </span>
+                              </dt>
+                              <dd>
+                                该标签页的渲染器进程标识符。
+                              </dd>
+                            </div>
+                            <div>
+                              <a name="property-details-frameId"></a>
+                              <dt>
+                                <span class="variable">frameId</span>
+                                <span class="property">
+                                  (
+                                    
+                                    <span id="typeTemplate">integer</span>
+                                  )
+                                </span>
+                              </dt>
+                              <dd>
+                                指定标签页中的框架标识符。
+                              </dd>
+                            </div>
+                          </dl>
+                        </dd>
+                      </div>
+                      <div>
+                        <a name="property-getFrame-callback"></a>
+                        <dt>
+                          <span class="variable">callback</span>
+                          <span class="property">
+                            (
+                              
+                              <span id="typeTemplate">function</span>
+                            )
+                          </span>
+                        </dt>
+                      </div>
+                  </dl>
+                    <h4><!--@Callback-->回调函数</h4>
+                    <p>
+                          <!--@The <em>callback</em> parameter should specify a function
+                          that looks like this:-->
+                          <em>callback</em> 参数应该指定一个如下形式的函数：
+                    </p>
+                    <pre>function(object details) <span class="subdued">{...}</span>;</pre>
+                    <dl>
+                        <div>
+                          <a name="property-callback-details"></a>
+                          <dt>
+                            <span class="variable">details</span>
+                            <span class="property">
+                              (
+                                <span class="optional">optional</span>
+                                <span id="typeTemplate">object</span>
+                              )
+                            </span>
+                          </dt>
+                          <dd>
+                            请求框架的有关信息，如果框架标识符和/或标签页标识符无效则为 null。
+                          </dd>
+                          <dd>
+                            <dl>
+                              <div>
+                                <a name="property-details-errorOccurred"></a>
+                                <dt>
+                                  <span class="variable">errorOccurred</span>
+                                  <span class="property">
+                                    (
+                                      
+                                      <span id="typeTemplate">boolean</span>
+                                    )
+                                  </span>
+                                </dt>
+                                <dd>
+                                  如果该框架中的上一次导航由于错误（即产生了 onErrorOccurred 事件）而中断则为 true。
+                                </dd>
+                              </div>
+                              <div>
+                                <a name="property-details-url"></a>
+                                <dt>
+                                  <span class="variable">url</span>
+                                  <span class="property">
+                                    (
+                                      
+                                      <span id="typeTemplate">string</span>
+                                    )
+                                  </span>
+                                </dt>
+                                <dd>
+                                  如果在指定标签页中 frameId 指定的框架标识符在某一时刻曾经存在的话，则为当前与该框架相关联的 URL。URL 与给定的框架标识符相关联并不意味着相应的框架仍然存在。
+                                </dd>
+                              </div>
+                              <div>
+                                <a name="property-details-parentFrameId"></a>
+                                <dt>
+                                  <span class="variable">parentFrameId</span>
+                                  <span class="property">
+                                    (
+                                      
+                                      <span id="typeTemplate">integer</span>
+                                    )
+                                  </span>
+                                </dt>
+                                <dd>
+                                  包含当前框架的父框架，如果不存在父框架则设为 -1。
+                                </dd>
+                              </div>
+                            </dl>
+                          </dd>
+                        </div>
+                    </dl>
+                </div>
+              </div>
+              <div>
+                <h4 id="method-getAllFrames">getAllFrames</h4>
+                <div class="summary lower">
+                  <span><span class="subdued">chrome.webNavigation.</span>getAllFrames</span>(<span>object <span class="variable">details</span></span>, <span>function <span class="variable">callback</span></span>)
+                </div>
+                <div class="description">
+                  <p>
+                    获取给定标签页中所有框架的有关信息。
+                  </p>
+                  <h4><!--@Parameters-->参数</h4>
+                  <dl>
+                      <div>
+                        <a name="property-getAllFrames-details"></a>
+                        <dt>
+                          <span class="variable">details</span>
+                          <span class="property">
+                            (
+                              
+                              <span id="typeTemplate">object</span>
+                            )
+                          </span>
+                        </dt>
+                        <dd>
+                          要获取所有框架的标签页信息。
+                        </dd>
+                        <dd>
+                          <dl>
+                            <div>
+                              <a name="property-details-tabId"></a>
+                              <dt>
+                                <span class="variable">tabId</span>
+                                <span class="property">
+                                  (
+                                    
+                                    <span id="typeTemplate">integer</span>
+                                  )
+                                </span>
+                              </dt>
+                              <dd>
+                                标签页的标识符。
+                              </dd>
+                            </div>
+                          </dl>
+                        </dd>
+                      </div>
+                      <div>
+                        <a name="property-getAllFrames-callback"></a>
+                        <dt>
+                          <span class="variable">callback</span>
+                          <span class="property">
+                            (
+                              
+                              <span id="typeTemplate">function</span>
+                            )
+                          </span>
+                        </dt>
+                      </div>
+                  </dl>
+                    <h4><!--@Callback-->回调函数</h4>
+                    <p>
+                          <!--@The <em>callback</em> parameter should specify a function
+                          that looks like this:-->
+                          <em>callback</em> 参数应该指定一个如下形式的函数：
+                    </p>
+                    <pre>function(array of object details) <span class="subdued">{...}</span>;</pre>
+                    <dl>
+                        <div>
+                          <a name="property-callback-details"></a>
+                          <dt>
+                            <span class="variable">details</span>
+                            <span class="property">
+                              (
+                                <span class="optional">optional</span>
+                                <span id="typeTemplate">array of object</span>
+                              )
+                            </span>
+                          </dt>
+                          <dd>
+                            指定标签页中的所有框架，若标签页标识符无效则为 null。
+                          </dd>
+                        </div>
+                    </dl>
+                </div>
+              </div>
+            <h3 id="events"><!--@Events-->事件</h3>
+              <div>
+                <h4 id="event-onBeforeNavigate">onBeforeNavigate</h4>
+                <div class="summary">
+                  <span class="subdued">chrome.webNavigation.</span>onBeforeNavigate<span class="subdued">.addListener</span>(function(<span>object <span class="variable">details</span></span>)<span class="subdued"> {...}</span>);
+                </div>
+                <div class="description">
+              <p>
+                    当导航即将发生时产生。
+                  </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
+                    <dl>
+                      <div>  <a name="property-onBeforeNavigate-details"></a>  <dt>    <span class="variable">details</span>    <span class="property">      (                <span id="typeTemplate">object</span>      )    </span>  </dt>  <dd>    <dl>      <div>        <a name="property-details-tabId"></a>        <dt>          <span class="variable">tabId</span>          <span class="property">            (                            <span id="typeTemplate">integer</span>            )          </span>        </dt>        <dd>          将要发生的导航所在的标签页标识符。        </dd>      </div>      <div>        <a name="property-details-url"></a>        <dt>          <span class="variable">url</span>          <span class="property">            (                            <span id="typeTemplate">string</span>            )          </span>        </dt>      </div>      <div>        <a name="property-details-processId"></a>        <dt>          <span class="variable">processId</span>          <span class="property">            (                            <span id="typeTemplate">integer</span>            )          </span>        </dt>        <dd>          渲染当前标签页的进程标识符。        </dd>      </div>      <div>        <a name="property-details-frameId"></a>        <dt>          <span class="variable">frameId</span>          <span class="property">            (                            <span id="typeTemplate">integer</span>            )          </span>        </dt>        <dd>          0 表示导航发生在标签页内容窗口中，正数表示导航发生在子框架中。框架标识符在给定标签页与进程中唯一。        </dd>      </div>      <div>        <a name="property-details-parentFrameId"></a>        <dt>          <span class="variable">parentFrameId</span>          <span class="property">            (                            <span id="typeTemplate">integer</span>            )          </span>        </dt>        <dd>          包含当前框架的父框架，如果不存在父框架则设为 -1。        </dd>      </div>      <div>        <a name="property-details-timeStamp"></a>        <dt>          <span class="variable">timeStamp</span>          <span class="property">            (                            <span id="typeTemplate">double</span>            )          </span>        </dt>        <dd>          浏览器将要开始导航的时间，表示为自 1970 年 1 月 1 日午夜开始所经过的毫秒数。        </dd>      </div>    </dl>  </dd></div>
+                    </dl>
+                    <h4><!--@Filters-->过滤器</h4>
+                    <dl>
+                      <div>  <a name="property-onBeforeNavigate-url"></a>  <dt>    <span class="variable">url</span>    <span class="property">      (                <span id="typeTemplate">array of <a href="events.html#type-UrlFilter">events.UrlFilter</a></span>      )    </span>  </dt>  <dd>    正在导航的 URL 所需满足的条件。对于该事件，UrlFilter 的 schemes 和 ports 字段将忽略。  </dd></div>
+                    </dl>
+                </div>
+              </div>
+              <div>
+                <h4 id="event-onCommitted">onCommitted</h4>
+                <div class="summary">
+                  <span class="subdued">chrome.webNavigation.</span>onCommitted<span class="subdued">.addListener</span>(function(<span>object <span class="variable">details</span></span>)<span class="subdued"> {...}</span>);
+                </div>
+                <div class="description">
+              <p>
+                    当一次导航提交时产生。文档（以及它引用的资源，例如图片与子框架）可能还在下载，但是至少文档的一部分已经从服务器接收到，并且浏览器已经决定切换到新文档。
+                  </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
+                    <dl>
+                      <div>  <a name="property-onCommitted-details"></a>  <dt>    <span class="variable">details</span>    <span class="property">      (                <span id="typeTemplate">object</span>      )    </span>  </dt>  <dd>    <dl>      <div>        <a name="property-details-tabId"></a>        <dt>          <span class="variable">tabId</span>          <span class="property">            (                            <span id="typeTemplate">integer</span>            )          </span>        </dt>        <dd>          导航所在的标签页标识符。        </dd>      </div>      <div>        <a name="property-details-url"></a>        <dt>          <span class="variable">url</span>          <span class="property">            (                            <span id="typeTemplate">string</span>            )          </span>        </dt>      </div>      <div>        <a name="property-details-processId"></a>        <dt>          <span class="variable">processId</span>          <span class="property">            (                            <span id="typeTemplate">integer</span>            )          </span>        </dt>        <dd>          渲染当前标签页的进程标识符。        </dd>      </div>      <div>        <a name="property-details-frameId"></a>        <dt>          <span class="variable">frameId</span>          <span class="property">            (                            <span id="typeTemplate">integer</span>            )          </span>        </dt>        <dd>          0 表示导航发生在标签页内容窗口中，正数表示导航发生在子框架中。框架标识符在标签页中唯一。        </dd>      </div>      <div>        <a name="property-details-transitionType"></a>        <dt>          <span class="variable">transitionType</span>          <span class="property">            (                            <span id="typeTemplate">enumerated string ["link", "typed", "auto_bookmark", "auto_subframe", "manual_subframe", "generated", "start_page", "form_submit", "reload", "keyword", "keyword_generated"]</span>            )          </span>        </dt>        <dd>          导航发生的原因，这些过渡类型与<a href='history.html'>历史记录API</a>中所定义的相同。        </dd>      </div>      <div>        <a name="property-details-transitionQualifiers"></a>        <dt>          <span class="variable">transitionQualifiers</span>          <span class="property">            (                            <span id="typeTemplate">array of enumerated string ["client_redirect", "server_redirect", "forward_back", "from_address_bar"]</span>            )          </span>        </dt>        <dd>          过渡限定符列表。        </dd>      </div>      <div>        <a name="property-details-timeStamp"></a>        <dt>          <span class="variable">timeStamp</span>          <span class="property">            (                            <span id="typeTemplate">double</span>            )          </span>        </dt>        <dd>          导航提交的时间，表示为自 1970 年 1 月 1 日午夜开始所经过的毫秒数。        </dd>      </div>    </dl>  </dd></div>
+                    </dl>
+                    <h4><!--@Filters-->过滤器</h4>
+                    <dl>
+                      <div>  <a name="property-onCommitted-url"></a>  <dt>    <span class="variable">url</span>    <span class="property">      (                <span id="typeTemplate">array of <a href="events.html#type-UrlFilter">events.UrlFilter</a></span>      )    </span>  </dt>  <dd>    正在导航的 URL 所需满足的条件。对于该事件，UrlFilter 的 schemes 和 ports 字段将忽略。  </dd></div>
+                    </dl>
+                </div>
+              </div>
+              <div>
+                <h4 id="event-onDOMContentLoaded">onDOMContentLoaded</h4>
+                <div class="summary">
+                  <span class="subdued">chrome.webNavigation.</span>onDOMContentLoaded<span class="subdued">.addListener</span>(function(<span>object <span class="variable">details</span></span>)<span class="subdued"> {...}</span>);
+                </div>
+                <div class="description">
+              <p>
+                    当页面的 DOM 已完全构造时产生，但是此时引用的资源可能还未载入完成。
+                  </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
+                    <dl>
+                      <div>  <a name="property-onDOMContentLoaded-details"></a>  <dt>    <span class="variable">details</span>    <span class="property">      (                <span id="typeTemplate">object</span>      )    </span>  </dt>  <dd>    <dl>      <div>        <a name="property-details-tabId"></a>        <dt>          <span class="variable">tabId</span>          <span class="property">            (                            <span id="typeTemplate">integer</span>            )          </span>        </dt>        <dd>          导航所在的标签页标识符。        </dd>      </div>      <div>        <a name="property-details-url"></a>        <dt>          <span class="variable">url</span>          <span class="property">            (                            <span id="typeTemplate">string</span>            )          </span>        </dt>      </div>      <div>        <a name="property-details-processId"></a>        <dt>          <span class="variable">processId</span>          <span class="property">            (                            <span id="typeTemplate">integer</span>            )          </span>        </dt>        <dd>          渲染当前标签页的进程标识符。        </dd>      </div>      <div>        <a name="property-details-frameId"></a>        <dt>          <span class="variable">frameId</span>          <span class="property">            (                            <span id="typeTemplate">integer</span>            )          </span>        </dt>        <dd>          0 表示导航发生在标签页内容窗口中，正数表示导航发生在子框架中。框架标识符在标签页中唯一。        </dd>      </div>      <div>        <a name="property-details-timeStamp"></a>        <dt>          <span class="variable">timeStamp</span>          <span class="property">            (                            <span id="typeTemplate">double</span>            )          </span>        </dt>        <dd>          页面 DOM 完全构造的时间，表示为自 1970 年 1 月 1 日午夜开始所经过的毫秒数。        </dd>      </div>    </dl>  </dd></div>
+                    </dl>
+                    <h4><!--@Filters-->过滤器</h4>
+                    <dl>
+                      <div>  <a name="property-onDOMContentLoaded-url"></a>  <dt>    <span class="variable">url</span>    <span class="property">      (                <span id="typeTemplate">array of <a href="events.html#type-UrlFilter">events.UrlFilter</a></span>      )    </span>  </dt>  <dd>    正在导航的 URL 所需满足的条件。对于该事件，UrlFilter 的 schemes 和 ports 字段将忽略。  </dd></div>
+                    </dl>
+                </div>
+              </div>
+              <div>
+                <h4 id="event-onCompleted">onCompleted</h4>
+                <div class="summary">
+                  <span class="subdued">chrome.webNavigation.</span>onCompleted<span class="subdued">.addListener</span>(function(<span>object <span class="variable">details</span></span>)<span class="subdued"> {...}</span>);
+                </div>
+                <div class="description">
+              <p>
+                    当文档（包括它所引用的资源）已经完全载入并初始化完成时产生。
+                  </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
+                    <dl>
+                      <div>  <a name="property-onCompleted-details"></a>  <dt>    <span class="variable">details</span>    <span class="property">      (                <span id="typeTemplate">object</span>      )    </span>  </dt>  <dd>    <dl>      <div>        <a name="property-details-tabId"></a>        <dt>          <span class="variable">tabId</span>          <span class="property">            (                            <span id="typeTemplate">integer</span>            )          </span>        </dt>        <dd>          导航所在的标签页标识符。        </dd>      </div>      <div>        <a name="property-details-url"></a>        <dt>          <span class="variable">url</span>          <span class="property">            (                            <span id="typeTemplate">string</span>            )          </span>        </dt>      </div>      <div>        <a name="property-details-processId"></a>        <dt>          <span class="variable">processId</span>          <span class="property">            (                            <span id="typeTemplate">integer</span>            )          </span>        </dt>        <dd>          渲染当前标签页的进程标识符。        </dd>      </div>      <div>        <a name="property-details-frameId"></a>        <dt>          <span class="variable">frameId</span>          <span class="property">            (                            <span id="typeTemplate">integer</span>            )          </span>        </dt>        <dd>          0 表示导航发生在标签页内容窗口中，正数表示导航发生在子框架中。框架标识符在标签页中唯一。        </dd>      </div>      <div>        <a name="property-details-timeStamp"></a>        <dt>          <span class="variable">timeStamp</span>          <span class="property">            (                            <span id="typeTemplate">double</span>            )          </span>        </dt>        <dd>          文档载入完成的时间，表示为自 1970 年 1 月 1 日午夜开始所经过的毫秒数。        </dd>      </div>    </dl>  </dd></div>
+                    </dl>
+                    <h4><!--@Filters-->过滤器</h4>
+                    <dl>
+                      <div>  <a name="property-onCompleted-url"></a>  <dt>    <span class="variable">url</span>    <span class="property">      (                <span id="typeTemplate">array of <a href="events.html#type-UrlFilter">events.UrlFilter</a></span>      )    </span>  </dt>  <dd>    正在导航的 URL 所需满足的条件。对于该事件，UrlFilter 的 schemes 和 ports 字段将忽略。  </dd></div>
+                    </dl>
+                </div>
+              </div>
+              <div>
+                <h4 id="event-onErrorOccurred">onErrorOccurred</h4>
+                <div class="summary">
+                  <span class="subdued">chrome.webNavigation.</span>onErrorOccurred<span class="subdued">.addListener</span>(function(<span>object <span class="variable">details</span></span>)<span class="subdued"> {...}</span>);
+                </div>
+                <div class="description">
+              <p>
+                    当错误发生，导航终止时产生。无论网络错误还是用户终止导航都会产生这一事件。
+                  </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
+                    <dl>
+                      <div>  <a name="property-onErrorOccurred-details"></a>  <dt>    <span class="variable">details</span>    <span class="property">      (                <span id="typeTemplate">object</span>      )    </span>  </dt>  <dd>    <dl>      <div>        <a name="property-details-tabId"></a>        <dt>          <span class="variable">tabId</span>          <span class="property">            (                            <span id="typeTemplate">integer</span>            )          </span>        </dt>        <dd>          导航所在的标签页标识符。        </dd>      </div>      <div>        <a name="property-details-url"></a>        <dt>          <span class="variable">url</span>          <span class="property">            (                            <span id="typeTemplate">string</span>            )          </span>        </dt>      </div>      <div>        <a name="property-details-processId"></a>        <dt>          <span class="variable">processId</span>          <span class="property">            (                            <span id="typeTemplate">integer</span>            )          </span>        </dt>        <dd>          渲染当前标签页的进程标识符。        </dd>      </div>      <div>        <a name="property-details-frameId"></a>        <dt>          <span class="variable">frameId</span>          <span class="property">            (                            <span id="typeTemplate">integer</span>            )          </span>        </dt>        <dd>          0 表示导航发生在标签页内容窗口中，正数表示导航发生在子框架中。框架标识符在标签页中唯一。        </dd>      </div>      <div>        <a name="property-details-error"></a>        <dt>          <span class="variable">error</span>          <span class="property">            (                            <span id="typeTemplate">string</span>            )          </span>        </dt>        <dd>          错误描述。        </dd>      </div>      <div>        <a name="property-details-timeStamp"></a>        <dt>          <span class="variable">timeStamp</span>          <span class="property">            (                            <span id="typeTemplate">double</span>            )          </span>        </dt>        <dd>          发生错误的时间，表示为自 1970 年 1 月 1 日午夜开始所经过的毫秒数。        </dd>      </div>    </dl>  </dd></div>
+                    </dl>
+                    <h4><!--@Filters-->过滤器</h4>
+                    <dl>
+                      <div>  <a name="property-onErrorOccurred-url"></a>  <dt>    <span class="variable">url</span>    <span class="property">      (                <span id="typeTemplate">array of <a href="events.html#type-UrlFilter">events.UrlFilter</a></span>      )    </span>  </dt>  <dd>    正在导航的 URL 所需满足的条件。对于该事件，UrlFilter 的 schemes 和 ports 字段将忽略。  </dd></div>
+                    </dl>
+                </div>
+              </div>
+              <div>
+                <h4 id="event-onCreatedNavigationTarget">onCreatedNavigationTarget</h4>
+                <div class="summary">
+                  <span class="subdued">chrome.webNavigation.</span>onCreatedNavigationTarget<span class="subdued">.addListener</span>(function(<span>object <span class="variable">details</span></span>)<span class="subdued"> {...}</span>);
+                </div>
+                <div class="description">
+              <p>
+                    当用来进行导航的新窗口或现有窗口中的新标签页创建时产生。
+                  </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
+                    <dl>
+                      <div>  <a name="property-onCreatedNavigationTarget-details"></a>  <dt>    <span class="variable">details</span>    <span class="property">      (                <span id="typeTemplate">object</span>      )    </span>  </dt>  <dd>    <dl>      <div>        <a name="property-details-sourceTabId"></a>        <dt>          <span class="variable">sourceTabId</span>          <span class="property">            (                            <span id="typeTemplate">integer</span>            )          </span>        </dt>        <dd>          触发这一导航的标签页标识符。        </dd>      </div>      <div>        <a name="property-details-sourceProcessId"></a>        <dt>          <span class="variable">sourceProcessId</span>          <span class="property">            (                            <span id="typeTemplate">integer</span>            )          </span>        </dt>        <dd>          渲染来源标签页的进程标识符。        </dd>      </div>      <div>        <a name="property-details-sourceFrameId"></a>        <dt>          <span class="variable">sourceFrameId</span>          <span class="property">            (                            <span id="typeTemplate">integer</span>            )          </span>        </dt>        <dd>          触发这一导航的框架标识符。0 表示主框架。        </dd>      </div>      <div>        <a name="property-details-url"></a>        <dt>          <span class="variable">url</span>          <span class="property">            (                            <span id="typeTemplate">string</span>            )          </span>        </dt>        <dd>          要在新窗口中打开的 URL。        </dd>      </div>      <div>        <a name="property-details-tabId"></a>        <dt>          <span class="variable">tabId</span>          <span class="property">            (                            <span id="typeTemplate">integer</span>            )          </span>        </dt>        <dd>          打开这一 URL 的标签页标识符。        </dd>      </div>      <div>        <a name="property-details-timeStamp"></a>        <dt>          <span class="variable">timeStamp</span>          <span class="property">            (                            <span id="typeTemplate">double</span>            )          </span>        </dt>        <dd>          浏览器将要创建新视图的时间，表示为自 1970 年 1 月 1 日午夜开始所经过的毫秒数。        </dd>      </div>    </dl>  </dd></div>
+                    </dl>
+                    <h4><!--@Filters-->过滤器</h4>
+                    <dl>
+                      <div>  <a name="property-onCreatedNavigationTarget-url"></a>  <dt>    <span class="variable">url</span>    <span class="property">      (                <span id="typeTemplate">array of <a href="events.html#type-UrlFilter">events.UrlFilter</a></span>      )    </span>  </dt>  <dd>    正在导航的 URL 所需满足的条件。对于该事件，UrlFilter 的 schemes 和 ports 字段将忽略。  </dd></div>
+                    </dl>
+                </div>
+              </div>
+              <div>
+                <h4 id="event-onReferenceFragmentUpdated">onReferenceFragmentUpdated</h4>
+                <div class="summary">
+                  <span class="subdued">chrome.webNavigation.</span>onReferenceFragmentUpdated<span class="subdued">.addListener</span>(function(<span>object <span class="variable">details</span></span>)<span class="subdued"> {...}</span>);
+                </div>
+                <div class="description">
+              <p>
+                    当框架的引用片段更新时产生，该框架以后所有的事件都会使用更新的 URL。
+                  </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
+                    <dl>
+                      <div>  <a name="property-onReferenceFragmentUpdated-details"></a>  <dt>    <span class="variable">details</span>    <span class="property">      (                <span id="typeTemplate">object</span>      )    </span>  </dt>  <dd>    <dl>      <div>        <a name="property-details-tabId"></a>        <dt>          <span class="variable">tabId</span>          <span class="property">            (                            <span id="typeTemplate">integer</span>            )          </span>        </dt>        <dd>          导航所在的标签页标识符。        </dd>      </div>      <div>        <a name="property-details-url"></a>        <dt>          <span class="variable">url</span>          <span class="property">            (                            <span id="typeTemplate">string</span>            )          </span>        </dt>      </div>      <div>        <a name="property-details-processId"></a>        <dt>          <span class="variable">processId</span>          <span class="property">            (                            <span id="typeTemplate">integer</span>            )          </span>        </dt>        <dd>          渲染当前标签页的进程标识符。        </dd>      </div>      <div>        <a name="property-details-frameId"></a>        <dt>          <span class="variable">frameId</span>          <span class="property">            (                            <span id="typeTemplate">integer</span>            )          </span>        </dt>        <dd>          0 表示导航发生在标签页内容窗口中，正数表示导航发生在子框架中。框架标识符在标签页中唯一。        </dd>      </div>      <div>        <a name="property-details-transitionType"></a>        <dt>          <span class="variable">transitionType</span>          <span class="property">            (                            <span id="typeTemplate">enumerated string ["link", "typed", "auto_bookmark", "auto_subframe", "manual_subframe", "generated", "start_page", "form_submit", "reload", "keyword", "keyword_generated"]</span>            )          </span>        </dt>        <dd>          导航发生的原因，这些过渡类型与<a href='history.html'>历史记录API</a>中所定义的相同。        </dd>      </div>      <div>        <a name="property-details-transitionQualifiers"></a>        <dt>          <span class="variable">transitionQualifiers</span>          <span class="property">            (                            <span id="typeTemplate">array of enumerated string ["client_redirect", "server_redirect", "forward_back", "from_address_bar"]</span>            )          </span>        </dt>        <dd>          过渡限定符列表。        </dd>      </div>      <div>        <a name="property-details-timeStamp"></a>        <dt>          <span class="variable">timeStamp</span>          <span class="property">            (                            <span id="typeTemplate">double</span>            )          </span>        </dt>        <dd>          导航提交的时间，表示为自 1970 年 1 月 1 日午夜开始所经过的毫秒数。        </dd>      </div>    </dl>  </dd></div>
+                    </dl>
+                    <h4><!--@Filters-->过滤器</h4>
+                    <dl>
+                      <div>  <a name="property-onReferenceFragmentUpdated-url"></a>  <dt>    <span class="variable">url</span>    <span class="property">      (                <span id="typeTemplate">array of <a href="events.html#type-UrlFilter">events.UrlFilter</a></span>      )    </span>  </dt>  <dd>    正在导航的 URL 所需满足的条件。对于该事件，UrlFilter 的 schemes 和 ports 字段将忽略。  </dd></div>
+                    </dl>
+                </div>
+              </div>
+              <div>
+                <h4 id="event-onTabReplaced">onTabReplaced</h4>
+                <div class="summary">
+                  <span class="subdued">chrome.webNavigation.</span>onTabReplaced<span class="subdued">.addListener</span>(function(<span>object <span class="variable">details</span></span>)<span class="subdued"> {...}</span>);
+                </div>
+                <div class="description">
+              <p>
+                    当标签页内容由另一个（通常时之前预呈现的）标签页替换时产生。
+                  </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
+                    <dl>
+                      <div>  <a name="property-onTabReplaced-details"></a>  <dt>    <span class="variable">details</span>    <span class="property">      (                <span id="typeTemplate">object</span>      )    </span>  </dt>  <dd>    <dl>      <div>        <a name="property-details-replacedTabId"></a>        <dt>          <span class="variable">replacedTabId</span>          <span class="property">            (                            <span id="typeTemplate">integer</span>            )          </span>        </dt>        <dd>          被替换的标签页标识符。        </dd>      </div>      <div>        <a name="property-details-tabId"></a>        <dt>          <span class="variable">tabId</span>          <span class="property">            (                            <span id="typeTemplate">integer</span>            )          </span>        </dt>        <dd>          替换旧标签页的标签页标识符。        </dd>      </div>      <div>        <a name="property-details-timeStamp"></a>        <dt>          <span class="variable">timeStamp</span>          <span class="property">            (                            <span id="typeTemplate">double</span>            )          </span>        </dt>        <dd>          替换发生的时间，表示为自 1970 年 1 月 1 日午夜开始所经过的毫秒数。        </dd>      </div>    </dl>  </dd></div>
+                    </dl>
+                </div>
+              </div>
+              <div>
+                <h4 id="event-onHistoryStateUpdated">onHistoryStateUpdated</h4>
+                <div class="summary">
+                  <span class="subdued">chrome.webNavigation.</span>onHistoryStateUpdated<span class="subdued">.addListener</span>(function(<span>object <span class="variable">details</span></span>)<span class="subdued"> {...}</span>);
+                </div>
+                <div class="description">
+              <p>
+                    当框架的历史记录更新为新的 URL 时产生，对应框架之后产生的所有事件都会使用已更新的 URL。
+                  </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
+                    <dl>
+                      <div>  <a name="property-onHistoryStateUpdated-details"></a>  <dt>    <span class="variable">details</span>    <span class="property">      (                <span id="typeTemplate">object</span>      )    </span>  </dt>  <dd>    <dl>      <div>        <a name="property-details-tabId"></a>        <dt>          <span class="variable">tabId</span>          <span class="property">            (                            <span id="typeTemplate">integer</span>            )          </span>        </dt>        <dd>          导航所在的标签页标识符。        </dd>      </div>      <div>        <a name="property-details-url"></a>        <dt>          <span class="variable">url</span>          <span class="property">            (                            <span id="typeTemplate">string</span>            )          </span>        </dt>      </div>      <div>        <a name="property-details-processId"></a>        <dt>          <span class="variable">processId</span>          <span class="property">            (                            <span id="typeTemplate">integer</span>            )          </span>        </dt>        <dd>          渲染当前标签页的进程标识符。        </dd>      </div>      <div>        <a name="property-details-frameId"></a>        <dt>          <span class="variable">frameId</span>          <span class="property">            (                            <span id="typeTemplate">integer</span>            )          </span>        </dt>        <dd>          0 表示导航发生在标签页内容窗口中，正数表示导航发生在子框架中。框架标识符在标签页中唯一。        </dd>      </div>      <div>        <a name="property-details-transitionType"></a>        <dt>          <span class="variable">transitionType</span>          <span class="property">            (                            <span id="typeTemplate">enumerated string ["link", "typed", "auto_bookmark", "auto_subframe", "manual_subframe", "generated", "start_page", "form_submit", "reload", "keyword", "keyword_generated"]</span>            )          </span>        </dt>        <dd>          导航发生的原因，这些过渡类型与<a href='history.html'>历史记录API</a>中所定义的相同。        </dd>      </div>      <div>        <a name="property-details-transitionQualifiers"></a>        <dt>          <span class="variable">transitionQualifiers</span>          <span class="property">            (                            <span id="typeTemplate">array of enumerated string ["client_redirect", "server_redirect", "forward_back", "from_address_bar"]</span>            )          </span>        </dt>        <dd>          过渡限定符列表。        </dd>      </div>      <div>        <a name="property-details-timeStamp"></a>        <dt>          <span class="variable">timeStamp</span>          <span class="property">            (                            <span id="typeTemplate">double</span>            )          </span>        </dt>        <dd>          导航提交的时间，表示为自 1970 年 1 月 1 日午夜开始所经过的毫秒数。        </dd>      </div>    </dl>  </dd></div>
+                    </dl>
+                    <h4><!--@Filters-->过滤器</h4>
+                    <dl>
+                      <div>  <a name="property-onHistoryStateUpdated-url"></a>  <dt>    <span class="variable">url</span>    <span class="property">      (                <span id="typeTemplate">array of <a href="events.html#type-UrlFilter">events.UrlFilter</a></span>      )    </span>  </dt>  <dd>    正在导航的 URL 所需满足的条件。对于该事件，UrlFilter 的 schemes 和 ports 字段将忽略。  </dd></div>
+                    </dl>
+                </div>
+              </div>
+        </div>
+          <h2 id="samples"><!--@Sample 扩展程序 that use chrome.webNavigation-->使用chrome.webNavigation的示例扩展程序</h2>
+            <li><strong><a href="samples.html#0837f59976e148ed9922266e1de6c29f">WebNavigation Tech Demo</a></strong>
+            &ndash; Demonstration of the WebNavigation extension API.
+        </li>
+            <li><strong><a href="samples.html#5139d19c542e2188a42418c27c9cdd5b">Google Mail Checker</a></strong>
+            &ndash; Displays the number of unread messages in your Google Mail inbox. You can also click the button to open your inbox.
+        </li>
+      </div>
+    </div>
+  </body>
+  <script>
+    window.bootstrap = {
+      api_names: [{"name":"alarms"},{"name":"bookmarks"},{"name":"browserAction"},{"name":"browsingData"},{"name":"commands"},{"name":"contentSettings"},{"name":"contextMenus"},{"name":"cookies"},{"name":"debugger"},{"name":"declarativeWebRequest"},{"name":"devtools.inspectedWindow"},{"name":"devtools.network"},{"name":"devtools.panels"},{"name":"downloads"},{"name":"events"},{"name":"extension"},{"name":"fileBrowserHandler"},{"name":"fontSettings"},{"name":"history"},{"name":"i18n"},{"name":"idle"},{"name":"input.ime"},{"name":"management"},{"name":"omnibox"},{"name":"pageAction"},{"name":"pageCapture"},{"name":"permissions"},{"name":"privacy"},{"name":"proxy"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"scriptBadge"},{"name":"sessionRestore"},{"name":"storage"},{"name":"tabCapture"},{"name":"tabs"},{"name":"topSites"},{"name":"tts"},{"name":"ttsEngine"},{"name":"types"},{"name":"webNavigation"},{"name":"webRequest"},{"name":"webstore"},{"last":true,"name":"windows"}].concat(
+          [{"name":"experimental.devtools.audits"},{"name":"experimental.devtools.console"},{"name":"experimental.discovery"},{"name":"experimental.history"},{"name":"experimental.identity"},{"name":"experimental.infobars"},{"name":"experimental.processes"},{"name":"experimental.record"},{"name":"experimental.speechInput"},{"name":"experimental.systemInfo.cpu"},{"last":true,"name":"experimental.systemInfo.storage"}]),
+      branchInfo: {"channels":[{"path":"stable","name":"Stable"},{"path":"dev","name":"Dev"},{"path":"beta","name":"Beta"},{"path":"trunk","name":"Trunk"}],"current":"stable","showWarning":false}
+    };
+  </script>
+  <div id="gc-footer">
+    <div class="text">
+      <p>
+        <!--@Except as otherwise <a href="http://code.google.com/policies.html#restrictions">noted</a>,
+        the content of this page is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons
+        Attribution 3.0 License</a>, and code samples are licensed under the
+        <a rel="license" href="http://code.google.com/google_bsd_license.html">BSD License</a>.-->
+        该页面翻译自
+        <a href="https://developer.chrome.com/extensions/">Google Chrome Extensions</a>
+        与
+        <a href="https://developer.chrome.com/apps/">Google Chrome Apps</a>。除非特别<a href="https://code.google.com/policies.html#restrictions">说明</a>，该页面的内容遵循
+        <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0
+        License</a>，代码示例遵循
+        <a rel="license" href="http://code.google.com/google_bsd_license.html">BSD License</a>。
+      </p>
+      <p>
+        <!--@©2012 Google-->
+      </p>
+      <script src="static/js/branch.js" type="text/javascript"></script>
+      <script src="static/js/sidebar.js" type="text/javascript"></script>
+      <script src="static/js/prettify.js" type="text/javascript"></script>
+      <script>
+        (function() {
+          // Auto syntax highlight all pre tags.
+          var preElements = document.getElementsByTagName('pre');
+          for (var i = 0; i < preElements.length; i++)
+            preElements[i].classList.add('prettyprint');
+          prettyPrint();
+        })();
+      </script>
+      <script src="https://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+      <script src="https://www.google-analytics.com/ga.js" type="text/javascript"></script>
+      <script type="text/javascript">
+        // chrome doc tracking
+        try {
+          var engdocs = _gat._getTracker("YT-10763712-2");
+          engdocs._trackPageview();
+        } catch(err) {}
+        // code.google.com site-wide tracking
+        try {
+          _uacct="UA-18071-1";
+          _uanchor=1;
+          _uff=0;
+          urchinTracker();
+        }
+        catch(e) {/* urchinTracker not available. */}
+      </script>
+      <script>
+        (function() {
+          var cx = '002967670403910741006:61_cvzfqtno';
+          var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+          gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+            '//www.google.com/cse/cse.js?cx=' + cx;
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+        })();
+      </script>
+  
+    </div>
+  </div>
+</html>
+
