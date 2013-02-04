@@ -1,0 +1,30 @@
+<div>
+  <h4 id="{{id}}">{{name}}</h4>
+  <div class="summary{{^returns}} lower{{/}}">
+    <span>{{?returns}}{{+partials.variable_type}} {{/}}{{?parent_name}}{{parent_name}}{{:}}<span class="subdued">chrome.{{api.name}}{{/}}.</span>{{name}}</span>({{#parameters}}{{+partials.parameter_item}}{{^last}}, {{/}}{{/}})
+  </div>
+  <div class="description">
+    {{?description}}
+    <p>
+      {{{description}}}
+    </p>
+    {{/description}}
+    {{?parameters}}
+    <h4><!--@Parameters-->参数</h4>
+    <dl>
+      {{#parameters}}
+        {{+partials.parameter_full}}
+      {{/parameters}}
+    </dl>
+    {{/parameters}}
+    {{?returns}}
+      <h4><!--@Returns-->返回值</h4>
+      <dl>
+        {{+partials.return_value}}
+      </dl>
+    {{/returns}}
+    {{?callback}}
+      {{+partials.callback}}
+    {{/callback}}
+  </div>
+</div>

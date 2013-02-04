@@ -1,0 +1,246 @@
+<p><!--@Use browser actions to put icons
+  in the main Google Chrome toolbar,
+  to the right of the address bar.
+  In addition to its <a href="#icon">icon</a>,
+  a browser action can also have
+  a <a href="#tooltip">tooltip</a>,
+  a <a href="#badge">badge</a>,
+  and a <a href="#popups">popup</a>.-->
+  使用浏览器按钮可以在 Google Chrome
+  浏览器主窗口中地址栏右侧的工具栏中添加图标。除了<a href="#icon"
+  >图标</a>，浏览器按钮还可以有<a href="#tooltip"
+  >工具提示</a>、<a href="#badge">徽章</a>和<a href="#popups">弹出菜单</a>。
+  </p>
+
+<p>
+<!--@In the following figure,
+the multicolored square
+to the right of the address bar
+is the icon for a browser action.
+A popup is below the icon.-->
+在下图中，地址栏右侧多种颜色的正方形是一个浏览器按钮的图标，图标下有一弹出菜单。
+</p>
+
+<img src="{{static}}/images/browser-action.png"
+  width="363" height="226" />
+
+<p>
+<!--@If you want to create an icon that isn't always visible,
+use a <a href="pageAction.html">page action</a>
+instead of a browser action.-->
+如果您想创建一个不是永远可见的图标，请使用<a href="pageAction.html"
+>页面按钮</a>，而不是浏览器按钮。
+</p>
+
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
+
+<p>
+<!--@Register your browser action in the
+<a href="manifest.html">extension manifest</a>
+like this:-->
+如下所示在<a href="manifest.html"
+>扩展程序的清单文件</a>中注册您的浏览器按钮：
+</p>
+
+<pre>{
+  "name": "我的扩展程序",
+  ...
+  <b>"browser_action": {
+    "default_icon": {                    <em>// 可选</em>
+      "19": "images/icon19.png",           <em>// 可选</em>
+      "38": "images/icon38.png"            <em>// 可选</em>
+    },
+    "default_title": "Google Mail",      <em>// 可选，在工具提示中显示</em>
+    "default_popup": "popup.html"        <em>// 可选</em>
+  }</b>,
+  ...
+}</pre>
+
+<p>
+<!--@If you only provide one of the 19px or 38px icon size, the extension system will
+scale the icon you provide to the pixel density of the user's display, which
+can lose detail or make it look fuzzy. The old syntax for registering the
+default icon is still supported:-->
+如果您只提供 19px 或 38px 图标大小中的一个，扩展程序系统将会缩放您提供的图标，以适应用户显示器的像素密度，这有可能会丢失细节或使它看上去很模糊。注册默认图标的旧语法仍然支持：
+</p>
+
+<pre>{
+  "name": "我的扩展程序",
+  ...
+  <b>"browser_action": {
+    ...
+    "default_icon": "images/icon19.png"  <em>// 可选</em>
+    <em>// 等价于 "default_icon": { "19": "images/icon19.png" }</em>
+  }</b>,
+  ...
+}</pre>
+
+<h2 id="ui"><!--@Parts of the UI-->用户界面的几部分</h2>
+
+<p>
+<!--@A browser action can have an <a href="#icon">icon</a>,
+a <a href="#tooltip">tooltip</a>,
+a <a href="#badge">badge</a>,
+and a <a href="#popups">popup</a>.-->
+浏览器按钮可以包含<a href="#icon">图标</a>、<a href="#tooltip"
+>工具提示</a>、<a href="#badge">徽章</a>和<a href="#popups">弹出菜单</a>。
+</p>
+
+<h3 id="icon"><!--@Icon-->图标</h3>
+
+<p><!--@Browser action icons can be up to 19 dips (device-independent pixels)
+  wide and high. Larger icons are resized to fit, but for best results,
+  use a 19-dip square icon.-->
+  浏览器按钮图标的宽度和高度最大可以为 19
+  dip（设备无关像素），更大的图标会被缩小。为了最佳结果，请使用 19 dip
+  大小的正方形图标。
+  </p>
+
+<p><!--@You can set the icon in two ways:
+  using a static image or using the
+  HTML5 <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html">canvas element</a>.
+  Using static images is easier for simple applications,
+  but you can create more dynamic UIs &mdash;
+  such as smooth animation &mdash;
+  using the canvas element.-->
+  您可以通过两种方式设置图标：使用静态图像或者使用 HTML5 <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html">canvas
+  元素</a>。对于简单的应用来说，使用静态图像更方便，但是您可以使用 canvas
+  元素创建动态的用户界面，例如平滑的动画。
+  </p>
+
+<p><!--@Static images can be in any format WebKit can display,
+  including BMP, GIF, ICO, JPEG, or PNG.-->
+  静态图像可以是 WebKit 能够显示的任何格式，包括 BMP、GIF、ICO、JPEG 或
+  PNG。
+  </p>
+
+<p><!--@To set the icon,
+  use the <b>default_icon</b> field of <b>browser_action</b>
+  in the <a href="#manifest">manifest</a>,
+  or call the $ref:browserAction.setIcon method.-->
+  要设置图标，请使用<a href="#manifest">清单文件</a>中
+  <b>browser_action</b> 部分的 <b>default_icon</b> 属性，或者调用
+  $ref:browserAction.setIcon 方法。
+  </p>
+
+<p><!--@To properly display icon when screen pixel density (ratio
+  <code>size_in_pixel / size_in_dip</code>) is different than 1,
+  the icon can be defined as set of images with different sizes.
+  The actual image to display will be selected from the set to
+  best fit the pixel size of 19 dip icon.
+  At the moment, the icon set can contain images with pixel sizes 19 and 38.-->
+  要在屏幕像素密度（比值 <code>size_in_pixel / size_in_dip</code>）不为 1
+  的时候正确显示图标，图标可以定义为一组不同大小的图片。实际显示的图片将从这一组图标中选取，以便最佳匹配
+  19 dip 图标的像素大小。目前一组图标可以包含像素大小为 19 和 38 的图片。
+  </p>
+
+<h3 id="tooltip"><!--@Tooltip-->工具提示</h3>
+
+<p>
+<!--@To set the tooltip,
+use the <b>default_title</b> field of <b>browser_action</b>
+in the <a href="#manifest">manifest</a>,
+or call the $ref:browserAction.setTitle method.
+You can specify locale-specific strings for the <b>default_title</b> field;
+see <a href="i18n.html">Internationalization</a> for details.-->
+要设置工具提示，使用<a href="#manifest">清单文件</a>中 <b>browser_action</b>
+部分的 <b>default_title</b> 属性，或者调用 $ref:browserAction.setTitle
+方法。对于 <b>default_title</b>
+属性，您可以指定区域相关的字符串，有关更多细节请参考<a href="i18n.html"
+>国际化支持</a>。
+</p>
+
+<h3 id="badge"><!--@Badge-->徽章</h3>
+
+<p><!--@Browser actions can optionally display a <em>badge</em> &mdash;
+  a bit of text that is layered over the icon.
+  Badges make it easy to update the browser action
+  to display a small amount of information
+  about the state of the extension.-->
+  浏览器按钮可以选择在图标上显示徽章，即一小段文字。徽章使得更新浏览器按钮更容易，来显示有关扩展程序状态的一点点信息。
+  </p>
+
+<p><!--@Because the badge has limited space,
+   it should have 4 characters or less.-->
+   因为徽章所拥有的空间有限，它不应超过四个字符。
+  </p>
+
+<p>
+<!--@Set the text and color of the badge using-->分别调用
+$ref:browserAction.setBadgeText <!--@and-->和
+$ref:browserAction.setBadgeBackgroundColor<!--@,
+respectively.-->
+设置徽章的内容和颜色。
+
+</p>
+
+
+<h3 id="popups"><!--@Popup-->弹出菜单</h3>
+
+<p><!--@If a browser action has a popup,
+  the popup appears when the user clicks the icon.
+  The popup can contain any HTML contents that you like,
+  and it's automatically sized to fit its contents.-->
+  如果浏览器按钮有弹出菜单，当用户单击图标时出现弹出菜单。弹出菜单可以包含任何您需要的 HTML 内容，并且自动调整大小以适应内容。
+  </p>
+
+<p>
+<!--@To add a popup to your browser action,
+create an HTML file with the popup's contents.
+Specify the HTML file in the <b>default_popup</b> field of <b>browser_action</b>
+in the <a href="#manifest">manifest</a>, or call the
+$ref:browserAction.setPopup method.-->
+  要向您的浏览器按钮添加弹出菜单，请创建一个 HTML
+  文件存放弹出菜单的内容，并在<a href="#manifest">清单文件</a>中
+  <b>browser_action</b> 部分的 <b>default_popup</b> 属性指定该 HTML
+  文件或者调用 $ref:browserAction.setPopup 方法。
+</p>
+
+<h2 id="tips"><!--@Tips-->提示</h2>
+
+<p><!--@For the best visual impact,
+  follow these guidelines:-->
+  为了达到最好的视觉效果，遵循下面的指导：
+  </p>
+
+<ul>
+  <li><!--@<b>Do</b> use browser actions for features
+    that make sense on most pages.-->
+    对于适用于大多数页面的功能<b>请使用</b>浏览器按钮。
+  <li><!--@<b>Don't</b> use browser actions for features
+    that make sense for only a few pages.
+    Use <a href="pageAction.html">page actions</a> instead.-->
+    对于仅适用于少数页面的内容<b>请不要</b>使用浏览器按钮，而应该使用<a href="pageAction.html">页面按钮</a>。
+  <li><!--@<b>Do</b> use big, colorful icons that make the most of
+    the 19x19-pixel space.
+    Browser action icons should seem a little bigger
+    and heavier than page action icons.-->
+    <b>请使用</b>较大的、颜色丰富的图标，充分利用 19×19 像素的空间。浏览器按钮的图标应该看上去比页面按钮的图标更大一些、更明显一些。
+  <li><!--@<b>Don't</b> attempt to mimic
+    Google Chrome's monochrome "wrench" icon.
+    That doesn't work well with themes, and anyway,
+    extensions should stand out a little.-->
+    <b>请不要</b>试着模仿 Google Chrome 浏览器的单色 Chrome
+    菜单图标。这样与主题背景不协调，并且无论如何，扩展程序应该更加突出一点。
+  <li><!--@<b>Do</b> use alpha transparency
+    to add soft edges to your icon.
+    Because many people use themes,
+    your icon should look nice
+    on a variety of background colors.-->
+    <b>请使用</b> Alpha 透明，使您的图标边框更加平滑。因为很多人使用主题背景，您的图标应该在各种背景颜色下看着舒服。
+  <li><!--@<b>Don't</b> constantly animate your icon.
+    That's just annoying.-->
+    <b>请不要</b>一直使用动画图标，那样只会显得很烦人。
+</ul>
+
+<h2 id="examples"> <!--@Examples-->例子 </h2>
+
+<p>
+<!--@You can find simple examples of using browser actions in the-->
+您可以在
+<a href="http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/api/browserAction/">examples/api/browserAction</a>
+<!--@directory.
+For other examples and for help in viewing the source code, see
+<a href="samples.html">Samples</a>.-->
+目录中找到使用浏览器按钮的简单例子。有关其它示例和查看源代码的帮助，请参见<a href="samples.html">示例</a>。
+</p>

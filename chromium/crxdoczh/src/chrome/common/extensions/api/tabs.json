@@ -1,0 +1,1043 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+[
+  {
+    "namespace": "tabs",
+    "dependencies": [ "extension", "windows" ],
+    "types": [
+      {
+        "id": "Tab",
+        "type": "object",
+        "properties": {
+//@          "id": {"type": "integer", "minimum": 0, "description": "The ID of the tab. Tab IDs are unique within a browser session."},
+          "id": {"type": "integer", "minimum": 0, "description": "标签页的标识符。标签页的标识符在浏览器会话中唯一。"},
+//@          "index": {"type": "integer", "minimum": 0, "description": "The zero-based index of the tab within its window."},
+          "index": {"type": "integer", "minimum": 0, "description": "标签页在所在窗口中的索引，从 0 开始。"},
+//@          "windowId": {"type": "integer", "minimum": 0, "description": "The ID of the window the tab is contained within."},
+          "windowId": {"type": "integer", "minimum": 0, "description": "标签页所在窗口的标识符。"},
+//@          "openerTabId": {"type": "integer", "minimum": 0, "optional": true, "description": "The ID of the tab that opened this tab, if any. This will only be present if the opener tab still exists."},
+          "openerTabId": {"type": "integer", "minimum": 0, "optional": true, "description": "打开这一标签页的标签页标识符（如果存在的话），只有该标签页仍然存在时才会有这一属性。"},
+//@          "selected": {"type": "boolean", "description": "Whether the tab is selected.", "nodoc": true},
+          "selected": {"type": "boolean", "description": "标签页是否选中。", "nodoc": true},
+//@          "highlighted": {"type": "boolean", "description": "Whether the tab is highlighted."},
+          "highlighted": {"type": "boolean", "description": "标签页是否高亮突出。"},
+//@          "active": {"type": "boolean", "description": "Whether the tab is active in its window."},
+          "active": {"type": "boolean", "description": "标签页是否是窗口中的活动标签页。"},
+//@          "pinned": {"type": "boolean", "description": "Whether the tab is pinned."},
+          "pinned": {"type": "boolean", "description": "标签页是否固定。"},
+//@          "url": {"type": "string", "optional": true, "description": "The URL the tab is displaying. This will only be present if the extension has the 'tabs' or 'webNavigation' permission."},
+          "url": {"type": "string", "optional": true, "description": "标签页中显示的 URL，只有当扩展程序拥有 \"tabs\" 或 \"webNavigation\" 权限时才会存在。"},
+//@          "title": {"type": "string", "optional": true, "optional": true, "description": "The title of the tab. This will only be present if the extension has the 'tabs' or 'webNavigation' permission. It may also be an empty string if the tab is loading."},
+          "title": {"type": "string", "optional": true, "optional": true, "description": "标签页的标题，只有当扩展程序拥有 \"tabs\" 或 \"webNavigation\" 权限时才会存在，如果标签页正在载入它也可能是空字符串。"},
+//@          "favIconUrl": {"type": "string", "optional": true, "optional": true, "description": "The URL of the tab's favicon. This will only be present if the extension has the 'tabs' or 'webNavigation' permission. It may also be an empty string if the tab is loading."},
+          "favIconUrl": {"type": "string", "optional": true, "optional": true, "description": "标签页的收藏夹图标URL，只有当扩展程序拥有 \"tabs\" 或 \"webNavigation\" 权限时才会存在，如果标签页正在载入它也可能是空字符串。"},
+//@          "status": {"type": "string", "optional": true, "description": "Either <em>loading</em> or <em>complete</em>."},
+          "status": {"type": "string", "optional": true, "description": "<em>\"loading\"</em>（正在载入）或 <var>\"complete\"</var>（完成）。"},
+//@          "incognito": {"type": "boolean", "description": "Whether the tab is in an incognito window."}
+          "incognito": {"type": "boolean", "description": "标签页是否在隐身窗口中。"}
+        }
+      },
+      {
+        "id": "InjectDetails",
+        "type": "object",
+//@        "description": "Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.",
+        "description": "要插入的脚本或 CSS 的详情。必须设置 code 和 file 属性中的某一个，而且不能同时设置。",
+        "properties": {
+//@          "code": {"type": "string", "optional": true, "description": "JavaScript or CSS code to inject."},
+          "code": {"type": "string", "optional": true, "description": "要插入的 JavaScript 或 CSS 代码。"},
+//@          "file": {"type": "string", "optional": true, "description": "JavaScript or CSS file to inject."},
+          "file": {"type": "string", "optional": true, "description": "要插入的 JavaScript 或 CSS 文件。"},
+//@          "allFrames": {"type": "boolean", "optional": true, "description": "If allFrames is <code>true</code>, implies that the JavaScript or CSS should be injected into all frames of current page. By default, it's <code>false</code> and will only be injected into the top frame."},
+          "allFrames": {"type": "boolean", "optional": true, "description": "如果 allFrames 为 <code>true</code>，则意味着当前页面中的所有框架都要插入 JavaScript 或 CSS。默认情况下为 <code>false</code>，只在顶层主框架中插入。"},
+          "runAt": {
+            "type": "string",
+            "optional": true,
+            "enum": ["document_start", "document_end", "document_idle"],
+//@            "description": "The soonest that the JavaScript or CSS will be injected into the tab. Defaults to \"document_idle\"."
+            "description": "JavaScript 或 CSS 插入标签页的最早时间，默认为 \"document_idle\"。"
+          }
+        }
+      }
+    ],
+    "functions": [
+      {
+        "name": "get",
+        "type": "function",
+//@        "description": "Retrieves details about the specified tab.",
+        "description": "获得指定标签页的有关详情。",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "tabId",
+            "minimum": 0
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "parameters": [
+              {"name": "tab", "$ref": "Tab"}
+            ]
+          }
+        ]
+      },
+      {
+        "name": "getCurrent",
+        "type": "function",
+//@        "description": "Gets the tab that this script call is being made from. May be undefined if called from a non-tab context (for example: a background page or popup view).",
+        "description": "获得当前调用脚本所在的标签页，如果在非标签页环境下调用则可能返回 undefined（例如，后台页面或弹出视图）。",
+        "parameters": [
+          {
+            "type": "function",
+            "name": "callback",
+            "parameters": [
+              {
+                "name": "tab",
+                "$ref": "Tab",
+                "optional": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "connect",
+        "nocompile": true,
+        "type": "function",
+//@        "description": "Connects to the content script(s) in the specified tab. The $ref:runtime.onConnect event is fired in each content script running in the specified tab for the current extension. For more details, see <a href='content_scripts.html#messaging'>Content Script Messaging</a>.",
+        "description": "连接到指定标签页中的内容脚本，这样当前扩展程序在指定标签页中运行的每一个内容脚本都会产生 $ref:runtime.onConnect 事件。有关更多详情，请参见<a href='content_scripts.html#messaging'>内容脚本的消息传递</a>。",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "tabId",
+            "minimum": 0
+          },
+          {
+            "type": "object",
+            "name": "connectInfo",
+            "properties": {
+//@              "name": { "type": "string", "optional": true, "description": "Will be passed into onConnect for content scripts that are listening for the connection event." }
+              "name": { "type": "string", "optional": true, "description": "将传递给 onConnect 事件，用于监听连接事件的内容脚本。" }
+            },
+            "optional": true
+          }
+        ],
+        "returns": {
+          "$ref": "runtime.Port",
+//@          "description": "A port that can be used to communicate with the content scripts running in the specified tab. The port's $ref:runtime.Port event is fired if the tab closes or does not exist. "
+          "description": "用来与指定标签页中正在运行的内容脚本通信的端口，如果标签页关闭或者不存在则会引发该端口的 $ref:runtime.Port.onDisconnect 事件。"
+        }
+      },
+      {
+        "name": "sendRequest",
+        "nodoc": true,
+        "nocompile": true,
+        "type": "function",
+//@        "description": "Deprecated: Please use sendMessage.",
+        "description": "已弃用。请使用 sendMessage。",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "tabId",
+            "minimum": 0
+          },
+          {
+            "type": "any",
+            "name": "request"
+          },
+          {
+            "type": "function",
+            "name": "responseCallback",
+            "optional": true,
+            "parameters": [
+              {
+                "name": "response",
+                "type": "any",
+                "description": "The JSON response object sent by the handler of the request. If an error occurs while connecting to the specified tab, the callback will be called with no arguments and $ref:runtime.lastError will be set to the error message."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "sendMessage",
+        "nocompile": true,
+        "type": "function",
+//@        "description": "Sends a single message to the content script(s) in the specified tab, with an optional callback to run when a response is sent back.  The $ref:runtime.onMessage event is fired in each content script running in the specified tab for the current extension.",
+        "description": "向指定标签页中的内容脚本发送一个消息，当发回响应时执行一个可选的回调函数。当前扩展程序在指定标签页中的每一个内容脚本都会收到 $ref:runtime.onMessage 事件。",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "tabId",
+            "minimum": 0
+          },
+          {
+            "type": "any",
+            "name": "message"
+          },
+          {
+            "type": "function",
+            "name": "responseCallback",
+            "optional": true,
+            "parameters": [
+              {
+                "name": "response",
+                "type": "any",
+//@                "description": "The JSON response object sent by the handler of the message. If an error occurs while connecting to the specified tab, the callback will be called with no arguments and $ref:runtime.lastError will be set to the error message."
+                "description": "请求处理程序发出的 JSON 响应对象。如果连接到指定标签页的过程中发生错误，将不传递参数调用回调函数，并将 $ref:runtime.lastError 设置为错误消息。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "getSelected",
+        "nodoc": true,
+        "type": "function",
+        "description": "Deprecated. Please use query({'active': true}). Gets the tab that is selected in the specified window.",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "windowId",
+            "minimum": -2,
+            "optional": true,
+            "description": "Defaults to the <a href='windows.html#current-window'>current window</a>."
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "parameters": [
+              {"name": "tab", "$ref": "Tab"}
+            ]
+          }
+        ]
+      },
+      {
+        "name": "getAllInWindow",
+        "type": "function",
+        "nodoc": true,
+        "description": "Deprecated. Please use query({'windowId': windowId}). Gets details about all tabs in the specified window.",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "windowId",
+            "minimum": -2,
+            "optional": true,
+            "description": "Defaults to the <a href='windows.html#current-window'>current window</a>."
+            },
+          {
+            "type": "function",
+            "name": "callback",
+            "parameters": [
+              {"name": "tabs", "type": "array", "items": { "$ref": "Tab" } }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "create",
+        "type": "function",
+//@        "description": "Creates a new tab. Note: This function can be used without requesting the 'tabs' permission in the manifest.",
+        "description": "创建一个新标签页。注意：即使没有在清单文件中请求 \"tabs\" 权限，也可以使用该函数。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "createProperties",
+            "properties": {
+              "windowId": {
+                "type": "integer",
+                "minimum": -2,
+                "optional": true,
+//@                "description": "The window to create the new tab in. Defaults to the <a href='windows.html#current-window'>current window</a>."
+                "description": "创建新标签页的窗口，默认为<a href='windows.html#current-window'>当前窗口</a>。"
+              },
+              "index": {
+                "type": "integer",
+                "minimum": 0,
+                "optional": true,
+//@                "description": "The position the tab should take in the window. The provided value will be clamped to between zero and the number of tabs in the window."
+                "description": "标签页在窗口中的位置，提供的值如果超过0与窗口中标签页数目之间的范围，将会自动限定在这一范围。"
+              },
+              "url": {
+                "type": "string",
+                "optional": true,
+//@                "description": "The URL to navigate the tab to initially. Fully-qualified URLs must include a scheme (i.e. 'http://www.google.com', not 'www.google.com'). Relative URLs will be relative to the current page within the extension. Defaults to the New Tab Page."
+                "description": "标签页中一开始打开的 URL。完整的 URL 必须包括协议（即 \"http://www.google.com\"，而不能是 \"www.google.com\"），相对 URL 相对于扩展程序中的当前页面。默认为新标签页面。"
+              },
+              "active": {
+                "type": "boolean",
+                "optional": true,
+//@                "description": "Whether the tab should become the active tab in the window. Defaults to <var>true</var>"
+                "description": "标签页是否应该成为窗口中的活动标签页，默认为 <var>true</var>。"
+              },
+              "selected": {
+                "nodoc": true,
+                "type": "boolean",
+                "optional": true,
+                "description": "Whether the tab should become the selected tab in the window. Defaults to <var>true</var>"
+              },
+              "pinned": {
+                "type": "boolean",
+                "optional": true,
+//@                "description": "Whether the tab should be pinned. Defaults to <var>false</var>"
+                "description": "标签页是否应该固定，默认为 <var>false</var>。"
+              },
+              "openerTabId": {
+                "type": "integer",
+                "minimum": 0,
+                "optional": true,
+//@                "description": "The ID of the tab that opened this tab. If specified, the opener tab must be in the same window as the newly created tab."
+                "description": "打开这一标签页的标签页标识符。如果指定的话，该标签页必须与新创建的标签页在同一个窗口中。"
+              }
+            }
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "optional": true,
+            "parameters": [
+              {
+                "name": "tab",
+                "$ref": "Tab",
+//@                "description": "Details about the created tab. Will contain the ID of the new tab."
+                "description": "有关新创建标签页的详情，会包含新标签页的标识符。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "duplicate",
+        "type": "function",
+//@        "description": "Duplicates a tab. Note: This function can be used without requesting the 'tabs' permission in the manifest.",
+        "description": "复制标签页。注意：即使没有在清单文件中请求 \"tabs\" 权限，也可以使用该函数。",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "tabId",
+            "minimum": 0,
+//@            "description": "The ID of the tab which is to be duplicated."
+            "description": "要复制的标签页的标识符。"
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "optional": true,
+            "parameters": [
+              {
+                "name": "tab",
+                "optional": true,
+//@                "description": "Details about the duplicated tab. The Tab object doesn't contain url, title and faviconUrl if the 'tabs' permission has not been requested.",
+                "description": "有关已复制标签页的详情，如果没有请求 \"tabs\" 权限的话该 Tab 对象不会包含 url、title 和 favIconUrl。",
+                "$ref": "Tab"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "query",
+        "type": "function",
+//@        "description": "Gets all tabs that have the specified properties, or all tabs if no properties are specified.",
+        "description": "获取具有指定属性的所有标签页，如果没有指定任何属性的话则获取所有标签页。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "queryInfo",
+            "properties": {
+              "active": {
+                "type": "boolean",
+                "optional": true,
+//@                "description": "Whether the tabs are active in their windows."
+                "description": "标签页在窗口中是否为活动标签页。"
+              },
+              "pinned": {
+                "type": "boolean",
+                "optional": true,
+//@                "description": "Whether the tabs are pinned."
+                "description": "标签页是否固定。"
+              },
+              "highlighted": {
+                "type": "boolean",
+                "optional": true,
+//@                "description": "Whether the tabs are highlighted."
+                "description": "标签页是否高亮突出。"
+              },
+              "currentWindow": {
+                "type": "boolean",
+                "optional": true,
+//@                "description": "Whether the tabs are in the <a href='windows.html#current-window'>current window</a>."
+                "description": "标签页是否在<a href='windows.html#current-window'>当前窗口</a>中。"
+              },
+              "lastFocusedWindow": {
+                "type": "boolean",
+                "optional": true,
+//@                "description": "Whether the tabs are in the last focused window."
+                "description": "标签页是否在前一个具有焦点的窗口中。"
+              },
+              "status": {
+                "type": "string",
+                "optional": true,
+                "enum": ["loading", "complete"],
+//@                "description": "Whether the tabs have completed loading."
+                "description": "标签页是否已经完成载入。"
+              },
+              "title": {
+                "type": "string",
+                "optional": true,
+//@                "description": "Match page titles against a pattern."
+                "description": "匹配页面标题的表达式。"
+              },
+              "url": {
+                "type": "string",
+                "optional": true,
+//@                "description": "Match tabs against a URL pattern."
+                "description": "匹配标签页URL的表达式。"
+              },
+              "windowId": {
+                "type": "integer",
+                "optional": true,
+                "minimum": -2,
+//@                "description": "The ID of the parent window, or $ref:windows.WINDOW_ID_CURRENT for the <a href='windows.html#current-window'>current window</a>."
+                "description": "父窗口标识符，或者为 $ref:windows.WINDOW_ID_CURRENT，表示<a href='windows.html#current-window'>当前窗口</a>。"
+              },
+              "windowType": {
+                "type": "string",
+                "optional": true,
+                "enum": ["normal", "popup", "panel", "app"],
+//@                "description": "The type of window the tabs are in."
+                "description": "标签页所在窗口的类型。"
+              },
+              "index": {
+                "type": "integer",
+                "optional": true,
+                "minimum": 0,
+//@                "description": "The position of the tabs within their windows."
+                "description": "标签页在窗口中的位置。"
+              }
+            }
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "parameters": [
+              {
+                "name": "result",
+                "type": "array",
+                "items": {
+                  "$ref": "Tab"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "highlight",
+        "type": "function",
+//@        "description": "Highlights the given tabs.",
+        "description": "高亮突出指定标签页。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "highlightInfo",
+            "properties": {
+               "windowId": {
+                 "type": "integer",
+                 "optional": true,
+//@                 "description": "The window that contains the tabs.",
+                 "description": "包含标签页的窗口。",
+                 "minimum": -2
+               },
+               "tabs": {
+//@                 "description": "One or more tab indices to highlight.",
+                 "description": "要高亮突出的一个或多个标签页的索引。",
+                 "choices": [
+                   {"type": "array", "items": {"type": "integer", "minimum": 0}},
+                   {"type": "integer"}
+                 ]
+               }
+             }
+           },
+           {
+             "type": "function",
+             "name": "callback",
+             "parameters": [
+               {
+                 "name": "window",
+                 "$ref": "windows.Window",
+//@                 "description": "Contains details about the window whose tabs were highlighted."
+                 "description": "包含高亮突出的标签页所在窗口的详情。"
+               }
+             ]
+           }
+        ]
+      },
+      {
+        "name": "update",
+        "type": "function",
+//@        "description": "Modifies the properties of a tab. Properties that are not specified in <var>updateProperties</var> are not modified. Note: This function can be used without requesting the 'tabs' permission in the manifest.",
+        "description": "修改标签页属性，<var>updateProperties</var> 中未指定的属性保持不变。注意：调用该函数不需要在清单文件中请求 \"tabs\" 权限。",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "tabId",
+            "minimum": 0,
+            "optional": true,
+//@            "description": "Defaults to the selected tab of the <a href='windows.html#current-window'>current window</a>."
+            "description": "默认为<a href='windows.html#current-window'>当前窗口</a>的选定标签页。"
+          },
+          {
+            "type": "object",
+            "name": "updateProperties",
+            "properties": {
+              "url": {
+                "type": "string",
+                "optional": true,
+//@                "description": "A URL to navigate the tab to."
+                "description": "标签页打开的 URL。"
+              },
+              "active": {
+                "type": "boolean",
+                "optional": true,
+//@                "description": "Whether the tab should be active."
+                "description": "标签页是否为活动标签页。"
+              },
+              "highlighted": {
+                "type": "boolean",
+                "optional": true,
+//@                "description": "Adds or removes the tab from the current selection."
+                "description": "从当前选定项目中添加或删除标签页。"
+              },
+              "selected": {
+                "nodoc": true,
+                "type": "boolean",
+                "optional": true,
+                "description": "Whether the tab should be selected."
+              },
+              "pinned": {
+                "type": "boolean",
+                "optional": true,
+//@                "description": "Whether the tab should be pinned."
+                "description": "标签页是否固定。"
+              },
+              "openerTabId": {
+                "type": "integer",
+                "minimum": 0,
+                "optional": true,
+//@                "description": "The ID of the tab that opened this tab. If specified, the opener tab must be in the same window as this tab."
+                "description": "打开这一标签页的标签页标识符。如果指定的话，该标签页必须与新创建的标签页在同一个窗口中。"
+              }
+            }
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "optional": true,
+            "parameters": [
+              {
+                "name": "tab",
+                "$ref": "Tab",
+                "optional": true,
+//@                "description": "Details about the updated tab, or <code>null</code> if the 'tabs' permission has not been requested."
+                "description": "有关更新后的标签页详情，如果没有请求 \"tabs\" 权限的话则为 <code>null</code>。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "move",
+        "type": "function",
+//@        "description": "Moves one or more tabs to a new position within its window, or to a new window. Note that tabs can only be moved to and from normal (window.type === \"normal\") windows.",
+        "description": "将一个或多个标签页移动至所在窗口中的新位置，或者移动到新窗口中。注意，标签页只能在普通窗口（window.type === \"normal\"）间移动。",
+        "parameters": [
+          {
+            "name": "tabIds",
+//@            "description": "The tab or list of tabs to move.",
+            "description": "要移动的标签页或标签页列表。",
+            "choices": [
+              {"type": "integer", "minimum": 0},
+              {"type": "array", "items": {"type": "integer", "minimum": 0}}
+            ]
+          },
+          {
+            "type": "object",
+            "name": "moveProperties",
+            "properties": {
+              "windowId": {
+                "type": "integer",
+                "minimum": -2,
+                "optional": true,
+//@                "description": "Defaults to the window the tab is currently in."
+                "description": "默认为该标签页所在窗口。"
+              },
+              "index": {
+                "type": "integer",
+                "minimum": -1,
+//@                "description": "The position to move the window to. -1 will place the tab at the end of the window."
+                "description": "标签页在窗口中的新位置，传递 -1 将会把标签页排在窗口的最后。"
+              }
+            }
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "optional": true,
+            "parameters": [
+              {
+                "name": "tabs",
+//@                "description": "Details about the moved tabs.",
+                "description": "有关移动后标签页的详情。",
+                "choices": [
+                  {"$ref": "Tab"},
+                  {"type": "array", "items": {"$ref": "Tab"}}
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "reload",
+        "type": "function",
+//@        "description": "Reload a tab.",
+        "description": "重新载入标签页。",
+        "parameters": [
+//@          {"type": "integer", "name": "tabId", "optional": true, "description": "The ID of the tab to reload; defaults to the selected tab of the current window."},
+          {"type": "integer", "name": "tabId", "optional": true, "description": "要重新载入的标签页标识符，默认为当前窗口的选定标签页。"},
+          {
+            "type": "object",
+            "name": "reloadProperties",
+            "optional": true,
+            "properties": {
+              "bypassCache": {
+                "type": "boolean",
+                "optional": true,
+//@                "description": "Whether using any local cache. Default is false."
+                "description": "是否使用本地缓存，默认为 false。"
+              }
+            }
+          },
+          {"type": "function", "name": "callback", "optional": true, "parameters": []}
+        ]
+      },
+      {
+        "name": "remove",
+        "type": "function",
+//@        "description": "Closes one or more tabs. Note: This function can be used without requesting the 'tabs' permission in the manifest.",
+        "description": "关闭一个或多个标签页。注意：调用这一函数不需要在清单文件中声明 \"tabs\" 权限。",
+        "parameters": [
+          {
+            "name": "tabIds",
+//@            "description": "The tab or list of tabs to close.",
+            "description": "要关闭的标签页或标签页列表。",
+            "choices": [
+              {"type": "integer", "minimum": 0},
+              {"type": "array", "items": {"type": "integer", "minimum": 0}}
+            ]
+          },
+          {"type": "function", "name": "callback", "optional": true, "parameters": []}
+        ]
+      },
+      {
+        "name": "detectLanguage",
+        "type": "function",
+//@        "description": "Detects the primary language of the content in a tab.",
+        "description": "检测某个标签页中内容的主要语言。",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "tabId",
+            "minimum": 0,
+            "optional": true,
+//@            "description": "Defaults to the active tab of the <a href='windows.html#current-window'>current window</a>."
+            "description": "默认为<a href='windows.html#current-window'>当前窗口</a>的活动标签页。"
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "parameters": [
+              {
+                "type": "string",
+                "name": "language",
+//@                "description": "An ISO language code such as <code>en</code> or <code>fr</code>. For a complete list of languages supported by this method, see <a href='http://src.chromium.org/viewvc/chrome/trunk/src/third_party/cld/languages/internal/languages.cc'>kLanguageInfoTable</a>. The 2nd to 4th columns will be checked and the first non-NULL value will be returned except for Simplified Chinese for which zh-CN will be returned. For an unknown language, <code>und</code> will be returned."
+                "description": "ISO 语言代码，例如 <code>en</code> 或 <code>fr</code>。有关该方法支持的所有语言的完整列表，请参见 <a href='http://src.chromium.org/viewvc/chrome/trunk/src/third_party/cld/languages/internal/languages.cc'>kLanguageInfoTable</a>，将检查第二列到第四列并返回第一个非 NULL 值（除了简体中文返回 zh-CN），未知语言将返回 <code>und</code>。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "captureVisibleTab",
+        "type": "function",
+//@        "description": "Captures the visible area of the currently active tab in the specified window. You must have <a href='manifest.html#permissions'>host permission</a> for the URL displayed by the tab.",
+        "description": "捕捉指定窗口中当前活动标签页的可见区域，您必须拥有标签页中打开的 URL 的<a href='manifest.html#permissions'>主机权限</a>。",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "windowId",
+            "minimum": -2,
+            "optional": true,
+//@            "description": "The target window. Defaults to the <a href='windows.html#current-window'>current window</a>."
+            "description": "目标窗口，默认为<a href='windows.html#current-window'>当前窗口</a>。"
+          },
+          {
+            "type": "object",
+            "name": "options",
+            "optional": true,
+//@            "description": "Set parameters of image capture, such as the format of the resulting image.",
+            "description": "设置图像捕捉的参数，例如所得图像的格式。",
+            "properties": {
+              "format": {
+                "type": "string",
+                "optional": true,
+                "enum": ["jpeg", "png"],
+//@                "description": "The format of the resulting image.  Default is jpeg."
+                "description": "所得图像的格式，默认为 jpeg。"
+              },
+              "quality": {
+                "type": "integer",
+                "optional": true,
+                "minimum": 0,
+                "maximum": 100,
+//@                "description": "When format is 'jpeg', controls the quality of the resulting image.  This value is ignored for PNG images.  As quality is decreased, the resulting image will have more visual artifacts, and the number of bytes needed to store it will decrease."
+                "description": "当格式为 \"jpeg\" 时，控制所得图像的质量。使用 PNG 图像时忽略该参数。随着质量下降，所得图像会更加粗糙，用于储存图像所需的字节数也会下降。"
+              }
+            }
+          },
+          {
+            "type": "function", "name": "callback", "parameters": [
+//@              {"type": "string", "name": "dataUrl", "description": "A data URL which encodes an image of the visible area of the captured tab. May be assigned to the 'src' property of an HTML Image element for display."}
+              {"type": "string", "name": "dataUrl", "description": "包含捕捉到的标签页可视区域图像的数据URL，可以将一个 HTML 图像元素的 “src” 属性设为该参数的值来显示图像。"}
+            ]
+          }
+        ]
+      },
+      {
+        "name": "executeScript",
+        "type": "function",
+//@        "description": "Injects JavaScript code into a page. For details, see the <a href='content_scripts.html#pi'>programmatic injection</a> section of the content scripts doc.",
+        "description": "在页面中插入 JavaScript 代码。有关更多详情，请参节内容脚本文档中<a href='content_scripts.html#pi'>以编程方式插入</a>部分。",
+        "parameters": [
+//@          {"type": "integer", "name": "tabId", "optional": true, "description": "The ID of the tab in which to run the script; defaults to the active tab of the current window."},
+          {"type": "integer", "name": "tabId", "optional": true, "description": "运行脚本的标签页标识符，默认为当前窗口的活动标签页。"},
+          {
+            "$ref": "tabs.InjectDetails",
+            "name": "details",
+//@            "description": "Details of the script to run."
+            "description": "需要运行的脚本详情。"
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "optional": true,
+//@            "description": "Called after all the JavaScript has been executed.",
+            "description": "在所有 JavaScript 代码执行完后调用。",
+            "parameters": [
+              {
+                "name": "result",
+                "optional": true,
+                "type": "array",
+                "items": {"type": "any", "minimum": 0},
+//@                "description": "The result of the script in every injected frame."
+                "description": "在插入的每一个框架中脚本的执行结果。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "insertCSS",
+        "type": "function",
+//@        "description": "Injects CSS into a page. For details, see the <a href='content_scripts.html#pi'>programmatic injection</a> section of the content scripts doc.",
+        "description": "向一个页面中插入CSS。有关更多详情，请参节内容脚本文档中<a href='content_scripts.html#pi'>以编程方式插入</a>部分。",
+        "parameters": [
+//@          {"type": "integer", "name": "tabId", "optional": true, "description": "The ID of the tab in which to insert the CSS; defaults to the active tab of the current window."},
+          {"type": "integer", "name": "tabId", "optional": true, "description": "要插入CSS的标签页标识符，默认为当前窗口的活动标签页。"},
+          {
+            "$ref": "tabs.InjectDetails",
+            "name": "details",
+//@            "description": "Details of the CSS text to insert."
+            "description": "要插入的CSS文本详情。"
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "optional": true,
+//@            "description": "Called when all the CSS has been inserted.",
+            "description": "当所有CSS都已经被插入后调用。",
+            "parameters": []
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "onCreated",
+        "type": "function",
+//@        "description": "Fired when a tab is created. Note that the tab's URL may not be set at the time this event fired, but you can listen to onUpdated events to be notified when a URL is set.",
+        "description": "当标签页创建时产生。注意，当该事件发生时标签页的 URL 可能还没有设置，但是您可以处理 onUpdated 事件，在设置 URL 时收到通知。",
+        "parameters": [
+          {
+            "$ref": "Tab",
+            "name": "tab",
+//@            "description": "Details of the tab that was created."
+            "description": "有关已创建标签页的详情。"
+          }
+        ]
+      },
+      {
+        "name": "onUpdated",
+        "type": "function",
+//@        "description": "Fired when a tab is updated.",
+        "description": "当标签页更新时产生。",
+        "parameters": [
+          {"type": "integer", "name": "tabId", "minimum": 0},
+          {
+            "type": "object",
+            "name": "changeInfo",
+//@            "description": "Lists the changes to the state of the tab that was updated.",
+            "description": "列出更新的标签页改变的状态。",
+            "properties": {
+              "status": {
+                "type": "string",
+                "optional": true,
+//@                "description": "The status of the tab. Can be either <em>loading</em> or <em>complete</em>."
+                "description": "标签页的状态，可以为 <em>loading</em>（正在载入）或 <em>complete</em>（完成）。"
+              },
+              "url": {
+                "type": "string",
+                "optional": true,
+//@                "description": "The tab's URL if it has changed."
+                "description": "标签页的 URL（如果已更改的话）。"
+              },
+              "pinned": {
+                "type": "boolean",
+                "optional": true,
+//@                "description": "The tab's new pinned state."
+                "description": "标签页新的固定状态。"
+              }
+            }
+          },
+          {
+            "$ref": "Tab",
+            "name": "tab",
+//@            "description": "Gives the state of the tab that was updated."
+            "description": "给出更新后的标签页状态。"
+          }
+        ]
+      },
+      {
+        "name": "onMoved",
+        "type": "function",
+//@        "description": "Fired when a tab is moved within a window. Only one move event is fired, representing the tab the user directly moved. Move events are not fired for the other tabs that must move in response. This event is not fired when a tab is moved between windows. For that, see $ref:onDetached.",
+        "description": "当标签页在窗口中移动时产生。仅产生一次移动事件，代表用户的直接移动，其它标签页因此而随之移动并不产生此事件。当标签页在窗口间移动时不产生此事件，在这种情况下，请参见 $ref:onDetached。",
+        "parameters": [
+          {"type": "integer", "name": "tabId", "minimum": 0},
+          {
+            "type": "object",
+            "name": "moveInfo",
+            "properties": {
+              "windowId": {"type": "integer", "minimum": 0},
+              "fromIndex": {"type": "integer", "minimum": 0},
+              "toIndex": {"type": "integer", "minimum": 0}
+            }
+          }
+        ]
+      },
+      {
+        "name": "onSelectionChanged",
+        "nodoc": true,
+        "type": "function",
+        "description": "Deprecated. Please use onActivated.",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "tabId",
+            "minimum": 0,
+            "description": "The ID of the tab that has become active."
+          },
+          {
+            "type": "object",
+            "name": "selectInfo",
+            "properties": {
+              "windowId": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "The ID of the window the selected tab changed inside of."
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "onActiveChanged",
+        "nodoc": true,
+        "type": "function",
+        "description": "Deprecated. Please use onActivated.",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "tabId",
+            "minimum": 0,
+            "description": "The ID of the tab that has become active."
+          },
+          {
+            "type": "object",
+            "name": "selectInfo",
+            "properties": {
+              "windowId": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "The ID of the window the selected tab changed inside of."
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "onActivated",
+        "type": "function",
+//@        "description": "Fires when the active tab in a window changes. Note that the tab's URL may not be set at the time this event fired, but you can listen to onUpdated events to be notified when a URL is set.",
+        "description": "当窗口中的当前标签页更改时产生。注意，当该事件发生时标签页的 URL 可能还没有设置，但是您可以处理 onUpdated 事件，在设置 URL 时收到通知。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "activeInfo",
+            "properties": {
+              "tabId": {
+                "type": "integer",
+                "minimum": 0,
+//@                "description": "The ID of the tab that has become active."
+                "description": "现在的活动标签页标识符。"
+              },
+              "windowId": {
+                "type": "integer",
+                "minimum": 0,
+//@                "description": "The ID of the window the active tab changed inside of."
+                "description": "活动标签页更改的窗口标识符。"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "onHighlightChanged",
+        "type": "function",
+        "nodoc": true,
+        "description": "Deprecated. Please use onHighlighted.",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "selectInfo",
+            "properties": {
+              "windowId": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "The window whose tabs changed."
+              },
+              "tabIds": {
+                "type": "array",
+                "name": "tabIds",
+                "items": {"type": "integer", "minimum": 0},
+                "description": "All highlighted tabs in the window."
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "onHighlighted",
+        "type": "function",
+//@        "description": "Fired when the highlighted or selected tabs in a window changes.",
+        "description": "当窗口中的高亮或选定标签页更改时产生。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "highlightInfo",
+            "properties": {
+              "windowId": {
+                "type": "integer",
+                "minimum": 0,
+//@                "description": "The window whose tabs changed."
+                "description": "标签页改变的窗口。"
+              },
+              "tabIds": {
+                "type": "array",
+                "name": "tabIds",
+                "items": {"type": "integer", "minimum": 0},
+//@                "description": "All highlighted tabs in the window."
+                "description": "窗口中的所有高亮标签页。"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "onDetached",
+        "type": "function",
+//@        "description": "Fired when a tab is detached from a window, for example because it is being moved between windows.",
+        "description": "当标签页从一个窗口中脱离时产生，例如当它在窗口间移动时。",
+        "parameters": [
+          {"type": "integer", "name": "tabId", "minimum": 0},
+          {
+            "type": "object",
+            "name": "detachInfo",
+            "properties": {
+              "oldWindowId": {"type": "integer", "minimum": 0},
+              "oldPosition": {"type": "integer", "minimum": 0}
+            }
+          }
+        ]
+      },
+      {
+        "name": "onAttached",
+        "type": "function",
+//@        "description": "Fired when a tab is attached to a window, for example because it was moved between windows.",
+        "description": "当标签页附加到一个窗口时产生，例如当它在窗口间移动时。",
+        "parameters": [
+          {"type": "integer", "name": "tabId", "minimum": 0},
+          {
+            "type": "object",
+            "name": "attachInfo",
+            "properties": {
+              "newWindowId": {"type": "integer", "minimum": 0},
+              "newPosition": {"type": "integer", "minimum": 0}
+            }
+          }
+        ]
+      },
+      {
+        "name": "onRemoved",
+        "type": "function",
+//@        "description": "Fired when a tab is closed. Note: A listener can be registered for this event without requesting the 'tabs' permission in the manifest.",
+        "description": "当标签页关闭时产生。注意：为该事件注册监听器不需要在清单文件中声明 \"tabs\" 权限。",
+        "parameters": [
+          {"type": "integer", "name": "tabId", "minimum": 0},
+          {
+            "type": "object",
+            "name": "removeInfo",
+            "properties": {
+//@              "windowId": {"type": "integer", "minimum": 0, "description": "the window whose tab is closed." },
+              "windowId": {"type": "integer", "minimum": 0, "description": "包含已关闭标签页的窗口。" },
+//@              "isWindowClosing": {"type": "boolean", "description": "True when the tab is being closed because its window is being closed." }
+              "isWindowClosing": {"type": "boolean", "description": "当标签页因为窗口关闭而关闭时为 true。" }
+            }
+          }
+        ]
+      },
+      {
+        "name": "onReplaced",
+        "type": "function",
+//@        "description": "Fired when a tab is replaced with another tab due to prerendering or instant.",
+        "description": "当标签页由于预呈现或即搜即得而被另一个标签页替换时产生。",
+        "parameters": [
+          {"type": "integer", "name": "addedTabId", "minimum": 0},
+          {"type": "integer", "name": "removedTabId", "minimum": 0}
+        ]
+      }
+    ]
+  }
+]
