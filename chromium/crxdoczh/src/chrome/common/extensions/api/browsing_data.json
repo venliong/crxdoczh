@@ -9,42 +9,163 @@
       {
         "id": "RemovalOptions",
         "type": "object",
-        "description": "Options that determine exactly what data will be removed.",
+//@        "description": "Options that determine exactly what data will be removed.",
+        "description": "确定删除哪些数据的选项。",
         "properties": {
           "since": {
             "type": "number",
             "optional": true,
-            "description": "Remove data accumulated on or after this date, represented in milliseconds since the epoch (accessible via the <code>getTime</code> method of the JavaScript <code>Date</code> object). If absent, defaults to 0 (which would remove all browsing data)."
+//@            "description": "Remove data accumulated on or after this date, represented in milliseconds since the epoch (accessible via the <code>getTime</code> method of the JavaScript <code>Date</code> object). If absent, defaults to 0 (which would remove all browsing data)."
+            "description": "删除从指定日期开始积累的所有数据，表示为从 1970 年 1 月 1 日午夜开始所经过的毫秒数（可通过 JavaScript <code>Date</code> 对象的 <code>getTime</code> 方法访问）。如果没有指定，则默认为 0（删除所有内容）。"
           },
           "originTypes": {
             "type": "object",
             "optional": true,
-            "description": "An object whose properties specify which origin types ought to be cleared. If this object isn't specified, it defaults to clearing only \"unprotected\" origins. Please ensure that you <em>really</em> want to remove application data before adding 'protectedWeb' or 'extensions'.",
+//@            "description": "An object whose properties specify which origin types ought to be cleared. If this object isn't specified, it defaults to clearing only \"unprotected\" origins. Please ensure that you <em>really</em> want to remove application data before adding 'protectedWeb' or 'extensions'.",
+            "description": "一个对象，属性指定哪些来源类型的数据应该被清除。如果没有指定该对象，默认情况下只清除“unprotected”来源。添加 protectedWeb 或 extensions 前请确保您<em>真的</em>需要删除应用程序数据。",
             "properties": {
               "unprotectedWeb": {
                 "type": "boolean",
                 "optional": true,
-                "description": "Normal websites."
+//@                "description": "Normal websites."
+                "description": "普通网站。"
               },
               "protectedWeb": {
                 "type": "boolean",
                 "optional": true,
-                "description": "Websites that have been installed as hosted applications (be careful!)."
+//@                "description": "Websites that have been installed as hosted applications (be careful!)."
+                "description": "安装为托管应用程序的网站（小心！）。"
               },
               "extension": {
                 "type": "boolean",
                 "optional": true,
-                "description": "Extensions and packaged applications a user has installed (be _really_ careful!)."
+//@                "description": "Extensions and packaged applications a user has installed (be _really_ careful!)."
+                "description": "用户安装的扩展程序与打包应用程序（<em>格外</em>小心！）。"
               }
             }
+          }
+        }
+      },
+      {
+        "id": "DataTypes",
+        "type": "object",
+//@        "description": "An object whose properties specify which browsing data types are selected to be cleared.",
+        "description": "一个对象，指定哪些类型的浏览数据已选中并要清除。",
+        "properties": {
+          "appcache": {
+            "type": "boolean",
+            "optional": true,
+//@            "description": "Should websites' appcaches be cleared?"
+            "description": "是否清除网站的应用程序缓存？"
+          },
+          "cache": {
+            "type": "boolean",
+            "optional": true,
+//@            "description": "Should the browser's cache be cleared? Note: this clears the <em>entire</em> cache: it is not limited to the range you specify."
+            "description": "是否清除浏览缓存？注意：这将清除<em>所有</em>缓存内容，并不仅限于您指定的范围。"
+          },
+          "cookies": {
+            "type": "boolean",
+            "optional": true,
+//@            "description": "Should the browser's cookies be cleared?"
+            "description": "是否清除浏览器的 Cookie？"
+          },
+          "downloads": {
+            "type": "boolean",
+            "optional": true,
+//@            "description": "Should the browser's download list be cleared?"
+            "description": "是否清除浏览器的下载历史记录？"
+          },
+          "fileSystems": {
+            "type": "boolean",
+            "optional": true,
+//@            "description": "Should websites' file systems be cleared?"
+            "description": "是否清除网站的文件系统数据？"
+          },
+          "formData": {
+            "type": "boolean",
+            "optional": true,
+//@            "description": "Should the browser's stored form data be cleared?"
+            "description": "是否清除浏览器保存的表单数据？"
+          },
+          "history": {
+            "type": "boolean",
+            "optional": true,
+//@            "description": "Should the browser's history be cleared?"
+            "description": "是否清除浏览历史记录？"
+          },
+          "indexedDB": {
+            "type": "boolean",
+            "optional": true,
+//@            "description": "Should websites' IndexedDB data be cleared?"
+            "description": "是否清除网站的IndexedDB数据？"
+          },
+          "localStorage": {
+            "type": "boolean",
+            "optional": true,
+//@            "description": "Should websites' local storage data be cleared?"
+            "description": "是否清除网站的本地存储数据？"
+          },
+          "serverBoundCertificates": {
+            "type": "boolean",
+            "optional": true,
+//@            "description": "Should server-bound certificates be removed?"
+            "description": "是否应该清除服务器绑定的证书？"
+          },
+          "pluginData": {
+            "type": "boolean",
+            "optional": true,
+//@            "description": "Should plugins' data be cleared?"
+            "description": "是否清除插件数据？"
+          },
+          "passwords": {
+            "type": "boolean",
+            "optional": true,
+//@            "description": "Should the stored passwords be cleared?"
+            "description": "是否清除已保存的密码？"
+          },
+          "webSQL": {
+            "type": "boolean",
+            "optional": true,
+//@            "description": "Should websites' WebSQL data be cleared?"
+            "description": "是否清除网站的 WebSQL 数据？"
           }
         }
       }
     ],
     "functions": [
       {
+        "name": "settings",
+//@        "description": "Reports which types of data are currently selected in the 'Clear browsing data' settings UI.",
+        "description": "报告“清除浏览数据”用户界面中哪些类型的数据当前以选中。",
+        "type": "function",
+        "parameters": [
+          {
+            "name": "callback",
+            "type": "function",
+            "parameters": [
+              {
+                "name": "result",
+                "type": "object",
+                "properties": {
+                  "options": {
+                    "$ref": "RemovalOptions"
+                  },
+                  "dataToRemove": {
+                    "$ref": "DataTypes",
+//@                    "description": "All of the types will be present in the result, set to true or false. Some of the data types included in this API are not available in the settings UI, and some UI settings control more than one data type listed here."
+                    "description": "所有类型都会在结果中存在，并设置为 true 或 false。该 API 包含的某些数据类型在设置用户界面中不可用，而某些用户界面设置控制这里列出的不止一种的数据类型。"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
         "name": "remove",
-        "description": "Clears various types of browsing data stored in a user's profile.",
+//@        "description": "Clears various types of browsing data stored in a user's profile.",
+        "description": "清除储存在用户配置文件中的各种浏览数据。",
         "type": "function",
         "parameters": [
           {
@@ -53,80 +174,15 @@
           },
           {
             "name": "dataToRemove",
-            "type": "object",
-            "description": "An object whose properties specify which browsing data types ought to be cleared. You may set as many or as few as you like in a single call, each is optional (defaulting to <code>false</code>).",
-            "properties": {
-              "appcache": {
-                "type": "boolean",
-                "optional": true,
-                "description": "Should websites' appcaches be cleared?"
-              },
-              "cache": {
-                "type": "boolean",
-                "optional": true,
-                "description": "Should the browser's cache be cleared? Note: this clears the <em>entire</em> cache: it is not limited to the range you specify."
-              },
-              "cookies": {
-                "type": "boolean",
-                "optional": true,
-                "description": "Should the browser's cookies be cleared?"
-              },
-              "downloads": {
-                "type": "boolean",
-                "optional": true,
-                "description": "Should the browser's download list be cleared?"
-              },
-              "fileSystems": {
-                "type": "boolean",
-                "optional": true,
-                "description": "Should websites' file systems be cleared?"
-              },
-              "formData": {
-                "type": "boolean",
-                "optional": true,
-                "description": "Should the browser's stored form data be cleared?"
-              },
-              "history": {
-                "type": "boolean",
-                "optional": true,
-                "description": "Should the browser's history be cleared?"
-              },
-              "indexedDB": {
-                "type": "boolean",
-                "optional": true,
-                "description": "Should websites' IndexedDB data be cleared?"
-              },
-              "localStorage": {
-                "type": "boolean",
-                "optional": true,
-                "description": "Should websites' local storage data be cleared?"
-              },
-              "serverBoundCertificates": {
-                "type": "boolean",
-                "optional": true,
-                "description": "Should server-bound certificates be removed?"
-              },
-              "pluginData": {
-                "type": "boolean",
-                "optional": true,
-                "description": "Should plugins' data be cleared?"
-              },
-              "passwords": {
-                "type": "boolean",
-                "optional": true,
-                "description": "Should the stored passwords be cleared?"
-              },
-              "webSQL": {
-                "type": "boolean",
-                "optional": true,
-                "description": "Should websites' WebSQL data be cleared?"
-              }
-            }
+            "$ref": "DataTypes",
+//@            "description": "You may set as many or as few as you like in a single call; each is optional (defaulting to <code>false</code>)."
+            "description": "您可以在一次调用中设置或多或少的属性，每一个属性都是可选的（默认为 <code>false</code>）。"
           },
           {
             "name": "callback",
             "type": "function",
-            "description": "Called when deletion has completed.",
+//@            "description": "Called when deletion has completed.",
+            "description": "删除完成时调用。",
             "optional": true,
             "parameters": []
           }
@@ -134,7 +190,8 @@
       },
       {
         "name": "removeAppcache",
-        "description": "Clears websites' appcache data.",
+//@        "description": "Clears websites' appcache data.",
+        "description": "清除网站的应用程序缓存数据。",
         "type": "function",
         "parameters": [
           {
@@ -144,7 +201,8 @@
           {
             "name": "callback",
             "type": "function",
-            "description": "Called when websites' appcache data has been cleared.",
+//@            "description": "Called when websites' appcache data has been cleared.",
+            "description": "网站的应用程序缓存数据清除后调用。",
             "optional": true,
             "parameters": []
           }
@@ -152,7 +210,8 @@
       },
       {
         "name": "removeCache",
-        "description": "Clears the browser's cache.",
+//@        "description": "Clears the browser's cache.",
+        "description": "清除浏览器缓存。",
         "type": "function",
         "parameters": [
           {
@@ -162,7 +221,8 @@
           {
             "name": "callback",
             "type": "function",
-            "description": "Called when the browser's cache has been cleared.",
+//@            "description": "Called when the browser's cache has been cleared.",
+            "description": "浏览器缓存清除后调用。",
             "optional": true,
             "parameters": []
           }
@@ -170,7 +230,8 @@
       },
       {
         "name": "removeCookies",
-        "description": "Clears the browser's cookies and server-bound certificates modified within a particular timeframe.",
+//@        "description": "Clears the browser's cookies and server-bound certificates modified within a particular timeframe.",
+        "description": "清除特定时间段内的浏览器 Cookie 与修改过的服务器绑定证书。",
         "type": "function",
         "parameters": [
           {
@@ -180,7 +241,8 @@
           {
             "name": "callback",
             "type": "function",
-            "description": "Called when the browser's cookies and server-bound certificates have been cleared.",
+//@            "description": "Called when the browser's cookies and server-bound certificates have been cleared.",
+            "description": "浏览器 Cookie 与服务器绑定证书清除后调用。",
             "optional": true,
             "parameters": []
           }
@@ -188,7 +250,8 @@
       },
       {
         "name": "removeDownloads",
-        "description": "Clears the browser's list of downloaded files (<em>not</em> the downloaded files themselves).",
+//@        "description": "Clears the browser's list of downloaded files (<em>not</em> the downloaded files themselves).",
+        "description": "清除浏览器中已下载的文件列表（<em>不是</em>已下载的文件本身）。",
         "type": "function",
         "parameters": [
           {
@@ -198,7 +261,8 @@
           {
             "name": "callback",
             "type": "function",
-            "description": "Called when the browser's list of downloaded files has been cleared.",
+//@            "description": "Called when the browser's list of downloaded files has been cleared.",
+            "description": "浏览器已下载文件列表清除后调用。",
             "optional": true,
             "parameters": []
           }
@@ -206,7 +270,8 @@
       },
       {
         "name": "removeFileSystems",
-        "description": "Clears websites' file system data.",
+//@        "description": "Clears websites' file system data.",
+        "description": "清除网站的文件系统数据。",
         "type": "function",
         "parameters": [
           {
@@ -216,7 +281,8 @@
           {
             "name": "callback",
             "type": "function",
-            "description": "Called when websites' file systems have been cleared.",
+//@            "description": "Called when websites' file systems have been cleared.",
+            "description": "网站的文件系统数据清除后调用。",
             "optional": true,
             "parameters": []
           }
@@ -224,7 +290,8 @@
       },
       {
         "name": "removeFormData",
-        "description": "Clears the browser's stored form data (autofill).",
+//@        "description": "Clears the browser's stored form data (autofill).",
+        "description": "清理浏览器保存的表单数据（自动填充）。",
         "type": "function",
         "parameters": [
           {
@@ -234,7 +301,8 @@
           {
             "name": "callback",
             "type": "function",
-            "description": "Called when the browser's form data has been cleared.",
+//@            "description": "Called when the browser's form data has been cleared.",
+            "description": "浏览器保存的表单数据清除后调用。",
             "optional": true,
             "parameters": []
           }
@@ -242,7 +310,8 @@
       },
       {
         "name": "removeHistory",
-        "description": "Clears the browser's history.",
+//@        "description": "Clears the browser's history.",
+        "description": "清除浏览历史记录。",
         "type": "function",
         "parameters": [
           {
@@ -252,7 +321,8 @@
           {
             "name": "callback",
             "type": "function",
-            "description": "Called when the browser's history has cleared.",
+//@            "description": "Called when the browser's history has cleared.",
+            "description": "浏览历史记录清除后调用。",
             "optional": true,
             "parameters": []
           }
@@ -260,7 +330,8 @@
       },
       {
         "name": "removeIndexedDB",
-        "description": "Clears websites' IndexedDB data.",
+//@        "description": "Clears websites' IndexedDB data.",
+        "description": "清除网站的 IndexedDB 数据。",
         "type": "function",
         "parameters": [
           {
@@ -270,7 +341,8 @@
           {
             "name": "callback",
             "type": "function",
-            "description": "Called when websites' IndexedDB data has been cleared.",
+//@            "description": "Called when websites' IndexedDB data has been cleared.",
+            "description": "网站的 IndexedDB 数据清除后调用。",
             "optional": true,
             "parameters": []
           }
@@ -278,7 +350,8 @@
       },
       {
         "name": "removeLocalStorage",
-        "description": "Clears websites' local storage data.",
+//@        "description": "Clears websites' local storage data.",
+        "description": "清理网站的本地存储数据。",
         "type": "function",
         "parameters": [
           {
@@ -288,7 +361,8 @@
           {
             "name": "callback",
             "type": "function",
-            "description": "Called when websites' local storage has been cleared.",
+//@            "description": "Called when websites' local storage has been cleared.",
+            "description": "网站的本地存储数据清除后调用。",
             "optional": true,
             "parameters": []
           }
@@ -296,7 +370,8 @@
       },
       {
         "name": "removePluginData",
-        "description": "Clears plugins' data.",
+//@        "description": "Clears plugins' data.",
+        "description": "清除插件数据。",
         "type": "function",
         "parameters": [
           {
@@ -306,7 +381,8 @@
           {
             "name": "callback",
             "type": "function",
-            "description": "Called when plugins' data has been cleared.",
+//@            "description": "Called when plugins' data has been cleared.",
+            "description": "插件数据清除后调用。",
             "optional": true,
             "parameters": []
           }
@@ -314,7 +390,8 @@
       },
       {
         "name": "removePasswords",
-        "description": "Clears the browser's stored passwords.",
+//@        "description": "Clears the browser's stored passwords.",
+        "description": "清除浏览器保存的密码。",
         "type": "function",
         "parameters": [
           {
@@ -324,7 +401,8 @@
           {
             "name": "callback",
             "type": "function",
-            "description": "Called when the browser's passwords have been cleared.",
+//@            "description": "Called when the browser's passwords have been cleared.",
+            "description": "浏览器保存的密码清除后调用。",
             "optional": true,
             "parameters": []
           }
@@ -332,7 +410,8 @@
       },
       {
         "name": "removeWebSQL",
-        "description": "Clears websites' WebSQL data.",
+//@        "description": "Clears websites' WebSQL data.",
+        "description": "清除网站的 WebSQL 数据。",
         "type": "function",
         "parameters": [
           {
@@ -342,7 +421,8 @@
           {
             "name": "callback",
             "type": "function",
-            "description": "Called when websites' WebSQL databases have been cleared.",
+//@            "description": "Called when websites' WebSQL databases have been cleared.",
+            "description": "网站的 WebSQL 数据清除后调用。",
             "optional": true,
             "parameters": []
           }

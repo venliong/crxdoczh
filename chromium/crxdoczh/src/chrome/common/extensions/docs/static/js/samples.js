@@ -26,4 +26,9 @@
       filterSamples();
     }
   });
+
+  if(location.hash) {
+    search_box.value = location.hash.substr(1);
+    filterSamples();
+  }
 })();
