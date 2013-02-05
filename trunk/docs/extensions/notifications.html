@@ -6,7 +6,7 @@
     <link href="static/css/print.css" rel="stylesheet" type="text/css" media="print">
     <link href="static/css/prettify.css" rel="stylesheet" type="text/css">
     <link href="//www.google.com/images/icons/product/chrome-16.png" rel="icon" type="image/ico">
-    <title>Desktop Notifications - Google Chrome</title>
+    <title>桌面通知 - Google Chrome</title>
   </head>
   <body>
     <a id="top"></a>
@@ -247,21 +247,21 @@
         </ul>
       </div>
       <div id="gc-pagecontent">
-        <h1 class="page_title">Desktop Notifications</h1>
+        <h1 class="page_title">桌面通知</h1>
         <div id="toc">
           <h2><!--@Contents-->目录</h2>
           <ol>
             <li>
-              <a href=#example>Example</a>
+              <a href=#example>例子</a>
             </li>
             <li>
-              <a href=#reference>API Reference</a>
+              <a href=#reference>API 参考</a>
             </li>
             <li>
-              <a href=#communication>Communicating with Other Views</a>
+              <a href=#communication>与其他视图通信</a>
             </li>
             <li>
-              <a href=#examples>More Examples</a>
+              <a href=#examples>更多例子</a>
             </li>
           </ol>
         </div>
@@ -271,12 +271,13 @@
 
 
 <p>
-Use desktop notifications to notify users that something
+<!--@Use desktop notifications to notify users that something
 important has happened.
 Notifications appear outside the browser window.
 As the following snapshots show,
 the details of how notifications look
-and where they're shown depend on the platform.
+and where they're shown depend on the platform.-->
+使用桌面通知告诉用户发生了一些重要的事。通知出现在浏览器窗口的外面，如下面的截图所示，通知的显示方式与位置的具体细节取决于具体平台。
 </p>
 
 <img src="static/images/notification-windows.png"
@@ -290,97 +291,107 @@ and where they're shown depend on the platform.
   alt="Notifications on Ubuntu Linux"/>
 
 <p>
-You create the notification window
+<!--@You create the notification window
 using a bit of JavaScript and, optionally,
-an HTML page packaged inside your extension.
+an HTML page packaged inside your extension.-->
+您只要用一点点 JavaScript 代码以及可选的一个与您的扩展程序一起打包的 HTML
+页面就能创建通知窗口。
 </p>
 
 
-<h2 id="example">Example</h2>
+<h2 id="example"><!--@Example-->例子</h2>
 
-<p>First, declare the <code>notifications</code> permission in your manifest:</p>
+<p><!--@First, declare the <code>notifications</code> permission in your manifest:-->
+首先在您的清单文件中声明 <code>notifications</code> 权限：
+</p>
 <pre>
 {
-  "name": "My extension",
+  "name": "我的扩展程序",
   "manifest_version": 2,
   ...
 <b>  "permissions": [
     "notifications"
   ]</b>,
   ...
-  // <strong>Note:</strong> Because of <a href="http://code.google.com/p/chromium/issues/detail?id=134315">bug 134315</a>, you must declare any images you
-  // want to use with createNotification() as a web accessible resource.
+  // <strong>注意：</strong>bug 134315</a>, you must declare any images you-->由于 <a href="https://code.google.com/p/chromium/issues/detail?id=134315">bug 134315</a>，您必须将您希望与 createNotification()
+  // 一起使用的所有图片声明为可以在网页中访问的资源。
 <b>  "web_accessible_resources": [
     "48.png"
   ]</b>,
 }
 </pre>
 
-<p>Then, use <code>webkitNotifications</code> object to create notifications:</p>
-
-<pre>
-// <strong>Note:</strong> There's no need to call webkitNotifications.checkPermission().
-// Extensions that declare the <em>notifications</em> permission are always
-// allowed create notifications.
-
-// Create a simple text notification:
-var notification = webkitNotifications.createNotification(
-  '48.png',  // icon url - can be relative
-  'Hello!',  // notification title
-  'Lorem ipsum...'  // notification body text
-);
-
-// Or create an HTML notification:
-var notification = webkitNotifications.createHTMLNotification(
-  'notification.html'  // html url - can be relative
-);
-
-// Then show the notification.
-notification.show();
-</pre>
-
-<h2 id="reference">API Reference</h2>
-
-<p>See the <a href="http://dev.chromium.org/developers/design-documents/desktop-notifications/api-specification">Desktop Notifications Draft Specification</a>.</p>
-
-
-<h2 id="communication">Communicating with Other Views</h2>
-
-<p>
-You can communicate between a notification
-and other views in your extension using
-<a href="extension.html#method-getBackgroundPage">extension.getBackgroundPage</a> and
-<a href="extension.html#method-getViews">extension.getViews</a>. For example:
+<p><!--@Then, use <code>webkitNotifications</code> object to create notifications:-->
+然后，使用 <code>webkitNotifications</code> 对象创建通知：
 </p>
 
 <pre>
-// Inside a notification...
+// <strong>注意：</strong>没有必要调用 webkitNotifications.checkPermission()。
+// 声明了 <em>notifications</em> 权限的扩展程序总是允许创建通知。
+
+// 创建一个简单的文本通知：
+var notification = webkitNotifications.createNotification(
+  '48.png',  // 图标 URL，可以是相对路径
+  '您好！',  // 通知标题
+  '内容（Lorem ipsum...）'  // 通知正文文本
+);
+
+// 或者创建 HTML 通知：
+var notification = webkitNotifications.createHTMLNotification(
+  'notification.html'  // HTML 的 URL，可以是相对路径
+);
+
+// 然后显示通知。
+notification.show();
+</pre>
+
+<h2 id="reference">API <!--@Reference-->参考</h2>
+
+<p><!--@See the -->参见<a href="http://dev.chromium.org/developers/design-documents/desktop-notifications/api-specification"><!--@Desktop Notifications Draft Specification-->桌面通知规范草案</a><!--@.-->（英文）。</p>
+
+
+<h2 id="communication"><!--@Communicating with Other Views-->与其他视图通信</h2>
+
+<p>
+<!--@You can communicate between a notification
+and other views in your extension using-->您可以使用
+<a href="extension.html#method-getBackgroundPage">extension.getBackgroundPage</a> <!--@and-->和
+<a href="extension.html#method-getViews">extension.getViews</a><!--@. For example:-->
+在您的扩展程序中实现通知与其他视图间的通信。例如：
+</p>
+
+<pre>
+// 在一个通知中...
 chrome.extension.getBackgroundPage().doThing();
 
-// From the background page...
+// 来自后台网页...
 chrome.extension.getViews({type:"notification"}).forEach(function(win) {
   win.doOtherThing();
 });
 </pre>
 
 
-<h2 id="examples">More Examples</h2>
+<h2 id="examples"><!--@More Examples-->更多例子</h2>
 
 <p>
-You can find a simple example
-of using notifications in the
+<!--@You can find a simple example
+of using notifications in the-->
+您可以在
 <a href="http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/api/notifications/">examples/api/notifications</a>
-directory.
+<!--@directory.
 For other examples
 and for help in viewing the source code,
-see <a href="samples.html">Samples</a>.
+see -->
+目录中找到一个使用通知的简单例子。有关其它例子以及查看源代码的帮助，请参见<a href="samples.html"><!--@Samples-->示例</a><!--@.-->。
 </p>
 
 <p>
-Also see html5rocks.com's
-<a href="http://www.html5rocks.com/tutorials/notifications/quick/">notifications tutorial</a>.
+<!--@Also see html5rocks.com's
+-->另外，您也可以参见
+html5rocks.com（英文）上的<a href="http://www.html5rocks.com/tutorials/notifications/quick/"><!--@notifications tutorial-->通知教程</a><!--@.
 Ignore the permission-related code;
-it's unnecessary if you declare the "notifications" permission.
+it's unnecessary if you declare the "notifications" permission.-->。请忽略与权限有关的代码，如果您声明了
+"notifications" 权限它们就没有必要了。
 </p>
       </div>
     </div>
