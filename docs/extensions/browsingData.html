@@ -256,23 +256,23 @@
           <h2><!--@Contents-->目录</h2>
           <ol>
             <li>
-              <a href=#manifest>Manifest</a>
+              <a href=#manifest>清单文件</a>
             </li>
             <li>
-              <a href=#usage>Usage</a>
+              <a href=#usage>用法</a>
             </li>
             <li>
-              <a href=#origin_types>Origin Types</a>
+              <a href=#origin_types>来源类型</a>
             </li>
             <li>
-              <a href=#samples>Examples</a>
+              <a href=#samples>例子</a>
             </li>
             <li>
               <a href="#apiReference"><!--@API reference: -->API 参考：chrome.browsingData</a>
               <ol>
-                  <li><a href="#types"><!--@Types-->类型</a><ol>  <li>    <a href="#type-RemovalOptions">RemovalOptions</a>  </li></ol></li>
+                  <li><a href="#types"><!--@Types-->类型</a><ol>  <li>    <a href="#type-RemovalOptions">RemovalOptions</a>  </li>  <li>    <a href="#type-DataTypes">DataTypes</a>  </li></ol></li>
                   
-                  <li><a href="#methods"><!--@Methods-->方法</a><ol>  <li><a href="#method-remove">remove</a></li>  <li><a href="#method-removeAppcache">removeAppcache</a></li>  <li><a href="#method-removeCache">removeCache</a></li>  <li><a href="#method-removeCookies">removeCookies</a></li>  <li><a href="#method-removeDownloads">removeDownloads</a></li>  <li><a href="#method-removeFileSystems">removeFileSystems</a></li>  <li><a href="#method-removeFormData">removeFormData</a></li>  <li><a href="#method-removeHistory">removeHistory</a></li>  <li><a href="#method-removeIndexedDB">removeIndexedDB</a></li>  <li><a href="#method-removeLocalStorage">removeLocalStorage</a></li>  <li><a href="#method-removePluginData">removePluginData</a></li>  <li><a href="#method-removePasswords">removePasswords</a></li>  <li><a href="#method-removeWebSQL">removeWebSQL</a></li></ol></li>
+                  <li><a href="#methods"><!--@Methods-->方法</a><ol>  <li><a href="#method-settings">settings</a></li>  <li><a href="#method-remove">remove</a></li>  <li><a href="#method-removeAppcache">removeAppcache</a></li>  <li><a href="#method-removeCache">removeCache</a></li>  <li><a href="#method-removeCookies">removeCookies</a></li>  <li><a href="#method-removeDownloads">removeDownloads</a></li>  <li><a href="#method-removeFileSystems">removeFileSystems</a></li>  <li><a href="#method-removeFormData">removeFormData</a></li>  <li><a href="#method-removeHistory">removeHistory</a></li>  <li><a href="#method-removeIndexedDB">removeIndexedDB</a></li>  <li><a href="#method-removeLocalStorage">removeLocalStorage</a></li>  <li><a href="#method-removePluginData">removePluginData</a></li>  <li><a href="#method-removePasswords">removePasswords</a></li>  <li><a href="#method-removeWebSQL">removeWebSQL</a></li></ol></li>
                   
                   <li><a href="#samples"><!--@Sample -->示例扩展程序</a></li>
               </ol>
@@ -281,19 +281,22 @@
         </div>
 
 <p id="classSummary">
-  Use the <code>chrome.browsingData</code> module to remove browsing data from a
-  user's local profile.
+  <!--@Use the-->使用 <code>chrome.browsingData</code> <!--@module to remove browsing data from a
+  user's local profile.-->
+  模块从用户的本地配置文件删除浏览数据。
 </p>
 
-<h2 id="manifest">Manifest</h2>
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
 
 <p>
-  You must declare the "browsingData" permission in the
-  <a href="manifest.html">extension manifest</a> to use this API.
+  <!--@You must declare the "browsingData" permission in the
+  <a href="manifest.html">extension manifest</a> to use this API.-->
+  您必须在<a href="manifest.html">扩展程序的清单文件</a>中声明
+  "browsingData" 权限来使用这一 API。
 </p>
 
 <pre>{
-  "name": "My extension",
+  "name": "我的扩展程序",
   ...
   <b>"permissions": [
     "browsingData",
@@ -301,24 +304,26 @@
   ...
 }</pre>
 
-<h2 id="usage">Usage</h2>
+<h2 id="usage"><!--@Usage-->用法</h2>
 
 <p>
-  The simplest use-case for this API is a a time-based mechanism for clearing a
+  <!--@The simplest use-case for this API is a a time-based mechanism for clearing a
   user's browsing data. Your code should provide a timestamp which indicates the
   historical date after which the user's browsing data should be removed. This
   timestamp is formatted as the number of milliseconds since the Unix epoch
   (which can be retrieved from a JavaScript <code>Date</code> object via the
-  <code>getTime</code> method).
+  <code>getTime</code> method).-->
+  这一 API 最简单的用法就是基于时间清理用户浏览数据。您的代码应该提供时间戳，指定应该删除的是在这一历史时刻之后的用户浏览数据。这一时间戳的格式为自 1970 年 1 月 1 日以来所经过的毫秒数（可以通过 JavaScript 中 <code>Date</code> 对象的 <code>getTime</code> 方法获得）。
 </p>
 
 <p>
-  For example, to clear all of a user's browsing data from the last week, you
-  might write code as follows:
+  <!--@For example, to clear all of a user's browsing data from the last week, you
+  might write code as follows:-->
+  例如，要清除上一周的用户浏览数据，您可以编写如下代码：
 </p>
 
 <pre>var callback = function () {
-  // Do something clever here once data has been removed.
+  // 数据清除后可以在这里进行一些处理。
 };
 
 var millisecondsPerWeek = 1000 * 60 * 60 * 24 * 7;
@@ -341,15 +346,16 @@ chrome.browsingData.remove({
 }, callback);</pre>
 
 <p>
-  The <code>chrome.browsingData.remove</code> method allows you to remove
+  <!--@The--> <code>chrome.browsingData.remove</code> <!--@method allows you to remove
   various types of browsing data with a single call, and will be much faster
   than calling multiple more specific methods. If, however, you only want to
   clear one specific type of browsing data (cookies, for example), the more
-  granular methods offer a readable alternative to a call filled with JSON.
+  granular methods offer a readable alternative to a call filled with JSON.-->
+  方法允许您通过一次调用删除多种类型的浏览数据，并且比多次调用更具体的方法要快得多。然而，如果您只需要清除某种具体类型的浏览数据（例如 Cookie），粒度更细的方法要比包含 JSON 的调用更具可读性。
 </p>
 
 <pre>var callback = function () {
-  // Do something clever here once data has been removed.
+  // 数据清除后可以在这里进行一些处理。
 };
 
 var millisecondsPerWeek = 1000 * 60 * 60 * 24 * 7;
@@ -359,48 +365,60 @@ chrome.browsingData.removeCookies({
 }, callback);</pre>
 
 <p class="caution">
-  <strong>Important</strong>: Removing browsing data involves a good deal of
+  <strong><!--@Important-->重要：</strong><!--@: Removing browsing data involves a good deal of
   heavy lifting in the background, and can take <em>tens of seconds</em> to
   complete, depending on a user's profile. You should use the callback mechanism
-  to keep your users up to date on the removal's status.
+  to keep your users up to date on the removal's status.-->
+  清除浏览数据涉及到后台大量的负荷，取决于用户配置文件，可能需要<em>几十秒</em>来完成。您应该使用回调机制通知用户清除状态。
 </p>
 
-<h2 id="origin_types">Origin Types</h2>
+<h2 id="origin_types"><!--@Origin Types-->来源类型</h2>
 
 <p>
-  Adding an <code>originTypes</code> property to the API's options object allows
+  <!--@Adding an <code>originTypes</code> property to the API's options object allows
   you to specify which types of origins ought to be effected. Currently, origins
-  are divided into three categories:
+  are divided into three categories:-->
+  向该 API 的选项对象添加一个 <code>originTypes</code>
+  属性允许您指定哪些类型的来源应该受到影响。目前来源分为三类：
 </p>
 <ul>
   <li>
-    <code>unprotectedWeb</code> covers the general case of websites that users
+    <code>unprotectedWeb</code> <!--@covers the general case of websites that users
     visit without taking any special action. If you don't specify an
     <code>originTypes</code>, the API defaults to removing data from unprotected
-    web origins.
+    web origins.-->
+    包括了用户访问网站、不进行特殊操作的一般情况。如果您没有指定
+    <code>originTypes</code>，该 API 默认情况下删除来自不受保护的网络来源的数据。
   </li>
   <li>
-    <code>protectedWeb</code> covers those web origins that have been installed
-    as hosted applications. Installing <a href="https://chrome.google.com/webstore/detail/aknpkdffaafgjchaibgeefbgmgeghloj">
-    Angry Birds</a>, for example, protects the origin
-    <code>http://chrome.angrybirds.com</code>, and removes it from the
-    <code>unprotectedWeb</code> category. Please do be careful when triggering
+    <code>protectedWeb</code> <!--@covers those web origins that have been installed
+    as hosted applications. Installing-->
+    包括了安装为托管应用程序的网络来源。例如，安装
+    <a href="https://chrome.google.com/webstore/detail/aknpkdffaafgjchaibgeefbgmgeghloj">
+    Angry Birds</a><!--@, for example, protects the origin-->
+    后来源
+    <code>http://chrome.angrybirds.com</code><!--@, and removes it from the-->
+    将受到保护，并将从
+    <code>unprotectedWeb</code> <!--@category. Please do be careful when triggering
     deletion of data for these origins: make sure your users know what they're
     getting, as this will irrevocably remove their game data. No one wants to
-    knock tiny pig houses over more often than necessary.
+    knock tiny pig houses over more often than necessary.-->
+    分类中移除。在执行这些来源内的删除操作时请格外小心：确保您的用户知道这样做的结果，因为这可能会彻底删除他们的游戏数据。没有人愿意一次又一次地推倒小猪的屋子。
   </li>
   <li>
-    <code>extension</code> covers origins under the
-    <code>chrome-extensions:</code> scheme. Removing extension data is, again,
-    something you should be very careful about.
+    <code>extension</code> <!--@covers origins under the-->包括了
+    <code>chrome-extensions:</code> <!--@scheme. Removing extension data is, again,
+    something you should be very careful about.-->
+    协议下的来源。删除扩展程序数据同样是您应该格外小心的事情。
   </li>
 </ul>
 <p>
-  We could adjust the previous example to remove only data from protected
-  websites as follows:
+  <!--@We could adjust the previous example to remove only data from protected
+  websites as follows:-->
+  我们可以调整前一个例子，只删除来自受保护的网络来源的数据，如下所示：
 </p>
 <pre>var callback = function () {
-  // Do something clever here once data has been removed.
+  // 数据清除后可以在这里进行一些处理。
 };
 
 var millisecondsPerWeek = 1000 * 60 * 60 * 24 * 7;
@@ -427,16 +445,17 @@ chrome.browsingData.remove({
 }, callback);</pre>
 
 <p class="caution">
-  <strong>Seriously</strong>: Be careful with <code>protectedWeb</code> and
-  <code>extension</code>. These are destructive operations that your users
+  <strong><!--@Seriously-->特别重要：</strong><!--@: Be careful with-->使用 <code>protectedWeb</code> <!--@and-->与
+  <code>extension</code><!--@. These are destructive operations that your users
   will write angry email about if they're not well-informed about what to
-  expect when your extension removes data on their behalf.
+  expect when your extension removes data on their behalf.-->
+  时必须格外小心，这些是毁灭性的操作，如果没有很好地告知用户您的扩展程序代表他们删除数据的后果，您会收到用户写来的愤怒的邮件。
 </p>
 
-<h2 id="samples">Examples</h2>
+<h2 id="samples"><!--@Examples-->例子</h2>
 <p>
-  Samples for the <code>browsingData</code> API are available
-  <a href="http://code.google.com/chrome/extensions/trunk/samples.html#chrome.browsingData">on the samples page</a>.
+  <!--@Samples for the--> <code>browsingData</code> API <!--@are available-->
+  的例子在<a href="samples.html#chrome.browsingData"><!--@on the samples page-->示例页面</a>中可用。
 </p>
         <h2 id="apiReference"><!--@API Reference: chrome.browsingData-->API 参考：chrome.browsingData</h2>
         <div class="api_reference">
@@ -446,7 +465,7 @@ chrome.browsingData.remove({
                 <div>
                   <dt><span class="type_name">  (    <span id="typeTemplate">object</span>  )</span></dt>
               <dd>
-                    Options that determine exactly what data will be removed.
+                    确定删除哪些数据的选项。
                   </dd>    <h4 id="RemovalOptions-properties">
                     <!--@Properties of --><a href="#type-RemovalOptions">RemovalOptions</a>
                     的属性
@@ -463,7 +482,7 @@ chrome.browsingData.remove({
                         </span>
                       </dt>
                       <dd>
-                        Remove data accumulated on or after this date, represented in milliseconds since the epoch (accessible via the <code>getTime</code> method of the JavaScript <code>Date</code> object). If absent, defaults to 0 (which would remove all browsing data).
+                        删除从指定日期开始积累的所有数据，表示为从 1970 年 1 月 1 日午夜开始所经过的毫秒数（可通过 JavaScript <code>Date</code> 对象的 <code>getTime</code> 方法访问）。如果没有指定，则默认为 0（删除所有内容）。
                       </dd>
                     </div>
                     <div>
@@ -478,7 +497,7 @@ chrome.browsingData.remove({
                         </span>
                       </dt>
                       <dd>
-                        An object whose properties specify which origin types ought to be cleared. If this object isn't specified, it defaults to clearing only "unprotected" origins. Please ensure that you <em>really</em> want to remove application data before adding 'protectedWeb' or 'extensions'.
+                        一个对象，属性指定哪些来源类型的数据应该被清除。如果没有指定该对象，默认情况下只清除“unprotected”来源。添加 protectedWeb 或 extensions 前请确保您<em>真的</em>需要删除应用程序数据。
                       </dd>
                       <dd>
                         <dl>
@@ -494,7 +513,7 @@ chrome.browsingData.remove({
                               </span>
                             </dt>
                             <dd>
-                              Normal websites.
+                              普通网站。
                             </dd>
                           </div>
                           <div>
@@ -509,7 +528,7 @@ chrome.browsingData.remove({
                               </span>
                             </dt>
                             <dd>
-                              Websites that have been installed as hosted applications (be careful!).
+                              安装为托管应用程序的网站（小心！）。
                             </dd>
                           </div>
                           <div>
@@ -524,7 +543,7 @@ chrome.browsingData.remove({
                               </span>
                             </dt>
                             <dd>
-                              Extensions and packaged applications a user has installed (be _really_ careful!).
+                              用户安装的扩展程序与打包应用程序（<em>格外</em>小心！）。
                             </dd>
                           </div>
                         </dl>
@@ -533,15 +552,301 @@ chrome.browsingData.remove({
               </dl></dd>
                 </div>
               </div>
+              <div>
+                <h3 id="type-DataTypes">DataTypes</h3>
+                <div>
+                  <dt><span class="type_name">  (    <span id="typeTemplate">object</span>  )</span></dt>
+              <dd>
+                    一个对象，指定哪些类型的浏览数据已选中并要清除。
+                  </dd>    <h4 id="DataTypes-properties">
+                    <!--@Properties of --><a href="#type-DataTypes">DataTypes</a>
+                    的属性
+                  </h4>
+                  <dd><dl>      <div>
+                      <a name="property-DataTypes-appcache"></a>
+                      <dt>
+                        <span class="variable">appcache</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">boolean</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        是否清除网站的应用程序缓存？
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-DataTypes-cache"></a>
+                      <dt>
+                        <span class="variable">cache</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">boolean</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        是否清除浏览缓存？注意：这将清除<em>所有</em>缓存内容，并不仅限于您指定的范围。
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-DataTypes-cookies"></a>
+                      <dt>
+                        <span class="variable">cookies</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">boolean</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        是否清除浏览器的 Cookie？
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-DataTypes-downloads"></a>
+                      <dt>
+                        <span class="variable">downloads</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">boolean</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        是否清除浏览器的下载历史记录？
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-DataTypes-fileSystems"></a>
+                      <dt>
+                        <span class="variable">fileSystems</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">boolean</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        是否清除网站的文件系统数据？
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-DataTypes-formData"></a>
+                      <dt>
+                        <span class="variable">formData</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">boolean</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        是否清除浏览器保存的表单数据？
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-DataTypes-history"></a>
+                      <dt>
+                        <span class="variable">history</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">boolean</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        是否清除浏览历史记录？
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-DataTypes-indexedDB"></a>
+                      <dt>
+                        <span class="variable">indexedDB</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">boolean</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        是否清除网站的IndexedDB数据？
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-DataTypes-localStorage"></a>
+                      <dt>
+                        <span class="variable">localStorage</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">boolean</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        是否清除网站的本地存储数据？
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-DataTypes-serverBoundCertificates"></a>
+                      <dt>
+                        <span class="variable">serverBoundCertificates</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">boolean</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        是否应该清除服务器绑定的证书？
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-DataTypes-pluginData"></a>
+                      <dt>
+                        <span class="variable">pluginData</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">boolean</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        是否清除插件数据？
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-DataTypes-passwords"></a>
+                      <dt>
+                        <span class="variable">passwords</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">boolean</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        是否清除已保存的密码？
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-DataTypes-webSQL"></a>
+                      <dt>
+                        <span class="variable">webSQL</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            <span id="typeTemplate">boolean</span>
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        是否清除网站的 WebSQL 数据？
+                      </dd>
+                    </div>
+              </dl></dd>
+                </div>
+              </div>
             <h3 id="methods"><!--@Methods-->方法</h3>
               <div>
-                <h4 id="method-remove">remove</h4>
+                <h4 id="method-settings">settings</h4>
                 <div class="summary lower">
-                  <span><span class="subdued">chrome.browsingData.</span>remove</span>(<span><a href="browsingData.html#type-RemovalOptions">RemovalOptions</a> <span class="variable">options</span></span>, <span>object <span class="variable">dataToRemove</span></span>, <span class="optional">function <span class="variable">callback</span></span>)
+                  <span><span class="subdued">chrome.browsingData.</span>settings</span>(<span>function <span class="variable">callback</span></span>)
                 </div>
                 <div class="description">
                   <p>
-                    Clears various types of browsing data stored in a user's profile.
+                    报告“清除浏览数据”用户界面中哪些类型的数据当前以选中。
+                  </p>
+                  <h4><!--@Parameters-->参数</h4>
+                  <dl>
+                      <div>
+                        <a name="property-settings-callback"></a>
+                        <dt>
+                          <span class="variable">callback</span>
+                          <span class="property">
+                            (
+                              
+                              <span id="typeTemplate">function</span>
+                            )
+                          </span>
+                        </dt>
+                      </div>
+                  </dl>
+                    <h4><!--@Callback-->回调函数</h4>
+                    <p>
+                          <!--@The <em>callback</em> parameter should specify a function
+                          that looks like this:-->
+                          <em>callback</em> 参数应该指定一个如下形式的函数：
+                    </p>
+                    <pre>function(object result) <span class="subdued">{...}</span>;</pre>
+                    <dl>
+                        <div>
+                          <a name="property-callback-result"></a>
+                          <dt>
+                            <span class="variable">result</span>
+                            <span class="property">
+                              (
+                                
+                                <span id="typeTemplate">object</span>
+                              )
+                            </span>
+                          </dt>
+                          <dd>
+                            <dl>
+                              <div>
+                                <a name="property-result-options"></a>
+                                <dt>
+                                  <span class="variable">options</span>
+                                  <span class="property">
+                                    (
+                                      
+                                      <span id="typeTemplate"><a href="browsingData.html#type-RemovalOptions">RemovalOptions</a></span>
+                                    )
+                                  </span>
+                                </dt>
+                              </div>
+                              <div>
+                                <a name="property-result-dataToRemove"></a>
+                                <dt>
+                                  <span class="variable">dataToRemove</span>
+                                  <span class="property">
+                                    (
+                                      
+                                      <span id="typeTemplate"><a href="browsingData.html#type-DataTypes">DataTypes</a></span>
+                                    )
+                                  </span>
+                                </dt>
+                                <dd>
+                                  所有类型都会在结果中存在，并设置为 true 或 false。该 API 包含的某些数据类型在设置用户界面中不可用，而某些用户界面设置控制这里列出的不止一种的数据类型。
+                                </dd>
+                              </div>
+                            </dl>
+                          </dd>
+                        </div>
+                    </dl>
+                </div>
+              </div>
+              <div>
+                <h4 id="method-remove">remove</h4>
+                <div class="summary lower">
+                  <span><span class="subdued">chrome.browsingData.</span>remove</span>(<span><a href="browsingData.html#type-RemovalOptions">RemovalOptions</a> <span class="variable">options</span></span>, <span><a href="browsingData.html#type-DataTypes">DataTypes</a> <span class="variable">dataToRemove</span></span>, <span class="optional">function <span class="variable">callback</span></span>)
+                </div>
+                <div class="description">
+                  <p>
+                    清除储存在用户配置文件中的各种浏览数据。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -564,211 +869,12 @@ chrome.browsingData.remove({
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate">object</span>
+                              <span id="typeTemplate"><a href="browsingData.html#type-DataTypes">DataTypes</a></span>
                             )
                           </span>
                         </dt>
                         <dd>
-                          An object whose properties specify which browsing data types ought to be cleared. You may set as many or as few as you like in a single call, each is optional (defaulting to <code>false</code>).
-                        </dd>
-                        <dd>
-                          <dl>
-                            <div>
-                              <a name="property-dataToRemove-appcache"></a>
-                              <dt>
-                                <span class="variable">appcache</span>
-                                <span class="property">
-                                  (
-                                    <span class="optional">optional</span>
-                                    <span id="typeTemplate">boolean</span>
-                                  )
-                                </span>
-                              </dt>
-                              <dd>
-                                Should websites' appcaches be cleared?
-                              </dd>
-                            </div>
-                            <div>
-                              <a name="property-dataToRemove-cache"></a>
-                              <dt>
-                                <span class="variable">cache</span>
-                                <span class="property">
-                                  (
-                                    <span class="optional">optional</span>
-                                    <span id="typeTemplate">boolean</span>
-                                  )
-                                </span>
-                              </dt>
-                              <dd>
-                                Should the browser's cache be cleared? Note: this clears the <em>entire</em> cache: it is not limited to the range you specify.
-                              </dd>
-                            </div>
-                            <div>
-                              <a name="property-dataToRemove-cookies"></a>
-                              <dt>
-                                <span class="variable">cookies</span>
-                                <span class="property">
-                                  (
-                                    <span class="optional">optional</span>
-                                    <span id="typeTemplate">boolean</span>
-                                  )
-                                </span>
-                              </dt>
-                              <dd>
-                                Should the browser's cookies be cleared?
-                              </dd>
-                            </div>
-                            <div>
-                              <a name="property-dataToRemove-downloads"></a>
-                              <dt>
-                                <span class="variable">downloads</span>
-                                <span class="property">
-                                  (
-                                    <span class="optional">optional</span>
-                                    <span id="typeTemplate">boolean</span>
-                                  )
-                                </span>
-                              </dt>
-                              <dd>
-                                Should the browser's download list be cleared?
-                              </dd>
-                            </div>
-                            <div>
-                              <a name="property-dataToRemove-fileSystems"></a>
-                              <dt>
-                                <span class="variable">fileSystems</span>
-                                <span class="property">
-                                  (
-                                    <span class="optional">optional</span>
-                                    <span id="typeTemplate">boolean</span>
-                                  )
-                                </span>
-                              </dt>
-                              <dd>
-                                Should websites' file systems be cleared?
-                              </dd>
-                            </div>
-                            <div>
-                              <a name="property-dataToRemove-formData"></a>
-                              <dt>
-                                <span class="variable">formData</span>
-                                <span class="property">
-                                  (
-                                    <span class="optional">optional</span>
-                                    <span id="typeTemplate">boolean</span>
-                                  )
-                                </span>
-                              </dt>
-                              <dd>
-                                Should the browser's stored form data be cleared?
-                              </dd>
-                            </div>
-                            <div>
-                              <a name="property-dataToRemove-history"></a>
-                              <dt>
-                                <span class="variable">history</span>
-                                <span class="property">
-                                  (
-                                    <span class="optional">optional</span>
-                                    <span id="typeTemplate">boolean</span>
-                                  )
-                                </span>
-                              </dt>
-                              <dd>
-                                Should the browser's history be cleared?
-                              </dd>
-                            </div>
-                            <div>
-                              <a name="property-dataToRemove-indexedDB"></a>
-                              <dt>
-                                <span class="variable">indexedDB</span>
-                                <span class="property">
-                                  (
-                                    <span class="optional">optional</span>
-                                    <span id="typeTemplate">boolean</span>
-                                  )
-                                </span>
-                              </dt>
-                              <dd>
-                                Should websites' IndexedDB data be cleared?
-                              </dd>
-                            </div>
-                            <div>
-                              <a name="property-dataToRemove-localStorage"></a>
-                              <dt>
-                                <span class="variable">localStorage</span>
-                                <span class="property">
-                                  (
-                                    <span class="optional">optional</span>
-                                    <span id="typeTemplate">boolean</span>
-                                  )
-                                </span>
-                              </dt>
-                              <dd>
-                                Should websites' local storage data be cleared?
-                              </dd>
-                            </div>
-                            <div>
-                              <a name="property-dataToRemove-serverBoundCertificates"></a>
-                              <dt>
-                                <span class="variable">serverBoundCertificates</span>
-                                <span class="property">
-                                  (
-                                    <span class="optional">optional</span>
-                                    <span id="typeTemplate">boolean</span>
-                                  )
-                                </span>
-                              </dt>
-                              <dd>
-                                Should server-bound certificates be removed?
-                              </dd>
-                            </div>
-                            <div>
-                              <a name="property-dataToRemove-pluginData"></a>
-                              <dt>
-                                <span class="variable">pluginData</span>
-                                <span class="property">
-                                  (
-                                    <span class="optional">optional</span>
-                                    <span id="typeTemplate">boolean</span>
-                                  )
-                                </span>
-                              </dt>
-                              <dd>
-                                Should plugins' data be cleared?
-                              </dd>
-                            </div>
-                            <div>
-                              <a name="property-dataToRemove-passwords"></a>
-                              <dt>
-                                <span class="variable">passwords</span>
-                                <span class="property">
-                                  (
-                                    <span class="optional">optional</span>
-                                    <span id="typeTemplate">boolean</span>
-                                  )
-                                </span>
-                              </dt>
-                              <dd>
-                                Should the stored passwords be cleared?
-                              </dd>
-                            </div>
-                            <div>
-                              <a name="property-dataToRemove-webSQL"></a>
-                              <dt>
-                                <span class="variable">webSQL</span>
-                                <span class="property">
-                                  (
-                                    <span class="optional">optional</span>
-                                    <span id="typeTemplate">boolean</span>
-                                  )
-                                </span>
-                              </dt>
-                              <dd>
-                                Should websites' WebSQL data be cleared?
-                              </dd>
-                            </div>
-                          </dl>
+                          您可以在一次调用中设置或多或少的属性，每一个属性都是可选的（默认为 <code>false</code>）。
                         </dd>
                       </div>
                       <div>
@@ -783,7 +889,7 @@ chrome.browsingData.remove({
                           </span>
                         </dt>
                         <dd>
-                          Called when deletion has completed.
+                          删除完成时调用。
                         </dd>
                       </div>
                   </dl>
@@ -803,7 +909,7 @@ chrome.browsingData.remove({
                 </div>
                 <div class="description">
                   <p>
-                    Clears websites' appcache data.
+                    清除网站的应用程序缓存数据。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -831,7 +937,7 @@ chrome.browsingData.remove({
                           </span>
                         </dt>
                         <dd>
-                          Called when websites' appcache data has been cleared.
+                          网站的应用程序缓存数据清除后调用。
                         </dd>
                       </div>
                   </dl>
@@ -851,7 +957,7 @@ chrome.browsingData.remove({
                 </div>
                 <div class="description">
                   <p>
-                    Clears the browser's cache.
+                    清除浏览器缓存。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -879,7 +985,7 @@ chrome.browsingData.remove({
                           </span>
                         </dt>
                         <dd>
-                          Called when the browser's cache has been cleared.
+                          浏览器缓存清除后调用。
                         </dd>
                       </div>
                   </dl>
@@ -899,7 +1005,7 @@ chrome.browsingData.remove({
                 </div>
                 <div class="description">
                   <p>
-                    Clears the browser's cookies and server-bound certificates modified within a particular timeframe.
+                    清除特定时间段内的浏览器 Cookie 与修改过的服务器绑定证书。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -927,7 +1033,7 @@ chrome.browsingData.remove({
                           </span>
                         </dt>
                         <dd>
-                          Called when the browser's cookies and server-bound certificates have been cleared.
+                          浏览器 Cookie 与服务器绑定证书清除后调用。
                         </dd>
                       </div>
                   </dl>
@@ -947,7 +1053,7 @@ chrome.browsingData.remove({
                 </div>
                 <div class="description">
                   <p>
-                    Clears the browser's list of downloaded files (<em>not</em> the downloaded files themselves).
+                    清除浏览器中已下载的文件列表（<em>不是</em>已下载的文件本身）。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -975,7 +1081,7 @@ chrome.browsingData.remove({
                           </span>
                         </dt>
                         <dd>
-                          Called when the browser's list of downloaded files has been cleared.
+                          浏览器已下载文件列表清除后调用。
                         </dd>
                       </div>
                   </dl>
@@ -995,7 +1101,7 @@ chrome.browsingData.remove({
                 </div>
                 <div class="description">
                   <p>
-                    Clears websites' file system data.
+                    清除网站的文件系统数据。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -1023,7 +1129,7 @@ chrome.browsingData.remove({
                           </span>
                         </dt>
                         <dd>
-                          Called when websites' file systems have been cleared.
+                          网站的文件系统数据清除后调用。
                         </dd>
                       </div>
                   </dl>
@@ -1043,7 +1149,7 @@ chrome.browsingData.remove({
                 </div>
                 <div class="description">
                   <p>
-                    Clears the browser's stored form data (autofill).
+                    清理浏览器保存的表单数据（自动填充）。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -1071,7 +1177,7 @@ chrome.browsingData.remove({
                           </span>
                         </dt>
                         <dd>
-                          Called when the browser's form data has been cleared.
+                          浏览器保存的表单数据清除后调用。
                         </dd>
                       </div>
                   </dl>
@@ -1091,7 +1197,7 @@ chrome.browsingData.remove({
                 </div>
                 <div class="description">
                   <p>
-                    Clears the browser's history.
+                    清除浏览历史记录。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -1119,7 +1225,7 @@ chrome.browsingData.remove({
                           </span>
                         </dt>
                         <dd>
-                          Called when the browser's history has cleared.
+                          浏览历史记录清除后调用。
                         </dd>
                       </div>
                   </dl>
@@ -1139,7 +1245,7 @@ chrome.browsingData.remove({
                 </div>
                 <div class="description">
                   <p>
-                    Clears websites' IndexedDB data.
+                    清除网站的 IndexedDB 数据。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -1167,7 +1273,7 @@ chrome.browsingData.remove({
                           </span>
                         </dt>
                         <dd>
-                          Called when websites' IndexedDB data has been cleared.
+                          网站的 IndexedDB 数据清除后调用。
                         </dd>
                       </div>
                   </dl>
@@ -1187,7 +1293,7 @@ chrome.browsingData.remove({
                 </div>
                 <div class="description">
                   <p>
-                    Clears websites' local storage data.
+                    清理网站的本地存储数据。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -1215,7 +1321,7 @@ chrome.browsingData.remove({
                           </span>
                         </dt>
                         <dd>
-                          Called when websites' local storage has been cleared.
+                          网站的本地存储数据清除后调用。
                         </dd>
                       </div>
                   </dl>
@@ -1235,7 +1341,7 @@ chrome.browsingData.remove({
                 </div>
                 <div class="description">
                   <p>
-                    Clears plugins' data.
+                    清除插件数据。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -1263,7 +1369,7 @@ chrome.browsingData.remove({
                           </span>
                         </dt>
                         <dd>
-                          Called when plugins' data has been cleared.
+                          插件数据清除后调用。
                         </dd>
                       </div>
                   </dl>
@@ -1283,7 +1389,7 @@ chrome.browsingData.remove({
                 </div>
                 <div class="description">
                   <p>
-                    Clears the browser's stored passwords.
+                    清除浏览器保存的密码。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -1311,7 +1417,7 @@ chrome.browsingData.remove({
                           </span>
                         </dt>
                         <dd>
-                          Called when the browser's passwords have been cleared.
+                          浏览器保存的密码清除后调用。
                         </dd>
                       </div>
                   </dl>
@@ -1331,7 +1437,7 @@ chrome.browsingData.remove({
                 </div>
                 <div class="description">
                   <p>
-                    Clears websites' WebSQL data.
+                    清除网站的 WebSQL 数据。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -1359,7 +1465,7 @@ chrome.browsingData.remove({
                           </span>
                         </dt>
                         <dd>
-                          Called when websites' WebSQL databases have been cleared.
+                          网站的 WebSQL 数据清除后调用。
                         </dd>
                       </div>
                   </dl>
