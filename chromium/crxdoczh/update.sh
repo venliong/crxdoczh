@@ -1,5 +1,5 @@
 #!/bin/bash
 
-rsync -a --exclude='.svn' ../official/src ./
+rsync -a --exclude='.svn' --exclude='*.cc' --exclude='*.h' ../official/src ./
 svn status
 
