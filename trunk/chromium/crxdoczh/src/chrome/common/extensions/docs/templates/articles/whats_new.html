@@ -1,632 +1,512 @@
-<h1>What's New in Extensions?</h1>
+<h1>扩展程序中的新功能</h1>
 <!--  -->
 
 <p>
-This page lists the API and manifest changes
-made in recent releases.
+该页面列出最近版本中有关API和清单文件的更改。
 </p>
 
 <h2 id="22"> Google Chrome 22 </h2>
 
-<h4> New APIs </h4>
+<h4> 新的 API </h4>
   <ul>
-    <li>The
-      <a href="alarms.html">alarms API</a>
-      lets you schedule code to run
-      periodically or at a specified time
-      in the future.</li>
+    <li>
+      <a href="alarms.html">定时器 API</a>
+      让您安排代码周期性地或者在将来的某一特定时间执行。</li>
   </ul>
   <ul>
-    <li>The
-      <a href="runtime.html">runtime API</a>
-      contains useful methods for dealing
-      with system-wide events.
+    <li>
+      <a href="runtime.html">运行时 API</a>
+      包含有用的方法来处理系统范围的事件。
   </ul>
 
-<h4> Additions to Existing Features </h4>
+<h4> 对现有特性的增强 </h4>
   <ul>
-    <li>Background pages can optionally be
-      non-persistent, using a feature we call
-      <a href="event_pages.html">event pages</a>.
-      Event pages run only while they're being used,
-      and will unload when idle to save resources.
+    <li>后台页面可以选择不持久运行，使用一种我们称之为<a
+      href="event_pages.html">事件页面</a>的特性。事件页面仅在使用时运行，并且在空闲时卸载，以节约资源。
   </ul>
 
 <h2 id="21"> Google Chrome 21 </h2>
 
-<h4> New Features </h4>
+<h4> 新特性 </h4>
   <ul>
-    <li>The <a href="manifest.html#sandbox">sandbox manifest entry</a> allows
-      you to define some pages within your extension that are automatically run
-      in a low-privilege sandbox. This sandbox is not bound by the
-      <a href="contentSecurityPolicy.html">content_security_policy</a>.
-    <li>The <a href="input.ime.html">IME</a> API allows extensions to implement
-      <a href="http://en.wikipedia.org/wiki/Input_method">input method
-      editors</a> on Chrome OS.
+    <li> <a href="manifest.html#sandbox">清单文件的 sandbox 项</a>允许您将扩展程序内的某些页面规定为自动运行在低权限的沙箱中，该沙箱不会受到
+      <a href="contentSecurityPolicy.html">content_security_policy</a>
+      的限制。
+    <li> <a href="input.ime.html">输入法</a> API 允许扩展程序在 Chrome OS 上实现<a
+      href="http://en.wikipedia.org/wiki/Input_method">输入法</a>。
   </ul>
 
-<h4> Additions to Existing Features </h4>
+<h4> 对现有特性的增强 </h4>
   <ul>
-    <li>The $ref:types.ChromeSetting.set
-       method now has a
-      <code>regular_only</code> scope.
-    <li>The $ref:browsingData.RemovalOptions
-       now has an <code>originTypes</code>
-      property.
-    <li>The $ref:management.uninstall
-       method now has a <code
-      >showConfirmDialog</code> parameter.
-    <li>The $ref:contextMenus.create
-       method now allows you to specify unique
-      IDs for each item. This is intended to be used with the new
+    <li> $ref:types.ChromeSetting.set
+       方法现在增加了
+      <code>regular_only</code> 区域。
+    <li> $ref:browsingData.RemovalOptions
+       现在增加了 <code>originTypes</code>
+      属性。
+    <li> $ref:management.uninstall
+       方法现在增加了 <code
+      >showConfirmDialog</code> 参数。
+    <li> $ref:contextMenus.create
+       方法现在允许您为每一个项目指定唯一的标识符，这是为了与新的
       $ref:contextMenus.onClicked
-       event, to distinguish the clicked item.
-    <li>The $ref:browserAction.setIcon
-       and
+       事件搭配使用，来区分单击的项目。
+    <li> $ref:browserAction.setIcon
+       和
       $ref:pageAction.setIcon
-       methods now accept optional callbacks.
-    <li>The $ref:privacy.websites
-       namespace now has a <code
-      >protectedContentEnabled</code> property.
-    <li>The <code>index</code> parameter to the $ref:tabs.move
-       method now accepts <code>-1</code> to indicate
-      that the tab should be placed at the end.
-    <li>The <code>windowId</code> parameter to the
-      $ref:tabs.highlight
-      method is now optional.
-    <li><a href="manifest.html#intents">Web intents</a> can now be used to
-      register content-type viewers.
+       方法现在接受可选的回调函数。
+    <li> $ref:privacy.websites
+       命名空间现在增加了 <code
+      >protectedContentEnabled</code> 属性。
+    <li>$ref:tabs.move 方法的 <code>index</code> 
+       参数现在可以接受 <code>-1</code> 值，表示标签页应该放在最后。
+    <li>$ref:tabs.highlight 方法的 <code>windowId</code> 
+      参数现在是可选的。
+    <li><a href="manifest.html#intents">Web intents</a> 现在可以用来注册内容类型查看器。
   </ul>
 
 <h2 id="20"> Google Chrome 20 </h2>
 
-<h4> New APIs </h4>
+<h4> 新的 API </h4>
   <ul>
-    <li>The
-      <a href="storage.html">storage API</a>
-      lets you store, retrieve, and
-      track changes to user data.</li>
+    <li>
+      <a href="storage.html">存储 API</a>
+      使您储存、获取和追踪用户数据的更改。</li>
   </ul>
 
-<h4> Manifest changes </h4>
+<h4> 清单文件更改 </h4>
   <ul>
-    <li>Manifest version 1 was deprecated in Chrome 18
-      and will be phased out according to the
-      <a href="manifestVersion.html">Manifest version 1 support schedule</a>.</li>
+    <li>清单文件版本 1 在 Chrome 18 中弃用，并且会根据<a href="manifestVersion.html">清单文件版本1支持计划</a>逐渐减少支持。</li>
   </ul>
 
-<h4> Additions to existing APIs </h4>
+<h4> 对现有 API 的增强 </h4>
   <ul>
-    <li>The <code>chrome.contextMenus</code>
-      $ref:contextMenus.create and
+    <li> <code>chrome.contextMenus</code> 的
+      $ref:contextMenus.create 和
       $ref:contextMenus.update
-      methods now have an <code>enabled</code> parameter.</li>
-    <li>The privacy API's $ref:privacy.services object
-      now has a <code>spellingServiceEnabled</code> setting.</li>
-    <li>The <code>chrome.tabs</code>
-      $ref:tabs.executeScript and
+      方法现在增加了 <code>enabled</code> 参数。</li>
+    <li>隐私设这 API 的 $ref:privacy.services 对象现在增加了
+       <code>spellingServiceEnabled</code> 设置。</li>
+    <li> <code>chrome.tabs</code> 的
+      $ref:tabs.executeScript 和
       $ref:tabs.insertCSS
-      now accept a <code>runAt</code> parameter.</li>
+      方法现在增加了 <code>runAt</code> 参数。</li>
   </ul>
 
-<h4> Changes to existing APIs </h4>
+<h4> 对现有 API 的更改 </h4>
 
   <ul>
-    <li>The <code>sendRequest()</code> method
-      has been deprecated in favor of the
-      <code>sendMessage()</code> method for both the
-      $ref:runtime.sendMessage and
-      $ref:tabs.sendMessage.</li>
-    <li>The <a href="external_extensions.html">external_extensions.json file</a>
-      has been deprecated in favor of individual
-      <code>&lt;extension-id&gt;.json</code> files.</li>
+    <li> <code>sendRequest()</code> 方法已弃用，请使用
+      <code>sendMessage()</code> 方法：
+      $ref:runtime.sendMessage 和
+      $ref:tabs.sendMessage。</li>
+    <li> <a href="external_extensions.html">external_extensions.json
+      文件</a>已弃用，您应该使用单独的
+      <code>&lt;扩展程序标识符&gt;.json</code> 文件。</li>
   </ul>
 
 <h2 id="19"> Google Chrome 19 </h2>
 
-<h4> New APIs </h4>
+<h4> 新的 API </h4>
    <ul>
-     <li>The <a href="browsingData.html">browsing data API</a>
-      lets you remove browsing data from a user's local profile.
-    <li>The <a href="topSites.html">top sites API</a>
-      gives you access to the top sites
-      that are displayed on the new tab page.
+     <li> <a href="browsingData.html">浏览数据 API</a>
+      许您从用户的本地配置文件中移除浏览数据。
+    <li> <a href="topSites.html">常用网站 API</a>
+      使您能够访问显示在新标签页面上的最常访问的网站。
    </ul>
 
-<h4> Manifest changes </h4>
+<h4> 清单文件更改 </h4>
   <ul>
-    <li>The new <a href="manifest.html#intents">intents</a>
-      field specifies all intent handlers provided by the extension.
+    <li>新的 <a href="manifest.html#intents">intents</a>
+      字段指定当前扩展程序提供的所有 Intent 处理程序。
   </ul>
 
- <h4> Additions to existing APIs </h4>
+ <h4> 对现有 API 的增强 </h4>
   <ul>
-    <li>The window API's $ref:windows.Window
-      object now has an <code>alwaysOnTop</code> property and
-       supports the "fullscreen" state.
-     <li>The <code>chrome.tabs</code>
-       $ref:tabs.query method
-       now has the <code>currentWindow</code> and
-      <code>lastFocusedWindow</code> parameters.
-     <li>The <a href="browserAction.html">browser action API</a>
-       has the following new getter functions:
-       $ref:browserAction.getTitle,
-       $ref:browserAction.getBadgeText,
-       $ref:browserAction.getBadgeBackgroundColor, and
-       $ref:browserAction.getPopup.
-    <li>The <a href="pageAction.html">page action API</a>
-      has the following new getter functions:
-       $ref:pageAction.getTitle and
-       $ref:pageAction.getPopup.
+    <li>窗口 API 的 $ref:windows.Window
+      对象现在增加了 <code>alwaysOnTop</code> 属性，并支持"fullscreen"（全屏幕）状态。
+     <li> <code>chrome.tabs</code> 的
+       $ref:tabs.query 方法现在增加了 <code>currentWindow</code> 和
+      <code>lastFocusedWindow</code> 参数。
+     <li> <a href="browserAction.html">浏览器按钮 API</a>
+       增加了以下这些新的获取函数：
+       $ref:browserAction.getTitle、$ref:browserAction.getBadgeText、$ref:browserAction.getBadgeBackgroundColor
+       和
+       $ref:browserAction.getPopup。
+    <li>The <a href="pageAction.html">页面按钮 API</a>
+      增加了以下这些新的获取函数：
+       $ref:pageAction.getTitle 和
+       $ref:pageAction.getPopup。
    </ul>
 
 <h2 id="18"> Google Chrome 18 </h2>
 
-<h4> New APIs </h4>
+<h4> 新的 API </h4>
   <ul>
-    <li>The <a href="debugger.html">debugger API</a>
-      lets you use the Chrome Developer Tools
-      on one or more tabs remotely.
-    <li>The <a href="devtools.html">developer tools APIs</a>
-      provide support for extending Chrome Developer Tools.
-      The inspected window API lets you interact with the inspected window.
-      The network API lets you retrive information about network requests.
-      The panels API lets you add panels and sidebars.
-    <li>The <a href="pageCapture.html">page capture API</a>
-      lets you save a tab as MHTML.
-    <li> The <a href="privacy.html">privacy API</a>
-      lets you control usage of the features
-      in Chrome that can affect a user's privacy policy.
+    <li> <a href="debugger.html">调试器 API</a>
+      让您使用 Chrome 浏览器的开发者工具远程访问一个或多个标签页。
+    <li> <a href="devtools.html">开发者工具 APIs</a>
+      为扩展 Chrome 浏览器的开发者工具提供支持。<a href="devtools.inspectedWindow.html">审查窗口
+      API</a> 让您与审查的窗口交互，<a href="devtools.network.html">网络 API</a>
+      让您获取有关网络请求的信息，<a href="devtools.panels.html">面板 API</a> 让您添加面板及侧边栏。
+    <li> <a href="pageCapture.html">页面捕捉 API</a>
+      让您将标签页保存为 MHTML。
+    <li>  <a href="privacy.html">隐私设置 API</a>
+      让您控制 Chrome 浏览器中会影响用户隐私策略的特性。
   </ul>
 
-<h4> Manifest changes </h4>
+<h4> 清单文件更改 </h4>
   <ul>
-    <li>The new
-      <a href="manifest.html#manifest_version">manifest version</a>
-      field specifies the version of the manifest that your package requires.
-      As of Chrome 18, you should use
-      <a href="manifestVersion.html">manifest version 2</a>.
-    <li>The new
-      <a href="contentSecurityPolicy.html">Content Security Policy (CSP)</a>
-      field is used to define an extension's policies
-      towards the types of content
-      that can be loaded and executed by the extension.
-    <li>Most background pages only include a list of script files.
-      For these background pages,
-      you can use the new
-      <a href="background_pages.html">background.scripts</a> property
-      and Chrome will generate a background page for you.
-    <li>The new
+    <li>新的<a href="manifest.html#manifest_version">清单文件版本</a>字段指定您的扩展操作包需要的清单文件版本。从 Chrome 18
+      开始，您应该使用<a href="manifestVersion.html">清单文件版本 2</a>。
+    <li>新的<a href="contentSecurityPolicy.html">内容安全策略（CSP）</a>字段用来定义扩展程序的策略，指定扩展程序能够载入和执行的内容类型。
+    <li>大部分后台页面仅包括脚本文件的列表，对于这些后台页面，您可以使用新的
+      <a href="background_pages.html">background.scripts</a>
+      属性，Chrome 浏览器会自动为您生成后台页面。
+    <li>新的
       <a href="manifest.html#web_accessible_resources">web_accessible_resources</a>
-      field specifies the paths of packaged resources
-      that are expected to be usable in the context of a web page.
+      字段指定希望在网页中使用的打包资源的路径。
   </ul>
 
-<h4> Additions to existing APIs </h4>
+<h4> 对现有 API 的增强 </h4>
   <ul>
-    <li>The $ref:windows.WINDOW_ID_CURRENT
-    now has a <code>WINDOW_ID_CURRENT</code> property.
-    <li>The <code>chrome.tabs</code>
-    $ref:tabs.create and
-    $ref:tabs.update methods
-    now have an <code>openerTabId</code> parameter.
+    <li> $ref:[windows 窗口 API]
+    现在增加了 <code>WINDOW_ID_CURRENT</code> 属性。
+    <li> <code>chrome.tabs</code> 的
+    $ref:tabs.create 和
+    $ref:tabs.update 方法现在增加了 <code>openerTabId</code> 参数。
   </ul>
 
 <h2 id="17"> Google Chrome 17 </h2>
 
-<h4> New APIs </h4>
+<h4> 新的 API </h4>
   <ul>
-    <li>The
-      <a href="webRequest.html">web request API</a>
-      lets you intercept, block, or
-      modify requests in-flight and
-      to observe and analyze traffic.
+    <li>
+      <a href="webRequest.html">网络请求 API</a>
+      让您实时地拦截、阻止或者修改请求，并且可以监控与分析流量。
   </ul>
 
-<h4> Manifest changes </h4>
+<h4> 清单文件更改 </h4>
   <ul>
-    <li>Permissions can be
-      <a href="permissions.html">optional</a>
-      for the content setting API, the web navigation API, and
-      the new web request API.
+    <li>内容设置 API、网页导航 API、网络请求 API的权限可以是<a href="permissions.html">可选的</a>。
   </ul>
 
-<h4> Additions to existing APIs </h4>
+<h4> 对现有 API 的增强 </h4>
   <ul>
-    <li>The management API's
-    $ref:management.ExtensionInfo object
-    now has a <code>disabledReason</code> property.
+    <li>管理 API的
+    $ref:management.ExtensionInfo 对象现在增加了 <code>disabledReason</code> 属性。
   </ul>
 
-<h4> Changes to existing APIs </h4>
+<h4> 对现有 API 的更改 </h4>
 
   <ul>
-    <li>The <a href="omnibox.html">omnibox API</a>
-    now works in
-    <a href="manifest.html#incognito">split incognito mode</a>.
+    <li> <a href="omnibox.html">多功能狂 API</a>
+    现在可以在<a href="manifest.html#incognito">分离隐身模式</a>。
   </ul>
 
 <h2 id="16"> Google Chrome 16 </h2>
 
-<h4> New APIs </h4>
+<h4> 新的 API </h4>
   <ul>
+    <li>
+      <a href="webNavigation.html">网页导航 API</a>
+      使扩展程序接收有关导航请求的详情，您可以使用这一 API 跟踪导航事件。
+    <li>
+      <a href="permissions.html">可选权限 API</a>
+      让您控制何时向用户展现权限请求。
     <li>The
-      <a href="webNavigation.html">web navigation API</a>
-      lets extensions receive notifications about the status
-      of navigation requests.
-      You can use this API to track navigation events.
-    <li>The
-      <a href="permissions.html">optional permissions API</a>
-      lets you control when users are presented with permission requests.
-    <li>The
-      <a href="contentSettings.html">content settings API</a>
-      lets extensions customize Chrome’s behavior
-      on a per-site basis instead of globally.
-      You can use this API to control whether websites can use features
-      such as cookies, JavaScript, and plug-ins.
+      <a href="contentSettings.html">内容设置 API</a>
+     使扩展程序可以针对不同的站点（而不是全局地）自定义 Chrome 浏览器的行为，您可以使用这一 API
+     控制网站能否使用诸如 Cookie、JavaScript 和插件之类的特性。
   </ul>
 
-<h4> Manifest changes </h4>
+<h4> 清单文件更改 </h4>
   <ul>
-    <li>The new
-      <a href="manifest.html#requirements">requirements</a> field
-      allows you to declare extension requirements up front.
-      For example, you can use this field
-      to specify that your app requires 3D graphics support
-      in order to use features such as CSS 3D Tranforms or WebGL.
+    <li>新的
+      <a href="manifest.html#requirements">requirements</a> 字段允许您预先声明扩展程序的要求。例如，您可以使用这一字段指定您的应用程序要求 3D 图形支持，这样就可以使用诸如 CSS 3D 变换或 WebGL 之类的功能。
   </ul>
 
-<h4> Additions to existing APIs </h4>
+<h4> 对现有 API 的增强 </h4>
   <ul>
-    <li>The new
-    $ref:tabs.query method
-    gets all tabs that have the specified properties or
-    all tabs if no properties are specified.
-    <li>The new
+    <li>新的
+    $ref:tabs.query 方法获取具有指定属性的所有标签页，或者如果没有指定属性的话获取所有标签页。
+    <li>新的
     $ref:tabs.reload method
-    reloads a tab and includes the option
-    to preserve the local cache of the reloaded tab.
-    <li>The management API's
-    $ref:management.ExtensionInfo object
-    now has an <code>updateURL</code> property.
-    <li>You can now limit the supported locales for an
-    <a href="external_extensions.html">external extension</a>
-    by adding the <code>supported_locales</code> attribute
-    to the <code>external_extensions.json</code>.
+    方法重新载入标签页，并包含一个保留重新载入标签页本地缓存的选项。
+    <li>管理 API 的
+    $ref:management.ExtensionInfo 对象现在增加了 <code>updateURL</code> 属性。
+    <li>您现在可以通过向 <code>external_extensions.json</code> 添加
+    <code>supported_locales</code> 属性的方式来限制<a href="external_extensions.html">外部扩展程序</a>支持的语言。
   </ul>
 
-<h4> Changes to existing APIs </h4>
+<h4> 对现有 API 的更改 </h4>
   <ul>
-    <li>The methods <code>getAllInWindow()</code> and
-    <code>getSelected()</code> have been deprecated.
-    To get details about all tabs in the specified window, use
-    $ref:tabs.query
-    with the argument <code>{'windowId': windowID}</code>.
-    To get the tab that is selected in the specified window, use
-    <code>chrome.tabs.query()</code>
-    with the argument <code>{'active': true}</code>.
-    <li>You are no longer required
-    to specify the <code>tabID</code> for the
-    $ref:tabs.update method.
-    When not provided,
-    the <code>tabID</code> defaults
-    to the selected tab of the current window.
-    <li>External extension files on Mac OS can now be owned by users
-    within a wheel group (or an admin group).
-    <li>The "experimental" permission is no longer required
-    for the
-    $ref:[windows.Window window "panel"] type.
-    By default, the "panel" type creates a popup
-    unless the <code>--enable-panels</code> flag is set.
+    <li> <code>getAllInWindow()</code> 和
+    <code>getSelected()</code>
+    方法已弃用。要获得指定窗口中所有标签页的详情，请使用
+    $ref:tabs.query，并传递参数
+    <code>{'windowId': windowId}</code>。要获得指定窗口中选定的标签页，请使用
+    <code>chrome.tabs.query()</code>，并传递参数
+    <code>{'active': true}</code>。
+    <li>您不再需要为 $ref:tabs.update 方法指定
+    <code>tabId</code>，未提供
+    <code>tabId</code>时默认为当前窗口的选定标签页。
+    <li>Mac OS 上外部扩展程序文件的所有者现在可以是 wheel 组（或管理员组）内的用户。
+    <li>$ref:[windows.Window "panel"（面板）]窗口类型不再需要
+    "experimental" 权限。默认情况下，除非指定了
+    <code>--enable-panels</code> 命令行参数，"panel"
+    类型将创建一个弹出窗口。
   </ul>
 
 <h2 id="15"> Google Chrome 15 </h2>
 
-<h4> New APIs </h4>
+<h4> 新的 API </h4>
 
 <ul>
- <li>The <a href="webstore.html">webstore API</a>
- lets you initiate app and extensions installations
- <a href="http://code.google.com/chrome/webstore/docs/inline_installation.html">"inline"</a>
- from your site.
+ <li> <a href="webstore.html">网上应用店 API</a>
+ 使您可以在您的网站中<a href="https://code.google.com/chrome/webstore/docs/inline_installation.html">“内嵌”</a>应用程序与扩展程序的安装功能。
 </ul>
 
-<h4> Manifest changes </h4>
+<h4> 清单文件更改 </h4>
   <ul>
-    <li>The new
-      <a href="manifest.html#offline_enabled">offline_enabled</a> field
-      lets you specify that your app works well even without an internet
-      connection.
+    <li>新的
+      <a href="manifest.html#offline_enabled">offline_enabled</a>
+      字段让您指定您的应用程序即使在没有网络连接的情况下也能够很好地工作。
   </ul>
 
-<h4> Additions to existing APIs </h4>
+<h4> 对现有 API 的增强 </h4>
   <ul>
-    <li>You can retrieve permission warnings using the new management API methods
+    <li>您可以使用新的管理 API 方法
       $ref:management.getPermissionWarningsById
-      and
-      $ref:management.getPermissionWarningsByManifest.
-    <li>The management API’s
-      $ref:management.ExtensionInfo object has
-      a new field, <code>offlineEnabled</code>.
-    <li>You can now <a href="i18n.html">internationalize</a> content script CSS
-      files by using <code>__MSG_messagename__</code> placeholders.
+      和
+      $ref:management.getPermissionWarningsByManifest
+      获取权限警告信息。
+    <li>管理 API 的
+      $ref:management.ExtensionInfo 对象增加了一个新的属性：<code>offlineEnabled</code>。
+    <li>现在您可以使用 <code>__MSG_messagename__</code> 占位符为您的内容脚本 CSS
+      文件<a href="i18n.html">添加国际化支持</a>。
   </ul>
 
-<h4> Changes to existing APIs </h4>
+<h4> 对现有 API 的更改 </h4>
   <ul>
-    <li>The callback for the $ref:tabs.update
-      method is passed <code>null</code> instead of the tab details if the
-      extension does not have the "tabs" permission.
+    <li>如果扩展程序没有 "tabs" 权限的话，将会向 $ref:tabs.update
+      方法的回调函数传递 <code>null</code> 而不是标签页详情。
   </ul>
 
 <h2 id="14"> Google Chrome 14 </h2>
 
-<h4> New APIs </h4>
+<h4> 新的 API </h4>
   <ul>
-    <li>The <a href="tts.html">tts API</a>
-      lets extensions generate speech from text.
-    <li>The <a href="ttsEngine.html">ttsEngine API</a>
-      lets extensions implement text-to-speech (TTS) engines.
-    <li>Extensions that are distributed through the Chrome Web Store
-      can now include Native Client modules.
-      No special manifest entry is necessary, as you can see from the
-      <a href="http://code.google.com/p/naclports/source/browse#svn%2Ftrunk%2Fsrc%2Fpackages%2Flibraries%2Fnethack-3.4.3">NetHack example</a>.
-      For more information, see the
-      <a href="http://blog.chromium.org/2011/08/native-client-brings-sandboxed-native.html">announcement</a> and the
-      <a href="http://code.google.com/chrome/nativeclient/">Native Client documentation</a>.
+    <li> <a href="tts.html">文字语音转换 API</a>
+      使扩展程序可以通过文字产生语音。
+    <li> <a href="ttsEngine.html">文字语音转换引擎 API</a>
+      使扩展程序实现文字语音转换（TTS）引擎。
+    <li>通过 Chrome 网上应用店发布的扩展程序现在可以包含 Native Client 模块，而不需要特别的清单文件项。您可以参考
+      <a href="http://code.google.com/p/naclports/source/browse#svn%2Ftrunk%2Fsrc%2Fpackages%2Flibraries%2Fnethack-3.4.3">NetHack 例子</a>。有关更多信息，请参见<a href="http://blog.chromium.org/2011/08/native-client-brings-sandboxed-native.html">公告</a>（英文）和
+      <a href="http://code.google.com/chrome/nativeclient/">Native Client 文档</a>（英文）。
   </ul>
 
-<h4> Manifest changes </h4>
+<h4> 清单文件更改 </h4>
   <ul>
-    <li>The new
-      <a href="contentSecurityPolicy.html">content_security_policy</a> field
-      can help prevent
-      <a href="http://blog.chromium.org/2011/07/writing-extensions-more-securely.html">cross-site scripting vulnerabilities</a>
-      in your extension.
-    <li>The new <a href="manifest.html#nacl_modules">nacl_modules</a> field
-      lets you register Native Client modules
-      as content handlers for MIME types.
+    <li>新的
+      <a href="contentSecurityPolicy.html">content_security_policy</a>
+      字段有助于阻止您的扩展程序中的<a href="http://blog.chromium.org/2011/07/writing-extensions-more-securely.html">跨站脚本漏洞</a>。
+    <li>新的 <a href="manifest.html#nacl_modules">nacl_modules</a>
+      字段让您将 Native Client 模块注册为 MIME 类型的内容处理器。
   </ul>
 
-<h4> Additions to existing APIs </h4>
+<h4> 对现有 API 的增强 </h4>
   <ul>
-    <li><a href="contextMenus.html">Context menu</a> items
-      can now appear even in documents
-      that have file:// or chrome:// URLs.
-      Previously, they were restricted to documents with
-      http:// or https:// URLs.
-    <li>An optional <code>drawAttention</code> field in
-      $ref:windows.update's
-      <code>updateInfo</code> object lets you specify that the window
-      should entice the user to change focus to it.
-    <li>The new
+    <li><a href="contextMenus.html">右键菜单</a>项现在可以出现在
+      file:// 或 chrome:// 协议的文档中了。以前，它们仅限于 http://
+      或 https:// 协议的文档。
+    <li>$ref:windows.update 的
+      <code>updateInfo</code> 中可选的 <code>drawAttention</code> 
+      属性让您指定是否应该提醒用户切换至该窗口。
+    <li>新的
       $ref:bookmarks.getSubTree
-      function lets you retrieve just part of the Bookmarks hierarchy.
+      函数让您获取一部分的书签树。
   </ul>
 
-<h4> Changes to existing APIs </h4>
+<h4> 对现有 API 的更改 </h4>
   <ul>
-    <li>The "tabs" permission is no longer required for
-      $ref:tabs.remove and
-      $ref:tabs.onRemoved.
+    <li>$ref:tabs.remove 和
+      $ref:tabs.onRemoved
+      不再需要 "tabs" 权限。
   </ul>
 
 <h2 id="13"> Google Chrome 13 </h2>
 
-<h4> New APIs </h4>
+<h4> 新的 API </h4>
   <ul>
-    <li>The <a href="proxy.html">proxy API</a>
-      lets extensions manage Chrome's proxy settings.
-    <li>The
-      $ref:types.ChromeSetting prototype
-      provides an interface to browser settings;
-      it's used by the proxy API.
-    <li> <em>Chrome OS only:</em>
-      The <a href="fileBrowserHandler.html">fileBrowserHandler API</a>
-      lets you extend the Chrome OS file browser.
+    <li> <a href="proxy.html">代理设置 API</a>
+      让扩展程序管理 Chrome 浏览器的代理设置。
+    <li>
+      $ref:types.ChromeSetting 原型提供浏览器设置的接口，由代理设置 API 使用。
+    <li> <em>仅用于 Chrome OS：</em>
+       <a href="fileBrowserHandler.html">文件浏览器 API</a>
+      让您扩展Chrome OS的文件浏览器。
   </ul>
 
-<h4> Manifest changes </h4>
+<h4> 清单文件更改 </h4>
   <ul>
-    <li>A new <code>exclude_matches</code> item
-      in the "content_scripts" field
-      lets you target your content script more precisely.
-      For details, see
-      <a href="content_scripts.html#match-patterns-globs">Match patterns and globs</a>.
-    <li>New "clipboardRead" and "clipboardWrite"
-      <a href="manifest.html#permissions">permissions</a>
-      specify capabilities for <code>document.execCommand()</code>.
+    <li>"content_scripts" 字段中新增的 <code>exclude_matches</code> 项
+      让您更精确地定位您的内容脚本。有关更多详情，请参见<a href="content_scripts.html#match-patterns-globs">匹配表达式和范围</a>。
+    <li>新的 "clipboardRead" 和 "clipboardWrite"
+      <a href="declare_permissions.html">权限</a>指定
+      <code>document.execCommand()</code> 的能力。
   </ul>
 
-<h4> Additions to existing APIs </h4>
+<h4> 对现有 API 的增强 </h4>
   <ul>
-    <li>Content scripts can now make
-      <a href="xhr.html">cross-origin XMLHttpRequests</a>
-      to the same sites that their parent extension can,
-      eliminating the need to relay these requests
-      through a background page.
-    <li>You can now use <code>@run-at</code>
-      in an imported Greasemonkey script
-      to control when the script is injected.
-      It works the same way as
+    <li>内容脚本现在可以向所属扩展程序能够访问的相同站点发出<a href="xhr.html">跨站
+      XMLHttpRequests</a>，不用再通过后台页面转发这些请求。
+    <li>现在您在导入的油猴（Greasemonkey）脚本中可以使用 <code>@run-at</code>
+      来控制何时插入脚本，它和内容脚本中的
       <a href="content_scripts.html#run_at"><code>run_at</code></a>
-      in content scripts.
+      工作方式相同。
   </ul>
 
 <h2 id="12"> Google Chrome 12 </h2>
 
-<h4> Additions to existing APIs </h4>
+<h4> 对现有 API 的增强 </h4>
   <ul>
-    <li>Two new <code>chrome.extension</code>
-      methods&mdash;$ref:extension.isAllowedFileSchemeAccess and
-      $ref:extension.isAllowedIncognitoAccess&mdash;let you
-      determine whether your extension has increased access,
-      which the user specifies using the extensions management page
-      (<b>chrome://extensions</b>).
-    <li>The $ref:windows.create
-      method can now take a <code>focused</code> value.
-      Previously, all new windows had the keyboard focus;
-      now you can create windows without interrupting the user's typing.
-    <li>If the manifest specifies "experimental" permission,
-      your extension can specify "panel" as the value of
-      the <code>type</code> field in
-      the $ref:windows.create
-      method
-      or the $ref:windows.Window type.
-    <li>The $ref:cookies.onChanged
-      event of <code>chrome.cookies</code>
-      now has a <code>cause</code> parameter.
-    <li>The <code>chrome.contextMenus</code>
-      $ref:contextMenus.create and
+    <li>两个新的 <code>chrome.extension</code>
+      方法——$ref:extension.isAllowedFileSchemeAccess 和
+      $ref:extension.isAllowedIncognitoAccess，让您确定您的扩展程序是否具有额外的访问权限，这些由用户通过扩展程序管理页面（<b>chrome://extensions</b>）。
+    <li> $ref:windows.create
+      方法现在可以传递 <code>focused</code> 值。以前，所有新窗口都具有键盘焦点，现在您可以创建新窗口而不打断用户的输入。
+    <li>如果清单文件中指定了 "experimental" 权限，您的扩展程序可以在
+      $ref:windows.create 方法或 $ref:windows.Window 类型中指定 "panel"
+      作为 <code>type</code> 属性的值。
+    <li><code>chrome.cookies</code> 的 $ref:cookies.onChanged
+      事件现在增加了 <code>cause</code> 参数。
+    <li> <code>chrome.contextMenus</code> 的
+      $ref:contextMenus.create 和
       $ref:contextMenus.update
-      methods now let you specify a context value of "frame".
+     方法现在允许您指定 contexts 值 "frame"。
   </ul>
 
 <h2 id="11"> Google Chrome 11 </h2>
 
-<h4> Changes to existing APIs </h4>
+<h4> 对现有 API 的更改 </h4>
   <ul>
-    <li>For security reasons, you can no longer call
-      $ref:tabs.captureVisibleTab
-      on just any tab.
-      Instead, you now must have
-      <a href="manifest.html#permissions">host permission</a>
-      for the URL displayed by that tab.
-      To get the previous behavior,
-      specify <code>&lt;all_urls></code> for the host permission.
+    <li>由于安全原因，您将不能在任何标签页上调用
+      $ref:tabs.captureVisibleTab，您必须拥有那一标签页显示的 URL
+      的<a href="declare_permissions.html">主机权限</a>。要保留原来的行为，请指定
+      <code>&lt;all_urls&gt;</code> 主机权限。
   </ul>
 
-<h4> Additions to existing APIs </h4>
+<h4> 对现有 API 的增强 </h4>
   <ul>
-    <li>The management API's
-      $ref:management.ExtensionInfo object
-      now has a <code>homepageUrl</code> property.
-    <li>The management API now lets you get the icons of
-      disabled apps and extensions.
-      Also, you can now modify the regular icon's URL
-      to get its disabled equivalent.
-      See $ref:management.IconInfo for details.
-    <li>The cookies API
+    <li>管理 API 的
+      $ref:management.ExtensionInfo 对象现在增加了 <code>homepageUrl</code> 属性。
+    <li>管理 API 现在允许您获得已禁用的应用程序和扩展程序的图标。另外，您现在也可以修改普通图标的
+      URL 获得禁用时的图标。有关细节请参见 $ref:management.IconInfo。
+    <li>Cookie API 的
       $ref:cookies.set
-      and $ref:cookies.remove methods
-      can now take callbacks.
+      和 $ref:cookies.remove
+      方法现在可以传递回调函数。
   </ul>
 
 <h2 id="10"> Google Chrome 10 </h2>
 
-<h4> Manifest changes </h4>
+<h4> 清单文件更改 </h4>
   <ul>
-    <li>The new <a href="manifest.html#bg">background</a> permission
-      extends the life of Chrome,
-      allowing your extension or app
-      to run even when Chrome has no windows open.
+    <li>新的 <a href="declare_permissions.html#bg">background</a> 权限扩展了 Chrome 
+      浏览器的生命周期，允许您的扩展程序即使在 Chrome 浏览器没有窗口打开时运行。
   </ul>
 
-<h4> Additions to existing APIs </h4>
+<h4> 对现有 API 的增强 </h4>
   <ul>
-    <li>The $ref:windows.create
-      method now has a <code>tabId</code> field.
-      You can use it to move a tab or panel into a new window.
+    <li> $ref:windows.create
+      方法现在增加了 <code>tabId</code> 字段，您可以使用它将标签页或面板移动到新窗口中。
       <p class="note">
-      <b>Note:</b>
-      This change was incorrectly attributed to Chrome 9
-      in previous release notes.
+      <b>注：</b>
+      在以前的发行注记中错误地将这一更改标记为 Chrome 9。
   </ul>
 
 <h2 id="9"> Google Chrome 9 </h2>
 
-<h4> New APIs </h4>
+<h4> 新的 API </h4>
   <ul>
-    <li>The <a href="omnibox.html">omnibox API</a> allows you to
-      register a keyword with Chrome's address bar.
+    <li> <a href="omnibox.html">多功能框 API</a> 允许您在 Chrome 浏览器的地址栏中注册一个关键字。
   </ul>
 
-<h4> Manifest changes </h4>
+<h4> 清单文件更改 </h4>
   <ul>
-    <li>The <a href="manifest.html#homepage_url">homepage_url</a> field
-      lets you specify the extension or app's homepage.
+    <li> <a href="manifest.html#homepage_url">homepage_url</a> 
+      属性允许您指定扩展程序或应用程序的主页。
   </ul>
 
-<h4> Additions to existing APIs </h4>
+<h4> 对现有 API 的增强 </h4>
   <ul>
-    <li>The $ref:tabs.Tab object
-      now has a <code>pinned</code> property
-      that's reflected in various <code>chrome.tabs</code> methods.
-      For example,
-      you can $ref:tabs.create
-      a pinned tab.
-    <li>The $ref:windows.create
-      method can now take a list of URLs,
-      letting you create multiple tabs in the new window.
-    <li>The new
-      $ref:management.get method
-      lets you get information about the specified extension or app.
+    <li> $ref:tabs.Tab 对象现在增加了
+      <code>pinned</code>
+      属性，反映在多个 <code>chrome.tabs</code>
+      方法中。例如，您可以$ref:[tabs.create 创建]一个固定的标签页。
+    <li> $ref:windows.create
+      方法现在可以传递 URL 列表，让您在新窗口中创建多个标签页。
+    <li>新的
+      $ref:management.get 方法让您获取有关指定扩展程序或应用程序的信息。
   </ul>
 
 
 <h2 id="8"> Google Chrome 8 </h2>
 
 <p>
-We took a break for Chrome 8.
-No API or manifest changes worth noting.
+在 Chrome 8 中没有值得一提的 API 或清单文件更改。
 </p>
 
 
 <h2 id="7"> Google Chrome 7 </h2>
 
-<h4> New APIs </h4>
+<h4> 新的 API </h4>
   <ul>
-    <li>All users can now install
-      <a href="http://code.google.com/chrome/apps/index.html">apps</a>;
-      packaged apps can use extension APIs.
-    <li>The <a href="management.html">management API</a>
-      lets you work with installed apps and extensions.
+    <li>现在所有用户都能安装<a href="https://code.google.com/chrome/apps/index.html">应用程序</a>，打包应用程序可以使用扩展程序的 API。
+    <li> <a href="management.html">管理 API</a>
+      让您与已安装的应用程序和扩展程序共同协作。
   </ul>
 
-<h4> Manifest changes </h4>
+<h4> 清单文件更改 </h4>
   <ul>
-    <li>Introduced <a href="manifest.html#incognito">split incognito</a>
-      mode as the default for installable web apps
-      (also available to extensions).
-    <li>The <a href="tabs.html">tabs API</a>
-      <code>create()</code> and <code>update()</code> methods
-      no longer require the "tabs" permission, removing one common cause of
-      <a href="permission_warnings.html">scary dialogs</a>.
+    <li>引入了<a href="manifest.html#incognito">分离的隐身模式</a>并作为可安装网上应用程序的默认值（也可用于扩展程序）。
+    <li> <a href="tabs.html">标签页 API</a> 的
+      <code>create()</code> 和 <code>update()</code>
+      方法不再需要 "tabs" 权限，避免了导致<a href="permission_warnings.html">吓人对话框</a>的一种常见原因。
   </ul>
 
 
 <h2 id="6">Google Chrome 6</h2>
 
-<h4> New APIs </h4>
+<h4> 新的 API </h4>
   <ul>
-    <li>The <a href="contextMenus.html">context menus API</a> allows you to
-      add context menus to pages or specific objects on a page.
-    <li>The <a href="cookies.html">cookies API</a> allows you to manage the
-      browser's cookie system.
-    <li>The <a href="idle.html">idle API</a> allows you to detect when the
-      machine's idle state changes.
+    <li> <a href="contextMenus.html">右键菜单 API</a>
+      允许您向页面或页面上的指定对象添加右键菜单项。
+    <li> <a href="cookies.html">Cookie API</a>
+      许您管理浏览器的 Cookie 系统。
+    <li> <a href="idle.html">空闲处理 API</a>
+      允许您检测计算机空闲状态的更改。
   </ul>
 
-<h4> Additions to existing APIs </h4>
+<h4> 对现有 API 的增强 </h4>
   <ul>
-    <li>The 
+    <li> 
       $ref:extension.getViews
-      method can now return popup views.
-    <li>A new 
-      $ref:windows.WINDOW_ID_NONE constant
-      identifies when focus shifts away from the browser.
-    <li>The new 
-      $ref:tabs.getCurrent method
-      returns the tab associated with the currently executing script.
+      方法现在可以返回弹出视图。
+    <li>新增的
+      $ref:windows.WINDOW_ID_NONE
+      常数表示焦点离开浏览器。
+    <li>新增的
+      $ref:tabs.getCurrent 
+      方法返回与当前正在执行的脚本对应的标签页。
   </ul>
 
-<h4> Manifest changes </h4>
+<h4> 清单文件更改 </h4>
   <ul>
-    <li>The <a href="manifest.html#geolocation">geolocation</a> permission
-      gives an extension access to the user's physical location.
-    <li><a href="match_patterns.html">Match patterns</a> can now select all
-      schemes or all URLs.
-    <li>Access to file:/// URLs no longer triggers the "access to your machine"
-      security warning, but now requires user opt-in from the extensions
-      management page.
+    <li> <a href="manifest.html#geolocation">geolocation</a> 
+      权限让扩展程序访问用户的地理位置。
+    <li><a href="match_patterns.html">匹配表达式</a>
+      现在可以选择所有协议或所有 URL。
+    <li>访问 file:/// 的 URL 不再引发“访问您的计算机”安全警告，但是现在需要用户手工从扩展程序管理页面允许这一操作。
   </ul>

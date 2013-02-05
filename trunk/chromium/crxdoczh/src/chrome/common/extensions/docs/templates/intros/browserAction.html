@@ -9,7 +9,7 @@
   使用浏览器按钮可以在 Google Chrome
   浏览器主窗口中地址栏右侧的工具栏中添加图标。除了<a href="#icon"
   >图标</a>，浏览器按钮还可以有<a href="#tooltip"
-  >工具提示</a>、<a href="#badge">徽章</a>和<a href="#popups">弹出菜单</a>。
+  >工具提示</a>、<a href="#badge">徽章</a>和<a href="#popups">弹出内容</a>。
   </p>
 
 <p>
@@ -18,7 +18,7 @@ the multicolored square
 to the right of the address bar
 is the icon for a browser action.
 A popup is below the icon.-->
-在下图中，地址栏右侧多种颜色的正方形是一个浏览器按钮的图标，图标下有一弹出菜单。
+在下图中，地址栏右侧多种颜色的正方形是一个浏览器按钮的图标，图标下有一弹出内容。
 </p>
 
 <img src="{{static}}/images/browser-action.png"
@@ -83,7 +83,7 @@ a <a href="#tooltip">tooltip</a>,
 a <a href="#badge">badge</a>,
 and a <a href="#popups">popup</a>.-->
 浏览器按钮可以包含<a href="#icon">图标</a>、<a href="#tooltip"
->工具提示</a>、<a href="#badge">徽章</a>和<a href="#popups">弹出菜单</a>。
+>工具提示</a>、<a href="#badge">徽章</a>和<a href="#popups">弹出内容</a>。
 </p>
 
 <h3 id="icon"><!--@Icon-->图标</h3>
@@ -175,13 +175,13 @@ respectively.-->
 </p>
 
 
-<h3 id="popups"><!--@Popup-->弹出菜单</h3>
+<h3 id="popups"><!--@Popup-->弹出内容</h3>
 
 <p><!--@If a browser action has a popup,
   the popup appears when the user clicks the icon.
   The popup can contain any HTML contents that you like,
   and it's automatically sized to fit its contents.-->
-  如果浏览器按钮有弹出菜单，当用户单击图标时出现弹出菜单。弹出菜单可以包含任何您需要的 HTML 内容，并且自动调整大小以适应内容。
+  如果浏览器按钮有弹出内容，当用户单击图标时会出现弹出内容。弹出内容可以包含任何您需要的 HTML 内容，并且会自动调整大小以适应内容。
   </p>
 
 <p>
@@ -190,8 +190,8 @@ create an HTML file with the popup's contents.
 Specify the HTML file in the <b>default_popup</b> field of <b>browser_action</b>
 in the <a href="#manifest">manifest</a>, or call the
 $ref:browserAction.setPopup method.-->
-  要向您的浏览器按钮添加弹出菜单，请创建一个 HTML
-  文件存放弹出菜单的内容，并在<a href="#manifest">清单文件</a>中
+  要向您的浏览器按钮添加弹出内容，请创建一个 HTML
+  文件存放弹出内容，并在<a href="#manifest">清单文件</a>中
   <b>browser_action</b> 部分的 <b>default_popup</b> 属性指定该 HTML
   文件或者调用 $ref:browserAction.setPopup 方法。
 </p>
@@ -200,7 +200,7 @@ $ref:browserAction.setPopup method.-->
 
 <p><!--@For the best visual impact,
   follow these guidelines:-->
-  为了达到最好的视觉效果，遵循下面的指导：
+  为了达到最好的视觉效果，请遵循下面的指导：
   </p>
 
 <ul>
