@@ -10,17 +10,20 @@
       {
         "id": "PageStateMatcher",
         "type": "object",
-        "description": "Matches the state of a web page by various criteria.",
+//@        "description": "Matches the state of a web page by various criteria.",
+        "description": "通过各种条件匹配网页的状态。",
         "properties": {
           "pageUrl": {
             "$ref": "events.UrlFilter",
-            "description": "Matches if the condition of the UrlFilter are fulfilled for the top-level URL of the page.",
+//@            "description": "Matches if the condition of the UrlFilter are fulfilled for the top-level URL of the page.",
+            "description": "如果页面的顶层 URL 满足 UrlFilter 的条件则匹配。",
             "optional": true
           },
           "css": {
             "type": "array",
             "optional": true,
-            "description": "Matches if all of the CSS selectors in the array match in a frame with the same origin as the page's main frame.  Note that listing hundreds of CSS selectors here can slow down web sites.",
+//@            "description": "Matches if all of the CSS selectors in the array match in a frame with the same origin as the page's main frame.  Note that listing hundreds of CSS selectors here can slow down web sites.",
+            "description": "如果在与页面主框架来源相同的某个框架中，数组中的所有 CSS 选择器都匹配的话则匹配网页状态。注意，在这里列出几百个 CSS 选择器可能会使网站变慢。",
             // TODO(jyasskin): Figure out if we want to require all
             // the selectors to match in the same frame, or allow several
             // frames to contribute to a match.
@@ -44,7 +47,8 @@
       },
       {
         "id": "ShowPageAction",
-        "description": "Declarative event action that shows the extension's page action while the corresponding conditions are met.",
+//@        "description": "Declarative event action that shows the extension's $ref:[pageAction page action] while the corresponding conditions are met.  This action can be used without <a href=\"declare_permissions.html#host-permission\">host permissions</a>.  If the extension takes the <a href=\"activeTab.html\">activeTab</a> permission, a click on the page action will grant access to the active tab.",
+        "description": "声明式事件操作，当相应的条件满足时显示扩展程序的 $ref:[pageAction 页面按钮]。使用该操作不需要<a href=\"declare_permissions.html#host-permission\">主机权限</a>。如果扩展程序拥有 <a href=\"activeTab.html\">activeTab</a> 权限，单击页面按钮就会授予对活动标签页的访问权限。",
         "type": "object",
         "properties": {
           "instanceType": {

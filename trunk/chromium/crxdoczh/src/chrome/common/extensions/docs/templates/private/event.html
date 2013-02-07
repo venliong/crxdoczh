@@ -1,7 +1,7 @@
 <div>
   <h4 id="{{id}}">{{name}}</h4>
   <div class="summary">
-    <span class="subdued">{{?parent_name}}{{parent_name}}{{:}}chrome.{{api.name}}{{/}}.</span>{{name}}<span class="subdued">.addListener</span>(function({{#parameters}}{{+partials.parameter_item}}{{^last}}, {{/}}{{/}})<span class="subdued"> {...}</span>{{#extraParameters}}, {{+partials.parameter_item}}{{/}});
+    <span class="subdued">{{?parent_name}}{{parent_name}}{{:}}chrome.{{api.name}}{{/}}.</span>{{name}}<span class="subdued">.addListener</span>(function({{#parameters}}{{+partials.parameter_item}}{{^last}}, {{/}}{{/}})<span class="subdued"> {...}</span>{{#extraParameters}}, {{+partials.parameter_item}}{{/}}{{?filters}}<span class="optional">, { {{#filters}}{{name}}: <span class="subdued">...</span>{{^last}}, {{/}}{{/}} }</span>{{/}});
   </div>
   <div class="description">
     {{?description}}<p>
@@ -44,7 +44,7 @@
       </dl>
     {{/returns}}
     {{?filters}}
-      <h4><!--@Filters-->过滤器</h4>
+      <h4><!--@Filters--><a href="events.html#filtered">过滤器</a></h4>
       <dl>
         {{#filters}}{{+partials.parameter_full}}{{/}}
       </dl>
