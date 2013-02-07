@@ -6,7 +6,7 @@
     <link href="static/css/print.css" rel="stylesheet" type="text/css" media="print">
     <link href="static/css/prettify.css" rel="stylesheet" type="text/css">
     <link href="//www.google.com/images/icons/product/chrome-16.png" rel="icon" type="image/ico">
-    <title>Override Pages - Google Chrome</title>
+    <title>替代页面 - Google Chrome</title>
   </head>
   <body>
     <a id="top"></a>
@@ -109,7 +109,7 @@
                             <a href="cookies.html" class="level4 ">Cookie</a>
                       </li>
                       <li class="level4">
-                            <a href="devtools.html" class="level4 ">开发人员工具</a>
+                            <a href="devtools.html" class="level4 ">开发者工具</a>
                       </li>
                       <li class="level4">
                             <a href="events.html" class="level4 ">事件</a>
@@ -247,18 +247,18 @@
         </ul>
       </div>
       <div id="gc-pagecontent">
-        <h1 class="page_title">Override Pages</h1>
+        <h1 class="page_title">替代页面</h1>
         <div id="toc">
           <h2><!--@Contents-->目录</h2>
           <ol>
             <li>
-              <a href=#manifest>Manifest</a>
+              <a href=#manifest>清单文件</a>
             </li>
             <li>
-              <a href=#tips>Tips</a>
+              <a href=#tips>提示</a>
             </li>
             <li>
-              <a href=#examples> Examples </a>
+              <a href=#examples> 例子 </a>
             </li>
           </ol>
         </div>
@@ -287,51 +287,60 @@
 </style>
 
 <p>
-Override pages are a way to substitute an HTML file from your extension
+<!--@Override pages are a way to substitute an HTML file from your extension
 for a page that Google Chrome normally provides.
 In addition to HTML,
-an override page usually has CSS and JavaScript code.
+an override page usually has CSS and JavaScript code.-->
+替代页面是一种使用来自您的扩展程序的 HTML 文件替换 Google Chrome 默认提供页面的方式。除了 HTML，替代页面通常还包含 CSS 和 JavaScript 代码。
 </p>
 
 <p>
-An extension can replace any one of the following pages:
+<!--@An extension can replace any one of the following pages:-->
+扩展程序可以替换以下任一页面：
 <ul>
-  <li> <b>Bookmark Manager:</b>
+  <li> <b><!--@Bookmark Manager:-->书签管理器：</b><!--@
   The page that appears when the user chooses
   the Bookmark Manager menu item
   from the Chrome menu or, on Mac,
   the Bookmark Manager item from the Bookmarks menu.
   You can also get to this page by entering the URL
-  <b>chrome://bookmarks</b>.
+  <b>chrome://bookmarks</b>.-->当用户选择 Chrome
+  菜单中（或
+  Mac 系统上的书签菜单中）的书签管理器菜单项时出现的页面。您也可以输入 URL
+  <b>chrome://bookmarks</b> 进入该页面。
   </li>
 
-  <li> <b>History:</b>
+  <li> <b><!--@History:-->历史记录：</b><!--@
   The page that appears when the user
   chooses the History menu item
   from the Chrome menu or, on Mac,
   the Show Full History item from the History menu.
   You can also get to this page by entering the URL
-  <b>chrome://history</b>.
+  <b>chrome://history</b>.-->当用户选择 Chrome 菜单中的历史记录（或者 Mac
+  系统上历史记录菜单中的显示所有历史记录）时出现的页面。您也可以输入 URL
+  <b>chrome://history</b> 进入该页面。
   </li>
 
-  <li> <b>New Tab:</b>
+  <li> <b><!--@New Tab:-->“打开新的标签页”页面：</b><!--@
   The page that appears when the user creates a new tab or window.
   You can also get to this page by entering the URL
-  <b>chrome://newtab</b>.
+  <b>chrome://newtab</b>.-->当用户创建新标签页或新窗口时出现的页面。您也可以输入
+  URL <b>chrome://newtab</b> 进入该页面。
   </li>
 </ul>
 </p>
 
 <p class="note">
-<b>Note:</b>
+<b><!--@Note:-->注意：</b><!--@
 A single extension can override
 <b>only one page</b>.
 For example, an extension can't override both
-the Bookmark Manager and History pages.
+the Bookmark Manager and History pages.-->一个扩展程序<b
+>只能替换一个页面</b>。例如，一个扩展程序不能既替换书签管理页面，又替换历史记录页面。
 </p>
 
 <p>
-Incognito windows are treated specially.
+<!--@Incognito windows are treated specially.
 New Tab pages cannot be overridden in incognito windows.
 Other override pages work in incognito windows
 as long as the
@@ -340,18 +349,23 @@ manifest property is set to "spanning"
 (which is the default value).
 See <a href="overview.html#incognito">Saving data and incognito mode</a>
 in the Overview for more details on how you should treat
-incognito windows.
+incognito windows.-->
+隐身窗口是特殊对待的，“打开新的标签页”页面不能在隐身窗口中替换。只要清单文件中的
+<a href="manifest.html#incognito">incognito</a>
+属性设置为
+"spanning"（也是默认值），其他替代页面将在隐身窗口中工作。有关您应该如何对待隐身窗口的更多细节，请参见概述中的<a href="overview.html#incognito">保存数据和隐身模式</a>。
 </p>
 
 <p>
-The following screenshots show the default New Tab page
-next to a custom New Tab page.
+<!--@The following screenshots show the default New Tab page
+next to a custom New Tab page.-->
+以下屏幕截图展现了缺省的“打开新的标签页”页面和自定义的“打开新的标签页”页面。
 </p>
 
 <table id="pics">
   <tr>
-    <td> <b>The default New Tab page</b> </td>
-    <td> <b>An alternative New Tab page</b> </td>
+    <td> <b><!--@The default New Tab page-->缺省的“打开新的标签页”页面</b> </td>
+    <td> <b><!--@An alternative New Tab page-->替代的“打开新的标签页”页面</b> </td>
   </tr>
   <tr>
     <td>
@@ -367,15 +381,16 @@ next to a custom New Tab page.
   </tr>
 </table>
 
-<h2 id="manifest">Manifest</h2>
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
 
 <p>
-Register an override page in the
-<a href="manifest.html">extension manifest</a> like this:
+<!--@Register an override page in the
+<a href="manifest.html">extension manifest</a> like this:-->
+如下所示在<a href="manifest.html">扩展程序的清单文件</a>中注册替代页面：
 </p>
 
 <pre>{
-  "name": "My extension",
+  "name": "我的扩展程序",
   ...
 
 <b>  "chrome_url_overrides" : {
@@ -385,7 +400,8 @@ Register an override page in the
 }</pre>
 
 <p>
-For <code><em>pageToOverride</em></code>, substitute one of the following:
+<!--@For-->将 <code><em>pageToOverride</em></code><!--@, substitute one of the following:-->
+替换为以下值之一：
 </p>
 
 <ul>
@@ -395,41 +411,46 @@ For <code><em>pageToOverride</em></code>, substitute one of the following:
 </ul>
 
 
-<h2 id="tips">Tips</h2>
+<h2 id="tips"><!--@Tips-->提示</h2>
 
 <p>
-For an effective override page, follow these guidelines:
+<!--@For an effective override page, follow these guidelines:-->
+要想创建一个高效的替代页面，请遵循这些指导：
 </p>
 
 <ul>
   <li>
     <p>
-    <b>Make your page quick and small.</b> <br />
-    Users expect built-in browser pages to open instantly.
+    <b><!--@Make your page quick and small.-->使您的页面又快又小。</b> <br />
+    <!--@Users expect built-in browser pages to open instantly.
     Avoid doing things that might take a long time.
-    For example, avoid synchronous fetches of network or database resources.
+    For example, avoid synchronous fetches of network or database resources.-->
+    用户期望内置的浏览器页面能够立即打开。请避免做任何可能花较长时间的事情，例如，避免同步地获取网络或数据库资源。
     </p>
   </li>
   <li>
     <p>
-    <b>Include a title in your page.</b> <br />
-    Otherwise people might see the URL of the page,
+    <b><!--@Include a title in your page.-->在您的页面中包含标题。</b> <br />
+    <!--@Otherwise people might see the URL of the page,
     which could be confusing.
     Here's an example of specifying the title:
-    <code>&lt;title>New&nbsp;Tab&lt;/title></code>
+    <code>&lt;title>New&nbsp;Tab&lt;/title></code>-->
+    否则用户可能会看到页面的
+    URL，会令人感到疑惑。这是一个指定标题的例子：<code>&lt;title&gt;新标签页&lt;/title&gt;</code>
     </p>
   </li>
   <li>
     <p>
-    <b>Don't rely on the page having the keyboard focus.</b> <br />
-    The address bar always gets the focus first
-    when the user creates a new tab.
+    <b><!--@Don't rely on the page having the keyboard focus.-->不要假定页面具有键盘焦点。</b> <br />
+    <!--@The address bar always gets the focus first
+    when the user creates a new tab.-->
+    当用户创建新标签页时总是地址栏先获得焦点。
     </p>
   </li>
   <li>
     <p>
-    <b>Don't try to emulate the default New Tab page.</b> <br />
-    The APIs necessary to create
+    <b><!--@Don't try to emulate the default New Tab page.-->不要试着模仿默认的“打开新的标签页”页面。</b> <br />
+    <!--@The APIs necessary to create
     a slightly modified version of the default New Tab page &mdash;
     with top pages,
     recently closed pages,
@@ -438,23 +459,26 @@ For an effective override page, follow these guidelines:
     and so on &mdash;
     don't exist yet.
     Until they do,
-    you're better off trying to make something completely different.
+    you're better off trying to make something completely different.-->
+    用于创建与默认的“打开新的标签页”页面类似（具有最常访问的网站、最近关闭的标签页、提示、主题背景图像等等）的修改版本所需的
+    API 还不存在。在出现那些 API
+    之前您还是最好还是考虑一些完全不同的新想法。
     </p>
   </li>
 </ul>
 
-<h2 id="examples"> Examples </h2>
+<h2 id="examples"> <!--@Examples-->例子 </h2>
 
 <p>
-See the
-<a href="samples.html#chrome_url_overrides">override samples</a>.
+<!--@See the
+-->请参见<a href="samples.html#chrome_url_overrides"><!--@override samples-->替代页面示例</a><!--@.-->。
 </p>
       </div>
     </div>
   </body>
   <script>
     window.bootstrap = {
-      api_names: [{"name":"alarms"},{"name":"bookmarks"},{"name":"browserAction"},{"name":"browsingData"},{"name":"commands"},{"name":"contentSettings"},{"name":"contextMenus"},{"name":"cookies"},{"name":"debugger"},{"name":"declarativeWebRequest"},{"name":"devtools.inspectedWindow"},{"name":"devtools.network"},{"name":"devtools.panels"},{"name":"downloads"},{"name":"events"},{"name":"extension"},{"name":"fileBrowserHandler"},{"name":"fontSettings"},{"name":"history"},{"name":"i18n"},{"name":"idle"},{"name":"input.ime"},{"name":"management"},{"name":"omnibox"},{"name":"pageAction"},{"name":"pageCapture"},{"name":"permissions"},{"name":"privacy"},{"name":"proxy"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"scriptBadge"},{"name":"sessionRestore"},{"name":"storage"},{"name":"tabCapture"},{"name":"tabs"},{"name":"topSites"},{"name":"tts"},{"name":"ttsEngine"},{"name":"types"},{"name":"webNavigation"},{"name":"webRequest"},{"name":"webstore"},{"last":true,"name":"windows"}].concat(
+      api_names: [{"name":"alarms"},{"name":"bookmarks"},{"name":"browserAction"},{"name":"browsingData"},{"name":"commands"},{"name":"contentSettings"},{"name":"contextMenus"},{"name":"cookies"},{"name":"debugger"},{"name":"declarativeContent"},{"name":"declarativeWebRequest"},{"name":"devtools.inspectedWindow"},{"name":"devtools.network"},{"name":"devtools.panels"},{"name":"downloads"},{"name":"events"},{"name":"extension"},{"name":"fileBrowserHandler"},{"name":"fontSettings"},{"name":"history"},{"name":"i18n"},{"name":"idle"},{"name":"input.ime"},{"name":"management"},{"name":"omnibox"},{"name":"pageAction"},{"name":"pageCapture"},{"name":"permissions"},{"name":"privacy"},{"name":"proxy"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"scriptBadge"},{"name":"sessionRestore"},{"name":"storage"},{"name":"tabCapture"},{"name":"tabs"},{"name":"topSites"},{"name":"tts"},{"name":"ttsEngine"},{"name":"types"},{"name":"webNavigation"},{"name":"webRequest"},{"name":"webstore"},{"last":true,"name":"windows"}].concat(
           [{"name":"experimental.devtools.audits"},{"name":"experimental.devtools.console"},{"name":"experimental.discovery"},{"name":"experimental.history"},{"name":"experimental.identity"},{"name":"experimental.infobars"},{"name":"experimental.processes"},{"name":"experimental.record"},{"name":"experimental.speechInput"},{"name":"experimental.systemInfo.cpu"},{"last":true,"name":"experimental.systemInfo.storage"}]),
       branchInfo: {"channels":[{"path":"stable","name":"Stable"},{"path":"dev","name":"Dev"},{"path":"beta","name":"Beta"},{"path":"trunk","name":"Trunk"}],"current":"stable","showWarning":false}
     };

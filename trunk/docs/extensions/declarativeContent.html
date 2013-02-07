@@ -7,7 +7,7 @@
     <link href="static/css/prettify.css" rel="stylesheet" type="text/css">
     <link href="//www.google.com/images/icons/product/chrome-16.png" rel="icon" type="image/ico">
     <link href="static/css/api.css" rel="stylesheet" type="text/css">
-    <title>chrome.fileBrowserHandler - Google Chrome</title>
+    <title>chrome.declarativeContent - Google Chrome</title>
   </head>
   <body>
     <a id="top"></a>
@@ -248,395 +248,248 @@
         </ul>
       </div>
       <div id="gc-pagecontent">
-        <h1 class="page_title">chrome.fileBrowserHandler</h1>
-        
+        <h1 class="page_title">chrome.declarativeContent</h1>
+        <p class="warning">  <em><!--@Warning:-->警告：</em><!--@ This API is still under development. It is only  available for Chrome users on the-->  该 API 还在开发中，仅对  <span>    <strong>trunk</strong>    分支的 Chrome 用户可用。    <a href="http://www.chromium.org/developers/">了解更多...</a>  </span></p>
         
         
         <div id="toc">
           <h2><!--@Contents-->目录</h2>
           <ol>
             <li>
-              <a href=#manifest>Manifest</a>
+              <a href=#usage>用法</a>
             </li>
             <li>
-              <a href=#code>Implementing a file browser handler</a>
+              <a href=#rules>规则</a>
             </li>
             <li>
-              <a href="#apiReference"><!--@API reference: -->API 参考：chrome.fileBrowserHandler</a>
+              <a href="#apiReference"><!--@API reference: -->API 参考：chrome.declarativeContent</a>
               <ol>
-                  <li><a href="#types"><!--@Types-->类型</a><ol>  <li>    <a href="#type-FileHandlerExecuteEventDetails">FileHandlerExecuteEventDetails</a>  </li></ol></li>
+                  <li><a href="#types"><!--@Types-->类型</a><ol>  <li>    <a href="#type-PageStateMatcher">PageStateMatcher</a>  </li>  <li>    <a href="#type-ShowPageAction">ShowPageAction</a>  </li></ol></li>
                   
-                  <li><a href="#methods"><!--@Methods-->方法</a><ol>  <li><a href="#method-selectFile">selectFile</a></li></ol></li>
-                  <li><a href="#events"><!--@Events-->事件</a><ol>  <li><a href="#event-onExecute">onExecute</a></li>  <li><a href="#event-onExecuteContentHandler">onExecuteContentHandler</a></li></ol></li>
+                  
+                  <li><a href="#events"><!--@Events-->事件</a><ol>  <li><a href="#event-onPageChanged">onPageChanged</a></li></ol></li>
                   
               </ol>
             </li>
           </ol>
         </div>
 
-<p id="classSummary">
-Use the <code>chrome.fileBrowserHandler</code> module to
-extend the Chrome OS file browser.
-For example, you can use this API
-to enable users to upload files to your website.
-</p>
+<table class="intro">
+  <tr>
+    <th scope="col"></th>
+    <th scope="col"></th>
+  </tr>
+  <tr>
+    <td><strong><!--@Description:-->描述：</strong></td>
+    <td><!--@Use the-->使用 <code>chrome.declarativeContent</code> <!--@module to take
+    actions depending on the content of a page, without requiring
+    permission to read the page's content (see <a
+    href="#usage">Usage</a>).-->模块根据网页内容采取行动，而不需要读取页面内容的权限（请参见<a href="#usage">用法</a>）。</td>
+  </tr>
+  <tr>
+    <td><strong><!--@Availability:-->可用版本：</strong></td>
+    <td>Trunk</td>
+  </tr>
+  <tr>
+    <td><strong><!--@Permissions:-->权限：</strong></td>
+    <td><code>"declarativeContent"</code>
+      <!--TODO: Mention host permissions if/when some actions require them.-->
+    </td>
+  </tr>
+  <tr>
+    <td><strong><!--@Learn more:-->了解更多：</strong></td>
+    <td><a href="events.html"><!--@Declarative Events-->声明式事件</a><br/>
+    <!--@The--> <a href="activeTab.html">activeTab</a> <!--@permission-->权限</td>
+  </tr>
+</table>
 
-<p class="caution">
-<b>Important:</b>
-This API works <b>only on Chrome OS</b>.
+<h2 id="usage"><!--@Usage-->用法</h2>
+
+<p>
+<!--@The Declarative Content API allows you to show your extension's
+<a href="pageAction.html">page action</a> depending on the URL of a web page and
+the CSS selectors its content matches, without needing to take a <a
+href="declare_permissions.html#host-permission">host permission</a> or
+inject a <a href="content_scripts.html">content script</a>.  Use the
+<a href="activeTab.html">activeTab</a> permission in order to be able
+to interact with a page after the user clicks on your page action.-->
+声明式内容 API 允许您根据网页的 URL
+和它的内容匹配的 CSS
+选择器来显示您的扩展程序的<a href="pageAction.html">页面按钮</a>，而不需要拥有<a
+href="declare_permissions.html#host-permission">主机权限</a>或插入<a
+href="content_scripts.html">内容脚本</a>。为了在用户单击您的页面按钮后能够与网页交互，请使用
+<a href="activeTab.html">activeTab</a> 权限。
 </p>
 
 <p>
-The Chrome OS file browser comes up when
-the user either presses Ctrl+M
-or connects an external storage device,
-such as an SD card, USB key, external drive, or digital camera.
-Besides showing the files on external devices,
-the file browser can also display files
-that the user has previously saved to the system.
+<!--@If you need more precise control over when your page action appears or
+you need to change its appearance to match the current tab before the
+user clicks on it, you'll have to keep using the <a href="pageAction.html">pageAction</a> API.-->
+如果您需要更精确地控制什么时候显示您的页面按钮，或者需要在用户单击它之前更改它的外观以匹配当前标签页，您还是需要继续使用<a href="pageAction.html">页面按钮</a> API。
+</p>
+
+<h2 id="rules"><!--@Rules-->规则</h2>
+
+<p><!--@As a <a href="events.html#declarative">declarative API</a>, this
+API lets you register rules on the
+<code><a href="declarativeContent.html#event-onPageChanged">onPageChanged</a></code> event object which
+take an action (currently just <code><a href="declarativeContent.html#type-ShowPageAction">ShowPageAction</a></code>) when
+a set of conditions, represented as a
+<code><a href="declarativeContent.html#type-PageStateMatcher">PageStateMatcher</a></code>, are met.-->
+作为一种<a href="events.html#declarative">声明式 API</a>，该 API 让您在
+<code><a href="declarativeContent.html#event-onPageChanged">onPageChanged</a></code>
+事件对象上注册规则，当一系列由
+<code><a href="declarativeContent.html#type-PageStateMatcher">PageStateMatcher</a></code>
+表示的条件满足时执行某个操作（目前只有
+<code><a href="declarativeContent.html#type-ShowPageAction">ShowPageAction</a></code>）。
 </p>
 
 <p>
-When the user selects one or more files,
-the file browser adds buttons
-representing the valid handlers for those files.
-For example, in the following screenshot,
-selecting a file with a ".jpg" suffix
-results in an "Upload to Picasa" button that the user can click.
-</p>
-
-<p>
-<img src="static/images/filebrowserhandler.png"
-  width="640" height="400" alt="file browser screenshot" />
-</p>
-
-
-<h2 id="manifest">Manifest</h2>
-
-<p>
-You must declare the "fileBrowserHandler" permission
-in the <a href="manifest.html">extension manifest</a>,
-and you must use the "file_browser_handlers" field
-to register the extension as a handler of at least one file type.
-You should also provide a 16x16 icon
-to be displayed on the button.
-For example:
+<!--@The <code><a href="declarativeContent.html#type-PageStateMatcher">PageStateMatcher</a></code> matches web pages if and only
+if all listed criteria are met. The following rule would show a page
+action for pages on <code>https://www.google.com/</code> when a
+password field is present on it:-->
+当且仅当列出的所有条件都满足时，<code><a href="declarativeContent.html#type-PageStateMatcher">PageStateMatcher</a></code>
+才会匹配网页。当 <code>https://www.google.com/</code>
+上的页面存在密码字段时，以下规则将为该页面显示页面按钮：
 </p>
 
 <pre>
-{
-  "name": "My extension",
-  ...
-  <b>"file_browser_handlers"</b>: [
-    {
-      <b>"id"</b>: "upload",
-      <b>"default_title"</b>: "Save to Gallery", <em>// What the button will display</em>
-      <b>"file_filters"</b>: [
-        "filesystem:*.jpg", <em>// To match all files, use "filesystem:*.*"</em>
-        "filesystem:*.jpeg",
-        "filesystem:*.png"
-      ]
-    }
-  ]</b>,
-  "permissions" : [
-    <b>"fileBrowserHandler"</b>
+var rule1 = {
+  conditions: [
+    new <a href="declarativeContent.html#type-PageStateMatcher">chrome.declarativeContent.PageStateMatcher</a>({
+      <a href="declarativeContent.html#property-PageStateMatcher-pageUrl">pageUrl</a>: { <a href="events.html#property-UrlFilter-hostEquals">hostEquals</a>: 'www.google.com', <a href="events.html#property-UrlFilter-schemes">schemes</a>: ['https'] },
+      <a href="declarativeContent.html#property-PageStateMatcher-css">css</a>: ["input[type='password']"]
+    })
   ],
-  "icons": { <b>"16"</b>: "icon16.png",
-             "48": "icon48.png",
-            "128": "icon128.png" },
-  ...
-}</pre>
+  actions: [ new <a href="declarativeContent.html#type-ShowPageAction">chrome.declarativeContent.ShowPageAction</a>() ]
+};
+</pre>
 
 <p class="note">
-<b>Note:</b>
-You can specify locale-specific strings for the value of "default_title".
-See <a href="i18n.html">Internationalization (i18n)</a> for details.
-</p>
-
-<h2 id="code">Implementing a file browser handler</h2>
+<strong><!--@Note:-->注意：</strong><!--@ All conditions and actions are created via a constructor
+as shown in the example above.-->所有条件和操作都通过构造函数创建，如以上例子所示。
+<p>
 
 <p>
-To use this API,
-you must implement a function that handles the <code>onExecute</code> event
-of <code>chrome.fileBrowserHandler</code>.
-Your function will be called whenever the user clicks the button
-that represents your file browser handler.
-In your function, use the HTML5
-<a href="http://www.html5rocks.com/tutorials/file/filesystem/">FileSystem API</a>
-to get access to the file contents.
-Here is an example:
+<!--@In order to also show a page action for sites with a video, you can
+add a second condition, as each condition is sufficient to trigger all
+specified actions:-->
+如果要为包含视频的网站显示页面按钮，您可以添加第二个条件，每一个条件都足以触发所有指定的操作：
 </p>
-
 <pre>
-<em>//In background.html:</em>
-chrome.fileBrowserHandler.onExecute.addListener(function(id, details) {
-  if (id == 'upload') {
-    var fileEntries = details.entries;
-    for (var i = 0, entry; entry = fileEntries[i]; ++i) {
-      entry.file(function(file) {
-        <em>// send file somewhere</em>
-      });
-    }
-  }
-});
+var rule2 = {
+  conditions: [
+    new <a href="declarativeContent.html#type-PageStateMatcher">chrome.declarativeContent.PageStateMatcher</a>({
+      <a href="declarativeContent.html#property-PageStateMatcher-pageUrl">pageUrl</a>: { <a href="events.html#property-UrlFilter-hostEquals">hostEquals</a>: 'www.google.com', <a href="events.html#property-UrlFilter-schemes">schemes</a>: ['https'] },
+      <a href="declarativeContent.html#property-PageStateMatcher-css">css</a>: ["input[type='password']"]
+    })<strong>,
+    new chrome.declarativeContent.PageStateMatcher({
+      <a href="declarativeContent.html#property-PageStateMatcher-css">css</a>: ["video"]
+    })</strong>
+  ],
+  actions: [ new <a href="declarativeContent.html#type-ShowPageAction">chrome.declarativeContent.ShowPageAction</a>() ]
+};
 </pre>
 
 <p>
-Your event handler is passed two arguments:
+<a href="events.html#addingrules"><!--@Added rules-->添加的规则</a><!--@ are saved across
+browser restarts, so register them as follows:-->在浏览器重新启动后也将保留，所以请按照下面的方式注册它们：
 </p>
+<pre>
+<a href="runtime.html#event-onInstalled">chrome.runtime.onInstalled</a>.addListener(function(details) {
+  <a href="declarativeContent.html#event-onPageChanged">chrome.declarativeContent.onPageChanged</a>.<a href="events.html#removingrules">removeRules</a>(undefined, function() {
+    <a href="declarativeContent.html#event-onPageChanged">chrome.declarativeContent.onPageChanged</a>.<a href="events.html#addingrules">addRules</a>([rule2]);
+  });
+});
+</pre>
 
-<dl>
-  <dt> id </dt>
-  <dd> The "id" value from the manifest file.
-       If your extension implements multiple handlers,
-       you can check the <code>id</code> value
-       to see which handler has been triggered.
-       </dd>
-  <dt> details </dt>
-  <dd> An object describing the event.
-       You can get the file or files that the user has selected
-       from the <code>entries</code> field of this object,
-       which is an array of
-       FileSystem <code>Entry</code> objects.
-       </dd>
+<p class="note">
+<strong><!--@Note:-->注意：</strong><!--@ You should always register or unregister rules in bulk
+rather than individually because each of these operations recreates internal
+data structures.  This re-creation is computationally expensive but facilitates
+a faster matching algorithm.-->您一定要批量注册或取消注册规则，而不是一个一个地进行，因为每一次这样的操作都会重新创建内部的数据结构，这一重新创建的过程需要大量的计算，但是利用了一种更快的匹配算法。
 </p>
-
-
-<!--
-<h2 id="manifest_details">Manifest details</h2>
-
-<p class="authornote">
-{PENDING: give details about "id" and "default_title".
-It should be unique within your extension -- don't worry about other extensions.
-"default_title" implies that you can change the title,
-but you can't aside from internationalizing it.
-</p>
-
-<p class="authornote">
-{PENDING: give details about the file_filters entry.
-File filters are currently case-sensitive, but we plan to change that.
-Mention <code>filesystem:*.*</code>.
-</p>
--->
-
-<!--
-<h2 id="examples">Examples</h2>
 
 <p>
-For examples of using this API, see ...
-For other examples and for help in viewing the source code, see
-<a href="samples.html">Samples</a>.
+<!--@Combine the above rule with the <a href="activeTab.html">activeTab</a>
+permission to create an extension that doesn't need any install-time
+permissions but can invite the user to click its page action on
+relevant pages and can run on those pages when the user clicks the
+page action.-->
+将以上规则与
+<a href="activeTab.html">activeTab</a>
+权限一起使用，就能创建一个不需要任何安装时警告的扩展程序，使用户在相关的页面上单击它的页面按钮，并当用户单击页面按钮时在这些页面上运行。
 </p>
--->
-        <h2 id="apiReference"><!--@API Reference: chrome.fileBrowserHandler-->API 参考：chrome.fileBrowserHandler</h2>
+        <h2 id="apiReference"><!--@API Reference: chrome.declarativeContent-->API 参考：chrome.declarativeContent</h2>
         <div class="api_reference">
             <h3 id="types"><!--@Types-->类型</h3>
               <div>
-                <h3 id="type-FileHandlerExecuteEventDetails">FileHandlerExecuteEventDetails</h3>
+                <h3 id="type-PageStateMatcher">PageStateMatcher</h3>
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Event details payload for fileBrowserHandler.onExecute event.
-                  </dd>    <h4 id="FileHandlerExecuteEventDetails-properties">
-                    <!--@Properties of --><a href="#type-FileHandlerExecuteEventDetails">FileHandlerExecuteEventDetails</a>
+                    通过各种条件匹配网页的状态。
+                  </dd>    <h4 id="PageStateMatcher-properties">
+                    <!--@Properties of --><a href="#type-PageStateMatcher">PageStateMatcher</a>
                     的属性
                   </h4>
                   <dd><dl>      <div>
-                      <a name="property-FileHandlerExecuteEventDetails-entries"></a>
+                      <a name="property-PageStateMatcher-pageUrl"></a>
                       <dt>
-                        <span class="variable">entries</span>
-                        <span class="property">
-                          (
-                            
-                            array of any
-                          )
-                        </span>
-                      </dt>
-                      <dd>
-                        Array of Entry instances representing files that are targets of this action (selected in ChromeOS file browser).
-                      </dd>
-                    </div>
-                    <div>
-                      <a name="property-FileHandlerExecuteEventDetails-tab_id"></a>
-                      <dt>
-                        <span class="variable">tab_id</span>
+                        <span class="variable">pageUrl</span>
                         <span class="property">
                           (
                             <span class="optional">optional</span>
-                            integer
+                            <a href="events.html#type-UrlFilter">events.UrlFilter</a>
                           )
                         </span>
                       </dt>
                       <dd>
-                        The ID of the tab that raised this event. Tab IDs are unique within a browser session.
+                        如果页面的顶层 URL 满足 UrlFilter 的条件则匹配。
+                      </dd>
+                    </div>
+                    <div>
+                      <a name="property-PageStateMatcher-css"></a>
+                      <dt>
+                        <span class="variable">css</span>
+                        <span class="property">
+                          (
+                            <span class="optional">optional</span>
+                            array of string
+                          )
+                        </span>
+                      </dt>
+                      <dd>
+                        如果在与页面主框架来源相同的某个框架中，数组中的所有 CSS 选择器都匹配的话则匹配网页状态。注意，在这里列出几百个 CSS 选择器可能会使网站变慢。
                       </dd>
                     </div>
               </dl></dd>
                 </div>
               </div>
-            <h3 id="methods"><!--@Methods-->方法</h3>
               <div>
-                <h4 id="method-selectFile">selectFile</h4>
-                <div class="summary lower">
-                  <span><span class="subdued">chrome.fileBrowserHandler.</span>selectFile</span>(<span>object <span class="variable">selectionParams</span></span>, <span>function <span class="variable">callback</span></span>)
-                </div>
-                <div class="description">
-                  <p>
-                    Prompts user to select file path under which file should be saved. When the file is selected, file access permission required to use the file (read, write and create) are granted to the caller. The file will not actually get created during the function call, so function caller must ensure its existence before using it. The function has to be invoked with a user gesture.
-                  </p>
-                  <h4><!--@Parameters-->参数</h4>
-                  <dl>
-                      <div>
-                        <a name="property-selectFile-selectionParams"></a>
-                        <dt>
-                          <span class="variable">selectionParams</span>
-                          <span class="property">
-                            (
-                              
-                              object
-                            )
-                          </span>
-                        </dt>
-                        <dd>
-                          Parameters that will be used while selecting the file.
-                        </dd>
-                        <dd>
-                          <dl>
-                            <div>
-                              <a name="property-selectionParams-suggestedName"></a>
-                              <dt>
-                                <span class="variable">suggestedName</span>
-                                <span class="property">
-                                  (
-                                    
-                                    string
-                                  )
-                                </span>
-                              </dt>
-                              <dd>
-                                Suggested name for the file.
-                              </dd>
-                            </div>
-                            <div>
-                              <a name="property-selectionParams-allowedFileExtensions"></a>
-                              <dt>
-                                <span class="variable">allowedFileExtensions</span>
-                                <span class="property">
-                                  (
-                                    <span class="optional">optional</span>
-                                    array of string
-                                  )
-                                </span>
-                              </dt>
-                              <dd>
-                                List of file extensions that the selected file can have. The list is also used to specify what files to be shown in the select file dialog. Files with the listed extensions are only shown in the dialog. Extensions should not include the leading '.'. Example: ['jpg', 'png']
-                              </dd>
-                            </div>
-                          </dl>
-                        </dd>
-                      </div>
-                      <div>
-                        <a name="property-selectFile-callback"></a>
-                        <dt>
-                          <span class="variable">callback</span>
-                          <span class="property">
-                            (
-                              
-                              function
-                            )
-                          </span>
-                        </dt>
-                        <dd>
-                          Function called upon completion.
-                        </dd>
-                      </div>
-                  </dl>
-                    <h4><!--@Callback-->回调函数</h4>
-                    <p>
-                          <!--@The <em>callback</em> parameter should specify a function
-                          that looks like this:-->
-                          <em>callback</em> 参数应该指定一个如下形式的函数：
-                    </p>
-                    <pre>function(object result) <span class="subdued">{...}</span>;</pre>
-                    <dl>
-                        <div>
-                          <a name="property-callback-result"></a>
-                          <dt>
-                            <span class="variable">result</span>
-                            <span class="property">
-                              (
-                                
-                                object
-                              )
-                            </span>
-                          </dt>
-                          <dd>
-                            Result of the method.
-                          </dd>
-                          <dd>
-                            <dl>
-                              <div>
-                                <a name="property-result-success"></a>
-                                <dt>
-                                  <span class="variable">success</span>
-                                  <span class="property">
-                                    (
-                                      
-                                      boolean
-                                    )
-                                  </span>
-                                </dt>
-                                <dd>
-                                  Whether the file has been selected.
-                                </dd>
-                              </div>
-                              <div>
-                                <a name="property-result-entry"></a>
-                                <dt>
-                                  <span class="variable">entry</span>
-                                  <span class="property">
-                                    (
-                                      <span class="optional">optional</span>
-                                      object
-                                    )
-                                  </span>
-                                </dt>
-                                <dd>
-                                  Selected file entry. It will be null if a file hasn't been selected.
-                                </dd>
-                              </div>
-                            </dl>
-                          </dd>
-                        </div>
-                    </dl>
-                </div>
+                <h3 id="type-ShowPageAction">ShowPageAction</h3>
+                <div>
+                  <dt><span class="type_name">  (    object  )</span></dt>
+              <dd>
+                    声明式事件操作，当相应的条件满足时显示扩展程序的 <a href="pageAction.html">页面按钮</a>。使用该操作不需要<a href="declare_permissions.html#host-permission">主机权限</a>。如果扩展程序拥有 <a href="activeTab.html">activeTab</a> 权限，单击页面按钮就会授予对活动标签页的访问权限。
+                  </dd>  </div>
               </div>
             <h3 id="events"><!--@Events-->事件</h3>
               <div>
-                <h4 id="event-onExecute">onExecute</h4>
+                <h4 id="event-onPageChanged">onPageChanged</h4>
                 <div class="summary">
-                  <span class="subdued">chrome.fileBrowserHandler.</span>onExecute<span class="subdued">.addListener</span>(function(<span>string <span class="variable">id</span></span>, <span><a href="fileBrowserHandler.html#type-FileHandlerExecuteEventDetails">FileHandlerExecuteEventDetails</a> <span class="variable">details</span></span>)<span class="subdued"> {...}</span>);
+                  <span class="subdued">chrome.declarativeContent.</span>onPageChanged<span class="subdued">.addListener</span>(function()<span class="subdued"> {...}</span>);
                 </div>
                 <div class="description">
-              <p>
-                    Fired when file system action is executed from ChromeOS file browser.
-                  </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
+                    <p><!--@See-->参见 <a href="events.html#method-Event-addRules">events.Event.addRules</a>.</p>
+                    <h4><!--@Supported conditions-->支持的条件</h4>
                     <dl>
-                      <div>  <a name="property-onExecute-id"></a>  <dt>    <span class="variable">id</span>    <span class="property">      (                string      )    </span>  </dt>  <dd>    File browser action id as specified in the listener component's manifest.  </dd></div><div>  <a name="property-onExecute-details"></a>  <dt>    <span class="variable">details</span>    <span class="property">      (                <a href="fileBrowserHandler.html#type-FileHandlerExecuteEventDetails">FileHandlerExecuteEventDetails</a>      )    </span>  </dt>  <dd>    File handler execute event details.  </dd></div>
+                      <div><dt><a href="declarativeContent.html#type-PageStateMatcher">PageStateMatcher</a></dt></div>
                     </dl>
-                </div>
-              </div>
-              <div>
-                <h4 id="event-onExecuteContentHandler">onExecuteContentHandler</h4>
-                <div class="summary">
-                  <span class="subdued">chrome.fileBrowserHandler.</span>onExecuteContentHandler<span class="subdued">.addListener</span>(function(<span>string <span class="variable">mime_type</span></span>, <span>string <span class="variable">content_url</span></span>)<span class="subdued"> {...}</span>);
-                </div>
-                <div class="description">
-              <p>
-                    Fired when a resource is fetched which matches a mime type handled by this extension. The resource request is cancelled, and the extension is expected to handle the request. The event is restricted to a small number of white-listed fileBrowserHandlers.
-                  </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
+                    <h4><!--@Supported actions-->支持的操作</h4>
                     <dl>
-                      <div>  <a name="property-onExecuteContentHandler-mime_type"></a>  <dt>    <span class="variable">mime_type</span>    <span class="property">      (                string      )    </span>  </dt>  <dd>    The MIME type of the intercepted URL request.  </dd></div><div>  <a name="property-onExecuteContentHandler-content_url"></a>  <dt>    <span class="variable">content_url</span>    <span class="property">      (                string      )    </span>  </dt>  <dd>    The intercepted URL request. The handler should fetch and handle data referenced by the URL.  </dd></div>
+                      <div><dt><a href="declarativeContent.html#type-ShowPageAction">ShowPageAction</a></dt></div>
                     </dl>
                 </div>
               </div>

@@ -110,7 +110,7 @@
                             <a href="cookies.html" class="level4 ">Cookie</a>
                       </li>
                       <li class="level4">
-                            <a href="devtools.html" class="level4 ">开发人员工具</a>
+                            <a href="devtools.html" class="level4 ">开发者工具</a>
                       </li>
                       <li class="level4">
                             <a href="events.html" class="level4 ">事件</a>
@@ -274,7 +274,7 @@
               <div>
                 <h3 id="type-StorageUnitType">StorageUnitType</h3>
                 <div>
-                  <dt><span class="type_name">  (    <span id="typeTemplate">enumerated string ["unknown", "harddisk", "removable"]</span>  )</span></dt>
+                  <dt><span class="type_name">  (    enumerated string ["unknown", "harddisk", "removable"]  )</span></dt>
               <dd>
                     
                   </dd>  </div>
@@ -282,7 +282,7 @@
               <div>
                 <h3 id="type-StorageUnitInfo">StorageUnitInfo</h3>
                 <div>
-                  <dt><span class="type_name">  (    <span id="typeTemplate">object</span>  )</span></dt>
+                  <dt><span class="type_name">  (    object  )</span></dt>
                   <h4 id="StorageUnitInfo-properties">
                     <!--@Properties of --><a href="#type-StorageUnitInfo">StorageUnitInfo</a>
                     的属性
@@ -294,7 +294,7 @@
                         <span class="property">
                           (
                             
-                            <span id="typeTemplate">string</span>
+                            string
                           )
                         </span>
                       </dt>
@@ -309,7 +309,7 @@
                         <span class="property">
                           (
                             
-                            <span id="typeTemplate"><a href="experimental.systemInfo.storage.html#type-StorageUnitType">StorageUnitType</a></span>
+                            <a href="experimental.systemInfo.storage.html#type-StorageUnitType">StorageUnitType</a>
                           )
                         </span>
                       </dt>
@@ -324,7 +324,7 @@
                         <span class="property">
                           (
                             
-                            <span id="typeTemplate">double</span>
+                            double
                           )
                         </span>
                       </dt>
@@ -339,7 +339,7 @@
                         <span class="property">
                           (
                             
-                            <span id="typeTemplate">double</span>
+                            double
                           )
                         </span>
                       </dt>
@@ -353,7 +353,7 @@
               <div>
                 <h3 id="type-StorageChangeInfo">StorageChangeInfo</h3>
                 <div>
-                  <dt><span class="type_name">  (    <span id="typeTemplate">object</span>  )</span></dt>
+                  <dt><span class="type_name">  (    object  )</span></dt>
                   <h4 id="StorageChangeInfo-properties">
                     <!--@Properties of --><a href="#type-StorageChangeInfo">StorageChangeInfo</a>
                     的属性
@@ -365,7 +365,7 @@
                         <span class="property">
                           (
                             
-                            <span id="typeTemplate">string</span>
+                            string
                           )
                         </span>
                       </dt>
@@ -380,7 +380,7 @@
                         <span class="property">
                           (
                             
-                            <span id="typeTemplate">double</span>
+                            double
                           )
                         </span>
                       </dt>
@@ -410,7 +410,7 @@
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate">function</span>
+                              function
                             )
                           </span>
                         </dt>
@@ -431,7 +431,7 @@
                             <span class="property">
                               (
                                 
-                                <span id="typeTemplate">array of <a href="experimental.systemInfo.storage.html#type-StorageUnitInfo">StorageUnitInfo</a></span>
+                                array of <a href="experimental.systemInfo.storage.html#type-StorageUnitInfo">StorageUnitInfo</a>
                               )
                             </span>
                           </dt>
@@ -450,7 +450,7 @@
                     Fired when the storage information is updated.
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
-                      <div>  <a name="property-onAvailableCapacityChanged-info"></a>  <dt>    <span class="variable">info</span>    <span class="property">      (                <span id="typeTemplate"><a href="experimental.systemInfo.storage.html#type-StorageChangeInfo">StorageChangeInfo</a></span>      )    </span>  </dt>  <dd>    The changed information for the specified storage unit  </dd></div>
+                      <div>  <a name="property-onAvailableCapacityChanged-info"></a>  <dt>    <span class="variable">info</span>    <span class="property">      (                <a href="experimental.systemInfo.storage.html#type-StorageChangeInfo">StorageChangeInfo</a>      )    </span>  </dt>  <dd>    The changed information for the specified storage unit  </dd></div>
                     </dl>
                 </div>
               </div>
@@ -460,7 +460,7 @@
   </body>
   <script>
     window.bootstrap = {
-      api_names: [{"name":"alarms"},{"name":"bookmarks"},{"name":"browserAction"},{"name":"browsingData"},{"name":"commands"},{"name":"contentSettings"},{"name":"contextMenus"},{"name":"cookies"},{"name":"debugger"},{"name":"declarativeWebRequest"},{"name":"devtools.inspectedWindow"},{"name":"devtools.network"},{"name":"devtools.panels"},{"name":"downloads"},{"name":"events"},{"name":"extension"},{"name":"fileBrowserHandler"},{"name":"fontSettings"},{"name":"history"},{"name":"i18n"},{"name":"idle"},{"name":"input.ime"},{"name":"management"},{"name":"omnibox"},{"name":"pageAction"},{"name":"pageCapture"},{"name":"permissions"},{"name":"privacy"},{"name":"proxy"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"scriptBadge"},{"name":"sessionRestore"},{"name":"storage"},{"name":"tabCapture"},{"name":"tabs"},{"name":"topSites"},{"name":"tts"},{"name":"ttsEngine"},{"name":"types"},{"name":"webNavigation"},{"name":"webRequest"},{"name":"webstore"},{"last":true,"name":"windows"}].concat(
+      api_names: [{"name":"alarms"},{"name":"bookmarks"},{"name":"browserAction"},{"name":"browsingData"},{"name":"commands"},{"name":"contentSettings"},{"name":"contextMenus"},{"name":"cookies"},{"name":"debugger"},{"name":"declarativeContent"},{"name":"declarativeWebRequest"},{"name":"devtools.inspectedWindow"},{"name":"devtools.network"},{"name":"devtools.panels"},{"name":"downloads"},{"name":"events"},{"name":"extension"},{"name":"fileBrowserHandler"},{"name":"fontSettings"},{"name":"history"},{"name":"i18n"},{"name":"idle"},{"name":"input.ime"},{"name":"management"},{"name":"omnibox"},{"name":"pageAction"},{"name":"pageCapture"},{"name":"permissions"},{"name":"privacy"},{"name":"proxy"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"scriptBadge"},{"name":"sessionRestore"},{"name":"storage"},{"name":"tabCapture"},{"name":"tabs"},{"name":"topSites"},{"name":"tts"},{"name":"ttsEngine"},{"name":"types"},{"name":"webNavigation"},{"name":"webRequest"},{"name":"webstore"},{"last":true,"name":"windows"}].concat(
           [{"name":"experimental.devtools.audits"},{"name":"experimental.devtools.console"},{"name":"experimental.discovery"},{"name":"experimental.history"},{"name":"experimental.identity"},{"name":"experimental.infobars"},{"name":"experimental.processes"},{"name":"experimental.record"},{"name":"experimental.speechInput"},{"name":"experimental.systemInfo.cpu"},{"last":true,"name":"experimental.systemInfo.storage"}]),
       branchInfo: {"channels":[{"path":"stable","name":"Stable"},{"path":"dev","name":"Dev"},{"path":"beta","name":"Beta"},{"path":"trunk","name":"Trunk"}],"current":"stable","showWarning":false}
     };
