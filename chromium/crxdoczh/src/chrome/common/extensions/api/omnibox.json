@@ -9,17 +9,20 @@
       {
         "id": "SuggestResult",
         "type": "object",
-        "description": "A suggest result.",
+//@        "description": "A suggest result.",
+        "description": "建议结果。",
         "properties": {
           "content": {
             "type": "string",
             "minLength": 1,
-            "description": "The text that is put into the URL bar, and that is sent to the extension when the user chooses this entry."
+//@            "description": "The text that is put into the URL bar, and that is sent to the extension when the user chooses this entry."
+            "description": "输入在地址栏中的文字，当用户选择这一项时发送给扩展程序。"
           },
           "description": {
             "type": "string",
             "minLength": 1,
-            "description": "The text that is displayed in the URL dropdown. Can contain XML-style markup for styling. The supported tags are 'url' (for a literal URL), 'match' (for highlighting text that matched what the user's query), and 'dim' (for dim helper text). The styles can be nested, eg. <dim><match>dimmed match</match></dim>."
+//@            "description": "The text that is displayed in the URL dropdown. Can contain XML-style markup for styling. The supported tags are 'url' (for a literal URL), 'match' (for highlighting text that matched what the user's query), and 'dim' (for dim helper text). The styles can be nested, eg. <dim><match>dimmed match</match></dim>."
+            "description": "显示在地址栏下拉框中的文字，可以包含 XML 样式标记。支持的标记为 <url>（用于字面的 URL）、<match>（用于匹配用户查询的高亮文本）和 <dim>（用于帮助文本的浅色效果）。样式也可以嵌套，例如：<dim><match>浅色的匹配文本</match></dim>。"
           }
         }
       }
@@ -46,17 +49,20 @@
       {
         "name": "setDefaultSuggestion",
         "type": "function",
-        "description": "Sets the description and styling for the default suggestion. The default suggestion is the text that is displayed in the first suggestion row underneath the URL bar.",
+//@        "description": "Sets the description and styling for the default suggestion. The default suggestion is the text that is displayed in the first suggestion row underneath the URL bar.",
+        "description": "设置默认建议的描述和样式，默认建议即显示在 URL 栏下的第一行建议。",
         "parameters": [
           {
             "type": "object",
             "name": "suggestion",
-            "description": "A partial SuggestResult object, without the 'content' parameter. See SuggestResult for a description of the parameters.",
+//@            "description": "A partial SuggestResult object, without the 'content' parameter. See SuggestResult for a description of the parameters.",
+            "description": "具有部分内容的 SuggestResult 对象，没有\"content\"参数。有关参数的描述请参见 $ref:omnibox.SuggestResult。",
             "properties": {
               "description": {
                 "type": "string",
                 "minLength": 1,
-                "description": "The text to display in the default suggestion. The placeholder string '%s' can be included and will be replaced with the user's input."
+//@                "description": "The text to display in the default suggestion. The placeholder string '%s' can be included and will be replaced with the user's input."
+                "description": "显示在默认建议中的文字，可以包含占位符字符串“%s”，表示用户的输入。"
               }
             }
           }
@@ -67,13 +73,15 @@
       {
         "name": "onInputStarted",
         "type": "function",
-        "description": "User has started a keyword input session by typing the extension's keyword. This is guaranteed to be sent exactly once per input session, and before any onInputChanged events.",
+//@        "description": "User has started a keyword input session by typing the extension's keyword. This is guaranteed to be sent exactly once per input session, and before any onInputChanged events.",
+        "description": "用户输入了扩展程序的关键字，开始关键字输入会话。这一事件确保每次进入输入会话时发送一次，并且在任何 onInputChanged 事件之前发生。",
         "parameters": []
       },
       {
         "name": "onInputChanged",
         "type": "function",
-        "description": "User has changed what is typed into the omnibox.",
+//@        "description": "User has changed what is typed into the omnibox.",
+        "description": "用户更改了输入在多功能框中的内容。",
         "parameters": [
           {
             "type": "string",
@@ -82,12 +90,14 @@
           {
             "name": "suggest",
             "type": "function",
-            "description": "A callback passed to the onInputChanged event used for sending suggestions back to the browser.",
+//@            "description": "A callback passed to the onInputChanged event used for sending suggestions back to the browser.",
+            "description": "传递给 onInputChanged 事件的回调函数，用于将建议发回浏览器。",
             "parameters": [
               {
                 "name": "suggestResults",
                 "type": "array",
-                "description": "Array of suggest results",
+//@                "description": "Array of suggest results",
+                "description": "包含建议结果的数组。",
                 "items": {
                   "$ref": "SuggestResult"
                 }
@@ -99,7 +109,8 @@
       {
         "name": "onInputEntered",
         "type": "function",
-        "description": "User has accepted what is typed into the omnibox.",
+//@        "description": "User has accepted what is typed into the omnibox.",
+        "description": "用户接受了输入在多功能框中的内容。",
         "parameters": [
           {
             "type": "string",
@@ -110,7 +121,8 @@
       {
         "name": "onInputCancelled",
         "type": "function",
-        "description": "User has ended the keyword input session without accepting the input.",
+//@        "description": "User has ended the keyword input session without accepting the input.",
+        "description": "用户结束了关键字输入，没有接受输入。",
         "parameters": []
       }
     ]

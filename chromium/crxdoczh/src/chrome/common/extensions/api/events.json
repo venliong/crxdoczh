@@ -238,7 +238,7 @@
           "hostPrefix": {
             "type": "string",
 //@            "description": "Matches if the host name of the URL starts with a specified string.",
-            "description": "",
+            "description": "如果 URL 中的主机名以指定字符串开始则匹配。",
             "optional": true
           },
           "hostSuffix": {

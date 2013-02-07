@@ -16,21 +16,24 @@
   }
 </style>
 
-<h1>The activeTab permission</h1>
+<h1><!--@The--> activeTab <!--@permission-->权限</h1>
 
 <p>
-The <code>activeTab</code> permission gives an extension temporary access to the currently active tab when the user <em>invokes</em> the extension - for example by clicking its <a href="browserAction.html">browser action</a>. Access to the tab lasts until the tab is navigated or closed.
+<!--@The--> <code>activeTab</code> <!--@permission gives an extension temporary access to the currently active tab when the user <em>invokes</em> the extension - for example by clicking its <a href="browserAction.html">browser action</a>. Access to the tab lasts until the tab is navigated or closed.-->
+权限使扩展程序在用户<em>调用</em>扩展程序（例如单击<a
+href="browserAction.html">浏览器按钮</a>）时能够临时访问当前活动的标签页，对标签页的访问将一直持续到标签页导航或关闭。
 </p>
 
 <p>
-The main benefit of the <code>activeTab</code> permission is that it displays <em>no warning message</em> during installation:
+<!--@The main benefit of the <code>activeTab</code> permission is that it displays <em>no warning message</em> during installation:-->
+<code>activeTab</code> 的主要优势是它在安装过程中<em>不显示警告消息</em>。
 </p>
 
 <table id="active-tab-images" class="simple">
   <tr>
-    <th>Without activeTab</th>
+    <th><!--@Without-->没有 activeTab 时</th>
     <th class="spacing"></th>
-    <th>With activeTab</th>
+    <th><!--@With-->使用 activeTab 后</th>
   </tr>
   <tr>
     <td><img id="active-tab-before" src="{{static}}/images/active-tab-before.png"></td>
@@ -39,7 +42,7 @@ The main benefit of the <code>activeTab</code> permission is that it displays <e
   </tr>
 </table>
 
-<h2 id="example">Example</h2>
+<h2 id="example"><!--@Example-->例子</h2>
 
 <h3 id="manifest.json">manifest.json</h3>
 
@@ -64,45 +67,52 @@ The main benefit of the <code>activeTab</code> permission is that it displays <e
 <p>
 <pre>
 chrome.browserAction.onClicked.addListener(function(tab) {
-  // No tabs or host permissions needed!
+  // 不需要 "tabs" 或主机权限！
   chrome.tabs.executeScript(tab.id, {code:"document.body.bgColor='red'"});
 });
 </pre>
 </p>
 
-<h2 id="motivation">Motivation</h2>
+<h2 id="motivation"><!--@Motivation-->目的</h2>
 
 <p>
-Consider a web clipping extension that has a <a href="browserAction.html">browser action</a> and <a href="contextMenus.html">context menu item</a>. This extension may only really need to access tabs when its browser action is clicked, or when its context menu item is executed.
+<!--@Consider a web clipping extension that has a <a href="browserAction.html">browser action</a> and <a href="contextMenus.html">context menu item</a>. This extension may only really need to access tabs when its browser action is clicked, or when its context menu item is executed.-->
+考虑一个包含<a href="browserAction.html">浏览器按钮</a>及<a
+href="contextMenus.html">右键菜单项</a>的网络剪辑扩展程序，该扩展程序只有在浏览器按钮单击或右键菜单项执行时才需要访问标签页。
 </p>
 
 <p>
-Without <code>activeTab</code>, this extension would need to request full, persistent access to every web site, just so that it could do its work if it happened to be called upon by the user. This is a lot of power to entrust to such a simple extension. And if the extension is ever compromised, the attacker gets access to everything the extension had.
+<!--@Without <code>activeTab</code>, this extension would need to request full, persistent access to every web site, just so that it could do its work if it happened to be called upon by the user. This is a lot of power to entrust to such a simple extension. And if the extension is ever compromised, the attacker gets access to everything the extension had.-->
+如果没有 <code>activeTab</code>，该扩展程序将需要请求对每一个网站完整、持续的访问，以便碰巧用户调用时完成它的工作。对于这样一个简单的扩展程序来说用户信任并提供了太多权限，如果该扩展程序遭到攻击，攻击者可以访问该扩展程序拥有的所有权限。
 </p>
 
 <p>
-In contrast, an extension with the <code>activeTab</code> permission only obtains access to a tab in response to an explicit user gesture. If the extension is compromised the attacker would need to wait for the user to invoke the extension before obtaining access. And that access only lasts until the tab is navigated or closed.
+<!--@In contrast, an extension with the <code>activeTab</code> permission only obtains access to a tab in response to an explicit user gesture. If the extension is compromised the attacker would need to wait for the user to invoke the extension before obtaining access. And that access only lasts until the tab is navigated or closed.-->
+相反，使用 <code>activeTab</code> 权限的扩展程序只需要在响应用户显式操作时才需要获得标签页的访问权限。如果扩展程序受到攻击，攻击者在获得访问之前需要等待用户调用扩展程序，并且访问权限仅持续至标签页导航或关闭前。
 </p>
 
-<h2 id="what-activeTab-allows">What activeTab allows</h2>
+<h2 id="what-activeTab-allows"><!--@What activeTab allows-->activeTab 允许哪些操作</h2>
 
 <p>
-While the <code>activeTab</code> permission is enabled for a tab, an extension can:
+<!--@While the <code>activeTab</code> permission is enabled for a tab, an extension can:-->
+当 <code>activeTab</code> 权限为某个标签页启用时，扩展程序可以：
 <ul>
-  <li>Call <code>$ref:tabs.executeScript</code> or <code>$ref:tabs.insertCSS</code> on that tab.
-  <li>Get the URL, title, and favicon for that tab via an API that returns a <code>$ref:tabs.Tab</code> object (essentially, <code>activeTab</code> grants the <code><a href="tabs.html#manifest">tabs</a></code> permission temporarily).
+  <li><!--@Call-->对该标签页调用 <code>$ref:tabs.executeScript</code> <!--@or-->或 <code>$ref:tabs.insertCSS</code><!--@on that tab.-->。
+  <li><!--@Get the URL, title, and favicon for that tab via an API that returns a-->通过返回 <code>$ref:tabs.Tab</code> <!--@object (essentially,-->
+  对象的 API 获取该标签页的 URL、标题及收藏夹图标（本质上
+  <code>activeTab</code> <!--@grants the-->临时授予了 <code><a href="tabs.html#manifest">tabs</a></code> <!--@permission temporarily).-->权限）。
 </ul>
 </p>
 
-<h2 id="invoking-activeTab">Invoking activeTab</h2>
+<h2 id="invoking-activeTab"><!--@Invoking activeTab-->调用 activeTab</h2>
 
 <p>
-The following user gestures enable <code>activeTab</code>:
+<!--@The following user gestures enable-->如下用户操作启用 <code>activeTab</code>:
 <ul>
-  <li>Executing a <a href="browserAction.html">browser action</a>
-  <li>Executing a <a href="pageAction.html">page action</a>
-  <li>Executing a <a href="contextMenus.html">context menu item</a>
-  <li>Executing a keyboard shortcut from the <a href="commands.html">commands API</a>
-  <li>Accepting a suggestion from the <a href="omnibox.html">omnibox API</a>
+  <li><!--@Executing a -->执行<a href="browserAction.html"><!--@browser action-->浏览器按钮</a>
+  <li><!--@Executing a -->执行<a href="pageAction.html"><!--@page action-->页面按钮</a>
+  <li><!--Executing a -->执行<a href="contextMenus.html"><!--@context menu item-->右键菜单项</a>
+  <li><!--Executing a keyboard shortcut from the -->通过<a href="commands.html"><!--@commands-->命令 API</a> 执行键盘快捷键
+  <li><!--Accepting a suggestion from the -->通过<a href="omnibox.html"><!--@omnibox-->多功能框 API</a> 接受建议
 </ul>
 </p>

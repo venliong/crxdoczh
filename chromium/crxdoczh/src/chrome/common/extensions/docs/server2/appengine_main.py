@@ -21,4 +21,9 @@ def main():
   run_wsgi_app(webapp.WSGIApplication([('/.*', Handler)], debug=False))
 
 if __name__ == '__main__':
+  # HACK
+  import sys
+  reload(sys)
+  sys.setdefaultencoding("utf-8")
+
   main()

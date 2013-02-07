@@ -263,7 +263,7 @@
                 "type": "string",
                 "optional": true,
 //@                "description": "The URL to navigate the tab to initially. Fully-qualified URLs must include a scheme (i.e. 'http://www.google.com', not 'www.google.com'). Relative URLs will be relative to the current page within the extension. Defaults to the New Tab Page."
-                "description": "标签页中一开始打开的 URL。完整的 URL 必须包括协议（即 \"http://www.google.com\"，而不能是 \"www.google.com\"），相对 URL 相对于扩展程序中的当前页面。默认为新标签页面。"
+                "description": "标签页中一开始打开的 URL。完整的 URL 必须包括协议（即 \"http://www.google.com\"，而不能是 \"www.google.com\"），相对 URL 相对于扩展程序中的当前页面。默认为“打开新的标签页”页面。"
               },
               "active": {
                 "type": "boolean",

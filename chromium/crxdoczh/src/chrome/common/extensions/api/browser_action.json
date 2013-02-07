@@ -346,7 +346,7 @@
         "name": "onClicked",
         "type": "function",
 //@        "description": "Fired when a browser action icon is clicked.  This event will not fire if the browser action has a popup.",
-        "description": "单击浏览器按钮时发生。如果浏览器按钮有弹出内容则不会触发该事件。",
+        "description": "浏览器按钮的图标单击时产生，如果浏览器按钮有弹出内容则不会触发该事件。",
         "parameters": [
           {
             "name": "tab",
