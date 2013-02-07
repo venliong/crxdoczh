@@ -110,7 +110,7 @@
                             <a href="cookies.html" class="level4 ">Cookie</a>
                       </li>
                       <li class="level4">
-                            <a href="devtools.html" class="level4 ">开发人员工具</a>
+                            <a href="devtools.html" class="level4 ">开发者工具</a>
                       </li>
                       <li class="level4">
                             <a href="events.html" class="level4 ">事件</a>
@@ -352,7 +352,7 @@ You can find more examples that use this API in
               <div>
                 <h3 id="type-AuditCategory">AuditCategory</h3>
                 <div>
-                  <dt><span class="type_name">  (    <span id="typeTemplate">object</span>  )</span></dt>
+                  <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
                     A group of logically related audit checks.
                   </dd>    <h4 id="AuditCategory-events">
@@ -369,7 +369,7 @@ You can find more examples that use this API in
                           If the category is enabled, this event is fired when the audit is started. The event handler is expected to initiate execution of the audit logic that will populate the <code>results</code> collection.
                         </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                           <dl>
-                            <div>  <a name="property-onAuditStarted-results"></a>  <dt>    <span class="variable">results</span>    <span class="property">      (                <span id="typeTemplate"><a href="experimental.devtools.audits.html#type-AuditResults">AuditResults</a></span>      )    </span>  </dt></div>
+                            <div>  <a name="property-onAuditStarted-results"></a>  <dt>    <span class="variable">results</span>    <span class="property">      (                <a href="experimental.devtools.audits.html#type-AuditResults">AuditResults</a>      )    </span>  </dt></div>
                           </dl>
                       </div>
                     </div>
@@ -379,7 +379,7 @@ You can find more examples that use this API in
               <div>
                 <h3 id="type-FormattedValue">FormattedValue</h3>
                 <div>
-                  <dt><span class="type_name">  (    <span id="typeTemplate">object</span>  )</span></dt>
+                  <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
                     A value returned from one of the formatters (a URL, code snippet etc), to be passed to <code>createResult()</code> or <code>addChild()</code>. See <a href="experimental.devtools.audits.html#method-AuditResults-createSnippet">AuditResults.createSnippet</a> and <a href="experimental.devtools.audits.html#method-AuditResults-createURL">AuditResults.createURL</a>.
                   </dd>  </div>
@@ -387,7 +387,7 @@ You can find more examples that use this API in
               <div>
                 <h3 id="type-AuditResults">AuditResults</h3>
                 <div>
-                  <dt><span class="type_name">  (    <span id="typeTemplate">object</span>  )</span></dt>
+                  <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
                     A collection of audit results for the current run of the audit category.
                   </dd>    <h4 id="AuditResults-properties">
@@ -401,7 +401,7 @@ You can find more examples that use this API in
                         <span class="property">
                           (
                             
-                            <span id="typeTemplate"><a href="experimental.devtools.audits.html#type-AuditResultSeverity">AuditResultSeverity</a></span>
+                            <a href="experimental.devtools.audits.html#type-AuditResultSeverity">AuditResultSeverity</a>
                           )
                         </span>
                       </dt>
@@ -416,7 +416,7 @@ You can find more examples that use this API in
                         <span class="property">
                           (
                             
-                            <span id="typeTemplate">string</span>
+                            string
                           )
                         </span>
                       </dt>
@@ -431,7 +431,7 @@ You can find more examples that use this API in
                         <span class="property">
                           (
                             <span class="optional">optional</span>
-                            <span id="typeTemplate">array of <a href="experimental.devtools.audits.html#type-AuditResultNode">AuditResultNode</a></span>
+                            array of <a href="experimental.devtools.audits.html#type-AuditResultNode">AuditResultNode</a>
                           )
                         </span>
                       </dt>
@@ -446,7 +446,7 @@ You can find more examples that use this API in
                         <span class="property">
                           (
                             <span class="optional">optional</span>
-                            <span id="typeTemplate">boolean</span>
+                            boolean
                           )
                         </span>
                       </dt>
@@ -477,7 +477,7 @@ You can find more examples that use this API in
                                 <span class="property">
                                   (
                                     
-                                    <span id="typeTemplate">string</span>
+                                    string
                                   )
                                 </span>
                               </dt>
@@ -492,7 +492,7 @@ You can find more examples that use this API in
                                 <span class="property">
                                   (
                                     
-                                    <span id="typeTemplate">string</span>
+                                    string
                                   )
                                 </span>
                               </dt>
@@ -507,7 +507,7 @@ You can find more examples that use this API in
                                 <span class="property">
                                   (
                                     
-                                    <span id="typeTemplate"><a href="experimental.devtools.audits.html#type-AuditResultSeverity">AuditResultSeverity</a></span>
+                                    <a href="experimental.devtools.audits.html#type-AuditResultSeverity">AuditResultSeverity</a>
                                   )
                                 </span>
                               </dt>
@@ -519,7 +519,7 @@ You can find more examples that use this API in
                                 <span class="property">
                                   (
                                     <span class="optional">optional</span>
-                                    <span id="typeTemplate"><a href="experimental.devtools.audits.html#type-AuditResultNode">AuditResultNode</a></span>
+                                    <a href="experimental.devtools.audits.html#type-AuditResultNode">AuditResultNode</a>
                                   )
                                 </span>
                               </dt>
@@ -548,7 +548,8 @@ You can find more examples that use this API in
                                 <span class="property">
                                   (
                                     
-                                    <span id="typeTemplate">string or <a href="experimental.devtools.audits.html#type-FormattedValue">FormattedValue</a></span>
+                                    string or 
+                                    <a href="experimental.devtools.audits.html#type-FormattedValue">FormattedValue</a>
                                   )
                                 </span>
                               </dt>
@@ -594,7 +595,7 @@ You can find more examples that use this API in
                                 <span class="property">
                                   (
                                     
-                                    <span id="typeTemplate">string</span>
+                                    string
                                   )
                                 </span>
                               </dt>
@@ -609,7 +610,7 @@ You can find more examples that use this API in
                                 <span class="property">
                                   (
                                     <span class="optional">optional</span>
-                                    <span id="typeTemplate">string</span>
+                                    string
                                   )
                                 </span>
                               </dt>
@@ -644,7 +645,7 @@ You can find more examples that use this API in
                                 <span class="property">
                                   (
                                     
-                                    <span id="typeTemplate">string</span>
+                                    string
                                   )
                                 </span>
                               </dt>
@@ -667,7 +668,7 @@ You can find more examples that use this API in
               <div>
                 <h3 id="type-AuditResultNode">AuditResultNode</h3>
                 <div>
-                  <dt><span class="type_name">  (    <span id="typeTemplate">object</span>  )</span></dt>
+                  <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
                     A node in the audit result tree. Displays content and may optionally have children nodes.
                   </dd>    <h4 id="AuditResultNode-properties">
@@ -681,7 +682,7 @@ You can find more examples that use this API in
                         <span class="property">
                           (
                             
-                            <span id="typeTemplate">boolean</span>
+                            boolean
                           )
                         </span>
                       </dt>
@@ -712,7 +713,8 @@ You can find more examples that use this API in
                                 <span class="property">
                                   (
                                     
-                                    <span id="typeTemplate">string or <a href="experimental.devtools.audits.html#type-FormattedValue">FormattedValue</a></span>
+                                    string or 
+                                    <a href="experimental.devtools.audits.html#type-FormattedValue">FormattedValue</a>
                                   )
                                 </span>
                               </dt>
@@ -735,7 +737,7 @@ You can find more examples that use this API in
               <div>
                 <h3 id="type-AuditResultSeverity">AuditResultSeverity</h3>
                 <div>
-                  <dt><span class="type_name">  (    <span id="typeTemplate">object</span>  )</span></dt>
+                  <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
                     This type contains possible values for a result severity. The results of different severities are distinguished by colored bullets near the result's display name.
                   </dd>    <h4 id="AuditResultSeverity-properties">
@@ -749,7 +751,7 @@ You can find more examples that use this API in
                         <span class="property">
                           (
                             
-                            <span id="typeTemplate">string</span>
+                            string
                           )
                         </span>
                       </dt>
@@ -761,7 +763,7 @@ You can find more examples that use this API in
                         <span class="property">
                           (
                             
-                            <span id="typeTemplate">string</span>
+                            string
                           )
                         </span>
                       </dt>
@@ -773,7 +775,7 @@ You can find more examples that use this API in
                         <span class="property">
                           (
                             
-                            <span id="typeTemplate">string</span>
+                            string
                           )
                         </span>
                       </dt>
@@ -800,7 +802,7 @@ You can find more examples that use this API in
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate">string</span>
+                              string
                             )
                           </span>
                         </dt>
@@ -815,7 +817,7 @@ You can find more examples that use this API in
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate">double</span>
+                              double
                             )
                           </span>
                         </dt>
@@ -838,7 +840,7 @@ You can find more examples that use this API in
   </body>
   <script>
     window.bootstrap = {
-      api_names: [{"name":"alarms"},{"name":"bookmarks"},{"name":"browserAction"},{"name":"browsingData"},{"name":"commands"},{"name":"contentSettings"},{"name":"contextMenus"},{"name":"cookies"},{"name":"debugger"},{"name":"declarativeWebRequest"},{"name":"devtools.inspectedWindow"},{"name":"devtools.network"},{"name":"devtools.panels"},{"name":"downloads"},{"name":"events"},{"name":"extension"},{"name":"fileBrowserHandler"},{"name":"fontSettings"},{"name":"history"},{"name":"i18n"},{"name":"idle"},{"name":"input.ime"},{"name":"management"},{"name":"omnibox"},{"name":"pageAction"},{"name":"pageCapture"},{"name":"permissions"},{"name":"privacy"},{"name":"proxy"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"scriptBadge"},{"name":"sessionRestore"},{"name":"storage"},{"name":"tabCapture"},{"name":"tabs"},{"name":"topSites"},{"name":"tts"},{"name":"ttsEngine"},{"name":"types"},{"name":"webNavigation"},{"name":"webRequest"},{"name":"webstore"},{"last":true,"name":"windows"}].concat(
+      api_names: [{"name":"alarms"},{"name":"bookmarks"},{"name":"browserAction"},{"name":"browsingData"},{"name":"commands"},{"name":"contentSettings"},{"name":"contextMenus"},{"name":"cookies"},{"name":"debugger"},{"name":"declarativeContent"},{"name":"declarativeWebRequest"},{"name":"devtools.inspectedWindow"},{"name":"devtools.network"},{"name":"devtools.panels"},{"name":"downloads"},{"name":"events"},{"name":"extension"},{"name":"fileBrowserHandler"},{"name":"fontSettings"},{"name":"history"},{"name":"i18n"},{"name":"idle"},{"name":"input.ime"},{"name":"management"},{"name":"omnibox"},{"name":"pageAction"},{"name":"pageCapture"},{"name":"permissions"},{"name":"privacy"},{"name":"proxy"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"scriptBadge"},{"name":"sessionRestore"},{"name":"storage"},{"name":"tabCapture"},{"name":"tabs"},{"name":"topSites"},{"name":"tts"},{"name":"ttsEngine"},{"name":"types"},{"name":"webNavigation"},{"name":"webRequest"},{"name":"webstore"},{"last":true,"name":"windows"}].concat(
           [{"name":"experimental.devtools.audits"},{"name":"experimental.devtools.console"},{"name":"experimental.discovery"},{"name":"experimental.history"},{"name":"experimental.identity"},{"name":"experimental.infobars"},{"name":"experimental.processes"},{"name":"experimental.record"},{"name":"experimental.speechInput"},{"name":"experimental.systemInfo.cpu"},{"last":true,"name":"experimental.systemInfo.storage"}]),
       branchInfo: {"channels":[{"path":"stable","name":"Stable"},{"path":"dev","name":"Dev"},{"path":"beta","name":"Beta"},{"path":"trunk","name":"Trunk"}],"current":"stable","showWarning":false}
     };

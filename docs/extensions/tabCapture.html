@@ -110,7 +110,7 @@
                             <a href="cookies.html" class="level4 ">Cookie</a>
                       </li>
                       <li class="level4">
-                            <a href="devtools.html" class="level4 ">开发人员工具</a>
+                            <a href="devtools.html" class="level4 ">开发者工具</a>
                       </li>
                       <li class="level4">
                             <a href="events.html" class="level4 ">事件</a>
@@ -274,7 +274,7 @@
               <div>
                 <h3 id="type-TabCaptureState">TabCaptureState</h3>
                 <div>
-                  <dt><span class="type_name">  (    <span id="typeTemplate">enumerated string ["requested", "pending", "active", "stopped", "error"]</span>  )</span></dt>
+                  <dt><span class="type_name">  (    enumerated string ["requested", "pending", "active", "stopped", "error"]  )</span></dt>
               <dd>
                     
                   </dd>  </div>
@@ -282,7 +282,7 @@
               <div>
                 <h3 id="type-CaptureInfo">CaptureInfo</h3>
                 <div>
-                  <dt><span class="type_name">  (    <span id="typeTemplate">object</span>  )</span></dt>
+                  <dt><span class="type_name">  (    object  )</span></dt>
                   <h4 id="CaptureInfo-properties">
                     <!--@Properties of --><a href="#type-CaptureInfo">CaptureInfo</a>
                     的属性
@@ -294,7 +294,7 @@
                         <span class="property">
                           (
                             
-                            <span id="typeTemplate">integer</span>
+                            integer
                           )
                         </span>
                       </dt>
@@ -309,7 +309,7 @@
                         <span class="property">
                           (
                             
-                            <span id="typeTemplate"><a href="tabCapture.html#type-TabCaptureState">TabCaptureState</a></span>
+                            <a href="tabCapture.html#type-TabCaptureState">TabCaptureState</a>
                           )
                         </span>
                       </dt>
@@ -323,7 +323,7 @@
               <div>
                 <h3 id="type-MediaStreamConstraint">MediaStreamConstraint</h3>
                 <div>
-                  <dt><span class="type_name">  (    <span id="typeTemplate">object</span>  )</span></dt>
+                  <dt><span class="type_name">  (    object  )</span></dt>
                   <h4 id="MediaStreamConstraint-properties">
                     <!--@Properties of --><a href="#type-MediaStreamConstraint">MediaStreamConstraint</a>
                     的属性
@@ -335,7 +335,7 @@
                         <span class="property">
                           (
                             
-                            <span id="typeTemplate">object</span>
+                            object
                           )
                         </span>
                       </dt>
@@ -346,7 +346,7 @@
               <div>
                 <h3 id="type-CaptureOptions">CaptureOptions</h3>
                 <div>
-                  <dt><span class="type_name">  (    <span id="typeTemplate">object</span>  )</span></dt>
+                  <dt><span class="type_name">  (    object  )</span></dt>
                   <h4 id="CaptureOptions-properties">
                     <!--@Properties of --><a href="#type-CaptureOptions">CaptureOptions</a>
                     的属性
@@ -358,7 +358,7 @@
                         <span class="property">
                           (
                             <span class="optional">optional</span>
-                            <span id="typeTemplate">boolean</span>
+                            boolean
                           )
                         </span>
                       </dt>
@@ -370,7 +370,7 @@
                         <span class="property">
                           (
                             <span class="optional">optional</span>
-                            <span id="typeTemplate">boolean</span>
+                            boolean
                           )
                         </span>
                       </dt>
@@ -382,7 +382,7 @@
                         <span class="property">
                           (
                             <span class="optional">optional</span>
-                            <span id="typeTemplate"><a href="tabCapture.html#type-MediaStreamConstraint">MediaStreamConstraint</a></span>
+                            <a href="tabCapture.html#type-MediaStreamConstraint">MediaStreamConstraint</a>
                           )
                         </span>
                       </dt>
@@ -394,7 +394,7 @@
                         <span class="property">
                           (
                             <span class="optional">optional</span>
-                            <span id="typeTemplate"><a href="tabCapture.html#type-MediaStreamConstraint">MediaStreamConstraint</a></span>
+                            <a href="tabCapture.html#type-MediaStreamConstraint">MediaStreamConstraint</a>
                           )
                         </span>
                       </dt>
@@ -421,7 +421,7 @@
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate"><a href="tabCapture.html#type-CaptureOptions">CaptureOptions</a></span>
+                              <a href="tabCapture.html#type-CaptureOptions">CaptureOptions</a>
                             )
                           </span>
                         </dt>
@@ -436,7 +436,7 @@
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate">function</span>
+                              function
                             )
                           </span>
                         </dt>
@@ -460,7 +460,7 @@
                             <span class="property">
                               (
                                 
-                                <span id="typeTemplate">localmediastream</span>
+                                localmediastream
                               )
                             </span>
                           </dt>
@@ -486,7 +486,7 @@
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate">function</span>
+                              function
                             )
                           </span>
                         </dt>
@@ -507,7 +507,7 @@
                             <span class="property">
                               (
                                 
-                                <span id="typeTemplate">array of <a href="tabCapture.html#type-CaptureInfo">CaptureInfo</a></span>
+                                array of <a href="tabCapture.html#type-CaptureInfo">CaptureInfo</a>
                               )
                             </span>
                           </dt>
@@ -526,7 +526,7 @@
                     Event fired when the capture status of a tab changes. This allows extension authors to keep track of the capture status of tabs to keep UI elements like page actions and infobars in sync.
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
-                      <div>  <a name="property-onStatusChanged-info"></a>  <dt>    <span class="variable">info</span>    <span class="property">      (                <span id="typeTemplate"><a href="tabCapture.html#type-CaptureInfo">CaptureInfo</a></span>      )    </span>  </dt></div>
+                      <div>  <a name="property-onStatusChanged-info"></a>  <dt>    <span class="variable">info</span>    <span class="property">      (                <a href="tabCapture.html#type-CaptureInfo">CaptureInfo</a>      )    </span>  </dt></div>
                     </dl>
                 </div>
               </div>
@@ -536,7 +536,7 @@
   </body>
   <script>
     window.bootstrap = {
-      api_names: [{"name":"alarms"},{"name":"bookmarks"},{"name":"browserAction"},{"name":"browsingData"},{"name":"commands"},{"name":"contentSettings"},{"name":"contextMenus"},{"name":"cookies"},{"name":"debugger"},{"name":"declarativeWebRequest"},{"name":"devtools.inspectedWindow"},{"name":"devtools.network"},{"name":"devtools.panels"},{"name":"downloads"},{"name":"events"},{"name":"extension"},{"name":"fileBrowserHandler"},{"name":"fontSettings"},{"name":"history"},{"name":"i18n"},{"name":"idle"},{"name":"input.ime"},{"name":"management"},{"name":"omnibox"},{"name":"pageAction"},{"name":"pageCapture"},{"name":"permissions"},{"name":"privacy"},{"name":"proxy"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"scriptBadge"},{"name":"sessionRestore"},{"name":"storage"},{"name":"tabCapture"},{"name":"tabs"},{"name":"topSites"},{"name":"tts"},{"name":"ttsEngine"},{"name":"types"},{"name":"webNavigation"},{"name":"webRequest"},{"name":"webstore"},{"last":true,"name":"windows"}].concat(
+      api_names: [{"name":"alarms"},{"name":"bookmarks"},{"name":"browserAction"},{"name":"browsingData"},{"name":"commands"},{"name":"contentSettings"},{"name":"contextMenus"},{"name":"cookies"},{"name":"debugger"},{"name":"declarativeContent"},{"name":"declarativeWebRequest"},{"name":"devtools.inspectedWindow"},{"name":"devtools.network"},{"name":"devtools.panels"},{"name":"downloads"},{"name":"events"},{"name":"extension"},{"name":"fileBrowserHandler"},{"name":"fontSettings"},{"name":"history"},{"name":"i18n"},{"name":"idle"},{"name":"input.ime"},{"name":"management"},{"name":"omnibox"},{"name":"pageAction"},{"name":"pageCapture"},{"name":"permissions"},{"name":"privacy"},{"name":"proxy"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"scriptBadge"},{"name":"sessionRestore"},{"name":"storage"},{"name":"tabCapture"},{"name":"tabs"},{"name":"topSites"},{"name":"tts"},{"name":"ttsEngine"},{"name":"types"},{"name":"webNavigation"},{"name":"webRequest"},{"name":"webstore"},{"last":true,"name":"windows"}].concat(
           [{"name":"experimental.devtools.audits"},{"name":"experimental.devtools.console"},{"name":"experimental.discovery"},{"name":"experimental.history"},{"name":"experimental.identity"},{"name":"experimental.infobars"},{"name":"experimental.processes"},{"name":"experimental.record"},{"name":"experimental.speechInput"},{"name":"experimental.systemInfo.cpu"},{"last":true,"name":"experimental.systemInfo.storage"}]),
       branchInfo: {"channels":[{"path":"stable","name":"Stable"},{"path":"dev","name":"Dev"},{"path":"beta","name":"Beta"},{"path":"trunk","name":"Trunk"}],"current":"stable","showWarning":false}
     };

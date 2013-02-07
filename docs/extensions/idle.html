@@ -110,7 +110,7 @@
                             <a href="cookies.html" class="level4 ">Cookie</a>
                       </li>
                       <li class="level4">
-                            <a href="devtools.html" class="level4 ">开发人员工具</a>
+                            <a href="devtools.html" class="level4 ">开发者工具</a>
                       </li>
                       <li class="level4">
                             <a href="events.html" class="level4 ">事件</a>
@@ -256,7 +256,7 @@
           <h2><!--@Contents-->目录</h2>
           <ol>
             <li>
-              <a href=#manifest>Manifest</a>
+              <a href=#manifest>清单文件</a>
             </li>
             <li>
               <a href="#apiReference"><!--@API reference: -->API 参考：chrome.idle</a>
@@ -277,27 +277,31 @@
     <th scope="col"></th>
   </tr>
   <tr>
-    <td><strong>Description:</strong></td>
-    <td>Use the <code>chrome.idle</code> module
-    to detect when the machine's idle state changes.</td>
+    <td><strong><!--@Description:-->描述：</strong></td>
+    <td><!--@Use the-->使用 <code>chrome.idle</code> <!--@module
+    to detect when the machine's idle state changes.-->
+      模块检测计算机空闲状态的更改。
+    </td>
   </tr>
   <tr>
-    <td><strong>Availability:</strong></td>
+    <td><strong><!--@Availability:-->可用版本：</strong></td>
     <td>Google Chrome 6</td>
   </tr>
   <tr>
-    <td><strong>Permissions:</strong></td>
+    <td><strong><!--@Permissions:-->权限：</strong></td>
     <td><code>"idle"</code></td>
   </tr>
 </table>
 
-<h2 id="manifest">Manifest</h2>
-<p>You must declare the "idle" permission in your extension's manifest to use the idle API.
-For example:
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
+<p><!--@You must declare the "idle" permission in your extension's manifest to use the idle API.
+For example:-->
+您必须在扩展程序的清单文件中声明 "idle" 权限来使用空闲处理
+API。例如：
 </p>
 
 <pre>{
-  "name": "My extension",
+  "name": "我的扩展程序",
   ...
   <b>"permissions": [
     "idle"
@@ -314,7 +318,7 @@ For example:
                 </div>
                 <div class="description">
                   <p>
-                    Returns "locked" if the system is locked, "idle" if the user has not generated any input for a specified number of seconds, or "active" otherwise.
+                    如果系统已锁定则返回 "locked"，如果用户在指定时间（以秒为单位）内没有任何输入则返回 "idle"，否则返回 "active"。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -325,12 +329,12 @@ For example:
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate">integer</span>
+                              integer
                             )
                           </span>
                         </dt>
                         <dd>
-                          The system is considered idle if detectionIntervalInSeconds seconds have elapsed since the last user input detected.
+                          如果最后一次检测到用户输入后经过了 detectionIntervalInSeconds 秒则认为系统空闲。
                         </dd>
                       </div>
                       <div>
@@ -340,7 +344,7 @@ For example:
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate">function</span>
+                              function
                             )
                           </span>
                         </dt>
@@ -352,7 +356,7 @@ For example:
                           that looks like this:-->
                           <em>callback</em> 参数应该指定一个如下形式的函数：
                     </p>
-                    <pre>function(enumerated string ["active""idle""locked"] newState) <span class="subdued">{...}</span>;</pre>
+                    <pre>function(enumerated string ["active", "idle", "locked"] newState) <span class="subdued">{...}</span>;</pre>
                     <dl>
                         <div>
                           <a name="property-callback-newState"></a>
@@ -361,7 +365,7 @@ For example:
                             <span class="property">
                               (
                                 
-                                <span id="typeTemplate">enumerated string ["active""idle""locked"]</span>
+                                enumerated string ["active", "idle", "locked"]
                               )
                             </span>
                           </dt>
@@ -376,7 +380,7 @@ For example:
                 </div>
                 <div class="description">
                   <p>
-                    Sets the interval, in seconds, used to determine when the system is in an idle state for onStateChanged events. The default interval is 60 seconds.
+                    设置以秒为单位的间隔，用来确定 onStateChanged 事件中系统是否处于空闲状态，默认间隔为 60 秒。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -387,12 +391,12 @@ For example:
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate">integer</span>
+                              integer
                             )
                           </span>
                         </dt>
                         <dd>
-                          Threshold, in seconds, used to determine when the system is in an idle state.
+                          以秒为单位的阈值，用来确定系统是否处于空闲状态。
                         </dd>
                       </div>
                   </dl>
@@ -402,14 +406,14 @@ For example:
               <div>
                 <h4 id="event-onStateChanged">onStateChanged</h4>
                 <div class="summary">
-                  <span class="subdued">chrome.idle.</span>onStateChanged<span class="subdued">.addListener</span>(function(<span>enumerated string ["active""idle""locked"] <span class="variable">newState</span></span>)<span class="subdued"> {...}</span>);
+                  <span class="subdued">chrome.idle.</span>onStateChanged<span class="subdued">.addListener</span>(function(<span>enumerated string ["active", "idle", "locked"] <span class="variable">newState</span></span>)<span class="subdued"> {...}</span>);
                 </div>
                 <div class="description">
               <p>
-                    Fired when the system changes to an active, idle or locked state. The event fires with "locked" if the screen is locked or the screensaver activates, "idle" if the system is unlocked and the user has not generated any input for a specified number of seconds, and "active" when the user generates input on an idle system.
+                    当系统状态变为活动、空闲或已锁定时产生。如果屏幕锁定或屏幕保护程序启动则产生该事件并传递 "locked"，如果系统未锁定并且用户在以秒为单位的指定时间内没有任何输入则产生该事件并传递 "idle"，如果用户系统空闲时产生输入则传递 "active"。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
-                      <div>  <a name="property-onStateChanged-newState"></a>  <dt>    <span class="variable">newState</span>    <span class="property">      (                <span id="typeTemplate">enumerated string ["active""idle""locked"]</span>      )    </span>  </dt></div>
+                      <div>  <a name="property-onStateChanged-newState"></a>  <dt>    <span class="variable">newState</span>    <span class="property">      (                enumerated string ["active", "idle", "locked"]      )    </span>  </dt></div>
                     </dl>
                 </div>
               </div>
@@ -423,7 +427,7 @@ For example:
   </body>
   <script>
     window.bootstrap = {
-      api_names: [{"name":"alarms"},{"name":"bookmarks"},{"name":"browserAction"},{"name":"browsingData"},{"name":"commands"},{"name":"contentSettings"},{"name":"contextMenus"},{"name":"cookies"},{"name":"debugger"},{"name":"declarativeWebRequest"},{"name":"devtools.inspectedWindow"},{"name":"devtools.network"},{"name":"devtools.panels"},{"name":"downloads"},{"name":"events"},{"name":"extension"},{"name":"fileBrowserHandler"},{"name":"fontSettings"},{"name":"history"},{"name":"i18n"},{"name":"idle"},{"name":"input.ime"},{"name":"management"},{"name":"omnibox"},{"name":"pageAction"},{"name":"pageCapture"},{"name":"permissions"},{"name":"privacy"},{"name":"proxy"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"scriptBadge"},{"name":"sessionRestore"},{"name":"storage"},{"name":"tabCapture"},{"name":"tabs"},{"name":"topSites"},{"name":"tts"},{"name":"ttsEngine"},{"name":"types"},{"name":"webNavigation"},{"name":"webRequest"},{"name":"webstore"},{"last":true,"name":"windows"}].concat(
+      api_names: [{"name":"alarms"},{"name":"bookmarks"},{"name":"browserAction"},{"name":"browsingData"},{"name":"commands"},{"name":"contentSettings"},{"name":"contextMenus"},{"name":"cookies"},{"name":"debugger"},{"name":"declarativeContent"},{"name":"declarativeWebRequest"},{"name":"devtools.inspectedWindow"},{"name":"devtools.network"},{"name":"devtools.panels"},{"name":"downloads"},{"name":"events"},{"name":"extension"},{"name":"fileBrowserHandler"},{"name":"fontSettings"},{"name":"history"},{"name":"i18n"},{"name":"idle"},{"name":"input.ime"},{"name":"management"},{"name":"omnibox"},{"name":"pageAction"},{"name":"pageCapture"},{"name":"permissions"},{"name":"privacy"},{"name":"proxy"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"scriptBadge"},{"name":"sessionRestore"},{"name":"storage"},{"name":"tabCapture"},{"name":"tabs"},{"name":"topSites"},{"name":"tts"},{"name":"ttsEngine"},{"name":"types"},{"name":"webNavigation"},{"name":"webRequest"},{"name":"webstore"},{"last":true,"name":"windows"}].concat(
           [{"name":"experimental.devtools.audits"},{"name":"experimental.devtools.console"},{"name":"experimental.discovery"},{"name":"experimental.history"},{"name":"experimental.identity"},{"name":"experimental.infobars"},{"name":"experimental.processes"},{"name":"experimental.record"},{"name":"experimental.speechInput"},{"name":"experimental.systemInfo.cpu"},{"last":true,"name":"experimental.systemInfo.storage"}]),
       branchInfo: {"channels":[{"path":"stable","name":"Stable"},{"path":"dev","name":"Dev"},{"path":"beta","name":"Beta"},{"path":"trunk","name":"Trunk"}],"current":"stable","showWarning":false}
     };

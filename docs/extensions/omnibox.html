@@ -110,7 +110,7 @@
                             <a href="cookies.html" class="level4 ">Cookie</a>
                       </li>
                       <li class="level4">
-                            <a href="devtools.html" class="level4 ">开发人员工具</a>
+                            <a href="devtools.html" class="level4 ">开发者工具</a>
                       </li>
                       <li class="level4">
                             <a href="events.html" class="level4 ">事件</a>
@@ -256,10 +256,10 @@
           <h2><!--@Contents-->目录</h2>
           <ol>
             <li>
-              <a href=#manifest>Manifest</a>
+              <a href=#manifest>清单文件</a>
             </li>
             <li>
-              <a href=#examples>Examples</a>
+              <a href=#examples>例子</a>
             </li>
             <li>
               <a href="#apiReference"><!--@API reference: -->API 参考：chrome.omnibox</a>
@@ -275,9 +275,11 @@
         </div>
 
 <p>
-The omnibox API allows you to register a
+<!--@The omnibox API allows you to register a
 keyword with Google Chrome's address bar,
-which is also known as the omnibox.
+which is also known as the omnibox.-->
+多功能框 API 允许您在 Google Chrome
+浏览器的地址栏（又叫多功能框）中注册一个关键字。
 </p>
 
 <p>
@@ -286,41 +288,46 @@ which is also known as the omnibox.
 </p>
 
 <p>
-When the user enters your extension's
+<!--@When the user enters your extension's
 keyword, the user starts
 interacting solely with your extension.
 Each keystroke is sent to your
 extension, and you can provide suggestions
-in response.
+in response.-->
+当用户输入您的扩展程序的关键字时，用户开始完全与您的扩展程序交互。每一次按键消息都将发送至您的扩展程序，您可以作出回应，提供建议。
 </p>
 
 <p>
-The suggestions can be richly formatted
+<!--@The suggestions can be richly formatted
 in a variety of ways.
 
 When the user accepts
 a suggestion, your extension is notified
-and can take action.
+and can take action.-->
+建议可以具有各种不同格式。当用户接受某个建议时，将通知您的扩展程序作出反应。
 </p>
 
-<h2 id="manifest">Manifest</h2>
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
 
 <p>
-You must include an <code>omnibox</code> <code>keyword</code> field
+<!--@You must include an <code>omnibox</code> <code>keyword</code> field
 in the <a href="manifest.html">manifest</a> 
 to use the omnibox API.
 You should also
 specify a 16x16-pixel icon, which will be
 displayed in the address bar when suggesting that users
-enter keyword mode.
+enter keyword mode.-->
+您必须在<a href="manifest.html">清单文件</a>中包含 <code>omnibox </code>
+<code>keyword</code> 属性来使用多功能框 API，您还应该指定一个 16×16
+像素的图标，当用户进入关键字模式时，显示在地址栏中。
 </p>
 
 <p>
-For example:
+<!--@For example:-->例如：
 </p>
 
 <pre>{
-  "name": "Aaron's omnibox extension",
+  "name": "Aaron 的多功能框扩展程序",
   "version": "1.0",
   <b>"omnibox": { "keyword" : "aaron" },</b>
   <b>"icons": {</b>
@@ -333,31 +340,35 @@ For example:
 }</pre>
 
 <p class="note">
-<strong>Note:</strong>
+<strong><!--@Note:-->注意：</strong><!--@
 Chrome automatically creates a grayscale version of
 your 16x16-pixel icon. You should provide
 a full-color version so that it can also be
 used in other situations that require color.
 For example, the <a href="contextMenus.html"
 >context menus API</a> also uses a 16x16-pixel
-icon, but it is displayed in color.
+icon, but it is displayed in color.-->Chrome
+浏览器会自动创建您的 16×16
+像素图标的灰度版本。您应该提供彩色的图标，以便用于其他需要颜色的情况，例如，右键菜单
+API 也使用 16×16 像素的图标，但是显示为彩色。
 </p>
 
 
-<h2 id="examples">Examples</h2>
+<h2 id="examples"><!--@Examples-->例子</h2>
 
 <p>
-You can find samples of this API on the
-<a href="samples.html#omnibox">sample page</a>.
+<!--@You can find samples of this API on the
+<a href="samples.html#omnibox">sample page</a>.-->
+您可以在<a href="samples.html#omnibox">示例页面</a>找到这一 API 的例子。
         <h2 id="apiReference"><!--@API Reference: chrome.omnibox-->API 参考：chrome.omnibox</h2>
         <div class="api_reference">
             <h3 id="types"><!--@Types-->类型</h3>
               <div>
                 <h3 id="type-SuggestResult">SuggestResult</h3>
                 <div>
-                  <dt><span class="type_name">  (    <span id="typeTemplate">object</span>  )</span></dt>
+                  <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    A suggest result.
+                    建议结果。
                   </dd>    <h4 id="SuggestResult-properties">
                     <!--@Properties of --><a href="#type-SuggestResult">SuggestResult</a>
                     的属性
@@ -369,12 +380,12 @@ You can find samples of this API on the
                         <span class="property">
                           (
                             
-                            <span id="typeTemplate">string</span>
+                            string
                           )
                         </span>
                       </dt>
                       <dd>
-                        The text that is put into the URL bar, and that is sent to the extension when the user chooses this entry.
+                        输入在地址栏中的文字，当用户选择这一项时发送给扩展程序。
                       </dd>
                     </div>
                     <div>
@@ -384,12 +395,12 @@ You can find samples of this API on the
                         <span class="property">
                           (
                             
-                            <span id="typeTemplate">string</span>
+                            string
                           )
                         </span>
                       </dt>
                       <dd>
-                        The text that is displayed in the URL dropdown. Can contain XML-style markup for styling. The supported tags are 'url' (for a literal URL), 'match' (for highlighting text that matched what the user's query), and 'dim' (for dim helper text). The styles can be nested, eg. <dim><match>dimmed match</match></dim>.
+                        显示在地址栏下拉框中的文字，可以包含 XML 样式标记。支持的标记为 <url>（用于字面的 URL）、<match>（用于匹配用户查询的高亮文本）和 <dim>（用于帮助文本的浅色效果）。样式也可以嵌套，例如：<dim><match>浅色的匹配文本</match></dim>。
                       </dd>
                     </div>
               </dl></dd>
@@ -403,7 +414,7 @@ You can find samples of this API on the
                 </div>
                 <div class="description">
                   <p>
-                    Sets the description and styling for the default suggestion. The default suggestion is the text that is displayed in the first suggestion row underneath the URL bar.
+                    设置默认建议的描述和样式，默认建议即显示在 URL 栏下的第一行建议。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -414,12 +425,12 @@ You can find samples of this API on the
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate">object</span>
+                              object
                             )
                           </span>
                         </dt>
                         <dd>
-                          A partial SuggestResult object, without the 'content' parameter. See SuggestResult for a description of the parameters.
+                          具有部分内容的 SuggestResult 对象，没有"content"参数。有关参数的描述请参见 <a href="omnibox.html#type-SuggestResult">SuggestResult</a>。
                         </dd>
                         <dd>
                           <dl>
@@ -430,12 +441,12 @@ You can find samples of this API on the
                                 <span class="property">
                                   (
                                     
-                                    <span id="typeTemplate">string</span>
+                                    string
                                   )
                                 </span>
                               </dt>
                               <dd>
-                                The text to display in the default suggestion. The placeholder string '%s' can be included and will be replaced with the user's input.
+                                显示在默认建议中的文字，可以包含占位符字符串“%s”，表示用户的输入。
                               </dd>
                             </div>
                           </dl>
@@ -452,7 +463,7 @@ You can find samples of this API on the
                 </div>
                 <div class="description">
               <p>
-                    User has started a keyword input session by typing the extension's keyword. This is guaranteed to be sent exactly once per input session, and before any onInputChanged events.
+                    用户输入了扩展程序的关键字，开始关键字输入会话。这一事件确保每次进入输入会话时发送一次，并且在任何 onInputChanged 事件之前发生。
                   </p>  </div>
               </div>
               <div>
@@ -462,10 +473,10 @@ You can find samples of this API on the
                 </div>
                 <div class="description">
               <p>
-                    User has changed what is typed into the omnibox.
+                    用户更改了输入在多功能框中的内容。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
-                      <div>  <a name="property-onInputChanged-text"></a>  <dt>    <span class="variable">text</span>    <span class="property">      (                <span id="typeTemplate">string</span>      )    </span>  </dt></div><div>  <a name="property-onInputChanged-suggest"></a>  <dt>    <span class="variable">suggest</span>    <span class="property">      (                <span id="typeTemplate">function</span>      )    </span>  </dt>  <dd>    A callback passed to the onInputChanged event used for sending suggestions back to the browser.  </dd></div>
+                      <div>  <a name="property-onInputChanged-text"></a>  <dt>    <span class="variable">text</span>    <span class="property">      (                string      )    </span>  </dt></div><div>  <a name="property-onInputChanged-suggest"></a>  <dt>    <span class="variable">suggest</span>    <span class="property">      (                function      )    </span>  </dt>  <dd>    传递给 onInputChanged 事件的回调函数，用于将建议发回浏览器。  </dd></div>
                     </dl>
                     <!-- Adapted from callback.html. Used in the callback parameter in the
                     listener of chrome.webRequest.onAuthRequired. -->
@@ -482,12 +493,12 @@ You can find samples of this API on the
                             <span class="property">
                               (
                                 
-                                <span id="typeTemplate">array of <a href="omnibox.html#type-SuggestResult">SuggestResult</a></span>
+                                array of <a href="omnibox.html#type-SuggestResult">SuggestResult</a>
                               )
                             </span>
                           </dt>
                           <dd>
-                            Array of suggest results
+                            包含建议结果的数组。
                           </dd>
                         </div>
                     </dl>
@@ -500,10 +511,10 @@ You can find samples of this API on the
                 </div>
                 <div class="description">
               <p>
-                    User has accepted what is typed into the omnibox.
+                    用户接受了输入在多功能框中的内容。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
-                      <div>  <a name="property-onInputEntered-text"></a>  <dt>    <span class="variable">text</span>    <span class="property">      (                <span id="typeTemplate">string</span>      )    </span>  </dt></div>
+                      <div>  <a name="property-onInputEntered-text"></a>  <dt>    <span class="variable">text</span>    <span class="property">      (                string      )    </span>  </dt></div>
                     </dl>
                 </div>
               </div>
@@ -514,7 +525,7 @@ You can find samples of this API on the
                 </div>
                 <div class="description">
               <p>
-                    User has ended the keyword input session without accepting the input.
+                    用户结束了关键字输入，没有接受输入。
                   </p>  </div>
               </div>
         </div>
@@ -530,7 +541,7 @@ You can find samples of this API on the
   </body>
   <script>
     window.bootstrap = {
-      api_names: [{"name":"alarms"},{"name":"bookmarks"},{"name":"browserAction"},{"name":"browsingData"},{"name":"commands"},{"name":"contentSettings"},{"name":"contextMenus"},{"name":"cookies"},{"name":"debugger"},{"name":"declarativeWebRequest"},{"name":"devtools.inspectedWindow"},{"name":"devtools.network"},{"name":"devtools.panels"},{"name":"downloads"},{"name":"events"},{"name":"extension"},{"name":"fileBrowserHandler"},{"name":"fontSettings"},{"name":"history"},{"name":"i18n"},{"name":"idle"},{"name":"input.ime"},{"name":"management"},{"name":"omnibox"},{"name":"pageAction"},{"name":"pageCapture"},{"name":"permissions"},{"name":"privacy"},{"name":"proxy"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"scriptBadge"},{"name":"sessionRestore"},{"name":"storage"},{"name":"tabCapture"},{"name":"tabs"},{"name":"topSites"},{"name":"tts"},{"name":"ttsEngine"},{"name":"types"},{"name":"webNavigation"},{"name":"webRequest"},{"name":"webstore"},{"last":true,"name":"windows"}].concat(
+      api_names: [{"name":"alarms"},{"name":"bookmarks"},{"name":"browserAction"},{"name":"browsingData"},{"name":"commands"},{"name":"contentSettings"},{"name":"contextMenus"},{"name":"cookies"},{"name":"debugger"},{"name":"declarativeContent"},{"name":"declarativeWebRequest"},{"name":"devtools.inspectedWindow"},{"name":"devtools.network"},{"name":"devtools.panels"},{"name":"downloads"},{"name":"events"},{"name":"extension"},{"name":"fileBrowserHandler"},{"name":"fontSettings"},{"name":"history"},{"name":"i18n"},{"name":"idle"},{"name":"input.ime"},{"name":"management"},{"name":"omnibox"},{"name":"pageAction"},{"name":"pageCapture"},{"name":"permissions"},{"name":"privacy"},{"name":"proxy"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"scriptBadge"},{"name":"sessionRestore"},{"name":"storage"},{"name":"tabCapture"},{"name":"tabs"},{"name":"topSites"},{"name":"tts"},{"name":"ttsEngine"},{"name":"types"},{"name":"webNavigation"},{"name":"webRequest"},{"name":"webstore"},{"last":true,"name":"windows"}].concat(
           [{"name":"experimental.devtools.audits"},{"name":"experimental.devtools.console"},{"name":"experimental.discovery"},{"name":"experimental.history"},{"name":"experimental.identity"},{"name":"experimental.infobars"},{"name":"experimental.processes"},{"name":"experimental.record"},{"name":"experimental.speechInput"},{"name":"experimental.systemInfo.cpu"},{"last":true,"name":"experimental.systemInfo.storage"}]),
       branchInfo: {"channels":[{"path":"stable","name":"Stable"},{"path":"dev","name":"Dev"},{"path":"beta","name":"Beta"},{"path":"trunk","name":"Trunk"}],"current":"stable","showWarning":false}
     };

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-./update_static.sh
+#./update_static.sh
 
 current_dir=$PWD
 

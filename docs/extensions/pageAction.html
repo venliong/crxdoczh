@@ -110,7 +110,7 @@
                             <a href="cookies.html" class="level4 ">Cookie</a>
                       </li>
                       <li class="level4">
-                            <a href="devtools.html" class="level4 ">开发人员工具</a>
+                            <a href="devtools.html" class="level4 ">开发者工具</a>
                       </li>
                       <li class="level4">
                             <a href="events.html" class="level4 ">事件</a>
@@ -256,16 +256,16 @@
           <h2><!--@Contents-->目录</h2>
           <ol>
             <li>
-              <a href=#manifest>Manifest</a>
+              <a href=#manifest>清单文件</a>
             </li>
             <li>
-              <a href=#ui>Parts of the UI</a>
+              <a href=#ui>用户界面的几个部分</a>
             </li>
             <li>
-              <a href=#tips>Tips</a>
+              <a href=#tips>提示</a>
             </li>
             <li>
-              <a href=#examples> Examples </a>
+              <a href=#examples> 例子 </a>
             </li>
             <li>
               <a href="#apiReference"><!--@API reference: -->API 参考：chrome.pageAction</a>
@@ -281,127 +281,141 @@
         </div>
 
 <p>
-Use page actions to put icons inside the address bar.
+<!--@Use page actions to put icons inside the address bar.
 Page actions represent actions
 that can be taken on the current page,
 but that aren't applicable to all pages.
-Some examples:
+Some examples:-->
+使用页面按钮在地址栏中添加图标。页面按钮代表用于当前页面的操作，但是不适用于所有页面。例如：
 </p>
 <ul>
-  <li> Subscribe to this page's RSS feed </li>
-  <li> Make a slideshow out of this page's photos </li>
+  <li> <!--@Subscribe to this page's RSS feed-->订阅当前页面的 RSS 供稿 </li>
+  <li> <!--@Make a slideshow out of this page's photos-->以幻灯片的方式显示此页面的照片 </li>
 </ul>
 
 <p>
-The RSS icon in the following screenshot
+<!--@The RSS icon in the following screenshot
 represents a page action
 that lets you subscribe to
-the RSS feed for the current page.
+the RSS feed for the current page.-->
+以下屏幕截图中的 RSS
+图标是一个页面按钮，让您为当前页面订阅 RSS 供稿。
 </p>
 
 <img src="static/images/page-action.png"
   width="361" height="79" />
 
 <p>
-If you want the extension's icon to always be visible,
-use a <a href="browserAction.html">browser action</a> instead.
+<!--@If you want the extension's icon to always be visible,
+use a <a href="browserAction.html">browser action</a> instead.-->
+如果您希望扩展程序的图标一直可见，请改用<a href="browserAction.html
+">浏览器按钮</a>。
 </p>
 
-<h2 id="manifest">Manifest</h2>
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
 
 <p>
-Register your page action in the
+<!--@Register your page action in the
 <a href="manifest.html">extension manifest</a>
-like this:
+like this:-->
+在<a href="manifest.html">扩展程序的清单文件</a>中注册您的页面按钮，如下所示：
 </p>
 
 <pre>{
-  "name": "My extension",
+  "name": "我的扩展程序",
   ...
   <b>"page_action": {
-    "default_icon": {                    <em>// optional</em>
-      "19": "images/icon19.png",           <em>// optional</em>
-      "38": "images/icon38.png"            <em>// optional</em>
+    "default_icon": {                    <em>// 可选</em>
+      "19": "images/icon19.png",           <em>// 可选</em>
+      "38": "images/icon38.png"            <em>// 可选</em>
     },
-    "default_title": "Google Mail",      <em>// optional; shown in tooltip</em>
-    "default_popup": "popup.html"        <em>// optional</em>
+    "default_title": "Google Mail",      <em>// 可选，在工具提示中显示</em>
+    "default_popup": "popup.html"        <em>// 可选</em>
   }</b>,
   ...
 }</pre>
 
 <p>
-If you only provide one of the 19px or 38px icon size, the extension system will
+<!--@If you only provide one of the 19px or 38px icon size, the extension system will
 scale the icon you provide to the pixel density of the user's display, which
 can lose detail or make it look fuzzy. The old syntax for registering the
-default icon is still supported:
+default icon is still supported:-->
+如果您只提供 19px 或 38px 图标大小中的一个，扩展程序系统将会缩放您提供的图标，以适应用户显示器的像素密度，这有可能会丢失细节或使它看上去很模糊。注册默认图标的旧语法仍然支持：
 </p>
 
 <pre>{
-  "name": "My extension",
+  "name": "我的扩展程序",
   ...
   <b>"page_action": {
     ...
-    "default_icon": "images/icon19.png"  <em>// optional</em>
-    <em>// equivalent to "default_icon": { "19": "images/icon19.png" }</em>
+    "default_icon": "images/icon19.png"  <em>// 可选</em>
+    <em>// 与 "default_icon": { "19": "images/icon19.png" } 等价</em>
   }</b>,
   ...
 }</pre>
 
-<h2 id="ui">Parts of the UI</h2>
+<h2 id="ui"><!--@Parts of the UI-->用户界面的几个部分</h2>
 
 <p>
-Like browser actions,
+<!--@Like browser actions,
 page actions can have an icon,
 a tooltip, and popup;
 they can't have badges, however.
 In addition, page actions can appear and disappear.
 You can find information about icons, tooltips, and popups
 by reading about the
-<a href="browserAction.html#ui">browser action UI</a>.
+<a href="browserAction.html#ui">browser action UI</a>.-->
+与浏览器按钮类似，页面按钮也可以有图标、工具提示和弹出内容，不过没有徽章。此外，页面按钮可以显示和隐藏。您可以阅读<a href="browserAction.html#ui">浏览器按钮的用户界面</a>了解有关图标、工具提示和弹出内容的信息。
 </p>
 
 <p>
-You make a page action appear and disappear using the
-<a href="pageAction.html#method-show">show</a> and
-<a href="pageAction.html#method-hide">hide</a> methods, respectively.
+<!--@You make a page action appear and disappear using the-->
+您可以分别通过
+<a href="pageAction.html#method-show">show</a> <!--@and-->和
+<a href="pageAction.html#method-hide">hide</a> <!--@methods, respectively.
 By default, a page action is hidden.
 When you show it, you specify the tab
 in which the icon should appear.
 The icon remains visible
 until the tab is closed
 or starts displaying a different URL
-(because the user clicks a link, for example).
+(because the user clicks a link, for example).-->
+方法使页面按钮显示和隐藏。默认情况下，页面按钮是隐藏的。当您显示它时，您需要指定要显示图标的标签页。图标将一直显示着，直到标签页关闭或者开始显示另一个
+URL（例如用户单击链接后）。
 </p>
 
 
 
 
-<h2 id="tips">Tips</h2>
+<h2 id="tips"><!--@Tips-->提示</h2>
 
-<p>For the best visual impact,
-follow these guidelines:</p>
+<p><!--@For the best visual impact,
+follow these guidelines:-->为了达到最好的视觉效果，请遵循下面的指导：</p>
 
 <ul>
-  <li><b>Do</b> use page actions
+  <li><!--@<b>Do</b> use page actions
     for features that make sense
-    for only a few pages.
-  <li><b>Don't</b> use page actions
+    for only a few pages.-->对于仅对少数页面有意义的功能<b>请使用</b>页面按钮。
+  <li><!--@<b>Don't</b> use page actions
     for features that make sense
     for most pages.
-    Use <a href="browserAction.html">browser actions</a> instead.
-  <li><b>Don't</b> constantly animate your icon.
-    That's just annoying.
+    Use <a href="browserAction.html">browser actions</a> instead.-->
+    对于适用于大多数页面的功能<b>请不要</b>使用页面按钮，而应该使用<a href="browserAction.html">浏览器按钮</a>。
+  <li><!--@<b>Don't</b> constantly animate your icon.
+    That's just annoying.--><b>请不要</b>一直使用动画图标，那样只会显得很烦人。
 </ul>
 
 
-<h2 id="examples"> Examples </h2>
+<h2 id="examples"> <!--@Examples-->例子 </h2>
 
 <p>
-You can find simple examples of using page actions in the
+<!--@You can find simple examples of using page actions in the-->
+您可以在
 <a href="http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/api/pageAction/">examples/api/pageAction</a>
-directory.
+<!--@directory.
 For other examples and for help in viewing the source code, see
-<a href="samples.html">Samples</a>.
+<a href="samples.html">Samples</a>.-->
+目录中找到使用页面按钮的简单例子。有关其他例子以及查看源代码的帮助，请参见<a href="samples.html">示例</a>。
 </p>
         <h2 id="apiReference"><!--@API Reference: chrome.pageAction-->API 参考：chrome.pageAction</h2>
         <div class="api_reference">
@@ -409,9 +423,9 @@ For other examples and for help in viewing the source code, see
               <div>
                 <h3 id="type-ImageDataType">ImageDataType</h3>
                 <div>
-                  <dt><span class="type_name">  (    <span id="typeTemplate">imagedata</span>  )</span></dt>
+                  <dt><span class="type_name">  (    imagedata  )</span></dt>
               <dd>
-                    Pixel data for an image. Must be an ImageData object (for example, from a <code>canvas</code> element).
+                    图片的像素数据，必须为 ImageData 对象（例如来自 <code>canvas</code> 元素）。
                   </dd>  </div>
               </div>
             <h3 id="methods"><!--@Methods-->方法</h3>
@@ -422,7 +436,7 @@ For other examples and for help in viewing the source code, see
                 </div>
                 <div class="description">
                   <p>
-                    Shows the page action. The page action is shown whenever the tab is selected.
+                    显示页面按钮，页面按钮在指定的标签页选定时显示。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -433,12 +447,12 @@ For other examples and for help in viewing the source code, see
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate">integer</span>
+                              integer
                             )
                           </span>
                         </dt>
                         <dd>
-                          The id of the tab for which you want to modify the page action.
+                          您需要修改的页面按钮所在标签页的标识符。
                         </dd>
                       </div>
                   </dl>
@@ -451,7 +465,7 @@ For other examples and for help in viewing the source code, see
                 </div>
                 <div class="description">
                   <p>
-                    Hides the page action.
+                    隐藏页面按钮。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -462,12 +476,12 @@ For other examples and for help in viewing the source code, see
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate">integer</span>
+                              integer
                             )
                           </span>
                         </dt>
                         <dd>
-                          The id of the tab for which you want to modify the page action.
+                          您需要修改的页面按钮所在标签页的标识符。
                         </dd>
                       </div>
                   </dl>
@@ -480,7 +494,7 @@ For other examples and for help in viewing the source code, see
                 </div>
                 <div class="description">
                   <p>
-                    Sets the title of the page action. This is displayed in a tooltip over the page action.
+                    设置页面按钮的标题，显示在页面按钮下的工具提示中。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -491,7 +505,7 @@ For other examples and for help in viewing the source code, see
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate">object</span>
+                              object
                             )
                           </span>
                         </dt>
@@ -504,12 +518,12 @@ For other examples and for help in viewing the source code, see
                                 <span class="property">
                                   (
                                     
-                                    <span id="typeTemplate">integer</span>
+                                    integer
                                   )
                                 </span>
                               </dt>
                               <dd>
-                                The id of the tab for which you want to modify the page action.
+                                您需要修改的页面按钮所在标签页的标识符。
                               </dd>
                             </div>
                             <div>
@@ -519,12 +533,12 @@ For other examples and for help in viewing the source code, see
                                 <span class="property">
                                   (
                                     
-                                    <span id="typeTemplate">string</span>
+                                    string
                                   )
                                 </span>
                               </dt>
                               <dd>
-                                The tooltip string.
+                                工具提示字符串。
                               </dd>
                             </div>
                           </dl>
@@ -540,7 +554,7 @@ For other examples and for help in viewing the source code, see
                 </div>
                 <div class="description">
                   <p>
-                    Gets the title of the browser action.
+                    获取页面按钮的标题。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -551,7 +565,7 @@ For other examples and for help in viewing the source code, see
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate">object</span>
+                              object
                             )
                           </span>
                         </dt>
@@ -564,12 +578,12 @@ For other examples and for help in viewing the source code, see
                                 <span class="property">
                                   (
                                     
-                                    <span id="typeTemplate">integer</span>
+                                    integer
                                   )
                                 </span>
                               </dt>
                               <dd>
-                                Specify the tab to get the title from.
+                                指定要获取标题的标签页。
                               </dd>
                             </div>
                           </dl>
@@ -582,7 +596,7 @@ For other examples and for help in viewing the source code, see
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate">function</span>
+                              function
                             )
                           </span>
                         </dt>
@@ -603,7 +617,7 @@ For other examples and for help in viewing the source code, see
                             <span class="property">
                               (
                                 
-                                <span id="typeTemplate">string</span>
+                                string
                               )
                             </span>
                           </dt>
@@ -618,7 +632,7 @@ For other examples and for help in viewing the source code, see
                 </div>
                 <div class="description">
                   <p>
-                    Sets the icon for the page action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the <b>path</b> or the <b>imageData</b> property must be specified.
+                    设置页面按钮的图标。图标既可以指定为图片文件的路径，也可以指定来自 canvas 元素的像素数据，或者这两者中任意一个的词典。<b>path</b> 或 <b>imageData</b> 属性中有且只有一个必须指定。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -629,7 +643,7 @@ For other examples and for help in viewing the source code, see
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate">object</span>
+                              object
                             )
                           </span>
                         </dt>
@@ -642,12 +656,12 @@ For other examples and for help in viewing the source code, see
                                 <span class="property">
                                   (
                                     
-                                    <span id="typeTemplate">integer</span>
+                                    integer
                                   )
                                 </span>
                               </dt>
                               <dd>
-                                The id of the tab for which you want to modify the page action.
+                                您需要修改的页面按钮所在标签页的标识符。
                               </dd>
                             </div>
                             <div>
@@ -657,12 +671,13 @@ For other examples and for help in viewing the source code, see
                                 <span class="property">
                                   (
                                     <span class="optional">optional</span>
-                                    <span id="typeTemplate"><a href="pageAction.html#type-ImageDataType">ImageDataType</a> or object</span>
+                                    <a href="pageAction.html#type-ImageDataType">ImageDataType</a> or 
+                                    object
                                   )
                                 </span>
                               </dt>
                               <dd>
-                                Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals <code>scale</code>, then image with size <code>scale</code> * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'19': foo}'
+                                ImageData 对象或一个词典（大小 -&gt; ImageData），表示要设置的图标。如果图标以词典的形式指定，实际使用的图标取决于屏幕的像素密度。如果单位屏幕空间容纳的图片的像素数等于 <code>scale</code>，则会选择大小为 <code>scale</code> * 19的图片。目前只支持缩放比例 1 和 2。至少要指定一个图片。注意“details.imageData = foo”等价于“details.imageData = {'19': foo}”。
                               </dd>
                             </div>
                             <div>
@@ -672,12 +687,13 @@ For other examples and for help in viewing the source code, see
                                 <span class="property">
                                   (
                                     <span class="optional">optional</span>
-                                    <span id="typeTemplate">string or object</span>
+                                    string or 
+                                    object
                                   )
                                 </span>
                               </dt>
                               <dd>
-                                Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals <code>scale</code>, then image with size <code>scale</code> * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'
+                                图片的相对路径或一个词典（大小 -&gt; 图片的相对路径），指向要设置的图标。如果图标以词典的形式指定，实际使用的图标取决于屏幕的像素密度。如果单位屏幕空间容纳的图片的像素数等于 <code>scale</code>，则会选择大小为 <code>scale </code>* 19的图片。目前只支持缩放比例 1 和 2。至少要指定一个图片。注意“details.path = foo”等价于“details.path = {'19': foo}”。
                               </dd>
                             </div>
                             <div>
@@ -687,12 +703,12 @@ For other examples and for help in viewing the source code, see
                                 <span class="property">
                                   (
                                     <span class="optional">optional</span>
-                                    <span id="typeTemplate">integer</span>
+                                    integer
                                   )
                                 </span>
                               </dt>
                               <dd>
-                                <b>Deprecated.</b> This argument is ignored.
+                                <b>已弃用。</b>该参数将忽略。
                               </dd>
                             </div>
                           </dl>
@@ -705,7 +721,7 @@ For other examples and for help in viewing the source code, see
                           <span class="property">
                             (
                               <span class="optional">optional</span>
-                              <span id="typeTemplate">function</span>
+                              function
                             )
                           </span>
                         </dt>
@@ -727,7 +743,7 @@ For other examples and for help in viewing the source code, see
                 </div>
                 <div class="description">
                   <p>
-                    Sets the html document to be opened as a popup when the user clicks on the page action's icon.
+                    设置当用户单击页面按钮的图标时显示为弹出内容的 HTML 文档。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -738,7 +754,7 @@ For other examples and for help in viewing the source code, see
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate">object</span>
+                              object
                             )
                           </span>
                         </dt>
@@ -751,12 +767,12 @@ For other examples and for help in viewing the source code, see
                                 <span class="property">
                                   (
                                     
-                                    <span id="typeTemplate">integer</span>
+                                    integer
                                   )
                                 </span>
                               </dt>
                               <dd>
-                                The id of the tab for which you want to modify the page action.
+                                您需要修改的页面按钮所在标签页的标识符。
                               </dd>
                             </div>
                             <div>
@@ -766,12 +782,12 @@ For other examples and for help in viewing the source code, see
                                 <span class="property">
                                   (
                                     
-                                    <span id="typeTemplate">string</span>
+                                    string
                                   )
                                 </span>
                               </dt>
                               <dd>
-                                The html file to show in a popup.  If set to the empty string (''), no popup is shown.
+                                显示在弹出内容中的 HTML 文件。如果设为空字符串（""），则不显示弹出内容。
                               </dd>
                             </div>
                           </dl>
@@ -787,7 +803,7 @@ For other examples and for help in viewing the source code, see
                 </div>
                 <div class="description">
                   <p>
-                    Gets the html document set as the popup for this browser action.
+                    获取设置为该页面按钮弹出内容的 HTML 文档。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -798,7 +814,7 @@ For other examples and for help in viewing the source code, see
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate">object</span>
+                              object
                             )
                           </span>
                         </dt>
@@ -811,12 +827,12 @@ For other examples and for help in viewing the source code, see
                                 <span class="property">
                                   (
                                     
-                                    <span id="typeTemplate">integer</span>
+                                    integer
                                   )
                                 </span>
                               </dt>
                               <dd>
-                                Specify the tab to get the popup from.
+                                指定要获取弹出内容的标签页。
                               </dd>
                             </div>
                           </dl>
@@ -829,7 +845,7 @@ For other examples and for help in viewing the source code, see
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate">function</span>
+                              function
                             )
                           </span>
                         </dt>
@@ -850,7 +866,7 @@ For other examples and for help in viewing the source code, see
                             <span class="property">
                               (
                                 
-                                <span id="typeTemplate">string</span>
+                                string
                               )
                             </span>
                           </dt>
@@ -866,10 +882,10 @@ For other examples and for help in viewing the source code, see
                 </div>
                 <div class="description">
               <p>
-                    Fired when a page action icon is clicked.  This event will not fire if the page action has a popup.
+                    页面按钮的图标单击时产生，如果页面按钮有弹出内容则不会触发该事件。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
-                      <div>  <a name="property-onClicked-tab"></a>  <dt>    <span class="variable">tab</span>    <span class="property">      (                <span id="typeTemplate"><a href="tabs.html#type-Tab">tabs.Tab</a></span>      )    </span>  </dt></div>
+                      <div>  <a name="property-onClicked-tab"></a>  <dt>    <span class="variable">tab</span>    <span class="property">      (                <a href="tabs.html#type-Tab">tabs.Tab</a>      )    </span>  </dt></div>
                     </dl>
                 </div>
               </div>
@@ -892,7 +908,7 @@ For other examples and for help in viewing the source code, see
   </body>
   <script>
     window.bootstrap = {
-      api_names: [{"name":"alarms"},{"name":"bookmarks"},{"name":"browserAction"},{"name":"browsingData"},{"name":"commands"},{"name":"contentSettings"},{"name":"contextMenus"},{"name":"cookies"},{"name":"debugger"},{"name":"declarativeWebRequest"},{"name":"devtools.inspectedWindow"},{"name":"devtools.network"},{"name":"devtools.panels"},{"name":"downloads"},{"name":"events"},{"name":"extension"},{"name":"fileBrowserHandler"},{"name":"fontSettings"},{"name":"history"},{"name":"i18n"},{"name":"idle"},{"name":"input.ime"},{"name":"management"},{"name":"omnibox"},{"name":"pageAction"},{"name":"pageCapture"},{"name":"permissions"},{"name":"privacy"},{"name":"proxy"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"scriptBadge"},{"name":"sessionRestore"},{"name":"storage"},{"name":"tabCapture"},{"name":"tabs"},{"name":"topSites"},{"name":"tts"},{"name":"ttsEngine"},{"name":"types"},{"name":"webNavigation"},{"name":"webRequest"},{"name":"webstore"},{"last":true,"name":"windows"}].concat(
+      api_names: [{"name":"alarms"},{"name":"bookmarks"},{"name":"browserAction"},{"name":"browsingData"},{"name":"commands"},{"name":"contentSettings"},{"name":"contextMenus"},{"name":"cookies"},{"name":"debugger"},{"name":"declarativeContent"},{"name":"declarativeWebRequest"},{"name":"devtools.inspectedWindow"},{"name":"devtools.network"},{"name":"devtools.panels"},{"name":"downloads"},{"name":"events"},{"name":"extension"},{"name":"fileBrowserHandler"},{"name":"fontSettings"},{"name":"history"},{"name":"i18n"},{"name":"idle"},{"name":"input.ime"},{"name":"management"},{"name":"omnibox"},{"name":"pageAction"},{"name":"pageCapture"},{"name":"permissions"},{"name":"privacy"},{"name":"proxy"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"scriptBadge"},{"name":"sessionRestore"},{"name":"storage"},{"name":"tabCapture"},{"name":"tabs"},{"name":"topSites"},{"name":"tts"},{"name":"ttsEngine"},{"name":"types"},{"name":"webNavigation"},{"name":"webRequest"},{"name":"webstore"},{"last":true,"name":"windows"}].concat(
           [{"name":"experimental.devtools.audits"},{"name":"experimental.devtools.console"},{"name":"experimental.discovery"},{"name":"experimental.history"},{"name":"experimental.identity"},{"name":"experimental.infobars"},{"name":"experimental.processes"},{"name":"experimental.record"},{"name":"experimental.speechInput"},{"name":"experimental.systemInfo.cpu"},{"last":true,"name":"experimental.systemInfo.storage"}]),
       branchInfo: {"channels":[{"path":"stable","name":"Stable"},{"path":"dev","name":"Dev"},{"path":"beta","name":"Beta"},{"path":"trunk","name":"Trunk"}],"current":"stable","showWarning":false}
     };

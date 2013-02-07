@@ -110,7 +110,7 @@
                             <a href="cookies.html" class="level4 ">Cookie</a>
                       </li>
                       <li class="level4">
-                            <a href="devtools.html" class="level4 ">开发人员工具</a>
+                            <a href="devtools.html" class="level4 ">开发者工具</a>
                       </li>
                       <li class="level4">
                             <a href="events.html" class="level4 ">事件</a>
@@ -324,7 +324,7 @@ You can find samples of this API in
               <div>
                 <h3 id="type-Debuggee">Debuggee</h3>
                 <div>
-                  <dt><span class="type_name">  (    <span id="typeTemplate">object</span>  )</span></dt>
+                  <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
                     Debuggee identifier.
                   </dd>    <h4 id="Debuggee-properties">
@@ -338,7 +338,7 @@ You can find samples of this API in
                         <span class="property">
                           (
                             
-                            <span id="typeTemplate">integer</span>
+                            integer
                           )
                         </span>
                       </dt>
@@ -368,7 +368,7 @@ You can find samples of this API in
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate"><a href="debugger.html#type-Debuggee">Debuggee</a></span>
+                              <a href="debugger.html#type-Debuggee">Debuggee</a>
                             )
                           </span>
                         </dt>
@@ -383,7 +383,7 @@ You can find samples of this API in
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate">string</span>
+                              string
                             )
                           </span>
                         </dt>
@@ -398,7 +398,7 @@ You can find samples of this API in
                           <span class="property">
                             (
                               <span class="optional">optional</span>
-                              <span id="typeTemplate">function</span>
+                              function
                             )
                           </span>
                         </dt>
@@ -434,7 +434,7 @@ You can find samples of this API in
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate"><a href="debugger.html#type-Debuggee">Debuggee</a></span>
+                              <a href="debugger.html#type-Debuggee">Debuggee</a>
                             )
                           </span>
                         </dt>
@@ -449,7 +449,7 @@ You can find samples of this API in
                           <span class="property">
                             (
                               <span class="optional">optional</span>
-                              <span id="typeTemplate">function</span>
+                              function
                             )
                           </span>
                         </dt>
@@ -485,7 +485,7 @@ You can find samples of this API in
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate"><a href="debugger.html#type-Debuggee">Debuggee</a></span>
+                              <a href="debugger.html#type-Debuggee">Debuggee</a>
                             )
                           </span>
                         </dt>
@@ -500,7 +500,7 @@ You can find samples of this API in
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate">string</span>
+                              string
                             )
                           </span>
                         </dt>
@@ -515,7 +515,7 @@ You can find samples of this API in
                           <span class="property">
                             (
                               <span class="optional">optional</span>
-                              <span id="typeTemplate">object</span>
+                              object
                             )
                           </span>
                         </dt>
@@ -530,7 +530,7 @@ You can find samples of this API in
                           <span class="property">
                             (
                               <span class="optional">optional</span>
-                              <span id="typeTemplate">function</span>
+                              function
                             )
                           </span>
                         </dt>
@@ -554,7 +554,7 @@ You can find samples of this API in
                             <span class="property">
                               (
                                 <span class="optional">optional</span>
-                                <span id="typeTemplate">object</span>
+                                object
                               )
                             </span>
                           </dt>
@@ -576,21 +576,21 @@ You can find samples of this API in
                     Fired whenever debugging target issues instrumentation event.
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
-                      <div>  <a name="property-onEvent-source"></a>  <dt>    <span class="variable">source</span>    <span class="property">      (                <span id="typeTemplate"><a href="debugger.html#type-Debuggee">Debuggee</a></span>      )    </span>  </dt>  <dd>    The debuggee that generated this event.  </dd></div><div>  <a name="property-onEvent-method"></a>  <dt>    <span class="variable">method</span>    <span class="property">      (                <span id="typeTemplate">string</span>      )    </span>  </dt>  <dd>    Method name. Should be one of the notifications defined by the <a href='http://code.google.com/chrome/devtools/docs/remote-debugging.html'>remote debugging protocol</a>.  </dd></div><div>  <a name="property-onEvent-params"></a>  <dt>    <span class="variable">params</span>    <span class="property">      (        <span class="optional">optional</span>        <span id="typeTemplate">object</span>      )    </span>  </dt>  <dd>    JSON object with the response. Structure of the response varies depending on the method and is defined by the remote debugging protocol.  </dd></div>
+                      <div>  <a name="property-onEvent-source"></a>  <dt>    <span class="variable">source</span>    <span class="property">      (                <a href="debugger.html#type-Debuggee">Debuggee</a>      )    </span>  </dt>  <dd>    The debuggee that generated this event.  </dd></div><div>  <a name="property-onEvent-method"></a>  <dt>    <span class="variable">method</span>    <span class="property">      (                string      )    </span>  </dt>  <dd>    Method name. Should be one of the notifications defined by the <a href='http://code.google.com/chrome/devtools/docs/remote-debugging.html'>remote debugging protocol</a>.  </dd></div><div>  <a name="property-onEvent-params"></a>  <dt>    <span class="variable">params</span>    <span class="property">      (        <span class="optional">optional</span>        object      )    </span>  </dt>  <dd>    JSON object with the response. Structure of the response varies depending on the method and is defined by the remote debugging protocol.  </dd></div>
                     </dl>
                 </div>
               </div>
               <div>
                 <h4 id="event-onDetach">onDetach</h4>
                 <div class="summary">
-                  <span class="subdued">chrome.debugger.</span>onDetach<span class="subdued">.addListener</span>(function(<span><a href="debugger.html#type-Debuggee">Debuggee</a> <span class="variable">source</span></span>, <span>enumerated string ["target_closed""canceled_by_user""replaced_with_devtools"] <span class="variable">reason</span></span>)<span class="subdued"> {...}</span>);
+                  <span class="subdued">chrome.debugger.</span>onDetach<span class="subdued">.addListener</span>(function(<span><a href="debugger.html#type-Debuggee">Debuggee</a> <span class="variable">source</span></span>, <span>enumerated string ["target_closed", "canceled_by_user", "replaced_with_devtools"] <span class="variable">reason</span></span>)<span class="subdued"> {...}</span>);
                 </div>
                 <div class="description">
               <p>
                     Fired when browser terminates debugging session for the tab. This happens when either the tab is being closed or Chrome DevTools is being invoked for the attached tab.
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
-                      <div>  <a name="property-onDetach-source"></a>  <dt>    <span class="variable">source</span>    <span class="property">      (                <span id="typeTemplate"><a href="debugger.html#type-Debuggee">Debuggee</a></span>      )    </span>  </dt>  <dd>    The debuggee that was detached.  </dd></div><div>  <a name="property-onDetach-reason"></a>  <dt>    <span class="variable">reason</span>    <span class="property">      (                <span id="typeTemplate">enumerated string ["target_closed""canceled_by_user""replaced_with_devtools"]</span>      )    </span>  </dt>  <dd>    Connection termination reason.  </dd></div>
+                      <div>  <a name="property-onDetach-source"></a>  <dt>    <span class="variable">source</span>    <span class="property">      (                <a href="debugger.html#type-Debuggee">Debuggee</a>      )    </span>  </dt>  <dd>    The debuggee that was detached.  </dd></div><div>  <a name="property-onDetach-reason"></a>  <dt>    <span class="variable">reason</span>    <span class="property">      (                enumerated string ["target_closed", "canceled_by_user", "replaced_with_devtools"]      )    </span>  </dt>  <dd>    Connection termination reason.  </dd></div>
                     </dl>
                 </div>
               </div>
@@ -607,7 +607,7 @@ You can find samples of this API in
   </body>
   <script>
     window.bootstrap = {
-      api_names: [{"name":"alarms"},{"name":"bookmarks"},{"name":"browserAction"},{"name":"browsingData"},{"name":"commands"},{"name":"contentSettings"},{"name":"contextMenus"},{"name":"cookies"},{"name":"debugger"},{"name":"declarativeWebRequest"},{"name":"devtools.inspectedWindow"},{"name":"devtools.network"},{"name":"devtools.panels"},{"name":"downloads"},{"name":"events"},{"name":"extension"},{"name":"fileBrowserHandler"},{"name":"fontSettings"},{"name":"history"},{"name":"i18n"},{"name":"idle"},{"name":"input.ime"},{"name":"management"},{"name":"omnibox"},{"name":"pageAction"},{"name":"pageCapture"},{"name":"permissions"},{"name":"privacy"},{"name":"proxy"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"scriptBadge"},{"name":"sessionRestore"},{"name":"storage"},{"name":"tabCapture"},{"name":"tabs"},{"name":"topSites"},{"name":"tts"},{"name":"ttsEngine"},{"name":"types"},{"name":"webNavigation"},{"name":"webRequest"},{"name":"webstore"},{"last":true,"name":"windows"}].concat(
+      api_names: [{"name":"alarms"},{"name":"bookmarks"},{"name":"browserAction"},{"name":"browsingData"},{"name":"commands"},{"name":"contentSettings"},{"name":"contextMenus"},{"name":"cookies"},{"name":"debugger"},{"name":"declarativeContent"},{"name":"declarativeWebRequest"},{"name":"devtools.inspectedWindow"},{"name":"devtools.network"},{"name":"devtools.panels"},{"name":"downloads"},{"name":"events"},{"name":"extension"},{"name":"fileBrowserHandler"},{"name":"fontSettings"},{"name":"history"},{"name":"i18n"},{"name":"idle"},{"name":"input.ime"},{"name":"management"},{"name":"omnibox"},{"name":"pageAction"},{"name":"pageCapture"},{"name":"permissions"},{"name":"privacy"},{"name":"proxy"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"scriptBadge"},{"name":"sessionRestore"},{"name":"storage"},{"name":"tabCapture"},{"name":"tabs"},{"name":"topSites"},{"name":"tts"},{"name":"ttsEngine"},{"name":"types"},{"name":"webNavigation"},{"name":"webRequest"},{"name":"webstore"},{"last":true,"name":"windows"}].concat(
           [{"name":"experimental.devtools.audits"},{"name":"experimental.devtools.console"},{"name":"experimental.discovery"},{"name":"experimental.history"},{"name":"experimental.identity"},{"name":"experimental.infobars"},{"name":"experimental.processes"},{"name":"experimental.record"},{"name":"experimental.speechInput"},{"name":"experimental.systemInfo.cpu"},{"last":true,"name":"experimental.systemInfo.storage"}]),
       branchInfo: {"channels":[{"path":"stable","name":"Stable"},{"path":"dev","name":"Dev"},{"path":"beta","name":"Beta"},{"path":"trunk","name":"Trunk"}],"current":"stable","showWarning":false}
     };

@@ -110,7 +110,7 @@
                             <a href="cookies.html" class="level4 ">Cookie</a>
                       </li>
                       <li class="level4">
-                            <a href="devtools.html" class="level4 ">开发人员工具</a>
+                            <a href="devtools.html" class="level4 ">开发者工具</a>
                       </li>
                       <li class="level4">
                             <a href="events.html" class="level4 ">事件</a>
@@ -325,7 +325,7 @@ can be used by content scripts:-->
               <div>
                 <h3 id="type-MessageSender">MessageSender</h3>
                 <div>
-                  <dt><span class="type_name">  (    <span id="typeTemplate">object</span>  )</span></dt>
+                  <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
                     包含有关发送消息或请求的脚本上下文信息的对象。
                   </dd>    <h4 id="MessageSender-properties">
@@ -339,7 +339,7 @@ can be used by content scripts:-->
                         <span class="property">
                           (
                             <span class="optional">optional</span>
-                            <span id="typeTemplate"><a href="tabs.html#type-Tab">tabs.Tab</a></span>
+                            <a href="tabs.html#type-Tab">tabs.Tab</a>
                           )
                         </span>
                       </dt>
@@ -354,7 +354,7 @@ can be used by content scripts:-->
                         <span class="property">
                           (
                             
-                            <span id="typeTemplate">string</span>
+                            string
                           )
                         </span>
                       </dt>
@@ -372,7 +372,7 @@ can be used by content scripts:-->
                   <span><span class="subdued">chrome.extension.</span>lastError</span>
                 </div>
                 <div>
-                  <dt><span class="property">lastError</span> <span class="type_name">  (  <span class="optional">optional</span>  <span id="typeTemplate">object</span>  )</span></dt>
+                  <dt><span class="property">lastError</span> <span class="type_name">  (  <span class="optional">optional</span>  object  )</span></dt>
               <dd>
                     如果异步扩展程序 API 发生错误，将在回调函数的生命周期内设置该属性。如果没有错误发生，lastError 将为 <var>undefined</var>。
                   </dd>    <h4 id="lastError-properties">
@@ -386,7 +386,7 @@ can be used by content scripts:-->
                         <span class="property">
                           (
                             
-                            <span id="typeTemplate">string</span>
+                            string
                           )
                         </span>
                       </dt>
@@ -403,7 +403,7 @@ can be used by content scripts:-->
                   <span><span class="subdued">chrome.extension.</span>inIncognitoContext</span>
                 </div>
                 <div>
-                  <dt><span class="property">inIncognitoContext</span> <span class="type_name">  (  <span class="optional">optional</span>  <span id="typeTemplate">boolean</span>  )</span></dt>
+                  <dt><span class="property">inIncognitoContext</span> <span class="type_name">  (  <span class="optional">optional</span>  boolean  )</span></dt>
               <dd>
                     如果内容脚本正在隐身标签页中运行，或者扩展程序页面在隐身进程中运行，则为 true。后一种情况只适用于具有分离（"split"）隐身行为的扩展程序。
                   </dd>  </div>
@@ -427,7 +427,7 @@ can be used by content scripts:-->
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate">string</span>
+                              string
                             )
                           </span>
                         </dt>
@@ -465,7 +465,7 @@ can be used by content scripts:-->
                           <span class="property">
                             (
                               <span class="optional">optional</span>
-                              <span id="typeTemplate">object</span>
+                              object
                             )
                           </span>
                         </dt>
@@ -478,7 +478,7 @@ can be used by content scripts:-->
                                 <span class="property">
                                   (
                                     <span class="optional">optional</span>
-                                    <span id="typeTemplate">enumerated string ["tab", "infobar", "notification", "popup"]</span>
+                                    enumerated string ["tab", "infobar", "notification", "popup"]
                                   )
                                 </span>
                               </dt>
@@ -493,7 +493,7 @@ can be used by content scripts:-->
                                 <span class="property">
                                   (
                                     <span class="optional">optional</span>
-                                    <span id="typeTemplate">integer</span>
+                                    integer
                                   )
                                 </span>
                               </dt>
@@ -551,7 +551,7 @@ can be used by content scripts:-->
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate">function</span>
+                              function
                             )
                           </span>
                         </dt>
@@ -572,7 +572,7 @@ can be used by content scripts:-->
                             <span class="property">
                               (
                                 
-                                <span id="typeTemplate">boolean</span>
+                                boolean
                               )
                             </span>
                           </dt>
@@ -601,7 +601,7 @@ can be used by content scripts:-->
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate">function</span>
+                              function
                             )
                           </span>
                         </dt>
@@ -622,7 +622,7 @@ can be used by content scripts:-->
                             <span class="property">
                               (
                                 
-                                <span id="typeTemplate">boolean</span>
+                                boolean
                               )
                             </span>
                           </dt>
@@ -651,7 +651,7 @@ can be used by content scripts:-->
                           <span class="property">
                             (
                               
-                              <span id="typeTemplate">string</span>
+                              string
                             )
                           </span>
                         </dt>
@@ -731,7 +731,7 @@ can be used by content scripts:-->
   </body>
   <script>
     window.bootstrap = {
-      api_names: [{"name":"alarms"},{"name":"bookmarks"},{"name":"browserAction"},{"name":"browsingData"},{"name":"commands"},{"name":"contentSettings"},{"name":"contextMenus"},{"name":"cookies"},{"name":"debugger"},{"name":"declarativeWebRequest"},{"name":"devtools.inspectedWindow"},{"name":"devtools.network"},{"name":"devtools.panels"},{"name":"downloads"},{"name":"events"},{"name":"extension"},{"name":"fileBrowserHandler"},{"name":"fontSettings"},{"name":"history"},{"name":"i18n"},{"name":"idle"},{"name":"input.ime"},{"name":"management"},{"name":"omnibox"},{"name":"pageAction"},{"name":"pageCapture"},{"name":"permissions"},{"name":"privacy"},{"name":"proxy"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"scriptBadge"},{"name":"sessionRestore"},{"name":"storage"},{"name":"tabCapture"},{"name":"tabs"},{"name":"topSites"},{"name":"tts"},{"name":"ttsEngine"},{"name":"types"},{"name":"webNavigation"},{"name":"webRequest"},{"name":"webstore"},{"last":true,"name":"windows"}].concat(
+      api_names: [{"name":"alarms"},{"name":"bookmarks"},{"name":"browserAction"},{"name":"browsingData"},{"name":"commands"},{"name":"contentSettings"},{"name":"contextMenus"},{"name":"cookies"},{"name":"debugger"},{"name":"declarativeContent"},{"name":"declarativeWebRequest"},{"name":"devtools.inspectedWindow"},{"name":"devtools.network"},{"name":"devtools.panels"},{"name":"downloads"},{"name":"events"},{"name":"extension"},{"name":"fileBrowserHandler"},{"name":"fontSettings"},{"name":"history"},{"name":"i18n"},{"name":"idle"},{"name":"input.ime"},{"name":"management"},{"name":"omnibox"},{"name":"pageAction"},{"name":"pageCapture"},{"name":"permissions"},{"name":"privacy"},{"name":"proxy"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"scriptBadge"},{"name":"sessionRestore"},{"name":"storage"},{"name":"tabCapture"},{"name":"tabs"},{"name":"topSites"},{"name":"tts"},{"name":"ttsEngine"},{"name":"types"},{"name":"webNavigation"},{"name":"webRequest"},{"name":"webstore"},{"last":true,"name":"windows"}].concat(
           [{"name":"experimental.devtools.audits"},{"name":"experimental.devtools.console"},{"name":"experimental.discovery"},{"name":"experimental.history"},{"name":"experimental.identity"},{"name":"experimental.infobars"},{"name":"experimental.processes"},{"name":"experimental.record"},{"name":"experimental.speechInput"},{"name":"experimental.systemInfo.cpu"},{"last":true,"name":"experimental.systemInfo.storage"}]),
       branchInfo: {"channels":[{"path":"stable","name":"Stable"},{"path":"dev","name":"Dev"},{"path":"beta","name":"Beta"},{"path":"trunk","name":"Trunk"}],"current":"stable","showWarning":false}
     };

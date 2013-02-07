@@ -6,7 +6,7 @@
     <link href="static/css/print.css" rel="stylesheet" type="text/css" media="print">
     <link href="static/css/prettify.css" rel="stylesheet" type="text/css">
     <link href="//www.google.com/images/icons/product/chrome-16.png" rel="icon" type="image/ico">
-    <title>NPAPI Plugins - Google Chrome</title>
+    <title>NPAPI 插件 - Google Chrome</title>
   </head>
   <body>
     <a id="top"></a>
@@ -109,7 +109,7 @@
                             <a href="cookies.html" class="level4 ">Cookie</a>
                       </li>
                       <li class="level4">
-                            <a href="devtools.html" class="level4 ">开发人员工具</a>
+                            <a href="devtools.html" class="level4 ">开发者工具</a>
                       </li>
                       <li class="level4">
                             <a href="events.html" class="level4 ">事件</a>
@@ -247,18 +247,18 @@
         </ul>
       </div>
       <div id="gc-pagecontent">
-        <h1 class="page_title">NPAPI Plugins</h1>
+        <h1 class="page_title">NPAPI 插件</h1>
         <div id="toc">
           <h2><!--@Contents-->目录</h2>
           <ol>
             <li>
-              <a href=#warning>Warning</a>
+              <a href=#warning>警告</a>
             </li>
             <li>
-              <a href=#details>Details</a>
+              <a href=#details>详情</a>
             </li>
             <li>
-              <a href=#security-considerations>Security considerations</a>
+              <a href=#security-considerations>安全性考虑</a>
             </li>
           </ol>
         </div>
@@ -266,44 +266,61 @@
 
 
 <p>
-Leveraging HTML and JavaScript
+<!--@Leveraging HTML and JavaScript
 makes developing new extensions really easy,
 but what if you have existing legacy or proprietary code
 that you want to reuse in your extension?
 You can bundle an NPAPI plugin with your extension,
-allowing you to call into native binary code from JavaScript.
+allowing you to call into native binary code from JavaScript.-->
+利用 HTML 与 JavaScript 使您开发新的扩展程序变得非常容易，但是如果您有现存的遗留代码或专有代码，并且希望在您的扩展程序中重用，那该怎么办？您可以将
+NPAPI 插件和您的扩展程序一起打包，使您可以从 JavaScript
+中调用本机二进制代码。
 </p>
 
-<h2 id="warning">Warning</h2>
+<h2 id="warning"><!--@Warning-->警告</h2>
 
-<p align="center"><b>NPAPI is a really big hammer that should only be used when no other approach will work.</b>
+<p align="center"><b><!--@NPAPI is a really big hammer that should only be used when no other approach will work.-->NPAPI 应该尽可能地避免，除非没有其他任何可行的方式。</b>
 
-<p>Code running in an NPAPI plugin has the full permissions of the current user and is not sandboxed or shielded from malicious input by Google Chrome in any way. You should be especially cautious when processing input from untrusted sources, such as when working with <a href="content_scripts.html#security-considerations">content scripts</a> or XMLHttpRequest.
+<p><!--@Code running in an NPAPI plugin has the full permissions of the current user and is not sandboxed or shielded from malicious input by Google Chrome in any way. You should be especially cautious when processing input from untrusted sources, such as when working with <a href="content_scripts.html#security-considerations">content scripts</a> or XMLHttpRequest.-->
+运行在NPAPI插件中的代码拥有当前用户的所有权限，不在沙箱中运行，对于恶意的输入不受到
+Google Chrome
+浏览器的任何保护。您在处理来自不受信任来源的输入时应当尤其小心（例如与<a
+href="content_scripts.html#security-considerations">内容脚本</a>或者
+XMLHttpRequest 一起使用时）。
 
-<p>Because of the additional security risks NPAPI poses to users, extensions that use it will require manual review before being accepted in the
-<a href="https://chrome.google.com/webstore">Chrome Web Store</a>.</p>
+<p><!--@Because of the additional security risks NPAPI poses to users, extensions that use it will require manual review before being accepted in the
+<a href="https://chrome.google.com/webstore">Chrome Web Store</a>.-->
+由于 NPAPI 可能会给用户带来额外的安全风险，使用它的扩展程序在被 Chrome
+网上应用店接受前要求人工审核。
+</p>
 
-<h2 id="details">Details</h2>
+<h2 id="details"><!--@Details-->详情</h2>
 
 <p>
-How to develop an NPAPI plugin is outside the scope of this document.
+<!--@How to develop an NPAPI plugin is outside the scope of this document.
 See <a href="https://developer.mozilla.org/en/Plugins">Mozilla's
-NPAPI plugin reference</a> for information on how to do that.
+NPAPI plugin reference</a> for information on how to do that.-->
+如何开发 NPAPI 插件的内容不在本文档的范围内，有关信息请参见
+<a href="https://developer.mozilla.org/en/Plugins">Mozilla 的 NPAPI
+插件参考</a>（英文）。
 </p>
 
 <p>
-Once you have an NPAPI plugin,
-follow these steps to get your extension using it.
+<!--@Once you have an NPAPI plugin,
+follow these steps to get your extension using it.-->
+一旦您开发好了 NPAPI 插件，请遵循以下步骤让您的扩展程序使用它。
 </p>
 
 <ol>
   <li>
-    Add a section to your extension's <code>manifest.json</code>
+    <!--@Add a section to your extension's <code>manifest.json</code>
     that describes where to find the plugin,
-    along with other properties about it:
+    along with other properties about it:-->
+    在您的扩展程序的 <code>manifest.json</code>
+    文件中添加一部分内容，描述插件的位置及其他有关属性：
 
 <pre>{
-  "name": "My extension",
+  "name": "我的扩展程序",
   ...
   <b>"plugins": [
     { "path": "content_plugin.dll", "public": true },
@@ -313,59 +330,73 @@ follow these steps to get your extension using it.
 }</pre>
 
     <p>
-    The "path" property specifies the path to your plugin,
+    <!--@The "path" property specifies the path to your plugin,
     relative to the manifest file.
     The "public" property specifies whether
     your plugin can be accessed by regular web pages;
     the default is false,
-    meaning only your extension can load the plugin.
+    meaning only your extension can load the plugin.-->
+    "path" 属性指定插件的路径，相对于清单文件。"public"
+    属性指定普通的网页能否访问您的插件，默认为
+    false，只有您的扩展程序才能载入插件。
     </p>
    </li>
 
    <li>
-     Create an HTML file that loads your plugin by mime-type.
-     Assuming your mime-type is "application/x-my-extension":
+     <!--@Create an HTML file that loads your plugin by mime-type.
+     Assuming your mime-type is "application/x-my-extension":-->
+     创建一个 HTML 文件，通过 MIME 类型加载您的插件。假定您的 MIME 类型为
+     "application/x-my-extension"：
 
 <pre>
 &lt;embed type="application/x-my-extension" id="pluginId"></embed>
 &lt;script>
   var plugin = document.getElementById("pluginId");
-  var result = plugin.myPluginMethod();  // call a method in your plugin
-  console.log("my plugin returned: " + result);
+  var result = plugin.myPluginMethod();  // 调用您的插件中的方法
+  console.log("我的插件返回了：" + result);
 &lt;/script></pre>
 
      <p>
-     This can be inside a background page
+     <!--@This can be inside a background page
      or any other HTML page used by your extension.
      If your plugin is "public",
      you can even use a content script to programmatically
-     insert your plugin into a web page.
+     insert your plugin into a web page.-->
+     这些代码可以放在后台页面或者您的扩展程序使用的其他任何
+     HTML
+     页面中。如果您的插件是公共（"public"）的，您甚至可以使用内容脚本通过编程方式向网页中插入您的插件。
      </p>
    </li>
 </ol>
 
-<h2 id="security-considerations">Security considerations</h2>
+<h2 id="security-considerations"><!--@Security considerations-->安全性考虑</h2>
 
 <p>
-Including an NPAPI plugin in your extension is dangerous because plugins
+<!--@Including an NPAPI plugin in your extension is dangerous because plugins
 have unrestricted access to the local machine.  If your plugin contains
 a vulnerability, an attacker might be able to exploit that vulnerability
 to install malicious software on the user's machine.  Instead, avoid
-including an NPAPI plugin whenever possible.
+including an NPAPI plugin whenever possible.-->
+在您的扩展程序中包含 NPAPI
+插件是危险的，因为插件对本地计算机的访问不受限制。如果您的插件包含漏洞，攻击者可能会利用漏洞在用户的计算机上安装恶意软件。所以要尽可能地避免使用
+NPAPI 插件。
 </p>
 
 <p>
-Marking your NPAPI plugin "public" increase the attack surface of your
+<!--@Marking your NPAPI plugin "public" increase the attack surface of your
 extension because the plugin is exposed directly to web content, making
 it easier for a malicious web site to manipulate your plugin.  Instead,
-avoid making your NPAPI plugin public whenever possible.
+avoid making your NPAPI plugin public whenever possible.-->
+将您的 NPAPI
+插件标记为公共的（"public"）增加了您的扩展程序受到攻击的可能性，因为插件直接暴露在网页内容中，使得恶意网站更容易操纵您的插件。所以尽可能不要将您的
+NPAPI 插件标记为公共的。
 </p>
       </div>
     </div>
   </body>
   <script>
     window.bootstrap = {
-      api_names: [{"name":"alarms"},{"name":"bookmarks"},{"name":"browserAction"},{"name":"browsingData"},{"name":"commands"},{"name":"contentSettings"},{"name":"contextMenus"},{"name":"cookies"},{"name":"debugger"},{"name":"declarativeWebRequest"},{"name":"devtools.inspectedWindow"},{"name":"devtools.network"},{"name":"devtools.panels"},{"name":"downloads"},{"name":"events"},{"name":"extension"},{"name":"fileBrowserHandler"},{"name":"fontSettings"},{"name":"history"},{"name":"i18n"},{"name":"idle"},{"name":"input.ime"},{"name":"management"},{"name":"omnibox"},{"name":"pageAction"},{"name":"pageCapture"},{"name":"permissions"},{"name":"privacy"},{"name":"proxy"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"scriptBadge"},{"name":"sessionRestore"},{"name":"storage"},{"name":"tabCapture"},{"name":"tabs"},{"name":"topSites"},{"name":"tts"},{"name":"ttsEngine"},{"name":"types"},{"name":"webNavigation"},{"name":"webRequest"},{"name":"webstore"},{"last":true,"name":"windows"}].concat(
+      api_names: [{"name":"alarms"},{"name":"bookmarks"},{"name":"browserAction"},{"name":"browsingData"},{"name":"commands"},{"name":"contentSettings"},{"name":"contextMenus"},{"name":"cookies"},{"name":"debugger"},{"name":"declarativeContent"},{"name":"declarativeWebRequest"},{"name":"devtools.inspectedWindow"},{"name":"devtools.network"},{"name":"devtools.panels"},{"name":"downloads"},{"name":"events"},{"name":"extension"},{"name":"fileBrowserHandler"},{"name":"fontSettings"},{"name":"history"},{"name":"i18n"},{"name":"idle"},{"name":"input.ime"},{"name":"management"},{"name":"omnibox"},{"name":"pageAction"},{"name":"pageCapture"},{"name":"permissions"},{"name":"privacy"},{"name":"proxy"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"scriptBadge"},{"name":"sessionRestore"},{"name":"storage"},{"name":"tabCapture"},{"name":"tabs"},{"name":"topSites"},{"name":"tts"},{"name":"ttsEngine"},{"name":"types"},{"name":"webNavigation"},{"name":"webRequest"},{"name":"webstore"},{"last":true,"name":"windows"}].concat(
           [{"name":"experimental.devtools.audits"},{"name":"experimental.devtools.console"},{"name":"experimental.discovery"},{"name":"experimental.history"},{"name":"experimental.identity"},{"name":"experimental.infobars"},{"name":"experimental.processes"},{"name":"experimental.record"},{"name":"experimental.speechInput"},{"name":"experimental.systemInfo.cpu"},{"last":true,"name":"experimental.systemInfo.storage"}]),
       branchInfo: {"channels":[{"path":"stable","name":"Stable"},{"path":"dev","name":"Dev"},{"path":"beta","name":"Beta"},{"path":"trunk","name":"Trunk"}],"current":"stable","showWarning":false}
     };
