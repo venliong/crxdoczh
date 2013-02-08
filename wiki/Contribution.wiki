@@ -1,0 +1,9 @@
+#summary 欢迎您贡献翻译！
+#labels Featured,Phase-Design
+
+= 简介 =
+
+该文档描述如何为这一翻译项目作贡献。
+
+
+TODO
