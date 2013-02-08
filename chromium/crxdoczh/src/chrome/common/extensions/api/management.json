@@ -9,7 +9,7 @@
       {
         "id": "IconInfo",
 //@        "description": "Information about an icon belonging to an extension, app, or theme.",
-        "description": "属于扩展程序、应用程序或主题背景的图标的有关信息。",
+        "description": "属于扩展程序、应用或主题背景的图标的有关信息。",
         "type": "object",
         "properties": {
 //@          "size": { "type": "integer", "description": "A number representing the width and height of the icon. Likely values include (but are not limited to) 128, 48, 24, and 16."  },
@@ -21,7 +21,7 @@
       {
         "id": "ExtensionInfo",
 //@        "description": "Information about an installed extension, app, or theme.",
-        "description": "已安装的扩展程序、应用程序或主题背景的有关信息。",
+        "description": "已安装的扩展程序、应用或主题背景的有关信息。",
         "type": "object",
         "properties": {
           "id": {
@@ -31,17 +31,17 @@
           },
           "name": {
 //@            "description": "The name of this extension, app, or theme.",
-            "description": "扩展程序、应用程序或主题背景的名称。",
+            "description": "扩展程序、应用或主题背景的名称。",
             "type": "string"
           },
           "description": {
 //@            "description": "The description of this extension, app, or theme.",
-            "description": "扩展程序、应用程序或主题背景的描述。",
+            "description": "扩展程序、应用或主题背景的描述。",
             "type": "string"
           },
           "version": {
 //@            "description": "The <a href='manifest.html#version'>version</a> of this extension, app, or theme.",
-            "description": "扩展程序、应用程序或主题背景的<a href='manifest.html#version'>版本</a>。",
+            "description": "扩展程序、应用或主题背景的<a href='manifest.html#version'>版本</a>。",
             "type": "string"
           },
           "mayDisable": {
@@ -68,31 +68,31 @@
           },
           "type": {
 //@            "description": "The type of this extension, app, or theme.",
-            "description": "该扩展程序、应用程序或主题背景的类型。",
+            "description": "该扩展程序、应用或主题背景的类型。",
             "type": "string",
             "enum": ["extension", "hosted_app", "packaged_app", "legacy_packaged_app", "theme"]
           },
           "appLaunchUrl": {
 //@            "description": "The launch url (only present for apps).",
-            "description": "用于执行的 URL（仅在应用程序中存在）。",
+            "description": "用于执行的 URL（仅在应用中存在）。",
             "type": "string",
             "optional": true
           },
           "homepageUrl": {
 //@            "description": "The URL of the homepage of this extension, app, or theme.",
-            "description": "该扩展程序、应用程序或主题背景的主页 URL。",
+            "description": "该扩展程序、应用或主题背景的主页 URL。",
             "type": "string",
             "optional": true
           },
           "updateUrl": {
 //@            "description": "The update URL of this extension, app, or theme.",
-            "description": "该扩展程序、应用程序或主题背景的更新 URL。",
+            "description": "该扩展程序、应用或主题背景的更新 URL。",
             "type": "string",
             "optional": true
           },
           "offlineEnabled": {
 //@            "description": "Whether the extension, app, or theme declares that it supports offline.",
-            "description": "该扩展程序、应用程序或主题背景是否声明它具有离线支持。",
+            "description": "该扩展程序、应用或主题背景是否声明它具有离线支持。",
             "type": "boolean"
           },
           "optionsUrl": {
@@ -138,7 +138,7 @@
       {
         "name": "getAll",
 //@        "description": "Returns a list of information about installed extensions and apps.",
-        "description": "返回已安装的扩展程序和应用程序的信息列表。",
+        "description": "返回已安装的扩展程序和应用的信息列表。",
         "parameters": [
           {
             "type": "function",
@@ -159,7 +159,7 @@
       {
         "name": "get",
 //@        "description": "Returns information about the installed extension, app, or theme that has the given ID.",
-        "description": "返回已安装且具有指定标识符的扩展程序、应用程序或主题背景的有关信息。",
+        "description": "返回已安装且具有指定标识符的扩展程序、应用或主题背景的有关信息。",
         "parameters": [
           {
             "name": "id",
@@ -232,7 +232,7 @@
       {
         "name": "setEnabled",
 //@        "description": "Enables or disables an app or extension.",
-        "description": "启用或禁用一个应用程序或扩展程序。",
+        "description": "启用或禁用一个应用或扩展程序。",
         "parameters": [
           {
             "name": "id",
@@ -257,7 +257,7 @@
       {
         "name": "uninstall",
 //@        "description": "Uninstalls a currently installed app or extension.",
-        "description": "卸载当前已安装的某个应用程序或扩展程序。",
+        "description": "卸载当前已安装的某个应用或扩展程序。",
         "parameters": [
           {
             "name": "id",
@@ -315,13 +315,13 @@
       {
         "name": "launchApp",
 //@        "description": "Launches an application.",
-        "description": "运行一个应用程序。",
+        "description": "运行一个应用。",
         "parameters": [
           {
             "name": "id",
             "type": "string",
 //@            "description": "The extension id of the application."
-            "description": "应用程序的扩展程序标识符。"
+            "description": "应用的扩展程序标识符。"
           },
           {
             "name": "callback",
@@ -336,35 +336,35 @@
       {
         "name": "onInstalled",
 //@        "description": "Fired when an app or extension has been installed.",
-        "description": "安装应用程序或扩展程序时产生。",
+        "description": "安装应用或扩展程序时产生。",
         "type": "function",
         "parameters": [{"name": "info", "$ref":"ExtensionInfo"}]
       },
       {
         "name": "onUninstalled",
 //@        "description": "Fired when an app or extension has been uninstalled.",
-        "description": "应用程序或扩展程序卸载时产生。",
+        "description": "应用或扩展程序卸载时产生。",
         "type": "function",
         "parameters": [
           {
            "name": "id",
            "type": "string",
 //@           "description": "The id of the extension, app, or theme that was uninstalled."
-           "description": "卸载的扩展程序、应用程序或主题背景的标识符。"
+           "description": "卸载的扩展程序、应用或主题背景的标识符。"
           }
         ]
       },
       {
         "name": "onEnabled",
 //@        "description": "Fired when an app or extension has been enabled.",
-        "description": "应用程序或扩展程序启用时产生。",
+        "description": "应用或扩展程序启用时产生。",
         "type": "function",
         "parameters": [{"name": "info", "$ref":"ExtensionInfo"}]
       },
       {
         "name": "onDisabled",
 //@        "description": "Fired when an app or extension has been disabled",
-        "description": "应用程序或扩展程序禁用时产生。",
+        "description": "应用或扩展程序禁用时产生。",
         "type": "function",
         "parameters": [{"name": "info", "$ref":"ExtensionInfo"}]
       }

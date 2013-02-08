@@ -139,7 +139,7 @@ class TemplateDataSource(object):
       'partials': self,
       'samples': self._samples_data_source,
       'static': self._static_resources,
-      'apps_title': '应用程序',
+      'apps_title': '应用',
       'extensions_title': '扩展程序',
       'apps_samples_url': url_constants.GITHUB_BASE,
       'extensions_samples_url': url_constants.EXTENSIONS_SAMPLES,
@@ -159,5 +159,4 @@ class TemplateDataSource(object):
     try:
       return self._cache.GetFromFile(base_path + '/' + real_path)
     except FileNotFoundError as e:
-      logging.info(e)
       return None

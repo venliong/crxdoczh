@@ -18,7 +18,9 @@ class _AsyncFetchFuture(object):
     self._binary = binary
 
   def _ListDir(self, directory):
-    dom = xml.parseString(directory)
+    # HACK Filter '<hr noshade>' in Google Code's SVN server to become
+    # valid XML
+    dom = xml.parseString(directory.replace('<hr noshade>', ''))
     files = [elem.childNodes[0].data for elem in dom.getElementsByTagName('a')]
     if '..' in files:
       files.remove('..')

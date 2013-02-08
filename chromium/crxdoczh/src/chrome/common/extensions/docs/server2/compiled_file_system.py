@@ -84,7 +84,8 @@ class CompiledFileSystem(object):
   def GetFromFile(self, path):
     """Calls |populate_function| on the contents of the file at |path|.
     """
-    version = self._file_system.Stat(path).version
+    #version = self._file_system.Stat(path).version
+    version = 0
     cache_entry = self._object_store.Get(self._MakeKey(path),
                                          object_store.FILE_SYSTEM_CACHE,
                                          time=0).Get()
@@ -104,7 +105,8 @@ class CompiledFileSystem(object):
     """
     if not path.endswith('/'):
       path += '/'
-    version = self._file_system.Stat(path).version
+    #version = self._file_system.Stat(path).version
+    version = 0
     cache_entry = self._object_store.Get(
         self._MakeKey(path),
         object_store.FILE_SYSTEM_CACHE_LISTING,

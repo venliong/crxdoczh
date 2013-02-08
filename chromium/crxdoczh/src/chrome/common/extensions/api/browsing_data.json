@@ -22,7 +22,7 @@
             "type": "object",
             "optional": true,
 //@            "description": "An object whose properties specify which origin types ought to be cleared. If this object isn't specified, it defaults to clearing only \"unprotected\" origins. Please ensure that you <em>really</em> want to remove application data before adding 'protectedWeb' or 'extensions'.",
-            "description": "一个对象，属性指定哪些来源类型的数据应该被清除。如果没有指定该对象，默认情况下只清除“unprotected”来源。添加 protectedWeb 或 extensions 前请确保您<em>真的</em>需要删除应用程序数据。",
+            "description": "一个对象，属性指定哪些来源类型的数据应该被清除。如果没有指定该对象，默认情况下只清除“unprotected”来源。添加 protectedWeb 或 extensions 前请确保您<em>真的</em>需要删除应用数据。",
             "properties": {
               "unprotectedWeb": {
                 "type": "boolean",
@@ -34,13 +34,13 @@
                 "type": "boolean",
                 "optional": true,
 //@                "description": "Websites that have been installed as hosted applications (be careful!)."
-                "description": "安装为托管应用程序的网站（小心！）。"
+                "description": "安装为托管应用的网站（小心！）。"
               },
               "extension": {
                 "type": "boolean",
                 "optional": true,
 //@                "description": "Extensions and packaged applications a user has installed (be _really_ careful!)."
-                "description": "用户安装的扩展程序与打包应用程序（<em>格外</em>小心！）。"
+                "description": "用户安装的扩展程序与打包应用（<em>格外</em>小心！）。"
               }
             }
           }
