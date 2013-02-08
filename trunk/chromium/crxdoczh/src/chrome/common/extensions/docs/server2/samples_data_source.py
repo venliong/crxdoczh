@@ -243,7 +243,8 @@ class SamplesDataSource(object):
     return return_list
 
   def get(self, key):
-    return {
-      'apps': lambda: self._CreateSamplesDict('apps'),
-      'extensions': lambda: self._CreateSamplesDict('extensions')
-    }.get(key, lambda: {})()
+    #return {
+    #  'apps': lambda: self._CreateSamplesDict('apps'),
+    #  'extensions': lambda: self._CreateSamplesDict('extensions')
+    #}.get(key, lambda: {})()
+    return []

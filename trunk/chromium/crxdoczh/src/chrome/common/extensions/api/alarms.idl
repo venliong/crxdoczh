@@ -82,7 +82,7 @@ namespace alarms {
     //
     // <!--@To help you debug your app or extension, when you've loaded it unpacked,
     // there's no limit to how often the alarm can fire.-->
-    // 为了帮助您调试您的应用程序或扩展程序，当您以未打包的形式载入时，不会限制定时器产生的频率。
+    // 为了帮助您调试您的应用或扩展程序，当您以未打包的形式载入时，不会限制定时器产生的频率。
     //
     // |name|: <!--@Optional name to identify this alarm. Defaults to the empty
     // string.-->

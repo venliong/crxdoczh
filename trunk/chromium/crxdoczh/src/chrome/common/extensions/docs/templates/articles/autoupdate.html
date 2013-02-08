@@ -77,7 +77,7 @@ and <strong>&lt;updatecheck></strong> elements of the update manifest:-->
 <!--@The extension or app ID, generated based on a hash of the public key,
 as described in <a href="packaging.html">Packaging</a>. You can find the
 ID of an extension or packaged app by going to the Extensions page (<b>chrome://extensions</b>).-->
-扩展程序或应用程序标识符，基于公共密钥的散列值生成，如<a
+扩展程序或应用标识符，基于公共密钥的散列值生成，如<a
 href="packaging.html">打包</a>部分所述。您可以进入扩展程序页面（<b
 >chrome://extensions</b>）找到您的扩展程序标识符。
 </p>
@@ -85,17 +85,17 @@ href="packaging.html">打包</a>部分所述。您可以进入扩展程序页面
 <p>
 <!--@Hosted apps, however, are not listed on the Extensions page.  You can find the ID of any
 app using the following steps:-->
-然而，托管应用程序不会在扩展程序页面中列出，您可以通过如下步骤找出任何一个应用程序的标识符：
+然而，托管应用不会在扩展程序页面中列出，您可以通过如下步骤找出任何一个应用的标识符：
 </p>
 {{/is_apps}}
 
 {{?is_apps}}
 <ul>
-  <li> <!--@Open the app. You can do this by clicking its icon on the New Tab page.-->打开应用程序，您可以在“打开新的标签页”页面中单击它的图标。</li>
+  <li> <!--@Open the app. You can do this by clicking its icon on the New Tab page.-->打开应用，您可以在“打开新的标签页”页面中单击它的图标。</li>
   <li> <!--@Open the JavaScript console.  You can do this by clicking the wrench icon
        and choosing <b>Tools &gt; JavaScript Console</b>.-->打开JavaScript控制台，您可以单击扳手图标，并选择<b>工具 -&gt; JavaScript 控制台</b>。</li>
   <li> <!--@Enter the following expression into the JavaScript console: -->在 JavaScript 控制台中输入如下表达式：<code>chrome.app.getDetails().id</code>
-      <p><!--@The console shows the app's ID as a quoted string.-->控制台将以包含引号的字符串形式显示应用程序标识符。</p>
+      <p><!--@The console shows the app's ID as a quoted string.-->控制台将以包含引号的字符串形式显示应用标识符。</p>
   </li>
 </ul>
 {{/is_apps}}

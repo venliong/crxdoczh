@@ -23,7 +23,8 @@ class _AsyncUncachedFuture(object):
     mapping = {}
     new_items = self._uncached.Get()
     for item in new_items:
-      version = self._file_system.Stat(item).version
+      #version = self._file_system.Stat(item).version
+      version = 0
       mapping[item] = (new_items[item], version)
       self._current_result[item] = new_items[item]
     self._object_store.SetMulti(mapping, self._namespace, time=0)
@@ -59,6 +60,7 @@ class MemcacheFileSystem(FileSystem):
       version = dir_stat.child_versions.get(path.split('/')[-1], None)
       if version is None:
         raise FileNotFoundError(path)
+    version = 0
     mapping = { path: version }
 
     for child_path, child_version in dir_stat.child_versions.iteritems():
@@ -89,11 +91,11 @@ class MemcacheFileSystem(FileSystem):
         continue
       data, version = cached_result
       # TODO(cduvall): Make this use a multi stat.
-      if stat is None:
-        stat = self.Stat(path).version
-      if stat != version:
-        uncached.append(path)
-        continue
+      #if stat is None:
+      #  stat = self.Stat(path).version
+      #if stat != version:
+      #  uncached.append(path)
+      #  continue
       result[path] = data
 
     if not uncached:

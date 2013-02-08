@@ -223,7 +223,7 @@
 <h4> 清单文件更改 </h4>
   <ul>
     <li>新的
-      <a href="manifest.html#requirements">requirements</a> 字段允许您预先声明扩展程序的要求。例如，您可以使用这一字段指定您的应用程序要求 3D 图形支持，这样就可以使用诸如 CSS 3D 变换或 WebGL 之类的功能。
+      <a href="manifest.html#requirements">requirements</a> 字段允许您预先声明扩展程序的要求。例如，您可以使用这一字段指定您的应用要求 3D 图形支持，这样就可以使用诸如 CSS 3D 变换或 WebGL 之类的功能。
   </ul>
 
 <h4> 对现有 API 的增强 </h4>
@@ -264,14 +264,14 @@
 
 <ul>
  <li> <a href="webstore.html">网上应用店 API</a>
- 使您可以在您的网站中<a href="https://code.google.com/chrome/webstore/docs/inline_installation.html">“内嵌”</a>应用程序与扩展程序的安装功能。
+ 使您可以在您的网站中<a href="https://code.google.com/chrome/webstore/docs/inline_installation.html">“内嵌”</a>应用与扩展程序的安装功能。
 </ul>
 
 <h4> 清单文件更改 </h4>
   <ul>
     <li>新的
       <a href="manifest.html#offline_enabled">offline_enabled</a>
-      字段让您指定您的应用程序即使在没有网络连接的情况下也能够很好地工作。
+      字段让您指定您的应用即使在没有网络连接的情况下也能够很好地工作。
   </ul>
 
 <h4> 对现有 API 的增强 </h4>
@@ -401,7 +401,7 @@
   <ul>
     <li>管理 API 的
       $ref:management.ExtensionInfo 对象现在增加了 <code>homepageUrl</code> 属性。
-    <li>管理 API 现在允许您获得已禁用的应用程序和扩展程序的图标。另外，您现在也可以修改普通图标的
+    <li>管理 API 现在允许您获得已禁用的应用和扩展程序的图标。另外，您现在也可以修改普通图标的
       URL 获得禁用时的图标。有关细节请参见 $ref:management.IconInfo。
     <li>Cookie API 的
       $ref:cookies.set
@@ -436,7 +436,7 @@
 <h4> 清单文件更改 </h4>
   <ul>
     <li> <a href="manifest.html#homepage_url">homepage_url</a> 
-      属性允许您指定扩展程序或应用程序的主页。
+      属性允许您指定扩展程序或应用的主页。
   </ul>
 
 <h4> 对现有 API 的增强 </h4>
@@ -448,7 +448,7 @@
     <li> $ref:windows.create
       方法现在可以传递 URL 列表，让您在新窗口中创建多个标签页。
     <li>新的
-      $ref:management.get 方法让您获取有关指定扩展程序或应用程序的信息。
+      $ref:management.get 方法让您获取有关指定扩展程序或应用的信息。
   </ul>
 
 
@@ -463,14 +463,14 @@
 
 <h4> 新的 API </h4>
   <ul>
-    <li>现在所有用户都能安装<a href="https://code.google.com/chrome/apps/index.html">应用程序</a>，打包应用程序可以使用扩展程序的 API。
+    <li>现在所有用户都能安装<a href="https://code.google.com/chrome/apps/index.html">应用</a>，打包应用可以使用扩展程序的 API。
     <li> <a href="management.html">管理 API</a>
-      让您与已安装的应用程序和扩展程序共同协作。
+      让您与已安装的应用和扩展程序共同协作。
   </ul>
 
 <h4> 清单文件更改 </h4>
   <ul>
-    <li>引入了<a href="manifest.html#incognito">分离的隐身模式</a>并作为可安装网上应用程序的默认值（也可用于扩展程序）。
+    <li>引入了<a href="manifest.html#incognito">分离的隐身模式</a>并作为可安装网上应用的默认值（也可用于扩展程序）。
     <li> <a href="tabs.html">标签页 API</a> 的
       <code>create()</code> 和 <code>update()</code>
       方法不再需要 "tabs" 权限，避免了导致<a href="permission_warnings.html">吓人对话框</a>的一种常见原因。
