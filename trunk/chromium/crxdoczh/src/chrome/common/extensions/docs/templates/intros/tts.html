@@ -4,24 +4,27 @@
     <th scope="col"></th>
   </tr>
   <tr>
-    <td><strong>Description:</strong></td>
-    <td>Use the <code>chrome.tts</code> module to play synthesized
+    <td><strong><!--@Description:-->描述：</strong></td>
+    <td><!--@Use the-->使用 <code>chrome.tts</code> <!--@module to play synthesized
     text-to-speech (TTS).
-    See also the related
+    See also the related-->
+    模块播放合成的文字语音转换（TTS），同时请您参见相关的
     <a href="http://developer.chrome.com/extensions/ttsEngine.html">ttsEngine</a>
-    module, which allows an extension to implement a speech engine.</td>
+    <!--@module, which allows an extension to implement a speech engine.-->
+    模块，允许扩展程序实现语音引擎。
+    </td>
   </tr>
   <tr>
-    <td><strong>Availability:</strong></td>
+    <td><strong><!--@Availability:-->可用版本：</strong></td>
     <td>Google Chrome 14</td>
   </tr>
   <tr>
-    <td><strong>Permissions:</strong></td>
+    <td><strong><!--@Permissions:-->权限：</strong></td>
     <td><code>"tts"</code></td>
   </tr>
   <tr>
-    <td><strong>Learn more:</strong></td>
-    <td><a href="https://developers.google.com/live/shows/7320022-7001/">Chrome Office Hours: Text to Speech API</a></td>
+    <td><strong><!--@Learn more:-->了解更多：</strong></td>
+    <td><a href="https://developers.google.com/live/shows/7320022-7001/"><!--@Chrome Office Hours: Text to Speech API-->Chrome 办公时间：文字语音转换 API</a></td>
   </tr>
 </table>
 
@@ -30,176 +33,256 @@
 </p>
 
 
-<h2 id="overview">Overview</h2>
+<h2 id="overview"><!--@Overview-->概述</h2>
 
-<p>Chrome provides native support for speech on Windows (using SAPI
+<p><!--@Chrome provides native support for speech on Windows (using SAPI
 5), Mac OS X, and Chrome OS, using speech synthesis capabilities
 provided by the operating system. On all platforms, the user can
 install extensions that register themselves as alternative speech
-engines.</p>
+engines.-->
+Chrome 浏览器在 Windows（使用 SAPI 5）、Mac OS X 和 Chrome OS
+上使用操作系统提供的语音合成功能提供原生支持。在所有平台上，用户都可以安装注册为替代语音引擎的扩展程序。
+</p>
 
-<h2 id="generating_speech">Generating speech</h2>
+<h2 id="generating_speech"><!--@Generating speech-->朗读</h2>
 
-<p>Call <code>speak()</code> from your extension or
-packaged app to speak. For example:</p>
+<p><!--@Call <code>speak()</code> from your extension or
+packaged app to speak. For example:-->
+从您的扩展程序或打包应用中调用
+<code>speak()</code>
+开始朗读。例如：
+</p>
 
-<pre>chrome.tts.speak('Hello, world.');</pre>
+<pre>chrome.tts.speak('您好！');</pre>
 
-<p>To stop speaking immediately, just call <code>stop()</code>:
+<p><!--@To stop speaking immediately, just call <code>stop()</code>:-->
+要立刻停止朗读，只要调用<code>stop()</code>：
 
 <pre>chrome.tts.stop();</pre>
 
-<p>You can provide options that control various properties of the speech,
-such as its rate, pitch, and more. For example:</p>
+<p><!--@You can provide options that control various properties of the speech,
+such as its rate, pitch, and more. For example:-->
+您可以提供选项，控制语音的多种属性，例如速率、音调等等。例如：
+</p>
 
-<pre>chrome.tts.speak('Hello, world.', {'rate': 2.0});</pre>
+<pre>chrome.tts.speak('您好！', {'rate': 2.0});</pre>
 
-<p>It's also a good idea to specify the language so that a synthesizer
-supporting that language (and regional dialect, if applicable) is chosen.</p>
+<p><!--@It's also a good idea to specify the language so that a synthesizer
+supporting that language (and regional dialect, if applicable) is chosen.-->
+最好指定语言，这样会选择支持那种语言（以及方言，如果可用的话）的合成器。
+</p>
 
 <pre>chrome.tts.speak(
-    'Hello, world.', {'lang': 'en-US', 'rate': 2.0});</pre>
+    '您好！', {'lang': 'zh-CN', 'rate': 2.0});</pre>
 
-<p>By default, each call to <code>speak()</code> interrupts any
+<p><!--@By default, each call to <code>speak()</code> interrupts any
 ongoing speech and speaks immediately. To determine if a call would be
 interrupting anything, you can call <code>isSpeaking()</code>.  In
 addition, you can use the <code>enqueue</code> option to cause this
 utterance to be added to a queue of utterances that will be spoken
-when the current utterance has finished.</p>
+when the current utterance has finished.-->
+默认情况下每一次调用 <code>speak()</code>
+都会中断当前正在进行的朗读，并立刻开始新的朗读。要确定某次调用是否会中断当前的朗读，您可以调用
+<code>isSpeaking()</code>。此外，您可以使用
+<code>enqueue</code>
+选项，将这一次朗读添加到队列中，等到当前朗读完成后再朗读队列中的内容。
+</p>
 
 <pre>chrome.tts.speak(
-    'Speak this first.');
+    '先说这句话。');
 chrome.tts.speak(
-    'Speak this next, when the first sentence is done.', {'enqueue': true});
+    '等第一句话完成后再说这句话。', {'enqueue': true});
 </pre>
 
-<p>A complete description of all options can be found in the
-$ref:tts.speak below.
-Not all speech engines will support all options.</p>
+<p><!--@A complete description of all options can be found in the-->
+所有选项的完整描述可以在下面的
+$ref:[tts.speak speak() 方法文档] <!--@below.
+Not all speech engines will support all options.-->
+中找到，不是所有的语音引擎都会支持所有选项。
+</p>
 
-<p>To catch errors and make sure you're calling <code>speak()</code>
+<p><!--@To catch errors and make sure you're calling <code>speak()</code>
 correctly, pass a callback function that takes no arguments. Inside
 the callback, check
 $ref:runtime.lastError
-to see if there were any errors.</p>
+to see if there were any errors.-->
+要捕捉错误并确保您正确调用了
+<code>speak()</code>，请传递一个没有参数的回调函数。在回调函数中，检查
+$ref:runtime.lastError
+确定是否发生错误。
+</p>
 
 <pre>chrome.tts.speak(
     utterance,
     options,
     function() {
       if (chrome.runtime.lastError) {
-        console.log('Error: ' + chrome.runtime.lastError.message);
+        console.log('错误：' + chrome.runtime.lastError.message);
       }
     });</pre>
 
-<p>The callback returns right away, before the engine has started
+<p><!--@The callback returns right away, before the engine has started
 generating speech. The purpose of the callback is to alert you to
 syntax errors in your use of the TTS API, not to catch all possible
 errors that might occur in the process of synthesizing and outputting
 speech. To catch these errors too, you need to use an event listener,
-described below.</p>
+described below.-->
+回调函数在引擎开始朗读前就立刻返回。这一回调函数的目的是提醒您在使用
+TTS API
+过程中的语法错误，而不是用来捕捉在合成和输出语音的过程中可能发生的错误。要捕捉这些错误，您应该使用事件处理，这将在下面描述。
+</p>
 
-<h2 id="events">Listening to events</h2>
+<h2 id="events"><!--@Listening to events-->监听事件</h2>
 
-<p>To get more real-time information about the status of synthesized speech,
-pass an event listener in the options to <code>speak()</code>, like this:</p>
+<p><!--@To get more real-time information about the status of synthesized speech,
+pass an event listener in the options to <code>speak()</code>, like this:-->
+要获得有关语音合成状态的实时信息，请在
+<code>speak()</code>
+的选项中传递一个事件监听器，如下列代码所示：
+</p>
 
 <pre>chrome.tts.speak(
     utterance,
     {
       onEvent: function(event) {
-        console.log('Event ' + event.type ' at position ' + event.charIndex);
+        console.log('在位置 ' + event.charIndex ' 处产生事件 ' + event.type);
         if (event.type == 'error') {
-          console.log('Error: ' + event.errorMessage);
+          console.log('错误：' + event.errorMessage);
         }
       }
     },
     callback);</pre>
 
-<p>Each event includes an event type, the character index of the current
+<p><!--@Each event includes an event type, the character index of the current
 speech relative to the utterance, and for error events, an optional
-error message. The event types are:</p>
+error message. The event types are:-->
+每一个事件包含事件类型、当前正在朗读的字符位置。对于错误事件，还有可选的错误消息。事件类型有：
+</p>
 
 <ul>
-  <li><code>'start'</code>: The engine has started speaking the utterance.
-  <li><code>'word'</code>: A word boundary was reached. Use
+  <li><code>'start'</code><!--@: The engine has started speaking the utterance.-->：引擎开始朗读。
+  <li><code>'word'</code><!--@: A word boundary was reached. Use
           <code>event.charIndex</code> to determine the current speech
-          position.
-  <li><code>'sentence'</code>: A sentence boundary was reached. Use
+          position.-->：遇到单词边界。使用
+          <code>event.charIndex</code>
+          确定当前朗读位置。
+  <li><code>'sentence'</code><!--@: A sentence boundary was reached. Use
           <code>event.charIndex</code> to determine the current speech
-          position.
-  <li><code>'marker'</code>: An SSML marker was reached. Use
+          position.-->：遇到句子边界。使用
+          <code>event.charIndex</code>
+          确定当前朗读位置。
+  <li><code>'marker'</code><!--@: An SSML marker was reached. Use
           <code>event.charIndex</code> to determine the current speech
-          position.
-  <li><code>'end'</code>: The engine has finished speaking the utterance.
-  <li><code>'interrupted'</code>: This utterance was interrupted by another
+          position.-->：遇到 SSML 标记。使用
+          <code>event.charIndex</code>
+          确定当前朗读位置。
+  <li><code>'end'</code><!--@: The engine has finished speaking the utterance.-->：引擎已完成朗读。
+  <li><code>'interrupted'</code><!--@: This utterance was interrupted by another
           call to <code>speak()</code> or <code>stop()</code> and did not
-          finish.
-  <li><code>'cancelled'</code>: This utterance was queued, but then
+          finish.-->：本次朗读由于另一个
+          <code>speak()</code> 调用或
+          <code>stop()</code> 调用而中断，并且没有完成。
+  <li><code>'cancelled'</code><!--@: This utterance was queued, but then
           cancelled by another call to <code>speak()</code> or
-          <code>stop()</code> and never began to speak at all.
-  <li><code>'error'</code>: An engine-specific error occurred and
+          <code>stop()</code> and never began to speak at all.-->：朗读已放入队列，但后来由于另一个
+          <code>speak()</code> 调用或
+          <code>stop()</code> 调用中断，而从未开始朗读。
+  <li><code>'error'</code><!--@: An engine-specific error occurred and
           this utterance cannot be spoken.
-          Check <code>event.errorMessage</code> for details.
+          Check <code>event.errorMessage</code> for details.-->：发生了引擎特定的错误，无法开始朗读。有关详情请检查
+          <code>event.errorMessage</code>。
 </ul>
 
-<p>Four of the event types&mdash;<code>'end'</code>, <code>'interrupted'</code>,
+<p><!--@Four of the event types&mdash;<code>'end'</code>, <code>'interrupted'</code>,
 <code>'cancelled'</code>, and <code>'error'</code>&mdash;are <i>final</i>.
 After one of those events is received, this utterance will no longer
-speak and no new events from this utterance will be received.</p>
+speak and no new events from this utterance will be received.-->
+这些事件类型中有四个——<code>'end'</code>、<code>'interrupted'</code>、<code>'cancelled'</code>
+和 <code>'error'</code>
+表示最终结果。发生这些事件中的某一个后，不会再朗读，也不会再收到其它事件。
+</p>
 
-<p>Some voices may not support all event types, and some voices may not
+<p><!--@Some voices may not support all event types, and some voices may not
 send any events at all. If you do not want to use a voice unless it sends
 certain events, pass the events you require in the
 <code>requiredEventTypes</code> member of the options object, or use
 <code>getVoices()</code> to choose a voice that meets your requirements.
-Both are documented below.</p>
+Both are documented below.-->
+某些语音可能不支持所有事件类型，某些语音甚至可能不发送任何事件。如果您需要语音发送某些事件，将您需要的事件放在选项对象的
+<code>requiredEventTypes</code>
+属性中，或者使用
+<code>getVoices()</code>
+选择符合您要求的语音。以下有它们的详细文档。
+</p>
 
-<h2 id="ssml">SSML markup</h2>
+<h2 id="ssml">SSML <!--@markup-->标记</h2>
 
-<p>Utterances used in this API may include markup using the
+<p><!--@Utterances used in this API may include markup using the
 <a href="http://www.w3.org/TR/speech-synthesis">Speech Synthesis Markup
 Language (SSML)</a>. If you use SSML, the first argument to
 <code>speak()</code> should be a complete SSML document with an XML
 header and a top-level <code>&lt;speak&gt;</code> tag, not a document
-fragment.</p>
+fragment.-->
+这一 API 中使用的朗读内容可以包含使用<a href="http://www.w3.org/TR/speech-synthesis"
+>语音合成标记语言（SSML）</a>（英文）的标记。如果您使用
+SSML，<code>speak()</code>
+的第一个参数应该是一个具有 XML 头和顶级
+<code>&lt;speak&gt;</code>
+标签的完整 SSML 文档，而不是文档片段。
+</p>
 
-<p>For example:</p>
+<p><!--@For example:-->例如：</p>
 
 <pre>chrome.tts.speak(
     '&lt;?xml version="1.0"?&gt;' +
     '&lt;speak&gt;' +
-    '  The &lt;emphasis&gt;second&lt;/emphasis&gt; ' +
-    '  word of this sentence was emphasized.' +
+    '  这一句话中第&lt;emphasis&gt;七&lt;/emphasis&gt; ' +
+    '  个字要强调。' +
     '&lt;/speak&gt;');</pre>
 
-<p>Not all speech engines will support all SSML tags, and some may not support
+<p><!--@Not all speech engines will support all SSML tags, and some may not support
 SSML at all, but all engines are required to ignore any SSML they don't
-support and to still speak the underlying text.</p>
+support and to still speak the underlying text.-->
+不是所有的语音引擎都支持所有 SSML 标记，甚至有一些可能完全不支持
+SSML，但是所有引擎都会忽略它们不支持的 SSML 并继续朗读其中的文字。
+</p>
 
-<h2 id="choosing_voice">Choosing a voice</h2>
+<h2 id="choosing_voice"><!--@Choosing a voice-->选择语音</h2>
 
-<p>By default, Chrome chooses the most appropriate voice for each
+<p><!--@By default, Chrome chooses the most appropriate voice for each
 utterance you want to speak, based on the language and gender. On most
 Windows, Mac OS X, and Chrome OS systems, speech synthesis provided by
 the operating system should be able to speak any text in at least one
 language. Some users may have a variety of voices available, though,
 from their operating system and from speech engines implemented by other
 Chrome extensions. In those cases, you can implement custom code to choose
-the appropriate voice, or to present the user with a list of choices.</p>
+the appropriate voice, or to present the user with a list of choices.-->
+默认情况下，Chrome
+浏览器基于语言和性别选择您要朗读的内容所对应的最合适的语音。在大部分
+Windows、Mac OS X 和 Chrome OS
+系统上，操作系统提供的语音合成功能至少能用一种语言朗读任何文本，而某些用户可能会有多种可用的语音，来自操作系统或其他
+Chrome
+扩展程序实现的语音引擎。在这样的情况下，您可以实现自定义代码，选择合适的语音，或向用户展现可选的语音。
+</p>
 
-<p>To get a list of all voices, call <code>getVoices()</code> and pass it
+<p><!--@To get a list of all voices, call <code>getVoices()</code> and pass it
 a function that receives an array of <code>TtsVoice</code> objects as its
-argument:</p>
+argument:-->
+要获得所有语音的列表，请调用
+<code>getVoices()</code>
+并传递一个接受
+<code>TtsVoice</code>
+对象数组为参数的函数：
+</p>
 
 <pre>chrome.tts.getVoices(
     function(voices) {
       for (var i = 0; i < voices.length; i++) {
-        console.log('Voice ' + i + ':');
-        console.log('  name: ' + voices[i].voiceName);
-        console.log('  lang: ' + voices[i].lang);
-        console.log('  gender: ' + voices[i].gender);
-        console.log('  extension id: ' + voices[i].extensionId);
-        console.log('  event types: ' + voices[i].eventTypes);
-      }
-    });</pre>
+        console.log('第 ' + i + ' 种语音：');
+        console.log('  名称：' + voices[i].voiceName);
+        console.log('  语言：' + voices[i].lang);
+        console.log('  性别：' + voices[i].gender);
+        console.log('  扩展程序标识符：' + voices[i].extensionId);
+        console.log('  事件类型：' + voices[i].eventTypes);
+}
+});</pre>

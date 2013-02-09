@@ -32,26 +32,20 @@ class AppEngineUrlFetcher(object):
     """Fetches a file synchronously.
     """
     headers = _MakeHeaders(username, password)
-    import logging
     if self._base_path is not None:
-      logging.info('%s/%s' % (self._base_path, url))
-      return urlfetch.fetch('%s/%s' % (self._base_path, url), headers=headers, validate_certificate=False)
+      return urlfetch.fetch('%s/%s' % (self._base_path, url), headers=headers)
     else:
-      logging.info(url)
-      return urlfetch.fetch(url, headers={ 'Cache-Control': 'max-age=0' }, validate_certificate=False)
+      return urlfetch.fetch(url, headers={ 'Cache-Control': 'max-age=0' })
 
   def FetchAsync(self, url, username=None, password=None):
     """Fetches a file asynchronously, and returns a Future with the result.
     """
     rpc = urlfetch.create_rpc()
     headers = _MakeHeaders(username, password)
-    import logging
     if self._base_path is not None:
-      logging.info('%s/%s' % (self._base_path, url))
       urlfetch.make_fetch_call(rpc,
                                '%s/%s' % (self._base_path, url),
-                               headers=headers, validate_certificate=False)
+                               headers=headers)
     else:
-      logging.info(url)
-      urlfetch.make_fetch_call(rpc, url, headers=headers, validate_certificate=False)
+      urlfetch.make_fetch_call(rpc, url, headers=headers)
     return Future(delegate=_AsyncFetchDelegate(rpc))
