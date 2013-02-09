@@ -149,7 +149,7 @@
                             <a href="content_scripts.html" class="level4 ">内容脚本</a>
                       </li>
                       <li class="level4">
-                            <a href="xhr.html" class="level4 ">跨站XHR</a>
+                            <a href="xhr.html" class="level4 ">跨站 XHR</a>
                       </li>
                       <li class="level4">
                             <a href="i18n.html" class="level4 ">国际化支持</a>
@@ -238,7 +238,7 @@
                       <a href="https://code.google.com/chrome/webstore/docs/index.html" class="level3 ">Chrome 网上应用店</a>
                 </li>
                 <li class="level3">
-                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用程序</a>
+                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用</a>
                 </li>
                 <li class="level3">
                       <a href="themes.html" class="level3 ">主题背景</a>
@@ -256,19 +256,19 @@
           <h2><!--@Contents-->目录</h2>
           <ol>
             <li>
-              <a href=#overview>Overview</a>
+              <a href=#overview>概述</a>
             </li>
             <li>
-              <a href=#manifest>Manifest</a>
+              <a href=#manifest>清单文件</a>
             </li>
             <li>
-              <a href=#using-sync>Usage</a>
+              <a href=#using-sync>用法</a>
             </li>
             <li>
-              <a href=#limits>Storage and throttling limits</a>
+              <a href=#limits>存储空间与调用频率限制</a>
             </li>
             <li>
-              <a href=#examples>Examples</a>
+              <a href=#examples>例子</a>
             </li>
             <li>
               <a href="#apiReference"><!--@API reference: -->API 参考：chrome.storage</a>
@@ -289,56 +289,75 @@
     <th scope="col"></th>
   </tr>
   <tr>
-    <td><strong>Description:</strong></td>
-    <td>Use the <code>chrome.storage</code> module
-    to store, retrieve, and track changes to user data.</td>
+    <td><strong><!--@Description:-->描述：</strong></td>
+    <td><!--@Use the-->使用 <code>chrome.storage</code> <!--@module
+    to store, retrieve, and track changes to user data.-->模块存储、接收和追踪用户数据的更改。</td>
   </tr>
   <tr>
-    <td><strong>Availability:</strong></td>
+    <td><strong><!--@Availability:-->可用版本：</strong></td>
     <td>Google Chrome 20</td>
   </tr>
   <tr>
-    <td><strong>Permissions:</strong></td>
+    <td><strong><!--@Permissions:-->权限：</strong></td>
     <td><code>"storage"</code></td>
   </tr>
   <tr>
-    <td><strong>Learn more:</strong></td>
-    <td><a href="https://developers.google.com/live/shows/7320022/">Chrome Apps Office Hours: Chrome Storage APIs</a><br>
-    <a href="https://developers.google.com/live/shows/7320022-1/">Chrome Apps Office Hours: Storage API Deep Dive</a></td>
+    <td><strong><!--@Learn more:-->了解更多：</strong></td>
+    <td><a href="https://developers.google.com/live/shows/7320022/"><!--@Chrome Apps Office Hours: Chrome Storage APIs-->Chrome 应用办公时间：Chrome 存储 API</a>（英文）<br>
+    <a href="https://developers.google.com/live/shows/7320022-1/"><!--@Chrome Apps Office Hours: Storage API Deep Dive-->Chrome 应用办公时间：深入探索存储 API</a>（英文）</td>
   </tr>
 </table>
 
-<h2 id="overview">Overview</h2>
+<h2 id="overview"><!--@Overview-->概述</h2>
 
 <p id="classSummary">
-This API has been optimized
+<!--@This API has been optimized
 to meet the specific storage needs of extensions.
 It provides the same storage capabilities as the
 <a href="https://developer.mozilla.org/en/DOM/Storage#localStorage">localStorage API</a>
-with the following key differences:
+with the following key differences:-->
+这一 API 为扩展程序的存储需要而特别优化，它提供了与
+<a href="https://developer.mozilla.org/en/DOM/Storage#localStorage">localStorage API</a>
+相同的能力，但是具有如下几个重要的区别：
 </p>
 
 <ul>
-  <li>User data can be automatically synced with Chrome sync
-  (using <code>storage.sync</code>).</li>
-  <li>Your extension's content scripts can directly access user data
-  without the need for a background page.</li>
-  <li>A user's extension settings can be persisted
+  <li><!--@User data can be automatically synced with Chrome sync
+  (using <code>storage.sync</code>).-->
+  用户数据可以通过 Chrome
+  浏览器的同步功能自动同步（使用
+  <code>storage.sync</code>）。
+  </li>
+  <li><!--@Your extension's content scripts can directly access user data
+  without the need for a background page.-->
+  您的扩展程序的内容脚本可以直接访问用户数据，而不需要后台页面。
+  </li>
+  <li><!--@A user's extension settings can be persisted
   even when using
-  <a href="manifest.html#incognito">split incognito behavior</a>.</li>
-  <li>It's asynchronous with bulk read and write operations, and therefore
-  faster than the blocking and serial <code>localStorage API</code>.
-  <li>User data can be stored as objects
-  (the <code>localStorage API</code> stores data in strings).</li>
+  <a href="manifest.html#incognito">split incognito behavior</a>.-->
+  即使使用<a href="manifest.html#incognito">分离式隐身行为</a>，用户的扩展程序设置也会保留。
+  </li>
+  <li><!--@It's asynchronous with bulk read and write operations, and therefore
+  faster than the blocking and serial <code>localStorage API</code>.-->
+  它是异步的，并且能够进行大量的读写操作，因此比阻塞和串行化的
+  <code>localStorage</code> API 更快。
+  <li><!--@User data can be stored as objects
+  (the <code>localStorage API</code> stores data in strings).-->
+  用户数据可以存储为对象（<code>localStorage</code> API
+  以字符串方式存储数据）。
+  </li>
 </ul>
 
-<h2 id="manifest">Manifest</h2>
-<p>You must declare the "storage" permission in the <a
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
+<p><!--@You must declare the "storage" permission in the <a
   href="manifest.html">extension manifest</a>
   to use the storage API.
-  For example:</p>
+  For example:-->
+  您必须在<a href="manifest.html">扩展程序的清单文件</a>中声明
+  "storage" 权限才能使用存储 API。例如：
+</p>
 <pre>{
-  "name": "My extension",
+  "name": "我的扩展程序",
   ...
   <b>"permissions": [
     "storage"
@@ -346,38 +365,48 @@ with the following key differences:
   ...
 }</pre>
 
-<h2 id="using-sync">Usage</h2>
+<h2 id="using-sync"><!--@Usage-->用法</h2>
 
 <p>
-To store user data for your extension,
+<!--@To store user data for your extension,
 you can use either
 <code>storage.sync</code> or
 <code>storage.local</code>.
 When using <code>storage.sync</code>,
 the stored data will automatically be synced
 to any Chrome browser that the user is logged into,
-provided the user has sync enabled.
+provided the user has sync enabled.-->
+如果要为您的扩展程序储存用户数据，您可以使用
+<code>storage.sync</code> 或 <code>storage.local</code>。使用
+<code>storage.sync</code>
+时，储存的数据将会自动在用户启用同步功能并已经登录的所有
+Chrome 浏览器间同步。
 </p>
 
 <p>
-When Chrome is offline,
+<!--@When Chrome is offline,
 Chrome stores the data locally.
 The next time the browser is online,
 Chrome syncs the data.
 Even if a user disables syncing,
 <code>storage.sync</code> will still work.
 In this case, it will behave identically
-to <code>storage.local</code>.
+to <code>storage.local</code>.-->
+当 Chrome 浏览器处于离线状态时，Chrome
+浏览器将数据储存在本地。下一次浏览器在线时，Chrome
+浏览器将会同步数据。即使用户关闭了同步，<code>storage.sync</code>
+仍然有效，只是此时它与 <code>storage.local</code> 的行为相同。
 </p>
 
 <p class="warning">
-Confidential user information should not be stored!
-The storage area isn't encrypted.
+<!--@Confidential user information should not be stored!
+The storage area isn't encrypted.-->
+不应该储存机密的用户信息！存储区没有加密。
 </p>
 
-<h2 id="limits">Storage and throttling limits</h2>
+<h2 id="limits"><!--@Storage and throttling limits-->存储空间与调用频率限制</h2>
 
-<p><code>chrome.storage</code> is not a big truck.
+<p><code>chrome.storage</code> <!--@is not a big truck.
 It's a series of tubes.
 And if you don't understand,
 those tubes can be filled,
@@ -386,57 +415,65 @@ when you put your message in,
 it gets in line,
 and it's going to be delayed
 by anyone that puts into that tube
-enormous amounts of material.
+enormous amounts of material.-->
+并不像一辆大卡车那样，而是像一系列的管道，如果您不理解这一点的话，这样的管道很容易被填满。如果当您存入消息时它们填满了，它将会变成细线，任何人向其中存入大量数据都有可能使操作产生延迟。
 
-<p>For details on the current limits
+<p><!--@For details on the current limits
 of the storage API, and what happens
 when those limits are exceeded, please
-see the <a href="#apiReference">API reference</a>.
+see the-->
+有关目前对存储 API 的限制以及超出限制的结果，请参见
+<a href="#apiReference">API <!--@reference-->参考</a><!--@.-->。
 
 
-<h2 id="examples">Examples</h2>
+<h2 id="examples"><!--@Examples-->例子</h2>
 
 <p>
-The following example checks for
+<!--@The following example checks for
 CSS code saved by a user on a form,
 and if found,
-stores it.
+stores it.-->
+以下例子检查用户在表单中保存的 CSS
+代码，如果找到的话则存储下来。
 </p>
 
 <pre>
 function saveChanges() {
-  // Get a value saved in a form.
+  // 获取表单中保存的值。
   var theValue = textarea.value;
-  // Check that there's some code there.
+  // 确保包含代码。
   if (!theValue) {
-    message('Error: No value specified');
+    message('错误：没有指定值');
     return;
   }
-  // Save it using the Chrome extension storage API.
+  // 使用 Chrome 扩展程序的存储 API 保存它。
   chrome.storage.sync.set({'value': theValue}, function() {
-    // Notify that we saved.
-    message('Settings saved');
+    // 通知保存完成。
+    message('设置已保存');
   });
 }
 </pre>
 
 <p>
-If you're interested in tracking changes made
+<!--@If you're interested in tracking changes made
 to a data object,
 you can add a listener
 to its <code>onChanged</code> event.
 Whenever anything changes in storage,
 that event fires.
 Here's sample code
-to listen for saved changes:
+to listen for saved changes:-->
+如果您希望追踪数据对象的更改，您可以向
+<code>onChanged</code>
+事件添加监听器，每当存储有任何更改时将会产生该事件。如下是监听对已保存内容的更改的示例代码：
 </p>
 
 <pre>
 chrome.storage.onChanged.addListener(function(changes, namespace) {
   for (key in changes) {
     var storageChange = changes[key];
-    console.log('Storage key "%s" in namespace "%s" changed. ' +
-                'Old value was "%s", new value is "%s".',
+    console.log('存储键“%s”（位于“%s”命名空间中）已更改。' +
+                    '原来的值为“%s”，新的值为“%s”。',
                 key,
                 namespace,
                 storageChange.oldValue,
@@ -446,8 +483,10 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 </pre>
 
 <p>
-You can find examples that use this API on the
-<a href="samples.html#sty">Samples page</a>.
+<!--@You can find examples that use this API on the
+<a href="samples.html#sty">Samples page</a>.-->
+您可以在<a href="samples.html#storage">示例页面</a>找到使用这一
+API 的例子。
 </p>
         <h2 id="apiReference"><!--@API Reference: chrome.storage-->API 参考：chrome.storage</h2>
         <div class="api_reference">
@@ -472,7 +511,7 @@ You can find examples that use this API on the
                         </span>
                       </dt>
                       <dd>
-                        The old value of the item, if there was an old value.
+                        如果有旧值，则为项目的旧值。
                       </dd>
                     </div>
                     <div>
@@ -487,7 +526,7 @@ You can find examples that use this API on the
                         </span>
                       </dt>
                       <dd>
-                        The new value of the item, if there is a new value.
+                        如果有新值，则为项目的新值。
                       </dd>
                     </div>
               </dl></dd>
@@ -508,7 +547,7 @@ You can find examples that use this API on the
                       </div>
                       <div class="description">
                         <p>
-                          Gets one or more items from storage.
+                          从存储中获得一个或多个值。
                         </p>
                         <h4><!--@Parameters-->参数</h4>
                         <dl>
@@ -526,7 +565,7 @@ You can find examples that use this API on the
                                 </span>
                               </dt>
                               <dd>
-                                A single key to get, list of keys to get, or a dictionary specifying default values (see description of the object).  An empty list or object will return an empty result object.  Pass in <code>null</code> to get the entire contents of storage.
+                                要获得的单个键、多个键的列表或者指定默认值的词典（参见对象的描述），空的列表或对象将会返回空的结果对象。要获得存储的所有内容，请传递 <code>null</code>。
                               </dd>
                             </div>
                             <div>
@@ -541,7 +580,7 @@ You can find examples that use this API on the
                                 </span>
                               </dt>
                               <dd>
-                                Callback with storage items, or on failure (in which case <a href="runtime.html#property-lastError">runtime.lastError</a> will be set).
+                                包含存储项目或者表示失败（这种情况下会设置 <a href="runtime.html#property-lastError">runtime.lastError</a>）的回调函数。
                               </dd>
                             </div>
                         </dl>
@@ -565,7 +604,7 @@ You can find examples that use this API on the
                                   </span>
                                 </dt>
                                 <dd>
-                                  Object with items in their key-value mappings.
+                                  包含按键-值映射的项目对象。
                                 </dd>
                               </div>
                           </dl>
@@ -578,7 +617,7 @@ You can find examples that use this API on the
                       </div>
                       <div class="description">
                         <p>
-                          Gets the amount of space (in bytes) being used by one or more items.
+                          获得一个或多个项目正在使用的空间大小（以字节为单位）。
                         </p>
                         <h4><!--@Parameters-->参数</h4>
                         <dl>
@@ -595,7 +634,7 @@ You can find examples that use this API on the
                                 </span>
                               </dt>
                               <dd>
-                                A single key or list of keys to get the total usage for. An empty list will return 0. Pass in <code>null</code> to get the total usage of all of storage.
+                                要获得总计使用空间的单个键或多个键的列表，空的列表或对象将会返回 0。要获得所有存储占用的总空间，请传递 <code>null</code>。
                               </dd>
                             </div>
                             <div>
@@ -610,7 +649,7 @@ You can find examples that use this API on the
                                 </span>
                               </dt>
                               <dd>
-                                Callback with the amount of space being used by storage, or on failure (in which case <a href="runtime.html#property-lastError">runtime.lastError</a> will be set).
+                                回调函数，将传递存储占用的空间大小，或者指示失败（这种情况下将会设置 <a href="runtime.html#property-lastError">runtime.lastError</a>）
                               </dd>
                             </div>
                         </dl>
@@ -634,7 +673,7 @@ You can find examples that use this API on the
                                   </span>
                                 </dt>
                                 <dd>
-                                  Amount of space being used in storage, in bytes.
+                                  正在使用的存储空间大小，以字节为单位。
                                 </dd>
                               </div>
                           </dl>
@@ -647,7 +686,7 @@ You can find examples that use this API on the
                       </div>
                       <div class="description">
                         <p>
-                          Sets multiple items.
+                          设置多个项目。
                         </p>
                         <h4><!--@Parameters-->参数</h4>
                         <dl>
@@ -663,7 +702,7 @@ You can find examples that use this API on the
                                 </span>
                               </dt>
                               <dd>
-                                Object specifying items to augment storage with. Values that cannot be serialized (functions, etc) will be ignored.
+                                要向存储添加的对象，不能被序列化（函数等）的值将被忽略。
                               </dd>
                             </div>
                             <div>
@@ -678,7 +717,7 @@ You can find examples that use this API on the
                                 </span>
                               </dt>
                               <dd>
-                                Callback on success, or on failure (in which case <a href="runtime.html#property-lastError">runtime.lastError</a> will be set).
+                                在成功或失败（这种情况下会设置 <a href="runtime.html#property-lastError">runtime.lastError</a>）时调用。
                               </dd>
                             </div>
                         </dl>
@@ -698,7 +737,7 @@ You can find examples that use this API on the
                       </div>
                       <div class="description">
                         <p>
-                          Removes one or more items from storage.
+                          从存储中移除一个或多个项目。
                         </p>
                         <h4><!--@Parameters-->参数</h4>
                         <dl>
@@ -715,7 +754,7 @@ You can find examples that use this API on the
                                 </span>
                               </dt>
                               <dd>
-                                A single key or a list of keys for items to remove.
+                                单个键或多个键的列表，表示要移除的内容。
                               </dd>
                             </div>
                             <div>
@@ -730,7 +769,7 @@ You can find examples that use this API on the
                                 </span>
                               </dt>
                               <dd>
-                                Callback on success, or on failure (in which case <a href="runtime.html#property-lastError">runtime.lastError</a> will be set).
+                                在成功或失败（这种情况下会设置 <a href="runtime.html#property-lastError">runtime.lastError</a>）时调用。
                               </dd>
                             </div>
                         </dl>
@@ -750,7 +789,7 @@ You can find examples that use this API on the
                       </div>
                       <div class="description">
                         <p>
-                          Removes all items from storage.
+                          从存储中删除所有值。
                         </p>
                         <h4><!--@Parameters-->参数</h4>
                         <dl>
@@ -766,7 +805,7 @@ You can find examples that use this API on the
                                 </span>
                               </dt>
                               <dd>
-                                Callback on success, or on failure (in which case <a href="runtime.html#property-lastError">runtime.lastError</a> will be set).
+                                在成功或失败（这种情况下会设置 <a href="runtime.html#property-lastError">runtime.lastError</a>）时调用。
                               </dd>
                             </div>
                         </dl>
@@ -791,7 +830,7 @@ You can find examples that use this API on the
                 <div>
                   <dt><span class="property">sync</span> <span class="type_name">  (    <a href="storage.html#type-StorageArea">StorageArea</a>  )</span></dt>
               <dd>
-                    Items in the <code>sync</code> storage area are synced using Chrome Sync.
+                    位于 <code>sync</code>（同步）存储区下的项目将通过 Chrome 浏览器的同步功能同步。
                   </dd>    <h4 id="sync-properties">
                     <!--@Properties of --><a href="#property-sync">sync</a>
                     的属性
@@ -808,7 +847,7 @@ You can find examples that use this API on the
                         </span>
                       </dt>
                       <dd>
-                        The maximum total amount (in bytes) of data that can be stored in sync storage, as measured by the JSON stringification of every value plus every key's length. Updates that would cause this limit to be exceeded fail immediately and set <a href="runtime.html#property-lastError">runtime.lastError</a>.
+                        可以在同步存储区储存的数据量大小（以字节为单位），计算方式为每一个值 JSON 字符串化的结果加上每一个键的长度。超出该限制的更新将失败，并设置 <a href="runtime.html#property-lastError">runtime.lastError</a>。
                       </dd>
                     </div>
                     <div>
@@ -823,7 +862,7 @@ You can find examples that use this API on the
                         </span>
                       </dt>
                       <dd>
-                        The maximum size (in bytes) of each individual item in sync storage, as measured by the JSON stringification of its value plus its key length. Updates containing items larger than this limit will fail immediately and set <a href="runtime.html#property-lastError">runtime.lastError</a>.
+                        同步存储区中每个项目的最大大小（以字节为单位），计算方式为值 JSON 字符串化的结果加上键的长度。包含的项目比该限制大的更新将失败，并设置 <a href="runtime.html#property-lastError">runtime.lastError</a>。
                       </dd>
                     </div>
                     <div>
@@ -838,7 +877,7 @@ You can find examples that use this API on the
                         </span>
                       </dt>
                       <dd>
-                        The maximum number of items that can be stored in sync storage. Updates that would cause this limit to be exceeded will fail immediately and set <a href="runtime.html#property-lastError">runtime.lastError</a>.
+                        可以储存在同步存储区中的最大项目数目。超出该限制的更新将失败，并设置 <a href="runtime.html#property-lastError">runtime.lastError</a>。
                       </dd>
                     </div>
                     <div>
@@ -853,7 +892,7 @@ You can find examples that use this API on the
                         </span>
                       </dt>
                       <dd>
-                        The maximum number of <code>set</code>, <code>remove</code>, or <code>clear</code> operations that can be performed each hour. Updates that would cause this limit to be exceeded fail immediately and set <a href="runtime.html#property-lastError">runtime.lastError</a>.
+                        一小时内可以进行的 <code>se</code>（设置）、<code>remove</code>（移除）或<code>clear</code>（清除）操作的最大次数。超出该限制的更新将失败，并设置 <a href="runtime.html#property-lastError">runtime.lastError</a>。
                       </dd>
                     </div>
                     <div>
@@ -868,7 +907,7 @@ You can find examples that use this API on the
                         </span>
                       </dt>
                       <dd>
-                        The maximum number of <code>set</code>, <code>remove</code>, or <code>clear</code> operations that can be performed each minute, sustained over 10 minutes. Updates that would cause this limit to be exceeded fail immediately and set <a href="runtime.html#property-lastError">runtime.lastError</a>.
+                        在 10 分钟的时间段内，每分钟可以进行的 <code>se</code>（设置）、<code>remove</code>（移除）或<code>clear</code>（清除）操作的最大次数。超出该限制的更新将失败，并设置 <a href="runtime.html#property-lastError">runtime.lastError</a>。
                       </dd>
                     </div>
               </dl></dd>
@@ -882,7 +921,7 @@ You can find examples that use this API on the
                 <div>
                   <dt><span class="property">local</span> <span class="type_name">  (    <a href="storage.html#type-StorageArea">StorageArea</a>  )</span></dt>
               <dd>
-                    Items in the <code>local</code> storage area are local to each machine.
+                    位于 <code>local</code>（本机）存储区下的项目仅对每一台计算机有效。
                   </dd>    <h4 id="local-properties">
                     <!--@Properties of --><a href="#property-local">local</a>
                     的属性
@@ -899,7 +938,7 @@ You can find examples that use this API on the
                         </span>
                       </dt>
                       <dd>
-                        The maximum amount (in bytes) of data that can be stored in local storage, as measured by the JSON stringification of every value plus every key's length. This value will be ignored if the extension has the <code>unlimitedStorage</code> permission. Updates that would cause this limit to be exceeded fail immediately and set <a href="runtime.html#property-lastError">runtime.lastError</a>.
+                        可以在本地存储区储存的数据量大小（以字节为单位），计算方式为每一个值 JSON 字符串化的结果加上每一个键的长度。如果扩展程序拥有 <code>unlimitedStorage</code> 权限则会忽略这一值。
                       </dd>
                     </div>
               </dl></dd>
@@ -913,10 +952,10 @@ You can find examples that use this API on the
                 </div>
                 <div class="description">
               <p>
-                    Fired when one or more items change.
+                    当一个或多个项目更改时产生。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
-                      <div>  <a name="property-onChanged-changes"></a>  <dt>    <span class="variable">changes</span>    <span class="property">      (                object      )    </span>  </dt>  <dd>    Object mapping each key that changed to its corresponding <a href="storage.html#type-StorageChange">StorageChange</a> for that item.  </dd></div><div>  <a name="property-onChanged-areaName"></a>  <dt>    <span class="variable">areaName</span>    <span class="property">      (                string      )    </span>  </dt>  <dd>    The name of the storage area (<code>sync</code> or <code>local</code>) the changes are for.  </dd></div>
+                      <div>  <a name="property-onChanged-changes"></a>  <dt>    <span class="variable">changes</span>    <span class="property">      (                object      )    </span>  </dt>  <dd>    一个对象，将更改的每一个键映射到该项目对应的 <a href="storage.html#type-StorageChange">StorageChange</a> 对象。  </dd></div><div>  <a name="property-onChanged-areaName"></a>  <dt>    <span class="variable">areaName</span>    <span class="property">      (                string      )    </span>  </dt>  <dd>    这一更改对应的存储区（"sync"（同步）或"local"（本机））。  </dd></div>
                     </dl>
                 </div>
               </div>

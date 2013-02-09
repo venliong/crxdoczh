@@ -149,7 +149,7 @@
                             <a href="content_scripts.html" class="level4 ">内容脚本</a>
                       </li>
                       <li class="level4">
-                            <a href="xhr.html" class="level4 ">跨站XHR</a>
+                            <a href="xhr.html" class="level4 ">跨站 XHR</a>
                       </li>
                       <li class="level4">
                             <a href="i18n.html" class="level4 ">国际化支持</a>
@@ -238,7 +238,7 @@
                       <a href="https://code.google.com/chrome/webstore/docs/index.html" class="level3 ">Chrome 网上应用店</a>
                 </li>
                 <li class="level3">
-                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用程序</a>
+                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用</a>
                 </li>
                 <li class="level3">
                       <a href="themes.html" class="level3 ">主题背景</a>
@@ -256,10 +256,10 @@
           <h2><!--@Contents-->目录</h2>
           <ol>
             <li>
-              <a href=#manifest>Manifest</a>
+              <a href=#manifest>清单文件</a>
             </li>
             <li>
-              <a href=#code>Implementing a file browser handler</a>
+              <a href=#code>实现文件浏览器处理程序</a>
             </li>
             <li>
               <a href="#apiReference"><!--@API reference: -->API 参考：chrome.fileBrowserHandler</a>
@@ -275,34 +275,42 @@
         </div>
 
 <p id="classSummary">
-Use the <code>chrome.fileBrowserHandler</code> module to
+<!--@Use the-->使用 <code>chrome.fileBrowserHandler</code> <!--@module to
 extend the Chrome OS file browser.
 For example, you can use this API
-to enable users to upload files to your website.
+to enable users to upload files to your website.-->
+模块扩展 Chrome OS
+的文件浏览器。例如，您可以使用这一
+API 让用户向您的网站上传文件。
 </p>
 
 <p class="caution">
-<b>Important:</b>
-This API works <b>only on Chrome OS</b>.
+<b><!--@Important:-->重要提示：</b><!--@
+This API works <b>only on Chrome OS</b>.-->该
+API <b>仅在 Chrome OS 中可用</b>。
 </p>
 
 <p>
-The Chrome OS file browser comes up when
+<!--@The Chrome OS file browser comes up when
 the user either presses Ctrl+M
 or connects an external storage device,
 such as an SD card, USB key, external drive, or digital camera.
 Besides showing the files on external devices,
 the file browser can also display files
-that the user has previously saved to the system.
+that the user has previously saved to the system.-->
+当用户按下 Ctrl+M 或连接外部存储设备，例如 SD 卡、USB
+密钥、外部磁盘驱动器或数码相机时，Chrome OS
+文件浏览器将会出现。除了显示外部设备中的文件，文件浏览器也会显示用户以前保存在系统中的文件。
 </p>
 
 <p>
-When the user selects one or more files,
+<!--@When the user selects one or more files,
 the file browser adds buttons
 representing the valid handlers for those files.
 For example, in the following screenshot,
 selecting a file with a ".jpg" suffix
-results in an "Upload to Picasa" button that the user can click.
+results in an "Upload to Picasa" button that the user can click.-->
+当用户选定一个或多个文件时，文件浏览器中会出现代表这些文件的有效处理程序的按钮。例如，在如下的屏幕截图中，选定一个具有“.jpg”后缀的文件后将出现一个“上传到 Picasa”按钮，用户可以单击它
 </p>
 
 <p>
@@ -311,28 +319,34 @@ results in an "Upload to Picasa" button that the user can click.
 </p>
 
 
-<h2 id="manifest">Manifest</h2>
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
 
 <p>
-You must declare the "fileBrowserHandler" permission
+<!--@You must declare the "fileBrowserHandler" permission
 in the <a href="manifest.html">extension manifest</a>,
 and you must use the "file_browser_handlers" field
 to register the extension as a handler of at least one file type.
 You should also provide a 16x16 icon
 to be displayed on the button.
-For example:
+For example:-->
+您必须在<a href="manifest.html">扩展程序的清单文件</a>中声明
+"fileBrowserHandler"
+权限，并且您必须使用
+"file_browser_handler"
+字段，将您的扩展程序注册为至少一种文件类型的处理程序，您还应该提供一个
+16×16 像素的图标显示在按钮上。例如：
 </p>
 
 <pre>
 {
-  "name": "My extension",
+  "name": "我的扩展程序",
   ...
   <b>"file_browser_handlers"</b>: [
     {
       <b>"id"</b>: "upload",
-      <b>"default_title"</b>: "Save to Gallery", <em>// What the button will display</em>
+      <b>"default_title"</b>: "保存至照片库", <em>// 按钮上显示的文字</em>
       <b>"file_filters"</b>: [
-        "filesystem:*.jpg", <em>// To match all files, use "filesystem:*.*"</em>
+        "filesystem:*.jpg", <em>// 要匹配所有文件，请使用 "filesystem:*.*"</em>
         "filesystem:*.jpeg",
         "filesystem:*.png"
       ]
@@ -348,15 +362,17 @@ For example:
 }</pre>
 
 <p class="note">
-<b>Note:</b>
+<b><!--@Note:-->注意：</b><!--@
 You can specify locale-specific strings for the value of "default_title".
-See <a href="i18n.html">Internationalization (i18n)</a> for details.
+See <a href="i18n.html">Internationalization (i18n)</a> for details.-->您可以在
+"default_title"
+的值中指定语言相关的字符串，有关细节请参见<a href="i18n.html">国际化支持（i18n）</a>。
 </p>
 
-<h2 id="code">Implementing a file browser handler</h2>
+<h2 id="code"><!--@Implementing a file browser handler-->实现文件浏览器处理程序</h2>
 
 <p>
-To use this API,
+<!--@To use this API,
 you must implement a function that handles the <code>onExecute</code> event
 of <code>chrome.fileBrowserHandler</code>.
 Your function will be called whenever the user clicks the button
@@ -364,17 +380,23 @@ that represents your file browser handler.
 In your function, use the HTML5
 <a href="http://www.html5rocks.com/tutorials/file/filesystem/">FileSystem API</a>
 to get access to the file contents.
-Here is an example:
+Here is an example:-->
+要使用这一 API，您必须实现一个函数，处理
+<code>chrome.fileBrowserHandler</code> 的
+<code>onExecute</code>
+事件。在用户单击了代表您的文件浏览器处理程序的按钮后，将会调用您的函数。在您的函数中，使用
+<a href="http://www.html5rocks.com/tutorials/file/filesystem/">HTML5
+文件系统 API</a>（英文）访问文件内容。例如：
 </p>
 
 <pre>
-<em>//In background.html:</em>
+<em>//在 background.html 中：</em>
 chrome.fileBrowserHandler.onExecute.addListener(function(id, details) {
   if (id == 'upload') {
     var fileEntries = details.entries;
     for (var i = 0, entry; entry = fileEntries[i]; ++i) {
       entry.file(function(file) {
-        <em>// send file somewhere</em>
+        <em>// 将文件发送至某处</em>
       });
     }
   }
@@ -382,22 +404,30 @@ chrome.fileBrowserHandler.onExecute.addListener(function(id, details) {
 </pre>
 
 <p>
-Your event handler is passed two arguments:
+<!--@Your event handler is passed two arguments:-->
+您的事件处理函数将包含两个参数：
 </p>
 
 <dl>
   <dt> id </dt>
-  <dd> The "id" value from the manifest file.
+  <dd> <!--@The "id" value from the manifest file.
        If your extension implements multiple handlers,
        you can check the <code>id</code> value
-       to see which handler has been triggered.
+       to see which handler has been triggered.-->
+       来自清单文件的 "id"
+       值。如果您的扩展程序实现了多个处理程序，您可以检查
+       <code>id</code> 的值判断触发了哪一个处理程序。
        </dd>
   <dt> details </dt>
-  <dd> An object describing the event.
+  <dd> <!--@An object describing the event.
        You can get the file or files that the user has selected
        from the <code>entries</code> field of this object,
        which is an array of
-       FileSystem <code>Entry</code> objects.
+       FileSystem <code>Entry</code> objects.-->
+       描述事件的对象。您可以从这一对象的
+       <code>entries</code>
+       属性中获得用户选定的文件，<code>entries</code>
+       属性为一个数组，包含文件系统 <code>Entry</code> 对象。
        </dd>
 </p>
 
@@ -436,7 +466,7 @@ For other examples and for help in viewing the source code, see
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Event details payload for fileBrowserHandler.onExecute event.
+                    <a href="fileBrowserHandler.html#event-onExecute">onExecute</a> 事件的详情。
                   </dd>    <h4 id="FileHandlerExecuteEventDetails-properties">
                     <!--@Properties of --><a href="#type-FileHandlerExecuteEventDetails">FileHandlerExecuteEventDetails</a>
                     的属性
@@ -453,7 +483,7 @@ For other examples and for help in viewing the source code, see
                         </span>
                       </dt>
                       <dd>
-                        Array of Entry instances representing files that are targets of this action (selected in ChromeOS file browser).
+                        Entry 实例的数组，代表这一操作的目标（Chrome OS 文件浏览器中的选定文件）。
                       </dd>
                     </div>
                     <div>
@@ -468,7 +498,7 @@ For other examples and for help in viewing the source code, see
                         </span>
                       </dt>
                       <dd>
-                        The ID of the tab that raised this event. Tab IDs are unique within a browser session.
+                        产生这一事件的标签页标识符，标签页标识符在浏览器会话中唯一。
                       </dd>
                     </div>
               </dl></dd>
@@ -482,7 +512,7 @@ For other examples and for help in viewing the source code, see
                 </div>
                 <div class="description">
                   <p>
-                    Prompts user to select file path under which file should be saved. When the file is selected, file access permission required to use the file (read, write and create) are granted to the caller. The file will not actually get created during the function call, so function caller must ensure its existence before using it. The function has to be invoked with a user gesture.
+                    提示用户选择文件保存的路径。当文件选定后，需要使用文件（读、写和创建）的文件访问权限将授予给调用方。函数调用过程中不会真的创建文件，所以函数调用方在使用前必须确保它存在。该函数必须与用户的操作一起使用。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -498,7 +528,7 @@ For other examples and for help in viewing the source code, see
                           </span>
                         </dt>
                         <dd>
-                          Parameters that will be used while selecting the file.
+                          用于选择文件的参数。
                         </dd>
                         <dd>
                           <dl>
@@ -514,7 +544,7 @@ For other examples and for help in viewing the source code, see
                                 </span>
                               </dt>
                               <dd>
-                                Suggested name for the file.
+                                文件的推荐名称。
                               </dd>
                             </div>
                             <div>
@@ -529,7 +559,7 @@ For other examples and for help in viewing the source code, see
                                 </span>
                               </dt>
                               <dd>
-                                List of file extensions that the selected file can have. The list is also used to specify what files to be shown in the select file dialog. Files with the listed extensions are only shown in the dialog. Extensions should not include the leading '.'. Example: ['jpg', 'png']
+                                列出选定的文件可以包含的文件扩展名，该列表也用来指定选择文件对话框中显示哪些文件，对话框中只显示包含已列出扩展名的文件。扩展名不要包含前面的“.”。例如：['jpg', 'png']。
                               </dd>
                             </div>
                           </dl>
@@ -547,7 +577,7 @@ For other examples and for help in viewing the source code, see
                           </span>
                         </dt>
                         <dd>
-                          Function called upon completion.
+                          完成时调用的函数。
                         </dd>
                       </div>
                   </dl>
@@ -571,7 +601,7 @@ For other examples and for help in viewing the source code, see
                             </span>
                           </dt>
                           <dd>
-                            Result of the method.
+                            方法的结果。
                           </dd>
                           <dd>
                             <dl>
@@ -587,7 +617,7 @@ For other examples and for help in viewing the source code, see
                                   </span>
                                 </dt>
                                 <dd>
-                                  Whether the file has been selected.
+                                  是否选择了文件。
                                 </dd>
                               </div>
                               <div>
@@ -602,7 +632,7 @@ For other examples and for help in viewing the source code, see
                                   </span>
                                 </dt>
                                 <dd>
-                                  Selected file entry. It will be null if a file hasn't been selected.
+                                  选定文件项，如果没有选择文件则为 null。
                                 </dd>
                               </div>
                             </dl>
@@ -619,10 +649,10 @@ For other examples and for help in viewing the source code, see
                 </div>
                 <div class="description">
               <p>
-                    Fired when file system action is executed from ChromeOS file browser.
+                    当文件系统动作从 Chrome OS 文件浏览器中执行时发生。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
-                      <div>  <a name="property-onExecute-id"></a>  <dt>    <span class="variable">id</span>    <span class="property">      (                string      )    </span>  </dt>  <dd>    File browser action id as specified in the listener component's manifest.  </dd></div><div>  <a name="property-onExecute-details"></a>  <dt>    <span class="variable">details</span>    <span class="property">      (                <a href="fileBrowserHandler.html#type-FileHandlerExecuteEventDetails">FileHandlerExecuteEventDetails</a>      )    </span>  </dt>  <dd>    File handler execute event details.  </dd></div>
+                      <div>  <a name="property-onExecute-id"></a>  <dt>    <span class="variable">id</span>    <span class="property">      (                string      )    </span>  </dt>  <dd>    文件浏览器动作的标识符，在监听器的清单文件中指定。  </dd></div><div>  <a name="property-onExecute-details"></a>  <dt>    <span class="variable">details</span>    <span class="property">      (                <a href="fileBrowserHandler.html#type-FileHandlerExecuteEventDetails">FileHandlerExecuteEventDetails</a>      )    </span>  </dt>  <dd>    文件处理程序执行事件的详情。  </dd></div>
                     </dl>
                 </div>
               </div>
@@ -633,10 +663,10 @@ For other examples and for help in viewing the source code, see
                 </div>
                 <div class="description">
               <p>
-                    Fired when a resource is fetched which matches a mime type handled by this extension. The resource request is cancelled, and the extension is expected to handle the request. The event is restricted to a small number of white-listed fileBrowserHandlers.
+                    当获取的资源与该扩展程序处理的 MIME 类型匹配时产生。资源请求将取消，扩展程序将处理该请求。该事件仅限于一小部分加入白名单的文件浏览器处理器使用。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
-                      <div>  <a name="property-onExecuteContentHandler-mime_type"></a>  <dt>    <span class="variable">mime_type</span>    <span class="property">      (                string      )    </span>  </dt>  <dd>    The MIME type of the intercepted URL request.  </dd></div><div>  <a name="property-onExecuteContentHandler-content_url"></a>  <dt>    <span class="variable">content_url</span>    <span class="property">      (                string      )    </span>  </dt>  <dd>    The intercepted URL request. The handler should fetch and handle data referenced by the URL.  </dd></div>
+                      <div>  <a name="property-onExecuteContentHandler-mime_type"></a>  <dt>    <span class="variable">mime_type</span>    <span class="property">      (                string      )    </span>  </dt>  <dd>    截获的 URL 请求的 MIME 类型。  </dd></div><div>  <a name="property-onExecuteContentHandler-content_url"></a>  <dt>    <span class="variable">content_url</span>    <span class="property">      (                string      )    </span>  </dt>  <dd>    截获的 URL 请求。处理程序应该获取并处理该 URL 引用的数据。  </dd></div>
                     </dl>
                 </div>
               </div>

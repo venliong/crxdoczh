@@ -149,7 +149,7 @@
                             <a href="content_scripts.html" class="level4 ">内容脚本</a>
                       </li>
                       <li class="level4">
-                            <a href="xhr.html" class="level4 ">跨站XHR</a>
+                            <a href="xhr.html" class="level4 ">跨站 XHR</a>
                       </li>
                       <li class="level4">
                             <a href="i18n.html" class="level4 ">国际化支持</a>
@@ -238,7 +238,7 @@
                       <a href="https://code.google.com/chrome/webstore/docs/index.html" class="level3 ">Chrome 网上应用店</a>
                 </li>
                 <li class="level3">
-                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用程序</a>
+                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用</a>
                 </li>
                 <li class="level3">
                       <a href="themes.html" class="level3 ">主题背景</a>
@@ -280,7 +280,7 @@
     and listen for and respond to events in the app or extension lifecycle.
     You can also use this API to convert the relative path
     of URLs to fully-qualified URLs.-->
-    模块获取后台页面、返回清单文件的详情、监听并响应应用程序或扩展程序生命周期内的事件，您还可以使用该 API 将相对路径的 URL 转换为完全限定的 URL。
+    模块获取后台页面、返回清单文件的详情、监听并响应应用或扩展程序生命周期内的事件，您还可以使用该 API 将相对路径的 URL 转换为完全限定的 URL。
     </td>
   </tr>
   <tr>
@@ -293,7 +293,7 @@
   </tr>
   <tr>
     <td><strong><!--@Learn more:-->了解更多：</strong></td>
-    <td><a href="app_lifecycle.html"><!--@Manage App Lifecycle-->管理应用程序生命周期</a><br>
+    <td><a href="app_lifecycle.html"><!--@Manage App Lifecycle-->管理应用生命周期</a><br>
     <a href="event_pages.html"><!--@Event Pages-->事件页面</a></td>
   </tr>
 </table>
@@ -425,7 +425,7 @@
                         </span>
                       </dt>
                       <dd>
-                        打开连接的扩展程序/应用程序的标识符。
+                        打开连接的扩展程序/应用的标识符。
                       </dd>
                     </div>
               </dl></dd>
@@ -471,7 +471,7 @@
                 <div>
                   <dt><span class="property">id</span> <span class="type_name">  (    string  )</span></dt>
               <dd>
-                    扩展程序/应用程序的标识符。
+                    扩展程序/应用的标识符。
                   </dd>  </div>
               </div>
             <h3 id="methods"><!--@Methods-->方法</h3>
@@ -482,7 +482,7 @@
                 </div>
                 <div class="description">
                   <p>
-                    获取当前扩展程序/应用程序中正在运行的后台网页的 JavaScript window 对象。如果后台网页是事件页面，系统会确保在调用回调函数前它已经载入。如果没有后台网页，将会设置错误信息。
+                    获取当前扩展程序/应用中正在运行的后台网页的 JavaScript window 对象。如果后台网页是事件页面，系统会确保在调用回调函数前它已经载入。如果没有后台网页，将会设置错误信息。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -532,7 +532,7 @@
                 </div>
                 <div class="description">
                   <p>
-                    从清单文件中返回有关应用程序或扩展程序的详情，返回的对象是完整<a href="manifest.html">清单文件</a>序列化的结果。
+                    从清单文件中返回有关应用或扩展程序的详情，返回的对象是完整<a href="manifest.html">清单文件</a>序列化的结果。
                   </p>
                     <h4><!--@Returns-->返回值</h4>
                     <dl>
@@ -552,7 +552,7 @@
                 </div>
                 <div class="description">
                   <p>
-                    将应用程序或扩展程序安装目录内的相对路径转换为完全限定的 URL。
+                    将应用或扩展程序安装目录内的相对路径转换为完全限定的 URL。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -568,7 +568,7 @@
                           </span>
                         </dt>
                         <dd>
-                          指向应用程序或扩展程序内资源的路径，相对于它的安装目录。
+                          指向应用或扩展程序内资源的路径，相对于它的安装目录。
                         </dd>
                       </div>
                   </dl>
@@ -590,7 +590,7 @@
                 </div>
                 <div class="description">
                   <p>
-                    重新载入应用程序或扩展程序。
+                    重新载入应用或扩展程序。
                   </p>
                 </div>
               </div>
@@ -601,7 +601,7 @@
                 </div>
                 <div class="description">
                   <p>
-                    为当前应用程序/扩展程序请求检查更新。
+                    为当前应用/扩展程序请求检查更新。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -685,7 +685,7 @@
                 </div>
                 <div class="description">
                   <p>
-                    尝试连接到扩展程序/应用程序中其它的监听者（例如后台网页）或其他扩展程序/应用程序，该方法对于需要连接到它们的扩展程序进程的内容脚本非常有用。注意，该方法不能连接到内容脚本中的监听者，扩展程序可以通过 <a href="tabs.html#method-connect">tabs.connect</a> 连接到嵌入至标签页中的内容脚本。
+                    尝试连接到扩展程序/应用中其它的监听者（例如后台网页）或其他扩展程序/应用，该方法对于需要连接到它们的扩展程序进程的内容脚本非常有用。注意，该方法不能连接到内容脚本中的监听者，扩展程序可以通过 <a href="tabs.html#method-connect">tabs.connect</a> 连接到嵌入至标签页中的内容脚本。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -701,7 +701,7 @@
                           </span>
                         </dt>
                         <dd>
-                          您需要连接到的扩展程序/应用程序的标识符，如果省略，默认为您自己的扩展程序。
+                          您需要连接到的扩展程序/应用的标识符，如果省略，默认为您自己的扩展程序。
                         </dd>
                       </div>
                       <div>
@@ -754,7 +754,7 @@
                 </div>
                 <div class="description">
                   <p>
-                    向扩展程序中的其它监听者（或另一个扩展程序/应用程序）发送单个请求。与 chrome.runtime.connect 类似，但是只发送具有可选回应的单个请求。<a href="runtime.html#event-onMessage">onMessage</a> 事件将在扩展程序的每一个页面中产生。注意，扩展程序不能使用该方法向内容脚本发送消息。要向内容脚本发送消息，请使用 <a href="tabs.html#method-sendMessage">tabs.sendMessage</a>。
+                    向扩展程序中的其它监听者（或另一个扩展程序/应用）发送单个请求。与 chrome.runtime.connect 类似，但是只发送具有可选回应的单个请求。<a href="runtime.html#event-onMessage">onMessage</a> 事件将在扩展程序的每一个页面中产生。注意，扩展程序不能使用该方法向内容脚本发送消息。要向内容脚本发送消息，请使用 <a href="tabs.html#method-sendMessage">tabs.sendMessage</a>。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -866,7 +866,7 @@
                 </div>
                 <div class="description">
               <p>
-                    在 onSuspend 之后发送，表示应用程序最终不会被卸载。
+                    在 onSuspend 之后发送，表示应用最终不会被卸载。
                   </p>  </div>
               </div>
               <div>
@@ -876,7 +876,7 @@
                 </div>
                 <div class="description">
               <p>
-                    当更新可用时产生，然而由于应用程序当前还在运行，不能立即安装。如果您什么都不做，更新将在后台网页下一次卸载时安装。如果您希望快点安装，您可以显式调用 <a href="runtime.html#method-reload">reload</a>。
+                    当更新可用时产生，然而由于应用当前还在运行，不能立即安装。如果您什么都不做，更新将在后台网页下一次卸载时安装。如果您希望快点安装，您可以显式调用 <a href="runtime.html#method-reload">reload</a>。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
                       <div>  <a name="property-onUpdateAvailable-details"></a>  <dt>    <span class="variable">details</span>    <span class="property">      (                object      )    </span>  </dt>  <dd>    可用更新的清单文件详情。  </dd>  <dd>    <dl>      <div>        <a name="property-details-version"></a>        <dt>          <span class="variable">version</span>          <span class="property">            (                            string            )          </span>        </dt>        <dd>          可用更新的版本号。        </dd>      </div>    </dl>  </dd></div>
@@ -965,7 +965,7 @@
                 </div>
                 <div class="description">
               <p>
-                    当消息从另一个扩展程序/应用程序发送时产生。不能在内容脚本中使用。
+                    当消息从另一个扩展程序/应用发送时产生。不能在内容脚本中使用。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
                       <div>  <a name="property-onMessageExternal-message"></a>  <dt>    <span class="variable">message</span>    <span class="property">      (                any      )    </span>  </dt>  <dd>    调用脚本发送的消息。  </dd></div><div>  <a name="property-onMessageExternal-sender"></a>  <dt>    <span class="variable">sender</span>    <span class="property">      (                <a href="runtime.html#type-MessageSender">MessageSender</a>      )    </span>  </dt></div><div>  <a name="property-onMessageExternal-sendResponse"></a>  <dt>    <span class="variable">sendResponse</span>    <span class="property">      (                function      )    </span>  </dt>  <dd>    当您产生响应时调用（最多一次）的函数，参数可以是任何可转化为 JSON 的对象。如果您在同一个文档中有一个以上的 <code>onRequest</code> 事件处理函数，只有其中一个可以发送响应。当事件处理函数返回时，该函数将失效，除非您在事件处理函数中返回 true，表示您希望通过异步方式发送响应（这样，与另一端之间的消息通道将会保持打开状态，直到调用了 <code>sendResponse</code>）。  </dd></div>

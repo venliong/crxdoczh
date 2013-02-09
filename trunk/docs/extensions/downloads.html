@@ -149,7 +149,7 @@
                             <a href="content_scripts.html" class="level4 ">内容脚本</a>
                       </li>
                       <li class="level4">
-                            <a href="xhr.html" class="level4 ">跨站XHR</a>
+                            <a href="xhr.html" class="level4 ">跨站 XHR</a>
                       </li>
                       <li class="level4">
                             <a href="i18n.html" class="level4 ">国际化支持</a>
@@ -238,7 +238,7 @@
                       <a href="https://code.google.com/chrome/webstore/docs/index.html" class="level3 ">Chrome 网上应用店</a>
                 </li>
                 <li class="level3">
-                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用程序</a>
+                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用</a>
                 </li>
                 <li class="level3">
                       <a href="themes.html" class="level3 ">主题背景</a>
@@ -256,10 +256,10 @@
           <h2><!--@Contents-->目录</h2>
           <ol>
             <li>
-              <a href=#manifest>Manifest</a>
+              <a href=#manifest>清单文件</a>
             </li>
             <li>
-              <a href=#examples>Examples</a>
+              <a href=#examples>例子</a>
             </li>
             <li>
               <a href="#apiReference"><!--@API reference: -->API 参考：chrome.downloads</a>
@@ -274,18 +274,27 @@
           </ol>
         </div>
 
-<p>The downloads API allows you to programmatically initiate, monitor,
-manipulate, and search for downloads.</p>
+<p><!--@The downloads API allows you to programmatically initiate, monitor,
+manipulate, and search for downloads.-->
+下载 API 允许您以编程方式开始下载以及监视、操纵、搜索下载的文件。
+</p>
 
-<h2 id='manifest'>Manifest</h2>
+<h2 id='manifest'><!--@Manifest-->清单文件</h2>
 
-<p> You must declare the 'downloads' permission in the <a
+<p> <!--@You must declare the 'downloads' permission in the <a
 href='manifest.html'>extension manifest</a> to use this API, along with <a
 href='manifest.html#permissions'>host permissions</a> for any hosts that you
-may pass to <a href="downloads.html#method-download">download</a>.</p>
+may pass to <a href="downloads.html#method-download">download</a>.-->
+您必须在<a href='manifest.html'>扩展程序的清单文件</a>中声明
+"downloads"
+权限才能使用该
+API，此外对于您可能会传递给
+<a href="downloads.html#method-download">download</a>
+的主机还需要<a href='manifest.html#permissions'>主机权限</a>。
+</p>
 
 <pre>{
-  'name': 'My extension',
+  'name': '我的扩展程序',
   ...
 <b>  'permissions': [
     'downloads',
@@ -294,19 +303,26 @@ may pass to <a href="downloads.html#method-download">download</a>.</p>
   ...
 }</pre>
 
-<p>If the URL's hostname is not specified in the permissions, then 
+<p><!--@If the URL's hostname is not specified in the permissions, then 
 <a href="downloads.html#method-download">download</a> will call its callback with a null
 <code>downloadId</code> and set the 
 <a href="runtime.html#property-lastError">runtime.lastError</a>
 object to indicate that the extension does not have permission to access that
-hostname.</p>
+hostname.-->
+如果 URL 的主机名没有在权限中指定，<a href="downloads.html#method-download">download</a>
+调用回调函数时将传递值为 null 的 <code>downloadId</code>，并设置
+<a href="runtime.html#property-lastError">runtime.lastError</a> 对象，表示扩展程序没有权限访问主机名。
+</p>
 
-<h2 id='examples'>Examples</h2>
+<h2 id='examples'><!--@Examples-->例子</h2>
 
-<p>You can find simple examples of using the downloads module in the <a
+<p><!--@You can find simple examples of using the downloads module in the-->您可以在 <a
 href='http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/api/downloads/'>examples/api/downloads</a>
-directory. For other examples and for help in viewing the source code, see <a
-href='samples.html'>Samples</a>.</p>
+<!--@directory. For other examples and for help in viewing the source code, see <a
+href='samples.html'>Samples</a>.-->
+目录中找到使用下载模块的简单例子。有关其他例子以及查看源代码的帮助，请参见<a
+href='samples.html'>示例</a>。
+</p>
         <h2 id="apiReference"><!--@API Reference: chrome.downloads-->API 参考：chrome.downloads</h2>
         <div class="api_reference">
             <h3 id="types"><!--@Types-->类型</h3>
@@ -330,7 +346,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Name of the HTTP header.
+                        <!--@Name of the HTTP header.--> HTTP 头信息的名称。
                       </dd>
                     </div>
                     <div>
@@ -345,7 +361,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Value of the HTTP header.
+                        <!--@Value of the HTTP header.--> HTTP 头信息的值。
                       </dd>
                     </div>
               </dl></dd>
@@ -379,7 +395,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        The URL to download.
+                        <!--@The URL to download.--> 要下载的 URL。
                       </dd>
                     </div>
                     <div>
@@ -394,7 +410,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        A file path relative to the Downloads directory to contain the downloaded file.
+                        <!--@A file path relative to the Downloads directory to contain the downloaded file.--> 相对于下载文件夹的路径，包含下载得到的文件。
                       </dd>
                     </div>
                     <div>
@@ -409,7 +425,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Use a file-chooser to allow the user to select a filename.
+                        <!--@Use a file-chooser to allow the user to select a filename.--> 使用选择文件对话框，允许用户选择文件名。
                       </dd>
                     </div>
                     <div>
@@ -424,7 +440,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        The HTTP method to use if the URL uses the HTTP[S] protocol.
+                        @!--@The HTTP method to use if the URL uses the HTTP[S] protocol.--> 如果 URL 使用 HTTP[S] 协议，则为使用的 HTTP 方法。
                       </dd>
                     </div>
                     <div>
@@ -439,7 +455,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Extra HTTP headers to send with the request if the URL uses the HTTP[s] protocol. Each header is represented as a dictionary containing the keys <code>name</code> and either <code>value</code> or <code>binaryValue</code>, restricted to those allowed by XMLHttpRequest.
+                        <!--@Extra HTTP headers to send with the request if the URL uses the HTTP[s] protocol. Each header is represented as a dictionary containing the keys <code>name</code> and either <code>value</code> or <code>binaryValue</code>, restricted to those allowed by XMLHttpRequest.--> 如果 URL 使用 HTTP[S] 协议，则包含要与请求一起发送的附加 HTTP 头信息。每一条头信息都由词典表示，包含键 <code>name</code> 以及 <code>value</code> 或 <code>binaryValue</code> 中的某一个，仅限于 XMLHttpRequest 中允许的头信息。
                       </dd>
                     </div>
                     <div>
@@ -454,7 +470,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Post body.
+                        <!--@Post body.--> POST 方法的正文。
                       </dd>
                     </div>
               </dl></dd>
@@ -465,7 +481,7 @@ href='samples.html'>Samples</a>.</p>
                 <div>
                   <dt><span class="type_name">  (    enumerated string ["file", "url", "content", "uncommon", "host", "safe"]  )</span></dt>
               <dd>
-                    <dl><dt>file</dt>     <dd>The download's filename is suspicious.</dd>     <dt>url</dt>     <dd>The download's URL is known to be malicious.</dd>     <dt>content</dt>     <dd>The downloaded file is known to be malicious.</dd>     <dt>uncommon</dt>     <dd>The download's URL is not commonly downloaded and could be     dangerous.</dd>     <dt>host</dt>     <dd>The download came from a host known to distribute malicious     binaries and is likely dangerous.</dd>     <dt>safe</dt>     <dd>The download presents no known danger to the user's computer.</dd> </dl> These string constants will never change, however the set of DangerTypes may change.
+                    <dl><dt>file</dt>     <dd><!--@The download's filename is suspicious.-->下载项的文件名可疑。</dd>     <dt>url</dt>     <dd><!--@The download's URL is known to be malicious.-->下载项的 URL 已知是恶意的。</dd>     <dt>content</dt>     <dd><!--@The downloaded file is known to be malicious.-->已下载的文件已知是恶意的。</dd>     <dt>uncommon</dt>     <dd><!--@The download's URL is not commonly downloaded and could be     dangerous.-->下载项的 URL 不常见，可能有风险。</dd>     <dt>host</dt>     <dd><!--@The download came from a host known to distribute malicious     binaries and is likely dangerous.-->下载项来自已知发布恶意软件的主机，可能有风险。</dd>     <dt>safe</dt>     <dd><!--@The download presents no known danger to the user's computer.-->下载项对用户的计算机没有已知风险。</dd> </dl> <!--@These string constants will never change, however the set of DangerTypes may change.--> 这些字符串常数不会更改，但是 DangerType 允许的值可能会更改。
                   </dd>  </div>
               </div>
               <div>
@@ -473,7 +489,7 @@ href='samples.html'>Samples</a>.</p>
                 <div>
                   <dt><span class="type_name">  (    enumerated string ["in_progress", "interrupted", "complete"]  )</span></dt>
               <dd>
-                    <dl><dt>in_progress</dt>     <dd>The download is currently receiving data from the server.</dd>     <dt>interrupted</dt>     <dd>An error broke the connection with the file host.</dd>     <dt>complete</dt>     <dd>The download completed successfully.</dd> </dl> These string constants will never change, however the set of States may change.
+                    <dl><dt>in_progress</dt>     <dd><!--@The download is currently receiving data from the server.-->下载项当前正在从服务器接收数据。</dd>     <dt>interrupted</dt>     <dd><!--@An error broke the connection with the file host.-->错误中断了与文件主机之间的连接。</dd>     <dt>complete</dt>     <dd><!--@The download completed successfully.-->下载成功完成。</dd> </dl> <!--@These string constants will never change, however the set of States may change.--> 这些字符串常数不会更改，但是 State 允许的值可能会更改。
                   </dd>  </div>
               </div>
               <div>
@@ -496,7 +512,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        An identifier that is persistent across browser sessions.
+                        <!--@An identifier that is persistent across browser sessions.--> 在不同浏览器会话间持久存在的标识符。
                       </dd>
                     </div>
                     <div>
@@ -511,7 +527,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Absolute URL.
+                        <!--@Absolute URL.--> 绝对 URL。
                       </dd>
                     </div>
                     <div>
@@ -526,7 +542,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Absolute local path.
+                        <!--@Absolute local path.--> 绝对本地路径。
                       </dd>
                     </div>
                     <div>
@@ -541,7 +557,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        False if this download is recorded in the history, true if it is not recorded.
+                        <!--@False if this download is recorded in the history, true if it is not recorded.--> 如果该下载项记录在历史记录中则为 false，没有记录则为 true。
                       </dd>
                     </div>
                     <div>
@@ -556,7 +572,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Indication of whether this download is thought to be safe or known to be suspicious.
+                        <!--@Indication of whether this download is thought to be safe or known to be suspicious.--> 表示该下载项是否被识别为安全的或者已知是可疑的。
                       </dd>
                     </div>
                     <div>
@@ -571,7 +587,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        True if the user has accepted the download's danger.
+                        <!--@True if the user has accepted the download's danger.--> 如果用户接受这一危险项目的下载则为 true。
                       </dd>
                     </div>
                     <div>
@@ -586,7 +602,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        The file's MIME type.
+                        <!--@The file's MIME type.--> 文件的 MIME 类型。
                       </dd>
                     </div>
                     <div>
@@ -601,7 +617,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        The time when the download began in ISO 8601 format. May be passed directly to the Date constructor: <code>chrome.downloads.search({}, function(items){items.forEach(function(item){console.log(new Date(item.startTime))})})</code>
+                        <!--@The time when the download began in ISO 8601 format. May be passed directly to the Date constructor: <code>chrome.downloads.search({}, function(items){items.forEach(function(item){console.log(new Date(item.startTime))})})</code>--> 下载开始的时间，以 <a href="https://zh.wikipedia.org/wiki/ISO_8601">ISO 8601</a> 格式表示，可以直接传递给 Date 的构造函数：<code>chrome.downloads.search({}, function(items){items.forEach(function(item){console.log(new Date(item.startTime))})})</code>。
                       </dd>
                     </div>
                     <div>
@@ -616,7 +632,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        The time when the download ended in ISO 8601 format. May be passed directly to the Date constructor: <code>chrome.downloads.search({}, function(items){items.forEach(function(item){if (item.endTime) console.log(new Date(item.endTime))})})</code>
+                        <!--@The time when the download ended in ISO 8601 format. May be passed directly to the Date constructor: <code>chrome.downloads.search({}, function(items){items.forEach(function(item){if (item.endTime) console.log(new Date(item.endTime))})})</code>--> 下载结束的时间，以 <a href="https://zh.wikipedia.org/wiki/ISO_8601">ISO 8601</a> 格式表示，可以直接传递给 Date 的构造函数：<code>chrome.downloads.search({}, function(items){items.forEach(function(item){console.log(new Date(item.endTime))})})</code>。
                       </dd>
                     </div>
                     <div>
@@ -631,7 +647,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Indicates whether the download is progressing, interrupted, or complete.
+                        <!--@Indicates whether the download is progressing, interrupted, or complete.--> 表示下载项处于正在进行、已中断还是已完成的状态。
                       </dd>
                     </div>
                     <div>
@@ -646,7 +662,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        True if the download has stopped reading data from the host, but kept the connection open.
+                        <!--@True if the download has stopped reading data from the host, but kept the connection open.--> 如果下载项已停止从主机读取数据，但是连接仍然保持打开状态则为 true。
                       </dd>
                     </div>
                     <div>
@@ -661,7 +677,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Number indicating why a download was interrupted.
+                        <!--@Number indicating why a download was interrupted.--> 表示下载项中断原因的整数。
                       </dd>
                     </div>
                     <div>
@@ -676,7 +692,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Number of bytes received so far from the host, without considering file compression.
+                        <!--@Number of bytes received so far from the host, without considering file compression.--> 目前为止从主机接收到的字节数，不考虑文件压缩。
                       </dd>
                     </div>
                     <div>
@@ -691,7 +707,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Number of bytes in the whole file, without considering file compression, or -1 if unknown.
+                        <!--@Number of bytes in the whole file, without considering file compression, or -1 if unknown.--> 整个文件的字节数，不考虑压缩，如果未知则为 -1。
                       </dd>
                     </div>
                     <div>
@@ -706,7 +722,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Number of bytes in the whole file post-decompression, or -1 if unknown.
+                        <!--@Number of bytes in the whole file post-decompression, or -1 if unknown.--> 整个文件解压缩后包含的字节数，如果未知则为 -1。
                       </dd>
                     </div>
                     <div>
@@ -721,7 +737,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Whether the downloaded file still exists. This information may be out of date because Chrome does not automatically watch for file removal. Call <a href="downloads.html#method-search">search</a>() in order to trigger the check for file existence. When the existence check completes, if the file has been deleted, then an <a href="downloads.html#event-onChanged">onChanged</a> event will fire. Note that <a href="downloads.html#method-search">search</a>() does not wait for the existence check to finish before returning, so results from <a href="downloads.html#method-search">search</a>() may not accurately reflect the file system. Also, <a href="downloads.html#method-search">search</a>() may be called as often as necessary, but will not check for file existence any more frequently than once every 10 seconds.
+                        <!--@Whether the downloaded file still exists. This information may be out of date because Chrome does not automatically watch for file removal. Call <a href="downloads.html#method-search">search</a>() in order to trigger the check for file existence. When the existence check completes, if the file has been deleted, then an <a href="downloads.html#event-onChanged">onChanged</a> event will fire. Note that <a href="downloads.html#method-search">search</a>() does not wait for the existence check to finish before returning, so results from <a href="downloads.html#method-search">search</a>() may not accurately reflect the file system. Also, <a href="downloads.html#method-search">search</a>() may be called as often as necessary, but will not check for file existence any more frequently than once every 10 seconds.--> 下载的文件是否还存在，该信息可能不是最新的，因为 Chrome 浏览器不会自动检测文件的删除。要检查文件是否存在，请调用 <a href="downloads.html#method-search">search()</a>。存在性检查完后，如果文件已删除，会产生 <a href="downloads.html#event-onChanged">onChanged</a> 事件。注意 <a href="downloads.html#method-search">search()</a> 不会等到存在性检查完成后再返回，所以 <a href="downloads.html#method-search">search()</a> 的结果不一定能准确地反映文件系统的情况。此外，尽管可以频繁调用 <a href="downloads.html#method-search">search()</a>，但是检查文件存在性的频率不会高于每 10 秒一次。
                       </dd>
                     </div>
               </dl></dd>
@@ -747,7 +763,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        This space-separated string of search terms that may be grouped using quotation marks limits results to <a href="downloads.html#type-DownloadItem">DownloadItem</a> whose <code>filename</code> or <code>url</code> contain all of the search terms that do not begin with a dash '-' and none of the search terms that do begin with a dash.
+                        <!--@This space-separated string of search terms that may be grouped using quotation marks limits results to <a href="downloads.html#type-DownloadItem">DownloadItem</a> whose <code>filename</code> or <code>url</code> contain all of the search terms that do not begin with a dash '-' and none of the search terms that do begin with a dash.--> 空格分开的字符串，表示的搜索条目，可以用双引号分组，将结果限制为文件名或 URL 包含所有不以减号（'-'）开始的搜索条目并且不包含所有以减号（'-'）开始的搜索条目。
                       </dd>
                     </div>
                     <div>
@@ -762,7 +778,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Limits results to <a href="downloads.html#type-DownloadItem">DownloadItem</a> that started before the given ms since the epoch.
+                        <!--@Limits results to <a href="downloads.html#type-DownloadItem">DownloadItem</a> that started before the given ms since the epoch.--> 将结果限制为下载开始时间在给定时间（以 1970 年 1 月 1 日午夜以来所经过的毫秒数表示）之前的 <a href="downloads.html#type-DownloadItem">DownloadItem</a>。
                       </dd>
                     </div>
                     <div>
@@ -777,7 +793,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Limits results to <a href="downloads.html#type-DownloadItem">DownloadItem</a> that started after the given ms since the epoch.
+                        <!--@Limits results to <a href="downloads.html#type-DownloadItem">DownloadItem</a> that started after the given ms since the epoch.--> 将结果限制为下载开始时间在给定时间（以 1970 年 1 月 1 日午夜以来所经过的毫秒数表示）之后的 <a href="downloads.html#type-DownloadItem">DownloadItem</a>。
                       </dd>
                     </div>
                     <div>
@@ -792,7 +808,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Limits results to <a href="downloads.html#type-DownloadItem">DownloadItem</a> that ended before the given ms since the epoch.
+                        <!--@Limits results to <a href="downloads.html#type-DownloadItem">DownloadItem</a> that ended before the given ms since the epoch.--> 将结果限制为下载结束时间在给定时间（以 1970 年 1 月 1 日午夜以来所经过的毫秒数表示）之前的 <a href="downloads.html#type-DownloadItem">DownloadItem</a>。
                       </dd>
                     </div>
                     <div>
@@ -807,7 +823,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Limits results to <a href="downloads.html#type-DownloadItem">DownloadItem</a> that ended after the given ms since the epoch.
+                        <!--@Limits results to <a href="downloads.html#type-DownloadItem">DownloadItem</a> that ended after the given ms since the epoch.--> 将结果限制为下载结束时间在给定时间（以 1970 年 1 月 1 日午夜以来所经过的毫秒数表示）之后的 <a href="downloads.html#type-DownloadItem">DownloadItem</a>。
                       </dd>
                     </div>
                     <div>
@@ -822,7 +838,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Limits results to <a href="downloads.html#type-DownloadItem">DownloadItem</a> whose <code>totalBytes</code> is greater than the given integer.
+                        <!--@Limits results to <a href="downloads.html#type-DownloadItem">DownloadItem</a> whose <code>totalBytes</code> is greater than the given integer.--> 将结果限制为 <code>totalBytes</code> 大于指定整数的 <a href="downloads.html#type-DownloadItem">DownloadItem</a>。
                       </dd>
                     </div>
                     <div>
@@ -837,7 +853,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Limits results to <a href="downloads.html#type-DownloadItem">DownloadItem</a> whose <code>totalBytes</code> is less than the given integer.
+                        <!--@Limits results to <a href="downloads.html#type-DownloadItem">DownloadItem</a> whose <code>totalBytes</code> is less than the given integer.--> 将结果限制为 <code>totalBytes</code> 小于指定整数的 <a href="downloads.html#type-DownloadItem">DownloadItem</a>。
                       </dd>
                     </div>
                     <div>
@@ -852,7 +868,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Limits results to <a href="downloads.html#type-DownloadItem">DownloadItem</a> whose <code>filename</code> matches the given regular expression.
+                        <!--@Limits results to <a href="downloads.html#type-DownloadItem">DownloadItem</a> whose <code>filename</code> matches the given regular expression.--> 将结果限制为 <code>filename</code> 匹配指定正则表达式的 <a href="downloads.html#type-DownloadItem">DownloadItem</a>。
                       </dd>
                     </div>
                     <div>
@@ -867,7 +883,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Limits results to <a href="downloads.html#type-DownloadItem">DownloadItem</a> whose <code>url</code> matches the given regular expression.
+                        <!--@Limits results to <a href="downloads.html#type-DownloadItem">DownloadItem</a> whose <code>url</code> matches the given regular expression.--> 将结果限制为 <code>url</code> 匹配指定正则表达式的 <a href="downloads.html#type-DownloadItem">DownloadItem</a>。
                       </dd>
                     </div>
                     <div>
@@ -882,7 +898,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Setting this integer limits the number of results. Otherwise, all matching <a href="downloads.html#type-DownloadItem">DownloadItem</a> will be returned.
+                        <!--@Setting this integer limits the number of results. Otherwise, all matching <a href="downloads.html#type-DownloadItem">DownloadItem</a> will be returned.--> 设置该整数限制结果数目，否则所有匹配的 <a href="downloads.html#type-DownloadItem">DownloadItem</a> 都会返回。
                       </dd>
                     </div>
                     <div>
@@ -897,7 +913,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Setting this string to a <a href="downloads.html#type-DownloadItem">DownloadItem</a> property sorts the <a href="downloads.html#type-DownloadItem">DownloadItem</a> prior to applying the above filters. For example, setting <code>orderBy='startTime'</code> sorts the <a href="downloads.html#type-DownloadItem">DownloadItem</a> by their start time in ascending order. To specify descending order, prefix <code>orderBy</code> with a hyphen: '-startTime'.
+                        <!--@Setting this string to a <a href="downloads.html#type-DownloadItem">DownloadItem</a> property sorts the <a href="downloads.html#type-DownloadItem">DownloadItem</a> prior to applying the above filters. For example, setting <code>orderBy='startTime'</code> sorts the <a href="downloads.html#type-DownloadItem">DownloadItem</a> by their start time in ascending order. To specify descending order, prefix <code>orderBy</code> with a hyphen: '-startTime'.--> 将该字符串设置为某个 <a href="downloads.html#type-DownloadItem">DownloadItem</a> 的属性，在应用以上过滤器前先排序。例如，设置 <code>orderBy: 'startTime'</code> 将使下载项按开始时间升序排列。如果要降序排列，在 <code>orderBy</code> 前面使用连字符前缀：'-startTime'。
                       </dd>
                     </div>
                     <div>
@@ -912,7 +928,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        The <code>id</code> of the <a href="downloads.html#type-DownloadItem">DownloadItem</a> that changed.
+                        <!--@The <code>id</code> of the <a href="downloads.html#type-DownloadItem">DownloadItem</a> that changed.--> 在不同浏览器会话间持久存在的标识符。
                       </dd>
                     </div>
                     <div>
@@ -927,7 +943,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Absolute URL.
+                        <!--@Absolute URL.--> 绝对 URL。
                       </dd>
                     </div>
                     <div>
@@ -942,7 +958,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Absolute local path.
+                        <!--@Absolute local path.--> 绝对本地路径。
                       </dd>
                     </div>
                     <div>
@@ -957,7 +973,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Indication of whether this download is thought to be safe or known to be suspicious.
+                        <!--@Indication of whether this download is thought to be safe or known to be suspicious.--> 表示该下载项是否被识别为安全的或者已知是可疑的。
                       </dd>
                     </div>
                     <div>
@@ -972,7 +988,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        True if the user has accepted the download's danger.
+                        <!--@True if the user has accepted the download's danger.--> 如果用户接受这一危险项目的下载则为 true。
                       </dd>
                     </div>
                     <div>
@@ -987,7 +1003,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        The file's MIME type.
+                        <!--@The file's MIME type.--> 文件的 MIME 类型。
                       </dd>
                     </div>
                     <div>
@@ -1002,7 +1018,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        The time when the download began in ISO 8601 format.
+                        <!--@The time when the download began in ISO 8601 format.--> 下载开始的时间，以 <a href="https://zh.wikipedia.org/wiki/ISO_8601">ISO 8601</a> 格式表示。
                       </dd>
                     </div>
                     <div>
@@ -1017,7 +1033,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        The time when the download ended in ISO 8601 format.
+                        <!--@The time when the download ended in ISO 8601 format.--> 下载结束的时间，以 <a href="https://zh.wikipedia.org/wiki/ISO_8601">ISO 8601</a> 格式表示。
                       </dd>
                     </div>
                     <div>
@@ -1032,7 +1048,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Indicates whether the download is progressing, interrupted, or complete.
+                        <!--@Indicates whether the download is progressing, interrupted, or complete.--> 表示下载项处于正在进行、已中断还是已完成的状态。
                       </dd>
                     </div>
                     <div>
@@ -1047,7 +1063,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        True if the download has stopped reading data from the host, but kept the connection open.
+                        <!--@True if the download has stopped reading data from the host, but kept the connection open.--> 如果下载项已停止从主机读取数据，但是连接仍然保持打开状态则为 true。
                       </dd>
                     </div>
                     <div>
@@ -1062,7 +1078,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Number indicating why a download was interrupted.
+                        <!--@Number indicating why a download was interrupted.--> 表示下载项中断原因的整数。
                       </dd>
                     </div>
                     <div>
@@ -1077,7 +1093,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Number of bytes received so far from the host, without considering file compression.
+                        <!--@Number of bytes received so far from the host, without considering file compression.--> 目前为止从主机接收到的字节数，不考虑文件压缩。
                       </dd>
                     </div>
                     <div>
@@ -1092,7 +1108,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Number of bytes in the whole file, without considering file compression, or -1 if unknown.
+                        <!--@Number of bytes in the whole file, without considering file compression, or -1 if unknown.--> 整个文件的字节数，不考虑压缩，如果未知则为 -1。
                       </dd>
                     </div>
                     <div>
@@ -1107,7 +1123,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Number of bytes in the whole file post-decompression, or -1 if unknown.
+                        <!--@Number of bytes in the whole file post-decompression, or -1 if unknown.--> 整个文件解压缩后包含的字节数，如果未知则为 -1。
                       </dd>
                     </div>
                     <div>
@@ -1122,7 +1138,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        Whether the downloaded file exists;
+                        <!--@Whether the downloaded file exists;--> 下载的文件是有存在。
                       </dd>
                     </div>
               </dl></dd>
@@ -1253,7 +1269,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        An identifier that is persistent across browser sessions.
+                        <!--@An identifier that is persistent across browser sessions.--> 在不同浏览器会话间持久存在的标识符。
                       </dd>
                     </div>
                     <div>
@@ -1268,7 +1284,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        The change in <code>url</code>, if any.
+                        <!--@The change in <code>url</code>, if any.--> <code>url</code> 属性的更改（如果有的话）。
                       </dd>
                     </div>
                     <div>
@@ -1283,7 +1299,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        The change in <code>filename</code>, if any.
+                        <!--@The change in <code>filename</code>, if any.--> <code>filename</code> 属性的更改（如果有的话）。
                       </dd>
                     </div>
                     <div>
@@ -1298,7 +1314,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        The change in <code>danger</code>, if any.
+                        <!--@The change in <code>danger</code>, if any.--> <code>danger</code> 属性的更改（如果有的话）。
                       </dd>
                     </div>
                     <div>
@@ -1313,7 +1329,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        The change in <code>dangerAccepted</code>, if any.
+                        <!--@The change in <code>dangerAccepted</code>, if any.--> <code>dangerAccepted</code> 属性的更改（如果有的话）。
                       </dd>
                     </div>
                     <div>
@@ -1328,7 +1344,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        The change in <code>mime</code>, if any.
+                        <!--@The change in <code>mime</code>, if any.--> <code>mime</code> 属性的更改（如果有的话）。
                       </dd>
                     </div>
                     <div>
@@ -1343,7 +1359,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        The change in <code>startTime</code>, if any.
+                        <!--@The change in <code>startTime</code>, if any.--> <code>startTime</code> 属性的更改（如果有的话）。
                       </dd>
                     </div>
                     <div>
@@ -1358,7 +1374,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        The change in <code>endTime</code>, if any.
+                        <!--@The change in <code>endTime</code>, if any.--> <code>endTime</code> 属性的更改（如果有的话）。
                       </dd>
                     </div>
                     <div>
@@ -1373,7 +1389,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        The change in <code>state</code>, if any.
+                        <!--@The change in <code>state</code>, if any.--> <code>state</code> 属性的更改（如果有的话）。
                       </dd>
                     </div>
                     <div>
@@ -1388,7 +1404,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        The change in <code>paused</code>, if any.
+                        <!--@The change in <code>paused</code>, if any.--> <code>paused</code> 属性的更改（如果有的话）。
                       </dd>
                     </div>
                     <div>
@@ -1403,7 +1419,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        The change in <code>error</code>, if any.
+                        <!--@The change in <code>error</code>, if any.--> <code>error</code> 属性的更改（如果有的话）。
                       </dd>
                     </div>
                     <div>
@@ -1418,7 +1434,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        The change in <code>totalBytes</code>, if any.
+                        <!--@The change in <code>totalBytes</code>, if any.--> <code>totalBytes</code> 属性的更改（如果有的话）。
                       </dd>
                     </div>
                     <div>
@@ -1433,7 +1449,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        The change in <code>fileSize</code>, if any.
+                        <!--@The change in <code>fileSize</code>, if any.--> <code>fileSize</code> 属性的更改（如果有的话）。
                       </dd>
                     </div>
                     <div>
@@ -1448,7 +1464,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        The change in <code>exists</code>, if any.
+                        <!--@The change in <code>exists</code>, if any.--> <code>exists</code> 属性的更改（如果有的话）。
                       </dd>
                     </div>
               </dl></dd>
@@ -1474,7 +1490,7 @@ href='samples.html'>Samples</a>.</p>
                         </span>
                       </dt>
                       <dd>
-                        The size of the icon.  The returned icon will be square with dimensions size * size pixels.  The default size for the icon is 32x32 pixels.
+                        <!--@The size of the icon.  The returned icon will be square with dimensions size * size pixels.  The default size for the icon is 32x32 pixels.--> 图标大小。返回图标的大小为 size×size 像素，图标的默认大小为 32×32 像素。有效的值包括 16 和 32。
                       </dd>
                     </div>
               </dl></dd>
@@ -1488,7 +1504,7 @@ href='samples.html'>Samples</a>.</p>
                 </div>
                 <div class="description">
                   <p>
-                    Download a URL. If the URL uses the HTTP[S] protocol, then the request will include all cookies currently set for its hostname. If both <code>filename</code> and <code>saveAs</code> are specified, then the Save As dialog will be displayed, pre-populated with the specified <code>filename</code>. If the download started successfully, <code>callback</code> will be called with the new <a href="downloads.html#type-DownloadItem">DownloadItem</a>'s <code>downloadId</code>. If there was an error starting the download, then <code>callback</code> will be called with <code>downloadId=undefined</code> and <a href="runtime.html#property-lastError">runtime.lastError</a> will contain a descriptive string. The error strings are not guaranteed to remain backwards compatible between releases. You must not parse it.
+                    <!--@Download a URL. If the URL uses the HTTP[S] protocol, then the request will include all cookies currently set for its hostname. If both <code>filename</code> and <code>saveAs</code> are specified, then the Save As dialog will be displayed, pre-populated with the specified <code>filename</code>. If the download started successfully, <code>callback</code> will be called with the new <a href="downloads.html#type-DownloadItem">DownloadItem</a>'s <code>downloadId</code>. If there was an error starting the download, then <code>callback</code> will be called with <code>downloadId=undefined</code> and <a href="runtime.html#property-lastError">runtime.lastError</a> will contain a descriptive string. The error strings are not guaranteed to remain backwards compatible between releases. You must not parse it.--> 下载某个 URL。如果该 URL 使用 HTTP[S] 协议，请求会包含当前为主机名设置的所有 Cookie。如果同时指定了 <code>filename</code> 与 <code>saveAs</code> 属性，则会显示另存为对话框，并且初始文件名为指定的 <code>filename</code>。如果下载成功开始，将调用 <code>callback</code>，并传递新的 <a href="downloads.html#type-DownloadItem">DownloadItem</a>（下载项目）的 <code>downloadId</code>。如果开始下载时发生了错误，将调用 <code>callback</code>，并传递 <code>downloadId: undefined</code>，并且 <a href="runtime.html#property-lastError">runtime.lastError</a> 包含描述性文字。错误字符串并不能保证在不同版本之间保持向后的兼容性，您决不能分析它。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -1504,7 +1520,7 @@ href='samples.html'>Samples</a>.</p>
                           </span>
                         </dt>
                         <dd>
-                          What to download and how.
+                          <!--@What to download and how.--> 下载的内容与方式。
                         </dd>
                       </div>
                       <div>
@@ -1519,7 +1535,7 @@ href='samples.html'>Samples</a>.</p>
                           </span>
                         </dt>
                         <dd>
-                          Called with the id of the new <a href="downloads.html#type-DownloadItem">DownloadItem</a>.
+                          <!--@Called with the id of the new <a href="downloads.html#type-DownloadItem">DownloadItem</a>.--> 调用时传递新的 <a href="downloads.html#type-DownloadItem">DownloadItem</a> 的标识符。
                         </dd>
                       </div>
                   </dl>
@@ -1553,7 +1569,7 @@ href='samples.html'>Samples</a>.</p>
                 </div>
                 <div class="description">
                   <p>
-                    Find <a href="downloads.html#type-DownloadItem">DownloadItem</a>. Set <code>query</code> to the empty object to get all <a href="downloads.html#type-DownloadItem">DownloadItem</a>. To get a specific <a href="downloads.html#type-DownloadItem">DownloadItem</a>, set only the <code>id</code> field.
+                    <!--@Find <a href="downloads.html#type-DownloadItem">DownloadItem</a>. Set <code>query</code> to the empty object to get all <a href="downloads.html#type-DownloadItem">DownloadItem</a>. To get a specific <a href="downloads.html#type-DownloadItem">DownloadItem</a>, set only the <code>id</code> field.--> 寻找 <a href="downloads.html#type-DownloadItem">DownloadItem</a>（下载项）。将 <code>query</code> 设置为空对象获取所有下载项。要获得某个特定的下载项，只要设置 <code>id</code> 字段。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -1612,7 +1628,7 @@ href='samples.html'>Samples</a>.</p>
                 </div>
                 <div class="description">
                   <p>
-                    Pause the download. If the request was successful the download is in a paused state. Otherwise <a href="runtime.html#property-lastError">runtime.lastError</a> contains an error message. The request will fail if the download is not active.
+                    <!--@Pause the download. If the request was successful the download is in a paused state. Otherwise <a href="runtime.html#property-lastError">runtime.lastError</a> contains an error message. The request will fail if the download is not active.--> 暂停下载。如果请求成功，下载项将进入暂停状态。否则，<a href="runtime.html#property-lastError">runtime.lastError</a> 将包含错误消息。如果下载项不处于活动状态，该调用会失败。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -1628,7 +1644,7 @@ href='samples.html'>Samples</a>.</p>
                           </span>
                         </dt>
                         <dd>
-                          The id of the download to pause.
+                          <!--@The id of the download to pause.--> 要暂停的下载项标识符。
                         </dd>
                       </div>
                       <div>
@@ -1643,7 +1659,7 @@ href='samples.html'>Samples</a>.</p>
                           </span>
                         </dt>
                         <dd>
-                          Called when the pause request is completed.
+                          <!--@Called when the pause request is completed.--> 暂停请求完成时调用。
                         </dd>
                       </div>
                   </dl>
@@ -1663,7 +1679,7 @@ href='samples.html'>Samples</a>.</p>
                 </div>
                 <div class="description">
                   <p>
-                    Resume a paused download. If the request was successful the download is in progress and unpaused. Otherwise <a href="runtime.html#property-lastError">runtime.lastError</a> contains an error message. The request will fail if the download is not active.
+                    <!--@Resume a paused download. If the request was successful the download is in progress and unpaused. Otherwise <a href="runtime.html#property-lastError">runtime.lastError</a> contains an error message. The request will fail if the download is not active.--> 恢复已暂停的下载。如果请求成功，下载项将继续进行，不再处于暂停状态。否则，<a href="runtime.html#property-lastError">runtime.lastError</a> 将包含错误消息。如果下载项不处于活动状态，该调用会失败。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -1679,7 +1695,7 @@ href='samples.html'>Samples</a>.</p>
                           </span>
                         </dt>
                         <dd>
-                          The id of the download to resume.
+                          <!--@The id of the download to resume.--> 要恢复的下载项标识符。
                         </dd>
                       </div>
                       <div>
@@ -1694,7 +1710,7 @@ href='samples.html'>Samples</a>.</p>
                           </span>
                         </dt>
                         <dd>
-                          Called when the resume request is completed.
+                          <!--@Called when the resume request is completed.--> 恢复请求完成后调用。
                         </dd>
                       </div>
                   </dl>
@@ -1714,7 +1730,7 @@ href='samples.html'>Samples</a>.</p>
                 </div>
                 <div class="description">
                   <p>
-                    Cancel a download. When <code>callback</code> is run, the download is cancelled, completed, interrupted or doesn't exist anymore.
+                    <!--@Cancel a download. When <code>callback</code> is run, the download is cancelled, completed, interrupted or doesn't exist anymore.--> 取消下载。回调函数运行时，下载已取消、已完成、已中断或者不再存在。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -1730,7 +1746,7 @@ href='samples.html'>Samples</a>.</p>
                           </span>
                         </dt>
                         <dd>
-                          The id of the download to cancel.
+                          <!--@The id of the download to cancel.--> 要取消的下载项标识符。
                         </dd>
                       </div>
                       <div>
@@ -1745,7 +1761,7 @@ href='samples.html'>Samples</a>.</p>
                           </span>
                         </dt>
                         <dd>
-                          Called when the cancel request is completed.
+                          <!--@Called when the cancel request is completed.--> 取消请求完成后调用。
                         </dd>
                       </div>
                   </dl>
@@ -1765,7 +1781,7 @@ href='samples.html'>Samples</a>.</p>
                 </div>
                 <div class="description">
                   <p>
-                    Retrieve an icon for the specified download. For new downloads, file icons are available after the <a href="downloads.html#event-onCreated">onCreated</a> event has been received. The image returned by this function while a download is in progress may be different from the image returned after the download is complete. Icon retrieval is done by querying the underlying operating system or toolkit depending on the platform. The icon that is returned will therefore depend on a number of factors including state of the download, platform, registered file types and visual theme. If a file icon cannot be determined, <a href="runtime.html#property-lastError">runtime.lastError</a> will contain an error message.
+                    <!--@Retrieve an icon for the specified download. For new downloads, file icons are available after the <a href="downloads.html#event-onCreated">onCreated</a> event has been received. The image returned by this function while a download is in progress may be different from the image returned after the download is complete. Icon retrieval is done by querying the underlying operating system or toolkit depending on the platform. The icon that is returned will therefore depend on a number of factors including state of the download, platform, registered file types and visual theme. If a file icon cannot be determined, <a href="runtime.html#property-lastError">runtime.lastError</a> will contain an error message.--> 获取指定下载项的图标。对于新的下载项，文件图标将在 <a href="downloads.html#event-onCreated">onCreated</a> 事件收到后才可用。在下载进行时该函数返回的图像可能与下载完成后返回的图像不同。获取图标的方式取决于平台，通过查询下层操作系统或工具包的方式进行。因此，返回的图标取决于各种因素，包括下载状态、平台、已注册的文件类型以及视觉主题。如果无法确定文件图标，<a href="runtime.html#property-lastError">runtime.lastError</a> 将会包含错误消息。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -1781,7 +1797,7 @@ href='samples.html'>Samples</a>.</p>
                           </span>
                         </dt>
                         <dd>
-                          The identifier for the download.
+                          <!--@The identifier for the download.--> 下载项的标识符。
                         </dd>
                       </div>
                       <div>
@@ -1808,7 +1824,7 @@ href='samples.html'>Samples</a>.</p>
                           </span>
                         </dt>
                         <dd>
-                          A URL to an image that represents the download.
+                          <!--@A URL to an image that represents the download.--> 调用时传递代表下载项的图标。
                         </dd>
                       </div>
                   </dl>
@@ -1842,7 +1858,7 @@ href='samples.html'>Samples</a>.</p>
                 </div>
                 <div class="description">
                   <p>
-                    Open the downloaded file now if the <a href="downloads.html#type-DownloadItem">DownloadItem</a> is complete; returns an error through <a href="runtime.html#property-lastError">runtime.lastError</a> otherwise. An <a href="downloads.html#event-onChanged">onChanged</a> event will fire when the item is opened for the first time.
+                    <!--@Open the downloaded file now if the <a href="downloads.html#type-DownloadItem">DownloadItem</a> is complete; returns an error through <a href="runtime.html#property-lastError">runtime.lastError</a> otherwise. An <a href="downloads.html#event-onChanged">onChanged</a> event will fire when the item is opened for the first time.--> 如果 <a href="downloads.html#type-DownloadItem">DownloadItem</a>（下载项）已完成则立即打开下载的文件，否则通过 <a href="runtime.html#property-lastError">runtime.lastError</a> 返回错误。项目第一次打开时将产生 <a href="downloads.html#event-onChanged">onChanged</a> 事件。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -1858,7 +1874,7 @@ href='samples.html'>Samples</a>.</p>
                           </span>
                         </dt>
                         <dd>
-                          The identifier for the downloaded file.
+                          <!--@The identifier for the downloaded file.--> 已下载文件的标识符。
                         </dd>
                       </div>
                   </dl>
@@ -1871,7 +1887,7 @@ href='samples.html'>Samples</a>.</p>
                 </div>
                 <div class="description">
                   <p>
-                    Show the downloaded file in its folder in a file manager.
+                    <!--@Show the downloaded file in its folder in a file manager.--> 在文件管理器中，打开已下载文件所在的文件夹并显示它。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -1887,7 +1903,7 @@ href='samples.html'>Samples</a>.</p>
                           </span>
                         </dt>
                         <dd>
-                          The identifier for the downloaded file.
+                          <!--@The identifier for the downloaded file.--> 已下载文件的标识符。
                         </dd>
                       </div>
                   </dl>
@@ -1900,7 +1916,7 @@ href='samples.html'>Samples</a>.</p>
                 </div>
                 <div class="description">
                   <p>
-                    Erase matching <a href="downloads.html#type-DownloadItem">DownloadItem</a> from history. An <a href="downloads.html#event-onErased">onErased</a> event will fire for each <a href="downloads.html#type-DownloadItem">DownloadItem</a> that matches <code>query</code>, then <code>callback</code> will be called.
+                    <!--@Erase matching <a href="downloads.html#type-DownloadItem">DownloadItem</a> from history. An <a href="downloads.html#event-onErased">onErased</a> event will fire for each <a href="downloads.html#type-DownloadItem">DownloadItem</a> that matches <code>query</code>, then <code>callback</code> will be called.--> 从历史记录中删除匹配的 <a href="downloads.html#type-DownloadItem">DownloadItem</a>（下载项），匹配 <code>query</code> 的每一个 <a href="downloads.html#type-DownloadItem">DownloadItem</a> 都会产生一次 <a href="downloads.html#event-onErased">onErased</a> 事件，然后调用 <code>callback</code>。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -1959,7 +1975,7 @@ href='samples.html'>Samples</a>.</p>
                 </div>
                 <div class="description">
                   <p>
-                    Prompt the user to accept a dangerous download. Does not automatically accept dangerous downloads. If the download is accepted, then an <a href="downloads.html#event-onChanged">onChanged</a> event will fire, otherwise nothing will happen.  When all the data is fetched into a temporary file and either the download is not dangerous or the danger has been accepted, then the temporary file is renamed to the target filename, the |state| changes to 'complete', and <a href="downloads.html#event-onChanged">onChanged</a> fires.
+                    <!--@Prompt the user to accept a dangerous download. Does not automatically accept dangerous downloads. If the download is accepted, then an <a href="downloads.html#event-onChanged">onChanged</a> event will fire, otherwise nothing will happen.  When all the data is fetched into a temporary file and either the download is not dangerous or the danger has been accepted, then the temporary file is renamed to the target filename, the |state| changes to 'complete', and <a href="downloads.html#event-onChanged">onChanged</a> fires.--> 提示用户接受有风险的下载，不会自动接受有风险的下载。如果下载项被接受，将产生 <a href="downloads.html#event-onChanged">onChanged</a> 事件，否则什么都不会发生。当所有数据都获取至临时文件后，如果下载项没有风险或者已被接受，该临时文件将被重命名为目标文件名，<code>state</code> 更改为 'complete'，并产生 <a href="downloads.html#event-onChanged">onChanged</a> 事件。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -1975,7 +1991,7 @@ href='samples.html'>Samples</a>.</p>
                           </span>
                         </dt>
                         <dd>
-                          The identifier for the <a href="downloads.html#type-DownloadItem">DownloadItem</a>.
+                          <!--@The identifier for the <a href="downloads.html#type-DownloadItem">DownloadItem</a>.--> <a href="downloads.html#type-DownloadItem">DownloadItem</a> 的标识符。
                         </dd>
                       </div>
                   </dl>
@@ -1988,7 +2004,7 @@ href='samples.html'>Samples</a>.</p>
                 </div>
                 <div class="description">
                   <p>
-                    Initiate dragging the downloaded file to another application.
+                    <!--@Initiate dragging the downloaded file to another application.--> 开始将已下载的文件拖动到另一个应用程序。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -2015,7 +2031,7 @@ href='samples.html'>Samples</a>.</p>
                 </div>
                 <div class="description">
               <p>
-                    This event fires with the <a href="downloads.html#type-DownloadItem">DownloadItem</a> object when a download begins.
+                    <!--@This event fires with the <a href="downloads.html#type-DownloadItem">DownloadItem</a> object when a download begins.--> 下载开始时产生该事件，并传递 <a href="downloads.html#type-DownloadItem">DownloadItem</a> 对象。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
                       <div>  <a name="property-onCreated-downloadItem"></a>  <dt>    <span class="variable">downloadItem</span>    <span class="property">      (                <a href="downloads.html#type-DownloadItem">DownloadItem</a>      )    </span>  </dt></div>
@@ -2029,10 +2045,10 @@ href='samples.html'>Samples</a>.</p>
                 </div>
                 <div class="description">
               <p>
-                    Fires with the <code>downloadId</code> when a download is erased from history.
+                    <!--@Fires with the <code>downloadId</code> when a download is erased from history.--> 当下载项从历史记录中删除时产生，并传递 <code>downloadId</code>。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
-                      <div>  <a name="property-onErased-downloadId"></a>  <dt>    <span class="variable">downloadId</span>    <span class="property">      (                integer      )    </span>  </dt>  <dd>    The <code>id</code> of the <a href="downloads.html#type-DownloadItem">DownloadItem</a> that was erased.  </dd></div>
+                      <div>  <a name="property-onErased-downloadId"></a>  <dt>    <span class="variable">downloadId</span>    <span class="property">      (                integer      )    </span>  </dt>  <dd>    <!--@The <code>id</code> of the <a href="downloads.html#type-DownloadItem">DownloadItem</a> that was erased.--> 已删除的 <a href="downloads.html#type-DownloadItem">DownloadItem</a> 的 <code>id</code>。  </dd></div>
                     </dl>
                 </div>
               </div>
@@ -2043,7 +2059,7 @@ href='samples.html'>Samples</a>.</p>
                 </div>
                 <div class="description">
               <p>
-                    When any of a <a href="downloads.html#type-DownloadItem">DownloadItem</a>'s properties except <code>bytesReceived</code> changes, this event fires with the <code>downloadId</code> and an object containing the properties that changed.
+                    <!--@When any of a <a href="downloads.html#type-DownloadItem">DownloadItem</a>'s properties except <code>bytesReceived</code> changes, this event fires with the <code>downloadId</code> and an object containing the properties that changed.--> 当某个 <a href="downloads.html#type-DownloadItem">DownloadItem</a> 除 <code>bytesReceived</code> 以外的任何属性更改时，将会产生该事件，并传递 <code>id</code> 以及描述属性更改的对象。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
                       <div>  <a name="property-onChanged-downloadDelta"></a>  <dt>    <span class="variable">downloadDelta</span>    <span class="property">      (                <a href="downloads.html#type-DownloadDelta">DownloadDelta</a>      )    </span>  </dt></div>

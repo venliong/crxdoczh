@@ -149,7 +149,7 @@
                             <a href="content_scripts.html" class="level4 ">内容脚本</a>
                       </li>
                       <li class="level4">
-                            <a href="xhr.html" class="level4 ">跨站XHR</a>
+                            <a href="xhr.html" class="level4 ">跨站 XHR</a>
                       </li>
                       <li class="level4">
                             <a href="i18n.html" class="level4 ">国际化支持</a>
@@ -238,7 +238,7 @@
                       <a href="https://code.google.com/chrome/webstore/docs/index.html" class="level3 ">Chrome 网上应用店</a>
                 </li>
                 <li class="level3">
-                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用程序</a>
+                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用</a>
                 </li>
                 <li class="level3">
                       <a href="themes.html" class="level3 ">主题背景</a>
@@ -292,7 +292,7 @@
   <!--@You must declare the "browsingData" permission in the
   <a href="manifest.html">extension manifest</a> to use this API.-->
   您必须在<a href="manifest.html">扩展程序的清单文件</a>中声明
-  "browsingData" 权限来使用这一 API。
+  "browsingData" 权限才能使用这一 API。
 </p>
 
 <pre>{
@@ -393,7 +393,7 @@ chrome.browsingData.removeCookies({
   <li>
     <code>protectedWeb</code> <!--@covers those web origins that have been installed
     as hosted applications. Installing-->
-    包括了安装为托管应用程序的网络来源。例如，安装
+    包括了安装为托管应用的网络来源。例如，安装
     <a href="https://chrome.google.com/webstore/detail/aknpkdffaafgjchaibgeefbgmgeghloj">
     Angry Birds</a><!--@, for example, protects the origin-->
     后来源
@@ -497,7 +497,7 @@ chrome.browsingData.remove({
                         </span>
                       </dt>
                       <dd>
-                        一个对象，属性指定哪些来源类型的数据应该被清除。如果没有指定该对象，默认情况下只清除“unprotected”来源。添加 protectedWeb 或 extensions 前请确保您<em>真的</em>需要删除应用程序数据。
+                        一个对象，属性指定哪些来源类型的数据应该被清除。如果没有指定该对象，默认情况下只清除“unprotected”来源。添加 protectedWeb 或 extensions 前请确保您<em>真的</em>需要删除应用数据。
                       </dd>
                       <dd>
                         <dl>
@@ -528,7 +528,7 @@ chrome.browsingData.remove({
                               </span>
                             </dt>
                             <dd>
-                              安装为托管应用程序的网站（小心！）。
+                              安装为托管应用的网站（小心！）。
                             </dd>
                           </div>
                           <div>
@@ -543,7 +543,7 @@ chrome.browsingData.remove({
                               </span>
                             </dt>
                             <dd>
-                              用户安装的扩展程序与打包应用程序（<em>格外</em>小心！）。
+                              用户安装的扩展程序与打包应用（<em>格外</em>小心！）。
                             </dd>
                           </div>
                         </dl>

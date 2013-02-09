@@ -149,7 +149,7 @@
                             <a href="content_scripts.html" class="level4 ">内容脚本</a>
                       </li>
                       <li class="level4">
-                            <a href="xhr.html" class="level4 ">跨站XHR</a>
+                            <a href="xhr.html" class="level4 ">跨站 XHR</a>
                       </li>
                       <li class="level4">
                             <a href="i18n.html" class="level4 ">国际化支持</a>
@@ -238,7 +238,7 @@
                       <a href="https://code.google.com/chrome/webstore/docs/index.html" class="level3 ">Chrome 网上应用店</a>
                 </li>
                 <li class="level3">
-                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用程序</a>
+                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用</a>
                 </li>
                 <li class="level3">
                       <a href="themes.html" class="level3 ">主题背景</a>
@@ -273,7 +273,7 @@
 
 <p id="classSummary">
 <!--@The--> <code>chrome.management</code> <!--@module provides ways to manage the list of extensions/apps that are installed and running. It is particularly useful for extensions that <a href="override.html">override</a> the built-in New Tab page.-->
-模块可以用来管理已经安装并且正在运行的扩展程序或应用程序，它对于<a href="override.html">替代</a>内建的“打开新的标签页”页面的扩展程序特别有用。
+模块可以用来管理已经安装并且正在运行的扩展程序或应用，它对于<a href="override.html">替代</a>内建的“打开新的标签页”页面的扩展程序特别有用。
 </p>
 
 <h2 id="manifest"><!--@Manifest-->清单文件</h2>
@@ -283,7 +283,7 @@ in the <a href="manifest.html">extension manifest</a>
 to use the management API.
 For example:-->
 您必须在<a href="manifest.html">扩展程序的清单文件</a>中声明
-"management" 权限来使用管理 API。例如：
+"management" 权限才能使用管理 API。例如：
 </p>
 <pre>{
   "name": "我的扩展程序",
@@ -307,7 +307,7 @@ For example:-->
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    属于扩展程序、应用程序或主题背景的图标的有关信息。
+                    属于扩展程序、应用或主题背景的图标的有关信息。
                   </dd>    <h4 id="IconInfo-properties">
                     <!--@Properties of --><a href="#type-IconInfo">IconInfo</a>
                     的属性
@@ -350,7 +350,7 @@ For example:-->
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    已安装的扩展程序、应用程序或主题背景的有关信息。
+                    已安装的扩展程序、应用或主题背景的有关信息。
                   </dd>    <h4 id="ExtensionInfo-properties">
                     <!--@Properties of --><a href="#type-ExtensionInfo">ExtensionInfo</a>
                     的属性
@@ -382,7 +382,7 @@ For example:-->
                         </span>
                       </dt>
                       <dd>
-                        扩展程序、应用程序或主题背景的名称。
+                        扩展程序、应用或主题背景的名称。
                       </dd>
                     </div>
                     <div>
@@ -397,7 +397,7 @@ For example:-->
                         </span>
                       </dt>
                       <dd>
-                        扩展程序、应用程序或主题背景的描述。
+                        扩展程序、应用或主题背景的描述。
                       </dd>
                     </div>
                     <div>
@@ -412,7 +412,7 @@ For example:-->
                         </span>
                       </dt>
                       <dd>
-                        扩展程序、应用程序或主题背景的<a href='manifest.html#version'>版本</a>。
+                        扩展程序、应用或主题背景的<a href='manifest.html#version'>版本</a>。
                       </dd>
                     </div>
                     <div>
@@ -472,7 +472,7 @@ For example:-->
                         </span>
                       </dt>
                       <dd>
-                        该扩展程序、应用程序或主题背景的类型。
+                        该扩展程序、应用或主题背景的类型。
                       </dd>
                     </div>
                     <div>
@@ -487,7 +487,7 @@ For example:-->
                         </span>
                       </dt>
                       <dd>
-                        用于执行的 URL（仅在应用程序中存在）。
+                        用于执行的 URL（仅在应用中存在）。
                       </dd>
                     </div>
                     <div>
@@ -502,7 +502,7 @@ For example:-->
                         </span>
                       </dt>
                       <dd>
-                        该扩展程序、应用程序或主题背景的主页 URL。
+                        该扩展程序、应用或主题背景的主页 URL。
                       </dd>
                     </div>
                     <div>
@@ -517,7 +517,7 @@ For example:-->
                         </span>
                       </dt>
                       <dd>
-                        该扩展程序、应用程序或主题背景的更新 URL。
+                        该扩展程序、应用或主题背景的更新 URL。
                       </dd>
                     </div>
                     <div>
@@ -532,7 +532,7 @@ For example:-->
                         </span>
                       </dt>
                       <dd>
-                        该扩展程序、应用程序或主题背景是否声明它具有离线支持。
+                        该扩展程序、应用或主题背景是否声明它具有离线支持。
                       </dd>
                     </div>
                     <div>
@@ -621,7 +621,7 @@ For example:-->
                 </div>
                 <div class="description">
                   <p>
-                    返回已安装的扩展程序和应用程序的信息列表。
+                    返回已安装的扩展程序和应用的信息列表。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -668,7 +668,7 @@ For example:-->
                 </div>
                 <div class="description">
                   <p>
-                    返回已安装且具有指定标识符的扩展程序、应用程序或主题背景的有关信息。
+                    返回已安装且具有指定标识符的扩展程序、应用或主题背景的有关信息。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -854,7 +854,7 @@ For example:-->
                 </div>
                 <div class="description">
                   <p>
-                    启用或禁用一个应用程序或扩展程序。
+                    启用或禁用一个应用或扩展程序。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -917,7 +917,7 @@ For example:-->
                 </div>
                 <div class="description">
                   <p>
-                    卸载当前已安装的某个应用程序或扩展程序。
+                    卸载当前已安装的某个应用或扩展程序。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -1060,7 +1060,7 @@ For example:-->
                 </div>
                 <div class="description">
                   <p>
-                    运行一个应用程序。
+                    运行一个应用。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -1076,7 +1076,7 @@ For example:-->
                           </span>
                         </dt>
                         <dd>
-                          应用程序的扩展程序标识符。
+                          应用的扩展程序标识符。
                         </dd>
                       </div>
                       <div>
@@ -1109,7 +1109,7 @@ For example:-->
                 </div>
                 <div class="description">
               <p>
-                    安装应用程序或扩展程序时产生。
+                    安装应用或扩展程序时产生。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
                       <div>  <a name="property-onInstalled-info"></a>  <dt>    <span class="variable">info</span>    <span class="property">      (                <a href="management.html#type-ExtensionInfo">ExtensionInfo</a>      )    </span>  </dt></div>
@@ -1123,10 +1123,10 @@ For example:-->
                 </div>
                 <div class="description">
               <p>
-                    应用程序或扩展程序卸载时产生。
+                    应用或扩展程序卸载时产生。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
-                      <div>  <a name="property-onUninstalled-id"></a>  <dt>    <span class="variable">id</span>    <span class="property">      (                string      )    </span>  </dt>  <dd>    卸载的扩展程序、应用程序或主题背景的标识符。  </dd></div>
+                      <div>  <a name="property-onUninstalled-id"></a>  <dt>    <span class="variable">id</span>    <span class="property">      (                string      )    </span>  </dt>  <dd>    卸载的扩展程序、应用或主题背景的标识符。  </dd></div>
                     </dl>
                 </div>
               </div>
@@ -1137,7 +1137,7 @@ For example:-->
                 </div>
                 <div class="description">
               <p>
-                    应用程序或扩展程序启用时产生。
+                    应用或扩展程序启用时产生。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
                       <div>  <a name="property-onEnabled-info"></a>  <dt>    <span class="variable">info</span>    <span class="property">      (                <a href="management.html#type-ExtensionInfo">ExtensionInfo</a>      )    </span>  </dt></div>
@@ -1151,7 +1151,7 @@ For example:-->
                 </div>
                 <div class="description">
               <p>
-                    应用程序或扩展程序禁用时产生。
+                    应用或扩展程序禁用时产生。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
                       <div>  <a name="property-onDisabled-info"></a>  <dt>    <span class="variable">info</span>    <span class="property">      (                <a href="management.html#type-ExtensionInfo">ExtensionInfo</a>      )    </span>  </dt></div>
