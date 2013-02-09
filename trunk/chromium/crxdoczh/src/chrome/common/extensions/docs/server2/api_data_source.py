@@ -135,6 +135,8 @@ class _JSCModel(object):
       'name': event.simple_name,
       'description': self._FormatDescription(event.description),
       'parameters': [self._GenerateProperty(p) for p in event.params],
+      'extraParameters': [self._GenerateProperty(p) for p in event.extra_params],
+      'returns': None,
       'callback': self._GenerateCallback(event.callback),
       'filters': [self._GenerateProperty(f) for f in event.filters],
       'conditions': [self._GetLink(condition)
@@ -152,6 +154,10 @@ class _JSCModel(object):
           self._GenerateCallbackProperty(event.callback))
     if len(event_dict['parameters']) > 0:
       event_dict['parameters'][-1]['last'] = True
+    if len(event_dict['filters']) > 0:
+      event_dict['filters'][-1]['last'] = True
+    if event.returns:
+      event_dict['returns'] = self._GenerateType(event.returns)
     return event_dict
 
   def _GenerateCallback(self, callback):
