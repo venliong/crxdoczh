@@ -149,7 +149,7 @@
                             <a href="content_scripts.html" class="level4 ">内容脚本</a>
                       </li>
                       <li class="level4">
-                            <a href="xhr.html" class="level4 ">跨站XHR</a>
+                            <a href="xhr.html" class="level4 ">跨站 XHR</a>
                       </li>
                       <li class="level4">
                             <a href="i18n.html" class="level4 ">国际化支持</a>
@@ -238,7 +238,7 @@
                       <a href="https://code.google.com/chrome/webstore/docs/index.html" class="level3 ">Chrome 网上应用店</a>
                 </li>
                 <li class="level3">
-                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用程序</a>
+                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用</a>
                 </li>
                 <li class="level3">
                       <a href="themes.html" class="level3 ">主题背景</a>
@@ -256,13 +256,13 @@
           <h2><!--@Contents-->目录</h2>
           <ol>
             <li>
-              <a href=#manifest>Notes</a>
+              <a href=#manifest>说明</a>
             </li>
             <li>
-              <a href=#manifest>Manifest</a>
+              <a href=#manifest>清单文件</a>
             </li>
             <li>
-              <a href=#examples>Examples</a>
+              <a href=#examples>例子</a>
             </li>
             <li>
               <a href="#apiReference"><!--@API reference: -->API 参考：chrome.topSites</a>
@@ -277,22 +277,24 @@
           </ol>
         </div>
 
-<h2 id="manifest">Notes</h2>
+<h2 id="manifest"><!--@Notes-->说明</h2>
 
 <p>
-The top sites module allows access to the top sites that are displayed on
-the new tab page.
+<!--@The top sites module allows access to the top sites that are displayed on
+the new tab page.-->
+常去网站模块允许您访问“打开新的标签页”页面中的显示的“常去网站”。
 </p>
 
-<h2 id="manifest">Manifest</h2>
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
 
 <p>
-You must declare the "topSites" permission in your extension's manifest
-to use this API.
+<!--@You must declare the "topSites" permission in your extension's manifest
+to use this API.-->
+您必须在扩展程序的清单文件中声明 "topSites" 权限才能使用这一 API。
 </p>
 
 <pre>{
-  "name": "My extension",
+  "name": "我的扩展程序",
   ...
 <b>  "permissions": [
     "topSites",
@@ -301,11 +303,12 @@ to use this API.
 }</pre>
 
 
-<h2 id="examples">Examples</h2>
+<h2 id="examples"><!--@Examples-->例子</h2>
 
 <p>
-You can find samples of this API in
-<a href="samples.html#topsites">Samples</a>.
+<!--@You can find samples of this API in
+<a href="samples.html#topsites">Samples</a>.-->
+您可以在<a href="samples.html#topsites">示例</a>中找到使用这一 API 的示例。
 </p>
         <h2 id="apiReference"><!--@API Reference: chrome.topSites-->API 参考：chrome.topSites</h2>
         <div class="api_reference">
@@ -315,7 +318,7 @@ You can find samples of this API in
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    An object encapsulating a most visited URL, such as the URLs on the new tab page.
+                    包含最常访问 URL（例如“打开新的标签页”页面上的 URL）的对象。
                   </dd>    <h4 id="MostVisitedURL-properties">
                     <!--@Properties of --><a href="#type-MostVisitedURL">MostVisitedURL</a>
                     的属性
@@ -332,7 +335,7 @@ You can find samples of this API in
                         </span>
                       </dt>
                       <dd>
-                        The most visited URL.
+                        最常访问的 URL。
                       </dd>
                     </div>
                     <div>
@@ -347,7 +350,7 @@ You can find samples of this API in
                         </span>
                       </dt>
                       <dd>
-                        The title of the page
+                        此页面的标题。
                       </dd>
                     </div>
               </dl></dd>
@@ -361,7 +364,7 @@ You can find samples of this API in
                 </div>
                 <div class="description">
                   <p>
-                    Gets a list of top sites.
+                    获取常去网站列表。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>

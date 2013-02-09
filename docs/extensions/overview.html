@@ -148,7 +148,7 @@
                             <a href="content_scripts.html" class="level4 ">内容脚本</a>
                       </li>
                       <li class="level4">
-                            <a href="xhr.html" class="level4 ">跨站XHR</a>
+                            <a href="xhr.html" class="level4 ">跨站 XHR</a>
                       </li>
                       <li class="level4">
                             <a href="i18n.html" class="level4 ">国际化支持</a>
@@ -237,7 +237,7 @@
                       <a href="https://code.google.com/chrome/webstore/docs/index.html" class="level3 ">Chrome 网上应用店</a>
                 </li>
                 <li class="level3">
-                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用程序</a>
+                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用</a>
                 </li>
                 <li class="level3">
                       <a href="themes.html" class="level3 ">主题背景</a>
@@ -340,7 +340,7 @@ Choose a <b>browser action</b> when the extension is relevant to most pages.
 Choose a <b>page action</b> when the extension's icon
 should appear or disappear,
 depending on the page.-->
-许多扩展程序（但不包括打包应用程序）以<a href="browserAction.html"
+许多扩展程序（但不包括打包应用）以<a href="browserAction.html"
 >浏览器按钮</a>或<a href="pageAction.html">页面按钮</a>的形式向
 Google Chrome
 浏览器增加用户界面，每个扩展程序最多能有一个浏览器按钮或页面按钮。当扩展程序与大部分网页相关时选择使用<b>浏览器按钮</b>，当扩展程序的图标显示还是消失取决于具体网页时选择使用<b>页面按钮</b>。
@@ -402,7 +402,7 @@ See the <a href="devguide.html">Developer's Guide</a>
 for a complete list of extension features,
 with links to implementation details
 for each one.-->
-扩展程序（以及打包应用程序）也可以以其它形式呈现用户界面，例如在 Chrome
+扩展程序（以及打包应用）也可以以其它形式呈现用户界面，例如在 Chrome
 浏览器的右键菜单中添加内容，提供选项页面，或者利用内容脚本更改页面的显示方式。有关完整的扩展程序功能以及每一种功能的实现细节，请参见<a href="devguide.html">开发者指南</a>。
 </p>
 
@@ -751,8 +751,8 @@ But if you want to specify which window that URL should be displayed in,
 your extension can use the Chrome-only 
 <a href="tabs.html#method-create">tabs.create</a>
 method instead.-->
-扩展程序除了能够使用网页和应用程序可以使用的所有 API 外，还能使用仅用于
-Chrome 浏览器的 API（通常称为 <em>chrome.* API</em>）来更好地与浏览器集成。例如，任何扩展程序或网上应用程序可以使用标准的
+扩展程序除了能够使用网页和应用可以使用的所有 API 外，还能使用仅用于
+Chrome 浏览器的 API（通常称为 <em>chrome.* API</em>）来更好地与浏览器集成。例如，任何扩展程序或网上应用可以使用标准的
 <code>window.open()</code>
 方法来打开一个网页，但是如果您想指定网页应该显示在哪个窗口中，您的扩展程序就可以使用仅用于
 Chrome 浏览器的 <a href="tabs.html#method-create">tabs.create</a> 方法。

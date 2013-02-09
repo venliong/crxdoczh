@@ -6,7 +6,7 @@
     <link href="static/css/print.css" rel="stylesheet" type="text/css" media="print">
     <link href="static/css/prettify.css" rel="stylesheet" type="text/css">
     <link href="//www.google.com/images/icons/product/chrome-16.png" rel="icon" type="image/ico">
-    <title>Tutorial: Google Analytics - Google Chrome</title>
+    <title>教程：Google Analytics（分析） - Google Chrome</title>
   </head>
   <body>
     <a id="top"></a>
@@ -148,7 +148,7 @@
                             <a href="content_scripts.html" class="level4 ">内容脚本</a>
                       </li>
                       <li class="level4">
-                            <a href="xhr.html" class="level4 ">跨站XHR</a>
+                            <a href="xhr.html" class="level4 ">跨站 XHR</a>
                       </li>
                       <li class="level4">
                             <a href="i18n.html" class="level4 ">国际化支持</a>
@@ -237,7 +237,7 @@
                       <a href="https://code.google.com/chrome/webstore/docs/index.html" class="level3 ">Chrome 网上应用店</a>
                 </li>
                 <li class="level3">
-                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用程序</a>
+                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用</a>
                 </li>
                 <li class="level3">
                       <a href="themes.html" class="level3 ">主题背景</a>
@@ -247,27 +247,27 @@
         </ul>
       </div>
       <div id="gc-pagecontent">
-        <h1 class="page_title">Tutorial: Google Analytics</h1>
+        <h1 class="page_title">教程：Google Analytics（分析）</h1>
         <div id="toc">
           <h2><!--@Contents-->目录</h2>
           <ol>
             <li>
-              <a href=#toc-requirements>Requirements</a>
+              <a href=#toc-requirements>要求</a>
             </li>
             <li>
-              <a href=#toc-installing>Installing the tracking code</a>
+              <a href=#toc-installing>设置跟踪代码</a>
             </li>
             <li>
-              <a href=#toc-tracking-pageviews>Tracking page views</a>
+              <a href=#toc-tracking-pageviews>跟踪浏览</a>
             </li>
             <li>
-              <a href=#toc-debugging>Monitoring analytics requests</a>
+              <a href=#toc-debugging>监视分析请求</a>
             </li>
             <li>
-              <a href=#toc-tracking-events>Tracking events</a>
+              <a href=#toc-tracking-events>跟踪事件</a>
             </li>
             <li>
-              <a href=#toc-samplecode>Sample code</a>
+              <a href=#toc-samplecode>示例代码</a>
             </li>
           </ol>
         </div>
@@ -275,21 +275,28 @@
 
 
 
-<p>This tutorial demonstrates using Google Analytics to track the usage of your
-extension.</p>
+<p><!--@This tutorial demonstrates using Google Analytics to track the usage of your
+extension.-->
+这一教程演示如何使用 Google Analytics（分析）来追踪您的扩展程序的使用情况。
+</p>
 
-<h2 id="toc-requirements">Requirements</h2>
+<h2 id="toc-requirements"><!--@Requirements-->要求</h2>
 <p>
-  This tutorial expects that you have some familiarity writing extensions for
+  <!--@This tutorial expects that you have some familiarity writing extensions for
   Google Chrome.  If you need information on how to write an extension, please
-  read the <a href="gettingstarted.html">Getting Started tutorial</a>.
+  read the <a href="gettingstarted.html">Getting Started tutorial</a>.-->
+  这一教程要求您对编写 Google Chrome
+  浏览器的扩展程序有一定的了解。如果您需要有关如何编写扩展程序的信息，请阅读<a href="getstarted.html">入门教程</a>。
 </p>
 
 <p>
-  You will also need a <a href="http://www.google.com/analytics">Google
+  <!--@You will also need a <a href="http://www.google.com/analytics">Google
   Analytics account</a> set up to track your extension. Note that when setting
   up the account, you can use any value in the Website's URL field, as your
-  extension will not have an URL of its own.
+  extension will not have an URL of its own.-->
+  您还需要设置一个 <a href="http://www.google.com/analytics">Google
+  Analytics（分析）帐户</a>来追踪您的扩展程序。注意，在设置账户时，您在网站
+  URL 域中可以使用任何值，因为您的扩展程序没有自己的 URL。
 </p>
 
 <p style="text-align: center">
@@ -298,10 +305,10 @@ extension.</p>
        alt="The analytics setup with info for a chrome extension filled out." />
 </p>
 
-<h2 id="toc-installing">Installing the tracking code</h2>
+<h2 id="toc-installing"><!--@Installing the tracking code-->设置跟踪代码</h2>
 
 <p>
-  The standard Google Analytics tracking code snippet fetches a file named
+  <!--@The standard Google Analytics tracking code snippet fetches a file named
   <code>ga.js</code> from an SSL protected URL if the current page
   was loaded using the <code>https://</code> protocol.  <strong>Chrome
   extensions and applications may <em>only</em> use the SSL-protected version of
@@ -311,13 +318,24 @@ extension.</p>
   under the <code>chrome-extension://</code> schema, requires a slight
   modification to the usual tracking snippet to pull <code>ga.js</code> directly
   from <code>https://ssl.google-analytics.com/ga.js</code> instead of the
-  default location.
+  default location.-->
+  如果当前页面使用 <code>https://</code> 协议载入，标准的
+  Google Analytics（分析）代码片段通过受 SSL 保护的 URL
+  获取名为 <code>ga.js</code> 的文件。<strong>Chrome
+  浏览器的扩展程序和应用<em>只能</em>使用受 SSL
+  保护的 <code>ga.js</code></strong>。Chrome 浏览器默认的<a
+  href="contentSecurityPolicy.html">内容安全策略</a>禁止通过不安全的
+  HTTP 载入 <code>ga.js</code>，再加上 Chrome 扩展程序托管在
+  <code>chrome-extension://</code>
+  协议下，所以需要稍微修改一下通常的跟踪代码，直接从
+  <code>https://ssl.google-analytics.com/ga.js</code>
+  而不是默认位置获取 <code>ga.js</code>。
 </p>
 
 <p>
-  Below is a modified snippet for the
-  <a href="http://code.google.com/apis/analytics/docs/tracking/asyncTracking.html">asynchronous
-  tracking API</a> (the modified line is bolded):
+  <!--@Below is a modified snippet for the
+  -->如下是<a href="http://code.google.com/apis/analytics/docs/tracking/asyncTracking.html"><!--@asynchronous
+  tracking-->异步跟踪 API</a> <!--@(the modified line is bolded):-->修改后的片段（修改的那一行加粗）：
 </p>
 
 <pre>
@@ -329,9 +347,11 @@ extension.</p>
 </pre>
 
 <p>
-  You'll also need to ensure that your extension has access to load the resource
-  by relaxing the default content security policy. The policy definition in your
-  <a href="manifest.html"><code>manifest.json</code></a> might look like:
+  <!--@You'll also need to ensure that your extension has access to load the resource
+  by relaxing the default content security policy. The policy definition in your-->
+  您还需要放宽默认的内容安全策略，确保您的扩展程序能够访问资源。您的
+  <a href="manifest.html"><code>manifest.json</code></a> <!--@might look like:-->
+  中的策略定义可以像下面这样：
 </p>
 
 <pre>{
@@ -341,9 +361,11 @@ extension.</p>
 }</pre>
 
 <p>
-  Here is a popup page (<code>popup.html</code>) which loads the asynchronous
+  <!--@Here is a popup page (<code>popup.html</code>) which loads the asynchronous
   tracking code via an external JavaScript file (<code>popup.js</code>) and
-  tracks a single page view:
+  tracks a single page view:-->
+  如下是一个弹出内容的网页（<code>popup.html</code>），通过外部的
+  JavaScript 文件（<code>popup.js</code>）载入异步跟踪代码，并跟踪一次浏览：
 </p>
 
 <pre>popup.js:
@@ -361,37 +383,40 @@ _gaq.push(['_trackPageview']);
 
 popup.html:
 ===========
-&lt;!DOCTYPE html>
-&lt;html>
- &lt;head>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+ &lt;head&gt;
    ...
-  &lt;script src="popup.js">&lt;/script>
- &lt;/head>
- &lt;body>
+  &lt;script src="popup.js"&gt;&lt;/script&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
    ...
- &lt;/body>
-&lt;/html>
+ &lt;/body&gt;
+&lt;/html&gt;
 </pre>
 
 <p>
-  Keep in mind that the string <code>UA-XXXXXXXX-X</code> should be replaced
-  with your own Google Analytics account number.
+  <!--@Keep in mind that the string-->一定记得 <code>UA-XXXXXXXX-X</code> <!--@should be replaced
+  with your own Google Analytics account number.-->
+  字符串应该替换为您自己的 Google Analytics（分析）帐号。
 </p>
 
-<h2 id="toc-tracking-pageviews">Tracking page views</h2>
+<h2 id="toc-tracking-pageviews"><!--@Tracking page views-->跟踪浏览</h2>
 
 <p>
-  The <code>_gaq.push(['_trackPageview']);</code> code will track a single
+  <!--@The--> <code>_gaq.push(['_trackPageview']);</code> <!--@code will track a single
   page view.  This code may be used on any page in your extension.  When
   placed on a background page, it will register a view once per browser
   session.  When placed on a popup, it will register a view once every time
-  the popup is opened.
+  the popup is opened.-->
+  代码将跟踪一次浏览，这一代码可以用在您的扩展程序中的任何一个页面中。放在后台网页中，则每一次浏览器会话记录一次访问。放在弹出内容中，则每一次打开弹出内容记录一次访问。
 </p>
 
 <p>
-  By looking at the page view data for each page in your extension, you can
+  <!--@By looking at the page view data for each page in your extension, you can
   get an idea of how many times your users interact with your extension per
-  browser session:
+  browser session:-->
+  通过查看您的扩展程序中的每一个页面的浏览数据，您可以了解用户每一次浏览器会话与您的扩展程序有多少次交互。
 </p>
 
 <p style="text-align: center">
@@ -400,15 +425,18 @@ popup.html:
        alt="Analytics view of the top content for a site." />
 </p>
 
-<h2 id="toc-debugging">Monitoring analytics requests</h2>
+<h2 id="toc-debugging"><!--@Monitoring analytics requests-->监视分析请求</h2>
 
 <p>
-  To ensure that tracking data from your extension is being sent to Google
+  <!--@To ensure that tracking data from your extension is being sent to Google
   Analytics, you can inspect the pages of your extension in the
   Developer Tools window (see the
-  <a href="tut_debugging.html">debugging tutorial</a> for more information).
-  As the following figure shows, you should see requests for a file named
-  <strong>__utm.gif</strong> if everything is set up correctly.
+  -->要确保来自您的扩展程序的跟踪数据发送到了
+  Google Analytics（分析），您可以在开发者工具窗口中审查您的扩展程序页面（有关更多信息请参见<a
+  href="tut_debugging.html"><!--@debugging tutorial-->调试教程</a><!--@ for more information).
+  As the following figure shows, you should see requests for a file named-->）。如下图所示，如果一切设置妥当，您应该看到文件名为
+  <strong>__utm.gif</strong> <!--@if everything is set up correctly.-->
+  的请求。
 </p>
 
 <p style="text-align: center">
@@ -417,22 +445,24 @@ popup.html:
        alt="Developer Tools window showing the __utm.gif request" />
 </p>
 
-<h2 id="toc-tracking-events">Tracking events</h2>
+<h2 id="toc-tracking-events"><!--@Tracking events-->跟踪事件</h2>
 
 <p>
-  By configuring event tracking, you can determine which parts of your
+  <!--@By configuring event tracking, you can determine which parts of your
   extension your users interact with the most.  For example, if you have
-  three buttons users may click:
+  three buttons users may click:-->
+  通过配置事件跟踪，您可以确定您的用户与您的扩展程序的哪一部分交互最多。例如，如果您有三个按钮供用户单击：
 </p>
 
 <pre>
-  &lt;button id='button1'>Button 1&lt;/button>
-  &lt;button id='button2'>Button 2&lt;/button>
-  &lt;button id='button3'>Button 3&lt;/button>
+  &lt;button id='button1'&gt;Button 1&lt;/button&gt;
+  &lt;button id='button2'&gt;Button 2&lt;/button&gt;
+  &lt;button id='button3'&gt;Button 3&lt;/button&gt;
 </pre>
 
 <p>
-  Write a function that sends click events to Google Analytics:
+  <!--@Write a function that sends click events to Google Analytics:-->
+  编写一个函数，向 Google Analytics（分析）发送单击事件：
 </p>
 
 <pre>
@@ -442,7 +472,8 @@ popup.html:
 </pre>
 
 <p>
-  And use it as an event handler for each button's click:
+  <!--@And use it as an event handler for each button's click:-->
+  并使用它作为每一个按钮单击的事件处理函数：
 </p>
 
 <pre>
@@ -453,8 +484,9 @@ popup.html:
 </pre>
 
 <p>
-  The Google Analytics event tracking overview page will give you metrics
-  regarding how many times each individual button is clicked:
+  <!--@The Google Analytics event tracking overview page will give you metrics
+  regarding how many times each individual button is clicked:-->
+  Google Analytics（分析）事件跟踪概览页面将为您提供每一个按钮单击次数的度量：
 </p>
 
 <p style="text-align: center">
@@ -464,23 +496,26 @@ popup.html:
 </p>
 
 <p>
-  By using this approach, you can see which parts of your extension are
+  <!--@By using this approach, you can see which parts of your extension are
   under-or-overutilized.  This information can help guide decisions about UI
-  redesigns or additional functionality to implement.
+  redesigns or additional functionality to implement.-->
+  使用这种方法，您可以看到您的扩展程序的哪些部分利用太多或太少，这一信息可以帮助您指导有关重新设计用户界面或者实现额外功能的决定。
 </p>
 
 <p>
-  For more information about using event tracking, see the
+  <!--@For more information about using event tracking, see the
   Google Analytics
   <a href="https://developers.google.com/analytics/devguides/collection/gajs/eventTrackerGuide">developer
-  documentation</a>.
+  documentation</a>.-->
+  有关使用事件跟踪的更多信息，请参见 Google Analytics（分析）的<a href="https://developers.google.com/analytics/devguides/collection/gajs/eventTrackerGuide">开发者文档</a>。
 </p>
 
-<h2 id="toc-samplecode">Sample code</h2>
+<h2 id="toc-samplecode"><!--@Sample code-->示例代码</h2>
 
 <p>
-  A sample extension that uses these techniques is
-  available in the Chromium source tree:
+  <!--@A sample extension that uses these techniques is
+  available in the Chromium source tree:-->
+  使用这些技术的示例扩展程序在 Chromium 源代码树中的以下位置可用：
 </p>
 
 <blockquote>

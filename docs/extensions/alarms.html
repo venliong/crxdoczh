@@ -149,7 +149,7 @@
                             <a href="content_scripts.html" class="level4 ">内容脚本</a>
                       </li>
                       <li class="level4">
-                            <a href="xhr.html" class="level4 ">跨站XHR</a>
+                            <a href="xhr.html" class="level4 ">跨站 XHR</a>
                       </li>
                       <li class="level4">
                             <a href="i18n.html" class="level4 ">国际化支持</a>
@@ -238,7 +238,7 @@
                       <a href="https://code.google.com/chrome/webstore/docs/index.html" class="level3 ">Chrome 网上应用店</a>
                 </li>
                 <li class="level3">
-                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用程序</a>
+                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用</a>
                 </li>
                 <li class="level3">
                       <a href="themes.html" class="level3 ">主题背景</a>
@@ -417,7 +417,7 @@
                 </div>
                 <div class="description">
                   <p>
-                    <!--@Creates an alarm.  Near the time(s) specified by <var>alarmInfo</var>, the <code>onAlarm</code> event is fired. If there is another alarm with the same name (or no name if none is specified), it will be cancelled and replaced by this alarm.--> 创建定时器，在 <var>alarmInfo</var> 指定的时间前后将产生 <a href="alarms.html#event-onAlarm">onAlarm</a> 事件。如果已经存在具有相同名称（或者如果没指定而没有名称）另一个定时器，它将会被取消，并由这一定时器取代。<br/><br/> <!--@In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more.  That is, setting <code><a href="alarms.html#property-AlarmCreateInfo-delayInMinutes">delayInMinutes</a></code> or <code><a href="alarms.html#property-AlarmCreateInfo-periodInMinutes">periodInMinutes</a></code> to less than <code>1</code> will not be honored and will cause a warning.  <code><a href="alarms.html#property-AlarmCreateInfo-when">when</a></code> can be set to less than 1 minute after "now" without warning but won't actually cause the alarm to fire for at least 1 minute.--> 为了降低用户计算机的资源占用，Chrome 浏览器将定时器限制为最多每 1 分钟一次，而且可能会推迟任意长度的时间。也就是说，将 <code><a href="alarms.html#property-AlarmCreateInfo-delayInMinutes">delayInMinutes</a></code> 或 <code><a href="alarms.html#property-AlarmCreateInfo-periodInMinutes">periodInMinutes</a></code> 设置为小于 1 的值会导致错误，<code><a href="alarms.html#property-AlarmCreateInfo-when">when</a></code> 可以设置为当前时间后小于1分钟的值，但是定时器至少在1分钟内不会运行。<br/><br/> <!--@To help you debug your app or extension, when you've loaded it unpacked, there's no limit to how often the alarm can fire.--> 为了帮助您调试您的应用程序或扩展程序，当您以未打包的形式载入时，不会限制定时器产生的频率。
+                    <!--@Creates an alarm.  Near the time(s) specified by <var>alarmInfo</var>, the <code>onAlarm</code> event is fired. If there is another alarm with the same name (or no name if none is specified), it will be cancelled and replaced by this alarm.--> 创建定时器，在 <var>alarmInfo</var> 指定的时间前后将产生 <a href="alarms.html#event-onAlarm">onAlarm</a> 事件。如果已经存在具有相同名称（或者如果没指定而没有名称）另一个定时器，它将会被取消，并由这一定时器取代。<br/><br/> <!--@In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more.  That is, setting <code><a href="alarms.html#property-AlarmCreateInfo-delayInMinutes">delayInMinutes</a></code> or <code><a href="alarms.html#property-AlarmCreateInfo-periodInMinutes">periodInMinutes</a></code> to less than <code>1</code> will not be honored and will cause a warning.  <code><a href="alarms.html#property-AlarmCreateInfo-when">when</a></code> can be set to less than 1 minute after "now" without warning but won't actually cause the alarm to fire for at least 1 minute.--> 为了降低用户计算机的资源占用，Chrome 浏览器将定时器限制为最多每 1 分钟一次，而且可能会推迟任意长度的时间。也就是说，将 <code><a href="alarms.html#property-AlarmCreateInfo-delayInMinutes">delayInMinutes</a></code> 或 <code><a href="alarms.html#property-AlarmCreateInfo-periodInMinutes">periodInMinutes</a></code> 设置为小于 1 的值会导致错误，<code><a href="alarms.html#property-AlarmCreateInfo-when">when</a></code> 可以设置为当前时间后小于1分钟的值，但是定时器至少在1分钟内不会运行。<br/><br/> <!--@To help you debug your app or extension, when you've loaded it unpacked, there's no limit to how often the alarm can fire.--> 为了帮助您调试您的应用或扩展程序，当您以未打包的形式载入时，不会限制定时器产生的频率。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>

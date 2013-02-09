@@ -148,7 +148,7 @@
                             <a href="content_scripts.html" class="level4 ">内容脚本</a>
                       </li>
                       <li class="level4">
-                            <a href="xhr.html" class="level4 ">跨站XHR</a>
+                            <a href="xhr.html" class="level4 ">跨站 XHR</a>
                       </li>
                       <li class="level4">
                             <a href="i18n.html" class="level4 ">国际化支持</a>
@@ -237,7 +237,7 @@
                       <a href="https://code.google.com/chrome/webstore/docs/index.html" class="level3 ">Chrome 网上应用店</a>
                 </li>
                 <li class="level3">
-                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用程序</a>
+                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用</a>
                 </li>
                 <li class="level3">
                       <a href="themes.html" class="level3 ">主题背景</a>
@@ -462,7 +462,7 @@ containing the port is unloaded (for example if the tab is navigated).
 onDisconnect is guaranteed to be fired only once for any given port.-->
 您可能想知道连接何时关闭，例如您需要为每一个打开的端口单独保留状态。这种情况下您可以监听
 <a href="runtime.html#property-Port-onDisconnect">runtime.Port.onDisconnect</a> 事件，当连接的另一端调用
-<a href="#type-disconnect">Port.disconnect</a> 或包含该端口的页面已结束（例如标签页转到了另一个页面）时，对于每一个端口确保都会发生一次该事件。
+<a href="runtime.html#property-Port-disconnect">runtime.Port.disconnect</a> 或包含该端口的页面已结束（例如标签页转到了另一个页面）时，对于每一个端口确保都会发生一次该事件。
 
 
 <h2 id="external"><!--@Cross-extension messaging-->跨扩展程序消息传递</h2>

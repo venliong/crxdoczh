@@ -148,7 +148,7 @@
                             <a href="content_scripts.html" class="level4 ">内容脚本</a>
                       </li>
                       <li class="level4">
-                            <a href="xhr.html" class="level4 ">跨站XHR</a>
+                            <a href="xhr.html" class="level4 ">跨站 XHR</a>
                       </li>
                       <li class="level4">
                             <a href="i18n.html" class="level4 ">国际化支持</a>
@@ -237,7 +237,7 @@
                       <a href="https://code.google.com/chrome/webstore/docs/index.html" class="level3 ">Chrome 网上应用店</a>
                 </li>
                 <li class="level3">
-                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用程序</a>
+                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用</a>
                 </li>
                 <li class="level3">
                       <a href="themes.html" class="level3 ">主题背景</a>
@@ -257,7 +257,7 @@
             <li>
               <a href=#field_details>字段详情</a>
               <ol>
-                <li><a href=#default_locale>default_locale</a></li><li><a href=#description>description</a></li><li><a href=#homepage_url>homepage_url</a></li><li><a href=#icons>icons</a></li><li><a href=#incognito>incognito</a></li><li><a href=#intents>intents</a></li><li><a href=#key>key</a></li><li><a href=#minimum_chrome_version>minimum_chrome_version</a></li><li><a href=#name>name</a></li><li><a href=#nacl_modules>nacl_modules</a></li><li><a href=#offline_enabled>offline_enabled</a></li><li><a href=#requirements>requirements</a></li><li><a href=#version>version</a></li><li><a href=#manifest_version>manifest_version</a></li><li><a href=#web_accessible_resources>web_accessible_resources</a></li><li><a href=#sandbox>sandbox</a></li>
+                <li><a href=#default_locale>default_locale</a></li><li><a href=#description>description</a></li><li><a href=#homepage_url>homepage_url</a></li><li><a href=#icons>icons</a></li><li><a href=#incognito>incognito</a></li><li><a href=#key>key</a></li><li><a href=#minimum_chrome_version>minimum_chrome_version</a></li><li><a href=#name>name</a></li><li><a href=#nacl_modules>nacl_modules</a></li><li><a href=#offline_enabled>offline_enabled</a></li><li><a href=#requirements>requirements</a></li><li><a href=#version>version</a></li><li><a href=#manifest_version>manifest_version</a></li><li><a href=#web_accessible_resources>web_accessible_resources</a></li><li><a href=#sandbox>sandbox</a></li>
               </ol>
             </li>
           </ol>
@@ -271,7 +271,7 @@
 <a href="http://www.json.org">JSON</a>-formatted manifest file,
 named <code>manifest.json</code>,
 that provides important information.-->
-每一个扩展程序、可安装的网络应用程序以及主题背景都有一个
+每一个扩展程序、可安装的网络应用以及主题背景都有一个
 <a href="http://www.json.org">JSON</a> 格式的清单文件，名为
 <code>manifest.json</code>，提供重要信息。
 </p>
@@ -313,7 +313,6 @@ are <b>name</b> and <b>version</b>.-->
   "<a href="fileBrowserHandler.html">file_browser_handlers</a>": [...],
   "<a href="#homepage_url">homepage_url</a>": "http://<em>path/to/homepage</em>",
   "<a href="#incognito">incognito</a>": "spanning" <em>或</em> "split",
-  "<a href="#intents">intents</a>": {...}
   "<a href="#key">key</a>": "<em>公钥</em>",
   "<a href="#minimum_chrome_version">minimum_chrome_version</a>": "<em>版本字符串</em>",
 
@@ -408,7 +407,7 @@ for an extension's pages.
 The 16x16 icon is also displayed in the experimental extension
 <a href="experimental.infobars.html">infobar</a>
 feature.-->
-一个或多个代表扩展程序、应用程序或主题背景的图标。您一定要提供一个 128×128
+一个或多个代表扩展程序、应用或主题背景的图标。您一定要提供一个 128×128
 大小的图标，用与安装过程中以及 Chrome 网上应用店。扩展程序同时应该提供一个
 48×48 大小的图标，用于扩展程序管理页面（chrome://extensions）。您也可以再指定一个
 16×16 大小的图标，用于扩展程序页面的收藏夹图标，16×16
@@ -462,7 +461,7 @@ see the
 developer documentation</a>.-->
 如果您使用 <a
 href="https://chrome.google.com/webstore/developer/dashboard">Chrome
-开发者信息中心</a>上传您的扩展程序、应用程序或主题背景，您还需要上传额外的图像，包括至少一张您的扩展程序的屏幕截图。有关更多信息，请参见
+开发者信息中心</a>上传您的扩展程序、应用或主题背景，您还需要上传额外的图像，包括至少一张您的扩展程序的屏幕截图。有关更多信息，请参见
 <a href="https://code.google.com/chrome/webstore/">Chrome
 网上应用店开发者文档</a>（英文）。
 </p>
@@ -493,7 +492,7 @@ This incognito process runs along side the regular process, but has a separate
 memory-only cookie store. Each process sees events and messages only from its
 own context (for example, the incognito process will see only incognito tab updates).
 The processes are unable to communicate with each other.-->
-对于可安装的网络应用程序来说默认值为 "split"，意味着隐身窗口中的所有应用程序页面将会在它们自己的隐身进程中运行。如果应用程序或扩展程序包含后台网页，它们也会在隐身进程中运行。隐身进程与普通进程同时运行，但是使用单独的仅保留在内存中的 Cookie 存储区。每一个进程只能接收到来自它自己上下文的事件与消息（例如，隐身进程只会看到隐身标签页的更新）。两个进程之间无法互相通信。
+对于可安装的网络应用来说默认值为 "split"，意味着隐身窗口中的所有应用页面将会在它们自己的隐身进程中运行。如果应用或扩展程序包含后台网页，它们也会在隐身进程中运行。隐身进程与普通进程同时运行，但是使用单独的仅保留在内存中的 Cookie 存储区。每一个进程只能接收到来自它自己上下文的事件与消息（例如，隐身进程只会看到隐身标签页的更新）。两个进程之间无法互相通信。
 </p>
 
 <p>
@@ -501,86 +500,10 @@ The processes are unable to communicate with each other.-->
 <em>split</em> incognito behavior. If your extension or app needs to be logged
 into a remote server or persist settings locally, use <em>spanning</em>
 incognito behavior.-->
-选择的准则是，如果您的扩展程序或者应用程序需要在隐身模式下载入标签页，请使用
+选择的准则是，如果您的扩展程序或者应用需要在隐身模式下载入标签页，请使用
 <em>"split"</em>
-隐身行为。如果您的扩展程序或应用程序需要登录远程服务器或者在本地保留设置，请使用 <em>"spanning"</em> 隐身模式。
+隐身行为。如果您的扩展程序或应用需要登录远程服务器或者在本地保留设置，请使用 <em>"spanning"</em> 隐身模式。
 </p>
-
-<h3 id="intents">intents</h3>
-
-<p>
-<!--@A dictionary that specifies all intent handlers provided by this extension or app. Each key in the dictionary specifies an action verb that is handled by this extension. The following example specifies two handlers for the action verb "-->
-指定这一扩展程序或应用程序提供的所有 Intent 处理程序的词典，词典中的每一个键指定这一扩展程序处理的动作谓语。以下例子为动作谓语
-"<a href="http://webintents.org/share">http://webintents.org/share</a>"<!--@.-->
-指定两个处理程序。
-</p>
-
-<pre>
-{
-  "name": "test",
-  "version": "1",
-  "intents": {
-    "http://webintents.org/share": [
-      {
-        "type": ["text/uri-list"],
-        "href": "/services/sharelink.html",
-        "title" : "Sample Link Sharing Intent",
-        "disposition" : "inline"
-      },
-      {
-        "type": ["image/*"],
-        "href": "/services/shareimage.html",
-        "title" : "Sample Image Sharing Intent",
-        "disposition" : "window"
-      }
-    ]
-  }
-}
-</pre>
-
-<p>
-<!--@The value of "type" is an array of mime types that is supported by this handler. The "href" indicates the URL of the page that handles the intent. For hosted apps, these URLs must be within the allowed set of URLs. For extensions, all URLs are inside the extension and considered relative to the extension root URL.-->
-"type" 的值为这一处理程序支持的 MIME 类型数组，"href" 指示处理该 Intent
-的页面 URL。对于托管应用程序，这些 URL 必须包含在允许的 URL
-中。对于扩展程序，所有 URL 必须在扩展程序中，并且认为相对于扩展程序的根
-URL。
-</p>
-
-<p>
-<!--@The "title" is displayed in the intent picker UI when the user initiates the action specific to the handler.-->
-当用户执行这一处理程序的操作时 "title" 将在 Intent 选择器用户界面中显示。
-</p>
-
-<p>
-<!--@The "disposition" is either "inline" or "window". Intents with "window" disposition will open a new tab when invoked. Intents with "inline" disposition will be displayed inside the intent picker when invoked.-->
-"disposition" 可以为 "inline" 或 "window"。使用 "window" 方式的 Intent
-调用时将打开新标签页，而使用 "inline" 方式调用时会显示在 Intent 选择器中。
-</p>
-
-<p>
-<!--@For more information on intents, refer to the <a href="http://dvcs.w3.org/hg/web-intents/raw-file/tip/spec/Overview.html">Web Intents specification</a> and <a href="http://www.webintents.org">webintents.org</a>.-->
-有关 Intent 的更多信息，请参考 <a
-href="http://dvcs.w3.org/hg/web-intents/raw-file/tip/spec/Overview.html">
-Web Intents 规范</a>与 <a
-href="http://www.webintents.org">webintents.org</a>。
-</p>
-
-<h4 id="content_types"><!--@Handling content types via intents-->通过
-Intent 处理内容类型</h4>
-
-<p>
-<!--@Web Intents can be registered as content type viewers. To do that, the action verb must be <a href="http://webintents.org/view">"http://webintents.org/view"</a>, and the content type must be a white-listed MIME type.-->
-Web Intents 可以注册为内容类型的查看器，如果要这么做，动作谓语必须为
-<a href="http://webintents.org/view">"http://webintents.org/view"</a>，内容类型必须为白名单中的 MIME 类型。
-</p>
-
-<table>
-  <tr>
-    <th><!--@Whitelisted MIME types-->白名单中的 MIME 类型</th>
-  </tr>
-  <tr><td>application/rss+xml</td></tr>
-  <tr><td>application/atom+xml</td></tr>
-</table>
 
 <h3 id="key">key</h3>
 
@@ -588,7 +511,7 @@ Web Intents 可以注册为内容类型的查看器，如果要这么做，动�
 <!--@This value can be used to control
 the unique ID of an extension, app, or theme when
 it is loaded during development.-->
-这一值用来控制在开发过程中载入的扩展程序、应用程序或主题背景的唯一标识符。
+这一值用来控制在开发过程中载入的扩展程序、应用或主题背景的唯一标识符。
 </p>
 
 <p class="note">
@@ -628,7 +551,7 @@ href="http://www.chromium.org/user-experience/user-data-directory"
 <!--@The version of Chrome that your extension, app, or theme requires, if any.
 The format for this string is the same as for the
 <a href="#version">version</a> field.-->
-您的扩展程序、应用程序或主题背景需要的 Chrome
+您的扩展程序、应用或主题背景需要的 Chrome
 浏览器版本，如果有任何要求的话。该字符串的格式与
 <a href="#version">version</a> 字段相同。
 
@@ -735,9 +658,9 @@ to display a particular type of content.-->
 <!--@Whether the app or extension is expected to work offline. When Chrome detects
 that it is offline, apps with this field set to true will be highlighted
 on the New Tab page.-->
-应用程序或者扩展程序能否在离线状态下工作。当 Chrome
+应用或者扩展程序能否在离线状态下工作。当 Chrome
 浏览器检测到处于离线状态时，这一属性设为 true
-的应用程序会在“打开新的标签页”页面中高亮显示。
+的应用会在“打开新的标签页”页面中高亮显示。
 </p>
 
 <h3 id="requirements">requirements</h3>
@@ -749,7 +672,7 @@ to dissuade users from installing apps or extensions
 that will not work on their computer.
 Supported requirements currently include "3D" and "plugins";
 additional requirements checks may be added in the future.-->
-应用程序或扩展程序要求的技术。托管站点（例如 Chrome 网上应用店）可能会使用这一列表建议用户不要安装不能在他们的计算机上工作的应用程序或者扩展程序。目前支持的要求包括 "3D" 与 "plugins"（插件），将来还可能增加其它要求检查。
+应用或扩展程序要求的技术。托管站点（例如 Chrome 网上应用店）可能会使用这一列表建议用户不要安装不能在他们的计算机上工作的应用或者扩展程序。目前支持的要求包括 "3D" 与 "plugins"（插件），将来还可能增加其它要求检查。
 </p>
 
 <p>
@@ -765,7 +688,7 @@ as demonstrated in the following example:-->
 href="http://www.khronos.org/webgl/">WebGL API</a>（英文）。有关 Chrome
 浏览器对 3D 图形支持的更多信息，请参见有关 <a
 href="http://www.google.com/support/chrome/bin/answer.py?answer=1220892"
->WebGL 和 3D 图形</a>的帮助文章。您可以列出您的应用程序要求的 3D
+>WebGL 和 3D 图形</a>的帮助文章。您可以列出您的应用要求的 3D
 相关功能，如以下例子所示：
 </p>
 
@@ -789,10 +712,10 @@ by setting NPAPI to false.
 You can also enable this requirement manually,
 by setting NPAPI to true,
 as shown in this example:-->
-"plugins"（插件）要求表示应用程序或扩展程序是否需要 NPAPI
+"plugins"（插件）要求表示应用或扩展程序是否需要 NPAPI
 才能运行。默认情况下，当清单文件包含 <a
 href="http://developer.chrome.com/extensions/npapi.html">"plugins"</a>
-字段时将启用该要求。对于插件不可用时仍能正常工作的应用程序与扩展程序，您可以将
+字段时将启用该要求。对于插件不可用时仍能正常工作的应用与扩展程序，您可以将
 NPAPI 设置为 false，禁用这一要求。您也可以手工启用该要求，将 NPAPI 设置为
 true，如以下例子所示：
 </p>
@@ -885,7 +808,7 @@ applications, and themes that aren't ready to make the jump to the new manifest
 version in Chrome 18 can either explicitly specify version <code>1</code>, or
 leave the key off entirely.-->
 从 Chrome 18 开始，认为清单文件版本 1 <em>已弃用</em>，版本 2
-目前还不是<em>必需的</em>，但是我们在不远的将来某一时刻，将不再支持使用已弃用清单文件版本的扩展程序包。还没有准备转换至 Chrome 18 中新的清单文件版本的扩展程序、应用程序以及主题背景既可以明确地指定版本 <code>1</code>，也可以完全省略该属性。
+目前还不是<em>必需的</em>，但是我们在不远的将来某一时刻，将不再支持使用已弃用清单文件版本的扩展程序包。还没有准备转换至 Chrome 18 中新的清单文件版本的扩展程序、应用以及主题背景既可以明确地指定版本 <code>1</code>，也可以完全省略该属性。
 </p>
 
 <p>
@@ -995,7 +918,7 @@ with them. Being in a sandbox has two implications:-->
 <li><!--@A sandboxed page will not have access to extension or app APIs, or
 direct access to non-sandboxed pages (it may communicate with them via
 <code>postMessage()</code>).-->
-受沙箱保护的页面不能访问扩展程序或应用程序
+受沙箱保护的页面不能访问扩展程序或应用
 API，也不能直接访问沙箱外的页面（但是可以通过
 <code>postMessage()</code> 进行通信）。
 </li>
@@ -1008,7 +931,7 @@ API，也不能直接访问沙箱外的页面（但是可以通过
 
   <p>For example, here's how to specify that two extension pages are to be
   served in a sandbox with a custom CSP:-->
-  受沙箱保护的页面不受应用程序或扩展程序其余部分使用的<a
+  受沙箱保护的页面不受应用或扩展程序其余部分使用的<a
   href="../extensions/contentSecurityPolicy.html">内容安全策略（CSP）</a>所限制。这就意味着，它可以使用内嵌脚本与 <code>eval</code>。
   </p>
 

@@ -149,7 +149,7 @@
                             <a href="content_scripts.html" class="level4 ">内容脚本</a>
                       </li>
                       <li class="level4">
-                            <a href="xhr.html" class="level4 ">跨站XHR</a>
+                            <a href="xhr.html" class="level4 ">跨站 XHR</a>
                       </li>
                       <li class="level4">
                             <a href="i18n.html" class="level4 ">国际化支持</a>
@@ -238,7 +238,7 @@
                       <a href="https://code.google.com/chrome/webstore/docs/index.html" class="level3 ">Chrome 网上应用店</a>
                 </li>
                 <li class="level3">
-                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用程序</a>
+                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用</a>
                 </li>
                 <li class="level3">
                       <a href="themes.html" class="level3 ">主题背景</a>
@@ -256,22 +256,22 @@
           <h2><!--@Contents-->目录</h2>
           <ol>
             <li>
-              <a href=#manifest>Manifest</a>
+              <a href=#manifest>清单文件</a>
             </li>
             <li>
-              <a href=#howToStart>How to start speech recognition</a>
+              <a href=#howToStart>怎样开始语音识别</a>
             </li>
             <li>
-              <a href=#howToGetResults>How to get speech recognition results</a>
+              <a href=#howToGetResults>怎样获取语音识别结果</a>
             </li>
             <li>
-              <a href=#howToStop>How to stop recording</a>
+              <a href=#howToStop>怎样停止录音</a>
             </li>
             <li>
-              <a href=#otherFeatures>Other features</a>
+              <a href=#otherFeatures>其他功能</a>
             </li>
             <li>
-              <a href=#examples>Examples</a>
+              <a href=#examples>例子</a>
             </li>
             <li>
               <a href="#apiReference"><!--@API reference: -->API 参考：chrome.experimental.speechInput</a>
@@ -287,19 +287,26 @@
         </div>
 
 <p id="classSummary">
-The <code>chrome.experimental.speechInput</code> module provides
+<!--@The--> <code>chrome.experimental.speechInput</code> <!--@module provides
 one-shot speech recognition to Chrome extensions.
 This module is still experimental. For information on how to use experimental
-APIs, see the <a href="experimental.html">chrome.experimental.* APIs</a> page.
+APIs, see the <a href="experimental.html">chrome.experimental.* APIs</a> page.-->
+模块向 Chrome 扩展程序提供语音识别。这一模块仍然是实验性的。有关使用实验性
+API 的信息，请参见
+<a href="experimental.html">chrome.experimental.* API</a>
+页面。
 </p>
 
-<h2 id="manifest">Manifest</h2>
-<p>You must declare the "experimental" permission in the <a
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
+<p><!--@You must declare the "experimental" permission in the <a
   href="manifest.html">extension manifest</a> to use the speech input
 API.
-For example:</p>
+For example:-->
+您必须在<a href="manifest.html">扩展程序的清单文件</a>中声明
+"experimental" 权限才能使用语音输入 API。例如：
+</p>
 <pre>{
-  "name": "My extension",
+  "name": "我的扩展程序",
   ...
   <b>"permissions": [
     "experimental"
@@ -307,28 +314,47 @@ For example:</p>
   ...
 }</pre>
 
-<h2 id="howToStart">How to start speech recognition</h2>
-<p>To start recognizing speech an extension must call the <code>start()</code>
+<h2 id="howToStart"><!--@How to start speech recognition-->怎样开始语音识别</h2>
+<p><!--@To start recognizing speech an extension must call the <code>start()</code>
 method. If provided, your callback will be called once recording has
 successfully started. In case of error <code>chrome.runtime.lastError</code>
-will be set.</p>
+will be set.-->
+扩展程序必须调用 <code>start()</code>
+方法开始语音识别。如果提供了回调函数，一旦录音成功开始就会调用。如果发生错误，则会设置 <a href="runtime.html#property-lastError">runtime.lastError</a>。
+</p>
 
-<p>This API provides exclusive access to the default recording device to the
+<p><!--@This API provides exclusive access to the default recording device to the
 first extension requesting it. Consequently, any calls to <code>start()</code>
 when the device is being used by another extension or web page will fail and set
 <code>chrome.runtime.lastError</code>. The message <code>requestDenied</code>
 will be set if another extension in the same profile is making use of the API.
 Otherwise <code>noRecordingDeviceFound</code>, <code>recordingDeviceInUse</code>
-or <code>unableToStart</code> will be set depending on the situation.</p>
+or <code>unableToStart</code> will be set depending on the situation.-->
+这一 API
+对请求它的第一个扩展程序提供对默认录音设备的独占访问，所以当设备正在由其它扩展程序或网页使用时
+<code>start()</code>
+的任何调用都会失败，并且会设置
+<a href="runtime.html#property-lastError">runtime.lastError</a>。如果同一个用户配置文件中的另一个扩展程序正在使用这一
+API，则会将消息设置为
+<code>requestDenied</code>（请求拒绝），否则取决于具体情况将设置为
+<code>recordingDeviceInUse</code>（录音设备正在使用中）或者
+<code>unableToStart</code>（无法开始）。
+</p>
 
-<p>To check whether recording is currently active, call the
+<p><!--@To check whether recording is currently active, call the
 <code>isRecording()</code> method. Please note that it only checks for audio
-recording within Chrome.</p>
+recording within Chrome.-->
+要检查当前录音是否处于活动状态，请调用
+<code>isRecording()</code>
+方法。请注意它仅仅检查 Chrome 浏览器内的音频录音。
+</p>
 
 
-<h2 id="howToGetResults">How to get speech recognition results</h2>
-<p>Listen to the <code>onResult</code> event to receive speech recognition
-results.</p>
+<h2 id="howToGetResults"><!--@How to get speech recognition results-->怎样获取语音识别结果</h2>
+<p><!--@Listen to the <code>onResult</code> event to receive speech recognition
+results.-->
+监听 onResult 事件接受语音识别结果。
+</p>
 
 <pre>
 var callback = function(result) { ... };
@@ -336,15 +362,24 @@ var callback = function(result) { ... };
 chrome.experimental.speechInput.onResult.addListener(callback);
 </pre>
 
-<p>The <code>result</code> object contains an array of
+<p><!--@The <code>result</code> object contains an array of-->
+<code>result</code> 对象包含
 <a href="experimental.speechInput.html#type-SpeechInputResultHypothesis">experimental.speechInput.SpeechInputResultHypothesis</a>
-sorted by decreasing likelihood.</p>
+<!--@sorted by decreasing likelihood.-->
+数组，按照可能性递减的顺序排列。
+</p>
 
-<p>Recording automatically stops when results are received. It is safe to call
-<code>start()</code> again from the results callback.</p>
+<p><!--@Recording automatically stops when results are received. It is safe to call
+<code>start()</code> again from the results callback.-->
+当结果接收到时录音自动停止，这时可以从结果回调函数中再次调用
+<code>start()</code>。
+</p>
 
-<p>To handle errors during speech recognition listen for the
-<code>onError</code> event.</p>
+<p><!--@To handle errors during speech recognition listen for the
+<code>onError</code> event.-->
+要在语音识别过程中处理错误，请监听
+<code>onError</code> 事件。
+</p>
 
 <pre>
 var callback = function(error) { ... };
@@ -352,43 +387,51 @@ var callback = function(error) { ... };
 chrome.experimental.speechInput.onError.addListener(callback);
 </pre>
 
-</p>Recording will automatically stop in case of error.
-It is safe to call <code>start()</code> again from the error callback.</p>
-
-
-<h2 id="howToStop">How to stop recording</h2>
-<p>To stop speech recognition call the <code>stop()</code> method. If provided,
-the callback function will be called once recording has successfully stopped.
-In case of error <code>chrome.runtime.lastError</code> will be set.
+</p><!--@Recording will automatically stop in case of error.
+It is safe to call <code>start()</code> again from the error callback.-->
+如果发生了错误录音会自动停止，这时也可以从错误回调函数中再次调用
+<code>start()</code>。
 </p>
 
 
-<h2 id="otherFeatures">Other features</h2>
+<h2 id="howToStop"><!--@How to stop recording-->怎样停止录音</h2>
+<p><!--@To stop speech recognition call the <code>stop()</code> method. If provided,
+the callback function will be called once recording has successfully stopped.
+In case of error <code>chrome.runtime.lastError</code> will be set.-->
+要停止语音识别，请调用
+<code>stop()</code>
+方法。如果提供了回调函数，一旦录音成功停止就会调用。如果发生错误则会设置
+<a href="runtime.html#property-lastError">runtime.lastError</a>。
+</p>
+
+
+<h2 id="otherFeatures"><!--@Other features-->其他功能</h2>
 <ul><li>
-<code>onSoundStart</code> - Event generated when start of sound is detected
-(from previously being silent).
+<code>onSoundStart</code> - <!--@Event generated when start of sound is detected
+(from previously being silent).-->开始检测到声音（之前安静）时产生这一事件。
 </li><li>
-<code>onSoundEnd</code> - Event generated when end of sound is detected (a
-continued period of silence).
+<code>onSoundEnd</code> - <!--@Event generated when end of sound is detected (a
+continued period of silence).-->检测到声音停止（持续一段时间的安静）时产生这一事件。
 </li></ul>
 
 
-<h2 id="examples">Examples</h2>
-<p>The following example illustrates how to show a JavaScript alert with the
-most likely recognition result.</p>
+<h2 id="examples"><!--@Examples-->例子</h2>
+<p><!--@The following example illustrates how to show a JavaScript alert with the
+most likely recognition result.-->如下例子演示如何通过 JavaScript
+消息框显示最有可能的识别结果。</p>
 <pre>
 function checkStart() {
   if (chrome.runtime.lastError) {
-    alert("Couldn't start speech input: " + chrome.runtime.lastError.message);
+    alert("无法开始语音输入：" + chrome.runtime.lastError.message);
   }
 }
 
 function recognitionFailed(error) {
-  alert("Speech input failed: " + error.code);
+  alert("语音输入失败：" + error.code);
 }
 
 function recognitionSucceeded(result) {
-  alert("Recognized '" + result.hypotheses[0].utterance + "' with confidence " + result.hypotheses[0].confidence);
+  alert("识别到“" + result.hypotheses[0].utterance + "”，可信度为 " + result.hypotheses[0].confidence);
 }
 
 chrome.experimental.speechInput.onError.addListener(recognitionFailed);
@@ -403,7 +446,7 @@ chrome.experimental.speechInput.start({ "language": "en" }, checkStart);
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Object describing the options used for speech recognition.
+                    描述用于语音识别的选项。
                   </dd>    <h4 id="SpeechInputStartOptions-properties">
                     <!--@Properties of --><a href="#type-SpeechInputStartOptions">SpeechInputStartOptions</a>
                     的属性
@@ -420,7 +463,7 @@ chrome.experimental.speechInput.start({ "language": "en" }, checkStart);
                         </span>
                       </dt>
                       <dd>
-                        BCP-47 language code of the language to recognize. When set to 'auto' or not defined defaults to user's most preferred content language. Will use 'en-US' if not supported or invalid.
+                        要识别的语言的 BCP-47 语言代码。当设置为 'auto' 或者未定义时，默认为用户首选的内容语言。如果不支持或无效的话则使用 'en-US'。
                       </dd>
                     </div>
                     <div>
@@ -435,7 +478,7 @@ chrome.experimental.speechInput.start({ "language": "en" }, checkStart);
                         </span>
                       </dt>
                       <dd>
-                        Name of the grammar to use. Defaults to 'builtin:dictation'.
+                        要使用的语法名称，默认为 'builtin:dictation'。
                       </dd>
                     </div>
                     <div>
@@ -450,7 +493,7 @@ chrome.experimental.speechInput.start({ "language": "en" }, checkStart);
                         </span>
                       </dt>
                       <dd>
-                        Enable or disable profanity filtering. Will use the default Chrome filtering settings if not set.
+                        启用或禁用脏话过滤功能，如果未设置的话会使用 Chrome 浏览器的默认过滤设置。
                       </dd>
                     </div>
               </dl></dd>
@@ -461,7 +504,7 @@ chrome.experimental.speechInput.start({ "language": "en" }, checkStart);
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Object describing a speech input error.
+                    描述语音输入错误的对象。
                   </dd>    <h4 id="SpeechInputError-properties">
                     <!--@Properties of --><a href="#type-SpeechInputError">SpeechInputError</a>
                     的属性
@@ -478,7 +521,7 @@ chrome.experimental.speechInput.start({ "language": "en" }, checkStart);
                         </span>
                       </dt>
                       <dd>
-                        Code identifying the error case.
+                        表示错误情况的代码。
                       </dd>
                     </div>
               </dl></dd>
@@ -489,7 +532,7 @@ chrome.experimental.speechInput.start({ "language": "en" }, checkStart);
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Object describing a speech recognition hypothesis.
+                    描述语音识别猜测的对象。
                   </dd>    <h4 id="SpeechInputResultHypothesis-properties">
                     <!--@Properties of --><a href="#type-SpeechInputResultHypothesis">SpeechInputResultHypothesis</a>
                     的属性
@@ -506,7 +549,7 @@ chrome.experimental.speechInput.start({ "language": "en" }, checkStart);
                         </span>
                       </dt>
                       <dd>
-                        Text of this hypothesis.
+                        这一猜测的文本。
                       </dd>
                     </div>
                     <div>
@@ -521,7 +564,7 @@ chrome.experimental.speechInput.start({ "language": "en" }, checkStart);
                         </span>
                       </dt>
                       <dd>
-                        Confidence of the hypothesis. Rated from 0 (lowest) to 1 (highest).
+                        这一猜测的可信度，从 0（最低）到 1（最高）。
                       </dd>
                     </div>
               </dl></dd>
@@ -532,7 +575,7 @@ chrome.experimental.speechInput.start({ "language": "en" }, checkStart);
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Object containing the recognition results.
+                    包含识别结果的对象。
                   </dd>    <h4 id="SpeechInputResultEvent-properties">
                     <!--@Properties of --><a href="#type-SpeechInputResultEvent">SpeechInputResultEvent</a>
                     的属性
@@ -549,7 +592,7 @@ chrome.experimental.speechInput.start({ "language": "en" }, checkStart);
                         </span>
                       </dt>
                       <dd>
-                        Array of zero or more objects describing the stable candidate hypotheses sorted by decreasing likelihood.
+                        一个数组，含有零个或多个按照可能性递减排列的对象，描述稳定的候选猜测。
                       </dd>
                     </div>
               </dl></dd>
@@ -563,7 +606,7 @@ chrome.experimental.speechInput.start({ "language": "en" }, checkStart);
                 </div>
                 <div class="description">
                   <p>
-                    Request to start recording as a new speech recognition session.
+                    请求开始录音，作为新的语音识别会话。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -579,7 +622,7 @@ chrome.experimental.speechInput.start({ "language": "en" }, checkStart);
                           </span>
                         </dt>
                         <dd>
-                          Options used for this speech recognition session.
+                          用于这一次语音识别的选项。
                         </dd>
                       </div>
                       <div>
@@ -594,7 +637,7 @@ chrome.experimental.speechInput.start({ "language": "en" }, checkStart);
                           </span>
                         </dt>
                         <dd>
-                          Called when the speech recognition session has successfully started recording.
+                          语音识别会话成功开始录音时调用。
                         </dd>
                       </div>
                   </dl>
@@ -614,7 +657,7 @@ chrome.experimental.speechInput.start({ "language": "en" }, checkStart);
                 </div>
                 <div class="description">
                   <p>
-                    Request to stop an ongoing speech recognition session.
+                    请求停止正在进行的语音识别。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -630,7 +673,7 @@ chrome.experimental.speechInput.start({ "language": "en" }, checkStart);
                           </span>
                         </dt>
                         <dd>
-                          Called when the audio recording has stopped and any pending recognition results have been completed.
+                          当音频录音停止，并且所有未决的识别结果已完成时调用。
                         </dd>
                       </div>
                   </dl>
@@ -650,7 +693,7 @@ chrome.experimental.speechInput.start({ "language": "en" }, checkStart);
                 </div>
                 <div class="description">
                   <p>
-                    Determine if audio recording is currently in process in Chrome, not limited to this API.
+                    确定当前在 Chrome 浏览器中是否有正在进行的音频录音（不仅限于这一 API）。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -687,7 +730,7 @@ chrome.experimental.speechInput.start({ "language": "en" }, checkStart);
                             </span>
                           </dt>
                           <dd>
-                            Flag set to true if recording is in process in Chrome, false otherwise.
+                            如果在 Chrome 浏览器中有正在进行的音频录音则设为 true，否则为 false。
                           </dd>
                         </div>
                     </dl>
@@ -701,10 +744,10 @@ chrome.experimental.speechInput.start({ "language": "en" }, checkStart);
                 </div>
                 <div class="description">
               <p>
-                    Called in case of an error in speech recognition.
+                    在语音识别发生错误时调用。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
-                      <div>  <a name="property-onError-error"></a>  <dt>    <span class="variable">error</span>    <span class="property">      (                <a href="experimental.speechInput.html#type-SpeechInputError">SpeechInputError</a>      )    </span>  </dt>  <dd>    Error being reported.  </dd></div>
+                      <div>  <a name="property-onError-error"></a>  <dt>    <span class="variable">error</span>    <span class="property">      (                <a href="experimental.speechInput.html#type-SpeechInputError">SpeechInputError</a>      )    </span>  </dt>  <dd>    报告的错误。  </dd></div>
                     </dl>
                 </div>
               </div>
@@ -715,7 +758,7 @@ chrome.experimental.speechInput.start({ "language": "en" }, checkStart);
                 </div>
                 <div class="description">
               <p>
-                    Called when the system starts detecting sound in the input data.
+                    当系统开始检测到输入数据中的声音时调用。
                   </p>  </div>
               </div>
               <div>
@@ -725,7 +768,7 @@ chrome.experimental.speechInput.start({ "language": "en" }, checkStart);
                 </div>
                 <div class="description">
               <p>
-                    Called when the system detects enough silence to consider the ongoing speech has ended.
+                    当系统检测到足够时间的安静，认为正在进行的语音已经结束时调用。
                   </p>  </div>
               </div>
               <div>
@@ -735,10 +778,10 @@ chrome.experimental.speechInput.start({ "language": "en" }, checkStart);
                 </div>
                 <div class="description">
               <p>
-                    Called when speech recognition results are available.
+                    在语音识别结果可用时调用。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
-                      <div>  <a name="property-onResult-event"></a>  <dt>    <span class="variable">event</span>    <span class="property">      (                <a href="experimental.speechInput.html#type-SpeechInputResultEvent">SpeechInputResultEvent</a>      )    </span>  </dt>  <dd>    Object containing the speech recognition results.  </dd></div>
+                      <div>  <a name="property-onResult-event"></a>  <dt>    <span class="variable">event</span>    <span class="property">      (                <a href="experimental.speechInput.html#type-SpeechInputResultEvent">SpeechInputResultEvent</a>      )    </span>  </dt>  <dd>    包含语音识别结果的对象。  </dd></div>
                     </dl>
                 </div>
               </div>

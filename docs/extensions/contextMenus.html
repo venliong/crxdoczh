@@ -149,7 +149,7 @@
                             <a href="content_scripts.html" class="level4 ">内容脚本</a>
                       </li>
                       <li class="level4">
-                            <a href="xhr.html" class="level4 ">跨站XHR</a>
+                            <a href="xhr.html" class="level4 ">跨站 XHR</a>
                       </li>
                       <li class="level4">
                             <a href="i18n.html" class="level4 ">国际化支持</a>
@@ -238,7 +238,7 @@
                       <a href="https://code.google.com/chrome/webstore/docs/index.html" class="level3 ">Chrome 网上应用店</a>
                 </li>
                 <li class="level3">
-                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用程序</a>
+                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用</a>
                 </li>
                 <li class="level3">
                       <a href="themes.html" class="level3 ">主题背景</a>
@@ -331,7 +331,7 @@ in your extension's manifest to use the API.
 Also, you should specify a 16x16-pixel icon
 for display next to your menu item.
 For example:-->
-您必须在扩展程序的清单文件中声明 "contextMenus" 权限来使用有关
+您必须在扩展程序的清单文件中声明 "contextMenus" 权限才能使用有关
 API，您还应该指定一个 16×16 像素的图标，显示在您的菜单项旁边。例如：
 </p>
 
@@ -457,7 +457,7 @@ API，您还应该指定一个 16×16 像素的图标，显示在您的菜单项
                         </span>
                       </dt>
                       <dd>
-                        菜单项单击时所在页面的 URL。如果单击时所在上下文没有当前页面，例如在应用程序执行器的右键菜单中，则不会设置该属性。
+                        菜单项单击时所在页面的 URL。如果单击时所在上下文没有当前页面，例如在应用执行器的右键菜单中，则不会设置该属性。
                       </dd>
                     </div>
                     <div>
@@ -635,7 +635,7 @@ API，您还应该指定一个 16×16 像素的图标，显示在您的菜单项
                                 </span>
                               </dt>
                               <dd>
-                                列出该菜单项将会出现在哪些上下文中，包括 "all"（全部）、"page"（页面）、"frame"（框架）、"selection"（选定内容）、"link"（链接）、"editable"（可编辑内容）、"image"（图片）、"video"（视频）、"audio"（音频），如果没有指定则默认为 ['page']（页面），指定 ['all'] 相当于除 'launcher' 以外的所有其它上下文的组合。'launcher' 上下文仅在应用程序中支持，为右键菜单添加菜单项，在单击执行器/任务栏/窗格/等等中的应用程序图标时显示。不同的平台对于执行器中实际支持的特性可能会有一些限制。
+                                列出该菜单项将会出现在哪些上下文中，包括 "all"（全部）、"page"（页面）、"frame"（框架）、"selection"（选定内容）、"link"（链接）、"editable"（可编辑内容）、"image"（图片）、"video"（视频）、"audio"（音频），如果没有指定则默认为 ['page']（页面），指定 ['all'] 相当于除 'launcher' 以外的所有其它上下文的组合。'launcher' 上下文仅在应用中支持，为右键菜单添加菜单项，在单击执行器/任务栏/窗格/等等中的应用图标时显示。不同的平台对于执行器中实际支持的特性可能会有一些限制。
                               </dd>
                             </div>
                             <div>

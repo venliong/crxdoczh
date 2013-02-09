@@ -149,7 +149,7 @@
                             <a href="content_scripts.html" class="level4 ">内容脚本</a>
                       </li>
                       <li class="level4">
-                            <a href="xhr.html" class="level4 ">跨站XHR</a>
+                            <a href="xhr.html" class="level4 ">跨站 XHR</a>
                       </li>
                       <li class="level4">
                             <a href="i18n.html" class="level4 ">国际化支持</a>
@@ -238,7 +238,7 @@
                       <a href="https://code.google.com/chrome/webstore/docs/index.html" class="level3 ">Chrome 网上应用店</a>
                 </li>
                 <li class="level3">
-                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用程序</a>
+                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用</a>
                 </li>
                 <li class="level3">
                       <a href="themes.html" class="level3 ">主题背景</a>
@@ -256,7 +256,7 @@
           <h2><!--@Contents-->目录</h2>
           <ol>
             <li>
-              <a href=#manifest>Manifest</a>
+              <a href=#manifest>清单文件</a>
             </li>
             <li>
               <a href="#apiReference"><!--@API reference: -->API 参考：chrome.pageCapture</a>
@@ -272,29 +272,37 @@
         </div>
 
 <p>
-The pageCapture API allows you to save a tab as MHTML.
+<!--@The pageCapture API allows you to save a tab as MHTML.-->
+页面捕获 API 允许您将一个标签页保存为 MHTML。
 </p>
 
 <p>
-MHTML is a <a href="http://tools.ietf.org/html/rfc2557">standard format</a>
+<!--@MHTML is a <a href="http://tools.ietf.org/html/rfc2557">standard format</a>
 supported by most browsers. It encapsulates in a single file a page and all
-its resources (CSS files, images..).
+its resources (CSS files, images..).-->
+MHTML 是大部分浏览器支持的一种<a
+href="http://tools.ietf.org/html/rfc2557">标准格式</a>，它将页面以及所有资源（CSS
+文件，图片……）包装在单个文件中。
 </p>
 
 <p>
-Note that for security reasons a MHTML file can only be loaded from the file
-system and that it can only be loaded in the main frame.
+<!--@Note that for security reasons a MHTML file can only be loaded from the file
+system and that it can only be loaded in the main frame.-->
+注意，出于安全考虑，MHTML 文件只能从文件系统中载入，并且只能在主框架中载入。
 </p>
 
-<h2 id="manifest">Manifest</h2>
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
 
 
-<p>You must declare the "pageCapture" permission
+<p><!--@You must declare the "pageCapture" permission
 in the <a href="manifest.html">extension manifest</a>
 to use the history API.
-For example:</p>
+For example:-->
+您必须在扩展程序的清单文件中声明
+"pageCapture" 权限才能使用页面捕获 API。例如：
+</p>
 <pre>{
-  "name": "My extension",
+  "name": "我的扩展程序",
   ...
   <b>"permissions": [
     "pageCapture"
@@ -311,7 +319,7 @@ For example:</p>
                 </div>
                 <div class="description">
                   <p>
-                    Saves the content of the tab with given id as MHTML.
+                    将指定标识符对应标签页中的内容保存为 MHTML 格式。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -340,7 +348,7 @@ For example:</p>
                                 </span>
                               </dt>
                               <dd>
-                                The id of the tab to save as MHTML.
+                                要保存为 MHTML 的标签页标识符。
                               </dd>
                             </div>
                           </dl>
@@ -358,7 +366,7 @@ For example:</p>
                           </span>
                         </dt>
                         <dd>
-                          Called when the MHTML has been generated.
+                          MHTML 内容生成后调用。
                         </dd>
                       </div>
                   </dl>
@@ -382,7 +390,7 @@ For example:</p>
                             </span>
                           </dt>
                           <dd>
-                            The MHTML data as a Blob.
+                            以二进制大型物件（Blob）形式的 MHTML 数据。
                           </dd>
                         </div>
                     </dl>

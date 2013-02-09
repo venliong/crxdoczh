@@ -149,7 +149,7 @@
                             <a href="content_scripts.html" class="level4 ">内容脚本</a>
                       </li>
                       <li class="level4">
-                            <a href="xhr.html" class="level4 ">跨站XHR</a>
+                            <a href="xhr.html" class="level4 ">跨站 XHR</a>
                       </li>
                       <li class="level4">
                             <a  class="level4 selected">国际化支持</a>
@@ -238,7 +238,7 @@
                       <a href="https://code.google.com/chrome/webstore/docs/index.html" class="level3 ">Chrome 网上应用店</a>
                 </li>
                 <li class="level3">
-                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用程序</a>
+                      <a href="https://code.google.com/chrome/apps/docs/developers_guide.html" class="level3 ">托管应用</a>
                 </li>
                 <li class="level3">
                       <a href="themes.html" class="level3 ">主题背景</a>
@@ -298,7 +298,7 @@ can be easily
 <em>localized</em> &mdash;
 adapted to languages and regions
 that it didn't originally support.-->
-<em>具有国际化支持</em>的扩展程序或应用程序可以轻松地<em>本地化</em>，适应原来不支持的语言和区域。
+<em>具有国际化支持</em>的扩展程序或应用可以轻松地<em>本地化</em>，适应原来不支持的语言和区域。
 </p>
 
 <p>
@@ -404,7 +404,7 @@ the <a href="manifest.html">manifest</a>
     <!--@In your extension or app's JavaScript code,
     refer to a string named <em>messagename</em>
     like this:-->
-    在您的扩展程序或应用程序的
+    在您的扩展程序或应用的
     JavaScript 代码中，像这样引用名为
     <em>messagename</em> 的字符串：
     <pre>chrome.i18n.getMessage("<em>messagename</em>")</pre>
@@ -481,7 +481,7 @@ just put a translated copy of <code>messages.json</code>
 under <code>_locales/es</code>.
 The following figure shows the previous extension
 with a new Spanish translation.-->
-一旦为扩展程序或应用程序添加国际化支持后，将它翻译成另一种语言是非常简单的。您可以复制
+一旦为扩展程序或应用添加国际化支持后，将它翻译成另一种语言是非常简单的。您可以复制
 <code>messages.json</code>，翻译它，然后将所得文件放在
 <code>_locales</code>
 下的新目录中。例如，要支持西班牙语，只要将一份已翻译的
@@ -520,7 +520,7 @@ BIDI（双向）API</a> 中的常量。
 can be used in the CSS and JavaScript files,
 whether or not the extension or app is localized.
 This message doesn't work in manifest files.-->
-无论扩展程序或应用程序是否已经本地化，都可以在
+无论扩展程序或应用是否已经本地化，都可以在
 CSS 和 JavaScript 文件中使用特殊消息
 <code>@@extension_id</code>。 这一消息在清单文件中不起作用。
 </p>
@@ -540,7 +540,7 @@ CSS 和 JavaScript 文件中使用特殊消息
     you might use this string to construct URLs
     for resources inside the extension.
     Even unlocalized extensions can use this message.-->
-    扩展程序或应用程序标识符，您可能需要这一字符串来构造
+    扩展程序或应用标识符，您可能需要这一字符串来构造
     URL，用于扩展程序中的资源。即使没有本地化的扩展程序也能使用这一消息。
     <br>
     <b><!--@Note:-->注意：</b><!--@ You can't use this message in a manifest file.-->您不能在清单文件中使用这一消息。
@@ -669,7 +669,7 @@ your extension or app will run no matter how sparse a translation is.
 Here's how the extension system searches for a message:-->
 您不需要为支持的每一种语言定义每一个字符串。只要默认语言的
 <code>messages.json</code>
-文件包含每一个字符串的值，无论一种翻译多么稀少您的扩展程序或应用程序都能运行。如下是扩展程序系统搜索消息的步骤：
+文件包含每一个字符串的值，无论一种翻译多么稀少您的扩展程序或应用都能运行。如下是扩展程序系统搜索消息的步骤：
 </p>
 
 <ol>
