@@ -16,6 +16,8 @@ body {
   padding: 0;
 }
 
+/* Add td since sometimes <td> has inline text without <p> */
+td,
 p {
   margin: 1em 0 0 0;
   color: #767676;

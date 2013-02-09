@@ -9,7 +9,8 @@
       {
         "name": "saveAsMHTML",
         "type": "function",
-        "description": "Saves the content of the tab with given id as MHTML.",
+//@        "description": "Saves the content of the tab with given id as MHTML.",
+        "description": "将指定标识符对应标签页中的内容保存为 MHTML 格式。",
         "parameters": [
           {
             "name": "details",
@@ -18,20 +19,23 @@
               "tabId": {
                 "type": "integer",
                 "minimum": 0,
-                "description": "The id of the tab to save as MHTML."
+//@                "description": "The id of the tab to save as MHTML."
+                "description": "要保存为 MHTML 的标签页标识符。"
               }
             }
           },
           {
             "name": "callback",
             "type": "function",
-            "description": "Called when the MHTML has been generated.",
+//@            "description": "Called when the MHTML has been generated.",
+            "description": "MHTML 内容生成后调用。",
             "parameters": [
               {
                 "name": "mhtmlData",
                 "type": "binary",
                 "optional": "true",
-                "description": "The MHTML data as a Blob."
+//@                "description": "The MHTML data as a Blob."
+                "description": "以二进制大型物件（Blob）形式的 MHTML 数据。"
               }
             ]
           }

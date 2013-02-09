@@ -107,7 +107,7 @@
             "fileName": "content_scripts.html"
           },
           {
-            "title": "跨站XHR",
+            "title": "跨站 XHR",
             "fileName": "xhr.html"
           },
           {

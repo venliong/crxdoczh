@@ -1,13 +1,18 @@
-<h1 class="page_title">Themes</h1><p>
-A <em>theme</em> is a special kind of extension
+<h1 class="page_title"><!--@Themes-->主题背景</h1><p>
+<!--@A <em>theme</em> is a special kind of extension
 that changes the way the browser looks.
 Themes are <a href="packaging.html">packaged</a> like regular extensions,
-but they don't contain JavaScript or HTML code.
+but they don't contain JavaScript or HTML code.-->
+<em>主题背景</em>是一种特殊的扩展程序，可以改变浏览器的外观。主题背景的<a
+href="packaging.html">打包</a>与普通的扩展程序类似，但是它们不包含
+JavaScript 或 HTML 代码。
 </p>
 
 <p>
-You can find and try a bunch of themes at the
-<a href="https://chrome.google.com/webstore/category/themes">Chrome Web Store</a>.
+<!--@You can find and try a bunch of themes at the
+<a href="https://chrome.google.com/webstore/category/themes">Chrome Web Store</a>.-->
+您可以在 <a href="https://chrome.google.com/webstore/category/themes">Chrome
+网上应用店</a>中寻找与尝试各种主题背景。
 </p>
 
 <img src="{{static}}/images/themes-1.gif"
@@ -19,11 +24,13 @@ You can find and try a bunch of themes at the
 <img src="{{static}}/images/themes-3.gif"
      width="100" height="80" alt="foggy theme" />
 
-<h2 id="manifest"> Manifest </h2>
+<h2 id="manifest"> <!--@Manifest-->清单文件 </h2>
 <p>
-Here is an example
+<!--@Here is an example-->
+以下是用于主题背景的
 <a href="manifest.html"><code>manifest.json</code></a>
-file for a theme:
+<!--@file for a theme:-->
+例子：
 </p>
 
 
@@ -61,16 +68,18 @@ file for a theme:
 <h3 id="colors">colors</h3>
 
 <p>
-Colors are in RGB format.
+<!--@Colors are in RGB format.
 To find the strings you can use within the "colors" field,
-look for kColor* strings in
-<a href="http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/themes/theme_service.cc"><code>theme_service.cc</code></a>.
+look for kColor* strings in-->
+颜色以 RGB 形式表示。您可以在
+<a href="https://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/themes/theme_service.cc"><code>theme_service.cc</code></a><!--@.-->
+文件中 kColor* 字符串部分找到您可以在此使用的字符串。
 </p>
 
 <h3 id="images">images</h3>
 
 <p>
-Image resources use paths relative to the root of the extension.
+<!--@Image resources use paths relative to the root of the extension.
 You can override any of the images that are specified by
 <code>kThemeableImages</code> in
 <a href="http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/themes/theme_service.cc"><code>theme_service.cc</code></a>.
@@ -79,69 +88,87 @@ and convert the remaining characters to lowercase.
 For example, <code>IDR_THEME_NTP_BACKGROUND</code>
 (which <code>kThemeableImages</code> uses
 to specify the background of the new tab pane)
-corresponds to "theme_ntp_background".
+corresponds to "theme_ntp_background".-->
+图片资源使用相对于扩展程序根目录的路径。您可以替换
+<a href="https://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/themes/theme_service.cc"><code>theme_service.cc</code></a>
+文件中 <code>kThemeableImages</code>
+指定的任何图片，只要将“IDR_”删除并将剩余字符转换为小写。例如，<code>IDR_THEME_NTP_BACKGROUND</code>（<code>kThemeableImages</code>
+用来指定新标签窗格的背景）对应 "theme_ntp_background"。
 </p>
 
 <h3 id="properties">properties</h3>
 
 <p>
-This field lets you specify
+<!--@This field lets you specify
 properties such as background alignment,
 background repeat,
 and an alternate logo.
-To see the properties and the values they can have, see
-<a href="http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/themes/theme_service.cc"><code>theme_service.cc</code></a>.
+To see the properties and the values they can have, see-->
+这一字段让您指定诸如背景对齐、背景重复、替代标志等属性。有关属性的名称以及它们的值，请参见
+<a href="http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/themes/theme_service.cc"><code>theme_service.cc</code></a><!--@.-->。
 
 </p>
 
 <h3 id="tints">tints</h3>
 
 <p>
-You can specify tints to be applied to parts of the UI
+<!--@You can specify tints to be applied to parts of the UI
 such as buttons, the frame, and the background tab.
 Google Chrome supports tints, not images,
 because images don't work across platforms
 and are brittle in the case of adding new buttons.
 To find the strings you can use within the "tints" field,
-look for kTint* strings in
-<a href="http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/themes/theme_service.cc"><code>theme_service.cc</code></a>.
+look for kTint* strings in-->
+您可以指定应用于用户界面某些部分的色调，例如按钮、框架和后台标签页。Google Chrome
+浏览器支持色调而不是图片，因为图片不一定能跨平台使用，并且在增加新按钮时不适用。有关您可以在
+"tints" 中使用的字符串，请在
+<a href="http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/themes/theme_service.cc"><code>theme_service.cc</code></a><!--@.-->
+中寻找 kTint* 字符串。
 </p>
 
 <p>
-Tints are in Hue-Saturation-Lightness (HSL) format,
-using floating-point numbers in the range 0 - 1.0:
+<!--@Tints are in Hue-Saturation-Lightness (HSL) format,
+using floating-point numbers in the range 0 - 1.0:-->
+色调以色调-饱和度-亮度（HSL）的格式指定，使用 0～1.0 之间的浮点数：
 </p>
 
 <ul>
   <li>
-    <b>Hue</b> is an absolute value, with 0 and 1 being red.
+    <!--@<b>Hue</b> is an absolute value, with 0 and 1 being red.-->
+    <b>色调</b>为绝对值，0 和 1为红色。
   </li>
   <li>
-    <b>Saturation</b> is relative to the currently provided image.
+    <!--@<b>Saturation</b> is relative to the currently provided image.
     0.5 is <em>no change</em>,
     0 is <em>totally desaturated</em>,
-    and 1 is <em>full saturation</em>.
+    and 1 is <em>full saturation</em>.-->
+    <b>饱和度</b>相对于当前提供的图片。0.5
+    表示<em>没有变化</em>，0 表示<em>完全不饱和</em>，1 表示<em>完全饱和</em>。
   </li>
   <li>
-    <b>Lightness</b> is also relative,
+    <!--@<b>Lightness</b> is also relative,
     with 0.5 being <em>no change</em>,
     0 as <em>all pixels black</em>,
-    and 1 as <em>all pixels white</em>.
+    and 1 as <em>all pixels white</em>.-->
+    <b>亮度</b>也是相对的，0.5 表示<em>没有变化</em>，0
+    表示<em>所有像素均为黑色</em>，1 表示<em>所有像素均为白色</em>。
   </li>
 </ul>
 
 <p>
-You can alternatively use <code>-1.0</code> for any of the HSL values
-to specify <em>no change</em>.
+<!--@You can alternatively use <code>-1.0</code> for any of the HSL values
+to specify <em>no change</em>.-->
+您还可以对任意 HSL 值使用 <code>-1.0</code> 表示<em>没有变化</em>。
 </p>
 
 
-<h2 id="moredoc"> Additional documentation </h2>
+<h2 id="moredoc"> <!--@Additional documentation-->其他文档 </h2>
 
 <p>
-Community-written documentation to help you write themes is here:
+<!--@Community-written documentation to help you write themes is here:-->
+由社区编写的帮您编写主题背景的文档在这里（英文）：
 </p>
 
 <blockquote>
-<a href="http://code.google.com/p/chromium/wiki/ThemeCreationGuide">http://code.google.com/p/chromium/wiki/ThemeCreationGuide</a>
+<a href="https://code.google.com/p/chromium/wiki/ThemeCreationGuide">https://code.google.com/p/chromium/wiki/ThemeCreationGuide</a>
 </blockquote>
