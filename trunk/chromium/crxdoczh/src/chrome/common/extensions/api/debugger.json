@@ -9,9 +9,11 @@
       {
         "id": "Debuggee",
         "type": "object",
-        "description": "Debuggee identifier.",
+//@        "description": "Debuggee identifier.",
+        "description": "调试对象的标识符。",
         "properties": {
-          "tabId": { "type": "integer", "description": "The id of the tab which you intend to debug." }
+//@          "tabId": { "type": "integer", "description": "The id of the tab which you intend to debug." }
+          "tabId": { "type": "integer", "description": "您要调试的标签页的标识符。" }
         }
       }
     ],
@@ -19,67 +21,78 @@
       {
         "name": "attach",
         "type": "function",
-        "description": "Attaches debugger to the given target.",
+//@        "description": "Attaches debugger to the given target.",
+        "description": "将调试器附加到指定目标。",
         "parameters": [
           {
             "$ref": "Debuggee",
             "name": "target",
-            "description": "Debugging target to which you want to attach."
+//@            "description": "Debugging target to which you want to attach."
+            "description": "您希望附加的调试目标。"
           },
           {
             "type": "string",
             "name": "requiredVersion",
-            "description": "Required debugging protocol version (\"0.1\"). One can only attach to the debuggee with matching major version and greater or equal minor version. List of the protocol versions can be obtained <a href='http://code.google.com/chrome/devtools/docs/remote-debugging.html'>here</a>."
+//@            "description": "Required debugging protocol version (\"0.1\"). One can only attach to the debuggee with matching major version and greater or equal minor version. List of the protocol versions can be obtained <a href='http://code.google.com/chrome/devtools/docs/remote-debugging.html'>here</a>."
+            "description": "要求的调试协议版本（\"0.1\"），您只能附加到主版本号匹配且次要版本号大于或等于指定版本号的调试对象。协议版本可以从<a href=\"https://developers.google.com/chrome-developer-tools/docs/remote-debugging\">这里</a>获取。"
           },
           {
             "type": "function",
             "name": "callback",
             "optional": true,
             "parameters": [],
-            "description": "Called once the attach operation succeeds or fails. Callback receives no arguments. If the attach fails, $ref:runtime.lastError will be set to the error message."
+//@            "description": "Called once the attach operation succeeds or fails. Callback receives no arguments. If the attach fails, $ref:runtime.lastError will be set to the error message."
+            "description": "附加操作成功或失败后调用。回调函数不接受参数，如果附加失败，$ref:runtime.lastError 会设置为错误消息。"
           }
         ]
       },
       {
         "name": "detach",
         "type": "function",
-        "description": "Detaches debugger from the given target.",
+//@        "description": "Detaches debugger from the given target.",
+        "description": "使调试器脱离指定目标。",
         "parameters": [
           {
             "$ref": "Debuggee",
             "name": "target",
-            "description": "Debugging target from which you want to detach."
+//@            "description": "Debugging target from which you want to detach."
+            "description": "您希望脱离的调试目标。"
           },
           {
             "type": "function",
             "name": "callback",
             "optional": true,
             "parameters": [],
-            "description": "Called once the detach operation succeeds or fails. Callback receives no arguments. If the detach fails, $ref:runtime.lastError will be set to the error message."
+//@            "description": "Called once the detach operation succeeds or fails. Callback receives no arguments. If the detach fails, $ref:runtime.lastError will be set to the error message."
+            "description": "脱离操作成功或失败后调用。回调函数不接受参数，如果脱离失败，$ref:runtime.lastError 会设置为错误消息。"
           }
         ]
       },
       {
         "name": "sendCommand",
         "type": "function",
-        "description": "Sends given command to the debugging target.",
+//@        "description": "Sends given command to the debugging target.",
+        "description": "将指定命令发送至调试目标。",
         "parameters": [
           {
             "$ref": "Debuggee",
             "name": "target",
-            "description": "Debugging target to which you want to send the command."
+//@            "description": "Debugging target to which you want to send the command."
+            "description": "您需要发送命令的调试目标。"
           },
           {
             "type": "string",
             "name": "method",
-            "description": "Method name. Should be one of the methods defined by the <a href='http://code.google.com/chrome/devtools/docs/remote-debugging.html'>remote debugging protocol</a>."
+//@            "description": "Method name. Should be one of the methods defined by the <a href='http://code.google.com/chrome/devtools/docs/remote-debugging.html'>remote debugging protocol</a>."
+            "description": "方法名称，应该为<a href=\"https://developers.google.com/chrome-developer-tools/docs/remote-debugging\">远程调试协议</a>中定义的某一个方法。"
           },
           {
             "type": "object",
             "name": "commandParams",
             "optional": true,
             "additionalProperties": { "type": "any" },
-            "description": "JSON object with request parameters. This object must conform to the remote debugging params scheme for given method."
+//@            "description": "JSON object with request parameters. This object must conform to the remote debugging params scheme for given method."
+            "description": "包含请求参数的 JSON 对象，这一对象必须遵循适用于指定方法的远程调试参数架构。"
           },
           {
             "type": "function",
@@ -91,10 +104,12 @@
                 "name": "result",
                 "optional": true,
                 "additionalProperties": { "type": "any" },
-                "description": "JSON object with the response. Structure of the response varies depending on the method and is defined by the remote debugging protocol."
+//@                "description": "JSON object with the response. Structure of the response varies depending on the method and is defined by the remote debugging protocol."
+                "description": "包含响应的 JSON 对象。响应的结构取决于方法，在远程调试协议中定义。"
               }
             ],
-            "description": "Response body. If an error occurs while posting the message, the callback will be called with no arguments and $ref:runtime.lastError will be set to the error message."
+//@            "description": "Response body. If an error occurs while posting the message, the callback will be called with no arguments and $ref:runtime.lastError will be set to the error message."
+            "description": "响应正文。如果发送消息时产生错误，将不传递参数调用这一回调函数，并将 $ref:runtime.lastError 设置为错误消息。"
           }
         ]
       }
@@ -103,41 +118,48 @@
       {
         "name": "onEvent",
         "type": "function",
-        "description": "Fired whenever debugging target issues instrumentation event.",
+//@        "description": "Fired whenever debugging target issues instrumentation event.",
+        "description": "当调试目标发出事件时产生。",
         "parameters": [
           {
             "$ref": "Debuggee",
             "name": "source",
-            "description": "The debuggee that generated this event."
+//@            "description": "The debuggee that generated this event."
+            "description": "产生这一事件的调试对象。"
           },
           {
             "type": "string",
             "name": "method",
-            "description": "Method name. Should be one of the notifications defined by the <a href='http://code.google.com/chrome/devtools/docs/remote-debugging.html'>remote debugging protocol</a>."
+//@            "description": "Method name. Should be one of the notifications defined by the <a href='http://code.google.com/chrome/devtools/docs/remote-debugging.html'>remote debugging protocol</a>."
+            "description": "方法名称，应该为<a href=\"https://developers.google.com/chrome-developer-tools/docs/remote-debugging\">远程调试协议</a>中定义的某一个通知。"
           },
           {
             "type": "object",
             "name": "params",
             "optional": true,
             "additionalProperties": { "type": "any" },
-            "description": "JSON object with the response. Structure of the response varies depending on the method and is defined by the remote debugging protocol."
+//@            "description": "JSON object with the response. Structure of the response varies depending on the method and is defined by the remote debugging protocol."
+            "description": "包含响应的 JSON 对象。响应的结构取决于方法，在远程调试协议中定义。"
           }
         ]
       },
       {
         "name": "onDetach",
         "type": "function",
-        "description": "Fired when browser terminates debugging session for the tab. This happens when either the tab is being closed or Chrome DevTools is being invoked for the attached tab.",
+//@        "description": "Fired when browser terminates debugging session for the tab. This happens when either the tab is being closed or Chrome DevTools is being invoked for the attached tab.",
+        "description": "当浏览器终止某个标签页的调试会话时产生。这会在标签页关闭，或者 Chrome 浏览器的开发者工具在已附加调试器的标签页中调用时发生。",
         "parameters": [
           {
             "$ref": "Debuggee",
             "name": "source",
-            "description": "The debuggee that was detached."
+//@            "description": "The debuggee that was detached."
+            "description": "调试器脱离的调试对象。"
           },
           {
             "type": "string",
             "name": "reason",
-            "description": "Connection termination reason.",
+//@            "description": "Connection termination reason.",
+            "description": "连接终止的原因。",
             "enum": [ "target_closed", "canceled_by_user", "replaced_with_devtools" ]
           }
         ]

@@ -13,17 +13,20 @@
           "name":        {
             "type": "string",
             "optional": true,
-            "description": "The name of the Extension Command"
+//@            "description": "The name of the Extension Command"
+            "description": "扩展程序命令的名称。"
           },
           "description": {
             "type": "string",
             "optional": true,
-            "description": "The Extension Command description"
+//@            "description": "The Extension Command description"
+            "description": "扩展程序命令的描述。"
           },
           "shortcut": {
             "type": "string",
             "optional": true,
-            "description": "The shortcut active for this command, or blank if not active."
+//@            "description": "The shortcut active for this command, or blank if not active."
+            "description": "当前用于该命令的快捷键，或者如果不活动的话则为空。"
           }
         }
       }
@@ -31,7 +34,8 @@
     "events": [
       {
         "name": "onCommand",
-        "description": "Fired when a registered command is activated using a keyboard shortcut.",
+//@        "description": "Fired when a registered command is activated using a keyboard shortcut.",
+        "description": "当注册的命令通过快捷键激活时产生。",
         "type": "function",
         "parameters": [
           {
@@ -45,7 +49,8 @@
       {
         "name": "getAll",
         "type": "function",
-        "description": "Returns all the registered extension commands for this extension and their shortcut (if active).",
+//@        "description": "Returns all the registered extension commands for this extension and their shortcut (if active).",
+        "description": "返回当前扩展程序注册的所有扩展程序命令以及它们的快捷键（如果处于活动状态的话）。",
         "parameters": [
           {
             "type": "function",
@@ -60,7 +65,8 @@
                 }
               }
             ],
-            "description": "Called to return the registered commands."
+//@            "description": "Called to return the registered commands."
+            "description": "调用时返回注册的命令。"
           }
         ]
       }

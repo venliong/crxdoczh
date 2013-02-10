@@ -1,17 +1,24 @@
 <p>
-The content settings module allows you to change settings that control whether
+<!--@The content settings module allows you to change settings that control whether
 websites can use features such as cookies, JavaScript, and plug-ins.
 More generally speaking, content settings allow you to customize Chrome's
-behavior on a per-site basis instead of globally.</p>
+behavior on a per-site basis instead of globally.-->
+内容设置模块允许您更改设置，控制网站能否使用 Cookie、JavaScript
+和插件之类的特性。大体上说，内容设置允许您针对不同的站点（而不是全局地）自定义
+Chrome 浏览器的行为。
+</p>
 <p>
 </p>
 
-<h2 id="manifest">Manifest</h2>
-<p>You must declare the "contentSettings" permission
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
+<p><!--@You must declare the "contentSettings" permission
 in your extension's manifest to use the API.
-For example:</p>
+For example:-->
+您必须在扩展程序的清单文件中声明 "contentSettings" 权限才能使用这一
+API。例如：
+</p>
 <pre>{
-  "name": "My extension",
+  "name": "我的扩展程序",
   ...
   <b>"permissions": [
     "contentSettings"
@@ -20,83 +27,105 @@ For example:</p>
 }</pre>
 
 
-<h2 id="patterns">Content setting patterns</h2>
+<h2 id="patterns"><!--@Content setting patterns-->内容设置的匹配表达式</h2>
 <p>
-You can use patterns to specify the websites that each content setting affects.
+<!--@You can use patterns to specify the websites that each content setting affects.
 For example, <code>http://*.youtube.com/*</code> specifies youtube.com and all
 of its subdomains. The syntax for content setting patterns is the same as for
-<a href="match_patterns.html">match patterns</a>, with a few differences:
-<ul><li>For <code>http</code>,
+<a href="match_patterns.html">match patterns</a>, with a few differences:-->
+您可以使用匹配表达式来指定每一项内容设置将会影响哪些网站。例如，<code>http://*.youtube.com/*</code>
+指定 youtube.com
+以及所有子域名。用于内容设置的匹配表达式语法与一般的<a href="match_patterns.html">匹配表达式</a>类似，但有如下几个区别：
+<ul><li><!--@For <code>http</code>,
 <code>https</code>, and <code>ftp</code> URLs, the path must be a wildcard
 (<code>/*</code>). For <code>file</code> URLs, the path must be completely
-specified and <strong>must not</strong> contain wildcards.</li>
-<li>In contrast to match patterns, content setting patterns can specify a port
+specified and <strong>must not</strong> contain wildcards.-->
+对于<code>http</code>、<code>https</code> 以及 <code>ftp</code> 协议的
+URL，路径必须是通配符（<code>/*</code>）。对于 <code>file</code> 协议的
+URL，必须指定完整路径，<strong>不能</strong>包含通配符。
+</li>
+<li><!--@In contrast to match patterns, content setting patterns can specify a port
 number. If a port number is specified, the pattern only matches websites with
-that port. If no port number is specified, the pattern matches all ports.
+that port. If no port number is specified, the pattern matches all ports.-->
+与一般的匹配表达式相反，内容设置的匹配表达式可以指定端口。如果指定了端口，表达式将只匹配指定端口的网站。如果没有指定端口，表达式将匹配所有端口。
 </li>
 </ul>
 </p>
 
-<h3 id="pattern-precedence">Pattern precedence</h3>
+<h3 id="pattern-precedence"><!--@Pattern precedence-->匹配表达式的优先顺序</h3>
 <p>
-When more than one content setting rule applies for a given site, the rule with
-the more specific pattern takes precedence.
+<!--@When more than one content setting rule applies for a given site, the rule with
+the more specific pattern takes precedence.-->
+当不止一个内容设置规则应用于同一个站点时，规则的匹配表达式更具体则优先。
 </p>
-<p>For example, the following patterns are ordered by precedence:</p>
+<p><!--@For example, the following patterns are ordered by precedence:-->例如，匹配表达式按照优先顺序排列如下：</p>
 <ol>
 <li><code>http://www.example.com/*</code></li>
-<li><code>http://*.example.com/*</code> (matching
-example.com and all subdomains)</li>
-<li><code>&lt;all_urls&gt;</code> (matching every URL)</li>
+<li><code>http://*.example.com/*</code><!--@ (matching
+example.com and all subdomains)-->（匹配 example.com 以及所有子域名）</li>
+<li><code>&lt;all_urls&gt;</code><!--@ (matching every URL)-->（匹配所有 URL）</li>
 </ol>
 <p>
-Three kinds of wildcards affect how specific a pattern is:
+<!--@Three kinds of wildcards affect how specific a pattern is:-->
+三种类型的通配符影响匹配表达式的具体程度：
 </p>
 <ul>
-<li>Wildcards in the port (for example
-<code>http://www.example.com:*/*</code>)</li>
-<li>Wildcards in the scheme (for example
-<code>*://www.example.com:123/*</code>)</li>
-<li>Wildcards in the hostname (for example
-<code>http://*.example.com:123/*</code>)</li>
+<li><!--@Wildcards in the port (for example-->端口号中的通配符（例如
+<code>http://www.example.com:*/*</code><!--@)-->）</li>
+<li><!--@Wildcards in the scheme (for example-->协议中的通配符（例如
+<code>*://www.example.com:123/*</code><!--@)-->）</li>
+<li><!--@Wildcards in the hostname (for example-->主机名中的通配符（例如
+<code>http://*.example.com:123/*</code><!--@)-->）</li>
 </ul>
 <p>
-If a pattern is more specific than another pattern in one part but less specific
+<!--@If a pattern is more specific than another pattern in one part but less specific
 in another part, the different parts are checked in the following order:
 hostname, scheme, port. For example, the following patterns are ordered by
-precedence:</p>
+precedence:-->
+如果某个匹配表达式中的某一部分比另一个更具体，但是另一部分却不太具体，将按照以下顺序检查不同的部分：主机名、协议、端口。例如，匹配表达式按照优先顺序排列如下：
+</p>
 <ol>
 <li><code>http://www.example.com:*/*</code><br>
-Specifies the hostname and scheme.</li>
+<!--@Specifies the hostname and scheme.-->指定主机名与协议。</li>
 <li><code>*:/www.example.com:123/*</code><br>
-Not as high, because although it specifies the hostname, it doesn't specify
-the scheme.</li>
+<!--@Not as high, because although it specifies the hostname, it doesn't specify
+the scheme.-->不如第一个优先级高，因为尽管它指定了主机名，但是没有指定协议。</li>
 <li><code>http://*.example.com:123/*</code><br>
-Lower because although it specifies the port and scheme, it has a wildcard
-in the hostname.</li>
+<!--@Lower because although it specifies the port and scheme, it has a wildcard
+in the hostname.-->优先级更低，因为尽管它指定了端口和协议，但是主机名中包含通配符。</li>
 </ol>
 
-<h2 id="primary-secondary">Primary and secondary patterns</h2>
+<h2 id="primary-secondary"><!--@Primary and secondary patterns-->主要和辅助匹配表达式</h2>
 <p>
-The URL taken into account when deciding which content setting to apply depends
+<!--@The URL taken into account when deciding which content setting to apply depends
 on the content type. For example, for
 $ref:contentSettings.notifications settings are
-based on the URL shown in the omnibox. This URL is called the "primary" URL.</p>
+based on the URL shown in the omnibox. This URL is called the "primary" URL.-->
+当决定应用哪些内容设置时考虑的 URL
+取决于内容类型。例如，对于
+$ref:contentSettings.notifications（通知）来说，设置基于多功能框中显示的
+URL，这一 URL 称为“主要”URL。
+</p>
 <p>
-Some content types can take additional URLs into account. For example,
+<!--@Some content types can take additional URLs into account. For example,
 whether a site is allowed to set a
 $ref:contentSettings.cookies is decided based on the URL
 of the HTTP request (which is the primary URL in this case) as well as the URL
-shown in the omnibox (which is called the "secondary" URL).
+shown in the omnibox (which is called the "secondary" URL).-->
+某些内容类型会考虑额外的 URL。例如，某一站点是否允许设置
+$ref:[contentSettings.cookies Cookie] 取决于 HTTP 请求的
+URL（在这种情况下为主要 URL）以及多功能框中显示的 URL（称为“辅助”URL）。
 </p>
 <p>
-If multiple rules have primary and secondary patterns, the rule with the more
+<!--@If multiple rules have primary and secondary patterns, the rule with the more
 specific primary pattern takes precedence. If there multiple rules have the same
 primary pattern, the rule with the more specific secondary pattern takes
 precedence. For example, the following list of primary/secondary pattern pairs
-is ordered by precedence:</p>
+is ordered by precedence:-->
+如果多个规则包含主要和辅助匹配表达式，规则的主要匹配表达式更具体则优先。如果多个规则包含同样的主要匹配表达式，规则的辅助匹配表达式更具体则优先。例如，主要/辅助匹配表达式对按照优先顺序排列如下：
+</p>
 <table>
-<tr><th>Precedence</th><th>Primary pattern</th><th>Secondary pattern</th>
+<tr><th><!--@Precedence-->优先级</th><th><!--@Primary pattern-->主要匹配表达式</th><th><!--@Secondary pattern-->辅助匹配表达式</th>
 <tr>
   <td>1</td>
   <td><code>http://www.moose.com/*</code>, </td>
@@ -116,32 +145,44 @@ is ordered by precedence:</p>
 </tr>
 </table>
 
-<h2 id="resource-identifiers">Resource identifiers</h2>
+<h2 id="resource-identifiers"><!--@Resource identifiers-->资源标识符</h2>
 <p>
-Resource identifiers allow you to specify content settings for specific
+<!--@Resource identifiers allow you to specify content settings for specific
 subtypes of a content type. Currently, the only content type that supports
 resource identifiers is $ref:contentSettings.plugins,
 where a resource identifier identifies a specific plug-in. When applying content
 settings, first the settings for the specific plug-in are checked. If there are
 no settings found for the specific plug-in, the general content settings for
-plug-ins are checked.
+plug-ins are checked.-->
+资源标识符允许您为某种内容类型特定的子类型指定内容设置。当前，支持资源标识符的内容类型只有
+p$ref:contentSettings.plugins（插件），其中资源标识符标识某个插件。当应用内容设置时，首先检查用于特定插件的设置。如果没有找到用于插件的设置，将检查用于所有插件的通用设置。
 </p>
 <p>
-For example, if a content setting rule has the resource identifier
+<!--@For example, if a content setting rule has the resource identifier
 <code>adobe-flash-player</code> and the pattern <code>&lt;all_urls&gt;</code>,
 it takes precedence over a rule without a resource identifier and the pattern
-<code>http://www.example.com/*</code>, even if that pattern is more specific.
+<code>http://www.example.com/*</code>, even if that pattern is more specific.-->
+例如，如果一项内容设置规则的资源标识符为
+<code>adobe-flash-player</code>，匹配表达式为
+<code>&lt;all_urls&gt;</code>，则它的优先级高于没有资源标识符、只有匹配表达式
+<code>http://www.example.com/*</code> 的规则，即使后者的匹配表达式更加具体。
 </p>
 <p>
-You can get a list of resource identifiers for a content type by calling the
+<!--@You can get a list of resource identifiers for a content type by calling the
 $ref:contentSettings.ContentSetting.getResourceIdentifiers method. The returned list
 can change with the set of installed plug-ins on the user's machine, but Chrome
-tries to keep the identifiers stable across plug-in updates.
+tries to keep the identifiers stable across plug-in updates.-->
+您可以通过调用
+$ref:contentSettings.ContentSetting.getResourceIdentifiers
+方法获得某一内容类型的所有资源标识符。返回的列表可能会随着用户计算机上安装的插件而变化，但是
+Chrome 浏览器会尽可能保持标识符在插件更新前后的稳定。
 </p>
 
-<h2 id="examples">Examples</h2>
+<h2 id="examples"><!--@Examples-->例子</h2>
 
 <p>
-You can find samples of this API on the
-<a href="samples.html#contentSettings">sample page</a>.
+<!--@You can find samples of this API on the
+<a href="samples.html#contentSettings">sample page</a>.-->
+您可以在<a href="samples.html#contentSettings">示例页面</a>找到这一
+API 的例子。
 </p>

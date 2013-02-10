@@ -187,7 +187,7 @@
 //@              "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "How the requested resource will be used."},
               "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "请求的资源将如何使用。"},
 //@              "timeStamp": {"type": "number", "description": "The time when this signal is triggered, in milliseconds since the epoch."}
-              "timeStamp": {"type": "number", "description": "该信号触发的时间，以1970年1月1日午夜开始所经过的毫秒数表示。"}
+              "timeStamp": {"type": "number", "description": "该信号触发的时间，以 1970 年 1 月 1 日午夜开始所经过的毫秒数表示。"}
             }
           }
         ],
@@ -242,7 +242,7 @@
 //@              "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "How the requested resource will be used."},
               "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "请求的资源将如何使用。"},
 //@              "timeStamp": {"type": "number", "description": "The time when this signal is triggered, in milliseconds since the epoch."},
-              "timeStamp": {"type": "number", "description": "该信号触发的时间，以1970年1月1日午夜开始所经过的毫秒数表示。"},
+              "timeStamp": {"type": "number", "description": "该信号触发的时间，以 1970 年 1 月 1 日午夜开始所经过的毫秒数表示。"},
 //@              "requestHeaders": {"$ref": "HttpHeaders", "optional": true, "description": "The HTTP request headers that are going to be sent out with this request."}
               "requestHeaders": {"$ref": "HttpHeaders", "optional": true, "description": "将要与这一请求一同发送的 HTTP 请求头信息。"}
             }
@@ -299,7 +299,7 @@
 //@              "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "How the requested resource will be used."},
               "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "请求的资源将如何使用。"},
 //@              "timeStamp": {"type": "number", "description": "The time when this signal is triggered, in milliseconds since the epoch."},
-              "timeStamp": {"type": "number", "description": "该信号触发的时间，以1970年1月1日午夜开始所经过的毫秒数表示。"},
+              "timeStamp": {"type": "number", "description": "该信号触发的时间，以 1970 年 1 月 1 日午夜开始所经过的毫秒数表示。"},
 //@              "requestHeaders": {"$ref": "HttpHeaders", "optional": true, "description": "The HTTP request headers that have been sent out with this request."}
               "requestHeaders": {"$ref": "HttpHeaders", "optional": true, "description": "已经与这一请求一起发送的HTTP请求头信息。"}
             }
@@ -350,7 +350,7 @@
 //@              "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "How the requested resource will be used."},
               "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "请求的资源将如何使用。"},
 //@              "timeStamp": {"type": "number", "description": "The time when this signal is triggered, in milliseconds since the epoch."},
-              "timeStamp": {"type": "number", "description": "该信号触发的时间，以1970年1月1日午夜开始所经过的毫秒数表示。"},
+              "timeStamp": {"type": "number", "description": "该信号触发的时间，以 1970 年 1 月 1 日午夜开始所经过的毫秒数表示。"},
 //@              "statusLine": {"type": "string", "optional": true, "description": "HTTP status line of the response."},
               "statusLine": {"type": "string", "optional": true, "description": "响应的 HTTP 状态行。"},
 //@              "responseHeaders": {"$ref": "HttpHeaders", "optional": true, "description": "The HTTP response headers that have been received with this response."}
@@ -410,7 +410,7 @@
 //@              "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "How the requested resource will be used."},
               "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "请求的资源将如何使用。"},
 //@              "timeStamp": {"type": "number", "description": "The time when this signal is triggered, in milliseconds since the epoch."},
-              "timeStamp": {"type": "number", "description": "该信号触发的时间，以1970年1月1日午夜开始所经过的毫秒数表示。"},
+              "timeStamp": {"type": "number", "description": "该信号触发的时间，以 1970 年 1 月 1 日午夜开始所经过的毫秒数表示。"},
 //@              "scheme": {"type": "string", "description": "The authentication scheme, e.g. Basic or Digest."},
               "scheme": {"type": "string", "description": "认证方式，例如基本（\"basic\"）或摘要式（\"digest\"）。"},
 //@              "realm": {"type": "string", "description": "The authentication realm provided by the server, if there is one.", "optional": true},
@@ -486,7 +486,7 @@
 //@              "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "How the requested resource will be used."},
               "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "请求的资源将如何使用。"},
 //@              "timeStamp": {"type": "number", "description": "The time when this signal is triggered, in milliseconds since the epoch."},
-              "timeStamp": {"type": "number", "description": "该信号触发的时间，以1970年1月1日午夜开始所经过的毫秒数表示。"},
+              "timeStamp": {"type": "number", "description": "该信号触发的时间，以 1970 年 1 月 1 日午夜开始所经过的毫秒数表示。"},
 //@              "ip": {"type": "string", "optional": true, "description": "The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address."},
               "ip": {"type": "string", "optional": true, "description": "服务器 IP 地址，注意这可能是一个字面的 IPv6 地址。"},
 //@              "fromCache": {"type": "boolean", "description": "Indicates if this response was fetched from disk cache."},
@@ -545,7 +545,7 @@
 //@              "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "How the requested resource will be used."},
               "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "请求的资源将如何使用。"},
 //@              "timeStamp": {"type": "number", "description": "The time when this signal is triggered, in milliseconds since the epoch."},
-              "timeStamp": {"type": "number", "description": "该信号触发的时间，以1970年1月1日午夜开始所经过的毫秒数表示。"},
+              "timeStamp": {"type": "number", "description": "该信号触发的时间，以 1970 年 1 月 1 日午夜开始所经过的毫秒数表示。"},
 //@              "ip": {"type": "string", "optional": true, "description": "The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address."},
               "ip": {"type": "string", "optional": true, "description": "服务器 IP 地址，注意这可能是一个字面的 IPv6 地址。"},
 //@              "fromCache": {"type": "boolean", "description": "Indicates if this response was fetched from disk cache."},
@@ -606,7 +606,7 @@
 //@              "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "How the requested resource will be used."},
               "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "请求的资源将如何使用。"},
 //@              "timeStamp": {"type": "number", "description": "The time when this signal is triggered, in milliseconds since the epoch."},
-              "timeStamp": {"type": "number", "description": "该信号触发的时间，以1970年1月1日午夜开始所经过的毫秒数表示。"},
+              "timeStamp": {"type": "number", "description": "该信号触发的时间，以 1970 年 1 月 1 日午夜开始所经过的毫秒数表示。"},
 //@              "ip": {"type": "string", "optional": true, "description": "The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address."},
               "ip": {"type": "string", "optional": true, "description": "服务器 IP 地址，注意这可能是一个字面的 IPv6 地址。"},
 //@              "fromCache": {"type": "boolean", "description": "Indicates if this response was fetched from disk cache."},
@@ -664,7 +664,7 @@
 //@              "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "How the requested resource will be used."},
               "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "请求的资源将如何使用。"},
 //@              "timeStamp": {"type": "number", "description": "The time when this signal is triggered, in milliseconds since the epoch."},
-              "timeStamp": {"type": "number", "description": "该信号触发的时间，以1970年1月1日午夜开始所经过的毫秒数表示。"},
+              "timeStamp": {"type": "number", "description": "该信号触发的时间，以 1970 年 1 月 1 日午夜开始所经过的毫秒数表示。"},
 //@              "ip": {"type": "string", "optional": true, "description": "The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address."},
               "ip": {"type": "string", "optional": true, "description": "服务器 IP 地址，注意这可能是一个字面的 IPv6 地址。"},
 //@              "fromCache": {"type": "boolean", "description": "Indicates if this response was fetched from disk cache."},
