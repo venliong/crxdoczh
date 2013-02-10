@@ -256,9 +256,9 @@
           <h2><!--@Contents-->目录</h2>
           <ol>
             <li>
-              <a href=#ChromeSetting>Chrome settings</a>
+              <a href=#ChromeSetting>Chrome 浏览器设置</a>
               <ol>
-                <li><a href=#ChromeSetting-lifecycle>Scope and life cycle</a></li><li><a href=#ChromeSetting-precedence>Precedence</a></li>
+                <li><a href=#ChromeSetting-lifecycle>范围和生命周期</a></li><li><a href=#ChromeSetting-precedence>优先级</a></li>
               </ol>
             </li>
             <li>
@@ -275,103 +275,137 @@
         </div>
 
 <p id="classSummary">
-The <code>chrome.types</code> module contains type declarations for Chrome.
+<!--@The--> <code>chrome.types</code> <!--@module contains type declarations for Chrome.
 Currently this comprises only a prototype for giving other
 modules access to manage Chrome browser settings. This prototype is used,
-for example, for 
-  <a href="proxy.html#property-settings">proxy.settings</a>.
+for example, for -->
+模块包含用于 Chrome 浏览器的类型声明，当前只包含用于其他模块访问 Chrome
+浏览器设置的原型，例如，这一原型在
+  <a href="proxy.html#property-settings">proxy.settings</a><!--@.-->
+中使用。
 </p>
 
-<h2 id="ChromeSetting">Chrome settings</h2>
+<h2 id="ChromeSetting">Chrome <!--@settings-->浏览器设置</h2>
 
 <p>
-The <code>ChromeSetting</code> prototype provides a common set of functions
+<!--@The--> <code>ChromeSetting</code> <!--@prototype provides a common set of functions
 (<code>get()</code>, <code>set()</code>, and <code>clear()</code>) as
 well as an event publisher (<code>onChange</code>) for settings of the
 Chrome browser. The <a href="proxy.html#overview-examples">proxy settings
- examples</a> demonstrate how these functions are intended to be used.
+ examples</a> demonstrate how these functions are intended to be used.-->
+原型提供一组常用函数（<code>get()</code>、<code>set()</code> 和
+<code>clear()</code>）以及一个事件发布器（<code>onChange</code>），用于
+Chrome 浏览器设置。<a href="proxy.html#overview-examples"
+>代理设置的例子</a>演示了这些函数应该如何使用。
 </p>
 
-<h3 id="ChromeSetting-lifecycle">Scope and life cycle</h3>
+<h3 id="ChromeSetting-lifecycle"><!--@Scope and life cycle-->范围和生命周期</h3>
 
 <p>
-Chrome distinguishes between three different scopes of browser settings:
+<!--@Chrome distinguishes between three different scopes of browser settings:-->
+Chrome 浏览器区分三种不同范围的浏览器设置：
 <dl>
   <dt><code>regular</code></dt>
-  <dd>Settings set in the <code>regular</code> scope apply to regular
+  <dd><!--@Settings set in the <code>regular</code> scope apply to regular
   browser windows and are inherited by incognito windows if they are not
   overwritten. These settings are stored to disk and remain in place until
   they are cleared by the governing extension, or the governing extension is
-  disabled or uninstalled.</dd>
+  disabled or uninstalled.-->
+  在 <code>regular</code>
+  范围中的设置应用于普通浏览器窗口，并且在没有覆盖的情况下由隐身窗口继承。这些设置存储在磁盘上，一直保留，除非它们由所属扩展程序清除，或者所属扩展程序禁用或卸载。
+  </dd>
 
   <dt><code>incognito_persistent</code></dt>
-  <dd>Settings set in the <code>incognito_persistent</code> scope apply only
+  <dd><!--@Settings set in the <code>incognito_persistent</code> scope apply only
   to incognito windows. For these, they override <code>regular</code>
   settings. These settings are stored to disk and remain in place until
   they are cleared by the governing extension, or the governing extension is
-  disabled or uninstalled.</dd>
+  disabled or uninstalled.-->
+  在 <code>incognito_persistent</code>
+  范围中的设置仅应用于隐身窗口，覆盖 <code>regular</code>
+  范围中的设置。这些设置保存在磁盘上，一直保留，直到它们由所属扩展程序清除，或所属扩展程序禁用或卸载。
+  </dd>
 
   <dt><code>incognito_session_only</code></dt>
-  <dd>Settings set in the <code>incognito_session_only</code> scope apply only
+  <dd><!--@Settings set in the <code>incognito_session_only</code> scope apply only
   to incognito windows. For these, they override <code>regular</code> and
   <code>incognito_session_only</code> settings. These settings are not
   stored to disk and are cleared when the last incognito window is closed. They
-  can only be set when at least one incognito window is open.</dd>
+  can only be set when at least one incognito window is open.-->
+  在 <code>incognito_session_only</code> 范围中的设置仅应用于隐身窗口，覆盖
+  <code>regular</code> 和 <code>incognito_persistent</code>
+  范围中的设置。这些设置不保存在磁盘上，当最后一个隐身窗口关闭时清除。它们只能在至少一个隐身窗口打开的情况下设置。
+  </dd>
 
 </dl>
 </p>
 
-<h3 id="ChromeSetting-precedence">Precedence</h3>
+<h3 id="ChromeSetting-precedence"><!--@Precedence-->优先级</h3>
 
 <p>
-Chrome manages settings on different layers. The following list describes the
+<!--@Chrome manages settings on different layers. The following list describes the
 layers that may influence the effective settings, in increasing order of
-precedence.
+precedence.-->
+Chrome
+浏览器在不同的层面上管理设置。以下列表按照优先级递增的顺序描述了可能影响有效设置的不同层面。
 <ol>
-  <li>System settings provided by the operating system</li>
-  <li>Command-line parameters</li>
-  <li>Settings provided by extensions</li>
-  <li>Policies</li>
+  <li><!--@System settings provided by the operating system-->由操作系统提供的系统设置</li>
+  <li><!--@Command-line parameters-->命令行参数</li>
+  <li><!--@Settings provided by extensions-->由扩展程序提供的设置</li>
+  <li><!--@Policies-->策略</li>
 </ol>
 </p>
 
 <p>
-As the list implies, policies might overrule any changes that you specify with
+<!--@As the list implies, policies might overrule any changes that you specify with
 your extension. You can use the <code>get()</code> function to determine whether
 your extension is capable of providing a setting or whether this setting would
-be overridden.
+be overridden.-->
+这一列表暗含着策略可以覆盖您用扩展程序指定的任何更改，您可以使用
+<code>get()</code> 函数来确定您的扩展程序能否提供设置或者设置是否会被覆盖。
 </p>
 
 <p>
-As discussed above, Chrome allows using different settings for regular
+<!--@As discussed above, Chrome allows using different settings for regular
 windows and incognito windows. The following example illustrates the behavior.
 Assume that no policy overrides the settings and that an extension can set
 settings for regular windows <b>(R)</b> and settings for incognito windows
-<b>(I)</b>.
+<b>(I)</b>.-->
+如前面所讨论，Chrome
+浏览器允许普通窗口与隐身窗口使用不同的设置。以下例子演示了这一行为。假设没有策略覆盖设置并且扩展程序可以分别为普通窗口<b>（R）</b>和隐身窗口<b>（I）</b>更改设置。
 </p>
 
 <p>
 <ul>
-  <li>If only <b>(R)</b> is set, these settings are effective for both
-  regular and incognito windows.</li>
-  <li>If only <b>(I)</b> is set, these settings are effective for only
+  <li><!--@If only <b>(R)</b> is set, these settings are effective for both
+  regular and incognito windows.-->
+  如果只设置了<b>（R）</b>，这些设置对普通窗口和隐身窗口都有效。
+  </li>
+  <li><!--@If only <b>(I)</b> is set, these settings are effective for only
   incognito windows. Regular windows use the settings determined by the lower
-  layers (command-line options and system settings).</li>
-  <li>If both <b>(R)</b> and <b>(I)</b> are set, the respective settings are
-  used for regular and incognito windows.</li>
+  layers (command-line options and system settings).-->
+  如果只设置了<b>（I）</b>，这些设置仅对隐身窗口有效。普通窗口使用更低的层面确定的设置（命令行参数和系统设置）。
+  </li>
+  <li><!--@If both <b>(R)</b> and <b>(I)</b> are set, the respective settings are
+  used for regular and incognito windows.-->
+  如果<b>（R）</b>和<b>（I）</b>都设置，将分别为普通窗口与隐身窗口使用相应的设置。
+  </li>
 </ul>
 </p>
 
 <p>
-If two or more extensions want to set the same setting to different values,
+<!--@If two or more extensions want to set the same setting to different values,
 the extension installed most recently takes precedence over the other
 extensions.  If the most recently installed extension sets only <b>(I)</b>, the
-settings of regular windows can be defined by previously installed extensions.
+settings of regular windows can be defined by previously installed extensions.-->
+如果两个或更多的扩展程序需要将同一设置修改为不同的值，最近安装的扩展程序优先于其他扩展程序。如果最近安装的扩展程序只设置了<b>（I）</b>，普通窗口的设置可以由之前安装的扩展程序定义。
 </p>
 
 <p>
-The <em>effective</em> value of a setting is the one that results from
-considering the precedence rules. It is used by Chrome.
+<!--@The <em>effective</em> value of a setting is the one that results from
+considering the precedence rules. It is used by Chrome.-->
+设置的<em>有效</em>值是考虑到以上优先级规则之后的结果，Chrome
+浏览器将会采用它。
 <p>
         <h2 id="apiReference"><!--@API Reference: chrome.types-->API 参考：chrome.types</h2>
         <div class="api_reference">
@@ -381,7 +415,7 @@ considering the precedence rules. It is used by Chrome.
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    An interface which allows access to a Chrome browser setting.
+                    允许访问 Chrome 浏览器设置的接口。
                   </dd>    <h4 id="ChromeSetting-methods">
                     <!--@Methods of --><a href="#type-ChromeSetting">ChromeSetting</a>
                     的方法
@@ -393,7 +427,7 @@ considering the precedence rules. It is used by Chrome.
                       </div>
                       <div class="description">
                         <p>
-                          Gets the value of a setting.
+                          获得设置的值。
                         </p>
                         <h4><!--@Parameters-->参数</h4>
                         <dl>
@@ -409,7 +443,7 @@ considering the precedence rules. It is used by Chrome.
                                 </span>
                               </dt>
                               <dd>
-                                What setting to consider.
+                                需要考虑的设置。
                               </dd>
                               <dd>
                                 <dl>
@@ -425,7 +459,7 @@ considering the precedence rules. It is used by Chrome.
                                       </span>
                                     </dt>
                                     <dd>
-                                      Whether to return the setting that applies to the incognito session (default false).
+                                      是否返回应用于隐身会话的设置（默认为 false）。
                                     </dd>
                                   </div>
                                 </dl>
@@ -464,7 +498,7 @@ considering the precedence rules. It is used by Chrome.
                                   </span>
                                 </dt>
                                 <dd>
-                                  Details of the currently effective value.
+                                  当前有效值的详情。
                                 </dd>
                                 <dd>
                                   <dl>
@@ -480,7 +514,7 @@ considering the precedence rules. It is used by Chrome.
                                         </span>
                                       </dt>
                                       <dd>
-                                        The value of the setting.
+                                        设置的值。
                                       </dd>
                                     </div>
                                     <div>
@@ -495,7 +529,7 @@ considering the precedence rules. It is used by Chrome.
                                         </span>
                                       </dt>
                                       <dd>
-                                        One of<br><var>not_controllable</var>: cannot be controlled by any extension<br><var>controlled_by_other_extensions</var>: controlled by extensions with higher precedence<br><var>controllable_by_this_extension</var>: can be controlled by this extension<br><var>controlled_by_this_extension</var>: controlled by this extension
+                                        以下值之一：<br><var>"not_controllable"</var>：无法由任何扩展程序控制。<br><var>"controlled_by_other_extensions"</var>：由优先级更高的扩展程序控制。<br><var>"controllable_by_this_extension"</var>：可以由该扩展程序控制。<br><var>"controlled_by_this_extension"</var>：由该扩展程序控制。
                                       </dd>
                                     </div>
                                     <div>
@@ -510,7 +544,7 @@ considering the precedence rules. It is used by Chrome.
                                         </span>
                                       </dt>
                                       <dd>
-                                        Whether the effective value is specific to the incognito session.<br>This property will <em>only</em> be present if the <var>incognito</var> property in the <var>details</var> parameter of <code>get()</code> was true.
+                                        有效值是否只适用于隐身会话。<br><em>只有</em>当 <code>get()</code> 方法的 <var>details</var> 参数中 <var>incognito</var> 属性为 true 时才存在。
                                       </dd>
                                     </div>
                                   </dl>
@@ -526,7 +560,7 @@ considering the precedence rules. It is used by Chrome.
                       </div>
                       <div class="description">
                         <p>
-                          Sets the value of a setting.
+                          修改设置的值。
                         </p>
                         <h4><!--@Parameters-->参数</h4>
                         <dl>
@@ -542,7 +576,7 @@ considering the precedence rules. It is used by Chrome.
                                 </span>
                               </dt>
                               <dd>
-                                What setting to change.
+                                要更改的设置。
                               </dd>
                               <dd>
                                 <dl>
@@ -558,7 +592,7 @@ considering the precedence rules. It is used by Chrome.
                                       </span>
                                     </dt>
                                     <dd>
-                                      The value of the setting. <br>Note that every setting has a specific value type, which is described together with the setting. An extension should <em>not</em> set a value of a different type.
+                                      设置的值。<br>注意每一项设置都有特定的值类型，与该设置一起描述。扩展程序<em>不应该</em>设置不同类型的值。
                                     </dd>
                                   </div>
                                   <div>
@@ -573,7 +607,7 @@ considering the precedence rules. It is used by Chrome.
                                       </span>
                                     </dt>
                                     <dd>
-                                      Where to set the setting (default: regular). One of<br><var>regular</var>: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),<br><var>regular_only</var>: setting for the regular profile only (not inherited by the incognito profile),<br><var>incognito_persistent</var>: setting for the incognito profile that survives browser restarts (overrides regular preferences),<br><var>incognito_session_only</var>: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
+                                      修改哪些范围的设置（默认为 "regular"）。以下值之一：<br><var>"regular"</var>：用于普通用户配置文件（如果没有被其他地方的设置覆盖，也将由隐身窗口继承）；<br><var>"regular_only"</var>：仅用于普通用户配置文件（不被隐身配置文件继承）；<br><var>"incognito_persistent"</var>：用于隐身配置文件的设置，并且在浏览器重启后仍保留（覆盖 "regular" 设置）；<br><var>"incognito_session_only"</var>：用于隐身配置文件的设置，并且只能在隐身会话中设置，在隐身会话结束时删除（覆盖 "regular" 和 "incognito_persistent" 设置）。
                                     </dd>
                                   </div>
                                 </dl>
@@ -591,7 +625,7 @@ considering the precedence rules. It is used by Chrome.
                                 </span>
                               </dt>
                               <dd>
-                                Called after the setting has been set.
+                                设置修改后调用。
                               </dd>
                             </div>
                         </dl>
@@ -611,7 +645,7 @@ considering the precedence rules. It is used by Chrome.
                       </div>
                       <div class="description">
                         <p>
-                          Clears the setting. This way default settings can become effective again.
+                          清除设置，这样默认设置可以重新变为有效设置。
                         </p>
                         <h4><!--@Parameters-->参数</h4>
                         <dl>
@@ -627,7 +661,7 @@ considering the precedence rules. It is used by Chrome.
                                 </span>
                               </dt>
                               <dd>
-                                What setting to clear.
+                                要清除的设置。
                               </dd>
                               <dd>
                                 <dl>
@@ -643,7 +677,7 @@ considering the precedence rules. It is used by Chrome.
                                       </span>
                                     </dt>
                                     <dd>
-                                      Where to clear the setting (default: regular). One of<br><var>regular</var>: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),<br><var>regular_only</var>: setting for the regular profile only (not inherited by the incognito profile),<br><var>incognito_persistent</var>: setting for the incognito profile that survives browser restarts (overrides regular preferences),<br><var>incognito_session_only</var>: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
+                                      清除哪些范围的设置（默认为 "regular"）。以下值之一：<br><var>"regular"</var>：用于普通用户配置文件（如果没有被其他地方的设置覆盖，也将由隐身窗口继承）；<br><var>"regular_only"</var>：仅用于普通用户配置文件（不被隐身配置文件继承）；<br><var>"incognito_persistent"</var>：用于隐身配置文件的设置，并且在浏览器重启后仍保留（覆盖 "regular" 设置）；<br><var>"incognito_session_only"</var>：用于隐身配置文件的设置，并且只能在隐身会话中设置，在隐身会话结束时删除（覆盖 "regular" 和 "incognito_persistent" 设置）。
                                     </dd>
                                   </div>
                                 </dl>
@@ -661,7 +695,7 @@ considering the precedence rules. It is used by Chrome.
                                 </span>
                               </dt>
                               <dd>
-                                Called after the setting has been cleared.
+                                设置清除后调用。
                               </dd>
                             </div>
                         </dl>
@@ -686,10 +720,10 @@ considering the precedence rules. It is used by Chrome.
                       </div>
                       <div class="description">
                     <p>
-                          Fired when the value of the setting changes.
+                          当设置值更改时产生。
                         </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                           <dl>
-                            <div>  <a name="property-onChange-details"></a>  <dt>    <span class="variable">details</span>    <span class="property">      (                object      )    </span>  </dt>  <dd>    <dl>      <div>        <a name="property-details-value"></a>        <dt>          <span class="variable">value</span>          <span class="property">            (                            any            )          </span>        </dt>        <dd>          The value of the setting.        </dd>      </div>      <div>        <a name="property-details-levelOfControl"></a>        <dt>          <span class="variable">levelOfControl</span>          <span class="property">            (                            enumerated string ["not_controllable", "controlled_by_other_extensions", "controllable_by_this_extension", "controlled_by_this_extension"]            )          </span>        </dt>        <dd>          One of<br><var>not_controllable</var>: cannot be controlled by any extension<br><var>controlled_by_other_extensions</var>: controlled by extensions with higher precedence<br><var>controllable_by_this_extension</var>: can be controlled by this extension<br><var>controlled_by_this_extension</var>: controlled by this extension        </dd>      </div>      <div>        <a name="property-details-incognitoSpecific"></a>        <dt>          <span class="variable">incognitoSpecific</span>          <span class="property">            (              <span class="optional">optional</span>              boolean            )          </span>        </dt>        <dd>          Whether the value that has changed is specific to the incognito session.<br>This property will <em>only</em> be present if the user has enabled the extension in incognito mode.        </dd>      </div>    </dl>  </dd></div>
+                            <div>  <a name="property-onChange-details"></a>  <dt>    <span class="variable">details</span>    <span class="property">      (                object      )    </span>  </dt>  <dd>    <dl>      <div>        <a name="property-details-value"></a>        <dt>          <span class="variable">value</span>          <span class="property">            (                            any            )          </span>        </dt>        <dd>          设置的值。        </dd>      </div>      <div>        <a name="property-details-levelOfControl"></a>        <dt>          <span class="variable">levelOfControl</span>          <span class="property">            (                            enumerated string ["not_controllable", "controlled_by_other_extensions", "controllable_by_this_extension", "controlled_by_this_extension"]            )          </span>        </dt>        <dd>          以下值之一：<br><var>"not_controllable"</var>：无法由任何扩展程序控制。<br><var>"controlled_by_other_extensions"</var>：由优先级更高的扩展程序控制。<br><var>"controllable_by_this_extension"</var>：可以由该扩展程序控制。<br><var>"controlled_by_this_extension"</var>：由该扩展程序控制。        </dd>      </div>      <div>        <a name="property-details-incognitoSpecific"></a>        <dt>          <span class="variable">incognitoSpecific</span>          <span class="property">            (              <span class="optional">optional</span>              boolean            )          </span>        </dt>        <dd>          有效值是否只适用于隐身会话。<em>只有</em>当用户允许这一扩展程序在隐身模式中运行时才会存在该属性。        </dd>      </div>    </dl>  </dd></div>
                           </dl>
                       </div>
                     </div>

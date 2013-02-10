@@ -256,13 +256,13 @@
           <h2><!--@Contents-->目录</h2>
           <ol>
             <li>
-              <a href=#manifest>Notes</a>
+              <a href=#manifest>说明</a>
             </li>
             <li>
-              <a href=#manifest>Manifest</a>
+              <a href=#manifest>清单文件</a>
             </li>
             <li>
-              <a href=#examples>Examples</a>
+              <a href=#examples>例子</a>
             </li>
             <li>
               <a href="#apiReference"><!--@API reference: -->API 参考：chrome.debugger</a>
@@ -277,33 +277,44 @@
           </ol>
         </div>
 
-<h2 id="manifest">Notes</h2>
+<h2 id="manifest"><!--@Notes-->说明</h2>
 
 <p>
-Debugger API serves as an alternate transport for Chrome's
+<!--@Debugger API serves as an alternate transport for Chrome's
 <a href="http://code.google.com/chrome/devtools/docs/remote-debugging.html">
 remote debugging protocol</a>. Use <code>chrome.debugger</code>
 to attach to one or more tabs to instrument network interaction, debug
 JavaScript, mutate the DOM  and CSS, etc. Use the Debuggee tabId to target tabs
-with sendCommand and route events by <code>tabId</code> from onEvent callbacks. 
+with sendCommand and route events by <code>tabId</code> from onEvent callbacks. -->
+调试器 API 是
+<a href="https://developers.google.com/chrome-developer-tools/docs/remote-debugging">Chrome
+远程调试协议</a>（英文）的另一种消息传输方式。使用
+<code>chrome.debugger</code> 
+可以附加到一个或多个标签页，以便查看网络交互、调试 JavaScript、改变 DOM 和
+CSS 等等。使用调试对象的标签页标识符来指定 sendCommand 的目标标签页，并在
+onEvent 的回调函数中通过标签页标识符分发事件。
 </p>
 
 <p>
-As of today, attaching to the tab by means of the debugger API
+<!--@As of today, attaching to the tab by means of the debugger API
 and using embedded Chrome DevTools with that tab are mutually exclusive.
 If user invokes Chrome DevTools while extension is attached to the tab,
-debugging session is terminated. Extension can re-establish it later.
+debugging session is terminated. Extension can re-establish it later.-->
+目前，通过调试器 API 附加到标签页与在同一标签页使用内置的 Chrome
+浏览器开发者工具两者不能同时进行。如果用户在扩展程序已附加到标签页时调用了
+Chrome 浏览器的开发者工具，调试会话将终止，扩展程序可以之后再重新建立会话。
 </p>
 
-<h2 id="manifest">Manifest</h2>
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
 
 <p>
-You must declare the "debugger" permission in your extension's manifest
-to use this API.
+<!--@You must declare the "debugger" permission in your extension's manifest
+to use this API.-->
+您必须在您的扩展程序的清单文件中声明 "debugger" 权限才能使用这一 API。
 </p>
 
 <pre>{
-  "name": "My extension",
+  "name": "我的扩展程序",
   ...
 <b>  "permissions": [
     "debugger",
@@ -312,11 +323,12 @@ to use this API.
 }</pre>
 
 
-<h2 id="examples">Examples</h2>
+<h2 id="examples"><!--@Examples-->例子</h2>
 
 <p>
-You can find samples of this API in
-<a href="samples.html#debugger">Samples</a>.
+<!--@You can find samples of this API in
+<a href="samples.html#debugger">Samples</a>.-->
+您可以在<a href="samples.html#debugger">示例</a>中找到这一 API 的示例。
 </p>
         <h2 id="apiReference"><!--@API Reference: chrome.debugger-->API 参考：chrome.debugger</h2>
         <div class="api_reference">
@@ -326,7 +338,7 @@ You can find samples of this API in
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Debuggee identifier.
+                    调试对象的标识符。
                   </dd>    <h4 id="Debuggee-properties">
                     <!--@Properties of --><a href="#type-Debuggee">Debuggee</a>
                     的属性
@@ -343,7 +355,7 @@ You can find samples of this API in
                         </span>
                       </dt>
                       <dd>
-                        The id of the tab which you intend to debug.
+                        您要调试的标签页的标识符。
                       </dd>
                     </div>
               </dl></dd>
@@ -357,7 +369,7 @@ You can find samples of this API in
                 </div>
                 <div class="description">
                   <p>
-                    Attaches debugger to the given target.
+                    将调试器附加到指定目标。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -373,7 +385,7 @@ You can find samples of this API in
                           </span>
                         </dt>
                         <dd>
-                          Debugging target to which you want to attach.
+                          您希望附加的调试目标。
                         </dd>
                       </div>
                       <div>
@@ -388,7 +400,7 @@ You can find samples of this API in
                           </span>
                         </dt>
                         <dd>
-                          Required debugging protocol version ("0.1"). One can only attach to the debuggee with matching major version and greater or equal minor version. List of the protocol versions can be obtained <a href='http://code.google.com/chrome/devtools/docs/remote-debugging.html'>here</a>.
+                          要求的调试协议版本（"0.1"），您只能附加到主版本号匹配且次要版本号大于或等于指定版本号的调试对象。协议版本可以从<a href="https://developers.google.com/chrome-developer-tools/docs/remote-debugging">这里</a>获取。
                         </dd>
                       </div>
                       <div>
@@ -403,7 +415,7 @@ You can find samples of this API in
                           </span>
                         </dt>
                         <dd>
-                          Called once the attach operation succeeds or fails. Callback receives no arguments. If the attach fails, <a href="runtime.html#property-lastError">runtime.lastError</a> will be set to the error message.
+                          附加操作成功或失败后调用。回调函数不接受参数，如果附加失败，<a href="runtime.html#property-lastError">runtime.lastError</a> 会设置为错误消息。
                         </dd>
                       </div>
                   </dl>
@@ -423,7 +435,7 @@ You can find samples of this API in
                 </div>
                 <div class="description">
                   <p>
-                    Detaches debugger from the given target.
+                    使调试器脱离指定目标。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -439,7 +451,7 @@ You can find samples of this API in
                           </span>
                         </dt>
                         <dd>
-                          Debugging target from which you want to detach.
+                          您希望脱离的调试目标。
                         </dd>
                       </div>
                       <div>
@@ -454,7 +466,7 @@ You can find samples of this API in
                           </span>
                         </dt>
                         <dd>
-                          Called once the detach operation succeeds or fails. Callback receives no arguments. If the detach fails, <a href="runtime.html#property-lastError">runtime.lastError</a> will be set to the error message.
+                          脱离操作成功或失败后调用。回调函数不接受参数，如果脱离失败，<a href="runtime.html#property-lastError">runtime.lastError</a> 会设置为错误消息。
                         </dd>
                       </div>
                   </dl>
@@ -474,7 +486,7 @@ You can find samples of this API in
                 </div>
                 <div class="description">
                   <p>
-                    Sends given command to the debugging target.
+                    将指定命令发送至调试目标。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -490,7 +502,7 @@ You can find samples of this API in
                           </span>
                         </dt>
                         <dd>
-                          Debugging target to which you want to send the command.
+                          您需要发送命令的调试目标。
                         </dd>
                       </div>
                       <div>
@@ -505,7 +517,7 @@ You can find samples of this API in
                           </span>
                         </dt>
                         <dd>
-                          Method name. Should be one of the methods defined by the <a href='http://code.google.com/chrome/devtools/docs/remote-debugging.html'>remote debugging protocol</a>.
+                          方法名称，应该为<a href="https://developers.google.com/chrome-developer-tools/docs/remote-debugging">远程调试协议</a>中定义的某一个方法。
                         </dd>
                       </div>
                       <div>
@@ -520,7 +532,7 @@ You can find samples of this API in
                           </span>
                         </dt>
                         <dd>
-                          JSON object with request parameters. This object must conform to the remote debugging params scheme for given method.
+                          包含请求参数的 JSON 对象，这一对象必须遵循适用于指定方法的远程调试参数架构。
                         </dd>
                       </div>
                       <div>
@@ -535,7 +547,7 @@ You can find samples of this API in
                           </span>
                         </dt>
                         <dd>
-                          Response body. If an error occurs while posting the message, the callback will be called with no arguments and <a href="runtime.html#property-lastError">runtime.lastError</a> will be set to the error message.
+                          响应正文。如果发送消息时产生错误，将不传递参数调用这一回调函数，并将 <a href="runtime.html#property-lastError">runtime.lastError</a> 设置为错误消息。
                         </dd>
                       </div>
                   </dl>
@@ -559,7 +571,7 @@ You can find samples of this API in
                             </span>
                           </dt>
                           <dd>
-                            JSON object with the response. Structure of the response varies depending on the method and is defined by the remote debugging protocol.
+                            包含响应的 JSON 对象。响应的结构取决于方法，在远程调试协议中定义。
                           </dd>
                         </div>
                     </dl>
@@ -573,10 +585,10 @@ You can find samples of this API in
                 </div>
                 <div class="description">
               <p>
-                    Fired whenever debugging target issues instrumentation event.
+                    当调试目标发出事件时产生。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
-                      <div>  <a name="property-onEvent-source"></a>  <dt>    <span class="variable">source</span>    <span class="property">      (                <a href="debugger.html#type-Debuggee">Debuggee</a>      )    </span>  </dt>  <dd>    The debuggee that generated this event.  </dd></div><div>  <a name="property-onEvent-method"></a>  <dt>    <span class="variable">method</span>    <span class="property">      (                string      )    </span>  </dt>  <dd>    Method name. Should be one of the notifications defined by the <a href='http://code.google.com/chrome/devtools/docs/remote-debugging.html'>remote debugging protocol</a>.  </dd></div><div>  <a name="property-onEvent-params"></a>  <dt>    <span class="variable">params</span>    <span class="property">      (        <span class="optional">optional</span>        object      )    </span>  </dt>  <dd>    JSON object with the response. Structure of the response varies depending on the method and is defined by the remote debugging protocol.  </dd></div>
+                      <div>  <a name="property-onEvent-source"></a>  <dt>    <span class="variable">source</span>    <span class="property">      (                <a href="debugger.html#type-Debuggee">Debuggee</a>      )    </span>  </dt>  <dd>    产生这一事件的调试对象。  </dd></div><div>  <a name="property-onEvent-method"></a>  <dt>    <span class="variable">method</span>    <span class="property">      (                string      )    </span>  </dt>  <dd>    方法名称，应该为<a href="https://developers.google.com/chrome-developer-tools/docs/remote-debugging">远程调试协议</a>中定义的某一个通知。  </dd></div><div>  <a name="property-onEvent-params"></a>  <dt>    <span class="variable">params</span>    <span class="property">      (        <span class="optional">optional</span>        object      )    </span>  </dt>  <dd>    包含响应的 JSON 对象。响应的结构取决于方法，在远程调试协议中定义。  </dd></div>
                     </dl>
                 </div>
               </div>
@@ -587,10 +599,10 @@ You can find samples of this API in
                 </div>
                 <div class="description">
               <p>
-                    Fired when browser terminates debugging session for the tab. This happens when either the tab is being closed or Chrome DevTools is being invoked for the attached tab.
+                    当浏览器终止某个标签页的调试会话时产生。这会在标签页关闭，或者 Chrome 浏览器的开发者工具在已附加调试器的标签页中调用时发生。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
-                      <div>  <a name="property-onDetach-source"></a>  <dt>    <span class="variable">source</span>    <span class="property">      (                <a href="debugger.html#type-Debuggee">Debuggee</a>      )    </span>  </dt>  <dd>    The debuggee that was detached.  </dd></div><div>  <a name="property-onDetach-reason"></a>  <dt>    <span class="variable">reason</span>    <span class="property">      (                enumerated string ["target_closed", "canceled_by_user", "replaced_with_devtools"]      )    </span>  </dt>  <dd>    Connection termination reason.  </dd></div>
+                      <div>  <a name="property-onDetach-source"></a>  <dt>    <span class="variable">source</span>    <span class="property">      (                <a href="debugger.html#type-Debuggee">Debuggee</a>      )    </span>  </dt>  <dd>    调试器脱离的调试对象。  </dd></div><div>  <a name="property-onDetach-reason"></a>  <dt>    <span class="variable">reason</span>    <span class="property">      (                enumerated string ["target_closed", "canceled_by_user", "replaced_with_devtools"]      )    </span>  </dt>  <dd>    连接终止的原因。  </dd></div>
                     </dl>
                 </div>
               </div>

@@ -274,21 +274,23 @@
     <th scope="col"></th>
   </tr>
   <tr>
-    <td><strong>Description:</strong></td>
-    <td>Use the <code>chrome.webstore</code> module
-    to initiate app and extension installations "inline" from your site.</td>
+    <td><strong><!--@Description:-->描述：</strong></td>
+    <td><!--@Use the-->使用 <code>chrome.webstore</code> <!--@module
+    to initiate app and extension installations "inline" from your site.-->
+    模块从您的站点上“内嵌”安装应用程序与扩展程序。
+    </td>
   </tr>
   <tr>
-    <td><strong>Availability:</strong></td>
+    <td><strong><!--@Availability:-->可用版本：</strong></td>
     <td>Google Chrome 15</td>
   </tr>
   <tr>
-    <td><strong>Permissions:</strong></td>
-    <td>None</td>
+    <td><strong><!--@Permissions:-->权限：</strong></td>
+    <td><!--@None-->无</td>
   </tr>
   <tr>
-    <td><strong>Learn more:</strong></td>
-    <td><a href="https://developers.google.com/chrome/web-store/docs/inline_installation">Using Inline Installation</a></td>
+    <td><strong><!--@Learn more:-->了解更多：</strong></td>
+    <td><a href="https://developers.google.com/chrome/web-store/docs/inline_installation"><!--@Using Inline Installation-->使用内嵌安装</a>（英文）</td>
   </tr>
 </table>
         <h2 id="apiReference"><!--@API Reference: chrome.webstore-->API 参考：chrome.webstore</h2>
@@ -314,7 +316,7 @@
                           </span>
                         </dt>
                         <dd>
-                          If you have more than one <code>&lt;link&gt;</code> tag on your page with the <code>chrome-webstore-item</code> relation, you can choose which item you'd like to install by passing in its URL here. If it is omitted, then the first (or only) link will be used. An exception will be thrown if the passed in URL does not exist on the page.
+                          如果在您的关系为 <code>chrome-webstore-item</code> 的页面上有一个以上的 <code>&lt;link&gt;</code> 标签，您可以在这里传递 URL 选择您希望安装的项目。如果省略的话，则使用第一个（或唯一一个）链接。如果传递的 URL 在页面中不存在则会引发异常。
                         </dd>
                       </div>
                       <div>
@@ -329,7 +331,7 @@
                           </span>
                         </dt>
                         <dd>
-                          This function is invoked when inline installation successfully completes (after the dialog is shown and the user agrees to add the item to Chrome). You may wish to use this to hide the user interface element that prompted the user to install the app or extension.
+                          当内嵌安装成功完成时（已经显示确认对话框并且用户同意将该项目添加至 Chrome 浏览器）调用此函数。您可能希望使用它来隐藏提示用户安装应用程序或扩展程序的用户界面元素。
                         </dd>
                       </div>
                       <div>
@@ -344,7 +346,7 @@
                           </span>
                         </dt>
                         <dd>
-                          This function is invoked when inline installation does not successfully complete. Possible reasons for this include the user canceling the dialog, the linked item not being found in the store, or the install being initiated from a non-verified site.
+                          如果内嵌安装没有成功完成时调用此函数。可能的原因包括用户取消了确认对话框，链接的项目无法在网上应用店中找到，或者安装由未经过验证的站点进行。
                         </dd>
                       </div>
                   </dl>
@@ -368,7 +370,7 @@
                             </span>
                           </dt>
                           <dd>
-                            The failure detail. You may wish to inspect or log this for debugging purposes, but you should not rely on specific strings being passed back.
+                            失败的详情。您可能希望为了调试目的检查或记录它，但是您不应该依赖于传递过来的特定字符串。
                           </dd>
                         </div>
                     </dl>

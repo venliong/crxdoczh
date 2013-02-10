@@ -256,16 +256,16 @@
           <h2><!--@Contents-->目录</h2>
           <ol>
             <li>
-              <a href=#manifest>Manifest</a>
+              <a href=#manifest>清单文件</a>
             </li>
             <li>
-              <a href=#description>Objects and properties</a>
+              <a href=#description>对象和属性</a>
               <ol>
-                <li><a href=#proxy_modes>Proxy modes</a></li><li><a href=#proxy_rules>Proxy rules</a></li><li><a href=#proxy_server_objects>Proxy server objects</a></li><li><a href=#bypass_list>Bypass list</a></li>
+                <li><a href=#proxy_modes>代理服务器模式</a></li><li><a href=#proxy_rules>代理服务器规则</a></li><li><a href=#proxy_server_objects>代理服务器对象</a></li><li><a href=#bypass_list>例外列表</a></li>
               </ol>
             </li>
             <li>
-              <a href=#overview-examples>Examples</a>
+              <a href=#overview-examples>例子</a>
             </li>
             <li>
               <a href="#apiReference"><!--@API reference: -->API 参考：chrome.proxy</a>
@@ -281,19 +281,25 @@
         </div>
 
 <p id="classSummary">
-Use the <code>chrome.proxy</code> module to manage Chrome's
+<!--@Use the-->使用 <code>chrome.proxy</code> <!--@module to manage Chrome's
 proxy settings. This module relies on the <a href="types.html#ChromeSetting">
 ChromeSetting prototype of the type API</a> for getting and setting the proxy
-configuration.
+configuration.-->
+模块管理 Chrome 浏览器的代理服务器设置。该模块依赖<a
+href="types.html#ChromeSetting">类型 API 中的 ChromeSetting
+原型</a>，用于获取和设置代理服务器配置。
 </p>
 
-<h2 id="manifest">Manifest</h2>
-<p>You must declare the "proxy" permission
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
+<p><!--@You must declare the "proxy" permission
 in the <a href="manifest.html">extension manifest</a>
 to use the proxy settings API.
-For example:</p>
+For example:-->
+您必须在<a href="manifest.html">扩展程序的清单文件</a>中声明
+"proxy"（代理服务器）权限来使用代理服务器设置 API。例如：
+</p>
 <pre>{
-  "name": "My extension",
+  "name": "我的扩展程序",
   ...
   <b>"permissions": [
     "proxy"
@@ -301,97 +307,145 @@ For example:</p>
   ...
 }</pre>
 
-<h2 id="description">Objects and properties</h2>
+<h2 id="description"><!--@Objects and properties-->对象和属性</h2>
 
 <p>
-Proxy settings are defined in a
+<!--@Proxy settings are defined in a
 <a href="proxy.html#type-ProxyConfig">ProxyConfig</a> object. Depending on
 Chrome's proxy settings, the settings may contain
 <a href="proxy.html#type-ProxyRules">ProxyRules</a> or a 
-  <a href="proxy.html#type-PacScript">PacScript</a>.
+  <a href="proxy.html#type-PacScript">PacScript</a>.-->
+代理服务器设置定义在 <a href="proxy.html#type-ProxyConfig">ProxyConfig</a> 对象中。取决于 Chrome
+浏览器的代理服务器设置，设置可以包含 <a href="proxy.html#type-ProxyRules">ProxyRules</a> 对象或者一个
+<a href="proxy.html#type-PacScript">PacScript</a> 对象。
 </p>
 
-<h3 id="proxy_modes">Proxy modes</h3>
+<h3 id="proxy_modes"><!--@Proxy modes-->代理服务器模式</h3>
 
 <p>
-A ProxyConfig object's <code>mode</code> attribute determines the overall
+<!--@A ProxyConfig object's <code>mode</code> attribute determines the overall
 behavior of Chrome with regards to proxy usage. It can take the following
-values:
+values:-->
+ProxyConfig 对象的 <code>mode</code> 属性决定 Chrome
+浏览器使用代理服务器的整体行为。它可以为以下值：
 <dl>
   <dt><code>direct</code></dt>
-  <dd>In <code>direct</code> mode all connections are created directly, without
+  <dd><!--@In <code>direct</code> mode all connections are created directly, without
   any proxy involved. This mode allows no further parameters in the
-  <code>ProxyConfig</code> object.</dd>
+  <code>ProxyConfig</code> object.-->
+  在 <code>direct</code>
+  模式下所有连接都直接建立，不涉及任何代理服务器。使用这一模式时不允许
+  <code>ProxyConfig</code> 对象中包含其他任何参数。
+  </dd>
 
   <dt><code>auto_detect</code></dt>
-  <dd>In <code>auto_detect</code> mode the proxy configuration is determined by
+  <dd><!--@In <code>auto_detect</code> mode the proxy configuration is determined by
   a PAC script that can be downloaded at
   <a href="http://wpad/wpad.dat">http://wpad/wpad.dat</a>.
   This mode allows no further parameters in the <code>ProxyConfig</code>
-  object.</dd>
+  object.-->
+  在 <code>auto_detect</code> 模式下，代理服务器配置通过下载自
+  <a href="http://wpad/wpad.dat">http://wpad/wpad.dat</a>
+  的一个 PAC 脚本确定。使用这一模式时不允许 <code>ProxyConfig</code>
+  对象中包含其他任何参数。
+  </dd>
 
   <dt><code>pac_script</code></dt>
-  <dd>In <code>pac_script</code> mode the proxy configuration is determined by
+  <dd><!--@In <code>pac_script</code> mode the proxy configuration is determined by
   a PAC script that is either retrieved from the URL specified in the
   <a href="proxy.html#type-PacScript">PacScript</a> object or
   taken literally from the <code>data</code> element specified in the
   <a href="proxy.html#type-PacScript">PacScript</a> object.
   Besides this, this mode allows no further parameters in the
-  <code>ProxyConfig</code> object.</dd>
+  <code>ProxyConfig</code> object.-->
+  在 <code>pac_script</code> 模式下代理服务器配置由一个 PAC
+  脚本确定，它既可以从 <a href="proxy.html#type-PacScript">PacScript</a> 对象中指定的 URL
+  获取，也可以直接来自 <a href="proxy.html#type-PacScript">PacScript</a> 对象中的 <code>data</code>
+  属性。除此之外，使用该模式时不允许 <code>ProxyConfig</code>
+  对象中包含其他任何参数。
+  </dd>
 
   <dt><code>fixed_servers</code></dt>
-  <dd>In <code>fixed_servers</code> mode the proxy configuration is codified in
+  <dd><!--@In <code>fixed_servers</code> mode the proxy configuration is codified in
   a <a href="proxy.html#type-ProxyRules">ProxyRules</a>
   object. Its structure is described in <a href="#proxy_rules">Proxy rules</a>.
   Besides this, the <code>fixed_servers</code> mode allows no further parameters
-  in the <code>ProxyConfig</code> object.</dd>
+  in the <code>ProxyConfig</code> object.-->
+  在 <code>fixed_servers</code> 模式下代理服务器配置通过一个
+  <a href="proxy.html#type-ProxyRules">ProxyRules</a>
+  对象指定。它的结构将在<a href="#proxy_rules"
+  >代理服务器</a>规则部分描述。除此之外，<code>fixed_servers</code>
+  模式时不允许 <code>ProxyConfig</code> 对象中包含其他任何参数。
+  </dd>
 
   <dt><code>system</code></dt>
-  <dd>In <code>system</code> mode the proxy configuration is taken from the
+  <dd><!--@In <code>system</code> mode the proxy configuration is taken from the
   operating system. This mode allows no further parameters in the
   <code>ProxyConfig</code> object. Note that the <code>system</code> mode is
   different from setting no proxy configuration. In the latter case, Chrome
   falls back to the system settings only if no command-line options influence
-  the proxy configuration.</dd>
+  the proxy configuration.-->
+  在 <code>system</code>
+  模式下代理服务器配置直接从操作系统获取，使用这一模式时不允许
+  <code>ProxyConfig</code> 对象中包含其他任何参数。注意 <code>system</code>
+  模式与不设置代理服务器配置不同，在后一种情况下，Chrome
+  浏览器只有在没有任何命令行选项影响代理服务器配置的情况下才会使用系统设置。
+  </dd>
 </dl>
 </p>
 
-<h3 id="proxy_rules">Proxy rules</h3>
+<h3 id="proxy_rules"><!--@Proxy rules-->代理服务器规则</h3>
 
 <p>
-The <a href="proxy.html#type-ProxyRules">ProxyRules</a> object can contain
+<!--@The--> <a href="proxy.html#type-ProxyRules">ProxyRules</a> <!--@object can contain
 either a <code>singleProxy</code> attribute or a subset of
 <code>proxyForHttp</code>, <code>proxyForHttps</code>, <code>proxyForFtp</code>,
-and <code>fallbackProxy</code>.
+and <code>fallbackProxy</code>.-->
+对象可以包含一个 <code>singleProxy</code> 属性或者
+<code>proxyForHttp</code>、<code>proxyForHttps</code>、<code>proxyForFtp</code>
+或 <code>fallbackProxy</code> 这些属性中的一个子集。
 </p>
 
 <p>
-In the first case, HTTP, HTTPS and FTP traffic is proxied through the specified
+<!--@In the first case, HTTP, HTTPS and FTP traffic is proxied through the specified
 proxy server. Other traffic is sent directly. In the latter case the behavior is
 slightly more subtle: If a proxy server is configured for the HTTP, HTTPS or FTP
 protocol, the respective traffic is proxied through the specified server. If no
 such proxy server is specified or traffic uses a different protocol than HTTP,
 HTTPS or FTP, the <code>fallbackProxy</code> is used. If no
 <code>fallbackProxy</code> is specified, traffic is sent directly without a
-proxy server.
+proxy server.-->
+在第一种情况下，HTTP、HTTPS 和 FTP
+流量都将通过指定的代理服务器，其它流量直接发送。在后一种情况下行为稍微复杂一些：如果分别为
+HTTP、HTTPS 或 FTP
+协议配置了代理服务器，则相应的流量通过指定的服务器代理。如果没有指定相应的代理服务器或者流量使用了
+HTTP、HTTPS 或 FTP 之外的另一种协议，则使用
+<code>fallbackProxy</code>。如果没有指定
+<code>fallbackProxy</code>，将直接发送，不通过代理服务器。
 </p>
 
-<h3 id="proxy_server_objects">Proxy server objects</h3>
+<h3 id="proxy_server_objects"><!--@Proxy server objects-->代理服务器对象</h3>
 
 <p>
-A proxy server is configured in a
+<!--@A proxy server is configured in a
 <a href="proxy.html#type-ProxyServer">ProxyServer</a> object. The connection
 to the proxy server (defined by the <code>host</code> attribute) uses the
 protocol defined in the <code>scheme</code> attribute. If no <code>scheme</code>
-is specified, the proxy connection defaults to <code>http</code>.
+is specified, the proxy connection defaults to <code>http</code>.-->
+代理服务器在 <a href="proxy.html#type-ProxyServer">ProxyServer</a> 对象中配置。连接到代理服务器（由
+<code>host</code> 属性定义）时使用定义在 <code>scheme</code>
+属性中的协议。如果没有指定 <code>scheme</code>，代理服务器连接默认使用
+<code>http</code>。
 </p>
 
 <p>
-If no <code>port</code> is defined in a
+<!--@If no <code>port</code> is defined in a
 <a href="proxy.html#type-ProxyServer">ProxyServer</a> object, the port is
-derived from the scheme. The default ports are:
+derived from the scheme. The default ports are:-->
+如果 <a href="proxy.html#type-ProxyServer">ProxyServer</a> 对象中没有定义 <code>port</code>
+属性，端口将使用协议的默认值。默认端口分别为：
 <table>
-  <tr><th>Scheme</th><th>Port</th></tr>
+  <tr><th><!--@Scheme-->协议</th><th><!--@Port-->端口</th></tr>
   <tr><td>http</td><td>80</td></tr>
   <tr><td>https</td><td>443</td></tr>
   <tr><td>socks4</td><td>1080</td></tr>
@@ -399,22 +453,27 @@ derived from the scheme. The default ports are:
 </table>
 </p>
 
-<h3 id="bypass_list">Bypass list</h3>
+<h3 id="bypass_list"><!--@Bypass list-->例外列表</h3>
 
 <p>
-Individual servers may be excluded from being proxied with the
-<code>bypassList</code>. This list may contain the following entries:
+<!--@Individual servers may be excluded from being proxied with the
+<code>bypassList</code>. This list may contain the following entries:-->
+个别的服务器可以通过 <code>bypassList</code>
+属性排除在代理服务器之外。这一列表可以包含如下条目：
 <dl>
   <dt><code>[<em>&lt;scheme&gt;</em>://]<em>&lt;host-pattern&gt;</em>[:<em>&lt;port&gt;</em>]</code></dt>
-  <dd>Match all hostnames that match the pattern <em>&lt;host-pattern&gt;</em>.
-  A leading <code>"."</code> is interpreted as a <code>"*."</code>.<br>
-  Examples: <code>"foobar.com", "*foobar.com", "*.foobar.com", "*foobar.com:99",
+  <dd><!--@Match all hostnames that match the pattern <em>&lt;host-pattern&gt;</em>.
+  A leading <code>"."</code> is interpreted as a <code>"*."</code>.-->
+  匹配所有符合 <em>&lt;host-pattern&gt;</em>
+  表达式的主机名，前导的“<code>.</code>”将被视为“<code>*.</code>”。
+  <br>
+  <!--@Examples: -->例如：<code>"foobar.com", "*foobar.com", "*.foobar.com", "*foobar.com:99",
     "https://x.*.y.com:99"</code>.<br>
   <table>
     <tr>
-      <th>Pattern
-      <th>Matches
-      <th>Does not match
+      <th><!--@Pattern-->表达式
+      <th><!--@Matches-->匹配的域名
+      <th><!--@Does not match-->不匹配的域名
     <tr>
       <td><code>".foobar.com"</code>
       <td><code>"www.foobar.com"</code>
@@ -436,33 +495,47 @@ Individual servers may be excluded from being proxied with the
   </dd>
 
   <dt><code>[<em>&lt;scheme&gt;</em>://]<em>&lt;ip-literal&gt;</em>[:<em>&lt;port&gt;</em>]</code></dt>
-  <dd>Match URLs that are IP address literals.<br>
-  Conceptually this is the similar to the first case, but with special cases
+  <dd><!--@Match URLs that are IP address literals.-->
+  匹配包含字面 IP 地址的 URL。
+  <br>
+  <!--@Conceptually this is the similar to the first case, but with special cases
   to handle IP literal canonicalization. For example, matching
   on "[0:0:0::1]" is the same as matching on "[::1]" because
-  the IPv6 canonicalization is done internally.<br>
-  Examples: <code>"127.0.1", "[0:0::1]", "[::1]", "http://[::1]:99"</code></dd>
+  the IPv6 canonicalization is done internally.-->
+  概念上这和第一种情况相似，但是特别之处在于它会处理 IP
+  地址规范化的情况。例如匹配"[0:0:0::1]"与匹配"[::1]"是相同的，因为在内部会自动进行
+  IPv6 规范化。
+  <br>
+  <!--@Examples: -->例如：<code>"127.0.1", "[0:0::1]", "[::1]", "http://[::1]:99"</code></dd>
 
   <dt><code><em>&lt;ip-literal&gt;</em>/<em>&lt;prefix-length-in-bits&gt;</em></code></dt>
-  <dd>Match any URL containing an IP literal within the given range. The IP
-  range is specified using CIDR notation.<br>
-  Examples: <code>"192.168.1.1/16", "fefe:13::abc/33"</code></dd>
+  <dd><!--@Match any URL containing an IP literal within the given range. The IP
+  range is specified using CIDR notation.-->
+  匹配包含指定范围内 IP 地址的任何 URL，IP 范围使用 <a
+  href="https://en.wikipedia.org/wiki/CIDR_notation">CIDR 记号</a>表示。
+  <br>
+  <!--@Examples: -->例如：<code>"192.168.1.1/16", "fefe:13::abc/33"</code></dd>
 
   <dt><code>&lt;local&gt;</code></dt>
-  <dd>Match local addresses. An address is local if the host is "127.0.0.1",
-  "::1", or "localhost".<br>
-  Example: <code>"&lt;local&gt;"</code></dd>
+  <dd><!--@Match local addresses. An address is local if the host is "127.0.0.1",
+  "::1", or "localhost".-->
+  匹配本机地址。本机地址包括主机为 "127.0.0.1"、"::1"或 "localhost" 的地址。
+  <br>
+  <!--@Example: -->例如：<code>"&lt;local&gt;"</code></dd>
 </dl>
 
 
-<h2 id="overview-examples">Examples</h2>
+<h2 id="overview-examples"><!--@Examples-->例子</h2>
 
 <p>
-The following code sets a SOCKS 5 proxy for HTTP connections to all servers but
+<!--@The following code sets a SOCKS 5 proxy for HTTP connections to all servers but
 foobar.com and uses direct connections for all other protocols. The settings
 apply to regular and incognito windows, as incognito windows inherit settings
 from regular windows. Please also consult the <a
-  href="types.html#ChromeSetting">Types API</a> documentation.
+  href="types.html#ChromeSetting">Types API</a> documentation.-->
+以下代码为除了 foobar.com 以外的所有 HTTP 连接设置 SOCKS 5
+代理，并为所有其他协议使用直接连接。这些设置应用于普通窗口和隐身窗口，因为隐身窗口从普通窗口继承设置。同时请参见<a
+href="types.html#ChromeSetting">类型 API</a> 文档。
 </p>
 
 <pre>
@@ -482,7 +555,8 @@ chrome.proxy.settings.set(
 </pre>
 
 <p>
-The following code sets a custom PAC script.
+<!--@The following code sets a custom PAC script.-->
+如下代码设置一个自定义 PAC 脚本。
 </p>
 
 <pre>
@@ -502,9 +576,11 @@ chrome.proxy.settings.set(
 </pre>
 
 <p>
-The next snippet queries the currently effective proxy settings. The effective
+<!--@The next snippet queries the currently effective proxy settings. The effective
 proxy settings can be determined by another extension or by a policy. See the <a
-  href="types.html#ChromeSetting">Types API</a> documentation for details.
+  href="types.html#ChromeSetting">Types API</a> documentation for details.-->
+下一个代码片段查询当前有效的代理服务器设置，有效代理服务器设置可以由另一个扩展程序或者其他策略确定。有关细节请参见<a
+href="types.html#ChromeSetting">类型 API</a>。
 </p>
 
 <pre>
@@ -514,10 +590,13 @@ chrome.proxy.settings.get(
 </pre>
 
 <p>
-Note that the <code>value</code> object passed to <code>set()</code> is not
+<!--@Note that the <code>value</code> object passed to <code>set()</code> is not
 identical to the <code>value</code> object passed to callback function of
 <code>get()</code>. The latter will contain a
-<code>rules.proxyForHttp.port</code> element.
+<code>rules.proxyForHttp.port</code> element.-->
+注意，传递给 <code>set()</code> 的 <code>value</code> 对象与传递给
+<code>get()</code> 的回调函数的 <code>value</code> 对象不同，后者会包含
+<code>rules.httpProxy.port</code> 元素。
 </p>
         <h2 id="apiReference"><!--@API Reference: chrome.proxy-->API 参考：chrome.proxy</h2>
         <div class="api_reference">
@@ -527,7 +606,7 @@ identical to the <code>value</code> object passed to callback function of
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    An object encapsulating a single proxy server's specification.
+                    包含单个代理服务器信息的对象。
                   </dd>    <h4 id="ProxyServer-properties">
                     <!--@Properties of --><a href="#type-ProxyServer">ProxyServer</a>
                     的属性
@@ -544,7 +623,7 @@ identical to the <code>value</code> object passed to callback function of
                         </span>
                       </dt>
                       <dd>
-                        The scheme (protocol) of the proxy server itself. Defaults to 'http'.
+                        代理服务器自己的协议，默认为 "http"。
                       </dd>
                     </div>
                     <div>
@@ -559,7 +638,7 @@ identical to the <code>value</code> object passed to callback function of
                         </span>
                       </dt>
                       <dd>
-                        The URI of the proxy server. This must be an ASCII hostname (in Punycode format). IDNA is not supported, yet.
+                        代理服务器的 URL，必须为 ASCII 主机名（以 <a href="https://en.wikipedia.org/wiki/Punycode">Punycode</a> 的格式），暂时还不支持 IDNA。
                       </dd>
                     </div>
                     <div>
@@ -574,7 +653,7 @@ identical to the <code>value</code> object passed to callback function of
                         </span>
                       </dt>
                       <dd>
-                        The port of the proxy server. Defaults to a port that depends on the scheme.
+                        代理服务器的端口，默认值与协议相关。
                       </dd>
                     </div>
               </dl></dd>
@@ -585,7 +664,7 @@ identical to the <code>value</code> object passed to callback function of
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    An object encapsulating the set of proxy rules for all protocols. Use either 'singleProxy' or (a subset of) 'proxyForHttp', 'proxyForHttps', 'proxyForFtp' and 'fallbackProxy'.
+                    包含用于所有协议的代理规则的对象。仅使用 "singleProxy" 属性或者使用以下属性（及其子集）："proxyForHttp"、"proxyForHttps"、"proxyForFtp" 和 "fallbackProxy"。
                   </dd>    <h4 id="ProxyRules-properties">
                     <!--@Properties of --><a href="#type-ProxyRules">ProxyRules</a>
                     的属性
@@ -602,7 +681,7 @@ identical to the <code>value</code> object passed to callback function of
                         </span>
                       </dt>
                       <dd>
-                        The proxy server to be used for all per-URL requests (that is http, https, and ftp).
+                        用于所有 URL 请求（即 HTTP、HTTPS 和 FTP）的代理服务器。
                       </dd>
                     </div>
                     <div>
@@ -617,7 +696,7 @@ identical to the <code>value</code> object passed to callback function of
                         </span>
                       </dt>
                       <dd>
-                        The proxy server to be used for HTTP requests.
+                        用于 HTTP 请求的代理服务器。
                       </dd>
                     </div>
                     <div>
@@ -632,7 +711,7 @@ identical to the <code>value</code> object passed to callback function of
                         </span>
                       </dt>
                       <dd>
-                        The proxy server to be used for HTTPS requests.
+                        用于 HTTPS 请求的代理服务器。
                       </dd>
                     </div>
                     <div>
@@ -647,7 +726,7 @@ identical to the <code>value</code> object passed to callback function of
                         </span>
                       </dt>
                       <dd>
-                        The proxy server to be used for FTP requests.
+                        用于 FTP 请求的代理服务器。
                       </dd>
                     </div>
                     <div>
@@ -662,7 +741,7 @@ identical to the <code>value</code> object passed to callback function of
                         </span>
                       </dt>
                       <dd>
-                        The proxy server to be used for everthing else or if any of the specific proxyFor... is not specified.
+                        用于其他协议或者未指定 proxyFor... 的协议的代理服务器。
                       </dd>
                     </div>
                     <div>
@@ -677,7 +756,7 @@ identical to the <code>value</code> object passed to callback function of
                         </span>
                       </dt>
                       <dd>
-                        List of servers to connect to without a proxy server.
+                        不通过代理服务器连接的服务器列表。
                       </dd>
                     </div>
               </dl></dd>
@@ -688,7 +767,7 @@ identical to the <code>value</code> object passed to callback function of
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    An object holding proxy auto-config information. Exactly one of the fields should be non-empty.
+                    包含代理自动配置信息的对象。以下前两个属性中有且只有一个非空。
                   </dd>    <h4 id="PacScript-properties">
                     <!--@Properties of --><a href="#type-PacScript">PacScript</a>
                     的属性
@@ -705,7 +784,7 @@ identical to the <code>value</code> object passed to callback function of
                         </span>
                       </dt>
                       <dd>
-                        URL of the PAC file to be used.
+                        要使用的 PAC 文件 URL。
                       </dd>
                     </div>
                     <div>
@@ -720,7 +799,7 @@ identical to the <code>value</code> object passed to callback function of
                         </span>
                       </dt>
                       <dd>
-                        A PAC script.
+                        PAC 脚本内容。
                       </dd>
                     </div>
                     <div>
@@ -735,7 +814,7 @@ identical to the <code>value</code> object passed to callback function of
                         </span>
                       </dt>
                       <dd>
-                        If true, an invalid PAC script will prevent the network stack from falling back to direct connections. Defaults to false.
+                        如果为 true，无效的 PAC 脚本将不会使网络栈回退到直接连接方式。默认为 false。
                       </dd>
                     </div>
               </dl></dd>
@@ -746,7 +825,7 @@ identical to the <code>value</code> object passed to callback function of
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    An object encapsulating a complete proxy configuration.
+                    包含完整代理配置的对象。
                   </dd>    <h4 id="ProxyConfig-properties">
                     <!--@Properties of --><a href="#type-ProxyConfig">ProxyConfig</a>
                     的属性
@@ -763,7 +842,7 @@ identical to the <code>value</code> object passed to callback function of
                         </span>
                       </dt>
                       <dd>
-                        The proxy rules describing this configuration. Use this for 'fixed_servers' mode.
+                        描述该配置的代理规则。请在 "fixed_servers" 模式下使用该属性。
                       </dd>
                     </div>
                     <div>
@@ -778,7 +857,7 @@ identical to the <code>value</code> object passed to callback function of
                         </span>
                       </dt>
                       <dd>
-                        The proxy auto-config (PAC) script for this configuration. Use this for 'pac_script' mode.
+                        该配置下的代理服务器自动配置（PAC）脚本。请在 "pac_script" 模式下使用该属性。
                       </dd>
                     </div>
                     <div>
@@ -793,7 +872,7 @@ identical to the <code>value</code> object passed to callback function of
                         </span>
                       </dt>
                       <dd>
-                        'direct' = Never use a proxy<br>'auto_detect' = Auto detect proxy settings<br>'pac_script' = Use specified PAC script<br>'fixed_servers' = Manually specify proxy servers<br>'system' = Use system proxy settings
+                        "direct" = 永远不使用代理服务器<br>"auto_detect" = 自动检测代理服务器设置<br>"pac_script" = 使用指定的 PAC 脚本<br>"fixed_servers" = 手动指定代理服务器<br>"system" = 使用系统的代理服务器设置
                       </dd>
                     </div>
               </dl></dd>
@@ -808,7 +887,7 @@ identical to the <code>value</code> object passed to callback function of
                 <div>
                   <dt><span class="property">settings</span> <span class="type_name">  (    <a href="types.html#type-ChromeSetting">types.ChromeSetting</a>  )</span></dt>
               <dd>
-                    Proxy settings to be used. The value of this setting is a ProxyConfig object.
+                    使用的代理服务器设置，这一设置的值是一个 ProxyConfig 对象。
                   </dd>  </div>
               </div>
             <h3 id="events"><!--@Events-->事件</h3>
@@ -819,10 +898,10 @@ identical to the <code>value</code> object passed to callback function of
                 </div>
                 <div class="description">
               <p>
-                    Notifies about proxy errors.
+                    通知代理服务器错误。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
-                      <div>  <a name="property-onProxyError-details"></a>  <dt>    <span class="variable">details</span>    <span class="property">      (                object      )    </span>  </dt>  <dd>    <dl>      <div>        <a name="property-details-fatal"></a>        <dt>          <span class="variable">fatal</span>          <span class="property">            (                            boolean            )          </span>        </dt>        <dd>          If true, the error was fatal and the network transaction was aborted. Otherwise, a direct connection is used instead.        </dd>      </div>      <div>        <a name="property-details-error"></a>        <dt>          <span class="variable">error</span>          <span class="property">            (                            string            )          </span>        </dt>        <dd>          The error description.        </dd>      </div>      <div>        <a name="property-details-details"></a>        <dt>          <span class="variable">details</span>          <span class="property">            (                            string            )          </span>        </dt>        <dd>          Additional details about the error such as a JavaScript runtime error.        </dd>      </div>    </dl>  </dd></div>
+                      <div>  <a name="property-onProxyError-details"></a>  <dt>    <span class="variable">details</span>    <span class="property">      (                object      )    </span>  </dt>  <dd>    <dl>      <div>        <a name="property-details-fatal"></a>        <dt>          <span class="variable">fatal</span>          <span class="property">            (                            boolean            )          </span>        </dt>        <dd>          如果为 true，该错误是致命的，网络连接将终止。否则，将改用直接连接。        </dd>      </div>      <div>        <a name="property-details-error"></a>        <dt>          <span class="variable">error</span>          <span class="property">            (                            string            )          </span>        </dt>        <dd>          错误描述。        </dd>      </div>      <div>        <a name="property-details-details"></a>        <dt>          <span class="variable">details</span>          <span class="property">            (                            string            )          </span>        </dt>        <dd>          有关错误的其他详情，例如 JavaScript 运行时错误。        </dd>      </div>    </dl>  </dd></div>
                     </dl>
                 </div>
               </div>
