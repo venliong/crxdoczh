@@ -259,19 +259,10 @@
               <a href=#manifest>Manifest</a>
             </li>
             <li>
-              <a href=#usage>Usage</a>
+              <a href=#usage>用法</a>
             </li>
             <li>
-              <a href=#examples>Examples</a>
-            </li>
-            <li>
-              <a href=#manifest>Manifest</a>
-            </li>
-            <li>
-              <a href=#usage>Usage</a>
-            </li>
-            <li>
-              <a href=#examples>Examples</a>
+              <a href=#examples>例子</a>
             </li>
             <li>
               <a href="#apiReference"><!--@API reference: -->API 参考：chrome.privacy</a>
@@ -287,25 +278,31 @@
         </div>
 
 <p id="classSummary">
-  Use the <code>chrome.privacy</code> module to control usage of the features in
+  <!--@Use the-->使用 <code>chrome.privacy</code> <!--@module to control usage of the features in
   Chrome that can affect a user's privacy. This module relies on the
   <a href="types.html#ChromeSetting">ChromeSetting prototype of the type API</a>
-  for getting and setting Chrome's configuration.
+  for getting and setting Chrome's configuration.-->
+  模块控制 Chrome 浏览器中可能会影响用户隐私的特性。这一模块依赖于<a
+  href="types.html#ChromeSetting">类型 API 中的 ChromeSettings
+  原型</a>，用于获取和设置 Chrome 浏览器的配置。
 </p>
 
 <p class="note">
-  The <a href="http://www.google.com/intl/en/landing/chrome/google-chrome-privacy-whitepaper.pdf">Chrome Privacy Whitepaper</a>
-  gives background detail regarding the features which this API can control.
+  <!--@The <a href="http://www.google.com/intl/en/landing/chrome/google-chrome-privacy-whitepaper.pdf">Chrome Privacy Whitepaper</a>
+  gives background detail regarding the features which this API can control.-->
+  <a href="https://www.google.com/intl/zh-CN/chrome/browser/privacy/whitepaper.html">Google Chrome 浏览器隐私权白皮书</a>提供了与这一 API 可以控制的特性有关的背景资料。
 </p>
 
 <h2 id="manifest">Manifest</h2>
 <p>
-  You must declare the "privacy" permission in your extension's
-  <a href="manifest.html">manifest</a> to use the API. For example:
+  <!--@You must declare the "privacy" permission in your extension's
+  <a href="manifest.html">manifest</a> to use the API. For example:-->
+  您必须在您的扩展程序的<a href="manifest.html">清单文件</a>中声明
+  "privacy" 权限才能使用这一 API。例如：
 </p>
 
 <pre>{
-  "name": "My extension",
+  "name": "我的扩展程序",
   ...
   <b>"permissions": [
     "privacy"
@@ -313,25 +310,29 @@
   ...
 }</pre>
 
-<h2 id="usage">Usage</h2>
+<h2 id="usage"><!--@Usage-->用法</h2>
 
 <p>
-  Reading the current value of a Chrome setting is straightforward. You'll first
+  <!--@Reading the current value of a Chrome setting is straightforward. You'll first
   need to find the property you're interested in, then you'll call
   <code>get()</code> on that object in order to retrieve its current value and
   your extension's level of control. For example, to determine if Chrome's
-  Autofill feature is enabled, you'd write:
+  Autofill feature is enabled, you'd write:-->
+  读取某个 Chrome 浏览器设置的当前值是很直接的。您首先需要找到您感兴趣的属性，然后调用那个对象的
+  <code>get()</code>
+  方法，获得它当前的值以及您的扩展程序对它的控制级别。例如，要确定 Chrome
+  浏览器的自动填充功能是否已启用，您可以编写如下代码：
 </p>
 
 <pre>chrome.privacy.services.autofillEnabled.get({}, function(details) {
   if (details.value)
-    console.log('Autofill is on!');
+    console.log('自动填充已启用！');
   else
-    console.log('Autofill is off!');
+    console.log('自动填充已禁用！');
 });</pre>
 
 <p>
-  Changing the value of a setting is a little bit more complex, simply because
+  <!--@Changing the value of a setting is a little bit more complex, simply because
   you first must verify that your extension can control the setting. The user
   won't see any change to her settings if your extension toggles a setting that
   is either locked to a specific value by enterprise policies
@@ -340,161 +341,69 @@
   "controlled_by_other_extensions"). The <code>set()</code> call will succeed,
   but the setting will be immediately overridden. As this might be confusing, it
   is advisable to warn the user when the settings they've chosen aren't
-  practically applied.
+  practically applied.-->
+  更改设置的值稍微有点复杂，因为您必须首先确认您的扩展程序可以控制某一项设置。如果扩展程序调整了通过企业策略（<code>levelOfControl</code>
+  将设置为 "not_controllable"）限制为特定值的设置，或者另外一个扩展程序正在控制设置值（<code>levelOfControl</code>
+  将设置为 "controlled_by_other_extensions"），用户将不能看见任何设置的更改。<code>set()</code>
+  调用将会成功，但是设置会立即被覆盖。这可能令人疑惑，如果用户选择的设置实际上无法应用，建议警告用户。
 </p>
 
 <p class="note">
-  Full details about extensions' ability to control <code>ChromeSetting</code>s
+  <!--@Full details about extensions' ability to control <code>ChromeSetting</code>s
   can be found under
   <a href="types.html#ChromeSetting">
-    <code>chrome.types.ChromeSetting</code></a>.
+    <code>chrome.types.ChromeSetting</code></a>.-->
+  有关扩展程序控制 <code>ChromeSetting</code> 的能力的完整详情可以在
+  <a href="types.html#ChromeSetting"><code>chrome.types.ChromeSetting</code></a>
+  中找到。
 </p>
 
 <p>
-  This means that you ought to use the <code>get()</code> method to determine
+  <!--@This means that you ought to use the <code>get()</code> method to determine
   your level of access, and then only call <code>set()</code> if your extension
   can grab control over the setting (in fact if your extension can't control the
   setting it's probably a good idea to visually disable the functionality to
-  reduce user confusion):
+  reduce user confusion):-->
+  这意味着您应该先使用 <code>get()</code>
+  方法确定您的访问级别，只有当您的扩展程序可以控制这一设置时才调用
+  <code>set()</code>（事实上，如果您的扩展程序不能控制这一设置，在用户界面中禁用相应功能可能会更好，减少用户的疑惑）：
 </p>
 
 <pre>chrome.privacy.services.autofillEnabled.get({}, function(details) {
   if (details.levelOfControl === 'controllable_by_this_extension') {
     chrome.privacy.services.autofillEnabled.set({ value: true }, function() {
       if (chrome.runtime.lastError === undefined)
-        console.log("Hooray, it worked!");
+        console.log("哈哈，成功了！");
       else
-        console.log("Sadness!", chrome.runtime.lastError);
+        console.log("喔唷！", chrome.runtime.lastError);
     }
   }
 });</pre>
 
 <p>
-  If you're interested in changes to a setting's value, add a listener to its
+  <!--@If you're interested in changes to a setting's value, add a listener to its
   <code>onChange</code> event. Among other uses, this will allow you to warn the
   user if a more recently installed extension grabs control of a setting, or if
   enterprise policy overrides your control. To listen for changes to Autofill's
-  status, for example, the following code would suffice:
+  status, for example, the following code would suffice:-->
+  如果您对设置值的更改有兴趣，请向 <code>onChange</code>
+  事件添加监听器。除了其他用途外，如果最近安装的扩展程序拥有了某一项设置的控制权，或者企业策略覆盖了您的控制，这将允许您警告用户。例如，要监听自动填充状态的更改，如下所示代码就可以了：
 </p>
 
 <pre>chrome.privacy.services.autofillEnabled.onChange.addListener(
     function (details) {
-      // The new value is stored in `details.value`, the new level of control
-      // in `details.levelOfControl`, and `details.incognitoSpecific` will be
-      // `true` if the value is specific to Incognito mode.
+      // 新的值存储在 `details.value` 中，新的控制级别在
+      // `details.levelOfControl` 中。另外，如果设置值仅用于
+      // 隐身模式，则 `details.incognitoSpecific` 将为 `true`。
     });</pre>
 
-<h2 id="examples">Examples</h2>
+<h2 id="examples"><!--@Examples-->例子</h2>
 <p>
-  For example code, see the
-  <a href="samples.html#privacy">Privacy API samples</a>.
+  <!--@For example code, see the
+  <a href="samples.html#privacy">Privacy API samples</a>.-->
+  有关示例代码，请参见<a href="samples.html#privacy">隐私权 API 示例</a>。
 </p>
 
-
-
-<p id="classSummary">
-  Use the <code>chrome.privacy</code> module to control usage of the features in
-  Chrome that can affect a user's privacy. This module relies on the
-  <a href="types.html#ChromeSetting">ChromeSetting prototype of the type API</a>
-  for getting and setting Chrome's configuration.
-</p>
-
-<p class="note">
-  The <a href="http://www.google.com/intl/en/landing/chrome/google-chrome-privacy-whitepaper.pdf">Chrome Privacy Whitepaper</a>
-  gives background detail regarding the features which this API can control.
-</p>
-
-<h2 id="manifest">Manifest</h2>
-<p>
-  You must declare the "privacy" permission in your extension's
-  <a href="manifest.html">manifest</a> to use the API. For example:
-</p>
-
-<pre>{
-  "name": "My extension",
-  ...
-  <b>"permissions": [
-    "privacy"
-  ]</b>,
-  ...
-}</pre>
-
-<h2 id="usage">Usage</h2>
-
-<p>
-  Reading the current value of a Chrome setting is straightforward. You'll first
-  need to find the property you're interested in, then you'll call
-  <code>get()</code> on that object in order to retrieve its current value and
-  your extension's level of control. For example, to determine if Chrome's
-  Autofill feature is enabled, you'd write:
-</p>
-
-<pre>chrome.privacy.services.autofillEnabled.get({}, function(details) {
-  if (details.value)
-    console.log('Autofill is on!');
-  else
-    console.log('Autofill is off!');
-});</pre>
-
-<p>
-  Changing the value of a setting is a little bit more complex, simply because
-  you first must verify that your extension can control the setting. The user
-  won't see any change to her settings if you extension toggles a setting that
-  is either locked to a specific value by enterprise policies
-  (<code>levelOfControl</code> will be set to "not_controllable"), or if another
-  extension is controlling the value (<code>levelOfControl</code> will be set to
-  "controlled_by_other_extensions"). The <code>set()</code> call will succeed,
-  but the setting will be immediately overridden. As this might be confusing, it
-  is advisable to warn the user when the settings they've chosen aren't
-  practically applied.
-</p>
-
-<p class="note">
-  Full details about extensions' ability to control <code>ChromeSetting</code>s
-  can be found under
-  <a href="types.html#ChromeSetting">
-    <code>chrome.types.ChromeSetting</code></a>.
-</p>
-
-<p>
-  This means that you ought to use the <code>get()</code> method to determine
-  your level of access, and then only call <code>set()</code> if your extension
-  can grab control over the setting (in fact if your extension can't control the
-  setting it's probably a good idea to visibly disable the functionality to
-  reduce user confusion):
-</p>
-
-<pre>chrome.privacy.services.autofillEnabled.get({}, function(details) {
-  if (details.levelOfControl === 'controllable_by_this_extension') {
-    chrome.privacy.services.autofillEnabled.set({ value: true }, function() {
-      if (chrome.runtime.lastError === undefined)
-        console.log("Hooray, it worked!");
-      else
-        console.log("Sadness!", chrome.runtime.lastError);
-    }
-  }
-});</pre>
-
-<p>
-  If you're interested in changes to a setting's value, add a listener to its
-  <code>onChange</code> event. Among other uses, this will allow you to warn the
-  user if a more recently installed extension grabs control of a setting, or if
-  enterprise policy overrides your control. To listen for changes to Autofill's
-  status, for example, the following code would suffice:
-</p>
-
-<pre>chrome.privacy.services.autofillEnabled.onChange.addListener(
-    function (details) {
-      // The new value is stored in `details.value`, the new level of control
-      // in `details.levelOfControl`, and `details.incognitoSpecific` will be
-      // `true` if the value is specific to Incognito mode.
-    });</pre>
-
-<h2 id="examples">Examples</h2>
-<p>
-  For example code, see the
-  <a href="samples.html#privacy">Privacy API samples</a>.
-</p>
         <h2 id="apiReference"><!--@API Reference: chrome.privacy-->API 参考：chrome.privacy</h2>
         <div class="api_reference">
             <h3 id="properties"><!--@Properties-->属性</h3>
@@ -506,7 +415,7 @@
                 <div>
                   <dt><span class="property">network</span> <span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Settings that influence Chrome's handling of network connections in general.
+                    总体上影响 Chrome 浏览器对网络连接的处理的设置。
                   </dd>    <h4 id="network-properties">
                     <!--@Properties of --><a href="#property-network">network</a>
                     的属性
@@ -523,7 +432,7 @@
                         </span>
                       </dt>
                       <dd>
-                        If enabled, Chrome attempts to speed up your web browsing experience by pre-resolving DNS entries, prerendering sites (<code>&lt;link rel='prefetch' ...&gt;</code>), and preemptively opening TCP and SSL connections to servers.  This preference's value is a boolean, defaulting to <code>true</code>.
+                        如果启用的话，Chrome 浏览器会尝试通过预取 DNS 项、预呈现站点（<code>&lt;link rel="prefetch" ...&gt;</code>），并提前打开向服务器的 TCP 和 SSL 连接。这一选项的值为布尔类型，默认为 <code>true</code>。
                       </dd>
                     </div>
               </dl></dd>
@@ -537,7 +446,7 @@
                 <div>
                   <dt><span class="property">services</span> <span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Settings that enable or disable features that require third-party network services provided by Google and your default search provider.
+                    启用或禁用需要由 Google 以及您的默认搜索引擎提供的第三方网络服务。
                   </dd>    <h4 id="services-properties">
                     <!--@Properties of --><a href="#property-services">services</a>
                     的属性
@@ -554,7 +463,7 @@
                         </span>
                       </dt>
                       <dd>
-                        If enabled, Chrome uses a web service to help resolve navigation errors. This preference's value is a boolean, defaulting to <code>true</code>.
+                        如果启用的话，Chrome 浏览器将使用网络服务帮助解决导航错误。这一选项的值是布尔类型，默认为 <code>true</code>。
                       </dd>
                     </div>
                     <div>
@@ -569,7 +478,7 @@
                         </span>
                       </dt>
                       <dd>
-                        If enabled, Chrome offers to automatically fill in forms. This preference's value is a boolean, defaulting to <code>true</code>.
+                        如果启用的话，Chrome 浏览器会自动填充表单。这一选项的值是布尔类型，默认为 <code>true</code>。
                       </dd>
                     </div>
                     <div>
@@ -584,7 +493,7 @@
                         </span>
                       </dt>
                       <dd>
-                        If enabled, Chrome automatically performs and displays search requests for text you type into the Omnibox as you type it. This preference's value is a boolean, defaulting to <code>true</code>.
+                        如果启用的话，Chrome 浏览器会在您输入时自动为您在多功能框中输入的文字执行并显示搜索请求。这一选项的值是布尔类型，默认为 <code>true</code>。
                       </dd>
                     </div>
                     <div>
@@ -599,7 +508,7 @@
                         </span>
                       </dt>
                       <dd>
-                        If enabled, Chrome does its best to protect you from phishing and malware. This preference's value is a boolean, defaulting to <code>true</code>.
+                        如果启用的话，Chrome 浏览器会尽可能地保护您，以防网上诱骗和恶意软件。这一选项的值为布尔类型，默认为 <code>true</code>。
                       </dd>
                     </div>
                     <div>
@@ -614,7 +523,7 @@
                         </span>
                       </dt>
                       <dd>
-                        If enabled, Chrome sends the text you type into the Omnibox to your default search engine, which provides predictions of websites and searches that are likely completions of what you've typed so far. This preference's value is a boolean, defaulting to <code>true</code>.
+                        如果启用的话，Chrome 浏览器将会把您在多功能框中输入的文字发送至您的默认搜索引擎，提供网站预测以及对您已输入内容的自动完成。这一选项的值为布尔类型，默认为 <code>true</code>。
                       </dd>
                     </div>
                     <div>
@@ -629,7 +538,7 @@
                         </span>
                       </dt>
                       <dd>
-                        If enabled, Chrome uses a web service to help correct spelling errors. This preference's value is a boolean, defaulting to <code>false</code>.
+                        如果启用的话，Chrome 浏览器将使用网络服务帮助您纠正拼写错误。这一选项的值为布尔类型，默认为 <code>false</code>。
                       </dd>
                     </div>
                     <div>
@@ -644,7 +553,7 @@
                         </span>
                       </dt>
                       <dd>
-                        If enabled, Chrome offers to translate pages that aren't in a language you read. This preference's value is a boolean, defaulting to <code>true</code>.
+                        如果启用的话，Chrome 会对不使用您所用语言撰写的页面进行翻译。这一选项的值为布尔类型，默认为 <code>true</code>。
                       </dd>
                     </div>
               </dl></dd>
@@ -658,7 +567,7 @@
                 <div>
                   <dt><span class="property">websites</span> <span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Settings that determine what information Chrome makes available to websites.
+                    决定 Chrome 浏览器使哪些信息对网站可用。
                   </dd>    <h4 id="websites-properties">
                     <!--@Properties of --><a href="#property-websites">websites</a>
                     的属性
@@ -675,7 +584,7 @@
                         </span>
                       </dt>
                       <dd>
-                        If disabled, Chrome blocks third-party sites from setting cookies. The value of this preference is of type boolean, and the default value is <code>true</code>.
+                        如果禁用的话，Chrome 浏览器会阻止第三方站点设置 Cookie。这一选项的值为布尔类型，默认为 <code>true</code>。
                       </dd>
                     </div>
                     <div>
@@ -690,7 +599,7 @@
                         </span>
                       </dt>
                       <dd>
-                        If enabled, Chrome sends auditing pings when requested by a website (<code>&lt;a ping&gt;</code>). The value of this preference is of type boolean, and the default value is <code>true</code>.
+                        如果启用的话，Chrome 浏览器在网站请求（<code>&lt;a ping&gt;</code>）时会自动发送审核信息。这一选项的值为布尔类型，默认为 <code>true</code>。
                       </dd>
                     </div>
                     <div>
@@ -705,7 +614,7 @@
                         </span>
                       </dt>
                       <dd>
-                        If enabled, Chrome sends <code>referer</code> headers with your requests. Yes, the name of this preference doesn't match the misspelled header. No, we're not going to change it. The value of this preference is of type boolean, and the default value is <code>true</code>.
+                        如果启用的话，Chrome 浏览器发送您的请求时会同时发送 <code>referer</code> 头信息。的确，这一选项的名称与拼写错误的头信息名称不匹配，然而我们不打算更改它。这一选项的值为布尔类型，默认值为 <code>true</code>。
                       </dd>
                     </div>
                     <div>
@@ -720,7 +629,7 @@
                         </span>
                       </dt>
                       <dd>
-                        <strong>Available on ChromeOS only</strong>: If enabled, Chrome provides a unique ID to plugins in order to run protected content. The value of this preference is of type boolean, and the default value is <code>true</code>.
+                        <strong>仅在 Chrome OS 上可用：</strong>如果启用的话，Chrome 浏览器将会向插件提供唯一标志符来运行受保护的内容。这一选项的值为布尔类型，默认为 <code>true</code>。
                       </dd>
                     </div>
               </dl></dd>

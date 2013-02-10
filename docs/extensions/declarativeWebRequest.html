@@ -256,19 +256,19 @@
           <h2><!--@Contents-->目录</h2>
           <ol>
             <li>
-              <a href=#notes>Notes</a>
+              <a href=#notes>说明</a>
             </li>
             <li>
-              <a href=#manifest>Manifest</a>
+              <a href=#manifest>清单文件</a>
             </li>
             <li>
-              <a href=#rules>Rules</a>
+              <a href=#rules>规则</a>
             </li>
             <li>
-              <a href=#evaluation>Evaluation of conditions and actions</a>
+              <a href=#evaluation>条件与操作的求值</a>
             </li>
             <li>
-              <a href=#precedences>Using priorities to override rules</a>
+              <a href=#precedences>使用优先级覆盖规则</a>
             </li>
             <li>
               <a href="#apiReference"><!--@API reference: -->API 参考：chrome.declarativeWebRequest</a>
@@ -283,28 +283,36 @@
           </ol>
         </div>
 
-<h2 id="notes">Notes</h2>
+<h2 id="notes"><!--@Notes-->说明</h2>
 
 <p>
-Use the <code>chrome.declarativeWebRequest</code> module to intercept, block, or
+<!--@Use the-->使用 <code>chrome.declarativeWebRequest</code> <!--@module to intercept, block, or
 modify requests in-flight. It is significantly faster than the <a
   href="webRequest.html"><code>chrome.webRequest</code> API</a> because you can
 register rules that are evaluated in the browser rather than the
 JavaScript engine which reduces roundtrip latencies and allows very high
-efficiency.
+efficiency.-->
+模块实时地拦截、阻止或者修改请求，它比
+<a href="webRequest.html"><code>chrome.webRequest</code> API</a>
+要快得多，因为您注册的规则在浏览器而不是 JavaScript
+引擎中求值，减少了来回延迟并且可以获得极高的效率。
 </p>
 
-<h2 id="manifest">Manifest</h2>
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
 
 <p>
-You must declare the "declarativeWebRequest" permission in the
+<!--@You must declare the "declarativeWebRequest" permission in the
 <a href="manifest.html">extension manifest</a> to use this API,
 along with <a href="manifest.html#permissions">host permissions</a> for any
-hosts whose network requests you want to access.
+hosts whose network requests you want to access.-->
+您必须在<a href="manifest.html">扩展程序的清单文件</a>中声明
+"declarativeWebRequest" 权限来使用这一
+API，此外还需要您需要访问网络请求的所有主机的<a
+href="declare_permissions.html">主机权限</a>。
 </p>
 
 <pre>{
-  "name": "My extension",
+  "name": "我的扩展程序",
   ...
 <b>  "permissions": [
     "declarativeWebRequest",
@@ -314,33 +322,42 @@ hosts whose network requests you want to access.
 }</pre>
 
 <p>
-Note that certain types of non-sensitive requests do not require host
-permissions:
+<!--@Note that certain types of non-sensitive requests do not require host
+permissions:-->
+注意，某些类型的不敏感请求不需要主机权限：
 <ul>
   <li><code>CancelRequest</code>
   <li><code>IgnoreRules</code>
   <li><code>RedirectToEmptyDocument</code>
   <li><code>RedirectToTransparentImage</code>
-  <li><code>RedirectByRegEx</code> when the redirect destination has
-    the same domain as the original request
-  <li><code>RedirectRequest</code> when the redirect destination has
-    the same domain as the original request
+  <li><code>RedirectByRegEx</code><!--@ when the redirect destination has
+    the same domain as the original request-->，并且重定向目标与原请求的域名相同
+  <li><code>RedirectRequest</code><!--@ when the redirect destination has
+    the same domain as the original request-->，并且重定向目标与原请求的域名相同
 </ul>
 
-<h2 id="rules">Rules</h2>
+<h2 id="rules"><!--@Rules-->规则</h2>
 
 <p>
-The Declarative Web Request API follows the concepts of the <a
+<!--@The Declarative Web Request API follows the concepts of the <a
   href="events.html#declarative">Declarative API</a>. You can register rules to
-the <code>chrome.declarativeWebRequest.onRequest</code> event object.
+the <code>chrome.declarativeWebRequest.onRequest</code> event object.-->
+声明式网络请求 API 遵循<a href="events.html#declarative">声明式 API</a>
+的概念，您可以向 <code>chrome.declarativeWebRequest.onRequest</code>
+事件对象注册规则。
 </p>
 
 <p>
-The Declarative Web Request API supports a single type of match criteria, the
+<!--@The Declarative Web Request API supports a single type of match criteria, the
 <code>RequestMatcher</code>. The <code>RequestMatcher</code> matches network
 requests if and only if all listed criteria are met. The following
 <code>RequestMatcher</code> would match a network request when the user enters
-"http://www.example.com" in the URL bar:
+"http://www.example.com" in the URL bar:-->
+声明式网络请求API支持一种匹配条件的类型，即
+<code>RequestMatcher</code>，当且仅当列出的所有条件都满足时
+<code>RequestMatcher</code> 才会匹配网络请求。当用户在 URL
+栏中输入“http://www.example.com”时如下的 <code>RequestMatcher</code>
+将匹配这一网络请求：
 </p>
 
 <pre>
@@ -351,19 +368,23 @@ var matcher = new chrome.declarativeWebRequest.RequestMatcher({
 </pre>
 
 <p>
-Requests to "https://www.example.com" would be rejected by the
+<!--@Requests to "https://www.example.com" would be rejected by the
 <code>RequestMatcher</code> due to the scheme. Also all requests for an embedded
-iframe would be rejected due to the <code>resourceType</code>.
+iframe would be rejected due to the <code>resourceType</code>.-->
+向“https://www.example.com”发出的请求因为协议的原因不会被
+<code>RequestMatcher</code> 匹配，并且由于
+<code>resourceType</code>，所有内嵌框架的请求也不会匹配。
 </p>
 
 <p class="note">
-<strong>Note:</strong> All conditions and actions are created via a constructor
-as shown in the example above.
+<strong><!--@Note:-->注意：</strong><!--@ All conditions and actions are created via a constructor
+as shown in the example above.-->所有条件与操作都必须通过上述例子中所示的构造函数创建。
 <p>
 
 <p>
-In order to cancel all requests to "example.com", you can define a rule as
-follows:
+<!--@In order to cancel all requests to "example.com", you can define a rule as
+follows:-->
+为了取消所有发送至“example.com”的请求，您可以定义如下规则：
 </p>
 <pre>
 var rule = {
@@ -377,9 +398,10 @@ var rule = {
 </pre>
 
 <p>
-In order to cancel all requests to "example.com" and "foobar.com", you can add a
+<!--@In order to cancel all requests to "example.com" and "foobar.com", you can add a
 second condition, as each condition is sufficient to trigger all specified
-actions:
+actions:-->
+为了取消发送至“example.com”以及“foobar.com”的所有请求，您可以添加第二个条件，因为每个条件都足以触发所有指定的操作：
 </p>
 <pre>
 var rule2 = {
@@ -395,38 +417,42 @@ var rule2 = {
 </pre>
 
 <p>
-Register rules as follows:
+<!--@Register rules as follows:-->
+如下所示注册规则：
 </p>
 <pre>
 chrome.declarativeWebRequest.onRequest.addRules([rule2]);
 </pre>
 
 <p class="note">
-<strong>Note:</strong> You should always register or unregister rules in bulk rather than
+<strong><!--@Note:-->注意：</strong><!--@ You should always register or unregister rules in bulk rather than
 individually because each of these operations recreates internal data
 structures.  This re-creation is computationally expensive but facilitates a
-very fast URL matching algorithm for hundreds of thousands of URLs.
+very fast URL matching algorithm for hundreds of thousands of URLs.-->您始终应该一次性批量注册或取消注册规则，而不是单独进行，因为每一次这样的操作都需要重新创建内部的数据结构，这一重新创建的过程需要大量的计算，但是可以利用一种极快的
+URL 匹配算法，用于几十万个 URL。
 </p>
 
 
-<h2 id="evaluation">Evaluation of conditions and actions</h2>
+<h2 id="evaluation"><!--@Evaluation of conditions and actions-->条件与操作的求值</h2>
 
 <p>
-The Declarative Web Request API follows the
+<!--@The Declarative Web Request API follows the
 <a href="webRequest.html#life_cycle">Life cycle model for web requests</a> of
 the <a href="webRequest.html">Web Request API</a>. This means that conditions
 can only be tested at specific stages of a web request and, likewise, actions
 can also only be executed at specific stages. The following tables list the
-request stages that are compatible with conditions and actions.
+request stages that are compatible with conditions and actions.-->
+声明式网络请求 API 遵循<a href="webRequest.html#life_cycle">网络请求 API
+的生命周期模型</a>，这意味着条件只能在网络请求的特定阶段测试，同样地，操作也只能在特定阶段执行。下表列出了与条件和操作兼容的请求阶段。
 </p>
 
 <p>
 <table>
   <tr>
-    <th colspan="5">Request stages during which condition attributes can be processed.
+    <th colspan="5"><!--@Request stages during which condition attributes can be processed.-->能够处理条件属性的请求阶段：
   </tr>
   <tr>
-    <th>Condition attribute
+    <th><!--@Condition attribute-->条件属性
     <th>onBeforeRequest
     <th>onBeforeSendHeaders
     <th>onHeadersReceived
@@ -442,10 +468,10 @@ request stages that are compatible with conditions and actions.
   <tr><td>excludeRequestHeaders<td><td>✓<td><td>
   <tr><td>thirdPartyForCookies<td>✓<td>✓<td>✓<td>✓
   <tr>
-    <th colspan="5" style="padding-top:2em">Request stages during which actions can be executed.
+    <th colspan="5" style="padding-top:2em"><!--@Request stages during which actions can be executed.-->能够执行操作的请求阶段：
   </tr>
   <tr>
-    <th>Event
+    <th><!--@Event-->操作
     <th>onBeforeRequest
     <th>onBeforeSendHeaders
     <th>onHeadersReceived
@@ -472,27 +498,37 @@ request stages that are compatible with conditions and actions.
 </p>
 
 <p>
-<strong>Note:</strong> Applicable stages can be further constrained by using the
-"stages" attribute.
+<strong><!--@Note:-->注意：</strong><!--@ Applicable stages can be further constrained by using the
+"stages" attribute.-->适用的阶段可以使用 "stages" 属性进一步地约束。
 </p>
 <p>
-<strong>Example:</strong> It is possible to combine a
+<strong><!--@Example:-->例子：</strong><!--@ It is possible to combine a
 <code>new chrome.declarativeWebRequest.RequestMatcher({contentType: ["image/jpeg"]})</code>
 condition with a <code>new chrome.declarativeWebRequest.CancelRequest()</code>
 action because both of them can be evaluated in the onHeadersReceived stage.
 It is, however, impossible to combine the request matcher with a
 <code>new chrome.declarativeWebRequest.RedirectToTransparentImage()</code>
 because redirects cannot be executed any more by the time the content
-type has been determined.
+type has been determined.-->可以将
+<code>new chrome.declarativeWebRequest.RequestMatcher({contentType: ["image/jpeg"]))</code>
+条件与
+<code>new chrome.declarativeWebRequest.CancelRequest()</code>
+操作组合，因为它们都可以在 onHeadersReceived
+阶段求值，然而不能将该请求匹配器与
+<code>new chrome.declarativeWebRequest.RedirectToTransparentImage()</code>
+组合，因为内容类型确定后就不能再进行重定向了。
 </p>
 
-<h2 id="precedences">Using priorities to override rules</h2>
+<h2 id="precedences"><!--@Using priorities to override rules-->使用优先级覆盖规则</h2>
 
 <p>
-Rules can be associated with priorities as described in the
+<!--@Rules can be associated with priorities as described in the
 <a href="events.html#declarative">Events API</a>. This mechanism can be used
 to express exceptions. The following example will block all requests to
-images named "evil.jpg" except on the server "myserver.com".
+images named "evil.jpg" except on the server "myserver.com".-->
+规则中可以包含优先级，如<a href="events.html#declarative">事件 API</a>
+中所述，这种机制可以用来表达例外。如下例子将阻止除了来自服务器
+"myserver.com" 以外所有名称为 "evil.jpg" 的图片请求，。
 </p>
 
 <pre>
@@ -521,11 +557,15 @@ chrome.declarativeWebRequest.onRequest.addRules([rule1, rule2]);
 </pre>
 
 <p>
-It is important to recognize that the <code>IgnoreRules</code> action is not
+<!--@It is important to recognize that the <code>IgnoreRules</code> action is not
 persisted across <a href="#evaluation">request stages</a>. All conditions of
 all rules are evaluated at each stage of a web request. If an
 <code>IgnoreRules</code> action is executed, it applies only to other actions
-that are executed for the same web request in the same stage.
+that are executed for the same web request in the same stage.-->
+值得重视的是，<code>IgnoreRules</code>
+操作并不会在<a href="#evaluation">请求阶段</a>之间保留。所有规则的所有条件都在每一个网络请求阶段求值，如果执行了
+<code>IgnoreRules</code>
+操作，它仅应用于同一网络请求在同一阶段执行的其他操作。
 </p>
         <h2 id="apiReference"><!--@API Reference: chrome.declarativeWebRequest-->API 参考：chrome.declarativeWebRequest</h2>
         <div class="api_reference">
@@ -535,7 +575,7 @@ that are executed for the same web request in the same stage.
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Filters request headers for various criteria. Multiple criteria are evaluated as a conjunction.
+                    通过各种条件过滤请求头信息，多个条件将同时求值。
                   </dd>    <h4 id="HeaderFilter-properties">
                     <!--@Properties of --><a href="#type-HeaderFilter">HeaderFilter</a>
                     的属性
@@ -552,7 +592,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Matches if the header name starts with the specified string.
+                        如果头信息的名称以指定字符串开头则匹配。
                       </dd>
                     </div>
                     <div>
@@ -567,7 +607,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Matches if the header name ends with the specified string.
+                        如果头信息的名称以指定字符串结尾则匹配。
                       </dd>
                     </div>
                     <div>
@@ -583,7 +623,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Matches if the header name contains all of the specified strings.
+                        如果头信息的名称包含所有指定的字符串则匹配。
                       </dd>
                     </div>
                     <div>
@@ -598,7 +638,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Matches if the header name is equal to the specified string.
+                        如果头信息的名称与指定字符串相同则匹配。
                       </dd>
                     </div>
                     <div>
@@ -613,7 +653,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Matches if the header value starts with the specified string.
+                        如果头信息的值以指定字符串开头则匹配。
                       </dd>
                     </div>
                     <div>
@@ -628,7 +668,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Matches if the header value ends with the specified string.
+                        如果头信息的值以指定字符串结尾则匹配。
                       </dd>
                     </div>
                     <div>
@@ -644,7 +684,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Matches if the header value contains all of the specified strings.
+                        如果头信息的值包含所有指定的字符串则匹配。
                       </dd>
                     </div>
                     <div>
@@ -659,7 +699,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Matches if the header value is equal to the specified string.
+                        如果头信息的值与指定字符串相同则匹配。
                       </dd>
                     </div>
               </dl></dd>
@@ -670,7 +710,7 @@ that are executed for the same web request in the same stage.
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Matches network events by various criteria.
+                    通过各种条件匹配网络事件。
                   </dd>    <h4 id="RequestMatcher-properties">
                     <!--@Properties of --><a href="#type-RequestMatcher">RequestMatcher</a>
                     的属性
@@ -687,7 +727,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Matches if the conditions of the UrlFilter are fulfilled for the URL of the request.
+                        如果请求所对应的 URL 满足 UrlFilter 的条件则匹配。
                       </dd>
                     </div>
                     <div>
@@ -702,7 +742,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Matches if the conditions of the UrlFilter are fulfilled for the 'first party' URL of the request. The 'first party' URL of a request, when present, can be different from the request's target URL, and describes what is considered 'first party' for the sake of third-party checks for cookies.
+                        如果请求的“第一方”URL 满足 UrlFilter 的条件则匹配，请求的“第一方”URL（如果存在的话）可能与请求的目标 URL 不同，描述的是相对于第三方 Cookie 检查的“第一方”。
                       </dd>
                     </div>
                     <div>
@@ -717,7 +757,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Matches if the request type of a request is contained in the list. Requests that cannot match any of the types will be filtered out.
+                        如果请求的类型包含在列表中则匹配，不匹配指定的任何类型的请求将被过滤出去。
                       </dd>
                     </div>
                     <div>
@@ -732,7 +772,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Matches if the MIME media type of a response (from the HTTP Content-Type header) is contained in the list.
+                        如果响应的 MIME 媒体类型（来自 HTTP Content-Type 头信息）包含在列表中则匹配。
                       </dd>
                     </div>
                     <div>
@@ -747,7 +787,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Matches if the MIME media type of a response (from the HTTP Content-Type header) is <em>not</em> contained in the list.
+                        如果响应的 MIME 媒体类型（来自 HTTP Content-Type 头信息）<em>没有</em>包含在列表中则匹配。
                       </dd>
                     </div>
                     <div>
@@ -762,7 +802,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Matches if some of the request headers is matched by one of the HeaderFilters.
+                        如果某些请求头信息匹配 HeaderFilter 中的某一个则匹配该请求。
                       </dd>
                     </div>
                     <div>
@@ -777,7 +817,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Matches if none of the request headers is matched by any of the HeaderFilters.
+                        如果请求头信息都不匹配任何一个 HeaderFilter 则匹配该请求。
                       </dd>
                     </div>
                     <div>
@@ -792,7 +832,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Matches if some of the response headers is matched by one of the HeaderFilters.
+                        如果某些响应头信息匹配 HeaderFilter 中的某一个则匹配该请求。
                       </dd>
                     </div>
                     <div>
@@ -807,7 +847,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Matches if none of the response headers is matched by any of the HeaderFilters.
+                        如果响应头信息都不匹配任何一个 HeaderFilter 则匹配该请求。
                       </dd>
                     </div>
                     <div>
@@ -822,7 +862,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        If set to true, matches requests that are subject to third-party cookie policies. If set to false, matches all other requests.
+                        如果设为 true，则匹配受第三方 Cookie 策略约束的请求；如果设为 false，则匹配所有其它请求。
                       </dd>
                     </div>
                     <div>
@@ -837,7 +877,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Contains a list of strings describing stages. Allowed values are 'onBeforeRequest', 'onBeforeSendHeaders', 'onHeadersReceived', 'onAuthRequired'. If this attribute is present, then it limits the applicable stages to those listed. Note that the whole condition is only applicable in stages compatible with all attributes.
+                        包含描述阶段的字符串列表，允许的值包括 'onBeforeRequest'、'onBeforeSendHeaders'、'onHeadersReceived'、'onAuthRequired'。如果该属性存在的话，它会将适用的阶段限制在这一列表中。注意整个条件只能在与所有属性兼容的阶段中适用。
                       </dd>
                     </div>
               </dl></dd>
@@ -848,7 +888,7 @@ that are executed for the same web request in the same stage.
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Declarative event action that cancels a network request.
+                    声明式事件操作，取消网络请求。
                   </dd>  </div>
               </div>
               <div>
@@ -856,7 +896,7 @@ that are executed for the same web request in the same stage.
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Declarative event action that redirects a network request.
+                    声明式事件操作，重定向网络请求。
                   </dd>    <h4 id="RedirectRequest-properties">
                     <!--@Properties of --><a href="#type-RedirectRequest">RedirectRequest</a>
                     的属性
@@ -873,7 +913,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Destination to where the request is redirected.
+                        请求重定向的目标。
                       </dd>
                     </div>
               </dl></dd>
@@ -884,7 +924,7 @@ that are executed for the same web request in the same stage.
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Declarative event action that redirects a network request to a transparent image.
+                    声明式事件操作，将网络请求重定向至透明图片。
                   </dd>  </div>
               </div>
               <div>
@@ -892,7 +932,7 @@ that are executed for the same web request in the same stage.
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Declarative event action that redirects a network request to an empty document.
+                    声明式事件操作，将网络请求重定向至空文档。
                   </dd>  </div>
               </div>
               <div>
@@ -900,7 +940,7 @@ that are executed for the same web request in the same stage.
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Redirects a request by applying a regular expression on the URL. The regular expressions use the <a href="http://code.google.com/p/re2/wiki/Syntax">RE2 syntax</a>.
+                    对 URL 应用正则表达式，重定向请求。正则表达式采用 <a href="http://code.google.com/p/re2/wiki/Syntax">RE2 语法</a>。
                   </dd>    <h4 id="RedirectByRegEx-properties">
                     <!--@Properties of --><a href="#type-RedirectByRegEx">RedirectByRegEx</a>
                     的属性
@@ -917,7 +957,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        A match pattern that may contain capture groups. Capture groups are referenced in the Perl syntax ($1, $2, ...) instead of the RE2 syntax (\1, \2, ...) in order to be closer to JavaScript Regular Expressions.
+                        匹配表达式，可以包含捕获性分组。为了更接近 JavaScript 正则表达式，捕获性分组以 Perl 语法（$1、$2……），而不是 RE2 语法（\1、\2……）引用。
                       </dd>
                     </div>
                     <div>
@@ -932,7 +972,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Destination pattern.
+                        目标表达式。
                       </dd>
                     </div>
               </dl></dd>
@@ -943,7 +983,7 @@ that are executed for the same web request in the same stage.
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Sets the request header of the specified name to the specified value. If a header with the specified name did not exist before, a new one is created. Header name comparison is always case-insensitive. Each request header name occurs only once in each request.
+                    将指定名称的请求头信息设置为指定值。如果指定名称的头信息原来不存在，则会创建新的。头信息名称的比较不区分大小写，且每个请求中每个请求头信息名称只会出现一次。
                   </dd>    <h4 id="SetRequestHeader-properties">
                     <!--@Properties of --><a href="#type-SetRequestHeader">SetRequestHeader</a>
                     的属性
@@ -960,7 +1000,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        HTTP request header name.
+                        HTTP 请求头信息的名称。
                       </dd>
                     </div>
                     <div>
@@ -975,7 +1015,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        HTTP request header value.
+                        HTTP 请求头信息的值。
                       </dd>
                     </div>
               </dl></dd>
@@ -986,7 +1026,7 @@ that are executed for the same web request in the same stage.
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Removes the request header of the specified name. Do not use SetRequestHeader and RemoveRequestHeader with the same header name on the same request. Each request header name occurs only once in each request.
+                    移除指定名称的请求头信息。不要在同一请求的同一头信息名称上同时使用 SetRequestHeader 和 RemoveRequestHeader。每个请求中每个请求头信息名称只会出现一次。
                   </dd>    <h4 id="RemoveRequestHeader-properties">
                     <!--@Properties of --><a href="#type-RemoveRequestHeader">RemoveRequestHeader</a>
                     的属性
@@ -1003,7 +1043,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        HTTP request header name (case-insensitive).
+                        HTTP 请求头信息的名称（不区分大小写）。
                       </dd>
                     </div>
               </dl></dd>
@@ -1014,7 +1054,7 @@ that are executed for the same web request in the same stage.
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Adds the response header to the response of this web request. As multiple response headers may share the same name, you need to first remove and then add a new response header in order to replace one.
+                    向当前网络请求的响应中添加响应头信息。由于多个响应头信息可能会使用相同的名称，您需要首先删除然后再添加新的响应头信息才能完成替换。
                   </dd>    <h4 id="AddResponseHeader-properties">
                     <!--@Properties of --><a href="#type-AddResponseHeader">AddResponseHeader</a>
                     的属性
@@ -1031,7 +1071,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        HTTP response header name.
+                        HTTP 响应头信息的名称。
                       </dd>
                     </div>
                     <div>
@@ -1046,7 +1086,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        HTTP response header value.
+                        HTTP 响应头信息的值。
                       </dd>
                     </div>
               </dl></dd>
@@ -1057,7 +1097,7 @@ that are executed for the same web request in the same stage.
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Removes all response headers of the specified names and values.
+                    删除指定名称和值的所有响应头信息。
                   </dd>    <h4 id="RemoveResponseHeader-properties">
                     <!--@Properties of --><a href="#type-RemoveResponseHeader">RemoveResponseHeader</a>
                     的属性
@@ -1074,7 +1114,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        HTTP request header name (case-insensitive).
+                        HTTP 请求头信息的名称（不区分大小写）。
                       </dd>
                     </div>
                     <div>
@@ -1089,7 +1129,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        HTTP request header value (case-insensitive).
+                        HTTP 响应头信息的值（不区分大小写）。
                       </dd>
                     </div>
               </dl></dd>
@@ -1100,7 +1140,7 @@ that are executed for the same web request in the same stage.
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Masks all rules that match the specified criteria.
+                    排除所有匹配指定条件的规则。
                   </dd>    <h4 id="IgnoreRules-properties">
                     <!--@Properties of --><a href="#type-IgnoreRules">IgnoreRules</a>
                     的属性
@@ -1117,7 +1157,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        If set, rules with a lower priority than the specified value are ignored. This boundary is not persisted, it affects only rules and their actions of the same network request stage.
+                        如果设置的话，将忽略优先级低于指定值的规则。这一界限不是持久的，它只会影响同一网络请求阶段的规则与它们对应的操作。
                       </dd>
                     </div>
               </dl></dd>
@@ -1128,7 +1168,7 @@ that are executed for the same web request in the same stage.
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Triggers the <a href="declarativeWebRequest.html#event-onMessage">onMessage</a> event.
+                    触发 <a href="declarativeWebRequest.html#event-onMessage">onMessage</a> 事件。
                   </dd>    <h4 id="SendMessageToExtension-properties">
                     <!--@Properties of --><a href="#type-SendMessageToExtension">SendMessageToExtension</a>
                     的属性
@@ -1145,7 +1185,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        The value that will be passed in the <code>message</code> attribute of the dictionary that is passed to the event handler.
+                        传递给事件处理函数的词典中 <code>message</code> 属性的值。
                       </dd>
                     </div>
               </dl></dd>
@@ -1156,7 +1196,7 @@ that are executed for the same web request in the same stage.
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    A filter or specification of a cookie in HTTP Requests.
+                    用于过滤或指定 HTTP 请求中的 Cookie。
                   </dd>    <h4 id="RequestCookie-properties">
                     <!--@Properties of --><a href="#type-RequestCookie">RequestCookie</a>
                     的属性
@@ -1173,7 +1213,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Name of a cookie.
+                        Cookie 的名称。
                       </dd>
                     </div>
                     <div>
@@ -1188,7 +1228,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Value of a cookie, may be padded in double-quotes.
+                        Cookie 的值，可以填充在双引号中。
                       </dd>
                     </div>
               </dl></dd>
@@ -1199,7 +1239,7 @@ that are executed for the same web request in the same stage.
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    A specification of a cookie in HTTP Responses.
+                    用于指定 HTTP 响应中的 Cookie。
                   </dd>    <h4 id="ResponseCookie-properties">
                     <!--@Properties of --><a href="#type-ResponseCookie">ResponseCookie</a>
                     的属性
@@ -1216,7 +1256,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Name of a cookie.
+                        Cookie 的名称。
                       </dd>
                     </div>
                     <div>
@@ -1231,7 +1271,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Value of a cookie, may be padded in double-quotes.
+                        Cookie 的值，可以填充在双引号中。
                       </dd>
                     </div>
                     <div>
@@ -1246,7 +1286,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Value of the Expires cookie attribute.
+                        Cookie 的 Expires 属性值。
                       </dd>
                     </div>
                     <div>
@@ -1261,7 +1301,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Value of the Max-Age cookie attribute
+                        Cookie 的 Max-Age 属性值。
                       </dd>
                     </div>
                     <div>
@@ -1276,7 +1316,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Value of the Domain cookie attribute.
+                        Cookie 的 Domain 属性值。
                       </dd>
                     </div>
                     <div>
@@ -1291,7 +1331,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Value of the Path cookie attribute.
+                        Cookie 的 Path 属性值。
                       </dd>
                     </div>
                     <div>
@@ -1306,7 +1346,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Existence of the Secure cookie attribute.
+                        Cookie 的 Secure 属性是否存在。
                       </dd>
                     </div>
                     <div>
@@ -1321,7 +1361,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Existence of the HttpOnly cookie attribute.
+                        Cookie 的 HttpOnly 属性是否存在。
                       </dd>
                     </div>
               </dl></dd>
@@ -1332,7 +1372,7 @@ that are executed for the same web request in the same stage.
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    A filter of a cookie in HTTP Responses.
+                    用于 HTTP 响应 Cookie 的过滤器。
                   </dd>    <h4 id="FilterResponseCookie-properties">
                     <!--@Properties of --><a href="#type-FilterResponseCookie">FilterResponseCookie</a>
                     的属性
@@ -1349,7 +1389,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Name of a cookie.
+                        Cookie 的名称。
                       </dd>
                     </div>
                     <div>
@@ -1364,7 +1404,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Value of a cookie, may be padded in double-quotes.
+                        Cookie 的值，可以用双引号填充。
                       </dd>
                     </div>
                     <div>
@@ -1379,7 +1419,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Value of the Expires cookie attribute.
+                        Cookie 的 Expires 属性值。
                       </dd>
                     </div>
                     <div>
@@ -1394,7 +1434,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Value of the Max-Age cookie attribute
+                        Cookie 的 Max-Age 属性值。
                       </dd>
                     </div>
                     <div>
@@ -1409,7 +1449,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Value of the Domain cookie attribute.
+                        Cookie 的 Domain 属性值。
                       </dd>
                     </div>
                     <div>
@@ -1424,7 +1464,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Value of the Path cookie attribute.
+                        Cookie 的 Path 属性值。
                       </dd>
                     </div>
                     <div>
@@ -1439,7 +1479,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Existence of the Secure cookie attribute.
+                        Cookie 的 Secure 属性是否存在。
                       </dd>
                     </div>
                     <div>
@@ -1454,7 +1494,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Existence of the HttpOnly cookie attribute.
+                        Cookie 的 HttpOnly 属性是否存在。
                       </dd>
                     </div>
                     <div>
@@ -1469,7 +1509,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Inclusive upper bound on the cookie lifetime (specified in seconds after current time). Only cookies whose expiration date-time is in the interval [now, now + ageUpperBound] fulfill this criterion. Session cookies and cookies whose expiration date-time is in the past do not meet the criterion of this filter. The cookie lifetime is calculated from either 'max-age' or 'expires' cookie attributes. If both are specified, 'max-age' is used to calculate the cookie lifetime.
+                        Cookie 生命周期的上界（包含）（以当前时间之后多少秒的形式指定），只有过期日期时间在区间 [现在, 现在 + ageUpperBound] 内的 Cookie 满足这一条件，会话 Cookie 以及过期时间在过去的 Cookie 不满足该过滤器的条件。Cookie 的生命周期通过 Cookie 的 'max-age' 或 'expires' 属性来计算，如果两者都指定则使用 'max-age' 来计算 Cookie 的生命周期。
                       </dd>
                     </div>
                     <div>
@@ -1484,7 +1524,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Inclusive lower bound on the cookie lifetime (specified in seconds after current time). Only cookies whose expiration date-time is set to 'now + ageLowerBound' or later fulfill this criterion. Session cookies do not meet the criterion of this filter. The cookie lifetime is calculated from either 'max-age' or 'expires' cookie attributes. If both are specified, 'max-age' is used to calculate the cookie lifetime.
+                        Cookie 生命周期的下界（包含）（以当前时间之后多少秒的形式指定），只有过期日期时间在区间 [现在 + ageLowerBound, 现在] 内的 Cookie 满足这一条件，会话 Cookie 以及过期时间在过去的 Cookie 不满足该过滤器的条件。Cookie 的生命周期通过 Cookie 的 'max-age' 或 'expires' 属性来计算，如果两者都指定则使用 'max-age' 来计算 Cookie 的生命周期。
                       </dd>
                     </div>
                     <div>
@@ -1499,7 +1539,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Filters session cookies. Session cookies have no lifetime specified in any of 'max-age' or 'expires' attributes.
+                        过滤会话 Cookie，会话 Cookie 没有 'max-age' 或 'expires' 属性指定的生命周期。
                       </dd>
                     </div>
               </dl></dd>
@@ -1510,7 +1550,7 @@ that are executed for the same web request in the same stage.
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Adds a cookie to the request or overrides a cookie, in case another cookie of the same name exists already. Note that it is preferred to use the Cookies API because this is computationally less expensive.
+                    向请求中添加或者覆盖（如果相同名称的 Cookie 已经存在）Cookie。注意，您应该首选 Cookie API，因为它在计算上开销更少。
                   </dd>    <h4 id="AddRequestCookie-properties">
                     <!--@Properties of --><a href="#type-AddRequestCookie">AddRequestCookie</a>
                     的属性
@@ -1527,7 +1567,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Cookie to be added to the request. No field may be undefined.
+                        要添加至请求的 Cookie，所有字段都不能为 undefined。
                       </dd>
                     </div>
               </dl></dd>
@@ -1538,7 +1578,7 @@ that are executed for the same web request in the same stage.
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Adds a cookie to the response or overrides a cookie, in case another cookie of the same name exists already. Note that it is preferred to use the Cookies API because this is computationally less expensive.
+                    向响应中添加或者覆盖（如果相同名称的 Cookie 已经存在）Cookie。注意，您应该首选 Cookie API，因为它在计算上开销更少。
                   </dd>    <h4 id="AddResponseCookie-properties">
                     <!--@Properties of --><a href="#type-AddResponseCookie">AddResponseCookie</a>
                     的属性
@@ -1555,7 +1595,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Cookie to be added to the response. The name and value need to be specified.
+                        要添加至响应的 Cookie，name 与 value 必须指定。
                       </dd>
                     </div>
               </dl></dd>
@@ -1566,7 +1606,7 @@ that are executed for the same web request in the same stage.
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Edits one or more cookies of request. Note that it is preferred to use the Cookies API because this is computationally less expensive.
+                    编辑请求中的一个或多个 Cookie。注意，您应该首选 Cookie API，因为它在计算上开销更少。
                   </dd>    <h4 id="EditRequestCookie-properties">
                     <!--@Properties of --><a href="#type-EditRequestCookie">EditRequestCookie</a>
                     的属性
@@ -1583,7 +1623,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Filter for cookies that will be modified. All empty entries are ignored.
+                        过滤要修改的 Cookie，所有空项都会忽略。
                       </dd>
                     </div>
                     <div>
@@ -1598,7 +1638,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Attributes that shall be overridden in cookies that machted the filter. Attributes that are set to an empty string are removed.
+                        在匹配过滤器的 Cookie 中应该覆盖的属性，设置为空字符串的属性将移除。
                       </dd>
                     </div>
               </dl></dd>
@@ -1609,7 +1649,7 @@ that are executed for the same web request in the same stage.
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Edits one or more cookies of response. Note that it is preferred to use the Cookies API because this is computationally less expensive.
+                    编辑响应中的一个或多个 Cookie。注意，您应该首选 Cookie API，因为它在计算上开销更少。
                   </dd>    <h4 id="EditResponseCookie-properties">
                     <!--@Properties of --><a href="#type-EditResponseCookie">EditResponseCookie</a>
                     的属性
@@ -1626,7 +1666,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Filter for cookies that will be modified. All empty entries are ignored.
+                        过滤要修改的 Cookie，所有空项都会忽略。
                       </dd>
                     </div>
                     <div>
@@ -1641,7 +1681,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Attributes that shall be overridden in cookies that machted the filter. Attributes that are set to an empty string are removed.
+                        在匹配过滤器的 Cookie 中应该覆盖的属性，设置为空字符串的属性将移除。
                       </dd>
                     </div>
               </dl></dd>
@@ -1652,7 +1692,7 @@ that are executed for the same web request in the same stage.
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Removes one or more cookies of request. Note that it is preferred to use the Cookies API because this is computationally less expensive.
+                    移除请求中的一个或多个 Cookie。注意，您应该首选 Cookie API，因为它在计算上开销更少。
                   </dd>    <h4 id="RemoveRequestCookie-properties">
                     <!--@Properties of --><a href="#type-RemoveRequestCookie">RemoveRequestCookie</a>
                     的属性
@@ -1669,7 +1709,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Filter for cookies that will be removed. All empty entries are ignored.
+                        过滤要移除的 Cookie，所有空项都会忽略。
                       </dd>
                     </div>
               </dl></dd>
@@ -1680,7 +1720,7 @@ that are executed for the same web request in the same stage.
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Removes one or more cookies of response. Note that it is preferred to use the Cookies API because this is computationally less expensive.
+                    移除响应中的一个或多个 Cookie。注意，您应该首选 Cookie API，因为它在计算上开销更少。
                   </dd>    <h4 id="RemoveResponseCookie-properties">
                     <!--@Properties of --><a href="#type-RemoveResponseCookie">RemoveResponseCookie</a>
                     的属性
@@ -1697,7 +1737,7 @@ that are executed for the same web request in the same stage.
                         </span>
                       </dt>
                       <dd>
-                        Filter for cookies that will be removed. All empty entries are ignored.
+                        过滤要移除的 Cookie，所有空项都会忽略。
                       </dd>
                     </div>
               </dl></dd>
@@ -1728,10 +1768,10 @@ that are executed for the same web request in the same stage.
                 </div>
                 <div class="description">
               <p>
-                    Fired when a message is sent via <a href="declarativeWebRequest.html#type-SendMessageToExtension">SendMessageToExtension</a> from an action of the declarative web request API.
+                    当消息通过声明式网络请求 API 的 <a href="declarativeWebRequest.html#type-SendMessageToExtension">SendMessageToExtension</a> 操作发送时产生。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
-                      <div>  <a name="property-onMessage-details"></a>  <dt>    <span class="variable">details</span>    <span class="property">      (                object      )    </span>  </dt>  <dd>    <dl>      <div>        <a name="property-details-message"></a>        <dt>          <span class="variable">message</span>          <span class="property">            (                            string            )          </span>        </dt>        <dd>          The message sent by the calling script.        </dd>      </div>      <div>        <a name="property-details-stage"></a>        <dt>          <span class="variable">stage</span>          <span class="property">            (                            enumerated string ["onBeforeRequest", "onBeforeSendHeaders", "onHeadersReceived", "onAuthRequired"]            )          </span>        </dt>        <dd>          The stage of the network request during which the event was triggered.        </dd>      </div>      <div>        <a name="property-details-requestId"></a>        <dt>          <span class="variable">requestId</span>          <span class="property">            (                            string            )          </span>        </dt>        <dd>          The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request.        </dd>      </div>      <div>        <a name="property-details-url"></a>        <dt>          <span class="variable">url</span>          <span class="property">            (                            string            )          </span>        </dt>      </div>      <div>        <a name="property-details-method"></a>        <dt>          <span class="variable">method</span>          <span class="property">            (                            string            )          </span>        </dt>        <dd>          Standard HTTP method.        </dd>      </div>      <div>        <a name="property-details-frameId"></a>        <dt>          <span class="variable">frameId</span>          <span class="property">            (                            integer            )          </span>        </dt>        <dd>          The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (<code>type</code> is <code>main_frame</code> or <code>sub_frame</code>), <code>frameId</code> indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab.        </dd>      </div>      <div>        <a name="property-details-parentFrameId"></a>        <dt>          <span class="variable">parentFrameId</span>          <span class="property">            (                            integer            )          </span>        </dt>        <dd>          ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists.        </dd>      </div>      <div>        <a name="property-details-tabId"></a>        <dt>          <span class="variable">tabId</span>          <span class="property">            (                            integer            )          </span>        </dt>        <dd>          The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab.        </dd>      </div>      <div>        <a name="property-details-type"></a>        <dt>          <span class="variable">type</span>          <span class="property">            (                            enumerated string ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"]            )          </span>        </dt>        <dd>          How the requested resource will be used.        </dd>      </div>      <div>        <a name="property-details-timeStamp"></a>        <dt>          <span class="variable">timeStamp</span>          <span class="property">            (                            double            )          </span>        </dt>        <dd>          The time when this signal is triggered, in milliseconds since the epoch.        </dd>      </div>    </dl>  </dd></div>
+                      <div>  <a name="property-onMessage-details"></a>  <dt>    <span class="variable">details</span>    <span class="property">      (                object      )    </span>  </dt>  <dd>    <dl>      <div>        <a name="property-details-message"></a>        <dt>          <span class="variable">message</span>          <span class="property">            (                            string            )          </span>        </dt>        <dd>          调用脚本发送的消息。        </dd>      </div>      <div>        <a name="property-details-stage"></a>        <dt>          <span class="variable">stage</span>          <span class="property">            (                            enumerated string ["onBeforeRequest", "onBeforeSendHeaders", "onHeadersReceived", "onAuthRequired"]            )          </span>        </dt>        <dd>          事件发生时网络请求所处的阶段。        </dd>      </div>      <div>        <a name="property-details-requestId"></a>        <dt>          <span class="variable">requestId</span>          <span class="property">            (                            string            )          </span>        </dt>        <dd>          请求标识符。请求标识符在浏览器会话中保证唯一，所以，它们可以用来联系同一请求的不同事件。        </dd>      </div>      <div>        <a name="property-details-url"></a>        <dt>          <span class="variable">url</span>          <span class="property">            (                            string            )          </span>        </dt>      </div>      <div>        <a name="property-details-method"></a>        <dt>          <span class="variable">method</span>          <span class="property">            (                            string            )          </span>        </dt>        <dd>          标准 HTTP 方法。        </dd>      </div>      <div>        <a name="property-details-frameId"></a>        <dt>          <span class="variable">frameId</span>          <span class="property">            (                            integer            )          </span>        </dt>        <dd>          0 表示请求发生在主框架中，正数表示发出请求的子框架标识符。如果载入了（子）框架的文档（<code>type</code> 为 <code>"main_frame"</code> 或 <code>"sub_frame"</code>），<code>frameId</code> 指定该框架的标识符，而不是外层框架的标识符。框架标识符在标签页中保证唯一。        </dd>      </div>      <div>        <a name="property-details-parentFrameId"></a>        <dt>          <span class="variable">parentFrameId</span>          <span class="property">            (                            integer            )          </span>        </dt>        <dd>          包含发送请求框架的框架（即父框架）标识符，如果不存在父框架则为 -1。        </dd>      </div>      <div>        <a name="property-details-tabId"></a>        <dt>          <span class="variable">tabId</span>          <span class="property">            (                            integer            )          </span>        </dt>        <dd>          产生请求的标签页标识符。如果请求与标签页无关则为 -1。        </dd>      </div>      <div>        <a name="property-details-type"></a>        <dt>          <span class="variable">type</span>          <span class="property">            (                            enumerated string ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"]            )          </span>        </dt>        <dd>          请求的资源将如何使用。        </dd>      </div>      <div>        <a name="property-details-timeStamp"></a>        <dt>          <span class="variable">timeStamp</span>          <span class="property">            (                            double            )          </span>        </dt>        <dd>          该信号触发的时间，以 1970 年 1 月 1 日午夜开始所经过的毫秒数表示。        </dd>      </div>    </dl>  </dd></div>
                     </dl>
                 </div>
               </div>
