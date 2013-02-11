@@ -2,17 +2,30 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="static/css/site.css" rel="stylesheet" type="text/css">
-    <link href="static/css/print.css" rel="stylesheet" type="text/css" media="print">
-    <link href="static/css/prettify.css" rel="stylesheet" type="text/css">
+    <link href="/trunk/static/css/site.css" rel="stylesheet" type="text/css">
+    <link href="/trunk/static/css/print.css" rel="stylesheet" type="text/css" media="print">
+    <link href="/trunk/static/css/prettify.css" rel="stylesheet" type="text/css">
     <link href="//www.google.com/images/icons/product/chrome-16.png" rel="icon" type="image/ico">
     <title>辅助功能（a11y） - Google Chrome</title>
   </head>
   <body>
+    <div id="branchWarning" class="displayModeWarning">
+      <span><!--@WARNING: this is the trunk documentation. It may not work with the stable release of Chrome.-->警告：这是 trunk 分支的文档，不一定能在稳定版本的 Chrome 浏览器中正常工作。</span>
+      <select id="branchChooser">
+        <option value=""><!--@Choose a different version...-->选择另一个版本...</option>
+        <option value="stable">Stable</option>
+        <option value="dev">Dev</option>
+        <option value="beta">Beta</option>
+        <option value="trunk">Trunk</option>
+      </select>
+    </div>
     <a id="top"></a>
     <div id="header">
       <span id="logo">
-        <a href="http://code.google.com/"><img src="static/images/chrome_logo.gif" alt="Google Code Labs"></a>
+        <a href="http://code.google.com/" id="view-original"><img src="/trunk/static/images/chrome_logo.gif" alt="单击此处查看英文原文"></a>
+        <script type="text/javascript">
+          document.getElementById('view-original').href = "https://developer.chrome.com" + location.pathname;
+        </script>
       </span>
       <span id="cse">
         <gcse:searchbox-only enableAutoComplete="true" autoCompleteMatchTyple="prefix"></gcse:searchbox-only>
@@ -347,7 +360,7 @@ and are generally understood by screen readers.-->
 尽可能地使用标准 HTML 用户界面控件。标准 HTML 控件（如下图显示）可通过键盘访问，可以轻易地缩放，而且通常能被屏幕阅读器识别。
 </p>
 
-<img src="static/images/a11y/standard-html-controls.png"
+<img src="/trunk/static/images/a11y/standard-html-controls.png"
  width="550" height="350"
  alt="Screenshots and code for button, checkbox, radio, text, select/option, and link">
 
@@ -605,11 +618,11 @@ Two examples of focus outline follow.-->
 CSS，这一轮廓可能不会显示，或者对比度降低了。如下是两个焦点轮廓的例子。
 </p>
 
-<img src="static/images/a11y/focus-outline-2.png"
+<img src="/trunk/static/images/a11y/focus-outline-2.png"
   width="200" height="75"
   alt="A focus outline on a Search button">
 <br />
-<img src="static/images/a11y/focus-outline.png"
+<img src="/trunk/static/images/a11y/focus-outline.png"
   width="400" height="40"
   alt="A focus outline on one of a series of links">
 
@@ -841,7 +854,7 @@ see <a href="samples.html">Samples</a>.-->
     window.bootstrap = {
       api_names: [{"name":"alarms"},{"name":"bookmarks"},{"name":"browserAction"},{"name":"browsingData"},{"name":"commands"},{"name":"contentSettings"},{"name":"contextMenus"},{"name":"cookies"},{"name":"debugger"},{"name":"declarativeContent"},{"name":"declarativeWebRequest"},{"name":"devtools.inspectedWindow"},{"name":"devtools.network"},{"name":"devtools.panels"},{"name":"downloads"},{"name":"events"},{"name":"extension"},{"name":"fileBrowserHandler"},{"name":"fontSettings"},{"name":"history"},{"name":"i18n"},{"name":"idle"},{"name":"input.ime"},{"name":"management"},{"name":"omnibox"},{"name":"pageAction"},{"name":"pageCapture"},{"name":"permissions"},{"name":"privacy"},{"name":"proxy"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"scriptBadge"},{"name":"sessionRestore"},{"name":"storage"},{"name":"tabCapture"},{"name":"tabs"},{"name":"topSites"},{"name":"tts"},{"name":"ttsEngine"},{"name":"types"},{"name":"webNavigation"},{"name":"webRequest"},{"name":"webstore"},{"last":true,"name":"windows"}].concat(
           [{"name":"experimental.devtools.audits"},{"name":"experimental.devtools.console"},{"name":"experimental.discovery"},{"name":"experimental.history"},{"name":"experimental.identity"},{"name":"experimental.infobars"},{"name":"experimental.processes"},{"name":"experimental.record"},{"name":"experimental.speechInput"},{"name":"experimental.systemInfo.cpu"},{"last":true,"name":"experimental.systemInfo.storage"}]),
-      branchInfo: {"channels":[{"path":"stable","name":"Stable"},{"path":"dev","name":"Dev"},{"path":"beta","name":"Beta"},{"path":"trunk","name":"Trunk"}],"current":"stable","showWarning":false}
+      branchInfo: {"channels":[{"path":"stable","name":"Stable"},{"path":"dev","name":"Dev"},{"path":"beta","name":"Beta"},{"path":"trunk","name":"Trunk"}],"current":"trunk","showWarning":true}
     };
   </script>
   <div id="gc-footer">
@@ -862,9 +875,9 @@ see <a href="samples.html">Samples</a>.-->
       <p>
         <!--@©2012 Google-->
       </p>
-      <script src="static/js/branch.js" type="text/javascript"></script>
-      <script src="static/js/sidebar.js" type="text/javascript"></script>
-      <script src="static/js/prettify.js" type="text/javascript"></script>
+      <script src="/trunk/static/js/branch.js" type="text/javascript"></script>
+      <script src="/trunk/static/js/sidebar.js" type="text/javascript"></script>
+      <script src="/trunk/static/js/prettify.js" type="text/javascript"></script>
       <script>
         (function() {
           // Auto syntax highlight all pre tags.

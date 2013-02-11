@@ -7,19 +7,32 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="static/css/site.css" rel="stylesheet" type="text/css">
-    <link href="static/css/print.css" rel="stylesheet" type="text/css" media="print">
-    <link href="static/css/prettify.css" rel="stylesheet" type="text/css">
+    <link href="/trunk/static/css/site.css" rel="stylesheet" type="text/css">
+    <link href="/trunk/static/css/print.css" rel="stylesheet" type="text/css" media="print">
+    <link href="/trunk/static/css/prettify.css" rel="stylesheet" type="text/css">
     <link href="//www.google.com/images/icons/product/chrome-16.png" rel="icon" type="image/ico">
-    <link href="static/css/samples.css" rel="stylesheet" type="text/css">
+    <link href="/trunk/static/css/samples.css" rel="stylesheet" type="text/css">
     <!--@<title>Sample 扩展程序 - Google Chrome 扩展程序</title>-->
     <title>示例扩展程序 - Google Chrome 扩展程序</title>
   </head>
   <body>
+    <div id="branchWarning" class="displayModeWarning">
+      <span><!--@WARNING: this is the trunk documentation. It may not work with the stable release of Chrome.-->警告：这是 trunk 分支的文档，不一定能在稳定版本的 Chrome 浏览器中正常工作。</span>
+      <select id="branchChooser">
+        <option value=""><!--@Choose a different version...-->选择另一个版本...</option>
+        <option value="stable">Stable</option>
+        <option value="dev">Dev</option>
+        <option value="beta">Beta</option>
+        <option value="trunk">Trunk</option>
+      </select>
+    </div>
     <a id="top"></a>
     <div id="header">
       <span id="logo">
-        <a href="http://code.google.com/"><img src="static/images/chrome_logo.gif" alt="Google Code Labs"></a>
+        <a href="http://code.google.com/" id="view-original"><img src="/trunk/static/images/chrome_logo.gif" alt="单击此处查看英文原文"></a>
+        <script type="text/javascript">
+          document.getElementById('view-original').href = "https://developer.chrome.com" + location.pathname;
+        </script>
       </span>
       <span id="cse">
         <gcse:searchbox-only enableAutoComplete="true" autoCompleteMatchTyple="prefix"></gcse:searchbox-only>
@@ -272,7 +285,7 @@
           </table>
         </div>
             <div class="sample" tags="chrome.bookmarks.create chrome.bookmarks.getTree chrome.bookmarks.remove chrome.bookmarks.update chrome.tabs.create ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="39c879e6ea31a83cb901ae55a5fcf76a"><a href="examples/api/bookmarks/basic.zip">My Bookmarks</a></h2>
               A browser action with a popup dump of all bookmarks, including search, add, edit and delete.
               <div>
@@ -296,7 +309,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.browserAction.onClicked chrome.browserAction.setBadgeBackgroundColor chrome.browserAction.setBadgeText chrome.tabs.executeScript ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="cb771f28a910d79a2fcfeb1c5be6983b"><a href="examples/api/browserAction/make_page_red.zip">A browser action with no icon that makes the page red</a></h2>
               <div>
                 <span class="label"><!--@Calls:-->调用：</span>
@@ -317,7 +330,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.browserAction.onClicked chrome.tabs.update ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="db80e292b687541c7aa5e89cee75ad79"><a href="examples/api/browserAction/print.zip">Print this page</a></h2>
               Adds a print button to the browser.
               <div>
@@ -337,7 +350,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.browserAction.onClicked chrome.browserAction.setIcon ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="932e16ad4805a5820c9b7dc6b1cb03ab"><a href="examples/api/browserAction/set_icon_path.zip">A browser action which changes its icon when clicked.</a></h2>
               <div>
                 <span class="label"><!--@Calls:-->调用：</span>
@@ -360,7 +373,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.tabs.executeScript ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="d16474b573d238b0c9551d21cb8f48c0"><a href="examples/api/browserAction/set_page_color.zip">A browser action with a popup that changes the page color.</a></h2>
               <div>
                 <span class="label"><!--@Calls:-->调用：</span>
@@ -379,7 +392,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.browsingData.remove ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="6341c5e0d6a1fb26ded6548590c1571a"><a href="examples/api/browsingData/basic.zip">BrowsingData API: Basics</a></h2>
               A trivial usage example.
               <div>
@@ -400,7 +413,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.commands.onCommand ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="85a6acff229804797d14411e7a8acd3d"><a href="examples/api/commands.zip">Sample Extension Commands extension</a></h2>
               Press Ctrl+F to open the browser action popup, press Ctrl+Shift+Y to send an event (Command+Shift+Y on a Mac).
               <div>
@@ -419,7 +432,7 @@
               </div>
             </div>
             <div class="sample" tags="">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="a8fab91d9ac7746ac4593cd9f0b0944f"><a href="examples/api/contentSettings.zip">Content settings</a></h2>
               Shows the content settings for the current site.
               <div>
@@ -438,7 +451,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.contextMenus.create chrome.extension.lastError chrome.extension.lastError.message ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="ea5374398da2255f743fd37964100fed"><a href="examples/api/contextMenus/basic.zip">Context Menus Sample</a></h2>
               Shows some of the features of the Context Menus API
               <div>
@@ -458,7 +471,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.contextMenus.create chrome.contextMenus.onClicked chrome.extension.lastError chrome.extension.lastError.message chrome.runtime.onInstalled ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="e0410b3575a19930b8cf73f1e5acee0a"><a href="examples/api/contextMenus/event_page.zip">Context Menus Sample (with Event Page)</a></h2>
               Shows some of the features of the Context Menus API using an event page
               <div>
@@ -508,7 +521,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.browserAction.onClicked chrome.debugger.attach chrome.debugger.detach chrome.debugger.onEvent chrome.debugger.sendCommand chrome.runtime.lastError chrome.runtime.lastError.message chrome.windows.create chrome.windows.getCurrent ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="f447d4d0c667a4f72ef8c6190e7925d7"><a href="examples/api/debugger/live-headers.zip">Live HTTP headers</a></h2>
               Displays the live log with the http requests headers
               <div>
@@ -537,7 +550,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.browserAction.onClicked chrome.browserAction.setIcon chrome.browserAction.setTitle chrome.debugger.attach chrome.debugger.detach chrome.debugger.onDetach chrome.debugger.onEvent chrome.debugger.sendCommand chrome.runtime.lastError chrome.runtime.lastError.message chrome.windows.getCurrent ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="812b7fe611113aedf0a394e9fbbfcce1"><a href="examples/api/debugger/pause-resume.zip">JavaScript pause/resume</a></h2>
               Pauses / resumes JavaScript execution
               <div>
@@ -568,7 +581,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.experimental.devtools.audits.addCategory chrome.tabs.executeScript ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="fe164387de8d80ba3e7d3275a771bc43"><a href="examples/api/devtools/audits/broken-links.zip">Broken Links</a></h2>
               Extends the Developer Tools, adding an audit category that finds broken links on the inspected page.
               <div>
@@ -590,7 +603,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.devtools.network.getHAR chrome.devtools.network.onRequestFinished chrome.tabs.executeScript ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="35c22ede9b5f84575bdca84b28c4319a"><a href="examples/api/devtools/network/chrome-firephp.zip">FirePHP for Chrome</a></h2>
               Extends the Developer Tools, adding support for parsing FirePHP messages from server
               <div>
@@ -612,7 +625,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.devtools.panels.ElementsPanel.createSidebarPane chrome.devtools.panels.ElementsPanel.onSelectionChanged ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="ae4c8d1f5ecdeda579074ed85fc58675"><a href="examples/api/devtools/panels/chrome-query.zip">Chrome Query</a></h2>
               Extends the Developer Tools, adding a sidebar that displays the jQuery data associated with the selected DOM element.
               <div>
@@ -632,7 +645,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.downloads.download chrome.tabs.executeScript chrome.tabs.query chrome.windows.getCurrent ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="31e082ed1a598b3d1ae28197fa2a89bc"><a href="examples/api/downloads/download_links.zip">Download Selected Links</a></h2>
               Select links on a page and download them.
               <div>
@@ -656,7 +669,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.alarms.create chrome.alarms.onAlarm chrome.bookmarks.onRemoved chrome.browserAction.onClicked chrome.browserAction.setBadgeText chrome.commands.onCommand chrome.declarativeWebRequest.RedirectRequest chrome.declarativeWebRequest.RequestMatcher chrome.runtime.onInstalled chrome.runtime.onMessage chrome.runtime.onSuspend chrome.runtime.sendMessage chrome.tabs.create chrome.tabs.executeScript chrome.tabs.query chrome.tabs.sendMessage ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="d5d930bdcf3f5e1753d0de5924a89a65"><a href="examples/api/eventPage/basic.zip">Event Page Example</a></h2>
               Demonstrates usage and features of the event page
               <div>
@@ -775,7 +788,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.history.getVisits chrome.history.search chrome.tabs.create ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="27840ea197cf9d783a89661d934c60b1"><a href="examples/api/history/showHistory.zip">Typed URL History</a></h2>
               Reads your history, and shows the top ten pages you go to by typing the URL.
               <div>
@@ -797,7 +810,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.experimental.history.getMostVisited chrome.tabs.create ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="491f794ab3e7044b6a15162dc7666652"><a href="examples/api/history/showHistoryFilter.zip">Time filter for History</a></h2>
               Reads your history, and shows top pages you visited in the time +/-1 hour in the last two months
               <div>
@@ -818,7 +831,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.browserAction.setBadgeText chrome.tabs.detectLanguage chrome.tabs.onUpdated ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="87fc6fd215630c7d5e7f86be5d6407fd"><a href="examples/api/i18n/cld.zip">CLD</a></h2>
               Displays the language of a tab
               <div>
@@ -838,7 +851,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.i18n.getAcceptLanguages chrome.i18n.getMessage ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="7ba114b0456675da2bec2ad44d4702a0"><a href="examples/api/i18n/getMessage.zip">AcceptLanguage</a></h2>
               Returns accept languages of the browser
               <div>
@@ -933,7 +946,7 @@
               </div>
             </div>
             <div class="sample" tags="">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="dc44df13694c231e4ec3a275df46f583"><a href="examples/api/input.ime/basic.zip">Test IME</a></h2>
               A simple IME that converts all keystrokes to upper case.
               <div>
@@ -951,7 +964,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.runtime.onConnect chrome.tabs.connect ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="2a0bb0bb3a9934a7915ccc7cd640f8ec"><a href="examples/api/messaging/timer.zip">Message Timer</a></h2>
               Times how long it takes to send a message to a content script and back.
               <div>
@@ -997,7 +1010,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.omnibox.onInputChanged chrome.omnibox.onInputEntered ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="be68e4d262d74d2457999fc402f5bf5e"><a href="examples/api/omnibox/simple-example.zip">Omnibox Example</a></h2>
               To use, type 'omnix' plus a search term into the Omnibox.
               <div>
@@ -1016,7 +1029,7 @@
               </div>
             </div>
             <div class="sample" tags="">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="919b313923c2e5192ae6e52667048007"><a href="examples/api/override/blank_ntp.zip">Blank new tab page</a></h2>
               <div>
                 <span class="label"><!--@Calls:-->调用：</span>
@@ -1032,7 +1045,7 @@
               </div>
             </div>
             <div class="sample" tags="">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="d55fcf86210108ef31078af49d488adb"><a href="examples/api/override/override_igoogle.zip">iGoogle new tab page</a></h2>
               <div>
                 <span class="label"><!--@Calls:-->调用：</span>
@@ -1092,7 +1105,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.pageAction.hide chrome.pageAction.onClicked chrome.pageAction.setIcon chrome.pageAction.setTitle chrome.pageAction.show ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="c711c90e97edb38a3ee75adbe5bf4a0c"><a href="examples/api/pageAction/set_icon.zip">Animated Page Action</a></h2>
               This extension adds an animated browser action to the toolbar.
               <div>
@@ -1144,7 +1157,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.extension.isAllowedIncognitoAccess chrome.privacy.websites.thirdPartyCookiesAllowed ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="bad5f7136687125becc69911eb43ed26"><a href="examples/api/preferences/allowThirdPartyCookies.zip">Block/allow third-party cookies API example extension</a></h2>
               Sample extension which demonstrates how to access a preference.
               <div>
@@ -1166,7 +1179,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.extension.isAllowedIncognitoAccess chrome.privacy.websites.referrersEnabled ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="d16e42e2f0a05f98f31406d425da538e"><a href="examples/api/preferences/enableReferrer.zip">Block/allow referrer API example extension</a></h2>
               Sample extension which demonstrates how to access a preference.
               <div>
@@ -1188,7 +1201,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.experimental.processes.onUpdatedWithMemory chrome.experimental.processes.terminate ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="589b1d119daedc5c14b02e2cfeeeb183"><a href="examples/api/processes/process_monitor.zip">Process Monitor</a></h2>
               Adds a browser action that monitors resource usage of all browser processes.
               <div>
@@ -1209,7 +1222,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.experimental.processes.getProcessIdForTab chrome.tabs.update chrome.windows.getAll chrome.windows.getCurrent chrome.windows.update ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="5cd19f5329cf45fd555d2f754abfc5f1"><a href="examples/api/processes/show_tabs.zip">Show Tabs in Process</a></h2>
               Adds a browser action showing which tabs share the current tab's process.
               <div>
@@ -1257,7 +1270,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.browserAction.onClicked chrome.browserAction.setIcon chrome.experimental.speechInput.isRecording chrome.experimental.speechInput.onError chrome.experimental.speechInput.onResult chrome.experimental.speechInput.start chrome.experimental.speechInput.stop chrome.runtime.lastError chrome.runtime.lastError.message ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="00294fafee1df479cc20247741f44447"><a href="examples/api/speechInput/basic.zip">Speech Recognizer</a></h2>
               Recognizes your speech and tells you the most likely result.
               <div>
@@ -1285,7 +1298,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.extension.getURL chrome.runtime.lastError chrome.storage.local chrome.storage.StorageArea.clear chrome.storage.StorageArea.get chrome.storage.StorageArea.remove chrome.storage.StorageArea.set chrome.tabs.insertCSS ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="3680ae406d5eb5fd580b19a93b88b6bf"><a href="examples/api/storage/stylizr.zip">Stylizr</a></h2>
               Spruce up your pages with custom CSS.
               <div>
@@ -1314,7 +1327,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.browserAction.onClicked chrome.extension.getURL chrome.tabs.create chrome.tabs.get chrome.tabs.move chrome.tabs.onAttached chrome.tabs.onCreated chrome.tabs.onDetached chrome.tabs.onMoved chrome.tabs.onRemoved chrome.tabs.onUpdated chrome.tabs.remove chrome.tabs.update chrome.windows.create chrome.windows.get chrome.windows.getAll chrome.windows.getCurrent chrome.windows.getLastFocused chrome.windows.onCreated chrome.windows.onFocusChanged chrome.windows.onRemoved chrome.windows.remove chrome.windows.update ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="062d24295dce5def19f91da9c449e1e4"><a href="examples/api/tabs/inspector.zip">Tab Inspector</a></h2>
               Utility for working with the extension tabs api
               <div>
@@ -1357,7 +1370,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.commands.onCommand chrome.tabs.update ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="eb620fcf35898532d926df05a12c9cff"><a href="examples/api/tabs/pin.zip">Keyboard Pin</a></h2>
               Creates a keyboard shortcut (Alt + Shift + P) to toggle the pinned state of the currently selected tab
               <div>
@@ -1377,7 +1390,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.browserAction.onClicked chrome.extension.getURL chrome.extension.getViews chrome.tabs.captureVisibleTab chrome.tabs.create chrome.tabs.onUpdated ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="dcc956ee1308eb125ff32bdaad4c1d84"><a href="examples/api/tabs/screenshot.zip">Test Screenshot Extension</a></h2>
               Demonstrate screenshot functionality in the chrome.tabs api. Note: only works for code.google.com
               <div>
@@ -1404,7 +1417,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.topSites.get ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="2dec225aaf6f92d7f3f1ad12168b71d7"><a href="examples/api/topsites/magic8ball.zip">NTP prototyping extension</a></h2>
               extension to prototype new NTP designs
               <div>
@@ -1424,7 +1437,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.extension.getViews chrome.ttsEngine.onSpeak chrome.ttsEngine.onStop chrome.windows.create chrome.windows.getCurrent chrome.windows.onRemoved ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="ada4d65f29289c46d04a1920af682232"><a href="examples/api/ttsEngine/console_tts_engine.zip">Console TTS Engine</a></h2>
               A "silent" TTS engine that prints text to a small window rather than synthesizing speech.
               <div>
@@ -1448,7 +1461,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.i18n.getMessage chrome.runtime.onStartup chrome.storage.StorageArea.get chrome.storage.StorageArea.set chrome.webNavigation.onBeforeNavigate chrome.webNavigation.onCommitted chrome.webNavigation.onCompleted chrome.webNavigation.onCreatedNavigationTarget chrome.webNavigation.onErrorOccurred chrome.webNavigation.onHistoryStateUpdated chrome.webNavigation.onReferenceFragmentUpdated ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="0837f59976e148ed9922266e1de6c29f"><a href="examples/api/webNavigation/basic.zip">WebNavigation Tech Demo</a></h2>
               Demonstration of the WebNavigation extension API.
               <div>
@@ -1507,7 +1520,7 @@
               </div>
             </div>
             <div class="sample" tags="">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="8cc0d94d85ab4e030fa7a1f9ef50eb88"><a href="examples/apps/background-simple.zip">Simple Background App</a></h2>
               <div>
                 <span class="label"><!--@Calls:-->调用：</span>
@@ -1586,7 +1599,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.extension.getURL chrome.management.getAll chrome.management.launchApp chrome.tabs.create ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="461b3e0c33d8370c83997cbb9e4e47b7"><a href="examples/extensions/app_launcher.zip">App Launcher</a></h2>
               <div>
                 <span class="label"><!--@Calls:-->调用：</span>
@@ -1610,7 +1623,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.browserAction.onClicked chrome.browserAction.setBadgeBackgroundColor chrome.browserAction.setBadgeText chrome.browserAction.setTitle chrome.extension.getBackgroundPage chrome.extension.getURL chrome.extension.getViews chrome.runtime.connect chrome.runtime.onConnect chrome.tabs.create chrome.tabs.executeScript chrome.tabs.remove chrome.tabs.update chrome.windows.getCurrent ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="a4adef17601281fa9ae9cec08590c7b2"><a href="examples/extensions/benchmark.zip">Page Benchmarker</a></h2>
               Chromium Page Benchmarker.
               <div>
@@ -1767,7 +1780,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.webRequest.onBeforeRequest ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="12a7bf1490a26359eadf10917e37c5b9"><a href="examples/extensions/catblock.zip">CatBlock</a></h2>
               I can't has cheezburger!
               <div>
@@ -1786,7 +1799,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.declarativeWebRequest.IgnoreRules chrome.declarativeWebRequest.RedirectRequest chrome.declarativeWebRequest.RequestMatcher chrome.runtime.lastError chrome.runtime.onInstalled ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="ecc227966949f60af19c444222a775d9"><a href="examples/extensions/catifier.zip">Catifier</a></h2>
               Moar cats!
               <div>
@@ -1808,7 +1821,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.omnibox.onInputCancelled chrome.omnibox.onInputChanged chrome.omnibox.onInputEntered chrome.omnibox.onInputStarted chrome.omnibox.setDefaultSuggestion chrome.tabs.update ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="8ef667a213d47272dacd8a4dc0bc97af"><a href="examples/extensions/chrome_search.zip">Chromium Search</a></h2>
               Add support to the omnibox to search the Chromium source code.
               <div>
@@ -2051,7 +2064,7 @@
               </div>
             </div>
             <div class="sample" tags="">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="9a7050357887f00c48793ffef4182fda"><a href="examples/extensions/irc/app.zip">Chromium IRC App</a></h2>
               <div>
                 <span class="label"><!--@Calls:-->调用：</span>
@@ -2505,7 +2518,7 @@
               </div>
             </div>
             <div class="sample" tags="chrome.browserAction.onClicked ">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="47c541bcb84a8bc242edeb89dc06630e"><a href="examples/howto/sandbox.zip">Sandboxed Frame</a></h2>
               <div>
                 <span class="label"><!--@Calls:-->调用：</span>
@@ -2548,7 +2561,7 @@
               </div>
             </div>
             <div class="sample" tags="">
-              <img class="icon" src="static/images/sample-default-icon.png">
+              <img class="icon" src="/trunk/static/images/sample-default-icon.png">
               <h2 id="56b7ae9ca272eb51e2413158df1f4818"><a href="examples/tutorials/getstarted.zip">One-click Kittens</a></h2>
               This extension demonstrates a 'browser action' with kittens.
               <div>
@@ -2573,7 +2586,7 @@
     window.bootstrap = {
       api_names: [{"name":"alarms"},{"name":"bookmarks"},{"name":"browserAction"},{"name":"browsingData"},{"name":"commands"},{"name":"contentSettings"},{"name":"contextMenus"},{"name":"cookies"},{"name":"debugger"},{"name":"declarativeContent"},{"name":"declarativeWebRequest"},{"name":"devtools.inspectedWindow"},{"name":"devtools.network"},{"name":"devtools.panels"},{"name":"downloads"},{"name":"events"},{"name":"extension"},{"name":"fileBrowserHandler"},{"name":"fontSettings"},{"name":"history"},{"name":"i18n"},{"name":"idle"},{"name":"input.ime"},{"name":"management"},{"name":"omnibox"},{"name":"pageAction"},{"name":"pageCapture"},{"name":"permissions"},{"name":"privacy"},{"name":"proxy"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"scriptBadge"},{"name":"sessionRestore"},{"name":"storage"},{"name":"tabCapture"},{"name":"tabs"},{"name":"topSites"},{"name":"tts"},{"name":"ttsEngine"},{"name":"types"},{"name":"webNavigation"},{"name":"webRequest"},{"name":"webstore"},{"last":true,"name":"windows"}].concat(
           [{"name":"experimental.devtools.audits"},{"name":"experimental.devtools.console"},{"name":"experimental.discovery"},{"name":"experimental.history"},{"name":"experimental.identity"},{"name":"experimental.infobars"},{"name":"experimental.processes"},{"name":"experimental.record"},{"name":"experimental.speechInput"},{"name":"experimental.systemInfo.cpu"},{"last":true,"name":"experimental.systemInfo.storage"}]),
-      branchInfo: {"channels":[{"path":"stable","name":"Stable"},{"path":"dev","name":"Dev"},{"path":"beta","name":"Beta"},{"path":"trunk","name":"Trunk"}],"current":"stable","showWarning":false}
+      branchInfo: {"channels":[{"path":"stable","name":"Stable"},{"path":"dev","name":"Dev"},{"path":"beta","name":"Beta"},{"path":"trunk","name":"Trunk"}],"current":"trunk","showWarning":true}
     };
   </script>
   <div id="gc-footer">
@@ -2594,9 +2607,9 @@
       <p>
         <!--@©2012 Google-->
       </p>
-      <script src="static/js/branch.js" type="text/javascript"></script>
-      <script src="static/js/sidebar.js" type="text/javascript"></script>
-      <script src="static/js/prettify.js" type="text/javascript"></script>
+      <script src="/trunk/static/js/branch.js" type="text/javascript"></script>
+      <script src="/trunk/static/js/sidebar.js" type="text/javascript"></script>
+      <script src="/trunk/static/js/prettify.js" type="text/javascript"></script>
       <script>
         (function() {
           // Auto syntax highlight all pre tags.
@@ -2635,6 +2648,6 @@
   
     </div>
   </div>
-  <script src="static/js/samples.js" type="text/javascript"></script>
+  <script src="/trunk/static/js/samples.js" type="text/javascript"></script>
 </html>
 

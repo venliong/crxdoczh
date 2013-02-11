@@ -2,18 +2,31 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="static/css/site.css" rel="stylesheet" type="text/css">
-    <link href="static/css/print.css" rel="stylesheet" type="text/css" media="print">
-    <link href="static/css/prettify.css" rel="stylesheet" type="text/css">
+    <link href="/trunk/static/css/site.css" rel="stylesheet" type="text/css">
+    <link href="/trunk/static/css/print.css" rel="stylesheet" type="text/css" media="print">
+    <link href="/trunk/static/css/prettify.css" rel="stylesheet" type="text/css">
     <link href="//www.google.com/images/icons/product/chrome-16.png" rel="icon" type="image/ico">
-    <link href="static/css/api.css" rel="stylesheet" type="text/css">
-    <title>chrome.i18n - Google Chrome</title>
+    <link href="/trunk/static/css/api.css" rel="stylesheet" type="text/css">
+    <title>chrome.i18n - Google Chrome 扩展程序/应用开发者文档（非官方中文版）</title>
   </head>
   <body>
+    <div id="branchWarning" class="displayModeWarning">
+      <span><!--@WARNING: this is the trunk documentation. It may not work with the stable release of Chrome.-->警告：这是 trunk 分支的文档，不一定能在稳定版本的 Chrome 浏览器中正常工作。</span>
+      <select id="branchChooser">
+        <option value=""><!--@Choose a different version...-->选择另一个版本...</option>
+        <option value="stable">Stable</option>
+        <option value="dev">Dev</option>
+        <option value="beta">Beta</option>
+        <option value="trunk">Trunk</option>
+      </select>
+    </div>
     <a id="top"></a>
     <div id="header">
       <span id="logo">
-        <a href="http://code.google.com/"><img src="static/images/chrome_logo.gif" alt="Google Code Labs"></a>
+        <a href="http://code.google.com/" id="view-original"><img src="/trunk/static/images/chrome_logo.gif" alt="单击此处查看英文原文"></a>
+        <script type="text/javascript">
+          document.getElementById('view-original').href = "https://developer.chrome.com" + location.pathname;
+        </script>
       </span>
       <span id="cse">
         <gcse:searchbox-only enableAutoComplete="true" autoCompleteMatchTyple="prefix"></gcse:searchbox-only>
@@ -328,7 +341,7 @@ Korean (<code>ko</code>):-->
 如下是具有国际化支持的扩展程序的文件结构，它支持英语（<code>en</code>）、西班牙语（<code>es</code>）和韩语（<code>ko</code>）：
 </p>
 
-<img src="static/images/i18n-hierarchy.gif"
+<img src="/trunk/static/images/i18n-hierarchy.gif"
  alt='In the extension directory: manifest.json, *.html, *.js, _locales directory. In the _locales directory: en, es, and ko directories, each with a messages.json file.'
  width="385" height="77" />
 
@@ -341,7 +354,7 @@ with the files shown in the following figure:-->
 假设您有一个扩展程序，包含下图所示的几个文件：
 </p>
 
-<img src="static/images/i18n-before.gif"
+<img src="/trunk/static/images/i18n-before.gif"
  alt='A manifest.json file and a file with JavaScript. The .json file has "name": "Hello World". The JavaScript file has title = "Hello World";'
  width="323" height="148">
 
@@ -363,7 +376,7 @@ use each string's name to get its localized version.-->
 如下是为扩展程序添加国际化支持后看上去的样子（注意它还仅包括英语的字符串）：
 </p>
 
-<img src="static/images/i18n-after-1.gif"
+<img src="/trunk/static/images/i18n-after-1.gif"
  alt='In the manifest.json file, "Hello World" has been changed to "__MSG_extName__", and a new "default_locale" item has the value "en". In the JavaScript file, "Hello World" has been changed to chrome.i18n.getMessage("extName"). A new file named _locales/en/messages.json defines "extName".'
  width="782" height="228">
 
@@ -489,7 +502,7 @@ with a new Spanish translation.-->
 中即可。下图展示了具有新的西班牙语翻译的扩展程序。
 </p>
 
-<img src="static/images/i18n-after-2.gif"
+<img src="/trunk/static/images/i18n-after-2.gif"
  alt='This looks the same as the previous figure, but with a new file at _locales/es/messages.json that contains a Spanish translation of the messages.'
  width="782" height="358">
 
@@ -742,7 +755,7 @@ Google Chrome 浏览器都会看到 "Colores" 标签以及扩展名称
 "Hola mundo"。
 </p>
 
-<img src="static/images/i18n-strings.gif"
+<img src="/trunk/static/images/i18n-strings.gif"
  alt='Four files: manifest.json and three messages.json files (for es, en, and en_GB).  The es and en files show entries for messages named "extName" and "colores"; the en_GB file has just one entry (for "colores").'
  width="493" height="488" />
 
@@ -1133,7 +1146,7 @@ function getAcceptLanguages() {
     window.bootstrap = {
       api_names: [{"name":"alarms"},{"name":"bookmarks"},{"name":"browserAction"},{"name":"browsingData"},{"name":"commands"},{"name":"contentSettings"},{"name":"contextMenus"},{"name":"cookies"},{"name":"debugger"},{"name":"declarativeContent"},{"name":"declarativeWebRequest"},{"name":"devtools.inspectedWindow"},{"name":"devtools.network"},{"name":"devtools.panels"},{"name":"downloads"},{"name":"events"},{"name":"extension"},{"name":"fileBrowserHandler"},{"name":"fontSettings"},{"name":"history"},{"name":"i18n"},{"name":"idle"},{"name":"input.ime"},{"name":"management"},{"name":"omnibox"},{"name":"pageAction"},{"name":"pageCapture"},{"name":"permissions"},{"name":"privacy"},{"name":"proxy"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"scriptBadge"},{"name":"sessionRestore"},{"name":"storage"},{"name":"tabCapture"},{"name":"tabs"},{"name":"topSites"},{"name":"tts"},{"name":"ttsEngine"},{"name":"types"},{"name":"webNavigation"},{"name":"webRequest"},{"name":"webstore"},{"last":true,"name":"windows"}].concat(
           [{"name":"experimental.devtools.audits"},{"name":"experimental.devtools.console"},{"name":"experimental.discovery"},{"name":"experimental.history"},{"name":"experimental.identity"},{"name":"experimental.infobars"},{"name":"experimental.processes"},{"name":"experimental.record"},{"name":"experimental.speechInput"},{"name":"experimental.systemInfo.cpu"},{"last":true,"name":"experimental.systemInfo.storage"}]),
-      branchInfo: {"channels":[{"path":"stable","name":"Stable"},{"path":"dev","name":"Dev"},{"path":"beta","name":"Beta"},{"path":"trunk","name":"Trunk"}],"current":"stable","showWarning":false}
+      branchInfo: {"channels":[{"path":"stable","name":"Stable"},{"path":"dev","name":"Dev"},{"path":"beta","name":"Beta"},{"path":"trunk","name":"Trunk"}],"current":"trunk","showWarning":true}
     };
   </script>
   <div id="gc-footer">
@@ -1154,9 +1167,9 @@ function getAcceptLanguages() {
       <p>
         <!--@©2012 Google-->
       </p>
-      <script src="static/js/branch.js" type="text/javascript"></script>
-      <script src="static/js/sidebar.js" type="text/javascript"></script>
-      <script src="static/js/prettify.js" type="text/javascript"></script>
+      <script src="/trunk/static/js/branch.js" type="text/javascript"></script>
+      <script src="/trunk/static/js/sidebar.js" type="text/javascript"></script>
+      <script src="/trunk/static/js/prettify.js" type="text/javascript"></script>
       <script>
         (function() {
           // Auto syntax highlight all pre tags.

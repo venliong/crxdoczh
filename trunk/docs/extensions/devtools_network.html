@@ -2,18 +2,31 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="static/css/site.css" rel="stylesheet" type="text/css">
-    <link href="static/css/print.css" rel="stylesheet" type="text/css" media="print">
-    <link href="static/css/prettify.css" rel="stylesheet" type="text/css">
+    <link href="/trunk/static/css/site.css" rel="stylesheet" type="text/css">
+    <link href="/trunk/static/css/print.css" rel="stylesheet" type="text/css" media="print">
+    <link href="/trunk/static/css/prettify.css" rel="stylesheet" type="text/css">
     <link href="//www.google.com/images/icons/product/chrome-16.png" rel="icon" type="image/ico">
-    <link href="static/css/api.css" rel="stylesheet" type="text/css">
-    <title>chrome.devtools.network - Google Chrome</title>
+    <link href="/trunk/static/css/api.css" rel="stylesheet" type="text/css">
+    <title>chrome.devtools.network - Google Chrome 扩展程序/应用开发者文档（非官方中文版）</title>
   </head>
   <body>
+    <div id="branchWarning" class="displayModeWarning">
+      <span><!--@WARNING: this is the trunk documentation. It may not work with the stable release of Chrome.-->警告：这是 trunk 分支的文档，不一定能在稳定版本的 Chrome 浏览器中正常工作。</span>
+      <select id="branchChooser">
+        <option value=""><!--@Choose a different version...-->选择另一个版本...</option>
+        <option value="stable">Stable</option>
+        <option value="dev">Dev</option>
+        <option value="beta">Beta</option>
+        <option value="trunk">Trunk</option>
+      </select>
+    </div>
     <a id="top"></a>
     <div id="header">
       <span id="logo">
-        <a href="http://code.google.com/"><img src="static/images/chrome_logo.gif" alt="Google Code Labs"></a>
+        <a href="http://code.google.com/" id="view-original"><img src="/trunk/static/images/chrome_logo.gif" alt="单击此处查看英文原文"></a>
+        <script type="text/javascript">
+          document.getElementById('view-original').href = "https://developer.chrome.com" + location.pathname;
+        </script>
       </span>
       <span id="cse">
         <gcse:searchbox-only enableAutoComplete="true" autoCompleteMatchTyple="prefix"></gcse:searchbox-only>
@@ -256,10 +269,10 @@
           <h2><!--@Contents-->目录</h2>
           <ol>
             <li>
-              <a href=#overview>Overview</a>
+              <a href=#overview>概述</a>
             </li>
             <li>
-              <a href=#overview-examples>Examples</a>
+              <a href=#overview-examples>例子</a>
             </li>
             <li>
               <a href="#apiReference"><!--@API reference: -->API 参考：chrome.devtools.network</a>
@@ -275,57 +288,76 @@
         </div>
 
 <p id="classSummary">
-Use the <code>chrome.devtools.network</code> module to retrieve
+<!--@Use the-->使用 <code>chrome.devtools.network</code> <!--@module to retrieve
 the information about network requests displayed by the Developer Tools
-in the Network panel.
+in the Network panel.-->
+模块获取开发者工具的网络面板中显示的与网络请求相关的信息。
 </p><p>
-See <a href="devtools.html">DevTools APIs summary</a> for
-general introduction to using Developer Tools APIs</a>.
+<!--@See <a href="devtools.html">DevTools APIs summary</a> for
+general introduction to using Developer Tools APIs</a>.-->
+有关使用开发者工具 API 的一般信息请参见<a href="devtools.html">开发者工具
+API 概述</a>。
 </p>
 
-<h2 id="overview">Overview</h2>
+<h2 id="overview"><!--@Overview-->概述</h2>
 
 <p>
-Network requests information is represented in the HTTP Archive format
+<!--@Network requests information is represented in the HTTP Archive format
 (<em>HAR</em>). The description of HAR is outside of scope of this document,
 please refer to <a href=
 "http://www.softwareishard.com/blog/har-12-spec/">
-HAR v1.2 Specification</a>.
+HAR v1.2 Specification</a>.-->
+网络请求信息以 HTTP 档案的格式（<em>HAR</em>）表示。有关 HAR
+的详细解释超出了本文档的范围，请参见
+<a href="http://www.softwareishard.com/blog/har-12-spec/">HAR v1.2
+规范</a>（英文）。
 </p><p>
-In terms of HAR, the
+<!--@In terms of HAR, the
 <code>chrome.devtools.network.getHAR()</code> method returns
 entire <em>HAR log</em>, while
 <code>chrome.devtools.network.onRequestFinished</code> event
-provides <em>HAR entry</em> as an argument to the event callback.
+provides <em>HAR entry</em> as an argument to the event callback.-->
+就 HAR 而言，<code>chrome.devtools.network.getHAR</code> 方法返回整个
+<em>HAR 记录</em>，而 <code>chrome.devtools.network.onRequestFinished</code>
+事件提供 <em>HAR 项</em>，作为事件回调函数的参数。
 </p>
-<p>Note that request content is not provided as part of HAR for efficieny
+<p><!--@Note that request content is not provided as part of HAR for efficieny
 reasons. You may call request's <code>getContent()</code> method to retrieve
-content.
-<p>If the Developer Tools window is opened after the page is loaded,
+content.-->
+注意，由于效率原因，请求的内容并没有包含在提供的 HAR 中，您可以调用请求的
+<code>getContent()</code> 方法来获得内容。
+<p><!--@If the Developer Tools window is opened after the page is loaded,
 some requests may be missing
 in the array of entries returned by <code>getHAR()</code>.
 Reload the page to get all requests.
 In general, the list of
 requests returned by <code>getHAR()</code> should match that displayed in
-the Network panel.
-<h2 id="overview-examples">Examples</h2>
+the Network panel.-->
+如果开发者工具在页面载入完成后打开，<code>getHAR()</code>
+返回的数组中可能会缺少一些请求。重新载入页面可以获得所有请求。大体上说，<code>getHAR()</code>
+返回的请求列表与网络面板中显示的内容匹配。
+<h2 id="overview-examples"><!--@Examples-->例子</h2>
 
-<p>The following code logs URLs of all images larger than 40KB as they are
-loaded:</p>
+<p><!--@The following code logs URLs of all images larger than 40KB as they are
+loaded:-->
+如下代码在载入时记录下所有大于 40KB 的图片：
+</p>
 
 <pre>
 chrome.devtools.network.onRequestFinished.addListener(
     function(request) {
-      if (request.response.bodySize > 40*1024)
+      if (request.response.bodySize &gt; 40*1024)
       chrome.experimental.devtools.console.addMessage(
           chrome.experimental.devtools.console.Severity.Warning,
-          "Large image: " + request.request.url);
+          "大图片：" + request.request.url);
 });
 </pre>
 
 <p>
-You can find more examples that use this API in
-<a href="samples.html#devtools.network">Samples</a>.
+<!--@You can find more examples that use this API in
+<a href="samples.html#devtools.network">Samples</a>.-->
+您可以在<a href="samples.html#devtools.network">示例</a>中找到使用这一 API
+的更多例子。
 </p>
         <h2 id="apiReference"><!--@API Reference: chrome.devtools.network-->API 参考：chrome.devtools.network</h2>
         <div class="api_reference">
@@ -335,7 +367,7 @@ You can find more examples that use this API in
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Represents a network request for a document resource (script, image and so on). See HAR Specification for reference.
+                    代表某一文档资源的网络请求（脚本、图片等）。请参见 HAR 规范
                   </dd>    <h4 id="Request-methods">
                     <!--@Methods of --><a href="#type-Request">Request</a>
                     的方法
@@ -347,7 +379,7 @@ You can find more examples that use this API in
                       </div>
                       <div class="description">
                         <p>
-                          Returns content of the response body.
+                          返回响应正文的内容。
                         </p>
                         <h4><!--@Parameters-->参数</h4>
                         <dl>
@@ -363,7 +395,7 @@ You can find more examples that use this API in
                                 </span>
                               </dt>
                               <dd>
-                                A function that receives the response body when the request completes.
+                                请求完成时接收响应正文的函数。
                               </dd>
                             </div>
                         </dl>
@@ -387,7 +419,7 @@ You can find more examples that use this API in
                                   </span>
                                 </dt>
                                 <dd>
-                                  Content of the response body (potentially encoded).
+                                  响应正文的内容（可能经过编码）。
                                 </dd>
                               </div>
                               <div>
@@ -402,7 +434,7 @@ You can find more examples that use this API in
                                   </span>
                                 </dt>
                                 <dd>
-                                  Empty if content is not encoded, encoding name otherwise. Currently, only base64 is supported.
+                                  如果内容没有经过编码则为空，否则为编码的名称。当前只支持 base64 编码。
                                 </dd>
                               </div>
                           </dl>
@@ -419,7 +451,7 @@ You can find more examples that use this API in
                 </div>
                 <div class="description">
                   <p>
-                    Returns HAR log that contains all known network requests.
+                    返回包含所有已知网络请求的 HAR 日志。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -435,7 +467,7 @@ You can find more examples that use this API in
                           </span>
                         </dt>
                         <dd>
-                          A function that receives the HAR log when the request completes.
+                          请求完成时接收 HAR 日志的函数。
                         </dd>
                       </div>
                   </dl>
@@ -459,7 +491,7 @@ You can find more examples that use this API in
                             </span>
                           </dt>
                           <dd>
-                            A HAR log. See HAR specification for details.
+                            HAR 日志，有关细节请参见 HAR 规范。
                           </dd>
                         </div>
                     </dl>
@@ -473,10 +505,10 @@ You can find more examples that use this API in
                 </div>
                 <div class="description">
               <p>
-                    Fired when a network request is finished and all request data are available.
+                    当网络请求完成并且所有请求的数据都可用时产生。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
-                      <div>  <a name="property-onRequestFinished-request"></a>  <dt>    <span class="variable">request</span>    <span class="property">      (                <a href="devtools.network.html#type-Request">Request</a>      )    </span>  </dt>  <dd>    Description of a network request in the form of a HAR entry. See HAR specification for details.  </dd></div>
+                      <div>  <a name="property-onRequestFinished-request"></a>  <dt>    <span class="variable">request</span>    <span class="property">      (                <a href="devtools.network.html#type-Request">Request</a>      )    </span>  </dt>  <dd>    以 HAR 项的形式描述的网络请求，有关细节请参见 HAR 规范。  </dd></div>
                     </dl>
                 </div>
               </div>
@@ -487,10 +519,10 @@ You can find more examples that use this API in
                 </div>
                 <div class="description">
               <p>
-                    Fired when the inspected window navigates to a new page.
+                    当审查的窗口导航到新页面时产生。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
-                      <div>  <a name="property-onNavigated-url"></a>  <dt>    <span class="variable">url</span>    <span class="property">      (                string      )    </span>  </dt>  <dd>    URL of the new page.  </dd></div>
+                      <div>  <a name="property-onNavigated-url"></a>  <dt>    <span class="variable">url</span>    <span class="property">      (                string      )    </span>  </dt>  <dd>    新页面的 URL。  </dd></div>
                     </dl>
                 </div>
               </div>
@@ -502,7 +534,7 @@ You can find more examples that use this API in
     window.bootstrap = {
       api_names: [{"name":"alarms"},{"name":"bookmarks"},{"name":"browserAction"},{"name":"browsingData"},{"name":"commands"},{"name":"contentSettings"},{"name":"contextMenus"},{"name":"cookies"},{"name":"debugger"},{"name":"declarativeContent"},{"name":"declarativeWebRequest"},{"name":"devtools.inspectedWindow"},{"name":"devtools.network"},{"name":"devtools.panels"},{"name":"downloads"},{"name":"events"},{"name":"extension"},{"name":"fileBrowserHandler"},{"name":"fontSettings"},{"name":"history"},{"name":"i18n"},{"name":"idle"},{"name":"input.ime"},{"name":"management"},{"name":"omnibox"},{"name":"pageAction"},{"name":"pageCapture"},{"name":"permissions"},{"name":"privacy"},{"name":"proxy"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"scriptBadge"},{"name":"sessionRestore"},{"name":"storage"},{"name":"tabCapture"},{"name":"tabs"},{"name":"topSites"},{"name":"tts"},{"name":"ttsEngine"},{"name":"types"},{"name":"webNavigation"},{"name":"webRequest"},{"name":"webstore"},{"last":true,"name":"windows"}].concat(
           [{"name":"experimental.devtools.audits"},{"name":"experimental.devtools.console"},{"name":"experimental.discovery"},{"name":"experimental.history"},{"name":"experimental.identity"},{"name":"experimental.infobars"},{"name":"experimental.processes"},{"name":"experimental.record"},{"name":"experimental.speechInput"},{"name":"experimental.systemInfo.cpu"},{"last":true,"name":"experimental.systemInfo.storage"}]),
-      branchInfo: {"channels":[{"path":"stable","name":"Stable"},{"path":"dev","name":"Dev"},{"path":"beta","name":"Beta"},{"path":"trunk","name":"Trunk"}],"current":"stable","showWarning":false}
+      branchInfo: {"channels":[{"path":"stable","name":"Stable"},{"path":"dev","name":"Dev"},{"path":"beta","name":"Beta"},{"path":"trunk","name":"Trunk"}],"current":"trunk","showWarning":true}
     };
   </script>
   <div id="gc-footer">
@@ -523,9 +555,9 @@ You can find more examples that use this API in
       <p>
         <!--@©2012 Google-->
       </p>
-      <script src="static/js/branch.js" type="text/javascript"></script>
-      <script src="static/js/sidebar.js" type="text/javascript"></script>
-      <script src="static/js/prettify.js" type="text/javascript"></script>
+      <script src="/trunk/static/js/branch.js" type="text/javascript"></script>
+      <script src="/trunk/static/js/sidebar.js" type="text/javascript"></script>
+      <script src="/trunk/static/js/prettify.js" type="text/javascript"></script>
       <script>
         (function() {
           // Auto syntax highlight all pre tags.

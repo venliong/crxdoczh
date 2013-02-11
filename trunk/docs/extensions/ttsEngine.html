@@ -2,18 +2,31 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="static/css/site.css" rel="stylesheet" type="text/css">
-    <link href="static/css/print.css" rel="stylesheet" type="text/css" media="print">
-    <link href="static/css/prettify.css" rel="stylesheet" type="text/css">
+    <link href="/trunk/static/css/site.css" rel="stylesheet" type="text/css">
+    <link href="/trunk/static/css/print.css" rel="stylesheet" type="text/css" media="print">
+    <link href="/trunk/static/css/prettify.css" rel="stylesheet" type="text/css">
     <link href="//www.google.com/images/icons/product/chrome-16.png" rel="icon" type="image/ico">
-    <link href="static/css/api.css" rel="stylesheet" type="text/css">
-    <title>chrome.ttsEngine - Google Chrome</title>
+    <link href="/trunk/static/css/api.css" rel="stylesheet" type="text/css">
+    <title>chrome.ttsEngine - Google Chrome 扩展程序/应用开发者文档（非官方中文版）</title>
   </head>
   <body>
+    <div id="branchWarning" class="displayModeWarning">
+      <span><!--@WARNING: this is the trunk documentation. It may not work with the stable release of Chrome.-->警告：这是 trunk 分支的文档，不一定能在稳定版本的 Chrome 浏览器中正常工作。</span>
+      <select id="branchChooser">
+        <option value=""><!--@Choose a different version...-->选择另一个版本...</option>
+        <option value="stable">Stable</option>
+        <option value="dev">Dev</option>
+        <option value="beta">Beta</option>
+        <option value="trunk">Trunk</option>
+      </select>
+    </div>
     <a id="top"></a>
     <div id="header">
       <span id="logo">
-        <a href="http://code.google.com/"><img src="static/images/chrome_logo.gif" alt="Google Code Labs"></a>
+        <a href="http://code.google.com/" id="view-original"><img src="/trunk/static/images/chrome_logo.gif" alt="单击此处查看英文原文"></a>
+        <script type="text/javascript">
+          document.getElementById('view-original').href = "https://developer.chrome.com" + location.pathname;
+        </script>
       </span>
       <span id="cse">
         <gcse:searchbox-only enableAutoComplete="true" autoCompleteMatchTyple="prefix"></gcse:searchbox-only>
@@ -256,13 +269,13 @@
           <h2><!--@Contents-->目录</h2>
           <ol>
             <li>
-              <a href=#overview>Overview</a>
+              <a href=#overview>概述</a>
             </li>
             <li>
-              <a href=#manifest>Manifest</a>
+              <a href=#manifest>清单文件</a>
             </li>
             <li>
-              <a href=#handling_speech_events>Handling speech events</a>
+              <a href=#handling_speech_events>处理语音事件</a>
             </li>
             <li>
               <a href="#apiReference"><!--@API reference: -->API 参考：chrome.ttsEngine</a>
@@ -278,7 +291,7 @@
         </div>
 
 <p id="classSummary">
-Use the <code>chrome.ttsEngine</code> module to
+<!--@Use the-->使用 <code>chrome.ttsEngine</code> <!--@module to
 implement a text-to-speech (TTS) engine using an extension. If your
 extension registers using this API, it will receive events containing
 an utterance to be spoken and other parameters when any extension or packaged
@@ -286,13 +299,16 @@ app uses the
 <a href="tts.html">tts</a>
 module to generate speech. Your extension can then use any available
 web technology to synthesize and output the speech, and send events back
-to the calling function to report the status.
+to the calling function to report the status.-->
+模块用扩展程序实现文字语音转换（TTS）引擎。如果您的扩展程序注册了这一
+API，当任何扩展程序或打包应用使用 <a href="tts.html">tts</a>
+模块朗读时，它会收到事件，包含要朗读的内容以及其他参数。您的扩展程序可以使用任何可用的网络技术合成并输出语音，并向调用方发送事件报告状态。
 </p>
 
 
-<h2 id="overview">Overview</h2>
+<h2 id="overview"><!--@Overview-->概述</h2>
 
-<p>An extension can register itself as a speech engine. By doing so, it
+<p><!--@An extension can register itself as a speech engine. By doing so, it
 can intercept some or all calls to functions such as
 <a href="tts.html#method-speak">tts.speak</a> and
 <a href="tts.html#method-stop">tts.stop</a>
@@ -301,16 +317,24 @@ Extensions are free to use any available web technology
 to provide speech, including streaming audio from a server, HTML5 audio,
 Native Client, or Flash. An extension could even do something different
 with the utterances, like display closed captions in a pop-up window or
-send them as log messages to a remote server.</p>
+send them as log messages to a remote server.-->
+扩展程序可以将自己注册为语音引擎，这样，它就能处理部分或所有诸如
+<a href="tts.html#method-speak">tts.speak</a> 和 <a href="tts.html#method-stop">tts.stop</a>
+的函数调用，提供替代的实现。扩展程序可以自由地使用任何可用的网络技术提供语音，包括来自服务器的音频流、HTML5 音频、Native Client 或
+Flash。扩展程序甚至可以做一些除朗读之外的事，例如在弹出式窗口中显示内容或者向远程服务器发送日志消息。
+</p>
 
-<h2 id="manifest">Manifest</h2>
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
 
-<p>To implement a TTS engine, an extension must
+<p><!--@To implement a TTS engine, an extension must
 declare the "ttsEngine" permission and then declare all voices
-it provides in the extension manifest, like this:</p>
+it provides in the extension manifest, like this:-->
+要实现 TTS 引擎，扩展程序必须在清单文件中声明 "ttsEngine"
+权限，并声明它提供的所有语音，如下所示：
+</p>
 
 <pre>{
-  "name": "My TTS Engine",
+  "name": "我的 TTS 引擎",
   "version": "1.0",
   <b>"permissions": ["ttsEngine"],
   "tts_engine": {
@@ -334,104 +358,149 @@ it provides in the extension manifest, like this:</p>
   }
 }</pre>
 
-<p>An extension can specify any number of voices.</p>
+<p><!--@An extension can specify any number of voices.-->
+扩展程序可以指定任意数量的语音。
+</p>
 
-<p>The <code>voice_name</code> parameter is required. The name should be
+<p><!--@The <code>voice_name</code> parameter is required. The name should be
 descriptive enough that it identifies the name of the voice and the
 engine used. In the unlikely event that two extensions register voices
 with the same name, a client can specify the ID of the extension that
-should do the synthesis.</p>
+should do the synthesis.-->
+<code>voice_name</code>
+参数是必选的，名称应该具有充分的描述性，标识使用的语音和引擎的名称。如果两个扩展程序注册了相同名称的语音（这种情况不太可能发生），客户端可以指定应该进行合成的扩展程序标识符。
+</p>
 
-<p>The <code>gender</code> parameter is optional. If your voice corresponds
+<p><!--@The <code>gender</code> parameter is optional. If your voice corresponds
 to a male or female voice, you can use this parameter to help clients
-choose the most appropriate voice for their application.</p>
+choose the most appropriate voice for their application.-->
+<code>gender</code>
+参数可选。如果您的语音对应于男性（"male"）或女性（"female"）语音，您可以使用该参数帮助客户端为应用程序选择最合适的语音。
+</p>
 
-<p>The <code>lang</code> parameter is optional, but highly recommended.
+<p><!--@The <code>lang</code> parameter is optional, but highly recommended.
 Almost always, a voice can synthesize speech in just a single language.
 When an engine supports more than one language, it can easily register a
 separate voice for each language. Under rare circumstances where a single
 voice can handle more than one language, it's easiest to just list two
 separate voices and handle them using the same logic internally. However,
 if you want to create a voice that will handle utterances in any language,
-leave out the <code>lang</code> parameter from your extension's manifest.</p>
+leave out the <code>lang</code> parameter from your extension's manifest.-->
+<code>lang</code>
+参数可选，但是强烈建议包含这一参数。大部分情况下语音只能进行一种语言的语音合成。如果引擎支持不止一种语言，它只要注册两个单独的语音，并在内部用相同的逻辑处理。然而，如果您想创建一个可以处理任何语言的语音，可以在扩展程序的清单文件中省略
+<code>lang</code>参数。
+</p>
 
-<p>Finally, the <code>event_types</code> parameter is required if the engine can
+<p><!--@Finally, the <code>event_types</code> parameter is required if the engine can
 send events to update the client on the progress of speech synthesis.
 At a minimum, supporting the <code>'end'</code> event type to indicate
 when speech is finished is highly recommended, otherwise Chrome cannot
-schedule queued utterances.</p>
+schedule queued utterances.-->
+最后，如果引擎可以发送事件通知客户端语音合成的进度，则必须设置
+<code>event_types</code> 参数。强烈建议至少应该支持
+<code>'end'</code> 事件类型指示朗读何时完成，否则 Chrome
+浏览器无法调度队列中的朗读。
+</p>
 
 <p class="note">
-<strong>Note:</strong> If your TTS engine does not support
+<strong><!--@Note:-->注意：</strong><!--@ If your TTS engine does not support
 the <code>'end'</code> event type, Chrome cannot queue utterances
 because it has no way of knowing when your utterance has finished. To
 help mitigate this, Chrome passes an additional boolean <code>enqueue</code>
 option to your engine's onSpeak handler, giving you the option of
 implementing your own queueing.  This is discouraged because then
 clients are unable to queue utterances that should get spoken by different
-speech engines.</p>
+speech engines.-->如果您的 TTS 引擎不支持 <code>'end'</code>
+事件类型，Chrome
+浏览器就无法将朗读放入队列，因为它无法知道您的朗读何时结束。为了缓解这一问题，Chrome
+浏览器将向您的引擎的 onSpeak 事件处理函数传递布尔类型的
+<code>enqueue</code>
+选项，让您选择实现自己的队列。但是不建议您这么做，因为客户端将无法将其他语音引擎朗读的内容放入队列。
+</p>
 
-<p>The possible event types that you can send correspond to the event types
-that the <code>speak()</code> method receives:</p>
+<p><!--@The possible event types that you can send correspond to the event types
+that the <code>speak()</code> method receives:-->
+您可以发送的可能的事件类型对应于 <code>speak()</code> 可以接受的事件类型：
+</p>
 
 <ul>
-  <li><code>'start'</code>: The engine has started speaking the utterance.
-  <li><code>'word'</code>: A word boundary was reached. Use
+  <li><code>'start'</code><!--@: The engine has started speaking the utterance.-->：引擎开始朗读。
+  <li><code>'word'</code><!--@: A word boundary was reached. Use
           <code>event.charIndex</code> to determine the current speech
-          position.
-  <li><code>'sentence'</code>: A sentence boundary was reached. Use
+          position.-->：遇到单词边界。使用
+          <code>event.charIndex</code> 确定当前朗读位置。
+  <li><code>'sentence'</code><!--@: A sentence boundary was reached. Use
           <code>event.charIndex</code> to determine the current speech
-          position.
-  <li><code>'marker'</code>: An SSML marker was reached. Use
+          position.-->：遇到句子边界。使用
+          <code>event.charIndex</code> 确定当前朗读位置。
+  <li><code>'marker'</code><!--@: An SSML marker was reached. Use
           <code>event.charIndex</code> to determine the current speech
-          position.
-  <li><code>'end'</code>: The engine has finished speaking the utterance.
-  <li><code>'error'</code>: An engine-specific error occurred and
+          position.-->：遇到 SSML 标记。使用
+          <code>event.charIndex</code> 确定当前朗读位置。
+  <li><code>'end'</code><!--@: The engine has finished speaking the utterance.-->：引擎已完成朗读。
+  <li><code>'error'</code><!--@: An engine-specific error occurred and
           this utterance cannot be spoken.
-          Pass more information in <code>event.errorMessage</code>.
+          Pass more information in <code>event.errorMessage</code>.-->：发生了引擎特定的错误，不能开始朗读。有关细节请检查
+          <code>event.errorMessage</code>。
 </ul>
 
-<p>The <code>'interrupted'</code> and <code>'cancelled'</code> events are
-not sent by the speech engine; they are generated automatically by Chrome.</p>
+<p><!--@The <code>'interrupted'</code> and <code>'cancelled'</code> events are
+not sent by the speech engine; they are generated automatically by Chrome.-->
+<code>'interrupted'</code> 和 <code>'cancelled'</code>
+事件并不是由语音引擎发送，而是由 Chrome 浏览器自动生成。
+</p>
 
-<p>Text-to-speech clients can get the voice information from your
+<p><!--@Text-to-speech clients can get the voice information from your
 extension's manifest by calling
 <a href="tts.html#method-getVoices">tts.getVoices</a>,
-assuming you've registered speech event listeners as described below.</p>
+assuming you've registered speech event listeners as described below.-->
+如果您已经处理了如下描述的语音事件的话，文本语音转换客户端可以通过调用
+<a href="tts.html#method-getVoices">tts.getVoices</a> 从您的扩展程序的清单文件获取语音信息。
+</p>
 
-<h2 id="handling_speech_events">Handling speech events</h2>
+<h2 id="handling_speech_events"><!--@Handling speech events-->处理语音事件</h2>
 
-<p>To generate speech at the request of clients, your extension must
+<p><!--@To generate speech at the request of clients, your extension must
 register listeners for both <code>onSpeak</code> and <code>onStop</code>,
-like this:</p>
+like this:-->
+要在收到客户端的请求后开始朗读，您的扩展程序必须同时处理
+<code>onSpeak</code> 和 <code>onStop</code> 事件，如下所示：
+</p>
 
 <pre>var speakListener = function(utterance, options, sendTtsEvent) {
   sendTtsEvent({'event_type': 'start', 'charIndex': 0})
 
-  // (start speaking)
+  // （开始朗读）
 
   sendTtsEvent({'event_type': 'end', 'charIndex': utterance.length})
 };
 
 var stopListener = function() {
-  // (stop all speech)
+  // （停止所有朗读）
 };
 
 chrome.ttsEngine.onSpeak.addListener(speakListener);
 chrome.ttsEngine.onStop.addListener(stopListener);</pre>
 
 <p class="warning">
-<b>Important:</b>
+<b><!--@Important:-->重要提示：</b><!--@
 If your extension does not register listeners for both
 <code>onSpeak</code> and <code>onStop</code>, it will not intercept any
-speech calls, regardless of what is in the manifest.</p>
+speech calls, regardless of what is in the manifest.-->如果您的扩展程序不同时处理
+<code>onSpeak</code> 和 <code>onStop</code>
+事件，它不会收到任何语音调用，无论清单文件中如何描述。
+</p>
 
-<p>The decision of whether or not to send a given speech request to an
+<p><!--@The decision of whether or not to send a given speech request to an
 extension is based solely on whether the extension supports the given voice
 parameters in its manifest and has registered listeners
 for <code>onSpeak</code> and <code>onStop</code>. In other words,
 there's no way for an extension to receive a speech request and
-dynamically decide whether to handle it.</p>
+dynamically decide whether to handle it.-->
+是否向扩展程序发送语音请求完全取决于扩展程序是否支持清单文件中指定的语音参数以及是否已经处理
+<code>onSpeak</code> 和 <code>onStop</code>
+事件。换句话说，没有办法使扩展程序先接收语音事件再动态地决定是否处理。
+</p>
         <h2 id="apiReference"><!--@API Reference: chrome.ttsEngine-->API 参考：chrome.ttsEngine</h2>
         <div class="api_reference">
             <h3 id="events"><!--@Events-->事件</h3>
@@ -442,10 +511,10 @@ dynamically decide whether to handle it.</p>
                 </div>
                 <div class="description">
               <p>
-                    Called when the user makes a call to tts.speak() and one of the voices from this extension's manifest is the first to match the options object.
+                    当用户发出 <a href="tts.html#method-speak">tts.speak</a> 调用并且扩展程序的清单文件中的任何一种语音首先匹配 options 对象时产生。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
-                      <div>  <a name="property-onSpeak-utterance"></a>  <dt>    <span class="variable">utterance</span>    <span class="property">      (                string      )    </span>  </dt>  <dd>    The text to speak, specified as either plain text or an SSML document. If your engine does not support SSML, you should strip out all XML markup and synthesize only the underlying text content. The value of this parameter is guaranteed to be no more than 32,768 characters. If this engine does not support speaking that many characters at a time, the utterance should be split into smaller chunks and queued internally without returning an error.  </dd></div><div>  <a name="property-onSpeak-options"></a>  <dt>    <span class="variable">options</span>    <span class="property">      (                object      )    </span>  </dt>  <dd>    Options specified to the tts.speak() method.  </dd>  <dd>    <dl>      <div>        <a name="property-options-voiceName"></a>        <dt>          <span class="variable">voiceName</span>          <span class="property">            (              <span class="optional">optional</span>              string            )          </span>        </dt>        <dd>          The name of the voice to use for synthesis.        </dd>      </div>      <div>        <a name="property-options-lang"></a>        <dt>          <span class="variable">lang</span>          <span class="property">            (              <span class="optional">optional</span>              string            )          </span>        </dt>        <dd>          The language to be used for synthesis, in the form <em>language</em>-<em>region</em>. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'.        </dd>      </div>      <div>        <a name="property-options-gender"></a>        <dt>          <span class="variable">gender</span>          <span class="property">            (              <span class="optional">optional</span>              enumerated string ["male", "female"]            )          </span>        </dt>        <dd>          Gender of voice for synthesized speech.        </dd>      </div>      <div>        <a name="property-options-rate"></a>        <dt>          <span class="variable">rate</span>          <span class="property">            (              <span class="optional">optional</span>              double            )          </span>        </dt>        <dd>          Speaking rate relative to the default rate for this voice. 1.0 is the default rate, normally around 180 to 220 words per minute. 2.0 is twice as fast, and 0.5 is half as fast. This value is guaranteed to be between 0.1 and 10.0, inclusive. When a voice does not support this full range of rates, don't return an error. Instead, clip the rate to the range the voice supports.        </dd>      </div>      <div>        <a name="property-options-pitch"></a>        <dt>          <span class="variable">pitch</span>          <span class="property">            (              <span class="optional">optional</span>              double            )          </span>        </dt>        <dd>          Speaking pitch between 0 and 2 inclusive, with 0 being lowest and 2 being highest. 1.0 corresponds to this voice's default pitch.        </dd>      </div>      <div>        <a name="property-options-volume"></a>        <dt>          <span class="variable">volume</span>          <span class="property">            (              <span class="optional">optional</span>              double            )          </span>        </dt>        <dd>          Speaking volume between 0 and 1 inclusive, with 0 being lowest and 1 being highest, with a default of 1.0.        </dd>      </div>    </dl>  </dd></div><div>  <a name="property-onSpeak-sendTtsEvent"></a>  <dt>    <span class="variable">sendTtsEvent</span>    <span class="property">      (                function      )    </span>  </dt>  <dd>    Call this function with events that occur in the process of speaking the utterance.  </dd></div>
+                      <div>  <a name="property-onSpeak-utterance"></a>  <dt>    <span class="variable">utterance</span>    <span class="property">      (                string      )    </span>  </dt>  <dd>    要朗读的文本，既可以是纯文本，也可以是完整的、形式正确的 SSML 文档。如果您的引擎不支持 SSML，您应该忽略所有 XML 标签只朗读文本。这一参数的长度确保不超过 32 768 个字符。如果您的引擎不支持一次性朗读那么多内容，您应该将朗读分成一小段一小段，并放入内部队列，而不是返回错误。  </dd></div><div>  <a name="property-onSpeak-options"></a>  <dt>    <span class="variable">options</span>    <span class="property">      (                object      )    </span>  </dt>  <dd>    <a href="tts.html#method-speak">tts.speak</a> 方法指定的选项。  </dd>  <dd>    <dl>      <div>        <a name="property-options-voiceName"></a>        <dt>          <span class="variable">voiceName</span>          <span class="property">            (              <span class="optional">optional</span>              string            )          </span>        </dt>        <dd>          用来合成的语音名称。        </dd>      </div>      <div>        <a name="property-options-lang"></a>        <dt>          <span class="variable">lang</span>          <span class="property">            (              <span class="optional">optional</span>              string            )          </span>        </dt>        <dd>          用于合成的语言，以<em>语言</em>-<em>区域</em>的形式。例如：'zh-CN'、'en'、'en-US'、'en-GB'。        </dd>      </div>      <div>        <a name="property-options-gender"></a>        <dt>          <span class="variable">gender</span>          <span class="property">            (              <span class="optional">optional</span>              enumerated string ["male", "female"]            )          </span>        </dt>        <dd>          语音合成所使用的性别，"male" 表示男性，"female" 表示女性。        </dd>      </div>      <div>        <a name="property-options-rate"></a>        <dt>          <span class="variable">rate</span>          <span class="property">            (              <span class="optional">optional</span>              double            )          </span>        </dt>        <dd>          朗读速率，相对于这一语音的默认速率。1.0 表示默认速率，通常为每分钟 180 至 220 个单词。2.0 表示快一倍，而 0.5 是默认速率的一半。这一值确保在 0.1 和 10.0 之间（包括 0.1 和 10.0），如果语音不支持这一范围内的所有速率，不要返回错误，而是限制在语音支持范围内的速率。        </dd>      </div>      <div>        <a name="property-options-pitch"></a>        <dt>          <span class="variable">pitch</span>          <span class="property">            (              <span class="optional">optional</span>              double            )          </span>        </dt>        <dd>          指定 0 到 2 之间（包括 0 和 2）的声调，0 表示最低，2 表示最高，1.0 对应于语音的默认声调。        </dd>      </div>      <div>        <a name="property-options-volume"></a>        <dt>          <span class="variable">volume</span>          <span class="property">            (              <span class="optional">optional</span>              double            )          </span>        </dt>        <dd>          0 到 1 之间（包括 0 和 1）的朗读音量，0 为最低，1 为最高，默认为 1.0。        </dd>      </div>    </dl>  </dd></div><div>  <a name="property-onSpeak-sendTtsEvent"></a>  <dt>    <span class="variable">sendTtsEvent</span>    <span class="property">      (                function      )    </span>  </dt>  <dd>    调用这一函数，发送语音合成过程中发生的事件。  </dd></div>
                     </dl>
                     <!-- Adapted from callback.html. Used in the callback parameter in the
                     listener of chrome.webRequest.onAuthRequired. -->
@@ -467,7 +536,7 @@ dynamically decide whether to handle it.</p>
                             </span>
                           </dt>
                           <dd>
-                            The event from the text-to-speech engine indicating the status of this utterance.
+                            来自文字语音转换引擎的事件，表示朗读状态。
                           </dd>
                         </div>
                     </dl>
@@ -480,7 +549,7 @@ dynamically decide whether to handle it.</p>
                 </div>
                 <div class="description">
               <p>
-                    Fired when a call is made to tts.stop and this extension may be in the middle of speaking. If an extension receives a call to onStop and speech is already stopped, it should do nothing (not raise an error).
+                    当发出 <a href="tts.html#method-stop">tts.stop</a> 调用时发生，扩展程序可能正在朗读。如果扩展程序收到这一事件但是朗读已经结束，它应该什么都不做（而不是产生错误）。
                   </p>  </div>
               </div>
         </div>
@@ -495,7 +564,7 @@ dynamically decide whether to handle it.</p>
     window.bootstrap = {
       api_names: [{"name":"alarms"},{"name":"bookmarks"},{"name":"browserAction"},{"name":"browsingData"},{"name":"commands"},{"name":"contentSettings"},{"name":"contextMenus"},{"name":"cookies"},{"name":"debugger"},{"name":"declarativeContent"},{"name":"declarativeWebRequest"},{"name":"devtools.inspectedWindow"},{"name":"devtools.network"},{"name":"devtools.panels"},{"name":"downloads"},{"name":"events"},{"name":"extension"},{"name":"fileBrowserHandler"},{"name":"fontSettings"},{"name":"history"},{"name":"i18n"},{"name":"idle"},{"name":"input.ime"},{"name":"management"},{"name":"omnibox"},{"name":"pageAction"},{"name":"pageCapture"},{"name":"permissions"},{"name":"privacy"},{"name":"proxy"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"scriptBadge"},{"name":"sessionRestore"},{"name":"storage"},{"name":"tabCapture"},{"name":"tabs"},{"name":"topSites"},{"name":"tts"},{"name":"ttsEngine"},{"name":"types"},{"name":"webNavigation"},{"name":"webRequest"},{"name":"webstore"},{"last":true,"name":"windows"}].concat(
           [{"name":"experimental.devtools.audits"},{"name":"experimental.devtools.console"},{"name":"experimental.discovery"},{"name":"experimental.history"},{"name":"experimental.identity"},{"name":"experimental.infobars"},{"name":"experimental.processes"},{"name":"experimental.record"},{"name":"experimental.speechInput"},{"name":"experimental.systemInfo.cpu"},{"last":true,"name":"experimental.systemInfo.storage"}]),
-      branchInfo: {"channels":[{"path":"stable","name":"Stable"},{"path":"dev","name":"Dev"},{"path":"beta","name":"Beta"},{"path":"trunk","name":"Trunk"}],"current":"stable","showWarning":false}
+      branchInfo: {"channels":[{"path":"stable","name":"Stable"},{"path":"dev","name":"Dev"},{"path":"beta","name":"Beta"},{"path":"trunk","name":"Trunk"}],"current":"trunk","showWarning":true}
     };
   </script>
   <div id="gc-footer">
@@ -516,9 +585,9 @@ dynamically decide whether to handle it.</p>
       <p>
         <!--@©2012 Google-->
       </p>
-      <script src="static/js/branch.js" type="text/javascript"></script>
-      <script src="static/js/sidebar.js" type="text/javascript"></script>
-      <script src="static/js/prettify.js" type="text/javascript"></script>
+      <script src="/trunk/static/js/branch.js" type="text/javascript"></script>
+      <script src="/trunk/static/js/sidebar.js" type="text/javascript"></script>
+      <script src="/trunk/static/js/prettify.js" type="text/javascript"></script>
       <script>
         (function() {
           // Auto syntax highlight all pre tags.
