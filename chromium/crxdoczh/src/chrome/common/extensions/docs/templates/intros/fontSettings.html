@@ -1,41 +1,68 @@
-<p>The Font Settings API allows you to manage Chrome's font settings.</p>
+<p><!--@The Font Settings API allows you to manage Chrome's font settings.-->
+字体设置 API 允许您管理 Chrome 浏览器的字体设置。
+</p>
 
-<h2 id="manifest">Manifest</h2>
-<p>To use the Font Settings API, you must declare the "fontSettings" permission
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
+<p><!--@To use the Font Settings API, you must declare the "fontSettings" permission
 in the <a href="manifest.html">extension manifest</a>.
-For example:</p>
+For example:-->
+要使用字体设置 API，您必须在<a
+href="manifest.html">扩展程序的清单文件</a>中声明
+"fontSettings" 权限。例如：
+</p>
 <pre>{
-  "name": "My Font Settings Extension",
-  "description": "Customize your fonts",
+  "name": "我的字体设置扩展程序",
+  "description": "自定义您的字体",
   "version": "0.2",
   "permissions": ["fontSettings"]
 }</pre>
 
-<h2 id="scripts">Generic Font Families and Scripts</h2>
-<p>Chrome allows for some font settings to depend on certain generic font
+<h2 id="scripts"><!--@Generic Font Families and Scripts-->一般字体系列及书写文字</h2>
+<p><!--@Chrome allows for some font settings to depend on certain generic font
 families and language scripts. For example, the font used for sans-serif
-Simplified Chinese may be different than the font used for serif Japanese.</p>
+Simplified Chinese may be different than the font used for serif Japanese.-->
+Chrome 浏览器提供了取决于某些一般字体系列与语言书写文字的字体设置。例如，用于简体中文的 Sans-serif 字体可能与用于日语的 Serif 字体不同。
+</p>
 
-<p>The generic font families supported by Chrome are based on
+<p><!--@The generic font families supported by Chrome are based on
 <a href="http://www.w3.org/TR/CSS21/fonts.html#generic-font-families">CSS generic font families</a>
 and are listed in the API reference below. When a webpage specifies a generic
 font family, Chrome selects the font based on the corresponding setting. If no
 generic font family is specified, Chrome uses the setting for the "standard"
-generic font family.</p>
+generic font family.-->
+Chrome 浏览器支持的一般字体系列基于 <a
+href="http://www.w3.org/TR/CSS21/fonts.html#generic-font-families">CSS
+一般字体系列</a>，已在下面的 API
+参考中列出。当网页指定一种一般字体系列时，Chrome
+浏览器会基于相应的设置选择字体。如果没有指定一般字体系列，Chrome
+浏览器会使用“标准”一般字体系列的设置。
+</p>
 
-<p>When a webpage specifies a language, Chrome selects the font based on the
+<p><!--@When a webpage specifies a language, Chrome selects the font based on the
 setting for the corresponding language script. If no language is specified,
-Chrome uses the setting for the default, or global, script.</p>
+Chrome uses the setting for the default, or global, script.-->
+当网页指定语言时，Chrome
+浏览器基于相应语言书写文字的设置选择字体。如果没有指定语言，Chrome
+浏览器会使用默认或全局书写文字的设置。
+</p>
 
-<p>The supported language scripts are specified by ISO 15924 script code and
+<p><!--@The supported language scripts are specified by ISO 15924 script code and
 listed in the API reference below. Technically, Chrome settings are not strictly
 per-script but also depend on language. For example, Chrome chooses the font for
 Cyrillic (ISO 15924 script code "Cyrl") when a webpage specifies the Russian
 language, and uses this font not just for Cyrillic script but for everything the
-font covers, such as Latin.</p>
+font covers, such as Latin.-->
+支持的语言书写文字基于 ISO 15924 书写文字代码，已在下面的 API
+参考中列出。从技术上说，Chrome
+浏览器的设置并不是严格地按照书写文字区分，也和语言相关。例如，当网页指定韩语时，Chrome
+浏览器会选择用于谚文（ISO 15924 的书写文字代码为
+"Hang"）的字体，而且不仅针对谚文，对于这种字体包含的所有文字，例如韩文汉字，也会使用这种字体。
+</p>
 
-<h2 id="examples">Examples</h2>
-<p>The following code gets the standard font for Arabic.</p>
+<h2 id="examples"><!--@Examples-->例子</h2>
+<p><!--@The following code gets the standard font for Arabic.-->
+如下代码获取阿拉伯语的标准字体：
+</p>
 <pre>
 chrome.fontSettings.getFont(
   { genericFamily: 'standard', script: 'Arab' },
@@ -43,14 +70,21 @@ chrome.fontSettings.getFont(
 );
 </pre>
 
-<p>The next snippet sets the sans-serif font for Japanese.</p>
+<p><!--@The next snippet sets the sans-serif font for Japanese.-->
+下一个代码片段设置日语的 Sans-serif 字体：
+</p>
 <pre>
 chrome.fontSettings.setFont(
   { genericFamily: 'sansserif', script: 'Jpan', fontId: 'MS PGothic' }
 );
 </pre>
 
-<p>You can find a sample extension using the Font Settings API in the
+<p><!--@You can find a sample extension using the Font Settings API in the-->
+您可以在
 <a href="http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/api/fontSettings/">examples/api/fontSettings</a>
-directory. For other examples and for help in viewing the source code, see
-<a href="samples.html">Samples</a>.</p>
+<!--@directory. For other examples and for help in viewing the source code, see
+<a href="samples.html">Samples</a>.-->
+目录中找到使用字体设置 API
+的示例扩展程序。有关其他例子以及查看源代码的帮助，请参见<a
+href="samples.html">示例</a>。
+</p>

@@ -12,7 +12,10 @@
 <a id="top"></a>
 <div id="header">
   <span id="logo">
-    <a href="http://code.google.com/"><img src="{{static}}/images/chrome_logo.gif" alt="Google Code Labs"></a>
+    <a href="http://code.google.com/" id="view-original"><img src="{{static}}/images/chrome_logo.gif" alt="单击此处查看英文原文"></a>
+    <script type="text/javascript">
+      document.getElementById('view-original').href = "https://developer.chrome.com" + location.pathname;
+    </script>
   </span>
   <span id="cse">
     <gcse:searchbox-only enableAutoComplete="true" autoCompleteMatchTyple="prefix"></gcse:searchbox-only>
