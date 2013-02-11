@@ -2,18 +2,31 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="static/css/site.css" rel="stylesheet" type="text/css">
-    <link href="static/css/print.css" rel="stylesheet" type="text/css" media="print">
-    <link href="static/css/prettify.css" rel="stylesheet" type="text/css">
+    <link href="/trunk/static/css/site.css" rel="stylesheet" type="text/css">
+    <link href="/trunk/static/css/print.css" rel="stylesheet" type="text/css" media="print">
+    <link href="/trunk/static/css/prettify.css" rel="stylesheet" type="text/css">
     <link href="//www.google.com/images/icons/product/chrome-16.png" rel="icon" type="image/ico">
-    <link href="static/css/api.css" rel="stylesheet" type="text/css">
-    <title>chrome.fontSettings - Google Chrome</title>
+    <link href="/trunk/static/css/api.css" rel="stylesheet" type="text/css">
+    <title>chrome.fontSettings - Google Chrome 扩展程序/应用开发者文档（非官方中文版）</title>
   </head>
   <body>
+    <div id="branchWarning" class="displayModeWarning">
+      <span><!--@WARNING: this is the trunk documentation. It may not work with the stable release of Chrome.-->警告：这是 trunk 分支的文档，不一定能在稳定版本的 Chrome 浏览器中正常工作。</span>
+      <select id="branchChooser">
+        <option value=""><!--@Choose a different version...-->选择另一个版本...</option>
+        <option value="stable">Stable</option>
+        <option value="dev">Dev</option>
+        <option value="beta">Beta</option>
+        <option value="trunk">Trunk</option>
+      </select>
+    </div>
     <a id="top"></a>
     <div id="header">
       <span id="logo">
-        <a href="http://code.google.com/"><img src="static/images/chrome_logo.gif" alt="Google Code Labs"></a>
+        <a href="http://code.google.com/" id="view-original"><img src="/trunk/static/images/chrome_logo.gif" alt="单击此处查看英文原文"></a>
+        <script type="text/javascript">
+          document.getElementById('view-original').href = "https://developer.chrome.com" + location.pathname;
+        </script>
       </span>
       <span id="cse">
         <gcse:searchbox-only enableAutoComplete="true" autoCompleteMatchTyple="prefix"></gcse:searchbox-only>
@@ -256,13 +269,13 @@
           <h2><!--@Contents-->目录</h2>
           <ol>
             <li>
-              <a href=#manifest>Manifest</a>
+              <a href=#manifest>清单文件</a>
             </li>
             <li>
-              <a href=#scripts>Generic Font Families and Scripts</a>
+              <a href=#scripts>一般字体系列及书写文字</a>
             </li>
             <li>
-              <a href=#examples>Examples</a>
+              <a href=#examples>例子</a>
             </li>
             <li>
               <a href="#apiReference"><!--@API reference: -->API 参考：chrome.fontSettings</a>
@@ -277,44 +290,71 @@
           </ol>
         </div>
 
-<p>The Font Settings API allows you to manage Chrome's font settings.</p>
+<p><!--@The Font Settings API allows you to manage Chrome's font settings.-->
+字体设置 API 允许您管理 Chrome 浏览器的字体设置。
+</p>
 
-<h2 id="manifest">Manifest</h2>
-<p>To use the Font Settings API, you must declare the "fontSettings" permission
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
+<p><!--@To use the Font Settings API, you must declare the "fontSettings" permission
 in the <a href="manifest.html">extension manifest</a>.
-For example:</p>
+For example:-->
+要使用字体设置 API，您必须在<a
+href="manifest.html">扩展程序的清单文件</a>中声明
+"fontSettings" 权限。例如：
+</p>
 <pre>{
-  "name": "My Font Settings Extension",
-  "description": "Customize your fonts",
+  "name": "我的字体设置扩展程序",
+  "description": "自定义您的字体",
   "version": "0.2",
   "permissions": ["fontSettings"]
 }</pre>
 
-<h2 id="scripts">Generic Font Families and Scripts</h2>
-<p>Chrome allows for some font settings to depend on certain generic font
+<h2 id="scripts"><!--@Generic Font Families and Scripts-->一般字体系列及书写文字</h2>
+<p><!--@Chrome allows for some font settings to depend on certain generic font
 families and language scripts. For example, the font used for sans-serif
-Simplified Chinese may be different than the font used for serif Japanese.</p>
+Simplified Chinese may be different than the font used for serif Japanese.-->
+Chrome 浏览器提供了取决于某些一般字体系列与语言书写文字的字体设置。例如，用于简体中文的 Sans-serif 字体可能与用于日语的 Serif 字体不同。
+</p>
 
-<p>The generic font families supported by Chrome are based on
+<p><!--@The generic font families supported by Chrome are based on
 <a href="http://www.w3.org/TR/CSS21/fonts.html#generic-font-families">CSS generic font families</a>
 and are listed in the API reference below. When a webpage specifies a generic
 font family, Chrome selects the font based on the corresponding setting. If no
 generic font family is specified, Chrome uses the setting for the "standard"
-generic font family.</p>
+generic font family.-->
+Chrome 浏览器支持的一般字体系列基于 <a
+href="http://www.w3.org/TR/CSS21/fonts.html#generic-font-families">CSS
+一般字体系列</a>，已在下面的 API
+参考中列出。当网页指定一种一般字体系列时，Chrome
+浏览器会基于相应的设置选择字体。如果没有指定一般字体系列，Chrome
+浏览器会使用“标准”一般字体系列的设置。
+</p>
 
-<p>When a webpage specifies a language, Chrome selects the font based on the
+<p><!--@When a webpage specifies a language, Chrome selects the font based on the
 setting for the corresponding language script. If no language is specified,
-Chrome uses the setting for the default, or global, script.</p>
+Chrome uses the setting for the default, or global, script.-->
+当网页指定语言时，Chrome
+浏览器基于相应语言书写文字的设置选择字体。如果没有指定语言，Chrome
+浏览器会使用默认或全局书写文字的设置。
+</p>
 
-<p>The supported language scripts are specified by ISO 15924 script code and
+<p><!--@The supported language scripts are specified by ISO 15924 script code and
 listed in the API reference below. Technically, Chrome settings are not strictly
 per-script but also depend on language. For example, Chrome chooses the font for
 Cyrillic (ISO 15924 script code "Cyrl") when a webpage specifies the Russian
 language, and uses this font not just for Cyrillic script but for everything the
-font covers, such as Latin.</p>
+font covers, such as Latin.-->
+支持的语言书写文字基于 ISO 15924 书写文字代码，已在下面的 API
+参考中列出。从技术上说，Chrome
+浏览器的设置并不是严格地按照书写文字区分，也和语言相关。例如，当网页指定韩语时，Chrome
+浏览器会选择用于谚文（ISO 15924 的书写文字代码为
+"Hang"）的字体，而且不仅针对谚文，对于这种字体包含的所有文字，例如韩文汉字，也会使用这种字体。
+</p>
 
-<h2 id="examples">Examples</h2>
-<p>The following code gets the standard font for Arabic.</p>
+<h2 id="examples"><!--@Examples-->例子</h2>
+<p><!--@The following code gets the standard font for Arabic.-->
+如下代码获取阿拉伯语的标准字体：
+</p>
 <pre>
 chrome.fontSettings.getFont(
   { genericFamily: 'standard', script: 'Arab' },
@@ -322,17 +362,24 @@ chrome.fontSettings.getFont(
 );
 </pre>
 
-<p>The next snippet sets the sans-serif font for Japanese.</p>
+<p><!--@The next snippet sets the sans-serif font for Japanese.-->
+下一个代码片段设置日语的 Sans-serif 字体：
+</p>
 <pre>
 chrome.fontSettings.setFont(
   { genericFamily: 'sansserif', script: 'Jpan', fontId: 'MS PGothic' }
 );
 </pre>
 
-<p>You can find a sample extension using the Font Settings API in the
+<p><!--@You can find a sample extension using the Font Settings API in the-->
+您可以在
 <a href="http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/api/fontSettings/">examples/api/fontSettings</a>
-directory. For other examples and for help in viewing the source code, see
-<a href="samples.html">Samples</a>.</p>
+<!--@directory. For other examples and for help in viewing the source code, see
+<a href="samples.html">Samples</a>.-->
+目录中找到使用字体设置 API
+的示例扩展程序。有关其他例子以及查看源代码的帮助，请参见<a
+href="samples.html">示例</a>。
+</p>
         <h2 id="apiReference"><!--@API Reference: chrome.fontSettings-->API 参考：chrome.fontSettings</h2>
         <div class="api_reference">
             <h3 id="types"><!--@Types-->类型</h3>
@@ -341,7 +388,7 @@ directory. For other examples and for help in viewing the source code, see
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Represents a font name.
+                    代表字体名称。
                   </dd>    <h4 id="FontName-properties">
                     <!--@Properties of --><a href="#type-FontName">FontName</a>
                     的属性
@@ -358,7 +405,7 @@ directory. For other examples and for help in viewing the source code, see
                         </span>
                       </dt>
                       <dd>
-                        The font ID.
+                        字体标识符。
                       </dd>
                     </div>
                     <div>
@@ -373,7 +420,7 @@ directory. For other examples and for help in viewing the source code, see
                         </span>
                       </dt>
                       <dd>
-                        The display name of the font.
+                        用于显示的字体名称。
                       </dd>
                     </div>
               </dl></dd>
@@ -384,7 +431,7 @@ directory. For other examples and for help in viewing the source code, see
                 <div>
                   <dt><span class="type_name">  (    enumerated string ["Afak", "Arab", "Armi", "Armn", "Avst", "Bali", "Bamu", "Bass", "Batk", "Beng", "Blis", "Bopo", "Brah", "Brai", "Bugi", "Buhd", "Cakm", "Cans", "Cari", "Cham", "Cher", "Cirt", "Copt", "Cprt", "Cyrl", "Cyrs", "Deva", "Dsrt", "Dupl", "Egyd", "Egyh", "Egyp", "Elba", "Ethi", "Geor", "Geok", "Glag", "Goth", "Gran", "Grek", "Gujr", "Guru", "Hang", "Hani", "Hano", "Hans", "Hant", "Hebr", "Hluw", "Hmng", "Hung", "Inds", "Ital", "Java", "Jpan", "Jurc", "Kali", "Khar", "Khmr", "Khoj", "Knda", "Kpel", "Kthi", "Lana", "Laoo", "Latf", "Latg", "Latn", "Lepc", "Limb", "Lina", "Linb", "Lisu", "Loma", "Lyci", "Lydi", "Mand", "Mani", "Maya", "Mend", "Merc", "Mero", "Mlym", "Moon", "Mong", "Mroo", "Mtei", "Mymr", "Narb", "Nbat", "Nkgb", "Nkoo", "Nshu", "Ogam", "Olck", "Orkh", "Orya", "Osma", "Palm", "Perm", "Phag", "Phli", "Phlp", "Phlv", "Phnx", "Plrd", "Prti", "Rjng", "Roro", "Runr", "Samr", "Sara", "Sarb", "Saur", "Sgnw", "Shaw", "Shrd", "Sind", "Sinh", "Sora", "Sund", "Sylo", "Syrc", "Syre", "Syrj", "Syrn", "Tagb", "Takr", "Tale", "Talu", "Taml", "Tang", "Tavt", "Telu", "Teng", "Tfng", "Tglg", "Thaa", "Thai", "Tibt", "Tirh", "Ugar", "Vaii", "Visp", "Wara", "Wole", "Xpeo", "Xsux", "Yiii", "Zmth", "Zsym", "Zyyy"]  )</span></dt>
               <dd>
-                    An ISO 15924 script code. The default, or global, script is represented by script code "Zyyy".
+                    ISO 15924 书写文字代码，书写文字代码 "Zyyy" 代表默认或全局书写文字。
                   </dd>  </div>
               </div>
               <div>
@@ -392,7 +439,7 @@ directory. For other examples and for help in viewing the source code, see
                 <div>
                   <dt><span class="type_name">  (    enumerated string ["standard", "sansserif", "serif", "fixed", "cursive", "fantasy"]  )</span></dt>
               <dd>
-                    A CSS generic font family.
+                    CSS 一般字体系列。
                   </dd>  </div>
               </div>
               <div>
@@ -400,7 +447,7 @@ directory. For other examples and for help in viewing the source code, see
                 <div>
                   <dt><span class="type_name">  (    enumerated string ["not_controllable", "controlled_by_other_extensions", "controllable_by_this_extension", "controlled_by_this_extension"]  )</span></dt>
               <dd>
-                    One of<br><var>not_controllable</var>: cannot be controlled by any extension<br><var>controlled_by_other_extensions</var>: controlled by extensions with higher precedence<br><var>controllable_by_this_extension</var>: can be controlled by this extension<br><var>controlled_by_this_extension</var>: controlled by this extension
+                    以下值之一：<br><var>"not_controllable"</var>：无法由任何扩展程序控制。<br><var>"controlled_by_other_extensions"</var>：由优先级更高的扩展程序控制。<br><var>"controllable_by_this_extension"</var>：可以由该扩展程序控制。<br><var>"controlled_by_this_extension"</var>：由该扩展程序控制。
                   </dd>  </div>
               </div>
             <h3 id="methods"><!--@Methods-->方法</h3>
@@ -411,7 +458,7 @@ directory. For other examples and for help in viewing the source code, see
                 </div>
                 <div class="description">
                   <p>
-                    Clears the font set by this extension, if any.
+                    清除当前扩展程序设置过的字体（如果有的话）。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -440,7 +487,7 @@ directory. For other examples and for help in viewing the source code, see
                                 </span>
                               </dt>
                               <dd>
-                                The script for which the font should be cleared. If omitted, the global script font setting is cleared.
+                                要清除字体设置的书写文字。如果省略，则清除全局书写文字的字体设置。
                               </dd>
                             </div>
                             <div>
@@ -455,7 +502,7 @@ directory. For other examples and for help in viewing the source code, see
                                 </span>
                               </dt>
                               <dd>
-                                The generic font family for which the font should be cleared.
+                                要清除字体设置的一般字体系列。
                               </dd>
                             </div>
                           </dl>
@@ -490,7 +537,7 @@ directory. For other examples and for help in viewing the source code, see
                 </div>
                 <div class="description">
                   <p>
-                    Gets the font for a given script and generic font family.
+                    获取指定书写文字和一般字体系列对应的字体。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -519,7 +566,7 @@ directory. For other examples and for help in viewing the source code, see
                                 </span>
                               </dt>
                               <dd>
-                                The script for which the font should be retrieved. If omitted, the font setting for the global script (script code "Zyyy") is retrieved.
+                                要获取对应字体的书写文字。如果省略，则获取全局书写文字（书写文字代码为 "Zyyy"）对应的字体。
                               </dd>
                             </div>
                             <div>
@@ -534,7 +581,7 @@ directory. For other examples and for help in viewing the source code, see
                                 </span>
                               </dt>
                               <dd>
-                                The generic font family for which the font should be retrieved.
+                                要获取对应字体的一般字体系列。
                               </dd>
                             </div>
                           </dl>
@@ -586,7 +633,7 @@ directory. For other examples and for help in viewing the source code, see
                                   </span>
                                 </dt>
                                 <dd>
-                                  The font ID. Rather than the literal font ID preference value, this may be the ID of the font that the system resolves the preference value to. So, <var>fontId</var> can differ from the font passed to <code>setFont</code>, if, for example, the font is not available on the system. The empty string signifies fallback to the global script font setting.
+                                  字体标识符。有可能是系统根据首选项的值解析出的字体标识符，而不一定是字面的字体标识符首选项值，所以 <var>fontId</var> 可能和传递给 <code>setFont</code> 的字体不同，例如如果指定字体在当前系统中不可用。空字符串意味着使用全局书写文字的字体设置。
                                 </dd>
                               </div>
                               <div>
@@ -601,7 +648,7 @@ directory. For other examples and for help in viewing the source code, see
                                   </span>
                                 </dt>
                                 <dd>
-                                  The level of control this extension has over the setting.
+                                  扩展程序对这一设置的控制级别。
                                 </dd>
                               </div>
                             </dl>
@@ -617,7 +664,7 @@ directory. For other examples and for help in viewing the source code, see
                 </div>
                 <div class="description">
                   <p>
-                    Sets the font for a given script and generic font family.
+                    设置指定书写文字和一般字体系列对应的字体。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -646,7 +693,7 @@ directory. For other examples and for help in viewing the source code, see
                                 </span>
                               </dt>
                               <dd>
-                                The script code which the font should be set. If omitted, the font setting for the global script (script code "Zyyy") is set.
+                                要设置对应字体的书写文字。如果省略，则设置全局书写文字（书写文字代码为 "Zyyy"）对应的字体。
                               </dd>
                             </div>
                             <div>
@@ -661,7 +708,7 @@ directory. For other examples and for help in viewing the source code, see
                                 </span>
                               </dt>
                               <dd>
-                                The generic font family for which the font should be set.
+                                要设置对应字体的一般字体系列。
                               </dd>
                             </div>
                             <div>
@@ -676,7 +723,7 @@ directory. For other examples and for help in viewing the source code, see
                                 </span>
                               </dt>
                               <dd>
-                                The font ID. The empty string means to fallback to the global script font setting.
+                                字体标识符。空字符串意味着使用全局书写文字的字体设置。
                               </dd>
                             </div>
                           </dl>
@@ -711,7 +758,7 @@ directory. For other examples and for help in viewing the source code, see
                 </div>
                 <div class="description">
                   <p>
-                    Gets a list of fonts on the system.
+                    获取系统中所有字体的列表。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -758,7 +805,7 @@ directory. For other examples and for help in viewing the source code, see
                 </div>
                 <div class="description">
                   <p>
-                    Clears the default font size set by this extension, if any.
+                    清除当前扩展程序设置过的默认字体大小。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -774,7 +821,7 @@ directory. For other examples and for help in viewing the source code, see
                           </span>
                         </dt>
                         <dd>
-                          This parameter is currently unused.
+                          该参数当前未使用。
                         </dd>
                       </div>
                       <div>
@@ -806,7 +853,7 @@ directory. For other examples and for help in viewing the source code, see
                 </div>
                 <div class="description">
                   <p>
-                    Gets the default font size.
+                    获取默认字体大小。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -822,7 +869,7 @@ directory. For other examples and for help in viewing the source code, see
                           </span>
                         </dt>
                         <dd>
-                          This parameter is currently unused.
+                          该参数当前未使用。
                         </dd>
                       </div>
                       <div>
@@ -871,7 +918,7 @@ directory. For other examples and for help in viewing the source code, see
                                   </span>
                                 </dt>
                                 <dd>
-                                  The font size in pixels.
+                                  以像素为单位的字体大小。
                                 </dd>
                               </div>
                               <div>
@@ -886,7 +933,7 @@ directory. For other examples and for help in viewing the source code, see
                                   </span>
                                 </dt>
                                 <dd>
-                                  The level of control this extension has over the setting.
+                                  扩展程序对这一设置的控制级别。
                                 </dd>
                               </div>
                             </dl>
@@ -902,7 +949,7 @@ directory. For other examples and for help in viewing the source code, see
                 </div>
                 <div class="description">
                   <p>
-                    Sets the default font size.
+                    设置默认字体大小。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -931,7 +978,7 @@ directory. For other examples and for help in viewing the source code, see
                                 </span>
                               </dt>
                               <dd>
-                                The font size in pixels.
+                                以像素为单位的字体大小。
                               </dd>
                             </div>
                           </dl>
@@ -966,7 +1013,7 @@ directory. For other examples and for help in viewing the source code, see
                 </div>
                 <div class="description">
                   <p>
-                    Clears the default fixed font size set by this extension, if any.
+                    清除当前扩展程序设置过的默认的宽度固定的字体的大小。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -982,7 +1029,7 @@ directory. For other examples and for help in viewing the source code, see
                           </span>
                         </dt>
                         <dd>
-                          This parameter is currently unused.
+                          该参数当前未使用。
                         </dd>
                       </div>
                       <div>
@@ -1014,7 +1061,7 @@ directory. For other examples and for help in viewing the source code, see
                 </div>
                 <div class="description">
                   <p>
-                    Gets the default size for fixed width fonts.
+                    获取宽度固定的字体的默认大小。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -1030,7 +1077,7 @@ directory. For other examples and for help in viewing the source code, see
                           </span>
                         </dt>
                         <dd>
-                          This parameter is currently unused.
+                          该参数当前未使用。
                         </dd>
                       </div>
                       <div>
@@ -1079,7 +1126,7 @@ directory. For other examples and for help in viewing the source code, see
                                   </span>
                                 </dt>
                                 <dd>
-                                  The font size in pixels.
+                                  以像素为单位的字体大小。
                                 </dd>
                               </div>
                               <div>
@@ -1094,7 +1141,7 @@ directory. For other examples and for help in viewing the source code, see
                                   </span>
                                 </dt>
                                 <dd>
-                                  The level of control this extension has over the setting.
+                                  扩展程序对这一设置的控制级别。
                                 </dd>
                               </div>
                             </dl>
@@ -1110,7 +1157,7 @@ directory. For other examples and for help in viewing the source code, see
                 </div>
                 <div class="description">
                   <p>
-                    Sets the default size for fixed width fonts.
+                    设置宽度固定的字体的默认大小。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -1139,7 +1186,7 @@ directory. For other examples and for help in viewing the source code, see
                                 </span>
                               </dt>
                               <dd>
-                                The font size in pixels.
+                                以像素为单位的字体大小。
                               </dd>
                             </div>
                           </dl>
@@ -1174,7 +1221,7 @@ directory. For other examples and for help in viewing the source code, see
                 </div>
                 <div class="description">
                   <p>
-                    Clears the minimum font size set by this extension, if any.
+                    清除当前扩展程序设置过的字体大小下限。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -1190,7 +1237,7 @@ directory. For other examples and for help in viewing the source code, see
                           </span>
                         </dt>
                         <dd>
-                          This parameter is currently unused.
+                          该参数当前未使用。
                         </dd>
                       </div>
                       <div>
@@ -1222,7 +1269,7 @@ directory. For other examples and for help in viewing the source code, see
                 </div>
                 <div class="description">
                   <p>
-                    Gets the minimum font size.
+                    获取字体大小下限。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -1238,7 +1285,7 @@ directory. For other examples and for help in viewing the source code, see
                           </span>
                         </dt>
                         <dd>
-                          This parameter is currently unused.
+                          该参数当前未使用。
                         </dd>
                       </div>
                       <div>
@@ -1287,7 +1334,7 @@ directory. For other examples and for help in viewing the source code, see
                                   </span>
                                 </dt>
                                 <dd>
-                                  The font size in pixels.
+                                  以像素为单位的字体大小。
                                 </dd>
                               </div>
                               <div>
@@ -1302,7 +1349,7 @@ directory. For other examples and for help in viewing the source code, see
                                   </span>
                                 </dt>
                                 <dd>
-                                  The level of control this extension has over the setting.
+                                  扩展程序对这一设置的控制级别。
                                 </dd>
                               </div>
                             </dl>
@@ -1318,7 +1365,7 @@ directory. For other examples and for help in viewing the source code, see
                 </div>
                 <div class="description">
                   <p>
-                    Sets the minimum font size.
+                    设置字体大小下限。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -1347,7 +1394,7 @@ directory. For other examples and for help in viewing the source code, see
                                 </span>
                               </dt>
                               <dd>
-                                The font size in pixels.
+                                以像素为单位的字体大小。
                               </dd>
                             </div>
                           </dl>
@@ -1383,10 +1430,10 @@ directory. For other examples and for help in viewing the source code, see
                 </div>
                 <div class="description">
               <p>
-                    Fired when a font setting changes.
+                    字体设置更改时产生。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
-                      <div>  <a name="property-onFontChanged-details"></a>  <dt>    <span class="variable">details</span>    <span class="property">      (                object      )    </span>  </dt>  <dd>    <dl>      <div>        <a name="property-details-fontId"></a>        <dt>          <span class="variable">fontId</span>          <span class="property">            (                            string            )          </span>        </dt>        <dd>          The font ID. See the description in <code>getFont</code>.        </dd>      </div>      <div>        <a name="property-details-script"></a>        <dt>          <span class="variable">script</span>          <span class="property">            (              <span class="optional">optional</span>              <a href="fontSettings.html#type-ScriptCode">ScriptCode</a>            )          </span>        </dt>        <dd>          The script code for which the font setting has changed.        </dd>      </div>      <div>        <a name="property-details-genericFamily"></a>        <dt>          <span class="variable">genericFamily</span>          <span class="property">            (                            <a href="fontSettings.html#type-GenericFamily">GenericFamily</a>            )          </span>        </dt>        <dd>          The generic font family for which the font setting has changed.        </dd>      </div>      <div>        <a name="property-details-levelOfControl"></a>        <dt>          <span class="variable">levelOfControl</span>          <span class="property">            (                            <a href="fontSettings.html#type-LevelOfControl">LevelOfControl</a>            )          </span>        </dt>        <dd>          The level of control this extension has over the setting.        </dd>      </div>    </dl>  </dd></div>
+                      <div>  <a name="property-onFontChanged-details"></a>  <dt>    <span class="variable">details</span>    <span class="property">      (                object      )    </span>  </dt>  <dd>    <dl>      <div>        <a name="property-details-fontId"></a>        <dt>          <span class="variable">fontId</span>          <span class="property">            (                            string            )          </span>        </dt>        <dd>          字体标识符，参见 <code>getFont</code> 中的描述。        </dd>      </div>      <div>        <a name="property-details-script"></a>        <dt>          <span class="variable">script</span>          <span class="property">            (              <span class="optional">optional</span>              <a href="fontSettings.html#type-ScriptCode">ScriptCode</a>            )          </span>        </dt>        <dd>          更改的字体设置对应的书写文字。        </dd>      </div>      <div>        <a name="property-details-genericFamily"></a>        <dt>          <span class="variable">genericFamily</span>          <span class="property">            (                            <a href="fontSettings.html#type-GenericFamily">GenericFamily</a>            )          </span>        </dt>        <dd>          更改的字体设置对应的一般字体系列。        </dd>      </div>      <div>        <a name="property-details-levelOfControl"></a>        <dt>          <span class="variable">levelOfControl</span>          <span class="property">            (                            <a href="fontSettings.html#type-LevelOfControl">LevelOfControl</a>            )          </span>        </dt>        <dd>          扩展程序对这一设置的控制级别。        </dd>      </div>    </dl>  </dd></div>
                     </dl>
                 </div>
               </div>
@@ -1397,10 +1444,10 @@ directory. For other examples and for help in viewing the source code, see
                 </div>
                 <div class="description">
               <p>
-                    Fired when the default font size setting changes.
+                    默认字体大小的设置更改时产生。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
-                      <div>  <a name="property-onDefaultFontSizeChanged-details"></a>  <dt>    <span class="variable">details</span>    <span class="property">      (                object      )    </span>  </dt>  <dd>    <dl>      <div>        <a name="property-details-pixelSize"></a>        <dt>          <span class="variable">pixelSize</span>          <span class="property">            (                            integer            )          </span>        </dt>        <dd>          The font size in pixels.        </dd>      </div>      <div>        <a name="property-details-levelOfControl"></a>        <dt>          <span class="variable">levelOfControl</span>          <span class="property">            (                            <a href="fontSettings.html#type-LevelOfControl">LevelOfControl</a>            )          </span>        </dt>        <dd>          The level of control this extension has over the setting.        </dd>      </div>    </dl>  </dd></div>
+                      <div>  <a name="property-onDefaultFontSizeChanged-details"></a>  <dt>    <span class="variable">details</span>    <span class="property">      (                object      )    </span>  </dt>  <dd>    <dl>      <div>        <a name="property-details-pixelSize"></a>        <dt>          <span class="variable">pixelSize</span>          <span class="property">            (                            integer            )          </span>        </dt>        <dd>          以像素为单位的字体大小。        </dd>      </div>      <div>        <a name="property-details-levelOfControl"></a>        <dt>          <span class="variable">levelOfControl</span>          <span class="property">            (                            <a href="fontSettings.html#type-LevelOfControl">LevelOfControl</a>            )          </span>        </dt>        <dd>          扩展程序对这一设置的控制级别。        </dd>      </div>    </dl>  </dd></div>
                     </dl>
                 </div>
               </div>
@@ -1411,10 +1458,10 @@ directory. For other examples and for help in viewing the source code, see
                 </div>
                 <div class="description">
               <p>
-                    Fired when the default fixed font size setting changes.
+                    默认的宽度固定的字体大小设置更改时产生。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
-                      <div>  <a name="property-onDefaultFixedFontSizeChanged-details"></a>  <dt>    <span class="variable">details</span>    <span class="property">      (                object      )    </span>  </dt>  <dd>    <dl>      <div>        <a name="property-details-pixelSize"></a>        <dt>          <span class="variable">pixelSize</span>          <span class="property">            (                            integer            )          </span>        </dt>        <dd>          The font size in pixels.        </dd>      </div>      <div>        <a name="property-details-levelOfControl"></a>        <dt>          <span class="variable">levelOfControl</span>          <span class="property">            (                            <a href="fontSettings.html#type-LevelOfControl">LevelOfControl</a>            )          </span>        </dt>        <dd>          The level of control this extension has over the setting.        </dd>      </div>    </dl>  </dd></div>
+                      <div>  <a name="property-onDefaultFixedFontSizeChanged-details"></a>  <dt>    <span class="variable">details</span>    <span class="property">      (                object      )    </span>  </dt>  <dd>    <dl>      <div>        <a name="property-details-pixelSize"></a>        <dt>          <span class="variable">pixelSize</span>          <span class="property">            (                            integer            )          </span>        </dt>        <dd>          以像素为单位的字体大小。        </dd>      </div>      <div>        <a name="property-details-levelOfControl"></a>        <dt>          <span class="variable">levelOfControl</span>          <span class="property">            (                            <a href="fontSettings.html#type-LevelOfControl">LevelOfControl</a>            )          </span>        </dt>        <dd>          扩展程序对这一设置的控制级别。        </dd>      </div>    </dl>  </dd></div>
                     </dl>
                 </div>
               </div>
@@ -1425,10 +1472,10 @@ directory. For other examples and for help in viewing the source code, see
                 </div>
                 <div class="description">
               <p>
-                    Fired when the minimum font size setting changes.
+                    字体大小下限的设置更改时产生。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
-                      <div>  <a name="property-onMinimumFontSizeChanged-details"></a>  <dt>    <span class="variable">details</span>    <span class="property">      (                object      )    </span>  </dt>  <dd>    <dl>      <div>        <a name="property-details-pixelSize"></a>        <dt>          <span class="variable">pixelSize</span>          <span class="property">            (                            integer            )          </span>        </dt>        <dd>          The font size in pixels.        </dd>      </div>      <div>        <a name="property-details-levelOfControl"></a>        <dt>          <span class="variable">levelOfControl</span>          <span class="property">            (                            <a href="fontSettings.html#type-LevelOfControl">LevelOfControl</a>            )          </span>        </dt>        <dd>          The level of control this extension has over the setting.        </dd>      </div>    </dl>  </dd></div>
+                      <div>  <a name="property-onMinimumFontSizeChanged-details"></a>  <dt>    <span class="variable">details</span>    <span class="property">      (                object      )    </span>  </dt>  <dd>    <dl>      <div>        <a name="property-details-pixelSize"></a>        <dt>          <span class="variable">pixelSize</span>          <span class="property">            (                            integer            )          </span>        </dt>        <dd>          以像素为单位的字体大小。        </dd>      </div>      <div>        <a name="property-details-levelOfControl"></a>        <dt>          <span class="variable">levelOfControl</span>          <span class="property">            (                            <a href="fontSettings.html#type-LevelOfControl">LevelOfControl</a>            )          </span>        </dt>        <dd>          扩展程序对这一设置的控制级别。        </dd>      </div>    </dl>  </dd></div>
                     </dl>
                 </div>
               </div>
@@ -1444,7 +1491,7 @@ directory. For other examples and for help in viewing the source code, see
     window.bootstrap = {
       api_names: [{"name":"alarms"},{"name":"bookmarks"},{"name":"browserAction"},{"name":"browsingData"},{"name":"commands"},{"name":"contentSettings"},{"name":"contextMenus"},{"name":"cookies"},{"name":"debugger"},{"name":"declarativeContent"},{"name":"declarativeWebRequest"},{"name":"devtools.inspectedWindow"},{"name":"devtools.network"},{"name":"devtools.panels"},{"name":"downloads"},{"name":"events"},{"name":"extension"},{"name":"fileBrowserHandler"},{"name":"fontSettings"},{"name":"history"},{"name":"i18n"},{"name":"idle"},{"name":"input.ime"},{"name":"management"},{"name":"omnibox"},{"name":"pageAction"},{"name":"pageCapture"},{"name":"permissions"},{"name":"privacy"},{"name":"proxy"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"scriptBadge"},{"name":"sessionRestore"},{"name":"storage"},{"name":"tabCapture"},{"name":"tabs"},{"name":"topSites"},{"name":"tts"},{"name":"ttsEngine"},{"name":"types"},{"name":"webNavigation"},{"name":"webRequest"},{"name":"webstore"},{"last":true,"name":"windows"}].concat(
           [{"name":"experimental.devtools.audits"},{"name":"experimental.devtools.console"},{"name":"experimental.discovery"},{"name":"experimental.history"},{"name":"experimental.identity"},{"name":"experimental.infobars"},{"name":"experimental.processes"},{"name":"experimental.record"},{"name":"experimental.speechInput"},{"name":"experimental.systemInfo.cpu"},{"last":true,"name":"experimental.systemInfo.storage"}]),
-      branchInfo: {"channels":[{"path":"stable","name":"Stable"},{"path":"dev","name":"Dev"},{"path":"beta","name":"Beta"},{"path":"trunk","name":"Trunk"}],"current":"stable","showWarning":false}
+      branchInfo: {"channels":[{"path":"stable","name":"Stable"},{"path":"dev","name":"Dev"},{"path":"beta","name":"Beta"},{"path":"trunk","name":"Trunk"}],"current":"trunk","showWarning":true}
     };
   </script>
   <div id="gc-footer">
@@ -1465,9 +1512,9 @@ directory. For other examples and for help in viewing the source code, see
       <p>
         <!--@©2012 Google-->
       </p>
-      <script src="static/js/branch.js" type="text/javascript"></script>
-      <script src="static/js/sidebar.js" type="text/javascript"></script>
-      <script src="static/js/prettify.js" type="text/javascript"></script>
+      <script src="/trunk/static/js/branch.js" type="text/javascript"></script>
+      <script src="/trunk/static/js/sidebar.js" type="text/javascript"></script>
+      <script src="/trunk/static/js/prettify.js" type="text/javascript"></script>
       <script>
         (function() {
           // Auto syntax highlight all pre tags.
