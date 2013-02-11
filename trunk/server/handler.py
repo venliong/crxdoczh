@@ -48,7 +48,7 @@ class StaticHandler(webapp2.RequestHandler):
         self.response.status = 404
 
 app = webapp2.WSGIApplication([
-  (r'/(apps|extensions)/([^/]*\.html)', HTMLHandler),
-  (r'/(apps|extensions)/static/(.*)', StaticHandler),
+  (r'/trunk/(apps|extensions)/([^/]*\.html)', HTMLHandler),
+  (r'/trunk/(apps|extensions)/static/(.*)', StaticHandler),
 ])
 

@@ -10,15 +10,18 @@
       {
         "id": "FontName",
         "type": "object",
-        "description": "Represents a font name.",
+//@        "description": "Represents a font name.",
+        "description": "代表字体名称。",
         "properties": {
           "fontId": {
             "type": "string",
-            "description": "The font ID."
+//@            "description": "The font ID."
+            "description": "字体标识符。"
           },
           "displayName": {
             "type": "string",
-            "description": "The display name of the font."
+//@            "description": "The display name of the font."
+            "description": "用于显示的字体名称。"
           }
         }
       },
@@ -42,17 +45,20 @@
                   "Tagb", "Takr", "Tale", "Talu", "Taml", "Tang", "Tavt", "Telu", "Teng",
                   "Tfng", "Tglg", "Thaa", "Thai", "Tibt", "Tirh", "Ugar", "Vaii", "Visp",
                   "Wara", "Wole", "Xpeo", "Xsux", "Yiii", "Zmth", "Zsym", "Zyyy" ],
-        "description": "An ISO 15924 script code. The default, or global, script is represented by script code \"Zyyy\"."
+//@        "description": "An ISO 15924 script code. The default, or global, script is represented by script code \"Zyyy\"."
+        "description": "ISO 15924 书写文字代码，书写文字代码 \"Zyyy\" 代表默认或全局书写文字。"
       },
       {
         "id": "GenericFamily",
         "type": "string",
         "enum": ["standard", "sansserif", "serif", "fixed", "cursive", "fantasy"],
-        "description": "A CSS generic font family."
+//@        "description": "A CSS generic font family."
+        "description": "CSS 一般字体系列。"
       },
       {
         "id": "LevelOfControl",
-        "description": "One of<br><var>not_controllable</var>: cannot be controlled by any extension<br><var>controlled_by_other_extensions</var>: controlled by extensions with higher precedence<br><var>controllable_by_this_extension</var>: can be controlled by this extension<br><var>controlled_by_this_extension</var>: controlled by this extension",
+//@        "description": "One of<br><var>not_controllable</var>: cannot be controlled by any extension<br><var>controlled_by_other_extensions</var>: controlled by extensions with higher precedence<br><var>controllable_by_this_extension</var>: can be controlled by this extension<br><var>controlled_by_this_extension</var>: controlled by this extension",
+        "description": "以下值之一：<br><var>\"not_controllable\"</var>：无法由任何扩展程序控制。<br><var>\"controlled_by_other_extensions\"</var>：由优先级更高的扩展程序控制。<br><var>\"controllable_by_this_extension\"</var>：可以由该扩展程序控制。<br><var>\"controlled_by_this_extension\"</var>：由该扩展程序控制。",
         "type": "string",
         "enum": ["not_controllable", "controlled_by_other_extensions", "controllable_by_this_extension", "controlled_by_this_extension"]
       }
@@ -60,7 +66,8 @@
     "functions": [
       {
         "name": "clearFont",
-        "description": "Clears the font set by this extension, if any.",
+//@        "description": "Clears the font set by this extension, if any.",
+        "description": "清除当前扩展程序设置过的字体（如果有的话）。",
         "parameters": [
           {
             "name": "details",
@@ -68,12 +75,14 @@
             "properties": {
               "script": {
                 "$ref": "ScriptCode",
-                "description": "The script for which the font should be cleared. If omitted, the global script font setting is cleared.",
+//@                "description": "The script for which the font should be cleared. If omitted, the global script font setting is cleared.",
+                "description": "要清除字体设置的书写文字。如果省略，则清除全局书写文字的字体设置。",
                 "optional": true
               },
               "genericFamily": {
                 "$ref": "GenericFamily",
-                "description": "The generic font family for which the font should be cleared."
+//@                "description": "The generic font family for which the font should be cleared."
+                "description": "要清除字体设置的一般字体系列。"
               }
             }
           },
@@ -87,7 +96,8 @@
       },
       {
         "name": "getFont",
-        "description": "Gets the font for a given script and generic font family.",
+//@        "description": "Gets the font for a given script and generic font family.",
+        "description": "获取指定书写文字和一般字体系列对应的字体。",
         "parameters": [
           {
             "name": "details",
@@ -95,12 +105,14 @@
             "properties": {
               "script": {
                 "$ref": "ScriptCode",
-                "description": "The script for which the font should be retrieved. If omitted, the font setting for the global script (script code \"Zyyy\") is retrieved.",
+//@                "description": "The script for which the font should be retrieved. If omitted, the font setting for the global script (script code \"Zyyy\") is retrieved.",
+                "description": "要获取对应字体的书写文字。如果省略，则获取全局书写文字（书写文字代码为 \"Zyyy\"）对应的字体。",
                 "optional": true
               },
               "genericFamily": {
                 "$ref": "GenericFamily",
-                "description": "The generic font family for which the font should be retrieved."
+//@                "description": "The generic font family for which the font should be retrieved."
+                "description": "要获取对应字体的一般字体系列。"
               }
             }
           },
@@ -115,11 +127,13 @@
                 "properties": {
                   "fontId": {
                     "type": "string",
-                    "description": "The font ID. Rather than the literal font ID preference value, this may be the ID of the font that the system resolves the preference value to. So, <var>fontId</var> can differ from the font passed to <code>setFont</code>, if, for example, the font is not available on the system. The empty string signifies fallback to the global script font setting."
+//@                    "description": "The font ID. Rather than the literal font ID preference value, this may be the ID of the font that the system resolves the preference value to. So, <var>fontId</var> can differ from the font passed to <code>setFont</code>, if, for example, the font is not available on the system. The empty string signifies fallback to the global script font setting."
+                    "description": "字体标识符。有可能是系统根据首选项的值解析出的字体标识符，而不一定是字面的字体标识符首选项值，所以 <var>fontId</var> 可能和传递给 <code>setFont</code> 的字体不同，例如如果指定字体在当前系统中不可用。空字符串意味着使用全局书写文字的字体设置。"
                   },
                   "levelOfControl": {
                     "$ref": "LevelOfControl",
-                    "description": "The level of control this extension has over the setting."
+//@                    "description": "The level of control this extension has over the setting."
+                    "description": "扩展程序对这一设置的控制级别。"
                   }
                 }
               }
@@ -129,7 +143,8 @@
       },
       {
         "name": "setFont",
-        "description": "Sets the font for a given script and generic font family.",
+//@        "description": "Sets the font for a given script and generic font family.",
+        "description": "设置指定书写文字和一般字体系列对应的字体。",
         "parameters": [
           {
             "name": "details",
@@ -137,16 +152,19 @@
             "properties": {
               "script": {
                 "$ref": "ScriptCode",
-                "description": "The script code which the font should be set. If omitted, the font setting for the global script (script code \"Zyyy\") is set.",
+//@                "description": "The script code which the font should be set. If omitted, the font setting for the global script (script code \"Zyyy\") is set.",
+                "description": "要设置对应字体的书写文字。如果省略，则设置全局书写文字（书写文字代码为 \"Zyyy\"）对应的字体。",
                 "optional": true
               },
               "genericFamily": {
                 "$ref": "GenericFamily",
-                "description": "The generic font family for which the font should be set."
+//@                "description": "The generic font family for which the font should be set."
+                "description": "要设置对应字体的一般字体系列。"
               },
               "fontId": {
                 "type": "string",
-                "description": "The font ID. The empty string means to fallback to the global script font setting."
+//@                "description": "The font ID. The empty string means to fallback to the global script font setting."
+                "description": "字体标识符。空字符串意味着使用全局书写文字的字体设置。"
               }
             }
           },
@@ -160,7 +178,8 @@
       },
       {
         "name": "getFontList",
-        "description": "Gets a list of fonts on the system.",
+//@        "description": "Gets a list of fonts on the system.",
+        "description": "获取系统中所有字体的列表。",
         "parameters": [
           {
             "type": "function",
@@ -177,13 +196,15 @@
       },
       {
         "name": "clearDefaultFontSize",
-        "description": "Clears the default font size set by this extension, if any.",
+//@        "description": "Clears the default font size set by this extension, if any.",
+        "description": "清除当前扩展程序设置过的默认字体大小。",
         "parameters": [
           {
             "name": "details",
             "type": "object",
             "optional": true,
-            "description": "This parameter is currently unused.",
+//@            "description": "This parameter is currently unused.",
+            "description": "该参数当前未使用。",
             "properties": {}
           },
           {
@@ -196,13 +217,15 @@
       },
       {
         "name": "getDefaultFontSize",
-        "description": "Gets the default font size.",
+//@        "description": "Gets the default font size.",
+        "description": "获取默认字体大小。",
         "parameters": [
           {
             "name": "details",
             "type": "object",
             "optional": true,
-            "description": "This parameter is currently unused.",
+//@            "description": "This parameter is currently unused.",
+            "description": "该参数当前未使用。",
             "properties": {}
           },
           {
@@ -216,11 +239,13 @@
                 "properties": {
                   "pixelSize": {
                     "type": "integer",
-                    "description": "The font size in pixels."
+//@                    "description": "The font size in pixels."
+                    "description": "以像素为单位的字体大小。"
                   },
                   "levelOfControl": {
                     "$ref": "LevelOfControl",
-                    "description": "The level of control this extension has over the setting."
+//@                    "description": "The level of control this extension has over the setting."
+                    "description": "扩展程序对这一设置的控制级别。"
                   }
                 }
               }
@@ -230,7 +255,8 @@
       },
       {
         "name": "setDefaultFontSize",
-        "description": "Sets the default font size.",
+//@        "description": "Sets the default font size.",
+        "description": "设置默认字体大小。",
         "parameters": [
           {
             "name": "details",
@@ -238,7 +264,8 @@
             "properties": {
               "pixelSize": {
                 "type": "integer",
-                "description": "The font size in pixels."
+//@                "description": "The font size in pixels."
+                "description": "以像素为单位的字体大小。"
               }
             }
           },
@@ -252,13 +279,15 @@
       },
       {
         "name": "clearDefaultFixedFontSize",
-        "description": "Clears the default fixed font size set by this extension, if any.",
+//@        "description": "Clears the default fixed font size set by this extension, if any.",
+        "description": "清除当前扩展程序设置过的默认的宽度固定的字体的大小。",
         "parameters": [
           {
             "name": "details",
             "type": "object",
             "optional": true,
-            "description": "This parameter is currently unused.",
+//@            "description": "This parameter is currently unused.",
+            "description": "该参数当前未使用。",
             "properties": {}
           },
           {
@@ -271,13 +300,15 @@
       },
       {
         "name": "getDefaultFixedFontSize",
-        "description": "Gets the default size for fixed width fonts.",
+//@        "description": "Gets the default size for fixed width fonts.",
+        "description": "获取宽度固定的字体的默认大小。",
         "parameters": [
           {
             "name": "details",
             "type": "object",
             "optional": true,
-            "description": "This parameter is currently unused.",
+//@            "description": "This parameter is currently unused.",
+            "description": "该参数当前未使用。",
             "properties": {}
           },
           {
@@ -291,11 +322,13 @@
                 "properties": {
                   "pixelSize": {
                     "type": "integer",
-                    "description": "The font size in pixels."
+//@                    "description": "The font size in pixels."
+                    "description": "以像素为单位的字体大小。"
                   },
                   "levelOfControl": {
                     "$ref": "LevelOfControl",
-                    "description": "The level of control this extension has over the setting."
+//@                    "description": "The level of control this extension has over the setting."
+                    "description": "扩展程序对这一设置的控制级别。"
                   }
                 }
               }
@@ -305,7 +338,8 @@
       },
       {
         "name": "setDefaultFixedFontSize",
-        "description": "Sets the default size for fixed width fonts.",
+//@        "description": "Sets the default size for fixed width fonts.",
+        "description": "设置宽度固定的字体的默认大小。",
         "parameters": [
           {
             "name": "details",
@@ -313,7 +347,8 @@
             "properties": {
               "pixelSize": {
                 "type": "integer",
-                "description": "The font size in pixels."
+//@                "description": "The font size in pixels."
+                "description": "以像素为单位的字体大小。"
               }
             }
           },
@@ -327,13 +362,15 @@
       },
       {
         "name": "clearMinimumFontSize",
-        "description": "Clears the minimum font size set by this extension, if any.",
+//@        "description": "Clears the minimum font size set by this extension, if any.",
+        "description": "清除当前扩展程序设置过的字体大小下限。",
         "parameters": [
           {
             "name": "details",
             "type": "object",
             "optional": true,
-            "description": "This parameter is currently unused.",
+//@            "description": "This parameter is currently unused.",
+            "description": "该参数当前未使用。",
             "properties": {}
           },
           {
@@ -346,13 +383,15 @@
       },
       {
         "name": "getMinimumFontSize",
-        "description": "Gets the minimum font size.",
+//@        "description": "Gets the minimum font size.",
+        "description": "获取字体大小下限。",
         "parameters": [
           {
             "name": "details",
             "type": "object",
             "optional": true,
-            "description": "This parameter is currently unused.",
+//@            "description": "This parameter is currently unused.",
+            "description": "该参数当前未使用。",
             "properties": {}
           },
           {
@@ -366,11 +405,13 @@
                 "properties": {
                   "pixelSize": {
                     "type": "integer",
-                    "description": "The font size in pixels."
+//@                    "description": "The font size in pixels."
+                    "description": "以像素为单位的字体大小。"
                   },
                   "levelOfControl": {
                     "$ref": "LevelOfControl",
-                    "description": "The level of control this extension has over the setting."
+//@                    "description": "The level of control this extension has over the setting."
+                    "description": "扩展程序对这一设置的控制级别。"
                   }
                 }
               }
@@ -380,7 +421,8 @@
       },
       {
         "name": "setMinimumFontSize",
-        "description": "Sets the minimum font size.",
+//@        "description": "Sets the minimum font size.",
+        "description": "设置字体大小下限。",
         "parameters": [
           {
             "name": "details",
@@ -388,7 +430,8 @@
             "properties": {
               "pixelSize": {
                 "type": "integer",
-                "description": "The font size in pixels."
+//@                "description": "The font size in pixels."
+                "description": "以像素为单位的字体大小。"
               }
             }
           },
@@ -404,7 +447,8 @@
     "events": [
       {
         "name": "onFontChanged",
-        "description": "Fired when a font setting changes.",
+//@        "description": "Fired when a font setting changes.",
+        "description": "字体设置更改时产生。",
         "parameters": [
           {
             "type": "object",
@@ -412,20 +456,24 @@
             "properties": {
               "fontId": {
                 "type": "string",
-                "description": "The font ID. See the description in <code>getFont</code>."
+//@                "description": "The font ID. See the description in <code>getFont</code>."
+                "description": "字体标识符，参见 <code>getFont</code> 中的描述。"
               },
               "script": {
                 "$ref": "ScriptCode",
-                "description": "The script code for which the font setting has changed.",
+//@                "description": "The script code for which the font setting has changed.",
+                "description": "更改的字体设置对应的书写文字。",
                 "optional": true
               },
               "genericFamily": {
                 "$ref": "GenericFamily",
-                "description": "The generic font family for which the font setting has changed."
+//@                "description": "The generic font family for which the font setting has changed."
+                "description": "更改的字体设置对应的一般字体系列。"
               },
               "levelOfControl": {
                 "$ref": "LevelOfControl",
-                "description": "The level of control this extension has over the setting."
+//@                "description": "The level of control this extension has over the setting."
+                "description": "扩展程序对这一设置的控制级别。"
               }
             }
           }
@@ -433,7 +481,8 @@
       },
       {
         "name": "onDefaultFontSizeChanged",
-        "description": "Fired when the default font size setting changes.",
+//@        "description": "Fired when the default font size setting changes.",
+        "description": "默认字体大小的设置更改时产生。",
         "parameters": [
           {
             "type": "object",
@@ -441,11 +490,13 @@
             "properties": {
               "pixelSize": {
                 "type": "integer",
-                "description": "The font size in pixels."
+//@                "description": "The font size in pixels."
+                "description": "以像素为单位的字体大小。"
               },
               "levelOfControl": {
                 "$ref": "LevelOfControl",
-                "description": "The level of control this extension has over the setting."
+//@                "description": "The level of control this extension has over the setting."
+                "description": "扩展程序对这一设置的控制级别。"
               }
             }
           }
@@ -453,7 +504,8 @@
       },
       {
         "name": "onDefaultFixedFontSizeChanged",
-        "description": "Fired when the default fixed font size setting changes.",
+//@        "description": "Fired when the default fixed font size setting changes.",
+        "description": "默认的宽度固定的字体大小设置更改时产生。",
         "parameters": [
           {
             "type": "object",
@@ -461,11 +513,13 @@
             "properties": {
               "pixelSize": {
                 "type": "integer",
-                "description": "The font size in pixels."
+//@                "description": "The font size in pixels."
+                "description": "以像素为单位的字体大小。"
               },
               "levelOfControl": {
                 "$ref": "LevelOfControl",
-                "description": "The level of control this extension has over the setting."
+//@                "description": "The level of control this extension has over the setting."
+                "description": "扩展程序对这一设置的控制级别。"
               }
             }
           }
@@ -473,7 +527,8 @@
       },
       {
         "name": "onMinimumFontSizeChanged",
-        "description": "Fired when the minimum font size setting changes.",
+//@        "description": "Fired when the minimum font size setting changes.",
+        "description": "字体大小下限的设置更改时产生。",
         "parameters": [
           {
             "type": "object",
@@ -481,11 +536,13 @@
             "properties": {
               "pixelSize": {
                 "type": "integer",
-                "description": "The font size in pixels."
+//@                "description": "The font size in pixels."
+                "description": "以像素为单位的字体大小。"
               },
               "levelOfControl": {
                 "$ref": "LevelOfControl",
-                "description": "The level of control this extension has over the setting."
+//@                "description": "The level of control this extension has over the setting."
+                "description": "扩展程序对这一设置的控制级别。"
               }
             }
           }
