@@ -76,7 +76,7 @@
                 <a href="whats_new.html" class="level2 ">新增功能</a>
           </li>
           <li class="level2">
-                <a href="devguide.html" class="level2 "></a>
+                <a href="devguide.html" class="level2 ">开发者指南</a>
               <ul 
                   class="level2 ">
                 <li class="level3">
@@ -282,11 +282,14 @@
         </div>
 
 <p>
-Use <code>chrome.experimental.devtools.console</code> to retrieve messages from
+<!--@Use-->使用 <code>chrome.experimental.devtools.console</code> <!--@to retrieve messages from
 the inspected page console and post messages there. <code>getMessages()</code>
 returns the list of messages on the console, <code>onMessageAdded</code>
 event provides notifications on new messages, and <code>addMessage()</code>
-allows an extension to add new messages.
+allows an extension to add new messages.-->
+从审查页面的控制台中获得消息或者在那里输出消息。<code>getMessages()</code>
+返回控制台中的消息列表，<code>onMessageAdded</code>
+事件提供新消息的通知，<code>addMessage()</code> 允许扩展程序添加新消息。
 </p>
         <h2 id="apiReference"><!--@API Reference: chrome.experimental.devtools.console-->API 参考：chrome.experimental.devtools.console</h2>
         <div class="api_reference">
@@ -296,7 +299,7 @@ allows an extension to add new messages.
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    A console message.
+                    控制台消息。
                   </dd>    <h4 id="ConsoleMessage-properties">
                     <!--@Properties of --><a href="#type-ConsoleMessage">ConsoleMessage</a>
                     的属性
@@ -313,7 +316,7 @@ allows an extension to add new messages.
                         </span>
                       </dt>
                       <dd>
-                        Message severity.
+                        消息的严重性。
                       </dd>
                     </div>
                     <div>
@@ -328,7 +331,7 @@ allows an extension to add new messages.
                         </span>
                       </dt>
                       <dd>
-                        The text of the console message, as represented by the first argument to the console.log() or a similar method (no parameter substitution  performed).
+                        控制台消息的文本，表示为 console.log() 的第一个参数或者类似的方法（没有进行参数替换）。
                       </dd>
                     </div>
                     <div>
@@ -343,7 +346,7 @@ allows an extension to add new messages.
                         </span>
                       </dt>
                       <dd>
-                        The URL of the script that originated the message, if available.
+                        消息的来源脚本 URL，如果可用的话。
                       </dd>
                     </div>
                     <div>
@@ -358,7 +361,7 @@ allows an extension to add new messages.
                         </span>
                       </dt>
                       <dd>
-                        The number of the line where the message originated, if available.
+                        消息的来源行号，如果可用的话。
                       </dd>
                     </div>
               </dl></dd>
@@ -443,7 +446,7 @@ allows an extension to add new messages.
                 </div>
                 <div class="description">
                   <p>
-                    Adds a message to the console.
+                    向控制台添加消息。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -459,7 +462,7 @@ allows an extension to add new messages.
                           </span>
                         </dt>
                         <dd>
-                          The severity of the message.
+                          消息的严重性。
                         </dd>
                       </div>
                       <div>
@@ -474,7 +477,7 @@ allows an extension to add new messages.
                           </span>
                         </dt>
                         <dd>
-                          The text of the message.
+                          消息文本。
                         </dd>
                       </div>
                   </dl>
@@ -487,7 +490,7 @@ allows an extension to add new messages.
                 </div>
                 <div class="description">
                   <p>
-                    Retrieves console messages.
+                    获取控制台消息。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -503,7 +506,7 @@ allows an extension to add new messages.
                           </span>
                         </dt>
                         <dd>
-                          A function that receives console messages when the request completes.
+                          请求完成时接收控制台消息的函数。
                         </dd>
                       </div>
                   </dl>
@@ -527,7 +530,7 @@ allows an extension to add new messages.
                             </span>
                           </dt>
                           <dd>
-                            Console messages.
+                            控制台消息。
                           </dd>
                         </div>
                     </dl>
@@ -541,7 +544,7 @@ allows an extension to add new messages.
                 </div>
                 <div class="description">
               <p>
-                    Fired when a new message is added to the console.
+                    当新消息添加到控制台时产生。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
                       <div>  <a name="property-onMessageAdded-message"></a>  <dt>    <span class="variable">message</span>    <span class="property">      (                <a href="experimental.devtools.console.html#type-ConsoleMessage">ConsoleMessage</a>      )    </span>  </dt></div>

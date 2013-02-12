@@ -76,7 +76,7 @@
                 <a href="whats_new.html" class="level2 ">新增功能</a>
           </li>
           <li class="level2">
-                <a href="devguide.html" class="level2 "></a>
+                <a href="devguide.html" class="level2 ">开发者指南</a>
               <ul 
                   class="level2 ">
                 <li class="level3">
@@ -304,7 +304,7 @@
                         </span>
                       </dt>
                       <dd>
-                        The ID of the browser session.
+                        浏览器会话的标识符。
                       </dd>
                     </div>
                     <div>
@@ -319,7 +319,7 @@
                         </span>
                       </dt>
                       <dd>
-                        The time when the window or tab was closed, represented in milliseconds since the epoch
+                        窗口或标签页关闭的时间，表示为 1970 年 1 月 1 日以来经过的毫秒数。
                       </dd>
                     </div>
                     <div>
@@ -334,7 +334,7 @@
                         </span>
                       </dt>
                       <dd>
-                        The closed <a href="tabs.html#type-Tab">tabs.Tab</a>, if this entry describes a tab. Either this or <a href="sessionRestore.html#property-ClosedEntry-window">ClosedEntry.window</a> will be set.
+                        如果该项目描述标签页的话则为关闭的 <a href="tabs.html#type-Tab">tabs.Tab</a>。该属性或 <a href="sessionRestore.html#property-ClosedEntry-window">ClosedEntry.window</a> 中的某一个将会设置。
                       </dd>
                     </div>
                     <div>
@@ -349,7 +349,7 @@
                         </span>
                       </dt>
                       <dd>
-                        The closed <a href="windows.html#type-Window">windows.Window</a>, if this entry describes a window. Either this or <a href="sessionRestore.html#property-ClosedEntry-tab">ClosedEntry.tab</a> will be set.
+                        如果该项目描述窗口的话则为关闭的 <a href="windows.html#type-Window">windows.Window</a>。该属性或 <a href="sessionRestore.html#property-ClosedEntry-tab">ClosedEntry.tab</a> 中的某一个将会设置。
                       </dd>
                     </div>
               </dl></dd>
@@ -363,7 +363,7 @@
                 </div>
                 <div class="description">
                   <p>
-                    Gets the list of recently closed tabs and/or windows.
+                    获取最近关闭的标签页和/或窗口的列表。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -392,7 +392,7 @@
                                 </span>
                               </dt>
                               <dd>
-                                The maximum number of entries to be fetched in the requested list. Omit to fetch the maximum number of entries (25).
+                                在请求的列表中要获取的项目的最大数目，省略的话则获取尽可能多的项目（25）。
                               </dd>
                             </div>
                             <div>
@@ -407,7 +407,7 @@
                                 </span>
                               </dt>
                               <dd>
-                                The type of entry to fetch. Omit to fetch all types of entries.
+                                要获取的项目类型，省略的话则获取所有类型的项目。
                               </dd>
                             </div>
                           </dl>
@@ -446,7 +446,7 @@
                             </span>
                           </dt>
                           <dd>
-                            The list of closed entries in reverse order that they were closed (the most recently closed tab or window will be at index <code>0</code>). If <code>entryType</code> is specified the entries will be only of that type, otherwise the entries may contain either tabs or windows.List of <a href="sessionRestore.html#type-ClosedEntry">ClosedEntry</a> representing the closed tab/window for the session.
+                            已关闭的项目列表，按照与关闭相反的顺序排列（最后关闭的标签页或窗口的索引为 0）。如果指定了 <code>entryType</code>，则返回的项目只包含这一种类型，否则可能会包含标签页或窗口。<a href="sessionRestore.html#type-ClosedEntry">ClosedEntry</a> 列表表示该会话中关闭的标签页或窗口。
                           </dd>
                         </div>
                     </dl>
@@ -459,7 +459,7 @@
                 </div>
                 <div class="description">
                   <p>
-                    Reopens a <a href="sessionRestore.html#type-ClosedEntry">ClosedEntry</a>, with an optional callback to run when the entry has been restored.
+                    重新打开某个 <a href="sessionRestore.html#type-ClosedEntry">ClosedEntry</a>（关闭的项目），可以传递一个可选的回调函数，当项目恢复时调用。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -475,7 +475,7 @@
                           </span>
                         </dt>
                         <dd>
-                          The id of the <a href="sessionRestore.html#type-ClosedEntry">ClosedEntry</a> to restore.
+                          要恢复的 <a href="sessionRestore.html#type-ClosedEntry">ClosedEntry</a> 的标识符。
                         </dd>
                       </div>
                       <div>
