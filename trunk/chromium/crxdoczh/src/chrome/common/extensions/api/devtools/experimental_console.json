@@ -10,27 +10,33 @@
       {
         "name": "addMessage",
         "type": "function",
-        "description": "Adds a message to the console.",
+//@        "description": "Adds a message to the console.",
+        "description": "向控制台添加消息。",
         "parameters": [
-          { "name": "severity", "$ref": "Severity", "description": "The severity of the message." },
-          { "name": "text", "type": "string", "description": "The text of the message." }
+//@          { "name": "severity", "$ref": "Severity", "description": "The severity of the message." },
+          { "name": "severity", "$ref": "Severity", "description": "消息的严重性。" },
+//@          { "name": "text", "type": "string", "description": "The text of the message." }
+          { "name": "text", "type": "string", "description": "消息文本。" }
         ]
       },
       {
         "name": "getMessages",
         "type": "function",
-        "description": "Retrieves console messages.",
+//@        "description": "Retrieves console messages.",
+        "description": "获取控制台消息。",
         "parameters": [
           {
             "name": "callback",
             "type": "function",
-            "description": "A function that receives console messages when the request completes.",
+//@            "description": "A function that receives console messages when the request completes.",
+            "description": "请求完成时接收控制台消息的函数。",
             "parameters": [
               {
                 "name": "messages",
                 "type": "array",
                 "items": { "$ref": "ConsoleMessage" },
-                "description": "Console messages."
+//@                "description": "Console messages."
+                "description": "控制台消息。"
               }
             ]
           }
@@ -41,25 +47,30 @@
       {
         "id": "ConsoleMessage",
         "type": "object",
-        "description": "A console message.",
+//@        "description": "A console message.",
+        "description": "控制台消息。",
         "properties": {
           "severity": {
             "$ref": "Severity",
-            "description": "Message severity."
+//@            "description": "Message severity."
+            "description": "消息的严重性。"
           },
           "text": {
             "type": "string",
-            "description": "The text of the console message, as represented by the first argument to the console.log() or a similar method (no parameter substitution  performed)."
+//@            "description": "The text of the console message, as represented by the first argument to the console.log() or a similar method (no parameter substitution  performed)."
+            "description": "控制台消息的文本，表示为 console.log() 的第一个参数或者类似的方法（没有进行参数替换）。"
           },
           "url": {
             "type": "string",
             "optional": true,
-            "description": "The URL of the script that originated the message, if available."
+//@            "description": "The URL of the script that originated the message, if available."
+            "description": "消息的来源脚本 URL，如果可用的话。"
           },
           "line": {
             "type": "number",
             "optional": true,
-            "description": "The number of the line where the message originated, if available."
+//@            "description": "The number of the line where the message originated, if available."
+            "description": "消息的来源行号，如果可用的话。"
           }
         }
       },
@@ -89,7 +100,8 @@
       {
         "name": "onMessageAdded",
         "type": "function",
-        "description": "Fired when a new message is added to the console.",
+//@        "description": "Fired when a new message is added to the console.",
+        "description": "当新消息添加到控制台时产生。",
         "parameters": [
           { "name": "message", "$ref": "ConsoleMessage" }
         ]

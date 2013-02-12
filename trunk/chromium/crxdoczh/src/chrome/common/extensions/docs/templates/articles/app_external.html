@@ -1,44 +1,55 @@
-<h1>Embed Content</h1>
+<h1><!--@Embed Content-->嵌入内容</h1>
 
 
 <p>
-The <a href="app_architecture.html#security">packaged apps security model</a> disallows
+<!--@The <a href="app_architecture.html#security">packaged apps security model</a> disallows
 external content in iframes and
 the use of inline scripting and <code>eval()</code>.
 You can override these restrictions,
-but your external content must be isolated from the app.
+but your external content must be isolated from the app.-->
+<a href="app_architecture.html#security">打包应用的安全模型</a>不允许
+iframe 中的外部内容，也不允许使用内嵌脚本与
+<code>eval()</code>。您可以覆盖这些限制，但是您的外部内容必须与应用程序隔离。
 </p>
 
 <p>
-Isolated content cannot directly
+<!--@Isolated content cannot directly
 access the app's data or any of the APIs.
 Use cross-origin XMLHttpRequests
 and post-messaging to communicate between the event page and sandboxed content
-and indirectly access the APIs.
+and indirectly access the APIs.-->
+隔离的内容不能直接访问应用程序的数据或任何 API，但可以使用跨站
+XMLHttpRequest 及消息传递在事件页面和经过沙盒屏蔽的内容间通信，并间接访问
+API。
 </p>
 
 <p class="note">
-<b>API Sample: </b>
+<b>API <!--@Sample: -->示例：</b><!--@
 Want to play with the code?
-Check out the
-<a href="https://github.com/GoogleChrome/chrome-app-samples/tree/master/sandbox">sandbox</a> sample.
+Check out the-->想试试这些代码吗？请参见
+<a href="https://github.com/GoogleChrome/chrome-app-samples/tree/master/sandbox">sandbox</a> <!--@sample.-->
+示例。
 </p>
 
-<h2 id="external">Referencing external resources</h2>
+<h2 id="external"><!--@Referencing external resources-->引用外部资源</h2>
 
 <p>
-The <a href="app_csp.html">Content Security Policy</a> used by apps disallows
+<!--@The <a href="app_csp.html">Content Security Policy</a> used by apps disallows
 the use of many kinds of remote URLs, so you can't directly reference external
 images, stylesheets, or fonts from an app page. Instead, you can use use
 cross-origin XMLHttpRequests to fetch these resources,
-and then serve them via <code>blob:</code> URLs.
+and then serve them via <code>blob:</code> URLs.-->
+应用使用的<a href="app_csp.html">内容安全策略</a>不允许多种类型的远程
+URL，所以您不能从应用页面中直接引用外部图像、样式表或字体。相反，您可以使用跨站
+XMLHttpRequest 获取这些资源，并通过 <code>blob:</code> URL 来使用它们。
 </p>
 
-<h3 id="manifest">Manifest requirement</h3>
+<h3 id="manifest"><!--@Manifest requirement-->清单文件的要求</h3>
 
 <p>
-To be able to do cross-origin XMLHttpRequests, you'll need to add a permission
-for the remote URL's host:
+<!--@To be able to do cross-origin XMLHttpRequests, you'll need to add a permission
+for the remote URL's host:-->
+为了能够发出跨来源 XMLHttpRequest 请求，您需要为远程 URL 的主机添加权限：
 </p>
 
 <pre>
@@ -48,11 +59,14 @@ for the remote URL's host:
   ]
 </pre>
 
-<h3 id="cross-origin">Cross-origin XMLHttpRequest</h3>
+<h3 id="cross-origin"><!--@Cross-origin-->跨站 XMLHttpRequest</h3>
 
 <p>
-Fetch the remote URL into the app and serve its contents as a <code>blob:</code>
-URL:
+<!--@Fetch the remote URL into the app and serve its contents as a-->
+将远程 URL 获取进应用并通过
+<code>blob:</code>
+URL<!--@:-->
+来使用它的内容：
 </p>
 
 <pre>
@@ -68,98 +82,121 @@ xhr.onload = function(e) {
 xhr.send();
 </pre>
 
-<p>You may want to <a href="offline_apps.html#saving-locally">save</a>
-these resources locally, so that they are available offline.</p>
+<p><!--@You may want to <a href="offline_apps.html#saving-locally">save</a>
+these resources locally, so that they are available offline.-->
+您可能希望在本地<a href="offline_apps.html#saving-locally"
+>保存</a>这些资源，这样它们在离线状态下也可以使用。
+</p>
 
-<h2 id="webview">Embed external web pages</h2>
+<h2 id="webview"><!--@Embed external web pages-->嵌入外部网页</h2>
 
 <p class="note">
-<b>API Sample: </b>
-Want to play with the code? Check out the
+<b>API <!--@Sample: -->示例：</b><!--@
+Want to play with the code? Check out the-->想试试这些代码吗？请参见
 <a href="https://github.com/GoogleChrome/chrome-app-samples/tree/master/browser">browser</a>
-sample.
+<!--@sample.-->
+示例。
 </p>
 
 <p>
-The <code>webview</code> tag allows you to embed external web content in your
+<!--@The <code>webview</code> tag allows you to embed external web content in your
 app, for example, a web page. It replaces iframes that point to remote URLs,
 which are disabled inside packaged apps. Unlike iframes, the
 <code>webview</code> tag runs in a separate process. This means that an exploit
 inside of it will still be isolated and won't be able to gain elevated
 privileges. Further, since its storage (cookies, etc.) is isolated from the app,
-there is no way for the web content to access any of the app's data.
+there is no way for the web content to access any of the app's data.-->
+<code>webview</code>
+标签允许您在您的应用中嵌入外部网络内容，例如一个网页。它替换了指向远程 URL
+的 iframe，在打包应用内这是禁用的。与 iframe 不同，<code>webview</code>
+标签运行在单独的进程中，这意味着它内部的攻击仍然会被隔离开来，不能获得提升的权限。此外，由于它的存储区（Cookie 等）与应用隔离，没有办法让网络内容访问应用的任何数据。
 </p>
 
-<h3 id="webview_element">Add webview element</h3>
+<h3 id="webview_element"><!--@Add webview element-->添加 webview 元素</h3>
 
 <p>
-Your <code>webview</code> element must include the URL to the source content
-and specify its dimensions.
+<!--@Your <code>webview</code> element must include the URL to the source content
+and specify its dimensions.-->
+您的 webview 元素必须包含来源内容的 URL 并指定大小。
 </p>
 
-<pre>&lt;webview src="http://news.google.com/" width="640" height="480">&lt;/webview></pre>
+<pre>&lt;webview src="http://news.google.com/" width="640" height="480"&gt;&lt;/webview&gt;</pre>
 
-<h3 id="properties">Update properties</h3>
+<h3 id="properties"><!--@Update properties-->更新属性</h3>
 
 <p>
-To dynamically change the <code>src</code>, <code>width</code> and
+<!--@To dynamically change the <code>src</code>, <code>width</code> and
 <code>height</code> properties of a <code>webview</code> tag, you can either
 set those properties directly on the JavaScript object, or use the
-<code>setAttribute</code> DOM function.
+<code>setAttribute</code> DOM function.-->
+要动态更改 <code>webview</code> 标签的 <code>src</code>、<code>width</code>
+和 <code>height</code> 属性，您既可以直接在 <code>JavaScript</code>
+对象上设置这些属性，也可以使用 DOM 函数 <code>setAttribute</code>。
 </p>
 
 <pre>
 document.querySelector('#mywebview').src =
     'http://blog.chromium.org/';
-// or
+// 或
 document.querySelector('#mywebview').setAttribute(
     'src', 'http://blog.chromium.org/');
 </pre>
 
-<h2 id="sandboxing">Sandbox local content</h2>
+<h2 id="sandboxing"><!--@Sandbox local content-->通过沙盒保护本地内容</h2>
 
 <p>
-Sandboxing allows specified pages
+<!--@Sandboxing allows specified pages
 to be served in a sandboxed, unique origin.
 These pages are then exempt from their Content Security Policy.
 Sandboxed pages can use iframes, inline scripting,
 and <code>eval()</code>.
 Check out the manifest field description for
-<a href="manifest.html#sandbox">sandbox</a>.
+<a href="manifest.html#sandbox">sandbox</a>.-->
+沙盒功能允许指定页面在经过沙盒屏蔽的唯一来源中运行，这些页面就不受内容安全策略的限制。经过沙盒屏蔽的页面可以使用 iframe、内嵌脚本以及
+<code>eval()</code>。请查阅 <a href="manifest.html#sandbox">sandbox</a>
+清单文件字段的描述。
 </p>
 
 <p>
-It's a trade-off though:
+<!--@It's a trade-off though:
 sandboxed pages can't use the chrome.* APIs.
 If you need to do things like <code>eval()</code>,
 go this route to be exempt from CSP,
-but you won't be able to use the cool new stuff.
+but you won't be able to use the cool new stuff.-->
+不过这也是一个权衡的问题：经过沙盒屏蔽的页面不能使用 chrome.*
+API。如果您需要做一些类似于 <code>eval()</code>
+的事情，请使用这种方法免受
+CSP（内容安全策略）的限制，但是您也不能使用一些很棒的新功能。
 </p>
 
-<h3 id="inline_scripts">Use inline scripts in sandbox</h3>
+<h3 id="inline_scripts"><!--@Use inline scripts in sandbox-->在沙盒中使用内嵌脚本</h3>
 
 <p>
-Here's a sample sandboxed page
-which uses an inline script and <code>eval()</code>:
+<!--@Here's a sample sandboxed page
+which uses an inline script and <code>eval()</code>:-->
+如下是一个经过沙盒屏蔽的页面示例，使用了内嵌脚本与
+<code>eval()</code>：
 </p>
 
 <pre>
-&lt;html>
-  &lt;body>
-    &lt;h1>Woot&lt;/h1>
-    &lt;script>
-      document.write('I am an inline script.&lt;br>');
-      eval('document.write(\'I am an eval-ed inline script.\');');
-    &lt;/script>
-  &lt;/body>
-&lt;/html>
+&lt;html&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Woot&lt;/h1&gt;
+    &lt;script&gt;
+      document.write('这是内嵌脚本。&lt;br&gt;');
+      eval('document.write(\'这是使用了 eval 的内嵌脚本。\');');
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
 </pre>
 
-<h3 id="include_sandbox">Include sandbox in manifest</h3>
+<h3 id="include_sandbox"><!--@Include sandbox in manifest-->在清单文件中包含 sandbox</h3>
 
 <p>
-You need to include the <code>sandbox</code> field in the manifest
-and list the app pages to be served in a sandbox:
+<!--@You need to include the <code>sandbox</code> field in the manifest
+and list the app pages to be served in a sandbox:-->
+您需要在清单文件中包含 <code>sandbox</code>
+字段，并列出需要在沙盒中运行的应用页面：
 </p>
 
 <pre>
@@ -168,14 +205,15 @@ and list the app pages to be served in a sandbox:
 }
 </pre>
 
-<h3 id="opening_sandbox">Opening a sandboxed page in a window</h3>
+<h3 id="opening_sandbox"><!--@Opening a sandboxed page in a window-->在窗口中打开经过沙盒屏蔽的页面</h3>
 
 <p>
-Just like any other app pages,
+<!--@Just like any other app pages,
 you can create a window that the sandboxed page opens in.
 Here's a sample that creates two windows,
 one for the main app window that isn't sandboxed,
-and one for the sandboxed page:
+and one for the sandboxed page:-->
+就像其他应用页面一样，您可以创建一个窗口，打开经过沙盒屏蔽的页面。如下是一个示例，它创建了两个窗口，一个用于应用主窗口，不经过沙盒屏蔽，另一个用于经过沙河屏蔽的页面：
 </p>
 
 <pre>
@@ -196,41 +234,46 @@ chrome.app.runtime.onLaunched.addListener(function() {
 });
 </pre>
 
-<h3 id="embedding_sandbox">Embedding a sandboxed page in an app page</h3>
+<h3 id="embedding_sandbox"><!--@Embedding a sandboxed page in an app page-->在应用页面中嵌入经过沙盒屏蔽的页面</h3>
 
-<p>Sandboxed pages can also be embedded within another app page
-  using an <code>iframe</code>:</p>
+<p><!--@Sandboxed pages can also be embedded within another app page
+  using an <code>iframe</code>:-->
+  经过沙盒屏蔽的页面也可以使用 <code>iframe</code> 嵌入至另一个应用页面：
+</p>
 
 <pre>
-&lt;!DOCTYPE html>
-&lt;html>
-&lt;head>
-&lt;/head>
-  &lt;body>
-    &lt;p>I am normal app window.&lt;/p>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;I am normal app window.&lt;/p&gt;
 
-    &lt;iframe src="sandboxed.html" width="300" height="200">&lt;/iframe>
-  &lt;/body>
-&lt;/html>
+    &lt;iframe src="sandboxed.html" width="300" height="200"&gt;&lt;/iframe&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
 </pre>
 
 
-<h2 id="postMessage">Sending messages to sandboxed pages</h2>
+<h2 id="postMessage"><!--@Sending messages to sandboxed pages-->向经过沙盒屏蔽的页面发送消息</h2>
 
 <p>
-There are two parts to sending a message:
+<!--@There are two parts to sending a message:
 you need to post a message from the sender page/window,
-and listen for messages on the receiving page/window.
+and listen for messages on the receiving page/window.-->
+发送消息需要两方面同时进行：您需要从发送者页面/窗口投递消息，并在接收端页面/窗口监听消息。
 </p>
 
-<h3 id="post_message">Post message</h3>
+<h3 id="post_message"><!--@Post message-->投递消息</h3>
 
 <p>
-You can use <code>postMessage</code> to communicate
+<!--@You can use <code>postMessage</code> to communicate
 between your app and sandboxed content.
 Here's a sample background script
 that posts a message to the sandboxed page it
-opens:
+opens:-->
+您可以使用 <code>postMessage</code>
+在您的应用与经过沙盒屏蔽的内容间通信。如下是一个后台脚本的示例，向它打开的经过沙盒屏蔽的页面发送消息：
 </p>
 
 <pre>
@@ -242,13 +285,13 @@ chrome.app.runtime.onLaunched.addListener(function() {
     'height': 400
   }, function(win) {
        myWin = win;
-       myWin.postMessage('Just wanted to say hey.', '*');
+       myWin.postMessage('只是打个招呼。', '*');
      });
 });
 </pre>
 
 <p>
-Generally speaking on the web,
+<!--@Generally speaking on the web,
 you want to specify the exact origin
 from where the message is sent.
 Packaged apps have no access
@@ -260,22 +303,24 @@ you generally want to check the origin;
 but since packaged apps content is contained,
 it isn't necessary.
 To find out more,
-see <a href="https://developer.mozilla.org/en/DOM/window.postMessage">window.postMessage</a>.
+see-->
+一般从网页的角度来说，您希望指定消息发送方的准确来源。打包应用无法访问经过沙盒屏蔽的内容的唯一来源，所以您只能将所有来源添加到可接受来源的白名单中（'*'）。在接收端，您通常希望检查来源，但是由于打包应用的内容是受限的，这没有必要。要想了解更多内容，请参见
+<a href="https://developer.mozilla.org/en/DOM/window.postMessage">window.postMessage</a><!--@.-->。
 </p>
 
-<h3 id="listen_message">Listen for message</h3>
+<h3 id="listen_message"><!--@Listen for message-->监听消息</h3>
 
 <p>
-Here's a sample message receiver
-that gets added to your sandboxed page:
+<!--@Here's a sample message receiver
+that gets added to your sandboxed page:-->
+如下是消息接收端的示例，可以添加到经过沙盒屏蔽的页面中去：
 </p>
 
 <pre>
 var messageHandler = function(e) {
-  console.log('Background script says hello.', e.data);
+  console.log('后台脚本打了个招呼。', e.data);
 };
 
 window.addEventListener('message', messageHandler);
 </pre>
 
-<p class="backtotop"><a href="#top">Back to top</a></p>
