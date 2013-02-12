@@ -10,33 +10,39 @@
       {
         "id": "Resource",
         "type": "object",
-        "description": "A resource within the inspected page, such as a document, a script, or an image.",
+//@        "description": "A resource within the inspected page, such as a document, a script, or an image.",
+        "description": "审查的页面中的资源，例如文档、脚本或图片。",
         "properties": {
           "url": {
             "type": "string",
-            "description": "The URL of the resource."
+//@            "description": "The URL of the resource."
+            "description": "资源的 URL。"
           }
         },
         "functions": [
           {
             "name": "getContent",
             "type": "function",
-            "description": "Gets the content of the resource.",
+//@            "description": "Gets the content of the resource.",
+            "description": "获取资源内容。",
             "parameters": [
               {
                 "name": "callback",
                 "type": "function",
-                "description": "A function that receives resource content when the request completes.",
+//@                "description": "A function that receives resource content when the request completes.",
+                "description": "当请求完成时接收资源内容的函数。",
                 "parameters": [
                   {
                     "name": "content",
                     "type": "string",
-                    "description": "Content of the resource (potentially encoded)."
+//@                    "description": "Content of the resource (potentially encoded)."
+                    "description": "资源内容（可能经过编码）。"
                   },
                   {
                     "name": "encoding",
                     "type": "string",
-                    "description": "Empty if content is not encoded, encoding name otherwise. Currently, only base64 is supported."
+//@                    "description": "Empty if content is not encoded, encoding name otherwise. Currently, only base64 is supported."
+                    "description": "如果内容没有经过编码则为空，否则为编码名称。当前只支持 base64 编码。"
                   }
                 ]
               }
@@ -45,22 +51,26 @@
           {
             "name": "setContent",
             "type": "function",
-            "description": "Sets the content of the resource.",
+//@            "description": "Sets the content of the resource.",
+            "description": "设置资源内容。",
             "parameters": [
               {
                 "name": "content",
                 "type": "string",
-                "description": "New content of the resource. Only resources with the text type are currently supported."
+//@                "description": "New content of the resource. Only resources with the text type are currently supported."
+                "description": "资源的新内容，当前只支持文本类型的资源。"
               },
               {
                 "name": "commit",
                 "type": "boolean",
-                "description": "True if the user has finished editing the resource, and the new content of the resource should be persisted; false if this is a minor change sent in progress of the user editing the resource."
+//@                "description": "True if the user has finished editing the resource, and the new content of the resource should be persisted; false if this is a minor change sent in progress of the user editing the resource."
+                "description": "如果用户已完成资源编辑，并且资源的新内容应该保留的话则为 true。如果这只是一个次要的更改，在用户编辑资源的过程中发送则为 false。"
               },
               {
                 "name": "callback",
                 "type": "function",
-                "description": "A function called upon request completion.",
+//@                "description": "A function called upon request completion.",
+                "description": "当请求完成时调用的函数。",
                 "optional": true,
                 "parameters": [
                   {
@@ -68,7 +78,8 @@
                     "type": "object",
                     "additionalProperties": {"type": "any"},
                     "optional": true,
-                    "description": "Set to undefined if the resource content was set successfully; describes error otherwise."
+//@                    "description": "Set to undefined if the resource content was set successfully; describes error otherwise."
+                    "description": "如果资源内容成功设置则为 undefined，否则描述错误。"
                   }
                 ]
               }
@@ -79,7 +90,8 @@
     ],
     "properties": {
       "tabId": {
-        "description": "The ID of the tab being inspected. This ID may be used with chrome.tabs.* API.",
+//@        "description": "The ID of the tab being inspected. This ID may be used with chrome.tabs.* API.",
+        "description": "正在审查的标签页的标识符，这一标识符可以在 chrome.tabs.* API 中使用。",
         "type": "integer"
       }
     },
@@ -87,29 +99,34 @@
       {
         "name": "eval",
         "type": "function",
-        "description": "Evaluates a JavaScript expression in the context of the main frame of the inspected page. The expression must evaluate to a JSON-compliant object, otherwise an exception is thrown.",
+//@        "description": "Evaluates a JavaScript expression in the context of the main frame of the inspected page. The expression must evaluate to a JSON-compliant object, otherwise an exception is thrown.",
+        "description": "在审查页面主框架的上下文中对 JavaScript 表达式求值，这一表达式的结果必须是一个遵循 JSON 的对象，否则将会引发异常。",
         "parameters": [
           {
             "name": "expression",
             "type": "string",
-            "description": "An expression to evaluate."
+//@            "description": "An expression to evaluate."
+            "description": "需要求值的表达式。"
           },
           {
             "name": "callback",
             "type": "function",
-            "description": "A function called when evaluation completes.",
+//@            "description": "A function called when evaluation completes.",
+            "description": "求值完成时调用的函数。",
             "optional": true,
             "parameters": [
               {
                 "name": "result",
                 "type": "object",
                 "additionalProperties": {"type": "any"},
-                "description": "The result of evaluation."
+//@                "description": "The result of evaluation."
+                "description": "求值结果。"
               },
               {
                 "name": "isException",
                 "type": "boolean",
-                "description": "Set if an exception was caught while evaluating the expression."
+//@                "description": "Set if an exception was caught while evaluating the expression."
+                "description": "如果计算表达式的过程中产生异常则设为 true。"
               }
             ]
           }
@@ -118,7 +135,8 @@
       {
         "name": "reload",
         "type": "function",
-        "description": "Reloads the inspected page.",
+//@        "description": "Reloads the inspected page.",
+        "description": "重新载入审查的页面。",
         "parameters": [
           {
             "type": "object",
@@ -128,17 +146,20 @@
               "ignoreCache": {
                 "type": "boolean",
                 "optional": true,
-                "description": "When true, the loader will ignore the cache for all inspected page resources loaded before the <code>load</code> event is fired. The effect is similar to pressing Ctrl+Shift+R in the inspected window or within the Developer Tools window."
+//@                "description": "When true, the loader will ignore the cache for all inspected page resources loaded before the <code>load</code> event is fired. The effect is similar to pressing Ctrl+Shift+R in the inspected window or within the Developer Tools window."
+                "description": "当设置为 true 时，载入器将忽略所有在 <code>load</code> 事件产生前载入的审查页面资源的缓存，效果类似于在审查的窗口或开发者工具窗口中按下 Ctrl+Shift+R。"
               },
               "userAgent": {
                 "type": "string",
                 "optional": true,
-                "description": "If specified, the string will override the value of the <code>User-Agent</code> HTTP header that's sent while loading the resources of the inspected page. The string will also override the value of the <code>navigator.userAgent</code> property that's returned to any scripts that are running within the inspected page."
+//@                "description": "If specified, the string will override the value of the <code>User-Agent</code> HTTP header that's sent while loading the resources of the inspected page. The string will also override the value of the <code>navigator.userAgent</code> property that's returned to any scripts that are running within the inspected page."
+                "description": "如果指定的话，这一字符串会替代载入审查页面的资源时发送的 HTTP 头信息中的 <code>User-Agent</code> 值，这一字符串也会替代返回给审查的页面中运行的所有脚本的 <code>naviagtor.userAgent</code> 属性。"
               },
               "injectedScript": {
                 "type": "string",
                 "optional": true,
-                "description": "If specified, the script will be injected into every frame of the inspected page immediately upon load, before any of the frame's scripts. The script will not be injected after subsequent reloads&mdash;for example, if the user presses Ctrl+R."
+//@                "description": "If specified, the script will be injected into every frame of the inspected page immediately upon load, before any of the frame's scripts. The script will not be injected after subsequent reloads&mdash;for example, if the user presses Ctrl+R."
+                "description": "如果指定的话，这一脚本将会在刚开始载入时，在任何框架的脚本之前插入至审查页面的每一个框架。这一脚本在以后的重新载入中不会插入——例如，如果用户按下 Ctrl+R。"
               }
             }
           }
@@ -147,18 +168,21 @@
       {
         "name": "getResources",
         "type": "function",
-        "description": "Retrieves the list of resources from the inspected page.",
+//@        "description": "Retrieves the list of resources from the inspected page.",
+        "description": "从审查的页面中获取所有资源的列表。",
         "parameters": [
           {
             "name": "callback",
             "type": "function",
-            "description": "A function that receives the list of resources when the request completes.",
+//@            "description": "A function that receives the list of resources when the request completes.",
+            "description": "请求完成时接收资源列表的函数。",
             "parameters": [
               {
                 "name": "resources",
                 "type": "array",
                 "items": { "$ref": "Resource" },
-                "description": "The resources within the page."
+//@                "description": "The resources within the page."
+                "description": "页面中的资源。"
               }
             ]
           }
@@ -168,7 +192,8 @@
     "events": [
       {
         "name": "onResourceAdded",
-        "description": "Fired when a new resource is added to the inspected page.",
+//@        "description": "Fired when a new resource is added to the inspected page.",
+        "description": "当新资源添加到审查的页面中时产生。",
         "parameters": [
           {
             "name": "resource",
@@ -178,7 +203,8 @@
       },
       {
         "name": "onResourceContentCommitted",
-        "description": "Fired when a new revision of the resource is committed (e.g. user saves an edited version of the resource in the Developer Tools).",
+//@        "description": "Fired when a new revision of the resource is committed (e.g. user saves an edited version of the resource in the Developer Tools).",
+        "description": "当新版本的资源提交（例如用户在开发者工具中保存了某一资源编辑之后的版本）时产生。",
         "parameters": [
           {
             "name": "resource",
@@ -187,7 +213,8 @@
           {
             "name": "content",
             "type": "string",
-            "description": "New content of the resource."
+//@            "description": "New content of the resource."
+            "description": "资源的新内容。"
           }
         ]
       }

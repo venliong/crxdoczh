@@ -56,6 +56,7 @@
           'media_galleries_private.idl',
           'networking_private.json',
           'page_capture.json',
+          'page_launcher.idl',
           'permissions.json',
           'push_messaging.idl',
           'rtc_private.idl',
@@ -77,6 +78,10 @@
         'cc_dir': 'chrome/common/extensions/api',
         'root_namespace': 'extensions::api',
       },
+      'dependencies': [
+        '<(DEPTH)/skia/skia.gyp:skia',
+        '<(DEPTH)/sync/sync.gyp:sync',
+      ],
       'conditions': [
         ['OS=="android"', {
           'schema_files!': [

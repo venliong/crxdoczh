@@ -1,30 +1,34 @@
-<h1>Before You Start</h1>
+<h1><!--@Before You Start-->在您开始之前</h1>
 
 
 <p>
-This documentation tells you how to write packaged apps.
+<!--@This documentation tells you how to write packaged apps.
 All developers, however, should know that the new APIs
 for packaged apps are being released as a developer preview.
 This means that they are evolving daily,
 and anything you read now might be different in the near future.
 Please keep up to date with the API reference and documentation.
 If you hit any stumbling blocks,
-feedback is welcome at
-<a href="http://groups.google.com/a/chromium.org/group/chromium-apps">#chromium-apps</a>
+feedback is welcome at-->
+该文档向您介绍了如何编写打包应用。然而所有开发者都应该知道用于打包应用的新
+API
+正在以开发者预览的方式发布，这意味着它们每天都在变化，您现在阅读到的任何内容在不远的将来都有可能变化。请随时保持阅读最新的
+API 参考和文档。如果您遇到任何问题，欢迎在
+<a href="https://groups.google.com/a/chromium.org/group/chromium-apps">#chromium-apps</a>（英文）反馈。
 </p>
 
 <p class="caution">
-<b>Note:</b>
+<b><!--@Note:-->注意：</b><!--@
 If you've written packaged apps before,
 your <a href="http://developer.chrome.com/trunk/extensions/apps.html">legacy packaged apps</a>
 will still work the way they always have,
-but they won't have access to the new APIs.
+but they won't have access to the new APIs.-->如果您以前曾经写过打包应用，您<a href="../extensions/apps.html">遗留的打包应用</a>仍然会像以前那样继续工作，但是它们无法访问新的 API。
 </p>
 
-<h2 id="start">Where to start</h2>
+<h2 id="start"><!--@Where to start-->从哪里开始</h2>
 
 <p>
-The <a href="about_apps.html">Getting Started</a> guide is a great place to start.
+<!--@The <a href="about_apps.html">Getting Started</a> guide is a great place to start.
 It's fast reading; shouldn't take more than 10 minutes to read all three docs.
 After the Getting Started guide,
 decide what's most relevant to you.
@@ -33,17 +37,24 @@ the details of the app and data lifecycle,
 or learn more about good app design
 by reading <a href="app_frameworks.html">MVC Architecture</a>.
 We've also got lots of sample code in our repository
-that is linked to directly from the documentation.
+that is linked to directly from the documentation.-->
+<a href="about_apps.html">入门</a>指南是一个很好的起点，它读起来很快，读完所有这三个文档不会超过
+10
+分钟。入门指南之后，确定哪些与您最相关。<a href="app_lifecycle.html">基础知识</a>指南涉及了应用与数据生命周期的详情，您也可以阅读
+<a href="app_frameworks.html">MVC
+架构</a>了解有关良好的应用设计的更多内容。我们在代码库中也提供了大量的示例代码，文档中都有直接的链接。
 </p>
 
 <p>
-If you're familiar with the Chrome extension docs,
+<!--@If you're familiar with the Chrome extension docs,
 then the Reference docs should seem familiar.
 Packaged apps and extensions share a common platform.
 They can access many of the same APIs,
 they have the same manifest and permissions format.
 Many of the reference docs are shared;
-we've filtered accessibility to docs that aren't shared.
+we've filtered accessibility to docs that aren't shared.-->
+如果您熟悉 Chrome
+扩展程序文档，那么参考文档看上去一定很熟悉。打包应用和扩展程序公用同一个平台，它们可以访问许多相同的
+API，它们具有相同的清单文件与权限格式。许多参考文档都是共享的，我们已经过滤掉了不能共享的文档的访问。
 </p>
 
-<p class="backtotop"><a href="#top">Back to top</a></p>
