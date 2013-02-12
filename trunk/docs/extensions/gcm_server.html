@@ -6,7 +6,7 @@
     <link href="/trunk/static/css/print.css" rel="stylesheet" type="text/css" media="print">
     <link href="/trunk/static/css/prettify.css" rel="stylesheet" type="text/css">
     <link href="//www.google.com/images/icons/product/chrome-16.png" rel="icon" type="image/ico">
-    <title>API Reference for GCM service - Google Chrome</title>
+    <title>GCM 服务的 API 参考 - Google Chrome</title>
   </head>
   <body>
     <div id="branchWarning" class="displayModeWarning">
@@ -75,7 +75,7 @@
                 <a href="whats_new.html" class="level2 ">新增功能</a>
           </li>
           <li class="level2">
-                <a href="devguide.html" class="level2 "></a>
+                <a href="devguide.html" class="level2 ">开发者指南</a>
               <ul 
                   class="level2 ">
                 <li class="level3">
@@ -260,26 +260,26 @@
         </ul>
       </div>
       <div id="gc-pagecontent">
-        <h1 class="page_title">API Reference for GCM service</h1>
+        <h1 class="page_title">GCM 服务的 API 参考</h1>
         <div id="toc">
           <h2><!--@Contents-->目录</h2>
           <ol>
             <li>
-              <a href=#libraries>Google API client libraries</a>
+              <a href=#libraries>Google APIs 客户端库</a>
             </li>
             <li>
-              <a href=#insert>Insert method</a>
+              <a href=#insert>insert 方法</a>
             </li>
             <li>
-              <a href=#authorization>Authentication</a>
+              <a href=#authorization>认证</a>
               <ol>
-                <li><a href=#url>URL</a></li><li><a href=#parameters>Required parameters</a></li><li><a href=#response>Response</a></li>
+                <li><a href=#url>URL</a></li><li><a href=#parameters>必选参数</a></li><li><a href=#response>响应</a></li>
               </ol>
             </li>
             <li>
-              <a href=#request>Message request</a>
+              <a href=#request>消息请求</a>
               <ol>
-                <li><a href=#http>HTTP request</a></li><li><a href=#body>Request body</a></li>
+                <li><a href=#http>HTTP 请求</a></li><li><a href=#body>请求正文</a></li>
               </ol>
             </li>
           </ol>
@@ -289,154 +289,189 @@
 
 
 <p>
-The <a href="cloudMessaging.html">Google Cloud Messaging for Chrome</a> service
+<!--@The <a href="cloudMessaging.html">Google Cloud Messaging for Chrome</a> service
 sends messages to users of a Chrome packaged app.
 The service handles all aspects of queueing and delivering messages.
 To use the service,
 you must agree to the
-<a href="gcm_tos.html">Google Cloud Messaging for Chrome API Terms of Service</a>.
+<a href="gcm_tos.html">Google Cloud Messaging for Chrome API Terms of Service</a>.-->
+<a href="cloudMessaging.html">用于 Chrome 浏览器的 Google 云消息服务</a>向
+Chrome
+打包应用的用户发送消息，该服务处理了消息队列以及传递消息的各个方面。要使用这一服务，您必须同意
+<a href="gcm_tos.html">Google Cloud Messaging for Chrome API 服务条款</a>。
 </p>
 
-<p>Messages must conform to these constraints:</p>
+<p><!--@Messages must conform to these constraints:-->消息必须遵守这些约束：</p>
 
 <ul>
-	<li><strong>Maximum payload length:</strong> 256 bytes</li>
-	<li><strong>Maxium subchannels:</strong> 4</li>
-	<li><strong>Maximum API requests per day:</strong> 10,000</li>
+	<li><strong><!--@Maximum payload length:-->最大内容长度：</strong> 256 <--@bytes-->字节</li>
+	<li><strong><!--@Maxium subchannels:--></strong> 4</li>
+	<li><strong><!--@Maximum API requests per day:-->每天最大 API 请求数：</strong> 10,000</li>
 </ul>
 
-<h2 id="libraries">Google API client libraries</h2>
+<h2 id="libraries"><!--@Google API client libraries-->Google APIs 客户端库</h2>
 
 <p>
-You may use the REST interface defined here
+<!--@You may use the REST interface defined here
 to access Google Cloud Messaging for Chrome from your application.
 We also offer Google API client libraries for a number
 of popular programming languages that can be used to access the API.
-For more information, see
-<a href="https://developers.google.com/api-client-library">Google APIs Client Libraries</a>.
+For more information, see-->
+您可以使用这里定义的 REST 接口在您的应用程序中访问 Chrome 浏览器的 Google
+云消息服务，我们还为几种可以用来访问该 API 的流行语言提供了 Google API
+客户端库。有关更多信息，请参见
+<a href="https://developers.google.com/api-client-library">Google APIs <!--@Client Libraries-->客户端库</a><!--@.-->。
 </p>
 
-<h2 id="insert">Insert method</h2>
+<h2 id="insert"><!--@Insert method-->insert 方法</h2>
 
 <p>
-The <code>gcm_for_chrome.messages.insert</code>
-method sends a message to your app or extension user.
+<!--@The--> <code>gcm_for_chrome.messages.insert</code>
+<!--@method sends a message to your app or extension user.-->
+方法向您的应用程序或扩展程序用户发送消息。
 </p>
 
-<h2 id="authorization">Authentication</h3>
+<h2 id="authorization"><!--@Authentication-->认证</h3>
 
 <p>
-Authentication is required to send messages to users.
+<!--@Authentication is required to send messages to users.
 <a href="https://developers.google.com/accounts/docs/OAuth2WebServer">Using OAuth 2.0 for Web Server Applications</a>
-describes this in greater detail.
+describes this in greater detail.-->
+向用户发送消息之前首先需要认证。<a href="https://developers.google.com/accounts/docs/OAuth2WebServer">在
+Web 服务器应用程序中使用 OAuth 2.0</a> 详细描述了这一步。
 </p>
 
 <h3 id="url">URL</h3>
 
 <p>
-The URL used to obtain access to the GCM for Chrome service:
+<!--@The URL used to obtain access to the GCM for Chrome service:-->
+用来获取对 GCM 服务的访问的 URL 为：
 <code>https://accounts.google.com/o/auth2/auth</code>
 </p>.
 
-<h3 id="parameters">Required parameters</h3>
+<h3 id="parameters"><!--@Required parameters-->必选参数</h3>
 <p>
-The required set of query string parameters are:
+<!--@The required set of query string parameters are:-->
+查询字符串的必选参数为：
 </p>
 
 <table>
   <tr>
-    <th scope="col">Parameter</th>
-    <th scope="col">Description</th>
+    <th scope="col"><!--@Parameter-->参数</th>
+    <th scope="col"><!--@Description-->描述</th>
   </tr>
   <tr>
     <td><code>client_id</code></td>
-    <td>Indicates the app or extension client that is making the request.
-    Obtained from the <a href="https://code.google.com/apis/console/">Google APIs Console</a>;
+    <td><!--@Indicates the app or extension client that is making the request.
+    Obtained from the-->
+    表示发送请求的应用程序或扩展程序，可以从
+    <a href="https://code.google.com/apis/console/">Google APIs <!--@Console-->控制台</a><!--@;
     the parameter value must exactly match the client ID shown
-    in the console.
+    in the console.-->获取，参数值必须完全匹配控制台中显示的客户端标识符。
     </td>
   </tr>
   <tr>
     <td><code>client_secret</code></td>
-    <td>The client secret obtained during registration in
-    	<a href="https://code.google.com/apis/console/">Google APIs Console</a>.</td>
+    <td><!--@The client secret obtained during registration in-->
+    在
+    	<a href="https://code.google.com/apis/console/">Google APIs <!--@Console-->控制台</a><!--@.-->注册的过程中获取的客户端密钥。</td>
   </tr>
   <tr>
     <td><code>refresh_token</code></td>
-    <td>Token associated with app or extension used to obtain new access token.</td>
+    <td><!--@Token associated with app or extension used to obtain new access token.-->
+    与应用或扩展程序相关联的令牌，用于获取新的访问令牌。
+    </td>
   </tr>
   <tr>
     <td><code>grant_type</code></td>
-    <td>The <code>authorization_code</code> value of <code>refresh_token</code>.</td>
+    <td><!--@The <code>authorization_code</code> value of <code>refresh_token</code>.-->
+    <code>refresh_token</code> 的 <code>authorization_code</code> 值。
+    </td>
   </tr>
 </table>
 
-<h3 id="response">Response</h3>
+<h3 id="response"><!--@Response-->响应</h3>
 
 <p>
-The authorization response includes:
+<!--@The authorization response includes:-->
+认证响应包括：
 </p>
 
 <table>
   <tr>
-    <th scope="col">Field</th>
-    <th scope="col">Description</th>
+    <th scope="col"><!--@Field-->字段</th>
+    <th scope="col"><!--@Description-->描述</th>
   </tr>
   <tr>
     <td><code>access_token</code></td>
-    <td>Valid token required to access the GCM for Chrome service.</td>
+    <td><!--@Valid token required to access the GCM for Chrome service.-->
+    访问用于 Chrome 浏览器的 GCM 服务所需的有效令牌。
+    </td>
   </tr>
   <tr>
     <td><code>expires_in</code></td>
-    <td>Time until access token expires in seconds.</td>
+    <td><!--@Time until access token expires in seconds.-->
+    访问令牌过期的时间，以秒为单位。
+    </td>
   </tr>
   <tr>
     <td><code>token_type</code></td>
-    <td>The returned token type, <code>Bearer</code>.</td>
+    <td><!--@The returned token type, <code>Bearer</code>.-->
+    返回的令牌类型：<code>Bearer</code>。
+    </td>
   </tr>
 </table>
 
-<h2 id="request">Message request</h2>
+<h2 id="request"><!--@Message request-->消息请求</h2>
 
-<h3 id="http">HTTP request</h3>
+<h3 id="http">HTTP <!--@request-->请求</h3>
 
 <p><code>POST https://www.googleapis.com/gcm_for_chrome/v1/messages</code></p>
 
-<h3 id="body">Request body</h3>
+<h3 id="body"><!--@Request body-->请求正文</h3>
 
 <p>
-In the request body, supply:
+<!--@In the request body, supply:-->
+请在请求正文中提供：
 </p>
 
 <table>
   <tr>
-    <th scope="col">Parameter</th>
-    <th scope="col">Description</th>
+    <th scope="col"><!--@Parameter-->参数</th>
+    <th scope="col"><!--@Description-->描述</th>
   </tr>
   <tr>
     <td><code>Content-Type</code></td>
-    <td>The request body content type, <code>application/json</code>.</td>
+    <td><!--@The request body content type, -->
+    请求正文的内容类型：
+    <code>application/json</code><!--@.-->。</td>
   </tr>
   <tr>
     <td><code>Authorization</code></td>
-    <td><code>Bearer</code> HTTP header including access token, for example,
-    <code>Bearer 1/fFBGRNJru1FQd44AzqT3Zg</code>.</td>
+    <td><code>Bearer</code> HTTP <!--@header including access token, for example,-->
+    头信息包含访问令牌，例如：
+    <code>Bearer 1/fFBGRNJru1FQd44AzqT3Zg</code><!--@.-->。</td>
   </tr>
   <tr>
     <td><code>channelId</code></td>
-    <td>The app or extension channel ID required to push messages back to the app or extension.</td>
+    <td><!--@The app or extension channel ID required to push messages back to the app or extension.-->
+    应用或扩展程序的通道标识符，用来将消息推送回应用或扩展程序。
+    </td>
   </tr>
   <tr>
     <td><code>subchannelId</code></td>
-    <td>The subchannel to send the message on; only values 0-3 are valid.</td>
+    <td><!--@The subchannel to send the message on; only values 0-3 are valid.-->
+    发送消息的子通道，只有 0～3 之间的值才有效。
+    </td>
   </tr>
   <tr>
     <td><code>paylooad</code></td>
-    <td>The message body (up to 256 bytes).</td>
+    <td><!--@The message body (up to 256 bytes).-->
+    消息正文（最多 256 字节）。
+    </td>
   </tr>
 </table>
 
-<p class="backtotop"><a href="#top">Back to top</a></p>
       </div>
     </div>
   </body>

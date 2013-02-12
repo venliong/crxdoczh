@@ -76,7 +76,7 @@
                 <a href="whats_new.html" class="level2 ">新增功能</a>
           </li>
           <li class="level2">
-                <a href="devguide.html" class="level2 "></a>
+                <a href="devguide.html" class="level2 ">开发者指南</a>
               <ul 
                   class="level2 ">
                 <li class="level3">
@@ -312,7 +312,7 @@
                         </span>
                       </dt>
                       <dd>
-                        The id of the tab whose status changed.
+                        <!--@The id of the tab whose status changed.--> 状态更改的标签页标识符。
                       </dd>
                     </div>
                     <div>
@@ -327,7 +327,7 @@
                         </span>
                       </dt>
                       <dd>
-                        The new capture status of the tab.
+                        <!--@The new capture status of the tab.--> 新的标签页捕获状态。
                       </dd>
                     </div>
               </dl></dd>
@@ -423,7 +423,7 @@
                 </div>
                 <div class="description">
                   <p>
-                    Captures the visible area of the currently active tab. Extensions must have the "tabCapture" permission to use this method.
+                    <!--@Captures the visible area of the currently active tab. Extensions must have the "tabCapture" permission to use this method.--> 捕获当前活动标签页的可视区域，扩展程序必须拥有 "tabCapture" 权限才能使用该方法。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -439,7 +439,7 @@
                           </span>
                         </dt>
                         <dd>
-                          Configures the returned media stream.
+                          <!--@Configures the returned media stream.--> 配置返回的流媒体。
                         </dd>
                       </div>
                       <div>
@@ -454,7 +454,7 @@
                           </span>
                         </dt>
                         <dd>
-                          Callback with either the stream returned or null.
+                          <!--@Callback with either the stream returned or null.--> 传递返回的流媒体或 null 的回调函数。
                         </dd>
                       </div>
                   </dl>
@@ -488,7 +488,7 @@
                 </div>
                 <div class="description">
                   <p>
-                    Returns a list of tabs that have requested capture or are being captured, i.e. status != stopped and status != error. This allows extensions to inform the user that there is an existing tab capture that would prevent a new tab capture from succeeding (or to prevent redundant requests for the same tab).
+                    <!--@Returns a list of tabs that have requested capture or are being captured, i.e. status != stopped and status != error. This allows extensions to inform the user that there is an existing tab capture that would prevent a new tab capture from succeeding (or to prevent redundant requests for the same tab).--> 返回已经请求捕获或者正在捕获的标签页列表，即 status != "stopped" 并且 status != "error"。这样扩展程序就能告知用户已经存在标签页捕获，使新的标签页捕获不能成功（或者防止同一个标签页的重复请求）。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -536,7 +536,7 @@
                 </div>
                 <div class="description">
               <p>
-                    Event fired when the capture status of a tab changes. This allows extension authors to keep track of the capture status of tabs to keep UI elements like page actions and infobars in sync.
+                    <!--@Event fired when the capture status of a tab changes. This allows extension authors to keep track of the capture status of tabs to keep UI elements like page actions and infobars in sync.--> 标签页的捕获状态更改时产生该事件，这样扩展程序就能跟踪标签页的捕获状态，使用户界面元素（例如页面按钮及信息栏）保持同步。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
                       <div>  <a name="property-onStatusChanged-info"></a>  <dt>    <span class="variable">info</span>    <span class="property">      (                <a href="tabCapture.html#type-CaptureInfo">CaptureInfo</a>      )    </span>  </dt></div>

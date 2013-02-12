@@ -76,7 +76,7 @@
                 <a href="whats_new.html" class="level2 ">新增功能</a>
           </li>
           <li class="level2">
-                <a href="devguide.html" class="level2 "></a>
+                <a href="devguide.html" class="level2 ">开发者指南</a>
               <ul 
                   class="level2 ">
                 <li class="level3">
@@ -287,22 +287,24 @@
     <th scope="col"></th>
   </tr>
   <tr>
-    <td><strong>Description:</strong></td>
-    <td>Use <code>chrome.pushMessaging</code> to send message data
-    to app or extension users.</td>
+    <td><strong><!--@Description:-->描述：</strong></td>
+    <td><!--@Use-->使用 <code>chrome.pushMessaging</code> <!--@to send message data
+    to app or extension users.-->
+    向应用或扩展程序发送消息数据。
+    </td>
   </tr>
   <tr>
-    <td><strong>Availability:</strong></td>
-    <td>On target to be stable in Chrome 24</td>
+    <td><strong><!--@Availability:-->可用版本：</strong></td>
+    <td><!--@On target to be stable in Chrome 24-->将在 Google Chrome 24 中稳定。</td>
   </tr>
   <tr>
-    <td><strong>Permissions:</strong></td>
+    <td><strong><!--@Permissions:-->权限：</strong></td>
     <td><code>"pushMessaging"</code></td>
   </tr>
   <tr>
-    <td><strong>Learn more:</strong></td>
-    <td><a href="cloudMessaging.html">Google Cloud Messaging for Chrome</a>;<br>
-    <a href="gcm_server.html">API Reference for GCM service</a></td>
+    <td><strong><!--@Learn more:-->了解更多：</strong></td>
+    <td><a href="cloudMessaging.html"><!--@Google Cloud Messaging for Chrome-->用于 Chrome 浏览器的 Google 云消息服务</a>;<br>
+    <a href="gcm_server.html"><!--@API Reference for GCM service-->GCM 服务的 API 参考</a></td>
   </tr>
 </table>
         <h2 id="apiReference"><!--@API Reference: chrome.pushMessaging-->API 参考：chrome.pushMessaging</h2>
@@ -328,7 +330,7 @@
                         </span>
                       </dt>
                       <dd>
-                        The subchannel the message was sent on; only values 0-3 are valid.
+                        <!--@The subchannel the message was sent on; only values 0-3 are valid.--> 发送消息的子通道标识符，只有 0～3 之间的值有效。
                       </dd>
                     </div>
                     <div>
@@ -343,7 +345,7 @@
                         </span>
                       </dt>
                       <dd>
-                        The payload associated with the message, if any.
+                        <!--@The payload associated with the message, if any.--> 与消息相关联的内容，如果有的话。
                       </dd>
                     </div>
               </dl></dd>
@@ -369,7 +371,7 @@
                         </span>
                       </dt>
                       <dd>
-                        The channel ID for this app to use for push messaging.
+                        <!--@The channel ID for this app to use for push messaging.--> 该应用程序用于推送消息的通道标识符。
                       </dd>
                     </div>
               </dl></dd>
@@ -383,7 +385,7 @@
                 </div>
                 <div class="description">
                   <p>
-                    Retrieves the channel ID associated with this app or extension. Typically an app or extension will want to send this value to its application server so the server can use it to trigger push messages back to the app or extension. If the interactive flag is set, we will ask the user to log in when they are not already logged in.
+                    <!--@Retrieves the channel ID associated with this app or extension. Typically an app or extension will want to send this value to its application server so the server can use it to trigger push messages back to the app or extension. If the interactive flag is set, we will ask the user to log in when they are not already logged in.--> 接收与当前应用或扩展程序相关联的通道标识符。通常应用或扩展程序会将这一值发送至应用程序服务器，以便服务器使用它来触发发送回应用或扩展程序的推送消息。如果设置了 interactive 标志并且还没有登录的话我们将要求用户登录。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -443,10 +445,10 @@
                 </div>
                 <div class="description">
               <p>
-                    Fired when a push message has been received.
+                    <!--@Fired when a push message has been received.--> 接收到推送消息时产生。
                   </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                     <dl>
-                      <div>  <a name="property-onMessage-message"></a>  <dt>    <span class="variable">message</span>    <span class="property">      (                <a href="pushMessaging.html#type-Message">Message</a>      )    </span>  </dt>  <dd>    The details associated with the message.  </dd></div>
+                      <div>  <a name="property-onMessage-message"></a>  <dt>    <span class="variable">message</span>    <span class="property">      (                <a href="pushMessaging.html#type-Message">Message</a>      )    </span>  </dt>  <dd>    <!--@The details associated with the message.--> 与消息相关联的详情。  </dd></div>
                     </dl>
                 </div>
               </div>

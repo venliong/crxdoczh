@@ -76,7 +76,7 @@
                 <a href="whats_new.html" class="level2 ">新增功能</a>
           </li>
           <li class="level2">
-                <a href="devguide.html" class="level2 "></a>
+                <a href="devguide.html" class="level2 ">开发者指南</a>
               <ul 
                   class="level2 ">
                 <li class="level3">
@@ -269,10 +269,10 @@
           <h2><!--@Contents-->目录</h2>
           <ol>
             <li>
-              <a href=#overview>Overview</a>
+              <a href=#overview>概述</a>
             </li>
             <li>
-              <a href=#overview-examples>Examples</a>
+              <a href=#overview-examples>例子</a>
             </li>
             <li>
               <a href="#apiReference"><!--@API reference: -->API 参考：chrome.devtools.panels</a>
@@ -288,38 +288,54 @@
         </div>
 
 <p id="classSummary">
-Use the <code>chrome.devtools.panels</code> module to integrate
+<!--@Use the-->使用 <code>chrome.devtools.panels</code> <!--@module to integrate
 your extension into Developer Tools window UI: create your own panels, access
-existing panels, and add sidebars.
+existing panels, and add sidebars.-->
+模块将您的扩展程序整合到开发者工具窗口用户界面中：创建您自己的面板、访问现有的面板以及添加侧边栏。
 </p><p>
-See <a href="devtools.html">DevTools APIs summary</a> for
-general introduction to using Developer Tools APIs.
+<!--@See <a href="devtools.html">DevTools APIs summary</a> for
+general introduction to using Developer Tools APIs.-->
+有关使用开发者工具 API 的一般信息请参见<a href="devtools.html">开发者工具
+API 概述</a>。
 </p>
 
-<h2 id="overview">Overview</h2>
+<h2 id="overview"><!--@Overview-->概述</h2>
 
 <p>
-Each extension panel and sidebar is displayed as a separate HTML page. All
+<!--@Each extension panel and sidebar is displayed as a separate HTML page. All
 extension pages displayed in the Developer Tools window have access to all
 modules in <code>chrome.devtools</code> API, as well as to
 <a href="extension.html">chrome.extension</a> API. Other extension APIs are not
 available to the pages within Developer Tools window, but you may invoke them
 by sending a request to the background page of your extension, similarly to how
-it's done in the <a href="overview.html#contentScripts">content scripts</a>.
+it's done in the <a href="overview.html#contentScripts">content scripts</a>.-->
+每一个扩展程序面板和侧边栏显示为单独的 HTML
+页面。开发者工具窗口中显示的所有扩展程序页面都能访问
+<code>chrome.devtools</code> API 中的所有模块以及
+<a href="extension.html">chrome.extension</a> API，其他扩展程序 API
+对开发者工具窗口中的页面不可用，但是您可以向您的扩展程序的后台网页发送请求，调用这些 API，与您在<a href="overview.html#contentScripts">内容脚本</a>中所做的类似。
 </p><p>
-You can use the <code><a href="devtools.panels.html#method-setOpenResourceHandler">devtools.panels.setOpenResourceHandler</a>
+<!--@You can use the <code><a href="devtools.panels.html#method-setOpenResourceHandler">devtools.panels.setOpenResourceHandler</a>
 </code> method to install a
 callback function that handles user requests to open a resource (typically,
 a click on a resource link in the Developer Tools window). At most one of the
 installed handlers gets called; users can specify (using the Developer Tools
 Settings dialog) either the default behavior or an extension to handle resource
 open requests. If an extension calls <code>setOpenResourceHandler()</code>
-multiple times, only the last handler is retained.
+multiple times, only the last handler is retained.-->
+您可以使用
+<code><a href="devtools.panels.html#method-setOpenResourceHandler">devtools.panels.setOpenResourceHandler</a></code>
+方法安装一个回调函数，处理用户打开资源的请求（典型例子为在开发者工具窗口中单击资源链接）。已安装的处理函数中最多只有一个会被调用，用户可以指定（使用开发者工具的设置对话框）使用默认行为或者让扩展程序来处理资源打开的请求。如果扩展程序多次调用了
+<code>setOpenResourceHandler()</code>，只会保留最后一个处理函数。
 </p>
-<h2 id="overview-examples">Examples</h2>
-<p>The following code adds a panel contained in <code>Panel.html</code>,
+<h2 id="overview-examples"><!--@Examples-->例子</h2>
+<p><!--@The following code adds a panel contained in <code>Panel.html</code>,
 represented by <code>FontPicker.png</code> on the Developer Tools toolbar
-and labeled as <em>Font Picker</em>:</p>
+and labeled as <em>Font Picker</em>:-->
+以下代码添加一个面板，内容包含在 <code>Panel.html</code> 文件中，使用
+<code>FontPicker.png</code> 作为开发者工具的工具栏图标，并且标签为“Font
+Picker”（字体选择器）。
+</p>
 
 <pre>
 chrome.devtools.panels.create("Font Picker",
@@ -327,9 +343,11 @@ chrome.devtools.panels.create("Font Picker",
                               "Panel.html"
                               function(panel) { ... });
 </pre>
-<p>The following code adds a sidebar pane contained in
+<p><!--@The following code adds a sidebar pane contained in
 <code>Sidebar.html</code> and titled <em>Font Properties</em> to the Elements
-panel, then sets its height to <code>8ex</code>:
+panel, then sets its height to <code>8ex</code>:-->
+如下代码向 Elements（元素）面板添加一个侧边栏窗格，内容包含在
+<code>Sidebar.html</code> 文件中，标题为 <em>Font Properties</em>（字体属性），并将它的高度设置为 <code>8ex</code>：
 <pre>
 chrome.devtools.panels.elements.createSidebarPane("Font Properties",
     function(sidebar) {
@@ -338,8 +356,9 @@ chrome.devtools.panels.elements.createSidebarPane("Font Properties",
     });
 </pre>
 <p>
-This screenshot demonstrates the effect the above examples would have on
-Developer Tools window:
+<!--@This screenshot demonstrates the effect the above examples would have on
+Developer Tools window:-->
+如下屏幕截图演示以上例子在开发者工具窗口中的效果：
 
 <img src="/trunk/static/images/devtools-panels.png"
      style="margin-left: 20px"
@@ -348,8 +367,10 @@ Developer Tools window:
 </p>
 
 <p>
-You can find examples that use this API in
-<a href="samples.html#Chrome&#32;Query">Samples</a>.
+<!--@You can find examples that use this API in
+<a href="samples.html#Chrome&#32;Query">Samples</a>.-->
+您可以在<a href="samples.html#devtools.panels">示例</a>中找到使用这一
+API 的例子。
 </p>
         <h2 id="apiReference"><!--@API Reference: chrome.devtools.panels-->API 参考：chrome.devtools.panels</h2>
         <div class="api_reference">
@@ -359,7 +380,7 @@ You can find examples that use this API in
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Represents the Elements panel.
+                    代表元素面板。
                   </dd>    <h4 id="ElementsPanel-methods">
                     <!--@Methods of --><a href="#type-ElementsPanel">ElementsPanel</a>
                     的方法
@@ -371,7 +392,7 @@ You can find examples that use this API in
                       </div>
                       <div class="description">
                         <p>
-                          Creates a pane within panel's sidebar.
+                          在面板的侧边栏中创建窗格。
                         </p>
                         <h4><!--@Parameters-->参数</h4>
                         <dl>
@@ -387,7 +408,7 @@ You can find examples that use this API in
                                 </span>
                               </dt>
                               <dd>
-                                Text that is displayed in sidebar caption.
+                                显示在侧边栏标题中的文字。
                               </dd>
                             </div>
                             <div>
@@ -402,7 +423,7 @@ You can find examples that use this API in
                                 </span>
                               </dt>
                               <dd>
-                                A callback invoked when the sidebar is created.
+                                侧边栏创建时调用的函数。
                               </dd>
                             </div>
                         </dl>
@@ -426,7 +447,7 @@ You can find examples that use this API in
                                   </span>
                                 </dt>
                                 <dd>
-                                  An ExtensionSidebarPane object for created sidebar pane.
+                                  新创建的侧边栏窗格所对应的 ExtensionSidebarPane 对象。
                                 </dd>
                               </div>
                           </dl>
@@ -444,7 +465,7 @@ You can find examples that use this API in
                       </div>
                       <div class="description">
                     <p>
-                          Fired when an object is selected in the panel.
+                          当面板中某一对象选定时产生。
                         </p>  </div>
                     </div>
               </dl></dd>
@@ -455,7 +476,7 @@ You can find examples that use this API in
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    Represents a panel created by extension.
+                    代表扩展程序创建的面板。
                   </dd>    <h4 id="ExtensionPanel-methods">
                     <!--@Methods of --><a href="#type-ExtensionPanel">ExtensionPanel</a>
                     的方法
@@ -467,7 +488,7 @@ You can find examples that use this API in
                       </div>
                       <div class="description">
                         <p>
-                          Appends a button to the status bar of the panel.
+                          向面板状态栏添加一个按钮。
                         </p>
                         <h4><!--@Parameters-->参数</h4>
                         <dl>
@@ -483,7 +504,7 @@ You can find examples that use this API in
                                 </span>
                               </dt>
                               <dd>
-                                Path to the icon of the button. The file should contain a 64x24-pixel image composed of two 32x24 icons. The left icon is used when the button is inactive; the right icon is displayed when the button is pressed.
+                                指向按钮图标的路径。文件应该包含 64×24 像素的图片，由两个 32×24 像素的图标组成。左边的图标在按钮不活动时使用，右边的图标在按钮按下时显示。
                               </dd>
                             </div>
                             <div>
@@ -498,7 +519,7 @@ You can find examples that use this API in
                                 </span>
                               </dt>
                               <dd>
-                                Text shown as a tooltip when user hovers the mouse over the button.
+                                当用户将鼠标悬停在按钮上时显示为工具提示的文字。
                               </dd>
                             </div>
                             <div>
@@ -513,7 +534,7 @@ You can find examples that use this API in
                                 </span>
                               </dt>
                               <dd>
-                                Whether the button is disabled.
+                                按钮是否已禁用。
                               </dd>
                             </div>
                         </dl>
@@ -537,10 +558,10 @@ You can find examples that use this API in
                       </div>
                       <div class="description">
                     <p>
-                          Fired upon a search action (start of a new search, search result navigation, or search being canceled).
+                          进行搜索操作（新搜索的开始、搜索结果的导航或者搜索取消）时产生。
                         </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                           <dl>
-                            <div>  <a name="property-onSearch-action"></a>  <dt>    <span class="variable">action</span>    <span class="property">      (                string      )    </span>  </dt>  <dd>    Type of search action being performed.  </dd></div><div>  <a name="property-onSearch-queryString"></a>  <dt>    <span class="variable">queryString</span>    <span class="property">      (        <span class="optional">optional</span>        string      )    </span>  </dt>  <dd>    Query string (only for 'performSearch').  </dd></div>
+                            <div>  <a name="property-onSearch-action"></a>  <dt>    <span class="variable">action</span>    <span class="property">      (                string      )    </span>  </dt>  <dd>    正在进行的搜索操作类型。  </dd></div><div>  <a name="property-onSearch-queryString"></a>  <dt>    <span class="variable">queryString</span>    <span class="property">      (        <span class="optional">optional</span>        string      )    </span>  </dt>  <dd>    查询字符串（仅用于 'performSearch' 类型）。  </dd></div>
                           </dl>
                       </div>
                     </div>
@@ -551,10 +572,10 @@ You can find examples that use this API in
                       </div>
                       <div class="description">
                     <p>
-                          Fired when the user switches to the panel.
+                          当用户切换到这一面板时产生。
                         </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                           <dl>
-                            <div>  <a name="property-onShown-window"></a>  <dt>    <span class="variable">window</span>    <span class="property">      (                <a href="windows.html#type-Window">windows.Window</a>      )    </span>  </dt>  <dd>    The <code>window</code> object of panel's page.  </dd></div>
+                            <div>  <a name="property-onShown-window"></a>  <dt>    <span class="variable">window</span>    <span class="property">      (                <a href="windows.html#type-Window">windows.Window</a>      )    </span>  </dt>  <dd>    面板页面的 <code>Window</code> 对象。  </dd></div>
                           </dl>
                       </div>
                     </div>
@@ -565,7 +586,7 @@ You can find examples that use this API in
                       </div>
                       <div class="description">
                     <p>
-                          Fired when the user switches away from the panel.
+                          当用户切换至其他面板时产生。
                         </p>  </div>
                     </div>
               </dl></dd>
@@ -576,7 +597,7 @@ You can find examples that use this API in
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    A sidebar created by the extension.
+                    扩展程序创建的侧边栏。
                   </dd>    <h4 id="ExtensionSidebarPane-methods">
                     <!--@Methods of --><a href="#type-ExtensionSidebarPane">ExtensionSidebarPane</a>
                     的方法
@@ -588,7 +609,7 @@ You can find examples that use this API in
                       </div>
                       <div class="description">
                         <p>
-                          Sets the height of the sidebar.
+                          设置侧边栏高度。
                         </p>
                         <h4><!--@Parameters-->参数</h4>
                         <dl>
@@ -604,7 +625,7 @@ You can find examples that use this API in
                                 </span>
                               </dt>
                               <dd>
-                                A CSS-like size specification, such as <code>'100px'</code> or <code>'12ex'</code>.
+                                类似 CSS 中指定的大小，例如 <code>'100px'</code> 或 <code>'12ex'</code>。
                               </dd>
                             </div>
                         </dl>
@@ -617,7 +638,7 @@ You can find examples that use this API in
                       </div>
                       <div class="description">
                         <p>
-                          Sets an expression that is evaluated within the inspected page. The result is displayed in the sidebar pane.
+                          设置在审查的页面中求值的表达式，结果将显示在侧边栏窗格中。
                         </p>
                         <h4><!--@Parameters-->参数</h4>
                         <dl>
@@ -633,7 +654,7 @@ You can find examples that use this API in
                                 </span>
                               </dt>
                               <dd>
-                                An expression to be evaluated in context of the inspected page. JavaScript objects and DOM nodes are displayed in an expandable tree similar to the console/watch.
+                                要在审查的页面上下文中求值的表达式。JavaScript 对象以及 DOM 节点将显示为与控制台/监视中类似的可展开的树。
                               </dd>
                             </div>
                             <div>
@@ -648,7 +669,7 @@ You can find examples that use this API in
                                 </span>
                               </dt>
                               <dd>
-                                An optional title for the root of the expression tree.
+                                表达式树根节点标题（可选）。
                               </dd>
                             </div>
                             <div>
@@ -663,7 +684,7 @@ You can find examples that use this API in
                                 </span>
                               </dt>
                               <dd>
-                                A callback invoked after the sidebar pane is updated with the expression evaluation results.
+                                表达式求值结果在侧边栏窗格中更新后调用的回调函数。
                               </dd>
                             </div>
                         </dl>
@@ -683,7 +704,7 @@ You can find examples that use this API in
                       </div>
                       <div class="description">
                         <p>
-                          Sets a JSON-compliant object to be displayed in the sidebar pane.
+                          设置要显示在侧边栏窗格中的 JSON 对象。
                         </p>
                         <h4><!--@Parameters-->参数</h4>
                         <dl>
@@ -699,7 +720,7 @@ You can find examples that use this API in
                                 </span>
                               </dt>
                               <dd>
-                                An object to be displayed in context of the inspected page. Evaluated in the context of the caller (API client).
+                                要显示的审查页面上下文中的对象，在调用者（API 客户端）上下文中求值。
                               </dd>
                             </div>
                             <div>
@@ -714,7 +735,7 @@ You can find examples that use this API in
                                 </span>
                               </dt>
                               <dd>
-                                An optional title for the root of the expression tree.
+                                表达式树根节点标题（可选）。
                               </dd>
                             </div>
                             <div>
@@ -729,7 +750,7 @@ You can find examples that use this API in
                                 </span>
                               </dt>
                               <dd>
-                                A callback invoked after the sidebar is updated with the object.
+                                对象在侧边栏窗格中更新后调用的回调函数。
                               </dd>
                             </div>
                         </dl>
@@ -749,7 +770,7 @@ You can find examples that use this API in
                       </div>
                       <div class="description">
                         <p>
-                          Sets an HTML page to be displayed in the sidebar pane.
+                          设置显示在侧边栏窗格中的 HTML 页面。
                         </p>
                         <h4><!--@Parameters-->参数</h4>
                         <dl>
@@ -765,7 +786,7 @@ You can find examples that use this API in
                                 </span>
                               </dt>
                               <dd>
-                                Relative path of an extension page to display within the sidebar.
+                                显示在侧边栏中的扩展程序页面的相对路径。
                               </dd>
                             </div>
                         </dl>
@@ -783,10 +804,10 @@ You can find examples that use this API in
                       </div>
                       <div class="description">
                     <p>
-                          Fired when the sidebar pane becomes visible as a result of user switching to the panel that hosts it.
+                          当侧边栏窗格由于用户切换到包含它的面板而可见时产生。
                         </p>      <h4><!--@Listener Parameters-->监听器参数</h4>
                           <dl>
-                            <div>  <a name="property-onShown-window"></a>  <dt>    <span class="variable">window</span>    <span class="property">      (        <span class="optional">optional</span>        <a href="windows.html#type-Window">windows.Window</a>      )    </span>  </dt>  <dd>    The <code>window</code> object of the sidebar page, if one was set with the <code>setPage()</code> method.  </dd></div>
+                            <div>  <a name="property-onShown-window"></a>  <dt>    <span class="variable">window</span>    <span class="property">      (        <span class="optional">optional</span>        <a href="windows.html#type-Window">windows.Window</a>      )    </span>  </dt>  <dd>    侧边栏页面的 <code>Window</code> 对象，如果已经用 <code>setPage()</code> 方法设置过的话。  </dd></div>
                           </dl>
                       </div>
                     </div>
@@ -797,7 +818,7 @@ You can find examples that use this API in
                       </div>
                       <div class="description">
                     <p>
-                          Fired when the sidebar pane becomes hidden as a result of the user switching away from the panel that hosts the sidebar pane.
+                          当侧边栏窗格由于用户切换至其他面板而隐藏时产生。
                         </p>  </div>
                     </div>
               </dl></dd>
@@ -808,7 +829,7 @@ You can find examples that use this API in
                 <div>
                   <dt><span class="type_name">  (    object  )</span></dt>
               <dd>
-                    A button created by the extension.
+                    由扩展程序创建的按钮。
                   </dd>    <h4 id="Button-methods">
                     <!--@Methods of --><a href="#type-Button">Button</a>
                     的方法
@@ -820,7 +841,7 @@ You can find examples that use this API in
                       </div>
                       <div class="description">
                         <p>
-                          Updates the attributes of the button. If some of the arguments are omitted or <code>null</code>, the corresponding attributes are not updated.
+                          更新按钮属性。如果某些参数省略或者为 <code>null</code>，相应的属性就不更新。
                         </p>
                         <h4><!--@Parameters-->参数</h4>
                         <dl>
@@ -836,7 +857,7 @@ You can find examples that use this API in
                                 </span>
                               </dt>
                               <dd>
-                                Path to the new icon of the button.
+                                指向按钮新图标的路径。
                               </dd>
                             </div>
                             <div>
@@ -851,7 +872,7 @@ You can find examples that use this API in
                                 </span>
                               </dt>
                               <dd>
-                                Text shown as a tooltip when user hovers the mouse over the button.
+                                当用户将鼠标悬停在按钮上时显示为工具提示的文字。
                               </dd>
                             </div>
                             <div>
@@ -866,7 +887,7 @@ You can find examples that use this API in
                                 </span>
                               </dt>
                               <dd>
-                                Whether the button is disabled.
+                                按钮是否已禁用。
                               </dd>
                             </div>
                         </dl>
@@ -884,7 +905,7 @@ You can find examples that use this API in
                       </div>
                       <div class="description">
                     <p>
-                          Fired when the button is clicked.
+                          按钮单击时产生。
                         </p>  </div>
                     </div>
               </dl></dd>
@@ -899,7 +920,7 @@ You can find examples that use this API in
                 <div>
                   <dt><span class="property">elements</span> <span class="type_name">  (    <a href="devtools.panels.html#type-ElementsPanel">ElementsPanel</a>  )</span></dt>
               <dd>
-                    Elements panel.
+                    元素面板。
                   </dd>  </div>
               </div>
             <h3 id="methods"><!--@Methods-->方法</h3>
@@ -910,7 +931,7 @@ You can find examples that use this API in
                 </div>
                 <div class="description">
                   <p>
-                    Creates an extension panel.
+                    创建扩展程序面板。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -926,7 +947,7 @@ You can find examples that use this API in
                           </span>
                         </dt>
                         <dd>
-                          Title that is displayed next to the extension icon in the Developer Tools toolbar.
+                          在开发者工具的工具栏中显示在扩展程序图标旁的标题。
                         </dd>
                       </div>
                       <div>
@@ -941,7 +962,7 @@ You can find examples that use this API in
                           </span>
                         </dt>
                         <dd>
-                          Path of the panel's icon relative to the extension directory.
+                          面板图标的 URL，相对于扩展程序目录。
                         </dd>
                       </div>
                       <div>
@@ -956,7 +977,7 @@ You can find examples that use this API in
                           </span>
                         </dt>
                         <dd>
-                          Path of the panel's HTML page relative to the extension directory.
+                          面板的 HTML 页面 URL，相对于扩展程序目录。
                         </dd>
                       </div>
                       <div>
@@ -971,7 +992,7 @@ You can find examples that use this API in
                           </span>
                         </dt>
                         <dd>
-                          A function that is called when the panel is created.
+                          面板创建后调用的函数。
                         </dd>
                       </div>
                   </dl>
@@ -995,7 +1016,7 @@ You can find examples that use this API in
                             </span>
                           </dt>
                           <dd>
-                            An ExtensionPanel object representing the created panel.
+                            代表已创建面板的 ExtensionPanel 对象。
                           </dd>
                         </div>
                     </dl>
@@ -1008,7 +1029,7 @@ You can find examples that use this API in
                 </div>
                 <div class="description">
                   <p>
-                    Specifies the function to be called when the user clicks a resource link in the Developer Tools window. To unset the handler, either call the method with no parameters or pass null as the parameter.
+                    指定当用户单击开发者工具窗口中的某个资源链接时要调用的函数。要取消这一处理函数，不带参数调用这一方法或者传递 null 作为参数。
                   </p>
                   <h4><!--@Parameters-->参数</h4>
                   <dl>
@@ -1024,7 +1045,7 @@ You can find examples that use this API in
                           </span>
                         </dt>
                         <dd>
-                          A function that is called when the user clicks on a valid resource link in Developer Tools window. Note that if the user clicks an invalid URL or an XHR, this function is not called.
+                          当用户单击开发者工具窗口中的某个有效资源链接时调用的函数。注意，如果用户单击了无效的 URL 或者 XHR，不会调用这一函数。
                         </dd>
                       </div>
                   </dl>
@@ -1048,7 +1069,7 @@ You can find examples that use this API in
                             </span>
                           </dt>
                           <dd>
-                            A <a href="devtools.inspectedWindow.html#type-Resource">devtools.inspectedWindow.Resource</a> object for the resource that was clicked.
+                            单击的资源对应的 <a href="devtools.inspectedWindow.html#type-Resource">devtools.inspectedWindow.Resource</a> 对象。
                           </dd>
                         </div>
                     </dl>

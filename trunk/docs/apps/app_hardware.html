@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="/trunk/static/css/site.css" rel="stylesheet" type="text/css">
+    <link href="/trunk/static/css/print.css" rel="stylesheet" type="text/css" media="print">
+    <link href="/trunk/static/css/prettify.css" rel="stylesheet" type="text/css">
+    <link href="//www.google.com/images/icons/product/chrome-16.png" rel="icon" type="image/ico">
+    <title>Accessing Hardware Devices - Google Chrome</title>
+  </head>
+  <body>
+    <a id="top"></a>
+    <div id="header">
+      <span id="logo">
+        <a href="http://code.google.com/" id="view-original"><img src="/trunk/static/images/chrome_logo.gif" alt="单击此处查看英文原文"></a>
+        <script type="text/javascript">
+          document.getElementById('view-original').href = "https://developer.chrome.com" + location.pathname;
+        </script>
+      </span>
+      <span id="cse">
+        <gcse:searchbox-only enableAutoComplete="true" autoCompleteMatchTyple="prefix"></gcse:searchbox-only>
+      </span>
+    </div>
+    <a id="gc-topnav-anchor"></a>
+    <div id="gc-topnav">
+      <h1>Google Chrome 应用（非官方中文版）</h1>
+      <ul id="home" class="gc-topnav-tabs">
+        <li id="home_link">
+          <!--@<a href="index.html" title="Google Chrome 应用 home page"><div>Home</div></a>-->
+          <a href="index.html" title="Google Chrome 应用主页"><div>主页</div></a>
+        </li>
+        <li id="docs_link">
+          <!--@<a href="docs.html" title="Official Google Chrome 应用 documentation"><div>Docs</div></a>-->
+          <a href="docs.html" title="Google Chrome 应用文档"><div>文档</div></a>
+        </li>
+        <li id="faq_link">
+          <!--@<a href="faq.html" title="Answers to frequently asked questions about Google Chrome 应用"><div>FAQ</div></a>-->
+          <a href="faq.html" title="关于 Google Chrome 应用常见问题的答案"><div>常见问题</div></a>
+        </li>
+        <li id="samples_link">
+          <!--@<a href="samples.html" title="Sample 应用 (with source code)"><div>Samples</div></a>-->
+          <a href="samples.html" title="示例应用（包含源代码）"><div>示例</div></a>
+        </li>
+        <li id="group_link">
+          <!--<a href="http://groups.google.com/a/chromium.org/group/chromium-extensions" title="Google Chrome 应用 developer forum"><div>Group</div></a>-->
+          <a href="http://groups.google.com/a/chromium.org/group/chromium-extensions" title="Google Chrome 应用开发人员论坛"><div>论坛（英文）</div></a>
+        </li>
+        <li id="so_link">
+          <!--<a href="http://stackoverflow.com/questions/tagged/google-chrome-extension" title="[google-chrome-extension] tag on Stack Overflow"><div>Questions?</div></a>-->
+          <a href="http://stackoverflow.com/questions/tagged/google-chrome-extension" title="Stack Overflow 上的 [google-chrome-extension] 标签"><div>问题？（英文）</div></a>
+        </li>
+      </ul>
+    </div>
+    <div id="gc-container">
+      <div id="gc-sidebar">
+        <ul 
+            class="level1 ">
+          <li class="level2">
+                <span class="level2">入门</span>
+              <ul 
+                  class="level2 ">
+                <li class="level3">
+                      <a href="about_apps.html" class="level3 ">什么是打包应用？</a>
+                </li>
+                <li class="level3">
+                      <a href="app_architecture.html" class="level3 ">理解架构</a>
+                </li>
+                <li class="level3">
+                      <a href="first_app.html" class="level3 ">创建您的第一个应用</a>
+                </li>
+              </ul>
+          </li>
+          <li class="level2">
+                <span class="level2">开发</span>
+              <ul 
+                  class="level2 ">
+                <li class="level3">
+                      <a href="develop_apps.html" class="level3 ">在您开始之前</a>
+                </li>
+                <li class="level3">
+                    <a class="button level3">
+                      <span class="level3">基础知识</span>
+                      <div class="toggleIndicator level3"></div>
+                    </a>
+                    <ul toggleable
+                        class="level3 hidden">
+                      <li class="level4">
+                            <a href="app_lifecycle.html" class="level4 ">Manage App Lifecycle</a>
+                      </li>
+                      <li class="level4">
+                            <a href="app_storage.html" class="level4 ">Manage Data</a>
+                      </li>
+                      <li class="level4">
+                            <a href="offline_apps.html" class="level4 ">首先考虑离线</a>
+                      </li>
+                      <li class="level4">
+                            <a href="app_external.html" class="level4 ">嵌入内容</a>
+                      </li>
+                    </ul>
+                </li>
+                <li class="level3">
+                    <a class="button level3">
+                      <span class="level3">安全和隐私权</span>
+                      <div class="toggleIndicator level3"></div>
+                    </a>
+                    <ul toggleable
+                        class="level3 hidden">
+                      <li class="level4">
+                            <a href="app_identity.html" class="level4 ">Identify User</a>
+                      </li>
+                      <li class="level4">
+                            <a href="app_csp.html" class="level4 ">Comply with CSP</a>
+                      </li>
+                    </ul>
+                </li>
+                <li class="level3">
+                    <a class="button level3">
+                      <span class="level3">通知</span>
+                      <div class="toggleIndicator level3"></div>
+                    </a>
+                    <ul toggleable
+                        class="level3 hidden">
+                      <li class="level4">
+                          <a class="button level4">
+                            <span class="level4">云消息服务</span>
+                            <div class="toggleIndicator level4"></div>
+                          </a>
+                          <ul toggleable
+                              class="level4 hidden">
+                            <li class="level5">
+                                  <a href="cloudMessaging.html" class="level5 ">关于云消息服务</a>
+                            </li>
+                            <li class="level5">
+                                  <a href="pushMessaging.html" class="level5 ">客户端参考</a>
+                            </li>
+                            <li class="level5">
+                                  <a href="gcm_server.html" class="level5 ">服务参考</a>
+                            </li>
+                            <li class="level5">
+                                  <a href="gcm_tos.html" class="level5 ">服务条款</a>
+                            </li>
+                          </ul>
+                      </li>
+                      <li class="level4">
+                            <a href="notifications.html" class="level4 ">桌面通知</a>
+                      </li>
+                    </ul>
+                </li>
+                <li class="level3">
+                    <a class="button level3">
+                      <span class="level3">高级技术</span>
+                      <div class="toggleIndicator level3 toggled"></div>
+                    </a>
+                    <ul toggleable
+                        class="level3 ">
+                      <li class="level4">
+                            <a href="app_network.html" class="level4 ">Network Communications</a>
+                      </li>
+                      <li class="level4">
+                            <a  class="level4 selected">Access Hardware Devices</a>
+                      </li>
+                    </ul>
+                </li>
+                <li class="level3">
+                    <a class="button level3">
+                      <span class="level3">MVC 架构</span>
+                      <div class="toggleIndicator level3"></div>
+                    </a>
+                    <ul toggleable
+                        class="level3 hidden">
+                      <li class="level4">
+                            <a href="app_frameworks.html" class="level4 ">关于 MVC 架构</a>
+                      </li>
+                      <li class="level4">
+                            <a href="angular_framework.html" class="level4 ">用 AngularJS 建立应用</a>
+                      </li>
+                      <li class="level4">
+                            <a href="sencha_framework.html" class="level4 ">Build Apps with Sencha Ext JS</a>
+                      </li>
+                    </ul>
+                </li>
+              </ul>
+          </li>
+          <li class="level2">
+                <span class="level2">部署</span>
+              <ul 
+                  class="level2 ">
+                <li class="level3">
+                      <a href="publish_app.html" class="level3 ">发布</a>
+                </li>
+              </ul>
+          </li>
+          <li class="level2">
+                <span class="level2">参考</span>
+              <ul 
+                  class="level2 ">
+                <li class="level3">
+                      <a href="manifest.html" class="level3 ">清单文件</a>
+                </li>
+                <li class="level3">
+                      <a href="api_index.html" class="level3 ">Chrome 浏览器的 JavaScript API</a>
+                </li>
+                <li class="level3">
+                      <a href="api_other.html" class="level3 ">支持的库</a>
+                </li>
+                <li class="level3">
+                      <a href="app_deprecated.html" class="level3 ">禁用的网页特性</a>
+                </li>
+              </ul>
+          </li>
+          <li class="level2">
+                <a href="samples.html" class="level2 ">示例</a>
+          </li>
+          <li class="level2">
+                <a href="app_known_issues.html" class="level2 ">Known Issues</a>
+          </li>
+        </ul>
+      </div>
+      <div id="gc-pagecontent">
+        <h1 class="page_title">Accessing Hardware Devices</h1>
+        <div id="toc">
+          <h2><!--@Contents-->目录</h2>
+          <ol>
+            <li>
+              <a href=#usb>Accessing USB devices</a>
+              <ol>
+                <li><a href=#manifest>Manifest requirement</a></li><li><a href=#finding_device>Finding a device</a></li><li><a href=#usb_transfers>USB transfers and receiving data from a device</a></li><li><a href=#control_transfers>CONTROL transfers</a></li><li><a href=#isochronous_transfers>ISOCHRONOUS transfers</a></li><li><a href=#bulk_transfers>BULK transfers</a></li><li><a href=#interrupt_transfers>INTERRUPT transfers</a></li><li><a href=#caveats>Caveats</a></li>
+              </ol>
+            </li>
+            <li>
+              <a href=#serial>Accessing serial devices</a>
+              <ol>
+                <li><a href=#requirement>Manifest requirement</a></li><li><a href=#listing>Listing available serial ports</a></li><li><a href=#opening>Opening a serial device</a></li><li><a href=#closing>Closing a serial port</a></li><li><a href=#reading>Reading from a serial port</a></li><li><a href=#writing>Writing to a serial port</a></li><li><a href=#flushing>Flushing a serial port buffer</a></li>
+              </ol>
+            </li>
+          </ol>
+        </div>
+
+
+
+<p>
+This doc shows you how packaged apps can connect to USB devices
+and read from and write to a user's serial ports.
+See also the reference docs for the
+<a href="usb.html">USB API</a>
+and the
+<a href="serial.html">Serial API</a>.
+The <a href="bluetooth.html">Bluetooth API</a> is also available
+(<a href="app_known_issues.html">known issues</a> still to be resolved);
+we've include a link to a Bluetooth sample below.
+</p>
+
+<p class="note">
+<b>API Samples: </b>
+Want to play with the code?
+Check out the
+<a href="https://github.com/GoogleChrome/chrome-app-samples/tree/master/serial">serial</a>,
+<a href="https://github.com/GoogleChrome/chrome-app-samples/tree/master/servo">servo</a>,
+<a href="https://github.com/GoogleChrome/chrome-app-samples/tree/master/usb">usb</a>,
+and <a href="https://github.com/GoogleChrome/chrome-app-samples/tree/master/zephyr_hxm">zephyr_hxm Bluetooth</a> samples.
+</p>
+
+<h2 id="usb">Accessing USB devices</h2>
+
+<p>
+You can use the USB API to send messages to connected devices using only JavaScript code. Some devices are not accessible through this API - see the <a href="#caveats">Caveats section</a> below for more details.
+</p>
+
+<h3 id="manifest">Manifest requirement</h3>
+
+<p>
+The USB API requires a special permission "usb" in the manifest file:
+</p>
+
+<pre>
+"permissions": [
+  "usb"
+]
+</pre>
+
+<h3 id="finding_device">Finding a device</h3>
+
+<p>
+Every device in a USB bus is identified
+by its vendor and product IDs.
+To find a device,
+use the <code>findDevice()</code> method
+which has four parameters:
+</p>
+
+<pre>
+chrome.usb.findDevice(vendorId, productId, options, onDeviceFoundCallback)
+</pre>
+
+<br>
+
+<table class="simple">
+  <tr>
+    <th scope="col"> Parameter (type) </th>
+    <th scope="col"> Description </th>
+  </tr>
+  <tr>
+    <td>vendorId (long)</td>
+    <td>The vendor ID for your USB device (in Linux, use lsusb to find it).</td>
+  </tr>
+  <tr>
+    <td>productId (long)</td>
+    <td>The product ID for your USB device (in Linux, use lsusb to find it).</td>
+  </tr>
+  <tr>
+    <td>options (object)</td>
+    <td>An object with a single key, "onEvent",
+      that will be called whenever an event is received from the corresponding device.
+      This will be the primary method of receiving information from the device.
+      As the host-initiated USB protocol is complex, read on to learn more.
+    </td>
+  </tr>
+  <tr>
+    <td>onDeviceFoundCallback (function)</td>
+    <td>Called when the device is found.
+      The callback will be executed with one parameter, an object
+      with three properties: <code>handle</code>,
+      <code>vendorId</code>,
+      <code>productId</code>. If the device could not be found, the parameter will be <code>null</code>. Save this parameter for later use, as it's required in the other methods.</td>
+  </tr>
+</table>
+
+<p>
+Example:
+</p>
+
+<pre>
+var onDeviceFound = function(device) {
+  _this.device=device;
+  if (device) {
+     console.log(“Device found: ”+device.handle);
+  } else {
+     console.log(“Device could not be found”);
+  }
+};
+
+var onUsbEvent = function(event) {
+     console.log(“Got some message from the USB device!”);
+};
+
+chrome.usb.findDevice(vendorId, productId, {"onEvent": onUsbEvent}, onDeviceFound);
+</pre>
+
+<h3 id="usb_transfers">USB transfers and receiving data from a device</h3>
+
+<p>
+USB protocol defines four types of transfers:
+<a href="#control_transfers">control</a>, <a href="#bulk_transfers">bulk</a>, <a href="#isochronous_transfers">isochronous</a> and <a href="#interrupt_transfers">interrupt</a>.
+Theoretically they can occur in both directions:<br>
+device-to-host (inbound) and host-to-device (outbound).
+</p>
+
+<p>
+However, due to the nature of the USB protocol, both inbound and outbound messages must be initiated by the host (your computer). For inbound (device-to-host) messages, the host, your JavaScript code, sends a message flagged as "inbound" to the device. The exact contents of the message depends on the device, but usually will have some identification of what you are requesting from it. The device then responds with the requested data. The device's response is handled by Chrome and delivered assynchronously to the <code>onEvent</code> callback you defined in the <code>findDevice</code> method.
+An outbound (host-to-device) message is much simpler and doesn't generate an answer from the device.</p>
+
+<p>For each message from the device,
+the <code>onEvent</code> callback will receive 
+an event object with the following properties:
+</p>
+
+<br>
+
+<table class="simple">
+  <tr>
+    <th scope="col"> Property </th>
+    <th scope="col"> Description </th>
+  </tr>
+  <tr>
+    <td>type (string)</td>
+    <td>Currently always contains the string "transferResult".</td>
+  </tr>
+  <tr>
+    <td>resultCode (integer)</td>
+    <td>0 is success; other values indicate failure.</td>
+  </tr>
+  <tr>
+    <td>data (arraybuffer)</td>
+    <td>Contains the data sent by the device.
+    </td>
+  </tr>
+  <tr>
+    <td>error (string)</td>
+    <td>If resultCode is not 0, this field will contain a textual description of the error that occurred during the transfer.
+    </td>
+  </tr>
+</table>
+
+<p>
+Example:
+</p>
+
+<pre>
+var onUsbEvent = function(event) {
+    if (event &amp;&amp; event.resultCode===0 &amp;&amp; event.data) {
+     console.log(“got ”+event.data.byteLength+" bytes");
+    }
+};
+
+chrome.usb.findDevice( vendorId, productId, {"onEvent": onUsbEvent}, onDeviceFound);
+</pre>
+
+<h3 id="control_transfers">CONTROL transfers</h3>
+
+<p>
+Control transfers are generally used to send or receive configuration
+or command parameters to a USB device.
+The method is simple and receives three parameters:
+</p>
+
+<pre>
+chrome.usb.controlTransfer(deviceObj, transferInfo, transferCallback)
+</pre>
+
+<br>
+
+<table class="simple">
+  <tr>
+    <th scope="col"> Parameter (types)</th>
+    <th scope="col"> Description </th>
+  </tr>
+  <tr>
+    <td>deviceObj</td>
+    <td>Object sent in <code>findDevice()</code> callback.</td>
+  </tr>
+  <tr>
+    <td>transferInfo</td>
+    <td>Parameter object with values from the table below.
+      Check your USB device protocol specification for specifics.</td>
+  </tr>
+  <tr>
+    <td>transferCallback()</td>
+    <td>Invoked when the transfer has completed.
+      Please note this only indicates that
+      the transfer has been processed.
+      The device's response, if any, will always be sent through
+      the <code>onEvent()</code> callback set on <code>findDevice()</code>.
+    </td>
+  </tr>
+</table>
+
+<p>
+Values for <code>transferInfo</code> object:
+</p>
+
+<table class="simple">
+  <tr>
+    <th scope="col"> Value </th>
+    <th scope="col"> Description </th>
+  </tr>
+  <tr>
+    <td>requestType&nbsp;(string)</td>
+    <td>"vendor", "standard", "class" or "reserved".</td>
+  </tr>
+  <tr>
+    <td>recipient&nbsp;(string)</td>
+    <td>"device", "interface", "endpoint" or "other".</td>
+  </tr>
+  <tr>
+    <td>direction&nbsp;(string)</td>
+    <td>"in" or "out".
+      "in" direction is used to notify the device
+      that it should send information to the host.
+      All communication in a USB bus is host-initiated,
+      so use an 'in' transfer to allow a device
+      to send information back.</td>
+  </tr>
+  <tr>
+    <td>request&nbsp;(integer)</td>
+    <td>Defined by your device's protocol.</td>
+  </tr>
+  <tr>
+    <td>value&nbsp;(integer)</td>
+    <td>Defined by your device's protocol.</td>
+  </tr>
+  <tr>
+    <td>index&nbsp;(integer)</td>
+    <td>Defined by your device's protocol.</td>
+  </tr>
+  <tr>
+    <td>length&nbsp;(integer)</td>
+    <td>Only used when direction is "in".
+      Notifies the device that this is the amount
+      of data the host is expecting in response.</td>
+  </tr>
+  <tr>
+    <td>data&nbsp;(arraybuffer)</td>
+    <td>Defined by your device's protocol,
+      required when direction is "out".</td>
+  </tr>
+</table>
+
+<p>
+Example:
+</p>
+
+<pre>
+var transferInfo = {
+   "requestType": "vendor",
+   "recipient": "device",
+   "direction": "out",
+   "request":  0x31,
+   "value": 120,
+   "index": 0,
+   "data": new Uint8Array([4, 8, 15, 16, 23, 42]).buffer
+ };
+chrome.usb.controlTransfer(deviceObj, transferInfo, optionalCallback);
+</pre>
+
+<h3 id="isochronous_transfers">ISOCHRONOUS transfers</h3>
+
+<p>
+Isochronous transfers is the most complex type of USB transfers. They are commonly used for streams of data, like video and sound. To initiate an isochronous transfer (either inbound or outbound), you must use:
+</p>
+
+<pre>
+chrome.usb.isochronousTransfer(deviceObj, isochronousTransferInfo, transferCallback)
+</pre>
+
+<br>
+
+<table class="simple">
+  <tr>
+    <th scope="col"> Parameter </th>
+    <th scope="col"> Description </th>
+  </tr>
+  <tr>
+    <td>deviceObj</td>
+    <td>Object sent on <code>findDevice()</code> callback.</td>
+  </tr>
+  <tr>
+    <td>isochronousTransferInfo</td>
+    <td>Parameter object with the values in the table below.</td>
+  </tr>
+  <tr>
+    <td>transferCallback()</td>
+    <td>Invoked when the transfer has completed.
+      Notice that this callback doesn't contain any response from the device.
+      It's just to notify you that the asynchronous transfer request
+      has been processed and you can go ahead.
+      The device's response, if any, will always be sent through
+      the <code>onEvent()</code> callback set on <code>findDevice()</code>.
+    </td>
+  </tr>
+</table>
+
+<p>
+Values for <code>isochronousTransferInfo</code> object:
+</p>
+
+<table class="simple">
+  <tr>
+    <th scope="col"> Value </th>
+    <th scope="col"> Description </th>
+  </tr>
+  <tr>
+    <td>transferInfo&nbsp;(object)</td>
+    <td>An object with the following attributes:<br>
+      <b>direction (string): </b>"in" or "out".<br>
+      <b>endpoint (integer): </b>defined by your device. Usually can be found by looking at an USB instrospection tool, like <code>lsusb -v</code><br>
+      <b>length (integer): </b>only used when direction is "in".
+      Notifies the device that this is the amount
+      of data the host is expecting in response. Should be AT LEAST <code>packets * packetLength</code><br>
+      <b>data (arraybuffer): </b>defined by your device's protocol;
+      only used when direction is "out".
+    </td>
+  </tr>
+  <tr>
+    <td>packets&nbsp;(integer)</td>
+    <td>Total number of packets expected in this transfer.</td>
+  </tr>
+  <tr>
+    <td>packetLength&nbsp;(integer)</td>
+    <td>Expected length of each packet in this transfer.</td>
+  </tr>
+</table>
+
+<p>
+Example:
+</p>
+
+<pre>
+var transferInfo = {
+   "direction": "in",
+   "endpoint": 1,
+   "length": 2560
+ };
+var isoTransferInfo = {
+  "transferInfo": transferInfo,
+  "packets": 20,
+  "packetLength": 128
+};
+chrome.usb.isochronousTransfer(deviceObj, isoTransferInfo, optionalCallback);
+</pre>
+
+<p>
+  <b>Notes:</b> One isochronous transfer will contain <code>isoTransferInfo.packets</code> packets of <code>isoTransferInfo.packetLength</code> bytes. If it is an inbound transfer (your code requested data from the device), the <code>data</code> field in the onUsbEvent will be an ArrayBuffer of size <code>transferInfo.length</code>. It is your duty to walk through this ArrayBuffer and extract the different packets, each starting at a multiple of <code>isoTransferInfo.packetLength</code> bytes. If you are expecting a stream of data from the device, remember that you will have to send one "inbound" transfer for each transfer you expect back. USB devices don't send transfers to the bus unless the host explicitly requests them through "inbound" transfers.
+</p>
+
+<h3 id="bulk_transfers">BULK transfers</h3>
+
+<p>
+Bulk transfer is an USB transfer type commonly used
+to transfer a large amount of data in a reliable way.
+The method has three parameters:
+</p>
+
+<pre>
+chrome.usb.bulkTransfer(deviceObj, transferInfo, transferCallback)
+</pre>
+
+<br>
+
+<table class="simple">
+  <tr>
+    <th scope="col"> Parameter </th>
+    <th scope="col"> Description </th>
+  </tr>
+  <tr>
+    <td>deviceObj</td>
+    <td>Object sent on <code>findDevice()</code> callback.</td>
+  </tr>
+  <tr>
+    <td>transferInfo</td>
+    <td>Parameter object with the values in the table below.</td>
+  </tr>
+  <tr>
+    <td>transferCallback</td>
+    <td>Invoked when the transfer has completed.
+      Notice that this callback doesn't contain the device's response.
+      It's just to notify your code that the asynchronous transfer request
+      has been processed and you can go ahead.
+      The device's response, if any, will always be sent through
+      the <code>onEvent()</code> callback set on <code>findDevice()</code>.
+    </td>
+  </tr>
+</table>
+
+<p>
+Values for <code>transferInfo</code> object:
+</p>
+
+<table class="simple">
+  <tr>
+    <th scope="col"> Value </th>
+    <th scope="col"> Description </th>
+  </tr>
+  <tr>
+    <td>direction (string)</td>
+    <td>"in" or "out".</td>
+  </tr>
+  <tr>
+    <td>endpoint (integer)</td>
+    <td>Defined by your device's protocol.</td>
+  </tr>
+  <tr>
+    <td>length (integer)</td>
+    <td>Only used when direction is "in".
+      Notifies the device that this is the amount
+      of data the host is expecting in response.</td>
+  </tr>
+  <tr>
+    <td>data (ArrayBuffer)</td>
+    <td>Defined by your device's protocol;
+      only used when direction is "out".</td>
+  </tr>
+</table>
+
+<p>
+Example:
+</p>
+
+<pre>
+var transferInfo = {
+   "direction": "out",
+   "endpoint": 1,
+   "data": new Uint8Array([4, 8, 15, 16, 23, 42]).buffer
+ };
+</pre>
+
+<h3 id="interrupt_transfers">INTERRUPT transfers</h3>
+
+<p>
+Interrupt transfers are used to send important notifications.
+Since all USB communication is initiated by the host,
+host code usually polls the device periodically,
+sending interrupt IN transfers that will make the device send data back
+if there is anything in the interrupt queue.
+The method has three parameters:
+</p>
+
+<pre>
+chrome.usb.interruptTransfer(deviceObj, transferInfo, transferCallback)
+</pre>
+
+<br>
+
+<table class="simple">
+  <tr>
+    <th scope="col"> Parameter </th>
+    <th scope="col"> Description </th>
+  </tr>
+  <tr>
+    <td>deviceObj</td>
+    <td>Object sent on <code>findDevice()</code> callback.</td>
+  </tr>
+  <tr>
+    <td>transferInfo</td>
+    <td>Parameter object with the values in the table below.</td>
+  </tr>
+  <tr>
+    <td>transferCallback</td>
+    <td>Invoked when the transfer has completed.
+      Notice that this callback doesn't contain the device's response.
+      It's just to notify your code that the asynchronous transfer request
+      has been processed and you can go ahead.
+      The device's response, if any, will always be sent through
+      the <code>onEvent()</code> callback set on <code>findDevice()</code>.
+    </td>
+  </tr>
+</table>
+
+<p>
+Values for <code>transferInfo</code> object:
+</p>
+
+<table class="simple">
+  <tr>
+    <th scope="col"> Value </th>
+    <th scope="col"> Description </th>
+  </tr>
+  <tr>
+    <td>direction (string)</td>
+    <td>"in" or "out".</td>
+  </tr>
+  <tr>
+    <td>endpoint (integer)</td>
+    <td>Defined by your device's protocol.</td>
+  </tr>
+  <tr>
+    <td>length (integer)</td>
+    <td>Only used when direction is "in".
+      Notifies the device that this is the amount
+      of data the host is expecting in response.</td>
+  </tr>
+  <tr>
+    <td>data (ArrayBuffer)</td>
+    <td>Defined by your device's protocol;
+      only used when direction is "out".</td>
+  </tr>
+
+<p>
+Example:
+</p>
+
+<pre>
+var transferInfo = {
+   "direction": "in", 
+   "endpoint": 1,
+   "length": 2
+ };
+chrome.usb.interruptTransfer(deviceObj, transferInfo, optionalCallback);
+</pre>
+
+<h3 id="caveats">Caveats</h3>
+
+<p>
+On most Linux systems, USB devices are mapped with read-only permissions by default. To access it through this API, your user will need to have write access too. A simple solution is to set a udev rule. Create a file <code>/etc/udev/rules.d/50-yourdevicename.rules</code>
+with the following content:
+</p>
+
+<pre>
+SUBSYSTEM=="usb", ATTR{idVendor}=="[yourdevicevendor]", MODE="0664", GROUP="plugdev"
+</pre>
+
+<p>
+  Then, just restart the udev daemon: <code>service udev restart</code>. You can check if the permissions are correctly set by:
+  <ul>
+    <li>Find the bus and device numbers in <code>lsusb</code></li>
+    <li><code>ls -al /dev/bus/usb/[bus]/[device]</code>. This file should be owned by group "plugdev" and have group write permissions.</li>
+  </ul>
+</p>
+
+<p>
+  Not all devices can be accessed through this API. In general, devices are not accessible either because the Operating System's kernel or a native driver holds them off from user space code. Some examples are devices with HID profiles on OSX systems and USB pen drives.
+</p>
+
+<h2 id="serial">Accessing serial devices</h2>
+
+<p>
+You can use the serial API to read
+and write from a serial device.
+</p>
+
+<h3 id="requirement">Manifest requirement</h3>
+
+<p>
+You must add the "serial" permission to the manifest file:
+</p>
+<pre>
+"permissions": [
+  "serial"
+]
+</pre>
+
+<h3 id="listing">Listing available serial ports</h3>
+
+<p>
+To get a list of available serial ports,
+use the <code>getPorts()</code> method. <b>Note:</b> not all serial ports are available. The API uses a heuristic based on the name of the port to only expose serial devices that are expected to be safe.
+</p>
+
+<pre>
+var onGetPorts = function(ports) {
+  for (var i=0; i&lt;ports.length; i++) {
+    console.log(ports[i]);
+  }
+}
+chrome.serial.getPorts(onGetPorts);
+</pre>
+
+<h3 id="opening">Opening a serial device</h3>
+
+<p>
+If you know the serial port name, you can open it for read and write using the <code>open</code> method:
+</p>
+
+<pre>
+chrome.serial.open(portName, options, openCallback)
+</pre>
+
+<table border="0">
+  <tr>
+    <th scope="col"> Parameter </th>
+    <th scope="col"> Description </th>
+  </tr>
+  <tr>
+    <td>portName&nbsp;(string)</td>
+    <td>If your device's port name is unknown, you can use the <code>getPorts</code> method.</td>
+  </tr>
+  <tr>
+    <td>options&nbsp;(object)</td>
+    <td>Parameter object with one single value: <code>bitrate</code>, an integer specifying the desired bitrate used to communicate with the serial port.</td>
+  </tr>
+  <tr>
+    <td>openCallback</td>
+    <td>Invoked when the port has been successfully opened. The callback will be called with one parameter, <code>openInfo</code>, that has one attribute, <code>connectionId</code>. Save this id, because you will need it to actually communicate with the port.
+    </td>
+  </tr>
+</table>
+
+<p>A simple example:</p>
+
+<pre>
+var onOpen = function(connectionInfo) {
+   // The serial port has been opened. Save its id to use later.
+  _this.connectionId = connectionInfo.connectionId;
+  // Do whatever you need to do with the opened port.
+}
+// Open the serial port /dev/ttyS01
+chrome.serial.open("/dev/ttyS01", {bitrate: 115200}, onOpen);
+</pre>
+
+<h3 id="closing">Closing a serial port</h3>
+
+<p>
+Closing a serial port is simple but very important. See the example below: 
+</p>
+
+<pre>
+var onClose = function(result) {
+ console.log(“Serial port closed”);
+}
+chrome.serial.close(connectionId, onClose);
+</pre>
+
+<h3 id="reading">Reading from a serial port</h3>
+
+<p>
+The serial API reads from the serial port and
+delivers the read bytes as an ArrayBuffer.
+There is no guarantee that all the requested bytes, even if available in the port, will be read in one chunk.
+The following example can accumulate read bytes, at most 128 at a time, until a new line is read,
+and then call a listener with the <code>ArrayBuffer</code> bytes converted to a String:
+</p>
+
+<pre>
+var dataRead='';
+
+var onCharRead=function(readInfo) {
+    if (!connectionInfo) {
+      return;
+    }
+    if (readInfo &amp;&amp; readInfo.bytesRead>0 &amp;&amp; readInfo.data) {
+      var str=ab2str(readInfo.data);
+      if (str[readInfo.bytesRead-1]==='\n') {
+        dataRead+=str.substring(0, readInfo.bytesRead-1);
+        onLineRead(dataRead);
+        dataRead="";
+      } else {
+        dataRead+=str;
+      }
+    }
+    chrome.serial.read(connectionId, 128, onCharRead);
+  }
+
+/* Convert an ArrayBuffer to a String, using UTF-8 as the encoding scheme.
+   This is consistent with how Arduino sends characters by default */
+  var ab2str=function(buf) {
+    return String.fromCharCode.apply(null, new Uint8Array(buf));
+  };
+</pre>
+
+<h3 id="writing">Writing to a serial port</h3>
+
+<p>
+The writing routine is simpler than reading,
+since the writing can occur all at once.
+The only catch is that if your data protocol is String based,
+you have to convert your output string to an <code>ArrayBuffer</code>.
+See the code example below:
+</p>
+
+<pre>
+var writeSerial=function(str) {
+  chrome.serial.write(connectionId, str2ab(str), onWrite);
+}
+// Convert string to ArrayBuffer
+var str2ab=function(str) {
+  var buf=new ArrayBuffer(str.length);
+  var bufView=new Uint8Array(buf);
+  for (var i=0; i&lt;str.length; i++) {
+    bufView[i]=str.charCodeAt(i);
+  }
+  return buf;
+}
+</pre>
+
+<h3 id="flushing">Flushing a serial port buffer</h3>
+
+<p>
+You can flush your serial port buffer by issuing the flush command:
+</p>
+
+<pre>
+  chrome.serial.flush(connectionId, onFlush);
+</pre>
+
+<p class="backtotop"><a href="#top">Back to top</a></p>
+<p class="backtotop"><a href="#top"><!--@Back to top-->回到顶部</a></p>
+      </div>
+    </div>
+  </body>
+  <script>
+    window.bootstrap = {
+      api_names: [{"name":"alarms"},{"name":"app.runtime"},{"name":"app.window"},{"name":"bluetooth"},{"name":"commands"},{"name":"contextMenus"},{"name":"events"},{"name":"fileSystem"},{"name":"i18n"},{"name":"idle"},{"name":"mediaGalleries"},{"name":"permissions"},{"name":"pushMessaging"},{"name":"runtime"},{"name":"serial"},{"name":"socket"},{"name":"storage"},{"name":"tts"},{"name":"types"},{"name":"usb"},{"last":true,"name":"webstore"}].concat(
+          [{"name":"experimental.app"},{"name":"experimental.identity"},{"name":"experimental.mediaGalleries"},{"name":"experimental.record"},{"name":"experimental.systemInfo.cpu"},{"name":"experimental.systemInfo.display"},{"name":"experimental.systemInfo.memory"},{"last":true,"name":"experimental.systemInfo.storage"}]),
+      branchInfo: {"channels":[{"path":"stable","name":"Stable"},{"path":"dev","name":"Dev"},{"path":"beta","name":"Beta"},{"path":"trunk","name":"Trunk"}],"current":"trunk","showWarning":false}
+    };
+  </script>
+  <div id="gc-footer">
+    <div class="text">
+      <p>
+        <!--@Except as otherwise <a href="http://code.google.com/policies.html#restrictions">noted</a>,
+        the content of this page is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons
+        Attribution 3.0 License</a>, and code samples are licensed under the
+        <a rel="license" href="http://code.google.com/google_bsd_license.html">BSD License</a>.-->
+        该页面翻译自
+        <a href="https://developer.chrome.com/extensions/">Google Chrome Extensions</a>
+        与
+        <a href="https://developer.chrome.com/apps/">Google Chrome Apps</a>。除非特别<a href="https://code.google.com/policies.html#restrictions">说明</a>，该页面的内容遵循
+        <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0
+        License</a>，代码示例遵循
+        <a rel="license" href="http://code.google.com/google_bsd_license.html">BSD License</a>。
+      </p>
+      <p>
+        <!--@©2012 Google-->
+      </p>
+      <script src="/trunk/static/js/branch.js" type="text/javascript"></script>
+      <script src="/trunk/static/js/sidebar.js" type="text/javascript"></script>
+      <script src="/trunk/static/js/prettify.js" type="text/javascript"></script>
+      <script>
+        (function() {
+          // Auto syntax highlight all pre tags.
+          var preElements = document.getElementsByTagName('pre');
+          for (var i = 0; i < preElements.length; i++)
+            preElements[i].classList.add('prettyprint');
+          prettyPrint();
+        })();
+      </script>
+      <script src="https://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+      <script src="https://www.google-analytics.com/ga.js" type="text/javascript"></script>
+      <script type="text/javascript">
+        // chrome doc tracking
+        try {
+          var engdocs = _gat._getTracker("YT-10763712-2");
+          engdocs._trackPageview();
+        } catch(err) {}
+        // code.google.com site-wide tracking
+        try {
+          _uacct="UA-18071-1";
+          _uanchor=1;
+          _uff=0;
+          urchinTracker();
+        }
+        catch(e) {/* urchinTracker not available. */}
+      </script>
+      <script>
+        (function() {
+          var cx = '002967670403910741006:61_cvzfqtno';
+          var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+          gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+            '//www.google.com/cse/cse.js?cx=' + cx;
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+        })();
+      </script>
+  
+    </div>
+  </div>
+</html>
+
