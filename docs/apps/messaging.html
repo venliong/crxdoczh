@@ -85,7 +85,7 @@
                     <ul toggleable
                         class="level3 hidden">
                       <li class="level4">
-                            <a href="app_lifecycle.html" class="level4 ">Manage App Lifecycle</a>
+                            <a href="app_lifecycle.html" class="level4 ">管理应用的生命周期</a>
                       </li>
                       <li class="level4">
                             <a href="app_storage.html" class="level4 ">Manage Data</a>
@@ -154,10 +154,10 @@
                     <ul toggleable
                         class="level3 hidden">
                       <li class="level4">
-                            <a href="app_network.html" class="level4 ">Network Communications</a>
+                            <a href="app_network.html" class="level4 ">网络通信</a>
                       </li>
                       <li class="level4">
-                            <a href="app_hardware.html" class="level4 ">Access Hardware Devices</a>
+                            <a href="app_hardware.html" class="level4 ">访问硬件设备</a>
                       </li>
                     </ul>
                 </li>
@@ -175,7 +175,7 @@
                             <a href="angular_framework.html" class="level4 ">用 AngularJS 建立应用</a>
                       </li>
                       <li class="level4">
-                            <a href="sencha_framework.html" class="level4 ">Build Apps with Sencha Ext JS</a>
+                            <a href="sencha_framework.html" class="level4 ">用 Sencha Ext JS 建立应用</a>
                       </li>
                     </ul>
                 </li>
@@ -424,10 +424,10 @@ chrome.runtime.onConnect.addListener(function(port) {
 <p>
 <!--@You may want to find out when a connection is closed, for example if you are
 maintaining separate state for each open port. For this you can listen to the
-<a href="runtime.html#type-Port">runtime.Port</a>
+<a href="runtime.html#property-Port-onDisconnect">runtime.Port.onDisconnect</a>
 event. This event is fired either when the other side of the channel manually
 calls
-<a href="runtime.html#type-Port">runtime.Port</a>, or when the page
+<a href="runtime.html#property-Port-disconnect">runtime.Port.disconnect</a>, or when the page
 containing the port is unloaded (for example if the tab is navigated).
 onDisconnect is guaranteed to be fired only once for any given port.-->
 您可能想知道连接何时关闭，例如您需要为每一个打开的端口单独保留状态。这种情况下您可以监听

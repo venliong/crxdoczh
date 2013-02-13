@@ -467,10 +467,10 @@ chrome.runtime.onConnect.addListener(function(port) {
 <p>
 <!--@You may want to find out when a connection is closed, for example if you are
 maintaining separate state for each open port. For this you can listen to the
-<a href="runtime.html#type-Port">runtime.Port</a>
+<a href="runtime.html#property-Port-onDisconnect">runtime.Port.onDisconnect</a>
 event. This event is fired either when the other side of the channel manually
 calls
-<a href="runtime.html#type-Port">runtime.Port</a>, or when the page
+<a href="runtime.html#property-Port-disconnect">runtime.Port.disconnect</a>, or when the page
 containing the port is unloaded (for example if the tab is navigated).
 onDisconnect is guaranteed to be fired only once for any given port.-->
 您可能想知道连接何时关闭，例如您需要为每一个打开的端口单独保留状态。这种情况下您可以监听

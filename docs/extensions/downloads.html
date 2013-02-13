@@ -281,7 +281,7 @@
                   
                   <li><a href="#methods"><!--@Methods-->方法</a><ol>  <li><a href="#method-download">download</a></li>  <li><a href="#method-search">search</a></li>  <li><a href="#method-pause">pause</a></li>  <li><a href="#method-resume">resume</a></li>  <li><a href="#method-cancel">cancel</a></li>  <li><a href="#method-getFileIcon">getFileIcon</a></li>  <li><a href="#method-open">open</a></li>  <li><a href="#method-show">show</a></li>  <li><a href="#method-erase">erase</a></li>  <li><a href="#method-acceptDanger">acceptDanger</a></li>  <li><a href="#method-drag">drag</a></li></ol></li>
                   <li><a href="#events"><!--@Events-->事件</a><ol>  <li><a href="#event-onCreated">onCreated</a></li>  <li><a href="#event-onErased">onErased</a></li>  <li><a href="#event-onChanged">onChanged</a></li></ol></li>
-                  <li><a href="#samples"><!--@Sample -->示例扩展程序</a></li>
+                  
               </ol>
             </li>
           </ol>
@@ -296,14 +296,14 @@ manipulate, and search for downloads.-->
 
 <p> <!--@You must declare the 'downloads' permission in the <a
 href='manifest.html'>extension manifest</a> to use this API, along with <a
-href='manifest.html#permissions'>host permissions</a> for any hosts that you
+href='declare_permissions.html'>host permissions</a> for any hosts that you
 may pass to <a href="downloads.html#method-download">download</a>.-->
 您必须在<a href='manifest.html'>扩展程序的清单文件</a>中声明
 "downloads"
 权限才能使用该
 API，此外对于您可能会传递给
 <a href="downloads.html#method-download">download</a>
-的主机还需要<a href='manifest.html#permissions'>主机权限</a>。
+的主机还需要<a href='declare_permissions.html'>主机权限</a>。
 </p>
 
 <pre>{
@@ -941,7 +941,7 @@ href='samples.html'>示例</a>。
                         </span>
                       </dt>
                       <dd>
-                        <!--@The <code>id</code> of the <a href="downloads.html#type-DownloadItem">DownloadItem</a> that changed.--> 在不同浏览器会话间持久存在的标识符。
+                        <!--@The <code>id</code> of the <a href="downloads.html#type-DownloadItem">DownloadItem</a> to query.--> 要查询的 <a href="downloads.html#type-DownloadItem">DownloadItem</a> 的标识符。
                       </dd>
                     </div>
                     <div>
@@ -1282,7 +1282,7 @@ href='samples.html'>示例</a>。
                         </span>
                       </dt>
                       <dd>
-                        <!--@An identifier that is persistent across browser sessions.--> 在不同浏览器会话间持久存在的标识符。
+                        <!--@The <code>id</code> of the <a href="downloads.html#type-DownloadItem">DownloadItem</a> that changed.--> 更改的 <a href="downloads.html#type-DownloadItem">DownloadItem</a> 的标识符。
                       </dd>
                     </div>
                     <div>
@@ -2080,10 +2080,6 @@ href='samples.html'>示例</a>。
                 </div>
               </div>
         </div>
-          <h2 id="samples"><!--@Sample 扩展程序 that use chrome.downloads-->使用chrome.downloads的示例扩展程序</h2>
-            <li><strong><a href="samples.html#31e082ed1a598b3d1ae28197fa2a89bc">Download Selected Links</a></strong>
-            &ndash; Select links on a page and download them.
-        </li>
       </div>
     </div>
   </body>

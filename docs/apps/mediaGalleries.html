@@ -86,7 +86,7 @@
                     <ul toggleable
                         class="level3 hidden">
                       <li class="level4">
-                            <a href="app_lifecycle.html" class="level4 ">Manage App Lifecycle</a>
+                            <a href="app_lifecycle.html" class="level4 ">管理应用的生命周期</a>
                       </li>
                       <li class="level4">
                             <a href="app_storage.html" class="level4 ">Manage Data</a>
@@ -155,10 +155,10 @@
                     <ul toggleable
                         class="level3 hidden">
                       <li class="level4">
-                            <a href="app_network.html" class="level4 ">Network Communications</a>
+                            <a href="app_network.html" class="level4 ">网络通信</a>
                       </li>
                       <li class="level4">
-                            <a href="app_hardware.html" class="level4 ">Access Hardware Devices</a>
+                            <a href="app_hardware.html" class="level4 ">访问硬件设备</a>
                       </li>
                     </ul>
                 </li>
@@ -176,7 +176,7 @@
                             <a href="angular_framework.html" class="level4 ">用 AngularJS 建立应用</a>
                       </li>
                       <li class="level4">
-                            <a href="sencha_framework.html" class="level4 ">Build Apps with Sencha Ext JS</a>
+                            <a href="sencha_framework.html" class="level4 ">用 Sencha Ext JS 建立应用</a>
                       </li>
                     </ul>
                 </li>
@@ -257,13 +257,12 @@
   </tr>
   <tr>
     <td><strong>Availability:</strong></td>
-    <td>Google Chrome 23 (read permission)<br>
-    Google Chrome 26 (write permission)</td>
+    <td>Google Chrome 23 (read permission)</td>
   </tr>
   <tr>
     <td><strong>Permissions:</strong></td>
-    <td><code>"mediaGalleries": ["accessType"]</code>,
-    <code>"mediaGalleries": ["accessType", "allAutoDetected"]</code><br>
+    <td><code>"mediaGalleries": ["read"]</code>,
+    <code>"mediaGalleries": ["read", "allAutoDetected"]</code><br>
     See <a href="#manifest">Manifest</a> below
     for more information.</td>
   </tr>
@@ -312,19 +311,14 @@ runtime by using the media gallery management dialog. For example:</p>
   ...
 }</pre>
 
-<p>The above permission will trigger an install time permission prompt
+<p>This permission will trigger an install time permission prompt
 and let the extension read from all auto-detected media galleries on the
 user's computer. The user may add or remove galleries using the
 media gallery management dialog, after which the extension will be able
 to read all the media files from galleries that the user has selected.</p>
 
-<p>Another possible access type is "write", which can be put in place of
-"read". Specifying "write" allows read and write access to the accessible
-media galleries.
-</p>
-
-<p>Currently "read" and "write" access types are supported by
-this API. Add-file access with be implemented soon.</p>
+<p>Currently "read" is the only access type supported by
+this API. Read-write and add-file access with be implemented soon.</p>
         <h2 id="apiReference"><!--@API Reference: chrome.mediaGalleries-->API 参考：chrome.mediaGalleries</h2>
         <div class="api_reference">
             <h3 id="types"><!--@Types-->类型</h3>
