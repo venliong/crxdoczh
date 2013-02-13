@@ -286,7 +286,7 @@
 
 
 <p>
-  <!--@In order to mitigate a large class of potental cross-site scripting issues,
+  <!--@In order to mitigate a large class of potential cross-site scripting issues,
   Chrome's extension system has incorporated the general concept of
   <a href="http://dvcs.w3.org/hg/content-security-policy/raw-file/tip/csp-specification.dev.html">
     <strong>Content Security Policy (CSP)</strong>
@@ -306,7 +306,7 @@
   extension enables you to carefully consider the resources that your extension
   requires, and to ask the browser to ensure that those are the only resources
   your extension has access to. These policies provide security over and above
-  the <a href="manifest.html#permissions">host permissions</a> your extension
+  the <a href="declare_permissions.html">host permissions</a> your extension
   requests; they're an additional layer of protection, not a replacement.-->
   大体上，CSP 以白名单/黑名单的机制对您的扩展程序载入或执行的资源起作用。为您的扩展程序定义一项合理的策略使您可以仔细考虑您的扩展程序需要的资源，并且使浏览器确保您的扩展程序只能访问指定的那些资源。这些策略提供了比您的扩展程序请求的<a href="declare_permissions.html">主机权限</a>更高的安全性，它们是额外的保护层，而不是替代品。
 </p>
@@ -347,7 +347,7 @@
   <!--@Packages that do not define a <a href="manifestVersion.html">
     <code>manifest_version</code>
   </a> have no default content security policy. Those that select
-  <code>manifest_version</code></a> 2, have a default content security policy
+  <code>manifest_version</code> 2, have a default content security policy
   of:-->
   没有定义
   <a href="manifestVersion.html"><code>manifest_version</code></a>（清单文件版本） 的扩展程序包没有默认的内容安全策略，而选择
@@ -370,7 +370,7 @@
 <pre>
 alert(eval("foo.bar.baz"));
 window.setTimeout("alert('hi')", 10);
-window.setInteral("alert('hi')", 10);
+window.setInterval("alert('hi')", 10);
 new Function("return foo.bar.baz");
 </pre>
 

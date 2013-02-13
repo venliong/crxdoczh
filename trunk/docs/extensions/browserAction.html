@@ -290,7 +290,7 @@
                   
                   <li><a href="#methods"><!--@Methods-->方法</a><ol>  <li><a href="#method-setTitle">setTitle</a></li>  <li><a href="#method-getTitle">getTitle</a></li>  <li><a href="#method-setIcon">setIcon</a></li>  <li><a href="#method-setPopup">setPopup</a></li>  <li><a href="#method-getPopup">getPopup</a></li>  <li><a href="#method-setBadgeText">setBadgeText</a></li>  <li><a href="#method-getBadgeText">getBadgeText</a></li>  <li><a href="#method-setBadgeBackgroundColor">setBadgeBackgroundColor</a></li>  <li><a href="#method-getBadgeBackgroundColor">getBadgeBackgroundColor</a></li>  <li><a href="#method-enable">enable</a></li>  <li><a href="#method-disable">disable</a></li></ol></li>
                   <li><a href="#events"><!--@Events-->事件</a><ol>  <li><a href="#event-onClicked">onClicked</a></li></ol></li>
-                  <li><a href="#samples"><!--@Sample -->示例扩展程序</a></li>
+                  
               </ol>
             </li>
           </ol>
@@ -515,7 +515,7 @@ in the <a href="#manifest">manifest</a>, or call the
     and heavier than page action icons.-->
     <b>请使用</b>较大的、颜色丰富的图标，充分利用 19×19 像素的空间。浏览器按钮的图标应该看上去比页面按钮的图标更大一些、更明显一些。
   <li><!--@<b>Don't</b> attempt to mimic
-    Google Chrome's monochrome "wrench" icon.
+    Google Chrome's monochrome menu icon.
     That doesn't work well with themes, and anyway,
     extensions should stand out a little.-->
     <b>请不要</b>试着模仿 Google Chrome 浏览器的单色 Chrome
@@ -1283,73 +1283,6 @@ For other examples and for help in viewing the source code, see
                 </div>
               </div>
         </div>
-          <h2 id="samples"><!--@Sample 扩展程序 that use chrome.browserAction-->使用chrome.browserAction的示例扩展程序</h2>
-            <li><strong><a href="samples.html#cb771f28a910d79a2fcfeb1c5be6983b">A browser action with no icon that makes the page red</a></strong>
-        </li>
-            <li><strong><a href="samples.html#db80e292b687541c7aa5e89cee75ad79">Print this page</a></strong>
-            &ndash; Adds a print button to the browser.
-        </li>
-            <li><strong><a href="samples.html#932e16ad4805a5820c9b7dc6b1cb03ab">A browser action which changes its icon when clicked.</a></strong>
-        </li>
-            <li><strong><a href="samples.html#2b0f7d02f3ebd51358ed54ef59dceebb">Cookie API Test Extension</a></strong>
-            &ndash; Testing Cookie API
-        </li>
-            <li><strong><a href="samples.html#f447d4d0c667a4f72ef8c6190e7925d7">Live HTTP headers</a></strong>
-            &ndash; Displays the live log with the http requests headers
-        </li>
-            <li><strong><a href="samples.html#812b7fe611113aedf0a394e9fbbfcce1">JavaScript pause/resume</a></strong>
-            &ndash; Pauses / resumes JavaScript execution
-        </li>
-            <li><strong><a href="samples.html#d5d930bdcf3f5e1753d0de5924a89a65">Event Page Example</a></strong>
-            &ndash; Demonstrates usage and features of the event page
-        </li>
-            <li><strong><a href="samples.html#87fc6fd215630c7d5e7f86be5d6407fd">CLD</a></strong>
-            &ndash; Displays the language of a tab
-        </li>
-            <li><strong><a href="samples.html#b7ee031d2bfdbdd1c89f2cff6ed9781c">Idle - Simple Example</a></strong>
-            &ndash; Demonstrates the Idle API
-        </li>
-            <li><strong><a href="samples.html#00294fafee1df479cc20247741f44447">Speech Recognizer</a></strong>
-            &ndash; Recognizes your speech and tells you the most likely result.
-        </li>
-            <li><strong><a href="samples.html#062d24295dce5def19f91da9c449e1e4">Tab Inspector</a></strong>
-            &ndash; Utility for working with the extension tabs api
-        </li>
-            <li><strong><a href="samples.html#dcc956ee1308eb125ff32bdaad4c1d84">Test Screenshot Extension</a></strong>
-            &ndash; Demonstrate screenshot functionality in the chrome.tabs api. Note: only works for code.google.com
-        </li>
-            <li><strong><a href="samples.html#f92d20e2d53aae42280f27e7dbeb761f">Merge Windows</a></strong>
-            &ndash; Merges all of the browser's windows into the current window
-        </li>
-            <li><strong><a href="samples.html#a4adef17601281fa9ae9cec08590c7b2">Page Benchmarker</a></strong>
-            &ndash; Chromium Page Benchmarker.
-        </li>
-            <li><strong><a href="samples.html#9fa1c6ac42d625c3f62314548468640c">Chromium Buildbot Monitor</a></strong>
-            &ndash; Displays the status of the Chromium buildbot in the toolbar.  Click to see more detailed status in a popup.
-        </li>
-            <li><strong><a href="samples.html#d85d53e2433c9325f85336791560a68c">Google Calendar Checker (by Google)</a></strong>
-            &ndash; Quickly see the time until your next meeting from any of your calendars. Click on the button to be taken to your calendar.
-        </li>
-            <li><strong><a href="samples.html#4e61966db98ebfc75fa32b5ff2406c6b">Email this page (by Google)</a></strong>
-            &ndash; This extension adds an email button to the toolbar which allows you to email the page link using your default mail client or Gmail.
-        </li>
-            <li><strong><a href="samples.html#5139d19c542e2188a42418c27c9cdd5b">Google Mail Checker</a></strong>
-            &ndash; Displays the number of unread messages in your Google Mail inbox. You can also click the button to open your inbox.
-        </li>
-            <li><strong><a href="samples.html#fd0e71a56fc3e6c5ebe1d5daa3049120">Sample - OAuth Contacts</a></strong>
-            &ndash; Uses OAuth to connect to Google's contacts service and display a list of your contacts.
-        </li>
-            <li><strong><a href="samples.html#bea7f3606e50b59b0f8b08cbab6236da">Proxy Extension API Sample</a></strong>
-            &ndash; Set Chrome-specific proxies; a demonstration of Chrome's Proxy API
-        </li>
-            <li><strong><a href="samples.html#fe3bfa0dd0b9d2a0aab933bd6d3aab88">Speak Selection</a></strong>
-            &ndash; Speaks the current selection out loud.
-        </li>
-            <li><strong><a href="samples.html#bba3c3de3da89e7a53b56bac8a173c3c">Talking Alarm Clock</a></strong>
-            &ndash; A clock with two configurable alarms that will play a sound and speak a phrase of your choice.
-        </li>
-            <li><strong><a href="samples.html#47c541bcb84a8bc242edeb89dc06630e">Sandboxed Frame</a></strong>
-        </li>
       </div>
     </div>
   </body>

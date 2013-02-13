@@ -6,7 +6,7 @@
     <link href="/trunk/static/css/print.css" rel="stylesheet" type="text/css" media="print">
     <link href="/trunk/static/css/prettify.css" rel="stylesheet" type="text/css">
     <link href="//www.google.com/images/icons/product/chrome-16.png" rel="icon" type="image/ico">
-    <title>Known Issues - Google Chrome</title>
+    <title>已知问题 - Google Chrome</title>
   </head>
   <body>
     <a id="top"></a>
@@ -85,7 +85,7 @@
                     <ul toggleable
                         class="level3 hidden">
                       <li class="level4">
-                            <a href="app_lifecycle.html" class="level4 ">Manage App Lifecycle</a>
+                            <a href="app_lifecycle.html" class="level4 ">管理应用的生命周期</a>
                       </li>
                       <li class="level4">
                             <a href="app_storage.html" class="level4 ">Manage Data</a>
@@ -154,10 +154,10 @@
                     <ul toggleable
                         class="level3 hidden">
                       <li class="level4">
-                            <a href="app_network.html" class="level4 ">Network Communications</a>
+                            <a href="app_network.html" class="level4 ">网络通信</a>
                       </li>
                       <li class="level4">
-                            <a href="app_hardware.html" class="level4 ">Access Hardware Devices</a>
+                            <a href="app_hardware.html" class="level4 ">访问硬件设备</a>
                       </li>
                     </ul>
                 </li>
@@ -175,7 +175,7 @@
                             <a href="angular_framework.html" class="level4 ">用 AngularJS 建立应用</a>
                       </li>
                       <li class="level4">
-                            <a href="sencha_framework.html" class="level4 ">Build Apps with Sencha Ext JS</a>
+                            <a href="sencha_framework.html" class="level4 ">用 Sencha Ext JS 建立应用</a>
                       </li>
                     </ul>
                 </li>
@@ -217,54 +217,66 @@
         </ul>
       </div>
       <div id="gc-pagecontent">
-        <h1 class="page_title">Known Issues</h1>
+        <h1 class="page_title">已知问题</h1>
         <div id="toc">
           <h2><!--@Contents-->目录</h2>
           <ol>
             <li>
-              <a href=#cant_find_it>Can't find it in the list?</a>
+              <a href=#cant_find_it>在列表中找不到？</a>
             </li>
           </ol>
         </div>
 
 
 
-<p>Chrome's support for packaged apps is under active development and rapidly
+<p><!--@Chrome's support for packaged apps is under active development and rapidly
 evolving, so there are still a few rough edges. Here's a list of known issues
 in the current <a href="https://tools.google.com/dlpage/chromesxs/">Chrome
-Canary</a>:</p>
+Canary</a>:-->
+Chrome 浏览器对打包应用的支持正处于活跃的开发过程中，并且在迅速演化，所以仍然有一些问题。如下是当前的
+<a href="https://tools.google.com/dlpage/chromesxs/">Chrome Canary</a>
+中的已知问题列表：
+</p>
 <div id="known_issues">
-  <h3>Open known issues</h3>
-  <p>There are no open known issues at this time. You might be able to find more
-  on the <a href="http://code.google.com/p/chromium/issues/list?q=Hotlist%3DKnownIssue+Feature%3DApps">Chromium bug tracker</a>.</p>
-  <h3>Recently closed known issues</h3>
-  <p>There are no closed known issues at this time.</p>
+  <h3><!--@Open known issues-->开放的已知问题</h3>
+  <p><!--@There are no open known issues at this time. You might be able to find more
+  on the <a href="http://code.google.com/p/chromium/issues/list?q=Hotlist%3DKnownIssue+Feature%3DApps">Chromium bug tracker</a>.-->
+    目前没有开放的已知问题，您可能可以在
+    <a href="https://code.google.com/p/chromium/issues/list?q=Hotlist%3DKnownIssue+Feature%3DApps">Chromium 问题跟踪器</a>上找到更多信息。
+  </p>
+  <h3><!--@Recently closed known issues-->最近关闭的已知问题</h3>
+  <p><!--@There are no closed known issues at this time.-->目前没有关闭的已知问题。</p>
 </div>
 <p>
-If one of the above describes an issue you've run into, and you wish to be
+<!--@If one of the above describes an issue you've run into, and you wish to be
 updated when it's resolved, click the star icon on the page header. Do not
 respond to the bug to say "me too" or ask "when will this be fixed?"; such
 updates can cause hundreds of emails to be sent. Add a comment only if you have
 information (such as a better test case or a suggested fix) that is likely
-to be helpful.
+to be helpful.-->
+如果以上的某一个描述了您遇到的问题，并且您希望在解决后收到更新，请单击页面标题旁的加星图标。请不要以“我也遇到了”回复或者询问“什么时候修复？”，这样的更新可能会导致几百封邮件的发送。只有当您有可能会有所帮助的信息（例如更好的测试案例或者建议的修复方法）时才添加评论。
 </p>
 
-<h2 id="cant_find_it">Can't find it in the list?</h2>
+<h2 id="cant_find_it"><!--@Can't find it in the list?-->在列表中找不到？</h2>
 
 <p>
-  If none of the issues listed above describe what you're running into, you
+  <!--@If none of the issues listed above describe what you're running into, you
   may wish to <a href="http://code.google.com/p/chromium/issues/list?can=2&q=Feature%3DApps+Type%3DBug">search</a>
   the bug tracker, in case it has been reported but not marked as being known
-  yet.
+  yet.-->
+  如果以上列出的问题都不能描述您遇到的问题，您可能希望<a href="http://code.google.com/p/chromium/issues/list?can=2&q=Feature%3DApps+Type%3DBug">搜索</a>问题跟踪器，以免该问题已经报告但还没有标记为已知。
 </p>
 
 <p>
-  If you still can't find something that matches the problem you're having, you
+  <!--@If you still can't find something that matches the problem you're having, you
   can <a href="https://code.google.com/p/chromium/issues/entry?template=Defect report from user&labels=Feature-Apps,Type-Bug,Area-Internals,Pri-2">report
   the bug</a> on the Chromium bug tracker. Please include as many details as
   possible in your bug report, including Chrome version number, operating
   system, and any other relevant configuration details. Bug reports that attach
-  a small app that exhibits the problem are especially appreciated.
+  a small app that exhibits the problem are especially appreciated.-->
+  如果您仍然无法找到匹配您遇到的问题的信息，您可以在 Chromium
+  问题跟踪器上<a href="https://code.google.com/p/chromium/issues/entry?template=Defect report from user&labels=Feature-Apps,Type-Bug,Area-Internals,Pri-2">报告问题</a>。请在您的问题报告中包含尽可能多的详情，包括
+  Chrome 浏览器的版本号、操作系统及其它相关配置详情，如果能附加一个能够演示问题的小型应用的话就太好了。
 </p>
 <p class="backtotop"><a href="#top"><!--@Back to top-->回到顶部</a></p>
       </div>

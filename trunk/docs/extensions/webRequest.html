@@ -296,7 +296,7 @@
                   <li><a href="#properties"><!--@Properties-->属性</a><ol>  <li>    <a href="#property-MAX_HANDLER_BEHAVIOR_CHANGED_CALLS_PER_10_MINUTES">MAX_HANDLER_BEHAVIOR_CHANGED_CALLS_PER_10_MINUTES</a>  </li></ol></li>
                   <li><a href="#methods"><!--@Methods-->方法</a><ol>  <li><a href="#method-handlerBehaviorChanged">handlerBehaviorChanged</a></li></ol></li>
                   <li><a href="#events"><!--@Events-->事件</a><ol>  <li><a href="#event-onBeforeRequest">onBeforeRequest</a></li>  <li><a href="#event-onBeforeSendHeaders">onBeforeSendHeaders</a></li>  <li><a href="#event-onSendHeaders">onSendHeaders</a></li>  <li><a href="#event-onHeadersReceived">onHeadersReceived</a></li>  <li><a href="#event-onAuthRequired">onAuthRequired</a></li>  <li><a href="#event-onResponseStarted">onResponseStarted</a></li>  <li><a href="#event-onBeforeRedirect">onBeforeRedirect</a></li>  <li><a href="#event-onCompleted">onCompleted</a></li>  <li><a href="#event-onErrorOccurred">onErrorOccurred</a></li></ol></li>
-                  <li><a href="#samples"><!--@Sample -->示例扩展程序</a></li>
+                  
               </ol>
             </li>
           </ol>
@@ -311,7 +311,7 @@ or modify requests in-flight and to observe and analyze traffic.-->
 <h2 id="manifest"><!--@Manifest-->清单文件</h2>
 <p><!--@You must declare the "webRequest" permission in the <a
   href="manifest.html">extension manifest</a> to use the web request
-API, along with <a href="manifest.html#permissions">host permissions</a>
+API, along with <a href="declare_permissions.html">host permissions</a>
 for any hosts whose network requests you want to access. If you want to
 use the web request API in a blocking fashion, you need to request
 the "webRequestBlocking" permission in addition.
@@ -473,7 +473,7 @@ complete nor stable.-->
 <p>
 <!--@The webRequest API only exposes requests that the extension has
 permission to see, given its
-<a href="manifest.html#permissions">host permissions</a>.
+<a href="declare_permissions.html">host permissions</a>.
 Moreover, only the following schemes are accessible:-->
 只有扩展程序具有相应的主机权限时，网络请求 API
 才会暴露相关的请求。此外，只能访问下列协议的请求：<!--@
@@ -1234,10 +1234,6 @@ samples-->网络请求示例</a><!--@.-->。</p>
                 </div>
               </div>
         </div>
-          <h2 id="samples"><!--@Sample 扩展程序 that use chrome.webRequest-->使用chrome.webRequest的示例扩展程序</h2>
-            <li><strong><a href="samples.html#12a7bf1490a26359eadf10917e37c5b9">CatBlock</a></strong>
-            &ndash; I can't has cheezburger!
-        </li>
       </div>
     </div>
   </body>

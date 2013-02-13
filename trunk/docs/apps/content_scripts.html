@@ -85,7 +85,7 @@
                     <ul toggleable
                         class="level3 hidden">
                       <li class="level4">
-                            <a href="app_lifecycle.html" class="level4 ">Manage App Lifecycle</a>
+                            <a href="app_lifecycle.html" class="level4 ">管理应用的生命周期</a>
                       </li>
                       <li class="level4">
                             <a href="app_storage.html" class="level4 ">Manage Data</a>
@@ -154,10 +154,10 @@
                     <ul toggleable
                         class="level3 hidden">
                       <li class="level4">
-                            <a href="app_network.html" class="level4 ">Network Communications</a>
+                            <a href="app_network.html" class="level4 ">网络通信</a>
                       </li>
                       <li class="level4">
-                            <a href="app_hardware.html" class="level4 ">Access Hardware Devices</a>
+                            <a href="app_hardware.html" class="level4 ">访问硬件设备</a>
                       </li>
                     </ul>
                 </li>
@@ -175,7 +175,7 @@
                             <a href="angular_framework.html" class="level4 ">用 AngularJS 建立应用</a>
                       </li>
                       <li class="level4">
-                            <a href="sencha_framework.html" class="level4 ">Build Apps with Sencha Ext JS</a>
+                            <a href="sencha_framework.html" class="level4 ">用 Sencha Ext JS 建立应用</a>
                       </li>
                     </ul>
                 </li>
@@ -356,10 +356,10 @@ href="manifest.html">扩展程序的清单文件</a>中使用
 <p>
 <!--@If you want to inject the code only sometimes,
 use the
-<a href="manifest.html#permissions"><code>permissions</code></a> field instead,
+<a href="declare_permissions.html"><code>permissions</code></a> field instead,
 as described in <a href="#pi">Programmatic injection</a>.-->
 如果您只是有时需要插入代码，应该使用
-<a href="manifest.html#permissions">permissions</a>
+<a href="declare_permissions.html">permissions</a>
 字段，如<a href="#pi">以编程方式插入</a>部分所述。
 </p>
 
@@ -599,11 +599,11 @@ for the page.
 It also must be able to use the <code>chrome.tabs</code> module.
 You can get both kinds of permission
 using the manifest file's
-<a href="manifest.html#permissions">permissions</a> field.-->
+<a href="declare_permissions.html">permissions</a> field.-->
 要向页面中插入代码，您的扩展程序必须拥有该页面的<a
 href="xhr.html#requesting-permission">主机权限</a>，并且还需要用到
 <code>chrome.tabs</code> 模块。您可以使用清单文件中的
-<a href="manifest.html#permissions">permissions</a> 字段获得这些权限。
+<a href="declare_permissions.html">permissions</a> 字段获得这些权限。
 </p>
 
 <p>
@@ -753,7 +753,7 @@ document.getElementById("theButton").addEventListener("click", function() {
 First, be careful not to introduce security vulnerabilities into the web site
 your content script is injected into.  For example, if your content script
 receives content from another web site (for example, by making an <a
-href="messaging.html">XMLHttpRequest</a>),
+href="xhr.html">XMLHttpRequest</a>),
 be careful to filter that content for <a
 href="http://en.wikipedia.org/wiki/Cross-site_scripting">cross-site
 scripting</a> attacks before injecting the content into the current page.
