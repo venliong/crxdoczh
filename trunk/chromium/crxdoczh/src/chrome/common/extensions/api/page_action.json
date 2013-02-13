@@ -58,7 +58,7 @@
       {
         "name": "getTitle",
         "type": "function",
-//@        "description": "Gets the title of the browser action.",
+//@        "description": "Gets the title of the page action.",
         "description": "获取页面按钮的标题。",
         "parameters": [
           {
@@ -167,7 +167,7 @@
       {
         "name": "getPopup",
         "type": "function",
-//@        "description": "Gets the html document set as the popup for this browser action.",
+//@        "description": "Gets the html document set as the popup for this page action.",
         "description": "获取设置为该页面按钮弹出内容的 HTML 文档。",
         "parameters": [
           {
