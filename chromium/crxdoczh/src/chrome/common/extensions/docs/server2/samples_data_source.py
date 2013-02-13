@@ -242,8 +242,22 @@ class SamplesDataSource(object):
         return_list.append(dict_)
     return return_list
 
-  def get(self, key):
+  def _OriginalGet(self, key):
     return {
       'apps': lambda: self._CreateSamplesDict('apps'),
       'extensions': lambda: self._CreateSamplesDict('extensions')
     }.get(key, lambda: {})()
+
+  def get(self, key):
+    return []#self._OriginalGet(key)
+
+  def GetAsJSON(self, key):
+    return json.dumps(self._OriginalGet(key))
+
+  def _GetFromAPI(self, key):
+    from google.appengine.api import urlfetch
+    result = urlfetch.fetch('https://crxdoczh-slave-samples.appspot.com/_/api/' + CRXDOCZH_SLAVE_SAMPLES_API_KEY + '/json/samples/' + key)
+    if result.status_code == 200:
+      return json.loads(result.content)
+    else:
+      return []

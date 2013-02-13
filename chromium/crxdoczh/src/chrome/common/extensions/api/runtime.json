@@ -317,7 +317,7 @@
       {
         "name": "onSuspendCanceled",
         "type": "function",
-//@        "description": "Sent after onSuspend() to indicate that the app won't be unloaded after all."
+//@        "description": "Sent after onSuspend to indicate that the app won't be unloaded after all."
         "description": "在 onSuspend 之后发送，表示应用最终不会被卸载。"
       },
       {

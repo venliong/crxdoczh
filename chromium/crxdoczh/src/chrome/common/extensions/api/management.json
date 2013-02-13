@@ -363,7 +363,7 @@
       },
       {
         "name": "onDisabled",
-//@        "description": "Fired when an app or extension has been disabled",
+//@        "description": "Fired when an app or extension has been disabled.",
         "description": "应用或扩展程序禁用时产生。",
         "type": "function",
         "parameters": [{"name": "info", "$ref":"ExtensionInfo"}]

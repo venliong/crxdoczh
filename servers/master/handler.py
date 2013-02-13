@@ -23,7 +23,7 @@ class HTMLHandler(webapp2.RequestHandler):
     cache = HandlerCache(self.request, self.response)
 
     if not cache.get():
-      url = 'https://crxdoczh.googlecode.com/svn/trunk/docs' + self.request.path
+      url = 'https://crxdoczh.googlecode.com/svn/trunk/docs/' + doctype + '/' + filename
       result = urlfetch.fetch(url, validate_certificate = False)
       if result.status_code == 200:
         cache.add(result.content)
@@ -32,7 +32,7 @@ class HTMLHandler(webapp2.RequestHandler):
         self.response.status = result.status_code
 
 class StaticHandler(webapp2.RequestHandler):
-  def get(self, doctype, static_path):
+  def get(self, static_path):
     cache = HandlerCache(self.request, self.response)
 
     if(static_path.endswith('.css')):
@@ -49,6 +49,6 @@ class StaticHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
   (r'/trunk/(apps|extensions)/([^/]*\.html)', HTMLHandler),
-  (r'/trunk/(apps|extensions)/static/(.*)', StaticHandler),
+  (r'/trunk/static/(.*)', StaticHandler),
 ])
 

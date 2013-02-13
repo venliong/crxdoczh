@@ -46,7 +46,7 @@
                     "type": "string",
                     "enum": ["regular", "incognito_session_only"],
                     "optional": true,
-//@                    "description": "Where to set the setting (default: regular). One of<br><var>regular</var>: setting for regular profile (which is inherited by the incognito profile if not overridden elsewhere),<br><var>incognito_session_only</var>: setting for incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular settings)."
+//@                    "description": "Where to clear the setting (default: regular). One of<br><var>regular</var>: setting for regular profile (which is inherited by the incognito profile if not overridden elsewhere),<br><var>incognito_session_only</var>: setting for incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular settings)."
                     "description": "在哪些范围内清除这些设置（默认为 \"regular\"）。下列值之一：<br><var>\"regular\"</var>（普通）：用于普通配置文件的设置（如果没有另外覆盖的话也将由隐身配置文件继承）；<br><var>\"incognito_session_only\"</var>（仅用于隐身会话）：用于隐身配置文件的设置，只能在隐身会话中设置，并且在隐身会话结束时删除（覆盖普通设置）。"
                   }
                 }
@@ -149,7 +149,7 @@
                     "type": "string",
                     "enum": ["regular", "incognito_session_only"],
                     "optional": true,
-//@                    "description": "Where to clear the setting (default: regular). One of<br><var>regular</var>: setting for regular profile (which is inherited by the incognito profile if not overridden elsewhere),<br><var>incognito_session_only</var>: setting for incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular settings)."
+//@                    "description": "Where to set the setting (default: regular). One of<br><var>regular</var>: setting for regular profile (which is inherited by the incognito profile if not overridden elsewhere),<br><var>incognito_session_only</var>: setting for incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular settings)."
                     "description": "在哪些范围内应用这些设置（默认为 \"regular\"）。下列值之一：<br><var>\"regular\"</var>（普通）：用于普通配置文件的设置（如果没有另外覆盖的话也将由隐身配置文件继承）；<br><var>\"incognito_session_only\"</var>（仅用于隐身会话）：用于隐身配置文件的设置，只能在隐身会话中设置，并且在隐身会话结束时删除（覆盖普通设置）。"
                   }
                 }

@@ -672,8 +672,8 @@
       {
         "name": "captureVisibleTab",
         "type": "function",
-//@        "description": "Captures the visible area of the currently active tab in the specified window. You must have <a href='manifest.html#permissions'>host permission</a> for the URL displayed by the tab.",
-        "description": "捕捉指定窗口中当前活动标签页的可见区域，您必须拥有标签页中打开的 URL 的<a href='manifest.html#permissions'>主机权限</a>。",
+//@        "description": "Captures the visible area of the currently active tab in the specified window. You must have <a href='declare_permissions.html'>host permission</a> for the URL displayed by the tab.",
+        "description": "捕捉指定窗口中当前活动标签页的可见区域，您必须拥有标签页中打开的 URL 的<a href='declare_permissions.html'>主机权限</a>。",
         "parameters": [
           {
             "type": "integer",
@@ -1020,7 +1020,7 @@
             "type": "object",
             "name": "removeInfo",
             "properties": {
-//@              "windowId": {"type": "integer", "minimum": 0, "description": "the window whose tab is closed." },
+//@              "windowId": {"type": "integer", "minimum": 0, "description": "The window whose tab is closed." },
               "windowId": {"type": "integer", "minimum": 0, "description": "包含已关闭标签页的窗口。" },
 //@              "isWindowClosing": {"type": "boolean", "description": "True when the tab is being closed because its window is being closed." }
               "isWindowClosing": {"type": "boolean", "description": "当标签页因为窗口关闭而关闭时为 true。" }
