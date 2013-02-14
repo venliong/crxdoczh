@@ -83,9 +83,9 @@ class RequestHandler(BaseHTTPRequestHandler):
 
 if __name__ == '__main__':
   # HACK
-  import sys
-  reload(sys)
-  sys.setdefaultencoding("utf-8")
+  #import sys
+  #reload(sys)
+  #sys.setdefaultencoding("utf-8")
 
   parser = optparse.OptionParser(
       description='Runs a server to preview the extension documentation.',
