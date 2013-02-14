@@ -357,6 +357,13 @@ span.displayModeWarning {
   text-align: left;
 }
 
+/* Avoid line-break in table headers of intro so that Chinese translations
+ * look much better.
+ */
+#gc-pagecontent table.intro tr td:first-child {
+  white-space: nowrap;
+}
+
 #gc-pagecontent table.intro td {
   border-bottom: 1px solid #E5E5E5;
   padding: 6px 12px;

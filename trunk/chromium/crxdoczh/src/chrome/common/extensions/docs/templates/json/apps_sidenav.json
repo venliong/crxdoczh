@@ -32,7 +32,7 @@
             "fileName": "app_lifecycle.html"
           },
           {
-            "title": "Manage Data",
+            "title": "管理数据",
             "fileName": "app_storage.html"
           },
           {
@@ -50,11 +50,11 @@
         "toggleable": true,
         "items": [
           {
-            "title": "Identify User",
+            "title": "用户认证",
             "fileName": "app_identity.html"
           },
           {
-            "title": "Comply with CSP",
+            "title": "遵循 CSP（内容安全策略）",
             "fileName": "app_csp.html"
           }
         ]
@@ -160,7 +160,7 @@
     "fileName": "samples.html"
   },
   {
-    "title": "Known Issues",
+    "title": "已知问题",
     "fileName": "app_known_issues.html"
   }
 ]
