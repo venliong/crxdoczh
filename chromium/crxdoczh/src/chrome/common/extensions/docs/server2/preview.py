@@ -82,11 +82,6 @@ class RequestHandler(BaseHTTPRequestHandler):
     self.wfile.write(content)
 
 if __name__ == '__main__':
-  # HACK
-  #import sys
-  #reload(sys)
-  #sys.setdefaultencoding("utf-8")
-
   parser = optparse.OptionParser(
       description='Runs a server to preview the extension documentation.',
       usage='usage: %prog [option]...')

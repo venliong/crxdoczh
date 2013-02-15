@@ -10,24 +10,35 @@
       {
         "id": "KeyboardEvent",
         "type": "object",
-        "description": "See http://www.w3.org/TR/DOM-Level-3-Events/#events-KeyboardEvent",
+//@        "description": "See http://www.w3.org/TR/DOM-Level-3-Events/#events-KeyboardEvent",
+        "description": "参见 <a href=\"http://www.w3.org/TR/DOM-Level-3-Events/#events-KeyboardEvent\">http://www.w3.org/TR/DOM-Level-3-Events/#events-KeyboardEvent</a>。",
         "properties": {
-          "type": {"type": "string", "description": "One of keyup or keydown.", "enum": ["keyup", "keydown"]},
-          "requestId": {"type": "string", "description": "The ID of the request."},
-          "key": {"type": "string", "description": "Value of the key being pressed"},
-          "code": {"type": "string", "description": "Value of the physical key being pressed. The value is not affected by current keyboard layout or modifier state."},
-          "altKey": {"type": "boolean", "optional": true, "description": "Whether or not the ALT key is pressed."},
-          "ctrlKey": {"type": "boolean", "optional": true, "description": "Whether or not the CTRL key is pressed."},
-          "shiftKey": {"type": "boolean", "optional": true, "description": "Whether or not the SHIFT key is pressed."}
+//@          "type": {"type": "string", "description": "One of keyup or keydown.", "enum": ["keyup", "keydown"]},
+          "type": {"type": "string", "description": "\"keyup\"（按键弹起）或 \"keydown\"（按键按下）。", "enum": ["keyup", "keydown"]},
+//@          "requestId": {"type": "string", "description": "The ID of the request."},
+          "requestId": {"type": "string", "description": "请求标识符。"},
+//@          "key": {"type": "string", "description": "Value of the key being pressed"},
+          "key": {"type": "string", "description": "按下的按键值。"},
+//@          "code": {"type": "string", "description": "Value of the physical key being pressed. The value is not affected by current keyboard layout or modifier state."},
+          "code": {"type": "string", "description": "按下的物理按键的值，不受当前键盘布局或组合键状态的影响。"},
+//@          "altKey": {"type": "boolean", "optional": true, "description": "Whether or not the ALT key is pressed."},
+          "altKey": {"type": "boolean", "optional": true, "description": "是否按下了 Alt 键。"},
+//@          "ctrlKey": {"type": "boolean", "optional": true, "description": "Whether or not the CTRL key is pressed."},
+          "ctrlKey": {"type": "boolean", "optional": true, "description": "是否按下了 Ctrl 键。"},
+//@          "shiftKey": {"type": "boolean", "optional": true, "description": "Whether or not the SHIFT key is pressed."}
+          "shiftKey": {"type": "boolean", "optional": true, "description": "是否按下了 Shift 键。"}
         }
       },
       {
         "id": "InputContext",
         "type": "object",
-        "description": "Describes an input Context",
+//@        "description": "Describes an input Context",
+        "description": "描述输入上下文。",
         "properties": {
-          "contextID": {"type": "integer", "description": "This is used to specify targets of text field operations.  This ID becomes invalid as soon as onBlur is called."},
-          "type": {"type": "string", "description": "Type of value this text field edits, (Text, Number, Password, etc)", "enum": ["text", "number", "password"]}
+//@          "contextID": {"type": "integer", "description": "This is used to specify targets of text field operations.  This ID becomes invalid as soon as onBlur is called."},
+          "contextID": {"type": "integer", "description": "该属性用来指定文本框操作的目标，一旦接收到 onBlur 事件该标识符就不再有效。"},
+//@          "type": {"type": "string", "description": "Type of value this text field edits, (Text, Number, Password, etc)", "enum": ["text", "number", "password"]}
+          "type": {"type": "string", "description": "该文本框编辑的值的类型：\"text\"（文本）、\"number\"（数字）、\"password\"（密码）等。", "enum": ["text", "number", "password"]}
         }
       }
     ],
@@ -35,51 +46,61 @@
       {
         "name": "setComposition",
         "type": "function",
-        "description": "Set the current composition. If this extension does not own the active IME, this fails.",
+//@        "description": "Set the current composition. If this extension does not own the active IME, this fails.",
+        "description": "设置当前的候选内容。如果当前扩展程序没有独占当前输入法，该方法将会失败。",
         "parameters": [
           {
             "name": "parameters",
             "type": "object",
             "properties": {
               "contextID": {
-                "description": "ID of the context where the composition text will be set",
+//@                "description": "ID of the context where the composition text will be set",
+                "description": "需要设置候选本文的上下文标识符。",
                 "type": "integer"
               },
               "text": {
-                "description": "Text to set",
+//@                "description": "Text to set",
+                "description": "要设置的文本。",
                 "type": "string"
               },
               "selectionStart": {
-                "description": "Position in the text that the selection starts at.",
+//@                "description": "Position in the text that the selection starts at.",
+                "description": "选定内容在文本中的起始位置。",
                 "optional": true,
                 "type": "integer"
               },
               "selectionEnd": {
-                "description": "Position in the text that the selection ends at.",
+//@                "description": "Position in the text that the selection ends at.",
+                "description": "选定内容在文本中的结束位置。",
                 "optional": true,
                 "type": "integer"
               },
               "cursor": {
-                "description": "Position in the text of the cursor.",
+//@                "description": "Position in the text of the cursor.",
+                "description": "光标在文本中的位置。",
                 "type": "integer"
               },
               "segments": {
-                "description": "List of segments and their associated types.",
+//@                "description": "List of segments and their associated types.",
+                "description": "片段列表以及与它们相关的类型。",
                 "type": "array",
                 "optional": true,
                 "items": {
                   "type": "object",
                   "properties": {
                     "start": {
-                      "description": "Index of the character to start this segment at",
+//@                      "description": "Index of the character to start this segment at",
+                      "description": "当前片段开始的字符索引。",
                       "type": "integer"
                     },
                     "end": {
-                      "description": "Index of the character to end this segment after.",
+//@                      "description": "Index of the character to end this segment after.",
+                      "description": "当前片段结束后的字符索引。",
                       "type": "integer"
                     },
                     "style": {
-                      "description": "How to render this segment",
+//@                      "description": "How to render this segment",
+                      "description": "如何呈现这一片段。",
                       "enum": ["underline", "doubleUnderline"],
                       "type": "string"
                     }
@@ -92,7 +113,8 @@
             "type": "function",
             "name": "callback",
             "optional": true,
-            "description": "Called when the operation completes with a boolean indicating if the text was accepted or not. On failure, chrome.runtime.lastError is set.",
+//@            "description": "Called when the operation completes with a boolean indicating if the text was accepted or not. On failure, chrome.runtime.lastError is set.",
+            "description": "当操作完成时调用，传递一个布尔值，表示文本是否被接受。如果调用失败，将设置 $ref:runtime.lastError。",
             "parameters": [
               {
                 "name": "success",
@@ -105,14 +127,16 @@
       {
         "name": "clearComposition",
         "type": "function",
-        "description": "Clear the current composition. If this extension does not own the active IME, this fails.",
+//@        "description": "Clear the current composition. If this extension does not own the active IME, this fails.",
+        "description": "清除当前的候选内容。如果当前扩展程序没有独占当前输入法，该方法将会失败。",
         "parameters": [
           {
             "name": "parameters",
             "type": "object",
             "properties": {
               "contextID": {
-                "description": "ID of the context where the composition will be cleared",
+//@                "description": "ID of the context where the composition will be cleared",
+                "description": "需要清除候选内容的上下文标识符。",
                 "type": "integer"
               }
             }
@@ -121,7 +145,8 @@
             "type": "function",
             "name": "callback",
             "optional": true,
-            "description": "Called when the operation completes with a boolean indicating if the text was accepted or not. On failure, chrome.runtime.lastError is set.",
+//@            "description": "Called when the operation completes with a boolean indicating if the text was accepted or not. On failure, chrome.runtime.lastError is set.",
+            "description": "当操作完成时调用，传递一个布尔值，表示文本是否被接受。如果调用失败，将设置 $ref:runtime.lastError。",
             "parameters": [
               {
                 "name": "success",
@@ -134,18 +159,21 @@
       {
         "name": "commitText",
         "type": "function",
-        "description": "Commits the provided text to the current input.",
+//@        "description": "Commits the provided text to the current input.",
+        "description": "将提供的文本提交至当前输入。",
         "parameters": [
           {
             "name": "parameters",
             "type": "object",
             "properties": {
               "contextID": {
-                "description": "ID of the context where the text will be committed",
+//@                "description": "ID of the context where the text will be committed",
+                "description": "需要提交文本的上下文标识符。",
                 "type": "integer"
               },
               "text": {
-                "description": "The text to commit",
+//@                "description": "The text to commit",
+                "description": "要提交的文本。",
                 "type": "string"
               }
             }
@@ -154,7 +182,8 @@
             "type": "function",
             "name": "callback",
             "optional": true,
-            "description": "Called when the operation completes with a boolean indicating if the text was accepted or not. On failure, chrome.runtime.lastError is set.",
+//@            "description": "Called when the operation completes with a boolean indicating if the text was accepted or not. On failure, chrome.runtime.lastError is set.",
+            "description": "当操作完成时调用，传递一个布尔值，表示文本是否被接受。如果调用失败，将设置 $ref:runtime.lastError。",
             "parameters": [
               {
                 "name": "success",
@@ -167,14 +196,16 @@
       {
         "name": "setCandidateWindowProperties",
         "type": "function",
-        "description": "Sets the properties of the candidate window. This fails if the extension doesn’t own the active IME",
+//@        "description": "Sets the properties of the candidate window. This fails if the extension doesn’t own the active IME",
+        "description": "设置候选窗口的属性。如果当前扩展程序没有独占当前输入法，该方法将会失败。",
         "parameters": [
           {
             "name": "parameters",
             "type": "object",
             "properties": {
               "engineID": {
-                "description": "ID of the engine to set properties on.",
+//@                "description": "ID of the engine to set properties on.",
+                "description": "要设置属性的引擎标识符。",
                 "type": "string"
               },
               "properties": {
@@ -183,32 +214,38 @@
                   "visible": {
                     "type": "boolean",
                     "optional": true,
-                    "description": "True to show the Candidate window, false to hide it."
+//@                    "description": "True to show the Candidate window, false to hide it."
+                    "description": "要显示候选窗口则为 true，隐藏则为 false。"
                   },
                   "cursorVisible": {
                     "type": "boolean",
                     "optional": true,
-                    "description": "True to show the cursor, false to hide it."
+//@                    "description": "True to show the cursor, false to hide it."
+                    "description": "要显示光标则为 true，隐藏则为 false。"
                   },
                   "vertical": {
                     "type": "boolean",
                     "optional": true,
-                    "description": "True if the candidate window should be rendered vertical, false to make it horizontal."
+//@                    "description": "True if the candidate window should be rendered vertical, false to make it horizontal."
+                    "description": "如果候选窗口竖排则为 true，横排则为 false。"
                   },
                   "pageSize": {
                     "type": "integer",
                     "optional": true,
-                    "description": "The number of candidates to display per page."
+//@                    "description": "The number of candidates to display per page."
+                    "description": "每一页显示的候选项数目。"
                   },
                   "auxiliaryText": {
                     "type": "string",
                     "optional": true,
-                    "description": "Text that is shown at the bottom of the candidate window."
+//@                    "description": "Text that is shown at the bottom of the candidate window."
+                    "description": "候选窗口底部显示的文字。"
                   },
                   "auxiliaryTextVisible": {
                     "type": "boolean",
                     "optional": true,
-                    "description": "True to display the auxiliary text, false to hide it."
+//@                    "description": "True to display the auxiliary text, false to hide it."
+                    "description": "要显示辅助文字则为 true，隐藏则为 false。"
                   }
                 }
               }
@@ -218,7 +255,8 @@
             "type": "function",
             "name": "callback",
             "optional": true,
-            "description": "Called when the operation completes.",
+//@            "description": "Called when the operation completes.",
+            "description": "操作完成时调用。",
             "parameters": [
               {
                 "name": "success",
@@ -231,34 +269,45 @@
       {
         "name": "setCandidates",
         "type": "function",
-        "description": "Sets the current candidate list. This fails if this extension doesn’t own the active IME",
+//@        "description": "Sets the current candidate list. This fails if this extension doesn’t own the active IME",
+        "description": "设置当前的候选列表。如果当前扩展程序没有独占当前输入法，该方法将会失败。",
         "parameters": [
           {
             "name": "parameters",
             "type": "object",
             "properties": {
               "contextID": {
-                "description": "ID of the context that owns the candidate window.",
+//@                "description": "ID of the context that owns the candidate window.",
+                "description": "拥有候选窗口的上下文标识符。",
                 "type": "integer"
               },
               "candidates": {
-                "description": "List of candidates to show in the candidate window",
+//@                "description": "List of candidates to show in the candidate window",
+                "description": "在候选窗口中显示的候选项列表。",
                 "type": "array",
                 "items": {
                   "type": "object",
                   "properties": {
-                    "candidate": {"type": "string", "description": "The candidate"},
-                    "id": {"type": "integer", "description": "The candidate's id"},
-                    "parentId": {"type": "integer", "optional": true, "description": "The id to add these candidates under"},
-                    "label": {"type": "string", "optional": true, "description": "Short string displayed to next to the candidate, often the shortcut key or index"},
-                    "annotation": {"type": "string", "optional": true, "description": "Additional text describing the candidate"},
+//@                    "candidate": {"type": "string", "description": "The candidate"},
+                    "candidate": {"type": "string", "description": "候选项。"},
+//@                    "id": {"type": "integer", "description": "The candidate's id"},
+                    "id": {"type": "integer", "description": "候选项标识符。"},
+//@                    "parentId": {"type": "integer", "optional": true, "description": "The id to add these candidates under"},
+                    "parentId": {"type": "integer", "optional": true, "description": "将这些候选项添加至其下的标识符。"},
+//@                    "label": {"type": "string", "optional": true, "description": "Short string displayed to next to the candidate, often the shortcut key or index"},
+                    "label": {"type": "string", "optional": true, "description": "显示在候选项旁边的短字符串，通常为快捷键或索引。"},
+//@                    "annotation": {"type": "string", "optional": true, "description": "Additional text describing the candidate"},
+                    "annotation": {"type": "string", "optional": true, "description": "描述候选项的附加文字。"},
                     "usage": {
                       "type": "object",
                       "optional": true,
-                      "description": "The usage or detail description of word.",
+//@                      "description": "The usage or detail description of word.",
+                      "description": "词语的用法或详细描述。",
                       "properties": {
-                        "title": { "type": "string", "description": "The title string of details description."},
-                        "body": { "type": "string", "description": "The body string of detail description."}
+//@                        "title": { "type": "string", "description": "The title string of details description."},
+                        "title": { "type": "string", "description": "详细描述的标题字符串。"},
+//@                        "body": { "type": "string", "description": "The body string of detail description."}
+                        "body": { "type": "string", "description": "详细描述的正文字符串。"}
                       }
                     }
                   }
@@ -270,7 +319,8 @@
             "type": "function",
             "name": "callback",
             "optional": true,
-            "description": "Called when the operation completes.",
+//@            "description": "Called when the operation completes.",
+            "description": "操作完成时调用。",
             "parameters": [
               {
                 "name": "success",
@@ -283,18 +333,21 @@
       {
         "name": "setCursorPosition",
         "type": "function",
-        "description": "Set the position of the cursor in the candidate window. This is a no-op if this extension does not own the active IME.",
+//@        "description": "Set the position of the cursor in the candidate window. This is a no-op if this extension does not own the active IME.",
+        "description": "设置候选窗口中的光标位置。如果当前扩展程序没有独占当前输入法，则不进行任何操作。",
         "parameters": [
           {
             "name": "parameters",
             "type": "object",
             "properties": {
               "contextID": {
-                "description": "ID of the context that owns the candidate window.",
+//@                "description": "ID of the context that owns the candidate window.",
+                "description": "拥有候选窗口的上下文标识符。",
                 "type": "integer"
               },
               "candidateID": {
-                "description": "ID of the candidate to select.",
+//@                "description": "ID of the candidate to select.",
+                "description": "选定的候选项标识符。",
                 "type": "integer"
               }
             }
@@ -303,7 +356,8 @@
             "type": "function",
             "name": "callback",
             "optional": true,
-            "description": "Called when the operation completes",
+//@            "description": "Called when the operation completes",
+            "description": "操作完成时调用。",
             "parameters": [
               {
                 "name": "success",
@@ -316,34 +370,44 @@
       {
         "name": "setMenuItems",
         "type": "function",
-        "description": "Adds the provided menu items to the language menu when this IME is active.",
+//@        "description": "Adds the provided menu items to the language menu when this IME is active.",
+        "description": "当前输入法处于活动状态时，向语言菜单添加提供的菜单项。",
         "parameters": [
           {
             "name": "parameters",
             "type": "object",
             "properties": {
               "engineID": {
-                "description": "ID of the engine to use",
+//@                "description": "ID of the engine to use",
+                "description": "要使用的引擎标识符。",
                 "type": "string"
               },
               "items": {
-                "description": "MenuItems to add. They will be added in the order they exist in the array.",
+//@                "description": "MenuItems to add. They will be added in the order they exist in the array.",
+                "description": "要添加的菜单项，将按照数组中出现的顺序添加。",
                 "type": "array",
                 "items": {
                   "type": "object",
-                  "description": "A menu item used by an input method to interact with the user from the language menu.",
+//@                  "description": "A menu item used by an input method to interact with the user from the language menu.",
+                  "description": "在语言菜单中，输入法用来与用户交互的菜单项。",
                   "properties": {
-                    "id": {"type": "string", "description": "String that will be passed to callbacks referencing this MenuItem."},
-                    "label": {"type": "string", "optional": true, "description": "Text displayed in the menu for this item."},
+//@                    "id": {"type": "string", "description": "String that will be passed to callbacks referencing this MenuItem."},
+                    "id": {"type": "string", "description": "传递给回调函数的字符串，用来引用这一菜单项。"},
+//@                    "label": {"type": "string", "optional": true, "description": "Text displayed in the menu for this item."},
+                    "label": {"type": "string", "optional": true, "description": "这一菜单项在菜单中显示的文本。"},
                     "style": {
                       "type": "string",
                       "optional": true,
-                      "description": "Enum representing if this item is: none, check, radio, or a separator.  Radio buttons between separators are considered grouped.",
+//@                      "description": "Enum representing if this item is: none, check, radio, or a separator.  Radio buttons between separators are considered grouped.",
+                      "description": "代表这一菜单项是否是：\"none\"（普通）、\"check\"（复选）、\"radio\"（单选）或 \"separator\"（分隔符）的枚举值。在分隔符之间的单选按钮将认为是同一组的。",
                       "enum": ["none", "check", "radio", "separator"]
                     },
-                    "visible": {"type": "boolean", "optional": true, "description": "Indicates this item is visible."},
-                    "checked": {"type": "boolean", "optional": true, "description": "Indicates this item should be drawn with a check."},
-                    "enabled": {"type": "boolean", "optional": true, "description": "Indicates this item is enabled."}
+//@                    "visible": {"type": "boolean", "optional": true, "description": "Indicates this item is visible."},
+                    "visible": {"type": "boolean", "optional": true, "description": "表示这一菜单项是否可见。"},
+//@                    "checked": {"type": "boolean", "optional": true, "description": "Indicates this item should be drawn with a check."},
+                    "checked": {"type": "boolean", "optional": true, "description": "表示这一菜单项是否已勾选。"},
+//@                    "enabled": {"type": "boolean", "optional": true, "description": "Indicates this item is enabled."}
+                    "enabled": {"type": "boolean", "optional": true, "description": "表示这一菜单项是否已启用。"}
                   }
                 }
               }
@@ -361,34 +425,44 @@
       {
         "name": "updateMenuItems",
         "type": "function",
-        "description": "Updates the state of the MenuItems specified",
+//@        "description": "Updates the state of the MenuItems specified",
+        "description": "更新指定菜单项的状态。",
         "parameters": [
           {
             "name": "parameters",
             "type": "object",
             "properties": {
               "engineID": {
-                "description": "ID of the engine to use",
+//@                "description": "ID of the engine to use",
+                "description": "要使用的引擎标识符。",
                 "type": "string"
               },
               "items": {
-                "description": "Array of MenuItems to update",
+//@                "description": "Array of MenuItems to update",
+                "description": "要更新的菜单项数组。",
                 "type": "array",
                 "items": {
                   "type": "object",
-                  "description": "A menu item used by an input method to interact with the user from the language menu.",
+//@                  "description": "A menu item used by an input method to interact with the user from the language menu.",
+                  "description": "在语言菜单中，输入法用来与用户交互的菜单项。",
                   "properties": {
-                    "id": {"type": "string", "description": "String that will be passed to callbacks referencing this MenuItem."},
-                    "label": {"type": "string", "optional": true, "description": "Text displayed in the menu for this item."},
+//@                    "id": {"type": "string", "description": "String that will be passed to callbacks referencing this MenuItem."},
+                    "id": {"type": "string", "description": "传递给回调函数的字符串，用来引用这一菜单项。"},
+//@                    "label": {"type": "string", "optional": true, "description": "Text displayed in the menu for this item."},
+                    "label": {"type": "string", "optional": true, "description": "这一菜单项在菜单中显示的文本。"},
                     "style": {
                       "type": "string",
                       "optional": true,
-                      "description": "Enum representing if this item is: none, check, radio, or a separator.  Radio buttons between separators are considered grouped.",
+//@                      "description": "Enum representing if this item is: none, check, radio, or a separator.  Radio buttons between separators are considered grouped.",
+                      "description": "代表这一菜单项是否是：\"none\"（普通）、\"check\"（复选）、\"radio\"（单选）或 \"separator\"（分隔符）的枚举值。在分隔符之间的单选按钮将认为是同一组的。",
                       "enum": ["none", "check", "radio", "separator"]
                     },
-                    "visible": {"type": "boolean", "optional": true, "description": "Indicates this item is visible."},
-                    "checked": {"type": "boolean", "optional": true, "description": "Indicates this item should be drawn with a check."},
-                    "enabled": {"type": "boolean", "optional": true, "description": "Indicates this item is enabled."}
+//@                    "visible": {"type": "boolean", "optional": true, "description": "Indicates this item is visible."},
+                    "visible": {"type": "boolean", "optional": true, "description": "表示这一菜单项是否可见。"},
+//@                    "checked": {"type": "boolean", "optional": true, "description": "Indicates this item should be drawn with a check."},
+                    "checked": {"type": "boolean", "optional": true, "description": "表示这一菜单项是否已勾选。"},
+//@                    "enabled": {"type": "boolean", "optional": true, "description": "Indicates this item is enabled."}
+                    "enabled": {"type": "boolean", "optional": true, "description": "表示这一菜单项是否已启用。"}
                   }
                 }
               }
@@ -398,7 +472,8 @@
             "type": "function",
             "name": "callback",
             "optional": true,
-            "description": "Called when the operation completes",
+//@            "description": "Called when the operation completes",
+            "description": "操作完成时调用。",
             "parameters": []
           }
         ]
@@ -406,10 +481,13 @@
       {
         "name": "keyEventHandled",
         "type": "function",
-        "description": "Indicates that the key event received by onKeyEvent is handled.  This should only be called if the onKeyEvent listener is asynchronous.",
+//@        "description": "Indicates that the key event received by onKeyEvent is handled.  This should only be called if the onKeyEvent listener is asynchronous.",
+        "description": "表示 onKeyEvent 接收到的键盘事件已处理，只有当 onKeyEvent 监听器为异步时才应该调用该方法。",
         "parameters": [
-          {"type": "string", "name": "requestId", "description": "Request id of the event that was handled.  This should come from keyEvent.requestId"},
-          {"type": "boolean", "name": "response", "description": "True if the keystroke was handled, false if not"}
+//@          {"type": "string", "name": "requestId", "description": "Request id of the event that was handled.  This should come from keyEvent.requestId"},
+          {"type": "string", "name": "requestId", "description": "处理的事件的请求标识符，应该从 keyEvent.requestId 获得。"},
+//@          {"type": "boolean", "name": "response", "description": "True if the keystroke was handled, false if not"}
+          {"type": "boolean", "name": "response", "description": "如果按键已处理则为 true，否则为 false。"}
         ]
       }
     ],
@@ -417,67 +495,78 @@
       {
         "name": "onActivate",
         "type": "function",
-        "description": "This event is sent when an IME is activated. It signals that the IME will be receiving onKeyPress events.",
+//@        "description": "This event is sent when an IME is activated. It signals that the IME will be receiving onKeyPress events.",
+        "description": "输入法激活时发送这一事件，这意味着当前输入法将会接收 onKeyEvent 事件。",
         "parameters": [
           {
             "type": "string",
             "name": "engineID",
-            "description": "ID of the engine receiving the event"
+//@            "description": "ID of the engine receiving the event"
+            "description": "接收这一事件的引擎标识符。"
           }
         ]
       },
       {
         "name": "onDeactivated",
         "type": "function",
-        "description": "This event is sent when an IME is deactivated. It signals that the IME will no longer be receiving onKeyPress events.",
+//@        "description": "This event is sent when an IME is deactivated. It signals that the IME will no longer be receiving onKeyPress events.",
+        "description": "当输入法处于不活动状态时产生，这意味着当前输入法不会继续接收 onKeyEvent 事件。",
         "parameters": [
           {
             "type": "string",
             "name": "engineID",
-            "description": "ID of the engine receiving the event"
+//@            "description": "ID of the engine receiving the event"
+            "description": "接收这一事件的引擎标识符。"
           }
         ]
       },
       {
         "name": "onFocus",
         "type": "function",
-        "description": "This event is sent when focus enters a text box. It is sent to all extensions that are listening to this event, and enabled by the user.",
+//@        "description": "This event is sent when focus enters a text box. It is sent to all extensions that are listening to this event, and enabled by the user.",
+        "description": "当焦点进入文本框时发送该事件，它将发送至用户启用并且监听该事件的所有扩展程序。",
         "parameters": [
           {
             "$ref": "InputContext",
             "name": "context",
-            "description": "Describes the text field that has acquired focus."
+//@            "description": "Describes the text field that has acquired focus."
+            "description": "描述已经获得焦点的文本框。"
           }
         ]
       },
       {
         "name": "onBlur",
         "type": "function",
-        "description": "This event is sent when focus leaves a text box. It is sent to all extensions that are listening to this event, and enabled by the user.",
+//@        "description": "This event is sent when focus leaves a text box. It is sent to all extensions that are listening to this event, and enabled by the user.",
+        "description": "当焦点离开文本框时发送这一事件，它将发送至用户启用并且监听该事件的所有扩展程序。",
         "parameters": [
           {
             "type": "integer",
             "name": "contextID",
-            "description": "The ID of the text field that has lost focus. The ID is invalid after this call"
+//@            "description": "The ID of the text field that has lost focus. The ID is invalid after this call"
+            "description": "失去焦点的文本框标识符，在这一调用后该标识符不再有效。"
           }
         ]
       },
       {
         "name": "onInputContextUpdate",
         "type": "function",
-        "description": "This event is sent when the properties of the current InputContext change, such as the the type. It is sent to all extensions that are listening to this event, and enabled by the user.",
+//@        "description": "This event is sent when the properties of the current InputContext change, such as the the type. It is sent to all extensions that are listening to this event, and enabled by the user.",
+        "description": "当前的 InputContext（输入上下文）属性（例如类型）更改时发送这一事件，它将发送至用户启用并且监听该事件的所有扩展程序。",
         "parameters": [
           {
             "$ref": "InputContext",
             "name": "context",
-            "description": "An InputContext object describing the text field that has changed."
+//@            "description": "An InputContext object describing the text field that has changed."
+            "description": "描述已更改文本框的 InputContext 对象。"
           }
         ]
       },
       {
         "name": "onKeyEvent",
         "type": "function",
-        "description": "This event is sent if this extension owns the active IME.",
+//@        "description": "This event is sent if this extension owns the active IME.",
+        "description": "如果当前扩展程序独占当前输入法，则会发送这一事件。",
         "options": {
           "supportsFilters": false,
           "supportsListeners": true,
@@ -488,12 +577,14 @@
           {
             "type": "string",
             "name": "engineID",
-            "description": "ID of the engine receiving the event"
+//@            "description": "ID of the engine receiving the event"
+            "description": "接收此事件的引擎标识符。"
           },
           {
             "$ref": "KeyboardEvent",
             "name": "keyData",
-            "description": "Data on the key event"
+//@            "description": "Data on the key event"
+            "description": "键盘事件的数据。"
           }
         ],
         "extraParameters": [
@@ -501,7 +592,8 @@
             "type": "array",
             "optional": true,
             "name": "extraInfoSpec",
-            "description": "Array of extra information that specifies how the callback is invoked.",
+//@            "description": "Array of extra information that specifies how the callback is invoked.",
+            "description": "包含附加信息的数组，指定回调函数如何调用。",
             "items": {
               "type": "string",
               "enum": ["async"]
@@ -510,29 +602,34 @@
         ],
         "returns": {
           "type": "boolean",
-          "description": "True if the keystroke was handled, false if not.  This function should always return a value if |async| is not specified.",
+//@          "description": "True if the keystroke was handled, false if not.  This function should always return a value if |async| is not specified.",
+          "description": "如果处理了这一次按键操作则返回 true，否则返回 false。如果没有指定 \"async\" 的话该函数必须返回一个值。",
           "optional": true
         }
       },
       {
         "name": "onCandidateClicked",
         "type": "function",
-        "description": "This event is sent if this extension owns the active IME.",
+//@        "description": "This event is sent if this extension owns the active IME.",
+        "description": "如果当前扩展程序独占当前输入法，则会发送这一事件。",
         "parameters": [
           {
             "type": "string",
             "name": "engineID",
-            "description": "ID of the engine receiving the event"
+//@            "description": "ID of the engine receiving the event"
+            "description": "接收这一事件的引擎标识符。"
           },
           {
             "type": "integer",
             "name": "candidateID",
-            "description": "ID of the candidate that was clicked."
+//@            "description": "ID of the candidate that was clicked."
+            "description": "单击的候选项标识符。"
           },
           {
             "type": "string",
             "name": "button",
-            "description": "Which mouse buttons was clicked.",
+//@            "description": "Which mouse buttons was clicked.",
+            "description": "单击了哪个鼠标按钮。",
             "enum": ["left", "middle", "right"]
           }
         ]
@@ -540,17 +637,20 @@
       {
         "name": "onMenuItemActivated",
         "type": "function",
-        "description": "Called when the user selects a menu item",
+//@        "description": "Called when the user selects a menu item",
+        "description": "当用户选择菜单项时调用。",
         "parameters": [
           {
             "type": "string",
             "name": "engineID",
-            "description": "ID of the engine receiving the event"
+//@            "description": "ID of the engine receiving the event"
+            "description": "接收此事件的引擎标识符。"
           },
           {
             "type": "string",
             "name": "name",
-            "description": "Name of the MenuItem which was activated"
+//@            "description": "Name of the MenuItem which was activated"
+            "description": "激活的菜单项名称。"
           }
         ]
       }

@@ -1,27 +1,29 @@
-<h1>Packaged Apps</h1>
+<h1><!--@Packaged Apps-->打包应用</h1>
 
 
 <p class="warning">
-<b>Warning: </b>
+<b><!--@Warning: -->警告：</b><!--@
 All content in this doc refers to the legacy version of packaged apps.
 Your legacy packaged apps will still work,
 but you won't have access to any of the new APIs.
 Check out the new version of
 <a href="/{{branchInfo.current}}/apps/about_apps.html">packaged apps</a>;
-otherwise, you're missing out!
+otherwise, you're missing out!-->该文档中的所有内容都指的是旧版的打包应用，您原来的打包应用仍将继续运行，但是不能访问任何新的
+API。请参见新版本的<a href="../apps/about_apps.html">打包应用</a>，否则您可能无法了解最新的信息。
 </p>
 
 <p>
-This page talks about packaged apps&mdash;how
+<!--@This page talks about packaged apps&mdash;how
 you implement them,
 and how they're different from
-extensions and ordinary web apps.
+extensions and ordinary web apps.-->
+这一页面讨论打包应用——如何实现它们以及它们与扩展程序和普通网上应用的区别。
 </p>
 
-<h2 id="overview">Overview</h2>
+<h2 id="overview"><!--@Overview-->概述</h2>
 
 <p>
-A packaged app is a web app
+<!--@A packaged app is a web app
 that's bundled into a <code>.crx</code> file
 and can use Chrome extension features.
 You build a packaged app just like you build an extension,
@@ -30,42 +32,57 @@ except that a packaged app can't include a
 <a href="pageAction.html">page action</a>.
 Instead, a packaged app includes at least one HTML file
 within its <code>.crx</code> file
-that provides the app's user interface.
+that provides the app's user interface.-->
+打包的应用程序是包装在一个 <code>.crx</code> 文件中并且可以使用 Chrome
+浏览器的扩展程序功能的网上应用。您建立打包应用就像建立扩展程序一样，唯一的区别是打包应用不能包含<a
+href="browserAction.html">浏览器按钮</a>或<a href="pageAction.html"
+>页面按钮</a>。打包的应用在它的 <code>.crx</code> 文件中至少要包含一个 HTML
+文件，提供应用的用户界面。
 </p>
 
 <p>
-Packaged apps are a type of
+<!--@Packaged apps are a type of
 <a href="http://code.google.com/chrome/apps/">installable web app</a>&mdash;a
 web app that can be installed in Chrome.
 The other type of installable web app is a
 <a href="http://code.google.com/chrome/apps/docs/developers_guide.html">hosted app</a>,
-which is an ordinary web app with a bit of additional metadata.
+which is an ordinary web app with a bit of additional metadata.-->
+打包应用是一种<a href="https://developers.google.com/chrome/apps/"
+>可安装的网络应用</a>——可以在 Chrome
+浏览器中安装的网络应用，可安装的网络应用的另一种类型是<a
+href="https://developers.google.com/chrome/apps/docs/developers_guide"
+>托管应用，即一个普通的应用加上一点额外的元数据。
 </p>
 
 <p>
-If you're developing a web app for the Chrome Web Store,
+<!--@If you're developing a web app for the Chrome Web Store,
 you might want to use a packaged app
-instead of a hosted app if any of the following are true:
+instead of a hosted app if any of the following are true:-->
+如果您正在为 Chrome 网上应用店开发网上应用，如果以下任一条件为真，您可能会使用打包应用，而不是托管应用：
 </p>
 
 <ul>
   <li>
-    You don't want to run a service to host your app.
+    <!--@You don't want to run a service to host your app.-->
+    您不想运行服务托管您的应用。
   </li>
   <li>
-    You want to build an app that works really well offline.
+    <!--@You want to build an app that works really well offline.-->
+    您想建立能够在离线状态下很好地运行的应用。
   </li>
   <li>
-    You want tighter integration with Chrome,
-    using the extension APIs.
+    <!--@You want tighter integration with Chrome,
+    using the extension APIs.-->
+    您希望更紧密地与 Chrome 浏览器整合，使用扩展程序 API。
   </li>
 </ul>
 
 <p>
-To learn more about
+<!--@To learn more about
 the differences between web apps and websites,
 extensions and packaged apps, and packaged apps and hosted apps,
-read these:
+read these:-->
+要想了解网上应用与网站、扩展程序与打包应用、打包应用与托管应用之间的区别，请参见：
 </p>
 
 <ul>
