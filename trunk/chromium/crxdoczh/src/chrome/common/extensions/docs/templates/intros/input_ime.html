@@ -1,18 +1,23 @@
 <p id="classSummary">
-Use the <code>chrome.input.ime</code> module to implement a custom IME for
+<!--@Use the-->使用 <code>chrome.input.ime</code> <!--@module to implement a custom IME for
 Chrome OS.
 
 This allows your extension to handle keystrokes, set the composition, and
-manage the candidate window.
+manage the candidate window.-->
+模块可以为 Chrome OS
+实现自定义的输入法，它允许您的扩展程序处理键盘输入、设置候选内容及管理候选窗口。
 </p>
 
-<h2 id="manifest">Manifest</h2>
-<p>You must declare the "input" permission
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
+<p><!--@You must declare the "input" permission
 in the <a href="manifest.html">extension manifest</a>
 to use the input.ime API.
-For example:</p>
+For example:-->
+您必须在<a href="manifest.html">扩展程序的清单文件</a>中声明
+"input" 权限才能使用输入法 API。例如：
+</p>
 <pre>{
-  "name": "My extension",
+  "name": "我的扩展程序",
   ...
   <b>"permissions": [
     "input"
@@ -20,10 +25,11 @@ For example:</p>
   ...
 }</pre>
 
-<h2 id="overview-examples">Examples</h2>
+<h2 id="overview-examples"><!--@Examples-->例子</h2>
 
 <p>
-The following code creates an IME that converts typed letters to upper case.
+<!--@The following code creates an IME that converts typed letters to upper case.-->
+如下代码创建一个将输入字母转换为大写的输入法：
 </p>
 
 <pre>
@@ -35,7 +41,7 @@ chrome.input.ime.onFocus.addListener(function(context) {
 
 chrome.input.ime.onKeyEventAsync.addListener(
   function(engineID, keyData) {
-    if (keyData.type == "keydown" && keyData.key.match(/^[a-z]$/)) {
+    if (keyData.type == "keydown" &amp;&amp; keyData.key.match(/^[a-z]$/)) {
       chrome.input.ime.commitText({"contextID": context_id,
                                    "text": keyData.key.toUpperCase()});
       return true;
@@ -46,9 +52,9 @@ chrome.input.ime.onKeyEventAsync.addListener(
 </pre>
 
 <p>
-For an example of using this API, see the
-<a
-  href="http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/api/input.ime/basic/">basic input.ime sample</a>.
+<!--@For an example of using this API, see the
+-->有关使用该API的一个例子，请参见<a
+  href="https://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/api/input.ime/basic/"><!--@basic-->基本的 input.ime <!--@sample-->示例</a><!--@.
 For other examples and for help in viewing the source code, see
-<a href="samples.html">Samples</a>.
+<a href="samples.html">Samples</a>.-->。有关其他例子以及查看源代码的帮助，请参见<a href="samples.html">示例</a>。
 </p>
