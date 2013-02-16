@@ -47,88 +47,88 @@
         }
       },
       {
-        "id": "DataTypes",
+        "id": "DataTypeSet",
         "type": "object",
-//@        "description": "An object whose properties specify which browsing data types are selected to be cleared.",
-        "description": "一个对象，指定哪些类型的浏览数据已选中并要清除。",
+//@        "description": "A set of data types. Missing data types are interpreted as <code>false</code>.",
+        "description": "数据类型的集合，未指定的数据类型认为是 <code>false</code>。",
         "properties": {
           "appcache": {
             "type": "boolean",
             "optional": true,
-//@            "description": "Should websites' appcaches be cleared?"
-            "description": "是否清除网站的应用程序缓存？"
+//@            "description": "Websites' appcaches."
+            "description": "网站的应用程序缓存。"
           },
           "cache": {
             "type": "boolean",
             "optional": true,
-//@            "description": "Should the browser's cache be cleared? Note: this clears the <em>entire</em> cache: it is not limited to the range you specify."
-            "description": "是否清除浏览缓存？注意：这将清除<em>所有</em>缓存内容，并不仅限于您指定的范围。"
+//@            "description": "The browser's cache. Note: when removing data, this clears the <em>entire</em> cache: it is not limited to the range you specify."
+            "description": "浏览器缓存。注意：删除数据时将清除<em>所有</em>缓存内容，并不仅限于您指定的范围。"
           },
           "cookies": {
             "type": "boolean",
             "optional": true,
-//@            "description": "Should the browser's cookies be cleared?"
-            "description": "是否清除浏览器的 Cookie？"
+//@            "description": "The browser's cookies."
+            "description": "浏览器的 Cookie。"
           },
           "downloads": {
             "type": "boolean",
             "optional": true,
-//@            "description": "Should the browser's download list be cleared?"
-            "description": "是否清除浏览器的下载历史记录？"
+//@            "description": "The browser's download list."
+            "description": "浏览器的下载历史记录。"
           },
           "fileSystems": {
             "type": "boolean",
             "optional": true,
-//@            "description": "Should websites' file systems be cleared?"
-            "description": "是否清除网站的文件系统数据？"
+//@            "description": "Websites' file systems."
+            "description": "网站的文件系统数据。"
           },
           "formData": {
             "type": "boolean",
             "optional": true,
-//@            "description": "Should the browser's stored form data be cleared?"
-            "description": "是否清除浏览器保存的表单数据？"
+//@            "description": "The browser's stored form data."
+            "description": "浏览器保存的表单数据。"
           },
           "history": {
             "type": "boolean",
             "optional": true,
-//@            "description": "Should the browser's history be cleared?"
-            "description": "是否清除浏览历史记录？"
+//@            "description": "The browser's history."
+            "description": "浏览器的历史记录。"
           },
           "indexedDB": {
             "type": "boolean",
             "optional": true,
-//@            "description": "Should websites' IndexedDB data be cleared?"
-            "description": "是否清除网站的IndexedDB数据？"
+//@            "description": "Websites' IndexedDB data."
+            "description": "网站的 IndexedDB 数据。"
           },
           "localStorage": {
             "type": "boolean",
             "optional": true,
-//@            "description": "Should websites' local storage data be cleared?"
-            "description": "是否清除网站的本地存储数据？"
+//@            "description": "Websites' local storage data."
+            "description": "网站的本地存储数据。"
           },
           "serverBoundCertificates": {
             "type": "boolean",
             "optional": true,
-//@            "description": "Should server-bound certificates be removed?"
-            "description": "是否应该清除服务器绑定的证书？"
+//@            "description": "Server-bound certificates."
+            "description": "服务器绑定的证书。"
           },
           "pluginData": {
             "type": "boolean",
             "optional": true,
-//@            "description": "Should plugins' data be cleared?"
-            "description": "是否清除插件数据？"
+//@            "description": "Plugins' data."
+            "description": "插件数据。"
           },
           "passwords": {
             "type": "boolean",
             "optional": true,
-//@            "description": "Should the stored passwords be cleared?"
-            "description": "是否清除已保存的密码？"
+//@            "description": "Stored passwords."
+            "description": "保存的密码。"
           },
           "webSQL": {
             "type": "boolean",
             "optional": true,
-//@            "description": "Should websites' WebSQL data be cleared?"
-            "description": "是否清除网站的 WebSQL 数据？"
+//@            "description": "Websites' WebSQL data."
+            "description": "网站的 WebSQL 数据。"
           }
         }
       }
@@ -136,8 +136,8 @@
     "functions": [
       {
         "name": "settings",
-//@        "description": "Reports which types of data are currently selected in the 'Clear browsing data' settings UI.",
-        "description": "报告“清除浏览数据”用户界面中哪些类型的数据当前以选中。",
+//@        "description": "Reports which types of data are currently selected in the 'Clear browsing data' settings UI.  Note: some of the data types included in this API are not available in the settings UI, and some UI settings control more than one data type listed here.",
+        "description": "报告“清除浏览数据”用户界面中哪些类型的数据当前以选中。注意：该 API 中包含的某些数据类型不能在设置用户界面中访问，而某些用户界面设置控制这里列出的几种数据类型。",
         "type": "function",
         "parameters": [
           {
@@ -152,9 +152,14 @@
                     "$ref": "RemovalOptions"
                   },
                   "dataToRemove": {
-                    "$ref": "DataTypes",
-//@                    "description": "All of the types will be present in the result, set to true or false. Some of the data types included in this API are not available in the settings UI, and some UI settings control more than one data type listed here."
-                    "description": "所有类型都会在结果中存在，并设置为 true 或 false。该 API 包含的某些数据类型在设置用户界面中不可用，而某些用户界面设置控制这里列出的不止一种的数据类型。"
+                    "$ref": "DataTypeSet",
+//@                    "description": "All of the types will be present in the result, with values of <code>true</code> if they are both selected to be removed and permitted to be removed, otherwise <code>false</code>."
+                    "description": "所有类型都会在结果中存在，已选中并且允许删除的类型值为 <code>true</code>，否则为 <code>false</code>。"
+                  },
+                  "dataRemovalPermitted": {
+                    "$ref": "DataTypeSet",
+//@                    "description": "All of the types will be present in the result, with values of <code>true</code> if they are permitted to be removed (e.g., by enterprise policy) and <code>false</code> if not."
+                    "description": "所有类型都会在结果中存在，如果允许删除（例如由企业策略控制）则值为 <code>true</code>，不允许则为 <code>false</code>。"
                   }
                 }
               }
@@ -174,9 +179,9 @@
           },
           {
             "name": "dataToRemove",
-            "$ref": "DataTypes",
-//@            "description": "You may set as many or as few as you like in a single call; each is optional (defaulting to <code>false</code>)."
-            "description": "您可以在一次调用中设置或多或少的属性，每一个属性都是可选的（默认为 <code>false</code>）。"
+            "$ref": "DataTypeSet",
+//@            "description": "The set of data types to remove."
+            "description": "要删除的数据类型的集合。"
           },
           {
             "name": "callback",

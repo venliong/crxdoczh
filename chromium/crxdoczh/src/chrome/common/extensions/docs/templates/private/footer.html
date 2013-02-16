@@ -28,29 +28,24 @@
         prettyPrint();
       })();
     </script>
-    <script src="https://www.google-analytics.com/urchin.js" type="text/javascript"></script>
-    <script src="https://www.google-analytics.com/ga.js" type="text/javascript"></script>
     <script type="text/javascript">
-      // chrome doc tracking
-      try {
-        var engdocs = _gat._getTracker("YT-10763712-2");
-        engdocs._trackPageview();
-      } catch(err) {}
-      // code.google.com site-wide tracking
-      try {
-        _uacct="UA-18071-1";
-        _uanchor=1;
-        _uff=0;
-        urchinTracker();
-      }
-      catch(e) {/* urchinTracker not available. */}
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-25062424-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = 'https://ssl.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
     </script>
     <script>
       (function() {
-        var cx = '002967670403910741006:61_cvzfqtno';
+        var cx = '016591469675702421090:ddw412-4i6q';
         var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
-        gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-          '//www.google.com/cse/cse.js?cx=' + cx;
+        gcse.src = 'https://www.google.com/cse/cse.js?cx=' + cx;
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
       })();
     </script>
