@@ -51,7 +51,7 @@ which is an ordinary web app with a bit of additional metadata.-->
 >可安装的网络应用</a>——可以在 Chrome
 浏览器中安装的网络应用，可安装的网络应用的另一种类型是<a
 href="https://developers.google.com/chrome/apps/docs/developers_guide"
->托管应用，即一个普通的应用加上一点额外的元数据。
+>托管应用</a>，即一个普通的应用加上一点额外的元数据。
 </p>
 
 <p>
@@ -86,27 +86,30 @@ read these:-->
 </p>
 
 <ul>
-  <li> <a href="http://code.google.com/chrome/webstore/docs/choosing.html">Choosing an App Type</a> </li>
-  <li> <a href="http://code.google.com/chrome/apps/articles/thinking_in_web_apps.html">Thinking in Web Apps</a> </li>
-  <li> <a href="http://code.google.com/chrome/webstore/articles/apps_vs_extensions.html">Extensions, Packaged Apps, and Hosted Apps in the Chrome Web Store</a> </li>
+  <li> <!--@<a href="http://code.google.com/chrome/webstore/docs/choosing.html">Choosing an App Type</a>--><a href="https://developers.google.com/chrome/web-store/docs/choosing">选择应用类型</a>（英文） </li>
+  <li> <!--@<a href="http://code.google.com/chrome/apps/articles/thinking_in_web_apps.html">Thinking in Web Apps</a>--><a href="https://developers.google.com/chrome/apps/articles/thinking_in_web_apps">Web 应用编程思想</a>（英文） </li>
+  <li> <!--@<a href="http://code.google.com/chrome/webstore/articles/apps_vs_extensions.html">Extensions, Packaged Apps, and Hosted Apps in the Chrome Web Store</a>--><a href="https://developers.google.com/chrome/web-store/articles/apps_vs_extensions">Chrome 网上应用店中的扩展程序、打包应用和托管应用</a>（英文） </li>
 </ul>
 
 
-<h2 id="manifest"> The manifest </h2>
+<h2 id="manifest"> <!--@The manifest-->清单文件 </h2>
 
 <p>
-A packaged app's manifest can have any field
+<!--@A packaged app's manifest can have any field
 that's available to extensions,
 except for "browser_action" and "page_action".
 In addition, a packaged app's manifest <b>must</b>
 have an "app" field.
-Here is a typical manifest for a packaged app:
+Here is a typical manifest for a packaged app:-->
+打包应用的清单文件可以包含可用于扩展程序的任何属性，除了
+"browser_action" 和 "page_action"。此外，打包应用的清单文件<b>必须</b>包含
+"app" 属性。如下是打包应用清单文件的典型例子：
 </p>
 
 <pre>
 {
-  "name": "My Awesome Racing Game",
-  "description": "Enter a world where a Vanagon can beat a Maserati",
+  "name": "我做的很棒的赛跑游戏",
+  "description": "进入一个 Vanagon 能够打败 Maserati 的世界",
   "version": "1",
   <b>"app": {
     "launch": {
@@ -121,26 +124,30 @@ Here is a typical manifest for a packaged app:
 </pre>
 
 <p>
-The "app" field has one subfield, "launch",
+<!--@The "app" field has one subfield, "launch",
 which specifies the <em>launch page</em> for the app&mdash;the
 page (HTML file bundled into the <code>.crx</code> file)
 that the browser goes to when the user clicks the app's icon
 in the New Tab page.
-The "launch" field can contain the following:
+The "launch" field can contain the following:-->
+"app" 域有一个子域 "launch"，指定应用的<em>启动页面</em>——当用户单击“打开新的标签页”页面中的应用图标时浏览器进入的页面（打包在
+<code>.crx</code> 文件中的 HTML 文件）。"launch" 域包含如下内容：
 </p>
 
 <dl>
   <dt>local_path:</dt>
-    <dd><em>Required.</em>
+    <dd><em><!--@Required.-->必选。</em><!--@
     Specifies the launch page
     as a relative path referring to a file
-    in the <code>.crx</code> package.
+    in the <code>.crx</code> package.-->以
+    <code>.crx</code> 包中的相对路径指定启动页面。
     </dd>
   <dt>container:</dt>
-    <dd> The value "panel" makes the app appear
+    <dd> <!--@The value "panel" makes the app appear
     in an app panel.
     By default, or when you specify "tab",
-    the app appears in a tab.
+    the app appears in a tab.-->
+    容器类型。"panel"（面板）使应用程序出现在应用面板中。默认情况下，或者您指定"tab"（标签页）时，应用程序出现在标签页中。
 
     <!-- PENDING: In the overview
     (or somewhere else before here)
@@ -149,7 +156,7 @@ The "launch" field can contain the following:
     </dd>
   <dt>height:</dt>
     <dd>
-    If the container is set to "panel",
+    <!--@If the container is set to "panel",
     this integer specifies the height
     of the panel in pixels.
     For example, you might specify
@@ -158,37 +165,47 @@ The "launch" field can contain the following:
     This field specifies the height of the area
     to display contents in;
     window decorations add a few more pixels to the total height.
-    If the container isn't a panel, this field is ignored.
+    If the container isn't a panel, this field is ignored.-->
+    如果容器类型设置为
+    "panel"，这一整数指定面板的高度，以像素为单位。例如，您可以指定
+    <code>"height":400</code>。注意，高度值不需要加引号。该属性指定显示内容的区域的高度，窗口样式会增加一些像素至总高度。如果容器类型不是面板，将忽略这一属性。
     </dd>
   <dt>width:</dt>
     <dd>
-    Similar to "height",
-    but specifies the width of the panel.
+    <!--@Similar to "height",
+    but specifies the width of the panel.-->
+    与 "height" 类似，但是指定面板的宽度。
     </dd>
   </dd>
 </dl>
 
 <p>
-Packaged apps usually provide a 16x16 icon
+<!--@Packaged apps usually provide a 16x16 icon
 to be used as the favicon for
 tabs that contain app's pages.
 They also should provide a 128x128 icon,
 but not a 48x48 icon.
 See the manifest documentation for the
 <a href="manifest.html#icons">"icons" field</a>
-for more information.
+for more information.-->
+打包应用通常要提供一个 16×16
+大小的图标，包含应用页面的收藏夹图标，另外还应该提供一个 128×128
+大小的图标，而不是 48×48 大小的图标。有关更多信息请参见清单文件文档中的
+<a href="manifest.html#icons">"icons" 字段</a>。
 </p>
 
 <p>
-For further details on what a packaged app's manifest can contain, see the
-<a href="manifest.html">manifest documentation</a>.
+<!--@For further details on what a packaged app's manifest can contain, see the
+<a href="manifest.html">manifest documentation</a>.-->
+有关打包应用的清单文件可以包含的内容的进一步细节，请参见<a
+href="manifest.html">清单文件文档</a>。
 </p>
 
-<h2 id="next">What next?</h2>
+<h2 id="next"><!--@What next?-->接下来做什么？</h2>
 
 <p>
-Read the <a href="overview.html">Overview</a> to learn
-basic concepts about extensions.
+<!--@Read the <a href="overview.html">Overview</a> to learn
+basic concepts about extensions.-->
+阅读<a href="overview.html">概述</a>，了解有关扩展程序的基本概念。
 </p>
 
-<p class="backtotop"><a href="#top">Back to top</a></p>
