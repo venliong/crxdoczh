@@ -1,0 +1,166 @@
+[
+  {
+    "title": "入门",
+    "items": [
+      {
+        "title": "什么是打包应用？",
+        "fileName": "about_apps.html"
+      },
+      {
+        "title": "理解架构",
+        "fileName": "app_architecture.html"
+      },
+      {
+        "title": "创建您的第一个应用",
+        "fileName": "first_app.html"
+      }
+    ]
+  },
+  {
+    "title": "开发",
+    "items": [
+      {
+        "title": "在您开始之前",
+        "fileName": "develop_apps.html"
+      },
+      {
+        "title": "基础知识",
+        "toggleable": true,
+        "items": [
+          {
+            "title": "管理应用的生命周期",
+            "fileName": "app_lifecycle.html"
+          },
+          {
+            "title": "管理数据",
+            "fileName": "app_storage.html"
+          },
+          {
+            "title": "首先考虑离线",
+            "fileName": "offline_apps.html"
+          },
+          {
+            "title": "嵌入内容",
+            "fileName": "app_external.html"
+          }
+        ]
+      },
+      {
+        "title": "安全和隐私权",
+        "toggleable": true,
+        "items": [
+          {
+            "title": "用户认证",
+            "fileName": "app_identity.html"
+          },
+          {
+            "title": "遵循 CSP（内容安全策略）",
+            "fileName": "app_csp.html"
+          }
+        ]
+      },
+      {
+        "title": "通知",
+        "toggleable": true,
+        "items": [
+            {
+            "title": "云消息服务",
+            "toggleable": true,
+            "items": [
+              {
+                "title": "关于云消息服务",
+                "fileName": "cloudMessaging.html"
+              },
+              {
+                "title": "客户端参考",
+                "fileName": "pushMessaging.html"
+              },
+              {
+                "title": "服务参考",
+                "fileName": "gcm_server.html"
+              },
+              {
+                "title": "服务条款",
+                "fileName": "gcm_tos.html"
+              }
+            ]
+          },
+          {
+            "title": "桌面通知",
+            "fileName": "notifications.html"
+          }
+        ]
+      },
+      {
+        "title": "高级技术",
+        "toggleable": true,
+        "items": [
+          {
+            "title": "网络通信",
+            "fileName": "app_network.html"
+          },
+          {
+            "title": "访问硬件设备",
+            "fileName": "app_hardware.html"
+          }
+        ]
+      },
+      {
+        "title": "MVC 架构",
+        "toggleable": true,
+        "items": [
+          {
+            "title": "关于 MVC 架构",
+            "fileName": "app_frameworks.html"
+          },
+          {
+            "title": "用 AngularJS 建立应用",
+            "fileName": "angular_framework.html"
+          },
+          {
+            "title": "用 Sencha Ext JS 建立应用",
+            "fileName": "sencha_framework.html"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "部署",
+    "items": [
+      {
+        "title": "发布",
+        "fileName": "publish_app.html"
+      }
+    ]
+  },
+  {
+    "title": "参考",
+    "items": [
+      {
+        "title": "清单文件",
+        "fileName": "manifest.html"
+      },
+      {
+        "title": "Chrome 浏览器的 JavaScript API",
+        "fileName": "api_index.html"
+      },
+      {
+        "title": "支持的库",
+        "fileName": "api_other.html"
+      },
+      {
+        "title": "禁用的网页特性",
+        "fileName": "app_deprecated.html"
+      }
+    ]
+  },
+  {
+    "title": "示例",
+    "fileName": "samples.html"
+  },
+  {
+    "title": "已知问题",
+    "fileName": "app_known_issues.html"
+  }
+]

@@ -1,0 +1,223 @@
+<p id="classSummary">
+<!--@Use the <code>chrome.webNavigation</code> module to receive
+notifications about the status of navigations requests in-flight.-->
+使用 <code>chrome.webNavigation</code>
+模块实时地接收有关导航请求状态的通知。
+</p>
+
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
+<p>
+<!--@All <code>chrome.webNavigation</code> methods and events require you to declare
+the "webNavigation" permission in the <a href="manifest.html">extension
+manifest</a>.
+For example:-->
+所有 <code>chrome.webNavigation</code>
+方法和事件要求您在<a href="manifest.html">扩展程序的清单文件</a>中声明
+"webNavigation" 权限。例如：
+</p>
+
+<pre>{
+  "name": "我的扩展程序",
+  ...
+  <b>"permissions": [
+    "webNavigation"
+  ]</b>,
+  ...
+}</pre>
+
+
+<h2 id="examples"><!--@Examples-->例子</h2>
+
+<p>
+<!--@You can find simple examples of using the tabs module in the-->
+您可以在
+<a href="http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/api/webNavigation/">examples/api/webNavigation</a>
+<!--@directory.
+For other examples and for help in viewing the source code, see
+<a href="samples.html">Samples</a>.-->
+目录中找到使用网页导航模块的简单例子。有关其它例子以及查看源代码的帮助，请参见<a href="samples.html">示例</a>。
+</p>
+
+<h2 id="event_order"><!--@Event order-->事件顺序</h2>
+<p>
+<!--@For a navigation that is successfully completed, events are fired in the
+following order:-->
+对于一次成功完成的导航，事件按照如下顺序产生：
+<pre>
+onBeforeNavigate -&gt; onCommitted -&gt; onDOMContentLoaded -&gt; onCompleted
+</pre>
+</p>
+<p>
+<!--@Any error that occurs during the process results in an
+<code>onErrorOccurred</code> event. For a specific navigation, there are no
+further events fired after <code>onErrorOccurred</code>.-->
+在这一过程中如果发生任何错误都将产生 <code>onErrorOccurred</code>
+事件。对于一次导航，在 <code>onErrorOccurred</code>
+之后不会再产生进一步的事件。
+</p>
+<p>
+<!--@If a navigating frame contains subframes, its <code>onCommitted</code> is fired
+before any of its children's <code>onBeforeNavigate</code>; while
+<code>onCompleted</code> is fired after all of its children's
+<code>onCompleted</code>.-->
+如果导航中的框架包含子框架，它的 <code>onCommitted</code>
+事件将在所有子框架的 <code>onBeforeNavigate</code> 事件之前产生，而
+<code>onCompleted</code> 事件将在所有子框架的 <code>onCompleted</code>
+事件之后产生。
+</p>
+<p>
+<!--@If the reference fragment of a frame is changed, a
+<code>onReferenceFragmentUpdated</code> event is fired. This event can fire any
+time after <code>onDOMContentLoaded</code>, even after
+<code>onCompleted</code>.-->
+<!--@如果框架的引用片段发生更改，将产生 onReferenceFragmentUpdated 事件。这一事件可以在 onDOMContentLoaded 之后，甚至 onCompleted 之后的任何时间产生。-->
+</p>
+<p>
+<!--@If the history API is used to modify the state of a frame (e.g. using
+<code>history.pushState()</code>, a <code>onHistoryStateUpdated</code> event is
+fired. This event can fire any time after <code>onDOMContentLoaded</code>.-->
+如果使用了 <code>history</code> API 修改框架的状态（例如使用
+<code>history.pushState()</code>），将产生
+<code>onHistoryStateUpdated</code> 事件。这一事件可以在
+<code>onDOMContentLoaded</code> 之后的任何时候产生。
+</p>
+<p>
+<!--If a navigation was triggered via <a
+href="https://support.google.com/chrome/bin/answer.py?answer=177873">Chrome
+Instant</a> or <a
+href="https://support.google.com/chrome/bin/answer.py?answer=1385029">Instant
+Pages</a>, a completely loaded page is swapped into the current tab. In that
+case, an <code>onTabReplaced</code> event is fired.-->
+如果导航通过 <a
+href="https://support.google.com/chrome/bin/answer.py?answer=177873">Chrome
+即搜即得</a>功能或<a href="https://support.google.com/chrome/bin/answer.py?answer=1385029">网页即时看</a>功能触发，已完全载入的页面将与当前标签页中的页面交换，这种情况下将产生
+<code>onTabReplaced</code> 事件。
+</p>
+
+<h2 id="relation_to_webRequest"><!--@Relation to webRequest events-->与网络请求事件间的关系</h2>
+<p>
+<!--@There is no defined ordering between events of the <a
+href="webRequest.html">webRequest API</a> and the events of the
+webNavigation API. It is possible that webRequest events are still received for
+frames that already started a new navigation, or that a navigation only
+proceeds after the network resources are already fully loaded.-->
+在<a href="webRequest.html">网络请求 API</a> 与网页导航 API
+产生的事件之间没有确定的顺序。已经开始新导航的框架可能还会收到网络请求事件，或者也可能导航仅在网络资源完全载入后才继续进行。
+</p>
+<p>
+<!--@In general, the webNavigation events are closely related to the navigation
+state that is displayed in the UI, while the webRequest events correspond to
+the state of the network stack which is generally opaque to the user.-->
+大体上说，网页导航事件与用户界面中显示的导航状态密切相关，而网络请求事件对应于通常对用户来说不可见的网络栈状态。
+</p>
+
+<h2 id="tab_ids"><!--@A note about tab IDs-->有关标签页标识符的说明</h2>
+<p>
+<!--@Not all navigating tabs correspond to actual tabs in Chrome's UI, e.g., a tab
+that is being pre-rendered. Such tabs are not accessible via the
+<a href="tabs.html">tabs API</a> nor can you request information about them via
+<code>webNavigation.getFrame</code> or <code>webNavigation.getAllFrames</code>.
+Once such a tab is swapped in, an <code>onTabReplaced</code> event is fired and
+they become accessible via these APIs.-->
+并不是所有正在导航的标签页都对应于 Chrome 
+浏览器用户界面中的真实标签页，例如预呈现标签页。这样的标签页不能通过<a
+href=“tabs.html">标签页 API</a> 访问，您也不能通过
+<code>webRequest.getFrame</code> 或 <code>webRequest.getAllFrames</code>
+请求有关信息。一旦这样的标签页交换进来，将产生 <code>onTabReplced</code>
+事件，并且它们也可以通过这些 API 访问了。
+</p>
+
+<h2 id="timestamps"><!--@A note about timestamps-->有关时间戳的说明</h2>
+<p>
+<!--@It's important to note that some technical oddities in the OS's handling
+of distinct Chrome processes can cause the clock to be skewed between the
+browser itself and extension processes. That means that WebNavigation's events'
+<code>timeStamp</code> property is only guaranteed to be <i>internally</i>
+consistent. Comparing one event to another event will give you the correct
+offset between them, but comparing them to the current time inside the
+extension (via <code>(new Date()).getTime()</code>, for instance) might give
+unexpected results.-->
+值得重视的是，操作系统对不同的 Chrome
+浏览器进程在某些技术上的反常可能会导致时钟在浏览器自身以及扩展程序进程间不一致。这意味着网络请求事件的
+<code>timeStamp</code>
+属性仅保证内部的一致性，将两个事件的时间相比较会得到它们之间正确的时间差，但是与扩展程序内的当前时间（例如通过(
+<code>new Date()).getTime()</code>）比较可能会导致不可预料的结果。
+</p>
+
+<h2 id="frame_ids"><!--@A note about frame and process IDs-->有关框架和进程标识符的说明</h2>
+<p>
+<!--@Due to the multi-process nature of Chrome, a tab might use different processes
+to render the source and destination of a web page. Therefore, if a navigation
+takes place in a new process, you might receive events both from the new and
+the old page until the new navigation is committed (i.e. the
+<code>onCommitted</code> event is send for the new main frame). Because frame
+IDs are only unique for a given process, the webNavigation events include a
+process ID, so you can still determine which frame a navigation came from.-->
+由于 Chrome
+浏览器使用多进程的基本架构，标签页可能会使用不同的进程来渲染网页的源和目标。因此，如果导航在新的进程中进行，您可能会同时接收到来自新旧页面的事件，直到新的导航已提交（即为新的主框架发送了
+<code>onCommitted</code>
+事件）。因为框架标识符对于给定进程是唯一的，网页导航事件包含进程标识符，所以您仍然可以确定导航来自哪个标签页。
+</p>
+<p>
+<!--@Also note that during a provisional load the process might be switched several
+times. This happens when the load is redirected to a different site. In this
+case, you will receive repeated <code>onBeforeNavigate</code> and
+<code>onErrorOccurred</code> events, until you receive the final
+<code>onCommitted</code> event.-->
+同时也请注意，在临时载入的过程中，进程可能会多次切换。当载入过程需要重定向至另一个站点时就会发生这种情况。在这种情况下，您会多次收到
+<code>onBeforeNavigate</code> 和 <code>onErrorOccurred</code>
+事件，直到您接收到最终的 <code>onCommitted</code> 事件。
+</p>
+
+<h2 id="transition_types"><!--@Transition types and qualifiers-->过渡类型和限定符</h2>
+<p>
+<!--@The webNavigation API's <code>onCommitted</code> event has a
+<code>transitionType</code> and a <code>transitionQualifiers</code> property.
+The <em>transition type</em> is the same as used in the <a
+href="history.html#transition_types">history API</a> describing how the browser
+navigated to this particular URL. In addition, several <em>transition
+qualifiers</em> can be returned that further define the navigation.-->
+网页导航 API 的 <code>onCommitted</code> 事件包含
+<code>transitionType</code> 与 <code>transitionQualifiers</code>
+属性。过渡类型与<a href="history.html#transition_types">历史记录 API</a>
+中所使用的相同，描述浏览器如何导航至这一特定的 URL。此外，还会返回几种过渡限定符，进一步定义本次导航。
+</p>
+<p>
+<!--@The following transition qualifiers exist:-->
+存在如下几种过渡限定符：
+</p>
+<table>
+<tr>
+  <th> <!--@Transition qualifier-->过渡限定符 </th> <th> <!--@Description-->描述 </th>
+</tr>
+<tr>
+  <td>"client_redirect"</td>
+  <td>
+    <!--@One or more redirects caused by JavaScript or meta refresh tags on the page
+    happened during the navigation.-->
+    导航过程中由页面上的 JavaScript 或 meta 刷新标记产生的一次或多次重定向。
+  </td>
+</tr>
+<tr>
+  <td>"server_redirect"</td>
+  <td>
+    <!--@One or more redirects caused by HTTP headers sent from the server happened
+    during the navigation.-->
+    导航过程中由服务器发送的 HTTP 头产生的一次或多次重定向。
+  </td>
+</tr>
+<tr>
+  <td>"forward_back"</td>
+  <td>
+    <!--@The user used the Forward or Back button to initiate the navigation.-->
+    用户使用“前进”、“后退”按钮开始导航。
+  </td>
+</tr>
+<tr>
+  <td>"from_address_bar"</td>
+  <td>
+    <!--@The user initiated the navigation from the address bar (aka Omnibox).-->
+    用户从地址栏（即多功能框）开始导航。
+  </td>
+</tr>
+</table>

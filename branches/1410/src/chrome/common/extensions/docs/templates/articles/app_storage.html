@@ -1,0 +1,262 @@
+<h1><!--@Manage Data-->管理数据</h1>
+
+
+<p>
+<!--@Almost every aspect of app development involves some element
+of sending or receiving data.
+Starting with the basics,
+you should use an MVC framework to help you design and implement your app
+so that data is completely separate from the app's view on that data
+(see <a href="app_frameworks.html">MVC Architecture</a>).-->
+几乎应用开发的每一方面都会涉及到一些数据的发送与接收。从最基本的开始，您应该使用
+MVC 框架来帮助您设计和实现您的应用，以便使数据完全与应用的数据视图分离（参见
+<a href="app_frameworks.html">MVC 架构</a>）。
+</p>
+
+<p>
+<!--@You also need to think about how data is handled when your app is offline
+(see <a href="offline_apps.html">Offline First</a>).
+This doc briefly introduces the storage options
+for sending, receiving, and saving data locally;
+the remainder of the doc shows you how
+to use Chrome's File System API
+(see also the <a href="fileSystem.html">fileSystem API</a>).-->
+您还需要考虑当您的应用离线时（参见<a href="offline_apps.html"
+>首先考虑离线</a>）如何处理数据。该文档简要地介绍了用于在本地发送、接收和保存数据的存储选择，文档的剩下部分向您演示了如何使用
+Chrome 浏览器的文件系统 API（请参见<a href="fileSystem.html">文件系统 API</a>）。
+</p>
+
+<p class="note">
+<b>API <!--@Samples: -->示例：</b><!--@
+Want to play with the code?
+Check out the-->
+想试试这些代码吗？请参见
+<a href="https://github.com/GoogleChrome/chrome-app-samples/tree/master/filesystem-access">filesystem-access</a>
+<!--@and-->和 <a href="https://github.com/GoogleChrome/chrome-app-samples/tree/master/storage">storage</a> <!--@samples.-->
+示例。
+</p>
+
+<h2 id="options"><!--@Storage options-->存储的选择</h2>
+
+<p>
+<!--@Packaged apps use many different mechanisms
+to send and receive data.
+For external data (resources, web pages),
+you need to be aware of the
+<a href="app_csp.html">Content Security Policy (CSP)</a>.
+Similar to Chrome Extensions,
+you can use
+<a href="app_external.html#external">cross-origin XMLHttpRequests</a>
+to communicate with remote servers.
+You can also isolate external pages,
+so that the rest of your app is secure
+(see <a href="app_external.html#objecttag">Embed external web pages</a>).-->
+打包应用可以使用很多不同的机制发送和接收数据。对于外部数据（资源、网页），您需要意识到<a
+href="app_csp.html">内容安全策略（CSP）</a>的存在。与
+Chrome 扩展程序类似，您可以使用<a href="app_external.html#external">跨站
+XMLHttpRequest</a> 与远程服务器通信。您还可以隔离外部页面，以确保您的应用的其他部分是安全的（参见<a
+href="app_external.html#webview">嵌入外部网页</a>）。
+</p>
+
+<p>
+<!--@When saving data locally,
+you can use the <a href="storage.html">Chrome Storage API</a>
+to save small amounts of string data and
+IndexedDB to save structured data.
+With IndexedDB, you can persist JavaScript objects
+to an object store and use the store's indexes to query data
+(to learn more, see HTML5 Rock's
+<a href="http://www.html5rocks.com/tutorials/indexeddb/todo/">Simple Todo List Tutorial</a>).
+For all other types of data,
+like binary data,
+use the Filesystem API.-->
+需要在本地保存数据时，您可以使用
+<a href="storage.html">Chrome 浏览器的存储 API</a>
+来保存少量字符串数据，并使用 IndexedDB
+保存结构化的数据。通过 IndexedDB，您可以将 JavaScript
+对象持久存储在对象存储区中并使用存储区的索引查询数据（要了解更多内容，请参见
+<a href="http://www.html5rocks.com/zh/tutorials/indexeddb/todo/">HTML5
+Rocks 的待办事项简要列表教程</a>）。对于所有其他类型的数据，例如二进制数据，请使用文件系统
+API。
+</p>
+
+<p>
+<!--@Chrome's Filesystem API extends the
+<a href="http://www.html5rocks.com/tutorials/file/filesystem/">HTML5 FileSystem API</a>;
+apps can create, read, navigate,
+and write to a sandboxed section
+of the user's local file system.
+With Chrome's File System API,
+packaged apps can read and write files
+to user-selected locations.
+For example,
+a photo-sharing app can use the File System API
+to read and write any photos that a user selects.-->
+Chrome 浏览器的文件系统 API 扩展了
+<a href="http://www.html5rocks.com/zh/tutorials/file/filesystem/">HTML5
+文件系统 API</a>：应用程序可以创建、读取、导航及写入用户本地文件系统中经过沙盒屏蔽的一个区域。通过
+Chrome 浏览器的文件系统 API，打包应用可以读取或写入用户选择位置的文件。例如，照片分享应用可以使用文件系统
+API 读取和写入用户选择的任何照片。
+</p>
+
+<h2 id="manifest"><!--@Adding file system permission-->添加文件系统权限</h2>
+
+<p>
+<!--@To use Chrome's File System API,
+you need to add the "fileSystem" permission to the manifest,
+so that you can obtain permission from the user
+to store persistent data.-->
+要使用 Chrome 浏览器的文件系统
+API，您需要在清单文件中添加 "fileSystem"
+权限，使您可以从用户获取持久储存数据的权限。
+
+<pre>
+"permissions": [
+  "...",
+  "fileSystem"
+]
+</pre>
+
+<h2 id="import"><!--@User-options for selecting files-->选择文件的用户选项</h2>
+
+<p>
+<!--@Users expect to select files
+in the same way they always do.
+At a minimum,
+they expect a 'choose file' button
+and standard file-chooser.
+If your app makes heavy use of file-handing,
+you should also implement drag-and-drop
+(see below and also check out 
+<a href="http://www.html5rocks.com/tutorials/dnd/basics/">Native HTML5 Drag and Drop</a>).-->
+用户期望以习惯的方式选择文件，至少他们期望一个“选择文件”按钮以及标准的文件选择器。如果您的应用大量使用文件选择，您还应该实现拖放支持（参见如下内容以及<a
+href="http://www.html5rocks.com/zh/tutorials/dnd/basics/">本机 HTML5 拖放</a>）。
+</p>
+
+<h2 id="path"><!--@Obtaining the path of a fileEntry-->获取文件项（fileEntry）的路径</h2>
+
+<p>
+<!--@To get the full path
+of the file the user selected,
+<code>fileEntry</code>,
+call <code>getDisplayPath()</code>:-->
+要从文件项（<code>fileEntry</code>）获取用户选定文件的全路径，请调用
+<code>getDisplayPath()</code>：
+</p>
+
+<pre>
+function displayPath(fileEntry) {
+  chrome.fileSystem.getDisplayPath(fileEntry, function(path) {
+    console.log(path)
+  });
+}
+</pre>
+
+<h2 id="drag"><!--@Implementing drag-and-drop-->实现拖放支持</h2>
+
+<p>
+<!--@If you need to implement drag-and-drop selection,
+the drag-and-drop file controller
+(<code>dnd.js</code>) in
+the-->
+如果您需要实现拖放选择，<a href="https://github.com/GoogleChrome/chrome-app-samples/tree/master/filesystem-access">filesystem-access</a>
+<!--@sample is a good starting point.
+The controller creates a file entry
+from a <code>DataTransferItem</code>
+via drag-and-drop.
+In this example,
+the <code>fileEntry</code> is set
+to the first dropped item.-->
+示例中的拖放文件控制器（<code>dnd.js</code>）是一个很好的起点。通过拖放控制器从
+<code>DataTransferItem</code>
+创建一个文件项。在这一例子中，<code>fileEntry</code>
+设置为拖放的第一个项目。
+</p>
+
+<pre>
+var dnd = new DnDFileController('body', function(data) {
+  var fileEntry = data.items[0].webkitGetAsEntry();
+  displayPath(fileEntry);
+});
+</pre>
+
+<h2 id="read"><!--@Reading a file-->读取文件</h2>
+
+<p>
+<!--@The following code opens the file (read-only) and
+reads it as text using a <code>FileReader</code> object.
+If the file doesn't exist, an error is thrown.-->
+如下代码打开文件（只读）并使用
+<code>FileReader</code>
+对象以文本形式读取。如果文件不存在，则会引发错误。
+</p>
+
+<pre>
+var chosenFileEntry = null;
+
+chooseFileButton.addEventListener('click', function(e) {
+  chrome.fileSystem.chooseEntry({type: 'openFile'}, function(readOnlyEntry) {
+ 
+    readOnlyEntry.file(function(file) {
+      var reader = new FileReader();
+
+      reader.onerror = errorHandler;
+      reader.onloadend = function(e) {
+        console.log(e.target.result);
+      };
+
+      reader.readAsText(file);
+    });
+	});
+});
+</pre>
+
+<h2 id="write"><!--@Writing a file-->写入文件</h2>
+
+<p>
+<!--@The two common use-cases
+for writing a file are "Save" and "Save as".
+The following code creates a
+<code>writableEntry</code>
+from the read-only <code>chosenFileEntry</code> and
+writes the selected file to it.-->
+用于写入文件的两种常见使用情况为“保存”与“另存为”。如下代码从只读的
+<code>chosenFileEntry</code> 创建一个
+<code>writableEntry</code>，并将选定文件写入它。
+</p>
+
+<pre>
+ chrome.fileSystem.getWritableEntry(chosenFileEntry, function(writableFileEntry) {
+    writableFileEntry.createWriter(function(writer) {
+      writer.onerror = errorHandler;
+      writer.onwriteend = callback;
+
+    chosenFileEntry.file(function(file) {
+      writer.write(file);
+    });   
+  }, errorHandler);
+});
+</pre>
+
+<p>
+<!--@The following code creates a new file
+with "Save as" functionality and
+writes the new blob to the file
+using the <code>writer.write()</code> method.-->
+如下代码具有“另存为”功能，创建一个新文件并使用
+<code>writer.write()</code> 方法将新的
+Blob（二进制大型物件）写入文件。
+</p>
+
+<pre>
+chrome.fileSystem.chooseEntry({type: 'saveFile'}, function(writableFileEntry) {
+    writableFileEntry.createWriter(function(writer) {
+      writer.onerror = errorHandler;
+      writer.onwriteend = function(e) {
+        console.log('write complete');
+      };
+      writer.write(new Blob(['1234567890'], {type: 'text/plain'}));  
+    }, errorHandler);
+});
+</pre>
+

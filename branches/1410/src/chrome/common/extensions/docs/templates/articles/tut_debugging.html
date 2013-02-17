@@ -1,0 +1,308 @@
+<h1><!--@Tutorial: Debugging-->教程：调试</h1>
+
+
+<p>
+<!--@This tutorial introduces you to using
+Google Chrome's built-in Developer Tools
+to interactively debug an extension.-->
+这一教程向您介绍如何使用 Google Chrome
+浏览器内建的开发者工具来交互性地调试扩展程序。
+</p>
+
+
+<h2 id="extension-info"> <!--@View extension information-->查看扩展程序信息 </h2>
+
+<p>
+<!--@To follow this tutorial, you need
+the Hello World extension that was featured in
+<a href="getstarted.html">Getting Started</a>.
+In this section,
+you'll load the extension
+and take a look at its information
+in the Extensions page.-->
+要遵循这一教程，您需要<a href="getstarted.html">入门</a>部分的 Hello World
+扩展程序。在这一部分，您将会载入扩展程序，并在扩展程序页面中查看它的信息。
+</p>
+
+<ol>
+  <li>
+    <p>
+      <!--@Load the Hello World extension if it isn't already running.
+      If the extension is running,
+      you'll see the Hello World icon-->
+      如果还没运行的话请载入 Hello World
+      扩展程序。如果扩展程序已经运行，您将看到浏览器地址栏右边的
+      Hello World 图标
+      <img src="examples/tutorials/getstarted/icon.png"
+           width="19" height="19" alt=""
+           style="margin:0" /><!--@
+      to the right of
+      your browser's address bar.-->。
+    </p>
+
+    <p>
+      <!--@If the Hello World extension isn't already running,
+      find the extension files and load them.
+      If you don't have a handy copy of the files,
+      extract them from this
+      <a href="examples/tutorials/getstarted.zip" download="getstarted.zip">ZIP file</a>.
+      See Getting Started if you need
+      <a href="getstarted.html#unpacked">instructions
+      for loading the extension</a>.-->
+      如果 Hello World
+      扩展程序还没有运行，请找到扩展程序文件并将它们载入。如果您手边没有这些文件，从这一
+      <a href="examples/tutorials/getstarted.zip" download="getstarted.zip">ZIP
+      文件</a>解压缩。如果您需要有关载入扩展程序的指导请参见<a href="getstarted.html#unpacked">入门</a>。
+    </p>
+  </li>
+
+  <li>
+  <!--@Go to the Extensions page
+  (<b>chrome://extensions</b>),
+  and make sure the page is in Developer mode.-->
+  进入扩展程序页面（<b>chrome://extensions</b>），并确保该页面处于开发者模式。
+  </li>
+
+  <li>
+  <!--@Look at the Hello World extension's information on that page.
+  You can see details such as the extension's
+  name, description, and ID.-->
+  在该页面中查看 Hello World
+  扩展程序的信息，您可以看到一些细节，例如扩展程序的名称、描述以及标识符。
+  </li>
+</ol>
+
+<h2 id="inspect-popup"> <!--@Inspect the popup-->审查弹出内容 </h2>
+
+<p>
+<!--@As long as your browser is in Developer mode, it's easy to inspect popups.-->
+只要您的浏览器处于开发者模式中，就可以方便地审查弹出内容。
+</p>
+
+<ol>
+  <li>
+  <!--@Go to the Extensions page (<b>chrome://extensions</b>), and make sure Developer
+  mode is still enabled. The Extensions page doesn't need to be open
+  for the following to work. The browser remembers the setting,
+  even when the page isn't shown.-->
+  进入扩展程序页面（<b>chrome://extensions</b>），并确保开发者模式处于启用状态。进行以下工作时不需要扩展程序页面一直开着。即使页面没有显示，浏览器也将记住设置。
+  </li>
+  <li>
+  <!--@Right-click the Hello World icon-->右击 Hello World 图标
+  <img src="examples/tutorials/getstarted/icon.png"
+       width="19" height="19" alt=""
+       style="margin:0" /><!--@
+  and choose the <b>Inspect popup</b> menu item. The popup appears,
+  and a Developer Tools window like the following should display the code
+  for <b>popup.html</b>.-->，并选择<b>审查弹出内容</b>菜单项。弹出内容将会出现，并且如下图所示的开发人员工具窗口将会显示
+  <b>popup.html</b> 的代码。
+
+  <p>
+     <img src="{{static}}/images/devtools-1.gif" alt=""
+          width="500" height="294" />
+     </p> 
+  <!--@The popup remains open as long as the Developer Tools window does.  -->
+  只要开发者工具的窗口开着，弹出内容也将一直保持打开状态。
+  </li>
+  <li>
+  <!--@If the <strong>Scripts</strong> button isn't already selected,
+  click it.-->
+  如果 <strong>Scripts</strong> 按钮还未选中则单击它。
+  
+  </li>
+  <li>
+  <!--@Click the console button-->单击控制台按钮
+  <img src="{{static}}/images/console-button.gif"
+       style="margin:0; padding:0" align="absmiddle"
+       width="26" height="22" alt="" /><!--@(second
+  from left,
+  at the bottom of the Developer Tools window)
+  so that you can see both the code and the console.-->
+  （在开发者工具窗口的底部，从左边开始的第二个），这样您可以同时看到代码和控制台。
+  </li>
+</ol>
+
+<h2 id="debug"> <!--@Use the debugger-->使用调试器 </h2>
+
+<p>
+<!--@In this section,
+you'll follow the execution of the popup page
+as it adds images to itself.-->
+在这一部分，弹出页面自己添加图片时您将跟踪它的执行。
+</p>
+
+<ol>
+  <li>
+  <!--@Set a breakpoint inside the image-adding loop
+  by searching for the string <b>img.src</b>
+  and clicking the number of the line where it occurs
+  (for example, <strong>37</strong>):-->
+  搜索 <b>img.src</b>，单击它出现的行号（例如，<strong>37</strong>），在添加图片的循环中设置断点。
+  <p>
+  <img src="{{static}}/images/devtools-2.gif" alt=""
+       width="500" height="294" />
+  </p>
+  </li>
+
+  <li>
+  <!--@Make sure you can see the-->确保您可以看到 <b>popup.html</b> <!--@tab.
+  It should show 20 "hello world" images.-->的内容，它应该显示 20 个
+  "hello world" 图片。
+  </li>
+
+  <li>
+  <!--@At the console prompt, reload the popup page
+  by entering-->在控制台提示符中，输入 <b>location.reload(true)</b><!--@:-->
+  重新载入弹出页面：
+
+<pre>
+&gt; <b>location.reload(true)</b>
+</pre>
+
+  <p>
+  <!--@The popup page goes blank as it begins to reload,
+  and its execution stops at line 37.-->
+  弹出页面在重新载入时会变成空白，并且执行将在第 37 行停止。
+  </p>
+  </li>
+
+  <li>
+  <!--@In the upper right part of the tools window,
+  you should see the local scope variables.
+  This section shows the current values of all variables in the current scope.
+  For example, in the following screenshot
+  the value of <code>i</code> is 0, and
+  <code>photos</code> is a node list
+  that contains at least a few elements.
+  (In fact, it contains 20 elements at indexes 0 through 19,
+  each one representing a photo.)-->
+  在工具窗口的右上角，您应该能看到本地变量。这一部分显示当前作用域内所有变量的值。例如，在如下屏幕截图中
+  <code>i</code> 的值为 0，<code>photos</code>
+  是包含一些元素的节点列表。（事实上，它包含
+  20 个元素，索引从 0 至 19，每一个代表一张照片。）
+
+  <p>
+  <img src="{{static}}/images/devtools-localvars.gif" alt=""
+       width="225" height="215" />
+  </p>
+  </li>
+
+  <li>
+  <!--@Click the play/pause button-->单击开始/暂停按钮
+  <img src="{{static}}/images/play-button.gif"
+       style="margin:0; padding:0" align="absmiddle"
+       width="22" height="20" alt="" /><!--@(near
+  the top right of the Developer Tools window)
+  to go through the image-processing loop a single time.
+  Each time you click that button,
+  the value of <code>i</code> increments and
+  another icon appears in the popup page.
+  For example, when <code>i</code> is 10,
+  the popup page looks something like this:-->（在开发者工具窗口的右上角），执行一次图片处理循环。您每一次单击该按钮后，<code>i</code>
+  的值就会递增，并且弹出页面中出现另一个图标。例如，当
+  <code>i</code> 为 10 时，弹出页面如下图所示：
+  </li>
+
+  <p>
+  <img src="{{static}}/images/devtools-3.gif"
+       width="500" height="245"
+       alt="the popup page with 10 images" />
+  </p>
+
+  <li>
+  <!--@Use the buttons next to the play/pause button
+  to step over, into, and out of function calls.
+  To let the page finish loading,
+  click line <b>37</b> to disable the breakpoint,
+  and then press play/pause-->
+  使用开始/暂停旁边的按钮来进行逐过程、逐语句调试或完成函数调用。要让页面完成载入，请单击第
+  <b>37</b> 行删除断点，并按下开始/暂停按钮
+  <img src="{{static}}/images/play-button.gif"
+       style="margin:0; padding:0" align="absmiddle"
+       width="22" height="20" alt="" /><!--@to
+  continue execution.-->
+  继续执行。
+  </li>
+
+</ol>
+
+
+<h2 id="summary"><!--@Summary-->总结</h2>
+
+<p>
+<!--@This tutorial demonstrated some techniques you can use
+to debug your extensions:-->
+该教程演示了一些您可以用来调试扩展程序的技术：
+</p>
+
+<ul>
+  <li>
+    <!--@Find your extension's ID and links to its pages in
+    the <b>Extensions</b> page
+    (<b>chrome://extensions</b>).-->
+    在<b>扩展程序</b>页面（<b>chrome://extensions</b>）中找到您的扩展程序标识符以及指向其页面的链接。
+  </li>
+  <li>
+    <!--@View hard-to-reach pages
+    (and any other file in your extension) using
+    <b>chrome-extension://</b><em>extensionId</em><b>/</b><em>filename</em>.-->
+    使用 <b>chrome-extension://</b><em>扩展程序标识符</em><b>/filename</b>
+    查看较难到达的页面（以及您的扩展程序中的任何其他文件）。
+  </li>
+  <li>
+    <!--@Use Developer Tools to inspect
+    and step through a page's JavaScript code.-->
+    使用开发者工具审查并单步调试页面的 JavaScript 代码。
+  </li>
+  <li>
+    <!--@Reload the currently inspected page from the console
+    using <b>location.reload(true)</b>.-->
+    在控制台中使用 <b>location.reload(true)</b> 重新载入当前审查的页面。
+  </li>
+</ul>
+
+
+<h2 id="next"><!--@Now what?-->接下来做什么？</h2>
+
+<p>
+<!--@Now that you've been introduced to debugging,
+here are suggestions for what to do next:-->
+现在您已经熟悉了调试过程，如下是有关接下来做什么的建议：
+</p>
+
+<ul>
+  <li>
+    <!--@Watch the extensions video-->
+    观看扩展程序视频<a href="https://www.youtube.com/watch?v=IP0nMv_NI1s&feature=PlayList&p=CA101D6A85FE9D4B&index=5"><!--@Developing and Debugging-->开发与调试</a><!--@.-->（英文）。
+  </li>
+  <li>
+    <!--@Try installing and inspecting other extensions,
+    such as the
+    <a href="samples.html">samples</a>.-->
+    尝试安装和审查其他扩展程序，例如<a href="samples.html">示例</a>。
+  </li>
+  <li>
+    <!--@Try using widely available debugging APIs such as
+    <code>console.log()</code> and <code>console.error()</code>
+    in your extension's JavaScript code.
+    Example: <code>console.log("Hello, world!")</code>-->
+    尝试在您的扩展程序的 JavaScript 代码中使用常见的调试 API，例如
+    <code>console.log()</code> 和 <code>console.error()</code>。例如：
+    <code>console.log("Hello, world!")</code>
+  </li>
+  <li>
+    <!--@Follow the -->遵循<a href="https://developers.google.com/chrome-developer-tools/docs/overview"><!--@Developer Tools tutorial-->开发人员工具教程</a><!--@,
+    explore the
+    -->（英文），浏览<a href="http://www.chromium.org/devtools"><!--@Developer Tools site-->开发人员工具网站</a><!--@,
+    and watch some video tutorials.-->（英文），并观看一些视频教程。
+  </li>
+</ul>
+
+
+
+<p>
+<!--@For more ideas,
+see the <a href="getstarted.html#next-steps">Now what?</a> section
+of Getting Started.-->
+有关更多想法，请参见入门中的<a href="getstarted.html#next-steps">接下来做什么？</a>部分。
+</p>
