@@ -433,7 +433,7 @@ span.displayModeWarning {
   position: absolute;
   right: 0;
   top: 3px;
-  background: url(../images/toggle_sprite.png) no-repeat 0 0;
+  background: url(https://developer.chrome.com/stable/static/images/toggle_sprite.png) no-repeat 0 0;
   height: 8px;
   width: 8px;
 }
@@ -453,7 +453,7 @@ span.displayModeWarning {
 #gc-sidebar ul.level3 {
   margin-left: 20px;
   padding-top: 10px;
-  list-style: url(../images/sidearrow.png);
+  list-style: url(https://developer.chrome.com/stable/static/images/sidearrow.png);
 }
 
 /* Sidebar list element styling. */
