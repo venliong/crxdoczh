@@ -53,6 +53,7 @@ There must be at least one mirror for the time being in case the main server ran
 
 It renders extensions/apps docs. To avoid abuse, the app id of the server is not disclosed and it requires a special API key to get access. Be careful before committing changes of the server (or hopefully checked with a presubmit script).
 
+For testing, it still supports serving ordinary docs but requires admin login.
 
 = The samples server =
 

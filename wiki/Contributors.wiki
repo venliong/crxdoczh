@@ -1,4 +1,6 @@
 #summary 该项目的贡献者及其贡献
 #labels Featured
 
-暂时还没有。您想成为第一个吗！
+这里将列出除 Committer 外该项目的所有贡献者以及所做的贡献。
+暂时还没有。您想[https://code.google.com/p/crxdoczh/wiki/Contribution 成为第一个]吗！
+
