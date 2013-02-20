@@ -1,0 +1,88 @@
+<p id="classSummary">
+<!--@Use the <code>chrome.windows</code> module
+to interact with browser windows.
+You can use this module to
+create, modify, and rearrange windows in the browser.-->
+使用
+<code>chrome.windows</code>
+模块与浏览器窗口交互。您可以使用该模块创建、修改和重新排列浏览器中的窗口。
+</p>
+
+<img src="{{static}}/images/windows.png"
+     width="256" height="76" alt="Two windows, each with one tab" />
+
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
+<p>
+<!--@To use the windows API,
+you must declare the "tabs" permission
+in <a href="manifest.html">manifest.json</a>.
+(No, that isn't a typo &mdash;
+the window and tabs modules interact so closely we
+decided to just share one permission between them.)
+For example:-->
+要使用窗口API，您必须在<a href="manifest.html">清单文件</a>中声明
+"tabs"
+权限。（没错，这不是印刷错误，窗口和标签页模块联系紧密，所以我们决定让它们共享同一权限。）例如：
+</p>
+
+<pre>{
+<!--@  "name": "My extension",-->
+  "name": "我的扩展程序",
+  ...
+  <b>"permissions": ["tabs"]</b>,
+  ...
+}</pre>
+
+<h2 id="current-window"><!--@The current window-->当前窗口</h2>
+
+<p><!--@Many functions in the extension system
+take an optional <var>windowId</var> parameter,
+which defaults to the current window.-->
+扩展程序系统中的许多函数有一个可选的
+<var>windowId</var>
+参数，默认为当前窗口。
+</p>
+
+<p><!--@The <em>current window</em> is the window that
+contains the code that is currently executing.
+It's important to realize that this can be
+different from the topmost or focused window.-->
+<em>当前窗口</em>即包含当前正在执行的代码的窗口，值得注意的是这不一定是顶层窗口或拥有焦点的窗口。
+</p>
+
+<p><!--@For example, say an extension
+creates a few tabs or windows from a single HTML file,
+and that the HTML file
+contains a call to
+$ref:tabs.query.
+The current window is the window that contains the page that made
+the call, no matter what the topmost window is.-->
+例如，假设一个扩展程序在一个 HTML 文件中创建了几个标签页或窗口，该 HTML 文件中又调用了 $ref:tabs.query。当前窗口是包含发出调用的页面的窗口，无论顶层窗口是哪一个。
+</p>
+
+<p><!--@In the case of the <a href="event_pages.html">event page</a>,
+the value of the current window falls back to the last active window. Under some
+circumstances, there may be no current window for background pages.-->
+而在<a href="event_pages.html">事件页面</a>中，当前窗口的值则是最后一个活动的窗口。在某些情况下，后台页面可能没有当前窗口。
+</p>
+
+<h2 id="examples"><!--@ Examples -->例子</h2>
+
+<p>
+<!--@You can find simple examples of using the windows module in the-->
+您可以在
+<a href="http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/api/windows/">examples/api/windows</a>
+<!--@directory.
+Another example is in the-->
+目录中找到使用窗口模块的简单例子，另一个例子在
+<!--@<a href="http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/api/tabs/inspector/tabs_api.html?content-type=text/plain">tabs_api.html</a> file
+of the
+<a href="http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/api/tabs/inspector/">inspector</a>
+example.
+For other examples and for help in viewing the source code, see
+<a href="samples.html">Samples</a>.-->
+<a href="http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/api/tabs/inspector/">inspector</a>
+例子的
+<a href="http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/api/tabs/inspector/tabs_api.html?content-type=text/plain">tabs_api.html</a>
+文件中。有关其它例子以及查看源代码的帮助，请参见<a href="samples.html">示例</a>。
+</p>

@@ -1,0 +1,38 @@
+<p>
+<!--@The pageCapture API allows you to save a tab as MHTML.-->
+页面捕获 API 允许您将一个标签页保存为 MHTML。
+</p>
+
+<p>
+<!--@MHTML is a <a href="http://tools.ietf.org/html/rfc2557">standard format</a>
+supported by most browsers. It encapsulates in a single file a page and all
+its resources (CSS files, images..).-->
+MHTML 是大部分浏览器支持的一种<a
+href="http://tools.ietf.org/html/rfc2557">标准格式</a>，它将页面以及所有资源（CSS
+文件，图片……）包装在单个文件中。
+</p>
+
+<p>
+<!--@Note that for security reasons a MHTML file can only be loaded from the file
+system and that it can only be loaded in the main frame.-->
+注意，出于安全考虑，MHTML 文件只能从文件系统中载入，并且只能在主框架中载入。
+</p>
+
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
+
+
+<p><!--@You must declare the "pageCapture" permission
+in the <a href="manifest.html">extension manifest</a>
+to use the pageCapture API.
+For example:-->
+您必须在扩展程序的清单文件中声明
+"pageCapture" 权限才能使用页面捕获 API。例如：
+</p>
+<pre>{
+  "name": "我的扩展程序",
+  ...
+  <b>"permissions": [
+    "pageCapture"
+  ]</b>,
+  ...
+}</pre>
