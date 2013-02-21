@@ -1,0 +1,4 @@
+backends:
+- name: update-samples
+  options: dynamic
+
