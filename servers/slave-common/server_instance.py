@@ -101,8 +101,12 @@ class ServerInstance(object):
         return True
       if not new_path.endswith('.html'):
         return False
-      response.headers['content-type'] = 'text/plain';
-      response.out.write(self._GetDocsHTML(request, new_path))
+      content = self._GetDocsHTML(request, new_path)
+      if len(content) > 0:
+        response.headers['content-type'] = 'text/plain'
+        response.out.write(content)
+      else:
+        response.set_status(503)
       return True
     else:
       return False
