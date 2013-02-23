@@ -164,7 +164,7 @@ class SamplesDataSource(object):
           download_url = sample_base_path + '.zip'
 
         if manifest_data['icon'] is None:
-          icon_path = self._static_path + DEFAULT_ICON_PATH
+          icon_path = DEFAULT_ICON_PATH
         else:
           icon_path = icon_base + '/' + manifest_data['icon']
         manifest_data.update({
