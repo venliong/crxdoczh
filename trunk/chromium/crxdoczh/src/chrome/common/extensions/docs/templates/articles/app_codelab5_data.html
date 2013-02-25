@@ -1,24 +1,29 @@
-<h1 id="lab_5_manage_data">Lab 5 - Manage Data</h1>
+<h1 id="lab_5_manage_data"><!--@Lab 5 - Manage Data-->实验五：管理数据</h1>
 
-<p>The <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab3_mvc/angularjs/withcontroller/controller.js#L2-L4">sample from Lab 3</a> uses a static array of Todos. Every time your app restarts, whatever you&#39;ve changed is lost. In this section, we will save every change using <a href="http://developer.chrome.com/trunk/apps/storage.html">chrome.storage.sync</a>. This lets you store <em>small things</em> that automatically sync to the cloud if you are online and logged in to Chrome. If you are offline or unlogged, it saves locally and transparently: you don&#39;t have to handle online check and offline fallback in your application.</p>
+<p><!--@The --><a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab3_mvc/angularjs/withcontroller/controller.js#L2-L4"><!--@sample from Lab 3-->实验三中的示例</a><!--@ uses a static array of Todos. Every time your app restarts, whatever you&#39;ve changed is lost. In this section, we will save every change using <a href="http://developer.chrome.com/trunk/apps/storage.html">chrome.storage.sync</a>. This lets you store <em>small things</em> that automatically sync to the cloud if you are online and logged in to Chrome. If you are offline or unlogged, it saves locally and transparently: you don&#39;t have to handle online check and offline fallback in your application.-->使用静态数组存放待办事项，每次您的应用重新启动后，您的更改都会丢失。在这一部分，我们将使用
+<a href="storage.html">chrome.storage.sync</a>
+保存所有更改，这样可以让您存储<em>少量数据</em>，在您在线并登录到 Chrome
+时自动同步到云端。如果您处于离线状态或未登录，它将透明地在本地保存，而不需要在您的应用中处理在线检查及离线处理。</p>
 
-<h2 id="you_should_also_read">You should also read</h2>
+<h2 id="you_should_also_read"><!--@You should also read-->您还应该阅读</h2>
 
-<p><a href="http://developer.chrome.com/apps/app_storage.html">Manage Data</a> in Chrome app docs</p>
+<p>Chrome 应用文档中的<a href="app_storage.html"><!--@Manage Data-->管理数据</a><!--@ in Chrome app docs--></p>
 
-<h2 id="save_your_todos_in_the_cloud">Save your Todos in the cloud</h2>
+<h2 id="save_your_todos_in_the_cloud"><!--@Save your Todos in the cloud-->将您的待办事项保存到云端</h2>
 
-<p class="note"><b>Note:</b>  Chrome Sync Storage is not intended to be used as a generic database. There are several restrictions on the amount of information you can save, so it is more appropriate to save settings and other small chunks of data. </p>
+<p class="note"><b><!--@Note:-->注意：</b><!--@  Chrome Sync Storage is not intended to be used as a generic database. There are several restrictions on the amount of information you can save, so it is more appropriate to save settings and other small chunks of data. -->Chrome
+同步存储并不是用来充当通用数据库的，它对您可以保存的信息量有一些限制，所以它更适合保存设置和其他小块数据。</p>
 
 <ol>
-<li><p>Request permission to use storage in your <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab5_data/angularjs/1_storage_sync/manifest.json">manifest.json</a>:
+<li><p>在您的<!--@Request permission to use storage in your--> <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab5_data/angularjs/1_storage_sync/manifest.json">manifest.json</a><!--@:-->
+中请求权限，使用存储：
 <pre>
 {
   ... ,
   &quot;permissions&quot;: [&quot;storage&quot;]
 }
 </pre></p></li>
-<li><p>Change your <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab5_data/angularjs/1_storage_sync/controller.js">controller.js</a> and, instead of a static list, get the Todo list from the syncable storage:
+<li><p><!--@Change your-->修改您的 <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab5_data/angularjs/1_storage_sync/controller.js">controller.js</a> <!--@and, instead of a static list, get the Todo list from the syncable storage:-->并从可同步的存储中获取待办事项列表，而不是静态列表：
 <pre>
 // Notice that chrome.storage.sync.get is asynchronous
 chrome.storage.sync.get(&#39;todolist&#39;, function(value) {
@@ -42,7 +47,8 @@ $scope.load = function(value) {
 $scope.save = function() {
   chrome.storage.sync.set({&#39;todolist&#39;: $scope.todos});
 };
-</pre></li><li>In the HTML, call <code>save()</code> whenever the data changes. There are many other ways of doing this in Angular, like using <code>$watchers</code> on the scope. The one used here makes the <code>save()</code> calls explicit.
+</pre></li><li><!--@In the HTML, call <code>save()</code> whenever the data changes. There are many other ways of doing this in Angular, like using <code>$watchers</code> on the scope. The one used here makes the <code>save()</code> calls explicit.-->
+在 HTML 中，每当数据更改就要调用 <code>save()</code>。在 Angular 中有许多其他方法做到这一点，例如在区域中使用 <code>$watchers</code>。这里使用的是显示调用 <code>save()</code>。
 <pre>
 ...
        [ &lt;a href=&quot;&quot; ng-click=&quot;archive() || save()&quot;&gt;archive&lt;/a&gt; ]
@@ -52,20 +58,27 @@ $scope.save = function() {
        &lt;form ng-submit=&quot;addTodo() || save()&quot;&gt;
 ...
 </pre></li>
-<li>Check the results by reloading the app: open the app, right-click and select Reload App.
-You can now add Todo items, close the app, and the new items will still be there when you reopen the app.</li>
+<li><!--@Check the results by reloading the app: open the app, right-click and select Reload App.
+You can now add Todo items, close the app, and the new items will still be there when you reopen the app.-->
+重新加载应用，检查结果：打开应用，单击右键并选择“重新加载应用”。现在您可以添加待办事项，关闭应用。当您重新打开应用时新项目仍然存在。</li>
 </ol>
 
-<p class="note"><b>Note:</b>  If you get stuck and want to see the app in action,
+<p class="note"><b><!--@Note:-->注意：</b><!--@  If you get stuck and want to see the app in action,
 go to <code>chrome://extensions</code>, load the unpacked <a href="https://github.com/GoogleChrome/chrome-app-codelab/tree/master/lab5_data/angularjs/1_storage_sync">1_storage_sync</a> app,
-and launch the app from a new tab.</p>
+and launch the app from a new tab.-->如果您遇到了困难，希望立刻看到修改后的应用，请进入
+<code>chrome://extensions</code>，载入未打包的
+<a href="https://github.com/GoogleChrome/chrome-app-codelab/tree/master/lab5_data/angularjs/1_storage_sync">1_storage_sync</a>
+应用，并从新标签页中运行应用。</p>
 
-<h2 id="handle_drag_and_dropped_files_and_urls">Handle drag-and-dropped files and URLs</h2>
+<h2 id="handle_drag_and_dropped_files_and_urls"><!--@Handle drag-and-dropped files and URLs-->处理拖放文件和 URL</h2>
 
-Suppose you want to create Todos associated with local files and/or URLs. The natural way of doing this is to accept dropped items. It&#39;s simple enough to add drag-and-drop support in a Chrome app using the standard HTML5 Drag-and-Drop API.
+<!--@Suppose you want to create Todos associated with local files and/or URLs. The natural way of doing this is to accept dropped items. It&#39;s simple enough to add drag-and-drop support in a Chrome app using the standard HTML5 Drag-and-Drop API.-->
+假设您想创建与本地文件和/或 URL 关联的待办事项，实现这一点的最自然的方式就是接受拖放的项目。使用标准 HTML 拖放 API 可以非常简单地在 Chrome
+应用中添加拖放支持。
 
 <ol>
-<li>In <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab5_data/angularjs/2_drop_files/controller.js">controller.js</a>, add code to handle the events of dragover, dragleave and drop:
+<li><!--@In-->在 <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab5_data/angularjs/2_drop_files/controller.js">controller.js</a><!--@, add code to handle the events of dragover, dragleave and drop:-->
+中，添加代码处理 dragover、dragleave 和 dragdrop 事件：
 <pre>
 var defaultDropText = &quot;Or drop files here...&quot;;
 $scope.dropText = defaultDropText;
@@ -123,19 +136,29 @@ $scope.$apply(function() {
 document.body.addEventListener(&quot;dragover&quot;, dragOver, false);
 document.body.addEventListener(&quot;dragleave&quot;, dragLeave, false);
 document.body.addEventListener(&quot;drop&quot;, drop, false);
-</pre></li><li>To make all the area of the window accept the drop event and still work on the same scope, let&#39;s move the Angular scope definition from the div to the body in the <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab5_data/angularjs/2_drop_files/index.html">index.html</a> file.
-Also, let&#39;s associate the body&#39;s CSS class with the Angular controller&#39;s class, so we can change the class directly in the scope and have it automatically changed in the DOM:
+</pre></li><li><!--@To make all the area of the window accept the drop event and still work on the same scope, let&#39;s move the Angular scope definition from the div to the body in the <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab5_data/angularjs/2_drop_files/index.html">index.html</a> file.
+Also, let&#39;s associate the body&#39;s CSS class with the Angular controller&#39;s class, so we can change the class directly in the scope and have it automatically changed in the DOM:-->
+要使窗口中的所有区域都接受拖放事件，同时仍然在相同的区域内工作，让我们将
+Angular 区域定义从
+<a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab5_data/angularjs/2_drop_files/index.html">index.html</a>
+的 div 移动至 body 中。此外，让我们将 body 的 CSS 类与 Angular
+的控制器类关联，这样我们就能直接在区域内修改类名，并使它自动在 DOM 中更改。
 <pre>
 &lt;body ng-controller=&quot;TodoCtrl&quot; ng-class=&quot;dropClass&quot;&gt;
 &lt;!-- remember to remove the ng-controller attribute from the div where it was before --&gt;
 </pre></li>
-<li>Add a message placeholder (in <code>index.html</code>) to warn the user that some types of dragging are not allowed:
+<li><!--@Add a message placeholder (in <code>index.html</code>) to warn the user that some types of dragging are not allowed:-->
+（在 <code>index.html</code> 中）添加消息占位符，警告用户不允许某些类型的拖放：
 <pre>
 &lt;div&gt;
  &#123;&#123;dropText&#125;&#125;
 &lt;/div&gt;
 </pre></li>
-<li>Add appropriate styling for the <code>dragging</code> and <code>invalid-dragging</code> CSS classes in <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab5_data/angularjs/2_drop_files/todo.css">todo.css</a>. Here we used a green or red background color animation:
+<li><!--@Add appropriate styling for the <code>dragging</code> and <code>invalid-dragging</code> CSS classes in <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab5_data/angularjs/2_drop_files/todo.css">todo.css</a>. Here we used a green or red background color animation:-->
+在
+<a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab5_data/angularjs/2_drop_files/todo.css">todo.css</a>
+中为 <code>dragging</code> 和 <code>invalid-dragging</code> CSS
+选择器添加合适的样式。这里我们使用绿色和红色的背景颜色动画：
 <pre>
 @-webkit-keyframes switch-green {
   from { background-color: white;} to {background-color: rgb(163, 255, 163);}
@@ -150,27 +173,52 @@ Also, let&#39;s associate the body&#39;s CSS class with the Angular controller&#
 .invalid-dragging {
   -webkit-animation: switch-red 0.5s ease-in-out 0 infinite alternate;
 }
-</pre></p></li><li><p>Check the results by reloading the app: open the app, right-click and select Reload App.
-You can now drag files into the Todo list.</p></li>
+</pre></p></li><li><p><!--@Check the results by reloading the app: open the app, right-click and select Reload App.
+You can now drag files into the Todo list.-->
+重新加载应用，检查结果：打开应用，单击右键并选择“重新加载应用”。现在您可以将文件拖放至待办事项列表。
+</p></li>
 </ol>
 
-<p class="note"><b>Note:</b>  If you get stuck and want to see the app in action,
+<p class="note"><b><!--@Note:-->注意：</b><!--@  If you get stuck and want to see the app in action,
 go to <code>chrome://extensions</code>, load the unpacked <a href="https://github.com/GoogleChrome/chrome-app-codelab/tree/master/lab5_data/angularjs/2_drop_files">2_drop_files</a> app,
-and launch the app from a new tab.</p>
+and launch the app from a new tab.-->
+如果您遇到了困难，希望立刻看到修改后的应用，请进入
+<code>chrome://extensions</code>，载入未打包的
+<a href="https://github.com/GoogleChrome/chrome-app-codelab/tree/master/lab5_data/angularjs/2_drop_files">2_drop_files</a>
+应用，并从新标签页中运行应用。
+</p>
 
-<h1 id="challenge_">Challenge:</h1>
+<h1 id="challenge_"><!--@Challenge:-->挑战</h1>
 
-<p>The current code only saves the file reference, but it doesn&#39;t open the file. Using the <a href="http://www.html5rocks.com/en/tutorials/file/filesystem/">HTML5 Filesystem API</a>, save the file contents in a sandboxed filesystem. When the Todo item is archived, remove the corresponding file from the sandboxed filesystem. Add an &quot;open&quot; link on each Todo that has an associated file. When the item is clicked and the file exists in the sandboxed filesystem, use the Chrome app <a href="http://developer.chrome.com/apps/fileSystem.html">Filesystem extension</a> to request a writable FileEntry from the user. Save the file data from the sandboxed filesystem into that entry.</p>
+<p><!--@The current code only saves the file reference, but it doesn&#39;t open the file. Using the <a href="http://www.html5rocks.com/en/tutorials/file/filesystem/">HTML5 Filesystem API</a>, save the file contents in a sandboxed filesystem. When the Todo item is archived, remove the corresponding file from the sandboxed filesystem. Add an &quot;open&quot; link on each Todo that has an associated file. When the item is clicked and the file exists in the sandboxed filesystem, use the Chrome app <a href="http://developer.chrome.com/apps/fileSystem.html">Filesystem extension</a> to request a writable FileEntry from the user. Save the file data from the sandboxed filesystem into that entry.-->
+当前的代码只保存了文件引用，但是它并没有打开文件。使用
+<a href="http://www.html5rocks.com/en/tutorials/file/filesystem/">HTML 5
+文件系统 API</a>，将文件内容保存在经过沙盒屏蔽的文件系统中。当待办事项完成后，从经过沙盒屏蔽的文件系统中删除相应的文件。在每一个与文件关联的待办事项上添加一个“打开”链接，单击项目后，如果文件在经过沙盒屏蔽的文件系统中存在，则使用
+Chrome 应用的<a href="fileSystem.html">文件系统扩展</a>向用户请求可写的
+FileEntry（文件项），将经过沙盒屏蔽的文件系统中的文件数据保存至文件项。
+</p>
 
-<p class="note"><b>Tip:</b>  managing file entries using the raw HTML5 Filesystem API is not trivial. You might want to use a wrapper library, like Eric Bidelman&#39;s <a href="https://github.com/ebidel/filer.js">filer.js</a>.</p>
+<p class="note"><b><!--@Tip:-->提示：</b><!--@  managing file entries using the raw HTML5 Filesystem API is not trivial. You might want to use a wrapper library, like Eric Bidelman&#39;s -->
+直接使用 HTML5 文件系统 API 管理文件项并不是很一般，您可能希望使用外包库，例如
+Eric Bidelman 的
+<a href="https://github.com/ebidel/filer.js">filer.js</a><!--@.-->。</p>
 
-<h1 id="takeaways_">Takeaways:</h1>
+<h1 id="takeaways_"><!--@Takeaways:-->更多信息</h1>
 
 <ul>
-<li><p>Use <a href="http://developer.chrome.com/apps/storage.html">chrome.storage.sync</a> to save small data that you need to be sync&#39;ed among devices, like configuration options, application state, etc. The sync is automatic, as long as the same user is logged into Chrome on all devices.</p></li>
-<li><p>Chrome apps support almost all HTML5 APIs, such as drag and drop. HTML Filesystem API is also supported, with extra features from the Chrome app&#39;s <a href="http://developer.chrome.com/apps/fileSystem.html">Filesystem API extension</a>, like asking the user to pick files on her local disk for read and write. The vanilla HTML5 Filesystem API only allows access to a sandboxed filesystem.</p></li>
+<li><p><!--@Use-->使用 <a href="storage.html">chrome.storage.sync</a><!--@ to save small data that you need to be sync&#39;ed among devices, like configuration options, application state, etc. The sync is automatic, as long as the same user is logged into Chrome on all devices.-->
+保存您需要在不同设备间同步的少量数据，例如配置选项、应用程序状态等等。同步是自动的，只要所有设备上都是同一个用户登录 Chrome。
+</p></li>
+<li><p><!--@Chrome apps support almost all HTML5 APIs, such as drag and drop. HTML Filesystem API is also supported, with extra features from the Chrome app&#39;s <a href="http://developer.chrome.com/apps/fileSystem.html">Filesystem API extension</a>, like asking the user to pick files on her local disk for read and write. The vanilla HTML5 Filesystem API only allows access to a sandboxed filesystem.-->
+Chrome 应用支持几乎所有 HTML5 API，例如拖放。HTML 文件系统 API
+也支持，同时还有来自<a href="fileSystem.html">文件系统
+API 扩展</a>的额外特性，例如让用户在本地磁盘上选择文件进行读写，而普通的
+HTML5 文件系统 API 只允许访问经过沙盒屏蔽的文件系统。
+</p></li>
 </ul>
 
-<h1 id="what_39_s_next_">What&#39;s next?</h1>
+<h1 id="what_39_s_next_"><!--@What&#39;s next?-->接下来做什么？</h1>
 
-<p>In <a href="app_codelab6_lifecycle.html">lab6_lifecycle</a>, you will learn the basics of the Chrome app lifecycle. </p>
+<p><!--@In-->在 <a href="app_codelab6_lifecycle.html">lab6_lifecycle</a><!--@, you will learn the basics of the Chrome app lifecycle. -->
+中，您将了解 Chrome 应用生命周期的基础知识。
+</p>
