@@ -605,8 +605,8 @@
 //@        "description": "Reload a tab.",
         "description": "重新载入标签页。",
         "parameters": [
-//@          {"type": "integer", "name": "tabId", "optional": true, "description": "The ID of the tab to reload; defaults to the selected tab of the current window."},
-          {"type": "integer", "name": "tabId", "optional": true, "description": "要重新载入的标签页标识符，默认为当前窗口的选定标签页。"},
+//@          {"type": "integer", "name": "tabId", "minimum": 0, "optional": true, "description": "The ID of the tab to reload; defaults to the selected tab of the current window."},
+          {"type": "integer", "name": "tabId", "minimum": 0, "optional": true, "description": "要重新载入的标签页标识符，默认为当前窗口的选定标签页。"},
           {
             "type": "object",
             "name": "reloadProperties",
@@ -721,8 +721,8 @@
 //@        "description": "Injects JavaScript code into a page. For details, see the <a href='content_scripts.html#pi'>programmatic injection</a> section of the content scripts doc.",
         "description": "在页面中插入 JavaScript 代码。有关更多详情，请参节内容脚本文档中<a href='content_scripts.html#pi'>以编程方式插入</a>部分。",
         "parameters": [
-//@          {"type": "integer", "name": "tabId", "optional": true, "description": "The ID of the tab in which to run the script; defaults to the active tab of the current window."},
-          {"type": "integer", "name": "tabId", "optional": true, "description": "运行脚本的标签页标识符，默认为当前窗口的活动标签页。"},
+//@          {"type": "integer", "name": "tabId", "minimum": 0, "optional": true, "description": "The ID of the tab in which to run the script; defaults to the active tab of the current window."},
+          {"type": "integer", "name": "tabId", "minimum": 0, "optional": true, "description": "运行脚本的标签页标识符，默认为当前窗口的活动标签页。"},
           {
             "$ref": "tabs.InjectDetails",
             "name": "details",
@@ -754,8 +754,8 @@
 //@        "description": "Injects CSS into a page. For details, see the <a href='content_scripts.html#pi'>programmatic injection</a> section of the content scripts doc.",
         "description": "向一个页面中插入CSS。有关更多详情，请参节内容脚本文档中<a href='content_scripts.html#pi'>以编程方式插入</a>部分。",
         "parameters": [
-//@          {"type": "integer", "name": "tabId", "optional": true, "description": "The ID of the tab in which to insert the CSS; defaults to the active tab of the current window."},
-          {"type": "integer", "name": "tabId", "optional": true, "description": "要插入CSS的标签页标识符，默认为当前窗口的活动标签页。"},
+//@          {"type": "integer", "name": "tabId", "minimum": 0, "optional": true, "description": "The ID of the tab in which to insert the CSS; defaults to the active tab of the current window."},
+          {"type": "integer", "name": "tabId", "minimum": 0, "optional": true, "description": "要插入CSS的标签页标识符，默认为当前窗口的活动标签页。"},
           {
             "$ref": "tabs.InjectDetails",
             "name": "details",
