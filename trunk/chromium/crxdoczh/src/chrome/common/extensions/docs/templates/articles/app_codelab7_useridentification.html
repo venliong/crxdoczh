@@ -1,18 +1,22 @@
-<h1 id="lab_7_user_identity">Lab 7 - User Identity</h1>
+<h1 id="lab_7_user_identity"><!--@Lab 7 - User Identity-->实验七：用户认证</h1>
 
-<p>Most modern applications are attached to the web to synchronize data. When synchronizing data, you need to identify who the user is.
-Chrome apps come with an <a href="http://developer.chrome.com/trunk/apps/experimental.identity.html">identity API</a> that makes it easy to integrate either with Google accounts or with any other service that supports OAuth.</p>
+<p><!--@Most modern applications are attached to the web to synchronize data. When synchronizing data, you need to identify who the user is.
+Chrome apps come with an <a href="http://developer.chrome.com/trunk/apps/experimental.identity.html">identity API</a> that makes it easy to integrate either with Google accounts or with any other service that supports OAuth.-->
+大部分现代应用程序都为了同步数据而依赖网络。同步数据时，您需要确定用户是谁。Chrome
+应用内建<a href="experimental.identity.html">认证 API</a>，使您更方便地与
+Google 账户或任何其他支持 OAuth 的服务集成。
+</p>
 
 <ol>
-<li> Built in - Google Authenticiation</li>
-<li> Third Party Authentication (Twitter, Foursquare, etc.)</li>
+<li> <!--@Built in - Google Authenticiation-->内建 Google 认证</li>
+<li> <!--@Third Party Authentication (Twitter, Foursquare, etc.)-->第三方认证（Twitter、Foursquare 等等）</li>
 </ol>
 
-<h2 id="you_should_also_read">You should also read</h2>
+<h2 id="you_should_also_read"><!--@You should also read-->您还应该阅读</h2>
 
-<p><a href="http://developer.chrome.com/trunk/apps/app_identity.html">Identify User</a> in Chrome app docs</p>
+<p>Chrome 应用文档中的<a href="app_identity.html"><!--@Identify User-->认证用户</a><!--@ in Chrome app docs--></p>
 
-<p class="note"><b>Note:</b>  Apps with authentication require the experimental permission in the <code>manifest.json</code> and, until they came out of experimental state, they cannot be uploaded to the Chrome Web Store.
+<p class="note"><b><!--@Note:-->注意：</b>  Apps with authentication require the experimental permission in the <code>manifest.json</code> and, until they came out of experimental state, they cannot be uploaded to the Chrome Web Store.
 If you prefer, you can choose to skip this lab.</p>
 
 <h2 id="authenticating_with_google">Authenticating with Google</h2>
