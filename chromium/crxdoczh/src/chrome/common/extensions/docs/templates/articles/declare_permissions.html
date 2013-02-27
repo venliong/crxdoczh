@@ -373,5 +373,13 @@ table.-->托管应用只能使用
        fashion.-->模块则必须指定。 </td>
 </tr>
 {{/is_apps}}
+{{?is_apps}}
+<tr>
+  <td id="webview"> "webview" </td>
+  <td> Required if the app uses the
+       <a href="webview_tag.html">Webview Tag</a> to embed live content
+       from the web in the packaged app.</td>
+</tr>
+{{/is_apps}}
 </tr>
 </table>
