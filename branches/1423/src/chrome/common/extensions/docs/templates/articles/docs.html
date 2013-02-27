@@ -1,0 +1,158 @@
+<h1><!--@Hello There!-->您好！</h1>
+
+<p>
+<!--@This documentation tells you how to write extensions
+for the
+<a href="http://www.google.com/chrome">Google Chrome browser</a>.-->
+该文档向您描述如何为 <a href="https://www.google.com/chrome">Google Chrome
+浏览器</a> 编写扩展程序。
+</p>
+
+<h2 id="readme"> <!--@Where to start-->从哪里开始？ </h2>
+
+<p>
+<!--@Before you code,
+read these:-->
+在您编写代码前，请先阅读这些：
+</p>
+
+<dl>
+  <dt> <a href="getstarted.html"><!--@Getting Started (Hello, World!)-->入门（Hello, World!）</a> </dt>
+  <dd> <!--@Build a simple "Hello, World" extension in about 5 minutes-->
+  在五分钟左右的时间内建立一个简单的“Hello, World!”扩展程序
+  </dd>
+
+  <dt> <a href="overview.html"><!--@Overview-->概述</a> </dt>
+  <dd> <!--@Learn about the fundamental design points of the extension system-->
+  了解扩展程序系统的基本设计要点
+  </dd>
+</dl>
+
+<p>
+<!--@Also check out these:-->
+另外参考这些：
+</p>
+
+<ul>
+  <li>
+    <a href="devguide.html"><!--@Developer's Guide-->开发者指南</a>
+  </li>
+  <li>
+    <a href="samples.html"><!--@Samples-->示例</a>
+  </li>
+  <li>
+    <a href="http://stackoverflow.com/questions/tagged/google-chrome-extension">Stack Overflow 上的 [google-chrome-extension] <!--@tag-->标签</a>
+  </li>
+  <li>
+    <a href="http://groups.google.com/a/chromium.org/group/chromium-extensions"><!--@Group: -->网上论坛：chromium-extensions</a>
+  </li>
+  <li>
+    <a href="http://chrome.google.com/webstore">Chrome <!--@Web Store-->网上应用店</a>
+  </li>
+  <li>
+    <a href="webstore.html">Chrome <!--@Web Store
+      developer documentation-->网上应用店开发者文档</a>
+  </li>
+</ul>
+
+<h2 id="versions"> <!--@Doc versions-->文档版本 </h2>
+<p>
+<!--@In general, you should view these pages at
+<b>http://developer.chrome.com/extensions/<em>&lt;filename></em></b>
+(for example,
+<a href="/extensions/overview.html">http://developer.chrome.com/extensions/overview.html</a>).
+However, if you need to see the very latest doc
+or you're using a different version of Google Chrome
+than most of the world is
+(perhaps the <a href="http://dev.chromium.org/getting-involved/dev-channel">Dev channel</a>),
+you might want to use a different URL
+(for example,
+<a href="/dev/extensions/overview.html">.../<b>dev/</b>extensions/overview.html</a>).
+The following table lists the doc locations and explains how they differ.-->
+通常，您应该在
+<b>https://crxdoc-zh.appspot.com/extensions/<em>&lt;文件名&gt;</em></b>（例如
+<a href="/extensions/overview.html">https://crxdoc-zh.appspot.com/extensions/overview.html</a>）。然而，如果您需要查看最新的文档，或者正在使用的
+Google Chrome 浏览器版本与其他大多数人不同（也许是
+<a href="http://dev.chromium.org/getting-involved/dev-channel">Dev
+分支</a>），您可能希望使用另一种 URL（例如
+<a href="/dev/extensions/overview.html">.../<b>dev/</b>extensions/overview.html</a>）。下表列出了文档位置，并解释了它们的区别。
+</p>
+
+<p>
+<table class="simple">
+  <tr>
+    <th> URL </th>   <th> <!--@Version-->版本 </th>
+  </tr>
+  <tr>
+    <td>
+      <a href="/extensions/overview.html">.../extensions/...</a>
+    </td>
+    <td>
+      <!--@The version you should probably be using.
+      This documents the most stable version of the extension API.-->
+      也许就是您正在使用的版本，该文档描述的是最稳定版本的扩展程序 API。
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/beta/extensions/overview.html">.../<b>beta/</b>extensions/...</a>
+    </td>
+    <td>
+      <p>
+      <!--@Documentation for the Beta channel version of Google Chrome.-->
+      用于 Beta 分支版本的 Google Chrome 浏览器的文档。
+      </p>
+
+      <p>
+      <strong><!--@Note:-->注意：</strong><!--@
+      APIs on the Beta channel are subject to change.-->Beta
+      分支中的 API 可能会更改。
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/dev/extensions/overview.html">.../<b>dev/</b>extensions/...</a>
+    </td>
+    <td>
+      <p>
+      <!--@Documentation for the Dev channel version of Google Chrome.
+      This version might also have bug fixes and feature information
+      that are relevant to the current doc
+      but haven't been integrated into it yet.-->
+      用于 Dev 分支版本的 Google Chrome 浏览器的文档。该版本可能会包含问题修复和特色内容，与当前文档相关，但是还没有整合进来。
+      </p>
+
+      <p>
+      <strong><!--@Note:-->注意：</strong><!--@
+      APIs on the Dev channel are subject to change.-->Dev
+      分支中的 API 可能会更改。
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/trunk/extensions/overview.html">.../<b>trunk/</b>extensions/...</a>
+    </td>
+    <td>
+      <!--@The very latest documentation.
+      Look here if you're using-->
+      这是最新的文档。如果您使用
+      <a href="https://tools.google.com/dlpage/chromesxs">Canary</a>
+      <!--@or a tip-of-tree version of-->
+      或最新版本的
+      <a href="http://dev.chromium.org">Chromium</a><!--@
+      or if you're curious about features to come.
+      This version might also have bug fixes and feature information
+      that are relevant to the current doc
+      but haven't been integrated into it yet.-->，或者对正在开发的新特性很有好奇心，请来这儿看看。该版本也会包含问题修复和特色内容，与当前文档相关，但是还没有整合进来。
+
+      <p>
+      <strong><!--@Note:-->注意：</strong><!--@
+      The trunk version of the doc is preliminary and might have errors.-->trunk
+      版本的文档还是预备文档，可能有错误。
+      </p>
+    </td>
+  </tr>
+</table>
+</p>

@@ -1,0 +1,97 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+[
+  {
+    "namespace": "scriptBadge",
+    "dependencies": [ "tabs" ],
+    "functions": [
+      {
+        "name": "setPopup",
+        "type": "function",
+//@        "description": "Sets the html document to be opened as a popup when the user clicks on the script badge's icon.",
+        "description": "设置用户单击脚本按钮的图标时以弹出内容打开的 HTML 文档。",
+        "parameters": [
+          {
+            "name": "details",
+            "type": "object",
+            "properties": {
+//@              "tabId": {"type": "integer", "minimum": 0, "description": "The id of the tab for which you want to modify the script badge."},
+              "tabId": {"type": "integer", "minimum": 0, "description": "要修改脚本按钮的标签页标识符。"},
+              "popup": {
+                "type": "string",
+//@                "description": "The html file to show in a popup.  If set to the empty string (''), no popup is shown."
+                "description": "显示在弹出内容中的 HTML 文件。如果设置为空字符串（''），则不显示弹出内容。"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "getPopup",
+        "type": "function",
+//@        "description": "Gets the html document set as the popup for this script badge.",
+        "description": "获取设置为此脚本按钮弹出内容的 HTML 文档。",
+        "parameters": [
+          {
+            "name": "details",
+            "type": "object",
+            "properties": {
+              "tabId": {
+                "type": "integer",
+//@                "description": "Specify the tab to get the popup from."
+                "description": "指定要获取弹出内容的标签页。"
+              }
+            }
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "parameters": [
+              {
+                "name": "result",
+                "type": "string"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "getAttention",
+        "type": "function",
+
+//@        "description": "Brings the script badge to the attention of the user, imploring her to click.  You should call this when you detect that you can do something to a particular tab.  Do not call this for every tab. That's tacky.  If the user clicks on the badge, the activeTab APIs become available. If the extension has already run on this tab, this call does nothing.",
+        "description": "使用户注意当前脚本按钮，请求用户单击。您应该在您检测到您可以对某个标签页做些什么的时候调用该函数，不要为每一个标签页调用，这样很不好。如果用户单击了按钮，activeTab API 将可以使用。如果扩展程序已经在该标签页上运行，该调用不做任何事情。",
+
+        "parameters": [
+          {
+            "name": "details",
+            "type": "object",
+            "properties": {
+              "tabId": {
+                "type": "integer",
+//@                "description": "Specify the tab to request to act on."
+                "description": "指定要执行操作的标签页。"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "onClicked",
+        "type": "function",
+//@        "description": "Fired when a script badge icon is clicked.  This event will not fire if the script badge has a popup.",
+        "description": "当脚本按钮图标单击时产生，如果脚本按钮有弹出内容则不会产生该事件。",
+        "parameters": [
+          {
+            "name": "tab",
+            "$ref": "tabs.Tab"
+          }
+        ]
+      }
+    ]
+  }
+]

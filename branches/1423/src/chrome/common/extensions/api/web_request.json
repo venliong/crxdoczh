@@ -1,0 +1,688 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+[
+  {
+    "namespace": "webRequest",
+    "properties": {
+      "MAX_HANDLER_BEHAVIOR_CHANGED_CALLS_PER_10_MINUTES": {
+        "value": 20,
+//@        "description": "The maximum number of times that <code>handlerBehaviorChanged</code> can be called per 10 minute sustained interval. <code>handlerBehaviorChanged</code> is an expensive function call that shouldn't be called often."
+        "description": "10 分钟内 <code>handlerBehaviorChanged</code> 能够被调用的次数。<code>handlerBehaviorChanged</code> 是一个昂贵的函数，不应该经常调用。"
+      }
+    },
+    "types": [
+      {
+        "id": "RequestFilter",
+        "type": "object",
+//@        "description": "An object describing filters to apply to webRequest events.",
+        "description": "描述应用于网络请求事件的过滤器对象。",
+        "properties": {
+          "urls": {
+            "type": "array",
+//@            "description": "A list of URLs or URL patterns. Requests that cannot match any of the URLs will be filtered out.",
+            "description": "URL 或 URL 匹配表达式列表，不匹配任何 URL 的请求会被过滤出去。",
+            "items": { "type": "string" }
+          },
+          "types": {
+            "type": "array",
+            "optional": true,
+//@            "description": "A list of request types. Requests that cannot match any of the types will be filtered out.",
+            "description": "请求类型的列表，不匹配任何一种类型的请求会被过滤出去。",
+            "items": { "type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"] }
+          },
+          "tabId": { "type": "integer", "optional": true },
+          "windowId": { "type": "integer", "optional": true }
+        }
+      },
+      {
+        "id": "HttpHeaders",
+        "nocompile": true,
+        "type": "array",
+//@        "description": "An array of HTTP headers. Each header is represented as a dictionary containing the keys <code>name</code> and either <code>value</code> or <code>binaryValue</code>.",
+        "description": "包含 HTTP 头信息的数组，每一项头信息都通过词典表示，包含 <code>name</code> 属性，以及 <code>value</code> 或 <code>binaryValue</code> 中的某一属性。",
+        "items": {
+          "type": "object",
+          "properties": {
+//@            "name": {"type": "string", "description": "Name of the HTTP header."},
+            "name": {"type": "string", "description": "HTTP 头信息的名称。"},
+//@            "value": {"type": "string", "optional": true, "description": "Value of the HTTP header if it can be represented by UTF-8."},
+            "value": {"type": "string", "optional": true, "description": "如果可以通过 UTF-8 编码表示的话，则为 HTTP 头信息的值。"},
+            "binaryValue": {
+              "type": "array",
+              "optional": true,
+//@              "description": "Value of the HTTP header if it cannot be represented by UTF-8, stored as individual byte values (0..255).",
+              "description": "如果不能通过 UTF-8 编码表示的话，HTTP 头信息的值存储为单独的字节值（0～255）。",
+              "items": {"type": "integer"}
+            }
+          }
+        }
+      },
+      {
+        "id": "BlockingResponse",
+        "nocompile": true,
+        "type": "object",
+//@        "description": "Returns value for event handlers that have the 'blocking' extraInfoSpec applied. Allows the event handler to modify network requests.",
+        "description": "用于在 extraInfoSpec 参数中指定 \"blocking\" 的事件处理函数的返回值，允许事件处理函数修改网络请求。",
+        "properties": {
+          "cancel": {
+            "type": "boolean",
+            "optional": true,
+//@            "description": "If true, the request is cancelled. Used in onBeforeRequest, this prevents the request from being sent."
+            "description": "如果为 true，则取消请求。在 onBeforeRequest 事件中使用，用来阻止请求的发送。"
+          },
+          "redirectUrl": {
+            "type": "string",
+            "optional": true,
+//@            "description": "Only used as a response to the onBeforeRequest event. If set, the original request is prevented from being sent and is instead redirected to the given URL."
+            "description": "仅用于 onBeforeRequest 事件的返回值。如果设置了这一属性，将阻止原始请求的发送，并重定向至指定的 URL。"
+          },
+          "requestHeaders": {
+            "$ref": "HttpHeaders",
+            "optional": true,
+//@            "description": "Only used as a response to the onBeforeSendHeaders event. If set, the request is made with these request headers instead."
+            "description": "仅用于 onBeforeSendHeaders 事件的返回值。如果设置了这一属性，请求将改用这些头信息发出。"
+          },
+          "responseHeaders": {
+            "$ref": "HttpHeaders",
+            "optional": true,
+//@            "description": "Only used as a response to the onHeadersReceived event. If set, the server is assumed to have responded with these response headers instead. Only return <code>responseHeaders</code> if you really want to modify the headers in order to limit the number of conflicts (only one extension may modify <code>responseHeaders</code> for each request)."
+            "description": "仅用于 onHeadersReceived 事件的返回值。如果设置了这一属性，则假定服务器返回了这些响应头信息。为了限制冲突数目（对于每一个请求，只有一个扩展程序可以修改 <code>responseHeaders</code>），只有有当您确实需要修改头信息时才应该返回 <code>responseHeaders</code>。"
+          },
+          "authCredentials": {
+            "type": "object",
+//@            "description": "Only used as a response to the onAuthRequired event. If set, the request is made using the supplied credentials.",
+            "description": "仅用于 onAuthRequired 事件的返回值。如果设置了这一属性，发出的请求将使用提供的凭据。",
+            "optional": true,
+            "properties": {
+              "username": {"type": "string"},
+              "password": {"type": "string"}
+            }
+          }
+        }
+      },
+      {
+        "id": "UploadData",
+        "type": "object",
+        "properties": {
+          "bytes": {
+            "type": "any",
+            "optional": true,
+//@            "description": "An ArrayBuffer with a copy of the data."
+            "description": "包含数据的一份拷贝的 ArrayBuffer。"
+          },
+          "file": {
+            "type": "string",
+            "optional": true,
+//@            "description": "A string with the file's path and name."
+            "description": "包含文件路径与名称的字符串。"
+          }
+        },
+//@        "description": "Contains data uploaded in a URL request."
+        "description": "包含 URL 请求中上传的数据。"
+      }
+    ],
+    "functions": [
+      {
+        "name": "handlerBehaviorChanged",
+        "type": "function",
+//@        "description": "Needs to be called when the behavior of the webRequest handlers has changed to prevent incorrect handling due to caching. This function call is expensive. Don't call it often.",
+        "description": "当网络请求处理函数的行为发生更改时，为了避免缓存导致的不正确处理，需要调用这一函数。这一函数调用比较昂贵，不要经常调用。",
+        "parameters": [
+          {"type": "function", "name": "callback", "optional": true, "parameters": []}
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "onBeforeRequest",
+        "type": "function",
+//@        "description": "Fired when a request is about to occur.",
+        "description": "当请求即将发生时产生。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "details",
+            "properties": {
+//@              "requestId": {"type": "string", "description": "The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request."},
+              "requestId": {"type": "string", "description": "请求标识符。请求标识符在浏览器会话中保证唯一，所以，它们可以用来联系同一请求的不同事件。"},
+              "url": {"type": "string"},
+//@              "method": {"type": "string", "description": "Standard HTTP method."},
+              "method": {"type": "string", "description": "标准 HTTP 方法。"},
+//@              "frameId": {"type": "integer", "description": "The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (<code>type</code> is <code>main_frame</code> or <code>sub_frame</code>), <code>frameId</code> indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab."},
+              "frameId": {"type": "integer", "description": "0 表示请求发生在主框架中，正数表示发出请求的子框架标识符。如果载入了（子）框架的文档（<code>type</code> 为 <code>\"main_frame\"</code> 或 <code>\"sub_frame\"</code>），<code>frameId</code> 指定该框架的标识符，而不是外层框架的标识符。框架标识符在标签页中保证唯一。"},
+//@              "parentFrameId": {"type": "integer", "description": "ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists."},
+              "parentFrameId": {"type": "integer", "description": "包含发送请求框架的框架（即父框架）标识符，如果不存在父框架则为 -1。"},
+              "requestBody": {
+                "type": "object",
+                "optional": true,
+//@                "description": "Contains the HTTP request body data. Only provided if extraInfoSpec contains 'requestBody'.",
+                "description": "包含 HTTP 请求正文数据，仅在 extraInfoSpec 包含 \"requestBody\" 时才会提供。",
+                "properties": {
+//@                  "error": {"type": "string", "optional": true, "description": "Errors when obtaining request body data."},
+                  "error": {"type": "string", "optional": true, "description": "获取请求正文数据时发生的错误。"},
+                  "formData": {
+                    "type": "object",
+                    "optional": true,
+//@                    "description": "If the request method is POST and the body is a sequence of key-value pairs encoded in UTF8, encoded as either multipart/form-data, or application/x-www-form-urlencoded, this dictionary is present and for each key contains the list of all values for that key. If the data is of another media type, or if it is malformed, the dictionary is not present. An example value of this dictionary is {'key': ['value1', 'value2']}.",
+                    "description": "如果请求方法为 POST，并且正文为经过 UTF-8 编码的键/值对序列，或者是以 multipart/form-data 或 application/x-www-form-urlencoded 的形式编码，该词典存在，每一个键包含了对应键的所有值的列表。如果数据为另一种媒体类型或者是以错误的形式存在，该词典就不存在。该词典的值的一个例子为：{'key': ['value1', 'value2']}。",
+                    "properties": {},
+                    "additionalProperties": {
+                      "type": "array",
+                      "items": { "type": "string" }
+                    }
+                  },
+                  "raw" : {
+                    "type": "array",
+                    "optional": true,
+                    "items": {"$ref": "UploadData"},
+//@                    "description": "If the request method is PUT or POST, and the body is not already parsed in formData, then the unparsed request body elements are contained in this array."
+                    "description": "如果请求方法为 PUT 或 POST，并且正文没有经过分析后放在 formData 中，那么未分析的请求正文元素将包含在该数组中。"
+                  }
+                }
+              },
+//@              "tabId": {"type": "integer", "description": "The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab."},
+              "tabId": {"type": "integer", "description": "产生请求的标签页标识符。如果请求与标签页无关则为 -1。"},
+//@              "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "How the requested resource will be used."},
+              "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "请求的资源将如何使用。"},
+//@              "timeStamp": {"type": "number", "description": "The time when this signal is triggered, in milliseconds since the epoch."}
+              "timeStamp": {"type": "number", "description": "该信号触发的时间，以 1970 年 1 月 1 日午夜开始所经过的毫秒数表示。"}
+            }
+          }
+        ],
+        "extraParameters": [
+          {
+            "$ref": "RequestFilter",
+            "name": "filter",
+//@            "description": "A set of filters that restricts the events that will be sent to this listener."
+            "description": "一组过滤器，限制发送至这一监听器的事件。"
+          },
+          {
+            "type": "array",
+            "optional": true,
+            "name": "extraInfoSpec",
+//@            "description": "Array of extra information that should be passed to the listener function.",
+            "description": "包含应该传递给监听器的附加信息的数组。",
+            "items": {
+              "type": "string",
+              "enum": ["blocking", "requestBody"]
+            }
+          }
+        ],
+        "returns": {
+          "$ref": "BlockingResponse",
+//@          "description": "If \"blocking\" is specified in the \"extraInfoSpec\" parameter, the event listener should return an object of this type.",
+          "description": "如果“extraInfoSpec”参数指定了 \"blocking\"，事件监听器应该返回该类型的对象。",
+          "optional": true
+        }
+      },
+      {
+        "name": "onBeforeSendHeaders",
+        "nocompile": true,
+        "type": "function",
+//@        "description": "Fired before sending an HTTP request, once the request headers are available. This may occur after a TCP connection is made to the server, but before any HTTP data is sent. ",
+        "description": "在发送 HTTP 请求前，一旦请求头信息可用就产生这一事件。这一事件可能在与服务器的 TCP 连接建立后产生，但是确保在发送任何 HTTP 数据前产生。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "details",
+            "properties": {
+//@              "requestId": {"type": "string", "description": "The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request."},
+              "requestId": {"type": "string", "description": "请求标识符。请求标识符在浏览器会话中保证唯一，所以，它们可以用来联系同一请求的不同事件。"},
+              "url": {"type": "string"},
+//@              "method": {"type": "string", "description": "Standard HTTP method."},
+              "method": {"type": "string", "description": "标准 HTTP 方法。"},
+//@              "frameId": {"type": "integer", "description": "The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (<code>type</code> is <code>main_frame</code> or <code>sub_frame</code>), <code>frameId</code> indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab."},
+              "frameId": {"type": "integer", "description": "0 表示请求发生在主框架中，正数表示发出请求的子框架标识符。如果载入了（子）框架的文档（<code>type</code> 为 <code>\"main_frame\"</code> 或 <code>\"sub_frame\"</code>），<code>frameId</code> 指定该框架的标识符，而不是外层框架的标识符。框架标识符在标签页中保证唯一。"},
+//@              "parentFrameId": {"type": "integer", "description": "ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists."},
+              "parentFrameId": {"type": "integer", "description": "包含发送请求框架的框架（即父框架）标识符，如果不存在父框架则为 -1。"},
+//@              "tabId": {"type": "integer", "description": "The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab."},
+              "tabId": {"type": "integer", "description": "产生请求的标签页标识符。如果请求与标签页无关则为 -1。"},
+//@              "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "How the requested resource will be used."},
+              "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "请求的资源将如何使用。"},
+//@              "timeStamp": {"type": "number", "description": "The time when this signal is triggered, in milliseconds since the epoch."},
+              "timeStamp": {"type": "number", "description": "该信号触发的时间，以 1970 年 1 月 1 日午夜开始所经过的毫秒数表示。"},
+//@              "requestHeaders": {"$ref": "HttpHeaders", "optional": true, "description": "The HTTP request headers that are going to be sent out with this request."}
+              "requestHeaders": {"$ref": "HttpHeaders", "optional": true, "description": "将要与这一请求一同发送的 HTTP 请求头信息。"}
+            }
+          }
+        ],
+        "extraParameters": [
+          {
+            "$ref": "RequestFilter",
+            "name": "filter",
+//@            "description": "A set of filters that restricts the events that will be sent to this listener."
+            "description": "一组过滤器，限制发送至这一监听器的事件。"
+          },
+          {
+            "type": "array",
+            "optional": true,
+            "name": "extraInfoSpec",
+//@            "description": "Array of extra information that should be passed to the listener function.",
+            "description": "包含应该传递给监听器的附加信息的数组。",
+            "items": {
+              "type": "string",
+              "enum": ["requestHeaders", "blocking"]
+            }
+          }
+        ],
+        "returns": {
+          "$ref": "BlockingResponse",
+//@          "description": "If \"blocking\" is specified in the \"extraInfoSpec\" parameter, the event listener should return an object of this type.",
+          "description": "如果“extraInfoSpec”参数指定了 \"blocking\"，事件监听器应该返回该类型的对象。",
+          "optional": true
+        }
+      },
+      {
+        "name": "onSendHeaders",
+        "nocompile": true,
+        "type": "function",
+//@        "description": "Fired just before a request is going to be sent to the server (modifications of previous onBeforeSendHeaders callbacks are visible by the time onSendHeaders is fired).",
+        "description": "当请求即将发送至服务器的前一刻产生（前面 onBeforeSendHeaders 事件处理函数作出的修改可以在这一事件产生时体现）。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "details",
+            "properties": {
+//@              "requestId": {"type": "string", "description": "The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request."},
+              "requestId": {"type": "string", "description": "请求标识符。请求标识符在浏览器会话中保证唯一，所以，它们可以用来联系同一请求的不同事件。"},
+              "url": {"type": "string"},
+//@              "method": {"type": "string", "description": "Standard HTTP method."},
+              "method": {"type": "string", "description": "标准 HTTP 方法。"},
+//@              "frameId": {"type": "integer", "description": "The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (<code>type</code> is <code>main_frame</code> or <code>sub_frame</code>), <code>frameId</code> indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab."},
+              "frameId": {"type": "integer", "description": "0 表示请求发生在主框架中，正数表示发出请求的子框架标识符。如果载入了（子）框架的文档（<code>type</code> 为 <code>\"main_frame\"</code> 或 <code>\"sub_frame\"</code>），<code>frameId</code> 指定该框架的标识符，而不是外层框架的标识符。框架标识符在标签页中保证唯一。"},
+//@              "parentFrameId": {"type": "integer", "description": "ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists."},
+              "parentFrameId": {"type": "integer", "description": "包含发送请求框架的框架（即父框架）标识符，如果不存在父框架则为 -1。"},
+//@              "tabId": {"type": "integer", "description": "The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab."},
+              "tabId": {"type": "integer", "description": "产生请求的标签页标识符。如果请求与标签页无关则为 -1。"},
+//@              "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "How the requested resource will be used."},
+              "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "请求的资源将如何使用。"},
+//@              "timeStamp": {"type": "number", "description": "The time when this signal is triggered, in milliseconds since the epoch."},
+              "timeStamp": {"type": "number", "description": "该信号触发的时间，以 1970 年 1 月 1 日午夜开始所经过的毫秒数表示。"},
+//@              "requestHeaders": {"$ref": "HttpHeaders", "optional": true, "description": "The HTTP request headers that have been sent out with this request."}
+              "requestHeaders": {"$ref": "HttpHeaders", "optional": true, "description": "已经与这一请求一起发送的HTTP请求头信息。"}
+            }
+          }
+        ],
+        "extraParameters": [
+          {
+            "$ref": "RequestFilter",
+            "name": "filter",
+//@            "description": "A set of filters that restricts the events that will be sent to this listener."
+            "description": "一组过滤器，限制发送至这一监听器的事件。"
+          },
+          {
+            "type": "array",
+            "optional": true,
+            "name": "extraInfoSpec",
+//@            "description": "Array of extra information that should be passed to the listener function.",
+            "description": "包含应该传递给监听器的附加信息的数组。",
+            "items": {
+              "type": "string",
+              "enum": ["requestHeaders"]
+            }
+          }
+        ]
+      },
+      {
+        "name": "onHeadersReceived",
+        "nocompile": true,
+        "type": "function",
+//@        "description": "Fired when HTTP response headers of a request have been received.",
+        "description": "当接收到 HTTP 响应头信息时产生。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "deails",
+            "properties": {
+//@              "requestId": {"type": "string", "description": "The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request."},
+              "requestId": {"type": "string", "description": "请求标识符。请求标识符在浏览器会话中保证唯一，所以，它们可以用来联系同一请求的不同事件。"},
+              "url": {"type": "string"},
+//@              "method": {"type": "string", "description": "Standard HTTP method."},
+              "method": {"type": "string", "description": "标准 HTTP 方法。"},
+//@              "frameId": {"type": "integer", "description": "The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (<code>type</code> is <code>main_frame</code> or <code>sub_frame</code>), <code>frameId</code> indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab."},
+              "frameId": {"type": "integer", "description": "0 表示请求发生在主框架中，正数表示发出请求的子框架标识符。如果载入了（子）框架的文档（<code>type</code> 为 <code>\"main_frame\"</code> 或 <code>\"sub_frame\"</code>），<code>frameId</code> 指定该框架的标识符，而不是外层框架的标识符。框架标识符在标签页中保证唯一。"},
+//@              "parentFrameId": {"type": "integer", "description": "ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists."},
+              "parentFrameId": {"type": "integer", "description": "包含发送请求框架的框架（即父框架）标识符，如果不存在父框架则为 -1。"},
+//@              "tabId": {"type": "integer", "description": "The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab."},
+              "tabId": {"type": "integer", "description": "产生请求的标签页标识符。如果请求与标签页无关则为 -1。"},
+//@              "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "How the requested resource will be used."},
+              "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "请求的资源将如何使用。"},
+//@              "timeStamp": {"type": "number", "description": "The time when this signal is triggered, in milliseconds since the epoch."},
+              "timeStamp": {"type": "number", "description": "该信号触发的时间，以 1970 年 1 月 1 日午夜开始所经过的毫秒数表示。"},
+//@              "statusLine": {"type": "string", "optional": true, "description": "HTTP status line of the response."},
+              "statusLine": {"type": "string", "optional": true, "description": "响应的 HTTP 状态行。"},
+//@              "responseHeaders": {"$ref": "HttpHeaders", "optional": true, "description": "The HTTP response headers that have been received with this response."}
+//@              "responseHeaders": {"$ref": "HttpHeaders", "optional": true, "description": "The HTTP response headers that have been received with this response."}
+              "responseHeaders": {"$ref": "HttpHeaders", "optional": true, "description": "与响应一起接收到的 HTTP 响应头信息。"}
+             }
+          }
+        ],
+        "extraParameters": [
+          {
+            "$ref": "RequestFilter",
+            "name": "filter",
+//@            "description": "A set of filters that restricts the events that will be sent to this listener."
+            "description": "一组过滤器，限制发送至这一监听器的事件。"
+          },
+          {
+            "type": "array",
+            "optional": true,
+            "name": "extraInfoSpec",
+//@            "description": "Array of extra information that should be passed to the listener function.",
+            "description": "包含应该传递给监听器的附加信息的数组。",
+            "items": {
+              "type": "string",
+              "enum": ["blocking", "responseHeaders"]
+            }
+          }
+        ],
+        "returns": {
+          "$ref": "BlockingResponse",
+//@          "description": "If \"blocking\" is specified in the \"extraInfoSpec\" parameter, the event listener should return an object of this type.",
+          "description": "如果“extraInfoSpec”参数指定了 \"blocking\"，事件监听器应该返回该类型的对象。",
+          "optional": true
+        }
+      },
+      {
+        "name": "onAuthRequired",
+        "nocompile": true,
+        "type": "function",
+//@        "description": "Fired when an authentication failure is received. The listener has three options: it can provide authentication credentials, it can cancel the request and display the error page, or it can take no action on the challenge. If bad user credentials are provided, this may be called multiple times for the same request.",
+        "description": "当接收到认证失败时产生。事件处理函数有三种选择：提供认证凭据，取消请求并显示错误页面，或者不采取任何行动。如果提供了错误的用户凭据，可能会为同一请求重复调用事件处理函数。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "details",
+            "properties": {
+//@              "requestId": {"type": "string", "description": "The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request."},
+              "requestId": {"type": "string", "description": "请求标识符。请求标识符在浏览器会话中保证唯一，所以，它们可以用来联系同一请求的不同事件。"},
+              "url": {"type": "string"},
+//@              "method": {"type": "string", "description": "Standard HTTP method."},
+              "method": {"type": "string", "description": "标准 HTTP 方法。"},
+//@              "frameId": {"type": "integer", "description": "The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (<code>type</code> is <code>main_frame</code> or <code>sub_frame</code>), <code>frameId</code> indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab."},
+              "frameId": {"type": "integer", "description": "0 表示请求发生在主框架中，正数表示发出请求的子框架标识符。如果载入了（子）框架的文档（<code>type</code> 为 <code>\"main_frame\"</code> 或 <code>\"sub_frame\"</code>），<code>frameId</code> 指定该框架的标识符，而不是外层框架的标识符。框架标识符在标签页中保证唯一。"},
+//@              "parentFrameId": {"type": "integer", "description": "ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists."},
+              "parentFrameId": {"type": "integer", "description": "包含发送请求框架的框架（即父框架）标识符，如果不存在父框架则为 -1。"},
+//@              "tabId": {"type": "integer", "description": "The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab."},
+              "tabId": {"type": "integer", "description": "产生请求的标签页标识符。如果请求与标签页无关则为 -1。"},
+//@              "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "How the requested resource will be used."},
+              "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "请求的资源将如何使用。"},
+//@              "timeStamp": {"type": "number", "description": "The time when this signal is triggered, in milliseconds since the epoch."},
+              "timeStamp": {"type": "number", "description": "该信号触发的时间，以 1970 年 1 月 1 日午夜开始所经过的毫秒数表示。"},
+//@              "scheme": {"type": "string", "description": "The authentication scheme, e.g. Basic or Digest."},
+              "scheme": {"type": "string", "description": "认证方式，例如基本（\"basic\"）或摘要式（\"digest\"）。"},
+//@              "realm": {"type": "string", "description": "The authentication realm provided by the server, if there is one.", "optional": true},
+              "realm": {"type": "string", "description": "服务器提供的认证域（如果有的话）。", "optional": true},
+//@              "challenger": {"type": "object", "description": "The server requesting authentication.", "properties": {"host": {"type": "string"}, "port": {"type": "integer"}}},
+              "challenger": {"type": "object", "description": "请求认证的服务器。", "properties": {"host": {"type": "string"}, "port": {"type": "integer"}}},
+//@              "isProxy": {"type": "boolean", "description": "True for Proxy-Authenticate, false for WWW-Authenticate."},
+              "isProxy": {"type": "boolean", "description": "如果为 Proxy-Authenticate（代理服务器认证）则为 true，否则如果为 WWW-Authenticate 则为 false。"},
+//@              "responseHeaders": {"$ref": "HttpHeaders", "optional": true, "description": "The HTTP response headers that were received along with this response."},
+              "responseHeaders": {"$ref": "HttpHeaders", "optional": true, "description": "与响应一起接收到的 HTTP 响应头信息。"},
+//@              "statusLine": {"type": "string", "optional": true, "description": "HTTP status line of the response."}
+              "statusLine": {"type": "string", "optional": true, "description": "响应的 HTTP 状态行。"}
+            }
+          },
+          {
+            "type": "function",
+            "optional": true,
+            "name": "callback",
+            "description": "如果“extraInfoSpec”参数指定了 \"asyncBlocking\"，事件监听器应该调用该函数，提供处理事件的结果。", 
+            "parameters": [
+              {"name": "response", "$ref": "BlockingResponse", "description": "事件处理的结果：可以设置 authCredentials 属性，提供认证凭据；也可以将 cancel 属性设置为 true，取消请求并显示错误页面；或者不设置任何属性，不采取任何行动。"}
+            ]
+          }
+        ],
+        "extraParameters": [
+          {
+            "$ref": "RequestFilter",
+            "name": "filter",
+//@            "description": "A set of filters that restricts the events that will be sent to this listener."
+            "description": "一组过滤器，限制发送至这一监听器的事件。"
+          },
+          {
+            "type": "array",
+            "optional": true,
+            "name": "extraInfoSpec",
+//@            "description": "Array of extra information that should be passed to the listener function.",
+            "description": "包含应该传递给监听器的附加信息的数组。",
+            "items": {
+              "type": "string",
+              "enum": ["responseHeaders", "blocking", "asyncBlocking"]
+            }
+          }
+        ],
+        "returns": {
+          "$ref": "BlockingResponse",
+//@          "description": "If \"blocking\" is specified in the \"extraInfoSpec\" parameter, the event listener should return an object of this type.",
+          "description": "如果“extraInfoSpec”参数指定了 \"blocking\"，事件监听器应该返回该类型的对象。",
+          "optional": true
+        }
+      },
+      {
+        "name": "onResponseStarted",
+        "nocompile": true,
+        "type": "function",
+//@        "description": "Fired when the first byte of the response body is received. For HTTP requests, this means that the status line and response headers are available.",
+        "description": "当响应正文的第一个字节接收到时产生。对于 HTTP 请求，这意味着状态行及请求头信息已经可用。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "details",
+            "properties": {
+//@              "requestId": {"type": "string", "description": "The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request."},
+              "requestId": {"type": "string", "description": "请求标识符。请求标识符在浏览器会话中保证唯一，所以，它们可以用来联系同一请求的不同事件。"},
+              "url": {"type": "string"},
+//@              "method": {"type": "string", "description": "Standard HTTP method."},
+              "method": {"type": "string", "description": "标准 HTTP 方法。"},
+//@              "frameId": {"type": "integer", "description": "The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (<code>type</code> is <code>main_frame</code> or <code>sub_frame</code>), <code>frameId</code> indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab."},
+              "frameId": {"type": "integer", "description": "0 表示请求发生在主框架中，正数表示发出请求的子框架标识符。如果载入了（子）框架的文档（<code>type</code> 为 <code>\"main_frame\"</code> 或 <code>\"sub_frame\"</code>），<code>frameId</code> 指定该框架的标识符，而不是外层框架的标识符。框架标识符在标签页中保证唯一。"},
+//@              "parentFrameId": {"type": "integer", "description": "ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists."},
+              "parentFrameId": {"type": "integer", "description": "包含发送请求框架的框架（即父框架）标识符，如果不存在父框架则为 -1。"},
+//@              "tabId": {"type": "integer", "description": "The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab."},
+              "tabId": {"type": "integer", "description": "产生请求的标签页标识符。如果请求与标签页无关则为 -1。"},
+//@              "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "How the requested resource will be used."},
+              "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "请求的资源将如何使用。"},
+//@              "timeStamp": {"type": "number", "description": "The time when this signal is triggered, in milliseconds since the epoch."},
+              "timeStamp": {"type": "number", "description": "该信号触发的时间，以 1970 年 1 月 1 日午夜开始所经过的毫秒数表示。"},
+//@              "ip": {"type": "string", "optional": true, "description": "The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address."},
+              "ip": {"type": "string", "optional": true, "description": "服务器 IP 地址，注意这可能是一个字面的 IPv6 地址。"},
+//@              "fromCache": {"type": "boolean", "description": "Indicates if this response was fetched from disk cache."},
+              "fromCache": {"type": "boolean", "description": "表示响应是否从磁盘缓存中获取。"},
+//@              "statusCode": {"type": "integer", "description": "Standard HTTP status code returned by the server."},
+              "statusCode": {"type": "integer", "description": "服务器返回的标准 HTTP 状态代码。"},
+//@              "responseHeaders": {"$ref": "HttpHeaders", "optional": true, "description": "The HTTP response headers that were received along with this response."},
+              "responseHeaders": {"$ref": "HttpHeaders", "optional": true, "description": "与响应一起接收到的 HTTP 响应头信息。"},
+//@              "statusLine": {"type": "string", "optional": true, "description": "HTTP status line of the response."}
+              "statusLine": {"type": "string", "optional": true, "description": "响应的 HTTP 状态行。"}
+            }
+          }
+        ],
+        "extraParameters": [
+          {
+            "$ref": "RequestFilter",
+            "name": "filter",
+//@            "description": "A set of filters that restricts the events that will be sent to this listener."
+            "description": "一组过滤器，限制发送至这一监听器的事件。"
+          },
+          {
+            "type": "array",
+            "optional": true,
+            "name": "extraInfoSpec",
+//@            "description": "Array of extra information that should be passed to the listener function.",
+            "description": "包含应该传递给监听器的附加信息的数组。",
+            "items": {
+              "type": "string",
+              "enum": ["responseHeaders"]
+            }
+          }
+        ]
+      },
+      {
+        "name": "onBeforeRedirect",
+        "type": "function",
+        "nocompile": true,
+//@        "description": "Fired when a server-initiated redirect is about to occur.",
+        "description": "当服务器产生的重定向即将进行时产生。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "details",
+            "properties": {
+//@              "requestId": {"type": "string", "description": "The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request."},
+              "requestId": {"type": "string", "description": "请求标识符。请求标识符在浏览器会话中保证唯一，所以，它们可以用来联系同一请求的不同事件。"},
+              "url": {"type": "string"},
+//@              "method": {"type": "string", "description": "Standard HTTP method."},
+              "method": {"type": "string", "description": "标准 HTTP 方法。"},
+//@              "frameId": {"type": "integer", "description": "The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (<code>type</code> is <code>main_frame</code> or <code>sub_frame</code>), <code>frameId</code> indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab."},
+              "frameId": {"type": "integer", "description": "0 表示请求发生在主框架中，正数表示发出请求的子框架标识符。如果载入了（子）框架的文档（<code>type</code> 为 <code>\"main_frame\"</code> 或 <code>\"sub_frame\"</code>），<code>frameId</code> 指定该框架的标识符，而不是外层框架的标识符。框架标识符在标签页中保证唯一。"},
+//@              "parentFrameId": {"type": "integer", "description": "ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists."},
+              "parentFrameId": {"type": "integer", "description": "包含发送请求框架的框架（即父框架）标识符，如果不存在父框架则为 -1。"},
+//@              "tabId": {"type": "integer", "description": "The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab."},
+              "tabId": {"type": "integer", "description": "产生请求的标签页标识符。如果请求与标签页无关则为 -1。"},
+//@              "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "How the requested resource will be used."},
+              "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "请求的资源将如何使用。"},
+//@              "timeStamp": {"type": "number", "description": "The time when this signal is triggered, in milliseconds since the epoch."},
+              "timeStamp": {"type": "number", "description": "该信号触发的时间，以 1970 年 1 月 1 日午夜开始所经过的毫秒数表示。"},
+//@              "ip": {"type": "string", "optional": true, "description": "The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address."},
+              "ip": {"type": "string", "optional": true, "description": "服务器 IP 地址，注意这可能是一个字面的 IPv6 地址。"},
+//@              "fromCache": {"type": "boolean", "description": "Indicates if this response was fetched from disk cache."},
+              "fromCache": {"type": "boolean", "description": "表示响应是否从磁盘缓存中获取。"},
+//@              "statusCode": {"type": "integer", "description": "Standard HTTP status code returned by the server."},
+              "statusCode": {"type": "integer", "description": "服务器返回的标准 HTTP 状态代码。"},
+//@              "redirectUrl": {"type": "string", "description": "The new URL."},
+              "redirectUrl": {"type": "string", "description": "新的 URL。"},
+//@              "responseHeaders": {"$ref": "HttpHeaders", "optional": true, "description": "The HTTP response headers that were received along with this response."},
+              "responseHeaders": {"$ref": "HttpHeaders", "optional": true, "description": "与响应一起接收到的 HTTP 响应头信息。"},
+//@              "statusLine": {"type": "string", "optional": true, "description": "HTTP status line of the response."}
+              "statusLine": {"type": "string", "optional": true, "description": "响应的 HTTP 状态行。"}
+            }
+          }
+        ],
+        "extraParameters": [
+          {
+            "$ref": "RequestFilter",
+            "name": "filter",
+//@            "description": "A set of filters that restricts the events that will be sent to this listener."
+            "description": "一组过滤器，限制发送至这一监听器的事件。"
+          },
+          {
+            "type": "array",
+            "optional": true,
+            "name": "extraInfoSpec",
+//@            "description": "Array of extra information that should be passed to the listener function.",
+            "description": "包含应该传递给监听器的附加信息的数组。",
+            "items": {
+              "type": "string",
+              "enum": ["responseHeaders"]
+            }
+          }
+        ]
+      },
+      {
+        "name": "onCompleted",
+        "type": "function",
+        "nocompile": true,
+//@        "description": "Fired when a request is completed.",
+        "description": "当请求完成时产生。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "details",
+            "properties": {
+//@              "requestId": {"type": "string", "description": "The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request."},
+              "requestId": {"type": "string", "description": "请求标识符。请求标识符在浏览器会话中保证唯一，所以，它们可以用来联系同一请求的不同事件。"},
+              "url": {"type": "string"},
+//@              "method": {"type": "string", "description": "Standard HTTP method."},
+              "method": {"type": "string", "description": "标准 HTTP 方法。"},
+//@              "frameId": {"type": "integer", "description": "The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (<code>type</code> is <code>main_frame</code> or <code>sub_frame</code>), <code>frameId</code> indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab."},
+              "frameId": {"type": "integer", "description": "0 表示请求发生在主框架中，正数表示发出请求的子框架标识符。如果载入了（子）框架的文档（<code>type</code> 为 <code>\"main_frame\"</code> 或 <code>\"sub_frame\"</code>），<code>frameId</code> 指定该框架的标识符，而不是外层框架的标识符。框架标识符在标签页中保证唯一。"},
+//@              "parentFrameId": {"type": "integer", "description": "ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists."},
+              "parentFrameId": {"type": "integer", "description": "包含发送请求框架的框架（即父框架）标识符，如果不存在父框架则为 -1。"},
+//@              "tabId": {"type": "integer", "description": "The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab."},
+              "tabId": {"type": "integer", "description": "产生请求的标签页标识符。如果请求与标签页无关则为 -1。"},
+//@              "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "How the requested resource will be used."},
+              "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "请求的资源将如何使用。"},
+//@              "timeStamp": {"type": "number", "description": "The time when this signal is triggered, in milliseconds since the epoch."},
+              "timeStamp": {"type": "number", "description": "该信号触发的时间，以 1970 年 1 月 1 日午夜开始所经过的毫秒数表示。"},
+//@              "ip": {"type": "string", "optional": true, "description": "The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address."},
+              "ip": {"type": "string", "optional": true, "description": "服务器 IP 地址，注意这可能是一个字面的 IPv6 地址。"},
+//@              "fromCache": {"type": "boolean", "description": "Indicates if this response was fetched from disk cache."},
+              "fromCache": {"type": "boolean", "description": "表示响应是否从磁盘缓存中获取。"},
+//@              "statusCode": {"type": "integer", "description": "Standard HTTP status code returned by the server."},
+              "statusCode": {"type": "integer", "description": "服务器返回的标准 HTTP 状态代码。"},
+//@              "responseHeaders": {"$ref": "HttpHeaders", "optional": true, "description": "The HTTP response headers that were received along with this response."},
+              "responseHeaders": {"$ref": "HttpHeaders", "optional": true, "description": "与响应一起接收到的 HTTP 响应头信息。"},
+//@              "statusLine": {"type": "string", "optional": true, "description": "HTTP status line of the response."}
+              "statusLine": {"type": "string", "optional": true, "description": "响应的 HTTP 状态行。"}
+            }
+          }
+        ],
+        "extraParameters": [
+          {
+            "$ref": "RequestFilter",
+            "name": "filter",
+//@            "description": "A set of filters that restricts the events that will be sent to this listener."
+            "description": "一组过滤器，限制发送至这一监听器的事件。"
+          },
+          {
+            "type": "array",
+            "optional": true,
+            "name": "extraInfoSpec",
+//@            "description": "Array of extra information that should be passed to the listener function.",
+            "description": "包含应该传递给监听器的附加信息的数组。",
+            "items": {
+              "type": "string",
+              "enum": ["responseHeaders"]
+            }
+          }
+        ]
+      },
+      {
+        "name": "onErrorOccurred",
+        "type": "function",
+//@        "description": "Fired when an error occurs.",
+        "description": "当错误发生时产生。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "details",
+            "properties": {
+//@              "requestId": {"type": "string", "description": "The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request."},
+              "requestId": {"type": "string", "description": "请求标识符。请求标识符在浏览器会话中保证唯一，所以，它们可以用来联系同一请求的不同事件。"},
+              "url": {"type": "string"},
+//@              "method": {"type": "string", "description": "Standard HTTP method."},
+              "method": {"type": "string", "description": "标准 HTTP 方法。"},
+//@              "frameId": {"type": "integer", "description": "The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (<code>type</code> is <code>main_frame</code> or <code>sub_frame</code>), <code>frameId</code> indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab."},
+              "frameId": {"type": "integer", "description": "0 表示请求发生在主框架中，正数表示发出请求的子框架标识符。如果载入了（子）框架的文档（<code>type</code> 为 <code>\"main_frame\"</code> 或 <code>\"sub_frame\"</code>），<code>frameId</code> 指定该框架的标识符，而不是外层框架的标识符。框架标识符在标签页中保证唯一。"},
+//@              "parentFrameId": {"type": "integer", "description": "ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists."},
+              "parentFrameId": {"type": "integer", "description": "包含发送请求框架的框架（即父框架）标识符，如果不存在父框架则为 -1。"},
+//@              "tabId": {"type": "integer", "description": "The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab."},
+              "tabId": {"type": "integer", "description": "产生请求的标签页标识符。如果请求与标签页无关则为 -1。"},
+//@              "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "How the requested resource will be used."},
+              "type": {"type": "string", "enum": ["main_frame", "sub_frame", "stylesheet", "script", "image", "object", "xmlhttprequest", "other"], "description": "请求的资源将如何使用。"},
+//@              "timeStamp": {"type": "number", "description": "The time when this signal is triggered, in milliseconds since the epoch."},
+              "timeStamp": {"type": "number", "description": "该信号触发的时间，以 1970 年 1 月 1 日午夜开始所经过的毫秒数表示。"},
+//@              "ip": {"type": "string", "optional": true, "description": "The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address."},
+              "ip": {"type": "string", "optional": true, "description": "服务器 IP 地址，注意这可能是一个字面的 IPv6 地址。"},
+//@              "fromCache": {"type": "boolean", "description": "Indicates if this response was fetched from disk cache."},
+              "fromCache": {"type": "boolean", "description": "表示响应是否从磁盘缓存中获取。"},
+//@              "error": {"type": "string", "description": "The error description. This string is <em>not</em> guaranteed to remain backwards compatible between releases. You must not parse and act based upon its content."}
+              "error": {"type": "string", "description": "错误描述。这一字符串<em>不保证</em>在不同的版本间保持向后兼容，您决不能分析它的内容并由此作出处理。"}
+            }
+          }
+        ],
+        "extraParameters": [
+          {
+            "$ref": "RequestFilter",
+            "name": "filter",
+//@            "description": "A set of filters that restricts the events that will be sent to this listener."
+            "description": "一组过滤器，限制发送至这一监听器的事件。"
+          }
+        ]
+      }
+    ]
+  }
+]

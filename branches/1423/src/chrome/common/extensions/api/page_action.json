@@ -1,0 +1,212 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+[
+  {
+    "namespace": "pageAction",
+    "dependencies": [ "tabs" ],
+    "types": [
+      {
+        "id": "ImageDataType",
+        "type": "object",
+        "isInstanceOf": "ImageData",
+        "additionalProperties": { "type": "any" },
+//@        "description": "Pixel data for an image. Must be an ImageData object (for example, from a <code>canvas</code> element)."
+        "description": "图片的像素数据，必须为 ImageData 对象（例如来自 <code>canvas</code> 元素）。"
+      }
+    ],
+    "functions": [
+      {
+        "name": "show",
+        "type": "function",
+//@        "description": "Shows the page action. The page action is shown whenever the tab is selected.",
+        "description": "显示页面按钮，页面按钮在指定的标签页选定时显示。",
+        "parameters": [
+//@          {"type": "integer", "name": "tabId", "minimum": 0, "description": "The id of the tab for which you want to modify the page action."}
+          {"type": "integer", "name": "tabId", "minimum": 0, "description": "您需要修改的页面按钮所在标签页的标识符。"}
+        ]
+      },
+      {
+        "name": "hide",
+        "type": "function",
+//@        "description": "Hides the page action.",
+        "description": "隐藏页面按钮。",
+        "parameters": [
+//@          {"type": "integer", "name": "tabId", "minimum": 0, "description": "The id of the tab for which you want to modify the page action."}
+          {"type": "integer", "name": "tabId", "minimum": 0, "description": "您需要修改的页面按钮所在标签页的标识符。"}
+        ]
+      },
+      {
+        "name": "setTitle",
+        "type": "function",
+//@        "description": "Sets the title of the page action. This is displayed in a tooltip over the page action.",
+        "description": "设置页面按钮的标题，显示在页面按钮下的工具提示中。",
+        "parameters": [
+          {
+            "name": "details",
+            "type": "object",
+            "properties": {
+//@              "tabId": {"type": "integer", "minimum": 0, "description": "The id of the tab for which you want to modify the page action."},
+              "tabId": {"type": "integer", "minimum": 0, "description": "您需要修改的页面按钮所在标签页的标识符。"},
+//@              "title": {"type": "string", "description": "The tooltip string."}
+              "title": {"type": "string", "description": "工具提示字符串。"}
+            }
+          }
+        ]
+      },
+      {
+        "name": "getTitle",
+        "type": "function",
+//@        "description": "Gets the title of the page action.",
+        "description": "获取页面按钮的标题。",
+        "parameters": [
+          {
+            "name": "details",
+            "type": "object",
+            "properties": {
+              "tabId": {
+                "type": "integer",
+//@                "description": "Specify the tab to get the title from."
+                "description": "指定要获取标题的标签页。"
+              }
+            }
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "parameters": [
+              {
+                "name": "result",
+                "type": "string"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "setIcon",
+        "type": "function",
+//@        "description": "Sets the icon for the page action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the <b>path</b> or the <b>imageData</b> property must be specified.",
+        "description": "设置页面按钮的图标。图标既可以指定为图片文件的路径，也可以指定来自 canvas 元素的像素数据，或者这两者中任意一个的词典。<b>path</b> 或 <b>imageData</b> 属性中有且只有一个必须指定。",
+        "parameters": [
+          {
+            "name": "details",
+            "type": "object",
+            "properties": {
+//@              "tabId": {"type": "integer", "minimum": 0, "description": "The id of the tab for which you want to modify the page action."},
+              "tabId": {"type": "integer", "minimum": 0, "description": "您需要修改的页面按钮所在标签页的标识符。"},
+              "imageData": {
+                "choices": [
+                  { "$ref": "ImageDataType" },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "19": {"$ref": "ImageDataType", "optional": true},
+                      "38": {"$ref": "ImageDataType", "optional": true}
+                     }
+                  }
+                ],
+                "optional": true,
+//@                "description": "Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals <code>scale</code>, then image with size <code>scale</code> * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'19': foo}'"
+                "description": "ImageData 对象或一个词典（大小 -&gt; ImageData），表示要设置的图标。如果图标以词典的形式指定，实际使用的图标取决于屏幕的像素密度。如果单位屏幕空间容纳的图片的像素数等于 <code>scale</code>，则会选择大小为 <code>scale</code> * 19的图片。目前只支持缩放比例 1 和 2。至少要指定一个图片。注意“details.imageData = foo”等价于“details.imageData = {'19': foo}”。"
+              },
+              "path": {
+                "choices": [
+                  { "type": "string" },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "19": {"type": "string", "optional": true},
+                      "38": {"type": "string", "optional": true}
+                    }
+                  }
+                ],
+                "optional": true,
+//@                "description": "Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals <code>scale</code>, then image with size <code>scale</code> * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'"
+                "description": "图片的相对路径或一个词典（大小 -&gt; 图片的相对路径），指向要设置的图标。如果图标以词典的形式指定，实际使用的图标取决于屏幕的像素密度。如果单位屏幕空间容纳的图片的像素数等于 <code>scale</code>，则会选择大小为 <code>scale </code>* 19的图片。目前只支持缩放比例 1 和 2。至少要指定一个图片。注意“details.path = foo”等价于“details.path = {'19': foo}”。"
+              },
+              "iconIndex": {
+                "type": "integer",
+                "minimum": 0,
+//@                "description": "<b>Deprecated.</b> This argument is ignored.",
+                "description": "<b>已弃用。</b>该参数将忽略。",
+                "optional": true
+              }
+            }
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "optional": true,
+            "parameters": []
+          }
+        ]
+      },
+      {
+        "name": "setPopup",
+        "type": "function",
+//@        "description": "Sets the html document to be opened as a popup when the user clicks on the page action's icon.",
+        "description": "设置当用户单击页面按钮的图标时显示为弹出内容的 HTML 文档。",
+        "parameters": [
+          {
+            "name": "details",
+            "type": "object",
+            "properties": {
+//@              "tabId": {"type": "integer", "minimum": 0, "description": "The id of the tab for which you want to modify the page action."},
+              "tabId": {"type": "integer", "minimum": 0, "description": "您需要修改的页面按钮所在标签页的标识符。"},
+              "popup": {
+                "type": "string",
+//@                "description": "The html file to show in a popup.  If set to the empty string (''), no popup is shown."
+                "description": "显示在弹出内容中的 HTML 文件。如果设为空字符串（\"\"），则不显示弹出内容。"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "getPopup",
+        "type": "function",
+//@        "description": "Gets the html document set as the popup for this page action.",
+        "description": "获取设置为该页面按钮弹出内容的 HTML 文档。",
+        "parameters": [
+          {
+            "name": "details",
+            "type": "object",
+            "properties": {
+              "tabId": {
+                "type": "integer",
+//@                "description": "Specify the tab to get the popup from."
+                "description": "指定要获取弹出内容的标签页。"
+              }
+            }
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "parameters": [
+              {
+                "name": "result",
+                "type": "string"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "onClicked",
+        "type": "function",
+//@        "description": "Fired when a page action icon is clicked.  This event will not fire if the page action has a popup.",
+        "description": "页面按钮的图标单击时产生，如果页面按钮有弹出内容则不会触发该事件。",
+        "parameters": [
+          {
+            "name": "tab",
+            "$ref": "tabs.Tab"
+          }
+        ]
+      }
+    ]
+  }
+]
