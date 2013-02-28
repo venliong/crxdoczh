@@ -88,8 +88,7 @@ def ProcessComment(comment):
 class Callspec(object):
   '''
   Given a Callspec node representing an IDL function declaration, converts into
-  a tuple:
-      (name, list of function parameters, return type)
+  a name/value pair where the value is a list of function parameters.
   '''
   def __init__(self, callspec_node, comment):
     self.node = callspec_node
@@ -97,22 +96,12 @@ class Callspec(object):
 
   def process(self, callbacks):
     parameters = []
-    return_type = None
-    if self.node.GetProperty('TYPEREF') not in ('void', None):
-      return_type = Typeref(self.node.GetProperty('TYPEREF'),
-                            self.node,
-                            {'name': self.node.GetName()}).process(callbacks)
-      # The IDL parser doesn't allow specifying return types as optional.
-      # Instead we infer any object return values to be optional.
-      # TODO(asargent): fix the IDL parser to support optional return types.
-      if return_type.get('type') == 'object' or '$ref' in return_type:
-        return_type['optional'] = True;
     for node in self.node.children:
       parameter = Param(node).process(callbacks)
       if parameter['name'] in self.comment:
         parameter['description'] = self.comment[parameter['name']]
       parameters.append(parameter)
-    return (self.node.GetName(), parameters, return_type)
+    return self.node.GetName(), parameters
 
 class Param(object):
   '''
@@ -172,14 +161,14 @@ class Member(object):
         properties['description'] = parent_comment
       elif node.cls == 'Callspec':
         is_function = True
-        name, parameters, return_type = (Callspec(node, parameter_comments)
-                                         .process(callbacks))
+        name, parameters = Callspec(node, parameter_comments).process(callbacks)
         properties['parameters'] = parameters
-        if return_type is not None:
-          properties['returns'] = return_type
     properties['name'] = name
     if is_function:
       properties['type'] = 'function'
+      typeref = self.node.GetProperty('TYPEREF')
+      if typeref is not None and typeref != 'void':
+          properties['returns'] = Typeref(typeref, None).process([])
     else:
       properties = Typeref(self.node.GetProperty('TYPEREF'),
                            self.node, properties).process(callbacks)
@@ -207,17 +196,18 @@ class Typeref(object):
     properties = self.additional_properties
     result = properties
 
-    if self.parent.GetProperty('OPTIONAL', False):
-      properties['optional'] = True
+    if self.parent is not None:
+      if self.parent.GetProperty('OPTIONAL', False):
+        properties['optional'] = True
 
-    # The IDL parser denotes array types by adding a child 'Array' node onto
-    # the Param node in the Callspec.
-    for sibling in self.parent.GetChildren():
-      if sibling.cls == 'Array' and sibling.GetName() == self.parent.GetName():
-        properties['type'] = 'array'
-        properties['items'] = OrderedDict()
-        properties = properties['items']
-        break
+      # The IDL parser denotes array types by adding a child 'Array' node onto
+      # the Param node in the Callspec.
+      for sibling in self.parent.GetChildren():
+        if sibling.cls == 'Array' and sibling.GetName() == self.parent.GetName():
+          properties['type'] = 'array'
+          properties['items'] = OrderedDict()
+          properties = properties['items']
+          break
 
     if self.typeref == 'DOMString':
       properties['type'] = 'string'
@@ -240,12 +230,6 @@ class Typeref(object):
     elif self.typeref == 'ArrayBuffer':
       properties['type'] = 'binary'
       properties['isInstanceOf'] = 'ArrayBuffer'
-    elif self.typeref == 'FileEntry':
-      properties['type'] = 'object'
-      properties['isInstanceOf'] = 'FileEntry'
-      if 'additionalProperties' not in properties:
-        properties['additionalProperties'] = OrderedDict()
-      properties['additionalProperties']['type'] = 'any'
     elif self.typeref is None:
       properties['type'] = 'function'
     else:
