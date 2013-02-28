@@ -1,52 +1,71 @@
-<h1 id="lab_8_web_resources">Lab 8 - Web Resources</h1>
+<h1 id="lab_8_web_resources"><!--@Lab 8 - Web Resources-->实验八：网上资源</h1>
 
-<p>Chrome apps have a strict <a href="http://developer.chrome.com/trunk/apps/app_csp.html">Content Security Policy</a> which will not let the user execute code or load resources that are hosted remotely.</p>
+<p>Chrome <!--@apps have a strict <a href="http://developer.chrome.com/trunk/apps/app_csp.html">Content Security Policy</a> which will not let the user execute code or load resources that are hosted remotely.-->
+应用有一种严格的<a href="app_csp.html">内容安全策略</a>，不会让用户执行或载入远程托管的代码和资源。
+</p>
 
-<p>Many applications, however, need to be able to load and display content from a remote location. A News Reader, for example, needs to display remote content inline or load and show images from a remote URL.</p>
+<p><!--@Many applications, however, need to be able to load and display content from a remote location. A News Reader, for example, needs to display remote content inline or load and show images from a remote URL.-->
+然而许多应用都需要载入并显示来自远程位置的内容。例如新闻阅读器需要以内嵌方式显示远程内容，或者从远程 URL 载入并显示图片。
+</p>
 
-<h2 id="you_should_also_read">You should also read</h2>
+<h2 id="you_should_also_read"><!--@You should also read-->您还应该阅读</h2>
 
 <ul>
-<li><a href="http://developer.chrome.com/apps/app_external.html">Embed Content</a> in Chrome app docs</li>
+<li>Chrome 应用文档中的<a href="app_external.html"><!--@Embed Content-->嵌入内容</a><!--@ in Chrome app docs--></li>
 </ul>
 
-<h2 id="loading_external_web_content_into_an_element">Loading external web content into an element</h2>
+<h2 id="loading_external_web_content_into_an_element"><!--@Loading external web content into an element-->将外部网上内容载入一个元素</h2>
 
-<p>Sites on the internet are inherently a security risk and rendering arbitrary web pages directly into your application with elevated privileges would be a potential source of exploits.</p>
+<p><!--@Sites on the internet are inherently a security risk and rendering arbitrary web pages directly into your application with elevated privileges would be a potential source of exploits.-->
+互联网上的站点有固有的安全风险，直接在您的应用中以提升的权限渲染网页是漏洞的潜在来源。
+</p>
 
-<p>Chrome apps offer developers the ability to securely render third-party content in the <code>&lt;webview&gt;</code> tag. A WebView is like an iframe that you can control with greater flexibility and added security.
-It runs in a separate sandboxed process and can&#39;t communicate directly with the application.</p>
+<p><!--@Chrome apps offer developers the ability to securely render third-party content in the <code>&lt;webview&gt;</code> tag. A WebView is like an iframe that you can control with greater flexibility and added security.
+It runs in a separate sandboxed process and can&#39;t communicate directly with the application.-->
+Chrome 应用为开发者提供了在 <code>&lt;webview&gt;</code>
+标签中安全渲染第三方内容的能力。webview 就像 iframe
+一样，但是您能够更灵活地控制它，并具有额外的安全性。它在单独的经过沙盒屏蔽的进程中运行，不能直接与应用通信。
+</p>
 
-<p class="note"><b>Tip:</b>  The WebView has a very simple API.  From your app you can:</p>
+<p class="note"><b><!--@Tip:-->提示：</b><!--@  The WebView has a very simple API.  From your app you can:-->
+webview 包含一些很简单的 API，在您的应用中您可以：
+</p>
 
 <ul>
-<li> Change the URL of the WebView.</li>
-<li> Navigate forwards and backward, stop loading and reload.</li>
-<li> Check if the WebView has finished loading and if it is possible, go back and forward in the history stack.</li>
+<li> <!--@Change the URL of the WebView.-->更改 webview 的 URL。</li>
+<li> <!--@Navigate forwards and backward, stop loading and reload.-->前进和后退导航、停止载入和重新载入。</li>
+<li> <!--@Check if the WebView has finished loading and if it is possible, go back and forward in the history stack.-->检查 webview 是否完成载入，如果可能的话在历史栈中前进和后退。</li>
 </ul></p>
 
-<p>We will change our code to render the content of URLs dropped in the drag-and-drop operations in a WebView when the user clicks on a link.</p>
+<p><!--@We will change our code to render the content of URLs dropped in the drag-and-drop operations in a WebView when the user clicks on a link.-->
+我们会修改我们的代码，当用户单击某个链接时，在 webview 中渲染拖放操作中的
+URL 的内容。
+</p>
 
 <ol>
-<li><p>Request a new permission, &quot;webview&quot;, in <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab8_webresources/angularjs/1_webview/manifest.json">manifest.json</a>:
+<li><p><!--@Request a new permission, &quot;webview&quot;, in-->在 <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab8_webresources/angularjs/1_webview/manifest.json">manifest.json</a><!--@:-->
+中请求一个新的权限——"webview"：
 <pre>
 &quot;permissions&quot;: [&quot;storage&quot;, &quot;webview&quot;]
 </pre></p></li>
-<li><p>Add a WebView tag and a link to <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab8_webresources/angularjs/1_webview/index.html">index.html</a>:
+<li><p><!--@Add a WebView tag and a link to-->在 <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab8_webresources/angularjs/1_webview/index.html">index.html</a><!--@:-->
+中添加一个 webview 标签和一个链接：
 <pre>
 &lt;!-- in TODO item: --&gt;
 &lt;a ng-show=&quot;todo.uri&quot; href=&quot;&quot; ng-click=&quot;showUri(todo.uri)&quot;&gt;(view url)&lt;/a&gt;
 &lt;!-- at the bottom, below the end of body: --&gt;
 &lt;webview&gt;&lt;/webview&gt;
 </pre></p></li>
-<li><p>Set an appropriate width and height to the webview tag in <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab8_webresources/angularjs/1_webview/todo.css">todo.css</a> (it has zero size by default):
+<li><p><!--@Set an appropriate width and height to the webview tag in-->在 <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab8_webresources/angularjs/1_webview/todo.css">todo.css</a> <!--@(it has zero size by default):-->
+中为 webview 标签设置合适的宽度和高度（默认大小为零）：
 <pre>
 webview {
   width: 100%;
   height: 200px;
 }
 </pre></p></li>
-<li><p>Thanks to AngularJS, we now only need to add the <code>showUri</code> method to our <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab8_webresources/angularjs/1_webview/controller.js">controller.js</a> and we&#39;re done:
+<li><p><!--@Thanks to AngularJS, we now only need to add the <code>showUri</code> method to our-->由于使用了 AngularJS，现在我们只需要在 <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab8_webresources/angularjs/1_webview/controller.js">controller.js</a> <!--@and we&#39;re done:-->
+中添加 <code>showUrl</code> 方法，我们已经完成了：
 <pre>
 $scope.showUri = function(uri) {
   var webview=document.querySelector(&quot;webview&quot;);
@@ -55,14 +74,22 @@ $scope.showUri = function(uri) {
 </pre></p></li>
 </ol>
 
-<p>To test, open the app, right-click, and select Reload App.
+<p><!--@To test, open the app, right-click, and select Reload App.
 You should be able to click on the &quot;view url&quot; link on any dropped URL Todo item, and the corresponding web page will show in the webview.
-If it&#39;s not showing, inspect the page and check if you set the webview size appropriately.</p>
+If it&#39;s not showing, inspect the page and check if you set the webview size appropriately.-->
+为了测试，请打开应用，单击右键，并选择“重新加载应用”。您应该能够在拖放的 URL
+待办事项上单击“view url”链接，相应的网页就会显示在 webview
+中。如果没有显示的话，审查页面并确认您正确设置了 webview 的大小。
+</p>
 
-<p class="note"><b>Note:</b>  If you get stuck and want to see the app in action, go to <code>chrome://extensions</code>,
-load the unpacked <a href="https://github.com/GoogleChrome/chrome-app-codelab/tree/master/lab8_webresources/angularjs/1_webview">1_webview</a>, and launch the app from a new tab.</p>
+<p class="note"><b><!--@Note:-->注意：</b><!--@  If you get stuck and want to see the app in action, go to <code>chrome://extensions</code>,
+load the unpacked <a href="https://github.com/GoogleChrome/chrome-app-codelab/tree/master/lab8_webresources/angularjs/1_webview">1_webview</a>, and launch the app from a new tab.-->如果您遇到了困难，希望立刻看到修改后的应用，请进入
+<code>chrome://extensions</code>，载入未打包的
+<a href="https://github.com/GoogleChrome/chrome-app-codelab/tree/master/lab8_webresources/angularjs/1_webview">1_webview</a>
+应用，并从新标签页中运行应用。
+</p>
 
-<h2 id="loading_external_images">Loading external images</h2>
+<h2 id="loading_external_images"><!--@Loading external images-->载入外部图片</h2>
 
 <p>If you try to add an <code>&lt;img&gt;</code> tag to your <code>index.html</code>, and point its <code>src</code> attribute to any site on the web, the following exception is thrown in the console and the image isn&#39;t loaded:</p>
 

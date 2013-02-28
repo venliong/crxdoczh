@@ -85,16 +85,24 @@ URL 明确请求权限。
 
 <p><!--@Now we are ready to ask user&#39;s authorization, so we can connect to the Tasks service and import his tasks into our Todo list. First, we will need to request an access token - which, at the first run will automatically pops up an authentication and authorization window to the user.
 Once we have this token, we are able to call the Google Tasks API directly.-->
-现在我们已经准备好请求用户认证，以便连接到工作表服务，并将工作表导入我们的待办事项列表。首先，我们需要请求访问令牌，第一次运行时会自动向用户弹出认证和授权窗口。一旦我们拥有了这一令牌，我们就能直接调用 Google 任务表 API 了。
+现在我们已经准备好请求用户认证，以便连接到工作表服务，并将工作表导入我们的待办事项列表。首先，我们需要请求访问令牌，第一次运行时会自动向用户弹出认证和授权窗口。一旦我们拥有了这一令牌，我们就能直接调用 Google 工作表 API 了。
 </p>
 
 <ol>
 <li><p><!--@Since this is time consuming and error prone, you can cheat and copy our JavaScript that handles the authentication to the Google Tasks API from here: <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab7_useridentification/angularjs/gapi_tasks.js">gapi_tasks.js</a>.
 This script calls <code>launchWebFlow</code> and gets a valid access token for the specified client ID. It also has simple JavaScript methods that, after authenticated, goes to the Tasks API and gets the user&#39;s task lists and the corresponding tasks. -->
+由于这一部分很费时间，而且容易出错，您可以直接从这里复制我们用来处理
+Google 工作表 API 认证的
+JavaScript：<a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab7_useridentification/angularjs/gapi_tasks.js">gapi_tasks.js</a>。该脚本调用
+<code>launchWebFlow</code>
+并为指定的客户端标识符获取有效的访问令牌。它还有一些简单的 JavaScript
+方法，可以在认证后进入工作表 API，并获取用户的任务列表以及对应的任务。
 </p>
 
-<p class="note"><b>Note:</b>  this script is NOT intented to be used in production - it is just a very simple, limited and definitely not robust piece of code intented to highlight the basic authentication and API calls.</p></li>
-<li><p>Add a new method to the existing <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab7_useridentification/angularjs/controller.js">controller.js</a> that, using the methods from the script of the previous step, authenticates the user and imports his Google tasks into the Todo list:
+<p class="note"><b><!--@Note:-->注意：</b><!--@  this script is NOT intented to be used in production - it is just a very simple, limited and definitely not robust piece of code intented to highlight the basic authentication and API calls.-->该脚本<em>并非</em>用于产品中的，它只是一段很简单、很有限而且肯定不健壮的代码，仅仅是为了突出基本认证过程和 API 调用。</p></li>
+<li><p><!--@Add a new method to the existing-->向现有的 <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab7_useridentification/angularjs/controller.js">controller.js</a> <!--@that, using the methods from the script of the previous step, authenticates the user and imports his Google tasks into the Todo list:-->
+添加一个新方法，使用前一步脚本中的方法认证用户并将他的 Google
+任务导入待办事项列表：
 <pre>
 $scope.importFromGTasks = function() {
   var api = new TasksAPI();
@@ -119,15 +127,20 @@ $scope.importFromGTasks = function() {
 }
 </pre>   </p>
 
-<p>Replace the following line in the code above:
+<p><!--@Replace the following line in the code above:-->
+将以上代码的下面几行：
 <pre>
   var clientId = &quot;&lt;GET_YOURS_AT_https://code.google.com/apis/console&gt;&quot;;
 </pre>
-with your own project&#39;s Client ID that you got from the Google API Console. Should look like this:
+<!--@with your own project&#39;s Client ID that you got from the Google API Console. Should look like this:-->
+替换为您自己的项目在 Google API 客户端获得的客户端标识符，应该如下所示：
 <pre>
   var clientId = &quot;xxxxxxxxxxxxxx.apps.googleusercontent.com&quot;;
 </pre></p></li>
-<li><p>Now we just need a button that starts the import process. Update the <code>index.html</code> to include <code>gapi_tasks.js</code> and add a new button to call <code>importFromGTasks</code>:
+<li><p><!--@Now we just need a button that starts the import process. Update the <code>index.html</code> to include <code>gapi_tasks.js</code> and add a new button to call <code>importFromGTasks</code>:-->
+现在我们只需要一个按钮，开始导入过程。更新 <code>index.html</code>
+包含 <code>gapi_tasks.js</code>，并添加一个新的按钮，调用
+<code>importFromGTasks</code>：
 <pre>
 &lt;script src=&quot;gapi_tasks.js&quot;&gt;&lt;/script&gt;
 ...
@@ -135,14 +148,21 @@ with your own project&#39;s Client ID that you got from the Google API Console. 
 </pre></p></li>
 </ol>
 
-<p class="note"><b>Note:</b>  If you get stuck and want to see the app in action,
+<p class="note"><b><!--@Note:-->注意：</b><!--@  If you get stuck and want to see the app in action,
 go to <code>chrome://extensions</code>, load the unpacked <a href="app_codelab7_useridentification.html">lab7_useridentification</a> app,
-and launch the app from a new tab.</p>
+and launch the app from a new tab.-->
+如果您遇到了困难，希望立刻看到修改后的应用，请进入
+<code>chrome://extensions</code>，载入未打包的
+<a href="https://github.com/GoogleChrome/chrome-app-codelab/tree/master/lab7_useridentification">实验七应用</a>，并从新标签页中运行应用。
+</p>
 
-<h1 id="what_39_s_next_">What&#39;s next?</h1>
+<h1 id="what_39_s_next_"><!--@What&#39;s next?-->接下来做什么？</h1>
 
-<p>In <a href="app_codelab8_webresources.html">lab8_webresources</a>,
-you will learn how to load and show images from a remote URL.</p>
+<p><!--@In-->在 <a href="app_codelab8_webresources.html">lab8_webresources</a><!--@,
+you will learn how to load and show images from a remote URL.-->
+中，您将会学习如何载入并显示来自远程 URL 的图片。
+</p>
 
-<p class="note"><b>Note:</b>  Up until now, the code in each lab builds upon the previous lab code sample.
-We&#39;ve decided not to include the user identification code changes in the remainder of the lab since the <code>identity API</code> is still experimental and as such it would prevent you from publishing your final code to the Chrome Web Store.</p>
+<p class="note"><b><!--@Note:-->注意：</b><!--@  Up until now, the code in each lab builds upon the previous lab code sample.
+We&#39;ve decided not to include the user identification code changes in the remainder of the lab since the <code>identity API</code> is still experimental and as such it would prevent you from publishing your final code to the Chrome Web Store.-->直到现在，每一个实验中的代码都基于前一个实验的代码示例建立。我们决定不将用户认证代码的更改包含在剩下的实验中，因为认证
+API 还是实验性的，这样会阻止您将您的最终代码发布到 Chrome 网上应用店。</p>
