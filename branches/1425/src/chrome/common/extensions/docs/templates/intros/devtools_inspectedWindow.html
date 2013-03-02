@@ -1,0 +1,129 @@
+<p>
+<!--@Use-->使用 <code>chrome.devtools.inspectedWindow</code>
+<!--@to interact with the inspected window:
+obtain the tab ID for the inspected page,
+evaluate the code in the context of inspected window,
+reload the page,
+or obtain the list of resources within the page.-->
+与审查的窗口交互：获得审查页面的标签页标识符，在审查窗口的上下文中执行代码，重新载入页面，或者获取页面中所有资源的列表。
+</p><p>
+<!--@See <a href="devtools.html">DevTools APIs summary</a> for
+general introduction to using Developer Tools APIs.-->
+有关使用开发者工具 API 的一般信息请参见<a
+href="devtools.html">开发者工具 API 概述</a>。
+</p>
+
+<h2 id="overview"><!--@Overview-->概述</h2>
+<p>
+<!--@The $ref:devtools.inspectedWindow.tabId property
+provides the tab identifier that you can use with the
+<a href="tabs.html"><code>chrome.tabs.*</code></a> API calls.
+However, please note that <code>chrome.tabs.*</code> API is not
+exposed to the Developer Tools extension pages due to security considerations
+&mdash; you will need to pass the tab ID to the background page and invoke
+the <code>chrome.tabs.*</code> API functions from there.-->
+$ref:devtools.inspectedWindow.tabId 属性提供了标签页标识符，让您在调用
+<a href="tabs.html"><code>chrome.tabs.*</code></a> API
+时使用。然而，值得注意的是，出于安全考虑，<code>chrome.tabs.*</code> API
+对开发者工具中的扩展程序页面不可用，您需要向后台网页传递标签页标识符，并在那儿调用
+<code>chrome.tabs.*</code> API函数。
+</p>
+<p>
+<!--@The <code>eval()</code> method provides the ability for extensions to execute
+JavaScript code in the context of the main frame of the inspected page.
+This method is powerful when used in the right context
+and dangerous when used inappropriately.
+Use the <code>chrome.tabs.executeScript()</code> method
+unless you need the specific functionality
+that the <code>eval()</code> method provides.-->
+<code>eval()</code> 方法使扩展程序能够在审查页面主框架的上下文中执行
+JavaScript
+代码。这一方法在正确的环境下是非常有用的，但是不恰当的使用会很危险。除非您需要
+<code>eval()</code> 方法才能提供的特定功能，请使用
+$ref:tabs.executeScript 方法。
+</p>
+<p><!--@Here are the main differences between the
+<code>eval()</code> and <code>chrome.tabs.executeScript()</code> methods:-->
+如下是 <code>eval()</code> 与 $ref:tabs.executeScript 方法之间的主要区别：
+</p><ul>
+<li><!--@The <code>eval()</code> method does not
+use an isolated world for the code being evaluated, so the JavaScript state
+of the inspected window is accessible to the code.
+Use this method when access to the JavaScript state of the inspected page
+is required.-->
+<code>eval()</code>
+方法不为执行的代码使用隔离环境，所以代码可以访问审查窗口的 JavaScript
+状态。当您确实需要访问审查页面的 JavaScript 状态时请使用这一方法。
+</li><li>
+<!--@The execution context of the code being evaluated includes the
+<a href="http://code.google.com/chrome/devtools/docs/console.html">Developer
+Tools console API</a>.
+For example,
+the code can use <code>inspect()</code> and <code>$0</code>.-->
+代码执行的上下文包括<a href="https://developers.google.com/chrome-developer-tools/docs/console">开发者工具的控制台 API</a>。例如，代码可以使用
+<code>inspect()</code> 和 <code>$0</code>。
+</li><li>
+<!--@The evaluated code may return a value that is passed to the extension callback.
+The returned value has to be a valid JSON object (it may contain only
+primitive JavaScript types and acyclic references to other JSON
+objects).
+
+-->执行的代码可以返回一个值，传递给扩展程序的回调函数。返回值必须为一个有效的
+JSON 对象（它只能包含原始的 JavaScript 类型以及对其他 JSON
+对象的非循环引用）。<em><!--@Please observe extra care while processing the data received from the
+inspected page &mdash; the execution context is essentially controlled by the
+inspected page; a malicious page may affect the data being returned to the
+extension.-->在处理从审查页面接收的数据时请格外小心，执行上下文本质上由审查的页面控制，恶意页面可能会影响返回给扩展程序的数据。</em>
+</li></ul>
+<p class="caution">
+<strong><!--@Important:-->重要提示：</strong><!--@
+Due to the security considerations explained above, the
+$ref:tabs.executeScript method is the preferred way for an
+extension to access DOM data of the inspected page in cases where the access to
+JavaScript state of the inspected page is not required.</em>-->出于以上解释的安全性考虑，建议扩展程序在不需要访问审查页面的
+JavaScript 状态的情况下首选
+$ref:tabs.executeScript 方法访问审查页面的 DOM 数据。
+</p><p>
+<!--@The <code>reload()</code> method may be used to reload the inspected page.
+Additionally, the caller can specify an override for the user agent string,
+a script that will be injected early upon page load, and an option to force
+reload of cached resources.-->
+<code>reload()</code>
+方法可以用来重新载入审查的页面。此外，调用者可以指定替代的用户代理字符串、页面载入前期插入的脚本以及用于强制重新载入已缓存资源的选项。
+</p><p>
+<!--@Use the <code>getResources()</code> call and the <code>onResourceContent</code>
+event to obtain the list of resources (documents, stylesheets, scripts, images
+etc) within the inspected page. The <code>getContent()</code> and <code
+>setContent()</code> methods of the <code>Resource</code> class along with the
+<code>onResourceContentCommitted</code> event may be used to support
+modification of the resource content, for example, by an external editor.-->
+使用 <code>getResources()</code> 调用以及 <code>onResourceContent</code>
+事件来获取审查页面中的资源列表（文档、样式表、脚本、图片等等）。<code>Resource</code>
+类型的 <code>getContent()</code> 和 <code>setContent()</code> 方法以及
+<code>onResourceContentComitted</code>
+事件可以用来支持资源内容的修改，例如使用外部编辑器。
+</p>
+
+<h2 id="overview-examples"><!--@Examples-->例子</h2>
+<p><!--@The following code checks for the version of jQuery used by the inspected
+page:-->
+如下代码检查审查的页面所使用的 jQuery 版本：
+
+<pre>
+chrome.devtools.inspectedWindow.eval(
+    "jQuery.fn.jquery",
+     function(result, isException) {
+       if (isException)
+         console.log("该页面未使用 jQuery");
+       else
+         console.log("该页面使用 jQuery v" + result);
+     }
+);
+</pre>
+
+<p>
+<!--@You can find more examples that use Developer Tools APIs in
+<a href="samples.html#devtools">Samples</a>.-->
+您可以在<a href="samples.html#devtools">示例</a>中找到使用开发者工具 API
+的更多例子。
+</p>

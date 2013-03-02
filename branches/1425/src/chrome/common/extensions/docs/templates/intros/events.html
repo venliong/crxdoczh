@@ -1,0 +1,267 @@
+<p>
+<!--@An <code>Event</code> is an object
+that allows you to be notified
+when something interesting happens.
+Here's an example of using the
+<code>chrome.tabs.onCreated</code> event
+to be notified whenever there's a new tab:-->
+当发生一些您感兴趣的事情时，<code>Event</code> 对象可以使您收到通知。如下是一个使用 $ref:tabs.onCreated 事件的例子，每当打开新标签页时就收到通知：
+</p>
+
+<pre>
+chrome.tabs.onCreated.<b>addListener(function(</b>tab<b>) {</b>
+  appendToLog('tabs.onCreated --'
+              + ' 窗口：' + tab.windowId
+              + ' 标签页：'    + tab.id
+              + ' 索引：'  + tab.index
+              + ' URL：'    + tab.url);
+<b>});</b>
+</pre>
+
+<p>
+<!--@As the example shows,
+you register for notification using <code>addListener()</code>.
+The argument to <code>addListener()</code>
+is always a function that you define to handle the event,
+but the parameters to the function depend on
+which event you're handling.
+Checking the documentation for
+$ref:tabs.onCreated,
+you can see that the function has a single parameter:
+a $ref:tabs.Tab object
+that has details about the newly created tab.-->
+如这一例子所示，您使用 <code>addListener()</code>
+注册来接收通知。<code>addListener()</code>
+的参数总是一个您定义的处理事件的函数，但是函数的参数取决于您处理的事件。参考
+$ref:tabs.onCreated 的文档，您会看到该函数有一个参数：包含新创建标签页详情的
+$ref:tabs.Tab 对象。
+</p>
+
+
+{{^is_apps}}
+<div class="doc-family extensions">
+<h2 id="declarative"><!--@Declarative Event Handlers-->声明式事件处理程序</h2>
+
+<p>
+<!--@The declarative event handlers provide a means to define rules consisting of
+declarative conditions and actions. Conditions are evaluated in the browser
+rather than the JavaScript engine which reduces roundtrip latencies and allows
+for very high efficiency.-->
+声明式事件处理程序提供了一种方式，来定义由声明式条件与操作组成的规则。条件将在浏览器而不是
+JavaScript 引擎中求值，因而减少了来回的延迟，并提供极高的效率。
+</p>
+
+<p><!--@Declarative event handlers are used for example in the <a
+  href="declarativeWebRequest.html">Declarative Web Request API</a> and possibly
+further extension APIs in the future. This page describes the underlying
+concepts of all declarative event handlers.-->
+声明式事件处理程序在声明式网络请求 API
+的例子中使用，将来也可能进一步地用于其它扩展程序 API。该页面描述所有声明式
+API 背后的概念。
+</p>
+
+<h3 id="rules"><!--@Rules-->规则</h3>
+
+<p><!--@The simplest possible rule consists of one or more conditions and one or more
+actions:-->
+最简单的规则包含一个或多个条件以及一个或多个操作：
+</p>
+<pre>
+var rule = {
+  conditions: [ /* 我的条件 */ ],
+  actions: [ /* 我的规则 */ ]
+};
+</pre>
+
+<p><!--@If any of the conditions is fulfilled, all actions are executed.-->
+如果任何一个条件满足，则执行所有的操作。
+</p>
+
+<p><!--@In addition to conditions and actions you may give each rule an identifier,
+which simplifies unregistering previously registered rules, and a priority to
+define precedences among rules. Priorities are only considered if rules conflict
+each other or need to be executed in a specific order. Actions are executed in
+decendending order of the priority of their rules.-->
+除了条件和操作外，您还可以为每一条规则提供标志符，这样可以更简单地取消注册之前注册的规则，以及通过优先级定义规则间的优先顺序。只有当规则互相之间冲突或者需要以特定的顺序执行时才会考虑优先级。操作以对应规则优先级从大到小的顺序执行。
+</p>
+
+<pre>
+var rule = {
+  id: "my rule",  // 可选，如果没有设置会自动生成。
+  priority: 100,  // 可选，默认为 100。
+  conditions: [ /* 我的条件 */ ],
+  actions: [ /* 我的操作 */ ]
+};
+</pre>
+
+<h3 id="eventobjects"><!--@Event objects-->事件对象</h3>
+
+<p>
+<!--@<a href="events.html">Event objects</a> may support rules. These event objects
+don't call a callback function when events happen but test whether any
+registered rule has at least one fulfilled condition and execute the actions
+associated with this rule. Event objects supporting the declarative API have
+three relevant methods: $ref:events.Event.addRules,
+$ref:events.Event.removeRules, and
+$ref:events.Event.getRules.-->
+$ref:[events.Event 事件对象]可以支持规则。这样的事件对象在事件发生时不调用回调函数，而是测试已注册的规则中是否有至少一个满足的条件，并执行与该规则相关联的操作。支持声明式
+API
+的事件对象有三个有关方法：$ref:events.Event.addRules、$ref:events.Event.removeRules
+以及 $ref:events.Event.getRules。
+</p>
+
+<h3 id="addingrules"><!--@Adding rules-->添加规则</h3>
+
+<p>
+<!--@To add rules call the <code>addRules()</code> function of the event object. It
+takes an array of rule instances as its first parameter and a callback function
+that is called on completion.-->
+要添加规则，请调用事件对象的 <code>addRules()</code>
+函数。它的第一个参数为包含规则实例的数组，第二个参数为完成时的回调函数。
+</p>
+
+<pre>
+var rule_list = [rule1, rule2, ...];
+function addRules(rule_list, function callback(details) {...});
+</pre>
+
+<p>
+<!--@If the rules were inserted successfully, the <code>details</code> parameter
+contains an array of inserted rules appearing in the same order as in the passed
+<code>rule_list</code> where the optional parameters <code>id</code> and
+<code>priority</code> were filled with the generated values. If any rule is
+invalid, e.g., because it contained an invalid condition or action, none of the
+rules are added and the 
+  $ref:runtime.lastError variable is set when
+the callback function is called. Each rule in <code>rule_list</code> must
+contain a unique identifier that is not currently used by another rule or an
+empty identifier.-->
+如果规则成功插入，<code>details</code> 参数将包含已插入规则的数组，顺序与
+<code>rule_list</code> 中相同，可选参数 <code>id</code> 和
+<code>priority</code>
+将用生成的值填充。如果某条规则无效，例如因为它包含无效的条件或操作，所有的规则都不会添加，并且
+$ref:runtime.lastError 变量将在回调函数调用时设置。
+<code>rule_list</code>
+中的每条规则都必须包含其它规则当前没有使用的唯一标志符，或者为空标志符。
+</p>
+
+<p class="note">
+<!--@<strong>Note:</strong> Rules are persistent across browsing sessions. Therefore,
+you should install rules during extension installation time using the
+<code>$ref:runtime.onInstalled</code>
+event. Note that this event is also triggered when an extension is updated.
+Therefore, you should first clear previously installed rules and then register
+new rules.-->
+<strong>注意：</strong>规则在浏览器会话间持久存在，所以您应该使用
+<code>$ref:runtime.onInstalled</code>
+在扩展程序安装期间安装规则。注意该事件在扩展程序更新时也会触发，所以您应该首先清除之前安装的规则并注册新规则。
+</p>
+
+<h3 id="removingrules"><!--@Removing rules-->移除规则</h3>
+
+<p>
+<!--@To remove rules call the <code>removeRules()</code> function. It accepts an
+optional array of rule identifiers as its first parameter and a callback
+function as its second parameter.-->
+要移除规则，请调用 <code>removeRules()</code>
+函数。它接受的第一个参数为可选的规则标志符数组，第二个参数为回调函数。
+</p>
+
+<pre>
+var rule_ids = ["id1", "id2", ...];
+function removeRules(rule_ids, function callback() {...});
+</pre>
+
+<p>
+<!--@If <code>rule_ids</code> is an array of identifiers, all rules having
+identifiers listed in the array are removed. If <code>rule_ids</code> lists an
+identifier, that is unknown, this identifier is silently ignored. If
+<code>rule_ids</code> is <code>undefined</code>, all registered rules of this
+extension are removed. The <code>callback()</code> function is called when the
+rules were removed.-->
+如果 <code>rule_ids</code>
+为包含标志符的数组，将移除具有数组中所列出的标志符的规则。如果
+<code>rule_ids</code> 包含未知标志符，将忽略该标志符。如果
+<code>rule_ids</code> 为
+<code>undefined</code>，将移除当前扩展程序注册的所有规则。规则移除后将调用
+<code>callback()</code>函数。
+</p>
+
+<h3 id="retrievingrules"><!--@Retrieving rules-->获取规则</h3>
+
+<p>
+<!--@To retrieve a list of currently registered rules, call the
+<code>getRules()</code> function. It accepts an optional array of rule
+identifiers with the same semantics as <code>removeRules</code> and a callback
+function.-->
+要获取当前已注册规则的列表，请调用 <code>getRules()</code>
+函数，它接受的第一个参数为可选的规则标志符数组，与 <code>removeRules</code>
+具有相同的意义，第二个参数为回调函数。
+</p>
+
+<pre>
+var rule_ids = ["id1", "id2", ...];
+function getRules(rule_ids, function callback(details) {...});
+</pre>
+
+<p>
+<!--@The <code>details</code> parameter passed to the <code>calback()</code> function
+refers to an array of rules including filled optional parameters.-->
+传递给 <code>callback()</code> 函数的 <code>details</code>
+参数指向含有自动填充的可选参数的规则数组。
+</p>
+</div>
+{{/is_apps}}
+
+{{^is_apps}}
+<div class="doc-family extensions">
+<h2 id="filtered"><!--@Filtered events-->事件过滤</h2>
+
+<p><!--@Filtered events are a mechanism that allows listeners to specify a subset of
+events that they are interested in. A listener that makes use of a filter won't
+be invoked for events that don't pass the filter, which makes the listening
+code more declarative and efficient - an <a href="event_pages.html">event
+  page</a> page need not be woken up to handle events it doesn't care
+about.-->
+事件过滤是一种让监听者指定感兴趣的事件子集的机制。利用过滤器的监听者不会为不符合过滤规则的事件调用，使监听代码更具有声明性也更高效——事件页面也不必为了处理它不关心的事件而唤醒。
+</p>
+
+<p><!--@Filtered events are intended to allow a transition from manual filtering
+code like this:-->
+事件过滤是为了允许将如下所示手动过滤的代码：
+</p>
+
+<pre>
+chrome.webNavigation.onCommitted.addListener(function(e) {
+  if (hasHostSuffix(e.url, 'google.com') ||
+      hasHostSuffix(e.url, 'google.com.au')) {
+    // ...
+  }
+});
+</pre>
+
+<p><!--@into this:-->过渡到如下代码：</p>
+
+<pre>
+chrome.webNavigation.onCommitted.addListener(function(e) {
+  // ...
+}, {url: [{hostSuffix: 'google.com'},
+          {hostSuffix: 'google.com.au'}]});
+</pre>
+
+<p><!--@Events support specific filters that are meaningful to that event. The list
+of filters that an event supports will be listed in the documentation for that
+event in the "filters" section.-->
+事件支持对于某个事件有意义的特定过滤器，事件支持的过滤器列表将在事件文档的“过滤器”部分列出。
+</p>
+
+<p><!--@When matching URLs (as in the example above), event filters support the same
+URL matching capabilities as expressable with a 
+  $ref:events.UrlFilter, except for scheme and port
+matching.-->
+当匹配 URL 时（如上如例子所示），除了协议与端口的匹配，事件过滤器支持与
+$ref:events.UrlFilter 相同的 URL 匹配能力。
+</p>
+
+</div>
+{{/is_apps}}
