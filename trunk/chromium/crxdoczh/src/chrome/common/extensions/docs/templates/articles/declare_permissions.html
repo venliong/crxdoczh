@@ -308,6 +308,15 @@ table.-->托管应用只能使用
   <td> <!--@Required if the extension or app uses the-->如果扩展程序或应用使用
        <a href="storage.html">chrome.storage</a> <!--@module.-->模块则必须指定。 </td>
 </tr>
+{{?is_apps}}
+<tr>
+  <td id="syncFileSystem"> "syncFileSystem" </td>
+  <td> <!--@Required if the app uses the-->如果扩展程序使用<!--@
+       --><a href="syncFileSystem.html"><!--@syncFileSystem-->同步文件系统 API</a>
+       <!--@to save and synchronize data on Google Drive.-->在
+       Google 云端硬盘上保存和同步数据则必须指定。</td>
+</tr>
+{{/is_apps}}
 {{^is_apps}}
 <tr>
   <td> "tabs" </td>
