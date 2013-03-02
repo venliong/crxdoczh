@@ -392,8 +392,8 @@
               "url": {
                 "type": "string",
                 "optional": true,
-//@                "description": "Match tabs against a URL pattern."
-                "description": "匹配标签页URL的表达式。"
+//@                "description": "Match tabs against a <a href='match_patterns.html'>URL pattern</a>. Note that fragment identifiers are not matched."
+                "description": "匹配标签页的 <a href='match_patterns.html'>URL 表达式</a>。注意：片段标识符不会匹配。"
               },
               "windowId": {
                 "type": "integer",
