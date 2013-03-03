@@ -39,12 +39,12 @@ namespace mediaGalleries {
 
     // <!--@A unique and persistent id for the media gallery.-->
     // 媒体库的唯一持久标识符。
-    long galleryId;
+    DOMString galleryId;
 
     // <!--@If the media gallery is on a removable device, a unique id for the
     // device.-->
     // 如果媒体库位于可移动设备上则为设备的唯一标识符。
-    long? deviceId;
+    DOMString? deviceId;
 
     // <!--@True if the media gallery is on a removable device.-->
     // 如果媒体库在可移动设备上则为 true。
