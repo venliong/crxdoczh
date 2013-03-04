@@ -90,7 +90,10 @@ namespace app.window {
     // show() 可以显示它。默认为 false。
     boolean? hidden;
 
-    // <!--@By default if you specify an id for the window, the window will only be
+    // <!--@If true, the window will be resizable by the user. Defaults to true.-->
+    // 如果为 true 的话，用户可以调整窗口的大小。默认为 true。
+    boolean? resizable;
+
     // created if another window with the same id doesn't already exist. If a
     // window with the same id already exists that window is activated instead.
     // If you do want to create multiple windows with the same id, you can
