@@ -1,0 +1,145 @@
+<table class="intro">
+  <tr>
+    <th scope="col"></th>
+    <th scope="col"></th>
+  </tr>
+  <tr>
+    <td><strong><!--@Description:-->描述：</strong></td>
+    <td><!--@Use the-->使用 <code>chrome.experimental.notification</code> <!--@module
+    to create rich notifications using templates and
+    show these notifications to users in the system tray
+    (see <a href="#usage">Usage</a>).-->
+    模块通过模板创建丰富的通知，并在系统托盘中向用户显示这些通知（请参见<a
+    href="#usage">用法</a>）。
+    </td>
+  </tr>
+  <tr>
+    <td><strong><!--@Availability:-->可用版本：</strong></td>
+    <td><!--@Experimental API. You must enable the
+    -->实验性
+    API。您必须启用<a href="experimental.html#using"><!--@"Experimental Extensions API"-->“实验性扩展程序 API”</a><!--@.-->。</td>
+  </tr>
+  <tr>
+    <td><strong><!--@Permissions:-->权限：</strong></td>
+    <td><code>"experimental"</code></td>
+  </tr>
+  <tr>
+    <td><strong><!--@Learn more:-->了解更多：</strong></td>
+    <td><a href="https://developers.google.com/live/shows/83992232-1001/">Chrome <!--@Apps Office Hours: Rich Notifications-->应用办公时间：丰富的通知</a></td>
+  </tr>
+</table>
+
+<p class="warning">
+<b><!--@Warning: -->警告：</b><!--@
+Currently this API only works on ChromeOS and Windows.
+Linux and Mac should fail gracefully by displaying normal HTML5 notifications;
+however, some information may not be displayed.-->目前该 API 只能在 ChromeOS
+和 Windows 上正常工作，Linux 和 Mac 会显示普通的 HTML5 通知，但是某些信息可能不会显示。
+</p>
+
+<h2 id="usage"><!--@Usage-->用法</h2>
+
+<p>
+<!--@To use this API,
+call the -->
+要使用该 API，请调用
+<a href="#method-create">create()</a><!--@ method,
+passing in the notification details
+via the <code>options</code> parameter:-->
+方法，并通过 <code>options</code> 参数传递通知详情：
+</p>
+
+<pre>
+chrome.experimental.notification
+  .create(id, options, creationCallback);
+</pre>
+
+<p>
+<a href="#type-NotificationOptions">NotificationOptions</a> <!--@must include the-->必须包含
+<a href="#type-TemplateType">TemplateType</a><!--@
+which defines available notification details
+and how those details are displayed.
+All four available template types
+(<code>simple</code>, <code>basic</code>, <code>image</code>, <code>list</code>)
+include the notification <code>title</code> and <code>message</code>.-->，它定义了可用的通知详情以及这些详情是如何显示的。这四种可用的模板类型（<code>simple</code>、<code>basic</code>、<code>image</code>、<code>list</code>）都包含通知的
+<code>title</code>（标题）和 <code>message</code>（消息）。
+</p>
+
+<p>
+<!--@They can also include urls to icons or images.
+The <code>simple</code>, <code>basic</code>, and <code>list</code>
+templates link to small icons (<code>secondIconUrl</code>) displayed
+to the left of the notification message.
+The <code>image</code> template displays icons and images
+more prominently than the text
+(use <code>iconURL</code> or <code>imageURL</code>).
+Due to a strict <a href="app_csp.html">Content Security Policy</a>,
+all icon and image URLs in packaged apps should point to a local resource.-->
+它们还可以包含指向图标或图片的 URL。<code>simple</code>（简单）、<code>basic</code>（基本）和
+<code>list</code>（列表）模板中的小图标链接（<code>secondIconUrl</code>）会显示在通知消息的左侧，<code>image</code>（图片）模板显示的图标和图片比文字更明显（使用
+<code>iconUrl</code> 或 <code>imageUrl</code>）。由于严格的<a
+href="app_csp.html">内容安全策略</a>，打包应用中的所有图标和图片 URL
+都应该指向本地资源。
+</p>
+
+<p>
+<!--@The <code>basic</code> template looks similar to <code>simple</code>,
+and can also include an <code>expandedMessage</code>.
+Here's an example:-->
+<code>basic</code>（基本）模板外观与 <code>simple</code>（简单）类似，还可以包含一个
+<code>expandedMessage</code>（附加消息）。如下是一个例子：
+</p>
+
+<pre>
+var opt = {
+  templateType: "basic",
+  title: "主要标题",
+  message: "要显示的主要消息",
+  expandedMessage: "附加消息",
+  secondIconUrl: "url_to_small_icon"
+}
+</pre>
+
+<p>
+<!--@The <code>list</code> template will display <code>items</code>
+in a list format:-->
+<code>list</code>（列表）模板将会以列表的形式显示 <code>items</code>。
+</p>
+
+<pre>
+var opt = {
+  templateType: "list",
+  title: "主要标题",
+  message: "要显示的主要消息",
+  secondIconUrl: "url_to_small_icon",
+  items: [{ title: "Item1", message: "这是项目一。"},
+          { title: "Item2", message: "这是项目二。"},
+          { title: "Item3", message: "这是项目三。"}]
+}
+</pre>
+
+<p>
+<!--@Let us know if you have ideas for new templates with varying layouts
+by filing a <a href="crbug.com/new">crbug</a>!-->
+如果您有关于不同布局的新模板的想法，请报告<a
+href="http://crbug.com/new">问题</a>让我们知道。
+</p>
+
+<h2 id="events"><!--@Listening for and responding to events-->监听和响应事件</h2>
+
+<p>
+<!--@With the exception of the <code>simple</code> template,
+all notifications can include event listeners and event handlers
+which respond to user actions.
+For example,
+you can write an event handler to respond to an
+<a href="#event-onButtonClicked">onButtonClicked</a> event.-->
+除了 <code>simple</code>（简单）模板，所有通知都可以包含事件监听器和事件处理函数，响应用户的操作。例如，您可以编写一个简单的事件处理函数，响应
+<a href="#event-onButtonClicked">onButtonClicked</a> 事件。
+</p>
+
+<p><!--@Consider including event listeners and handlers within the
+  <a href="app_lifecycle.html#create_event_page">event page</a>,
+so that notifications can pop-up even when the app or extension isn't running.-->
+请考虑将事件监听器和处理函数包含在<a href="app_lifecycle.html#create_event_page">事件页面</a>中，这样即使应用或扩展程序不在运行时也能弹出通知。
+</p>

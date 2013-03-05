@@ -1,0 +1,357 @@
+<h1><!--@Identify User-->用户认证</h1>
+
+
+<p>
+<!--@Web authentication protocols utilize HTTP features,
+but packaged apps run inside the app container;
+they don’t load over HTTP and can’t perform redirects or set cookies.-->
+网络认证协议利用 HTTP
+特性，但是打包应用在应用容器内运行，不通过 HTTP
+载入，也不能执行重定向或者设置 Cookie。
+</p>
+
+<p>
+<!--@Use the <a href="experimental.identity.html">Chrome Identity API</a>
+to authenticate users:
+the <code>getAuthToken</code> for users logged into their Google Account and
+the <code>launchWebAuthFlow</code> for users logged into a non-Google account.
+If your app uses its own server to authenticate users, you will need to use the latter.-->
+使用 <a href="experimental.identity.html">Chrome 浏览器的认证 API</a>
+验证用户：<code>getAuthToken</code> 用于登录 Google
+帐户的用户，<code>launchWebAuthFlow</code> 用于登录非 Google
+帐户的用户。如果您的应用使用自己的服务器来验证用户，您需要使用后者。
+</p>
+
+<p class="note">
+<b>API <!--@Samples: -->示例：</b><!--@
+Want to play with the code?
+Check out the-->
+想试试这些代码吗？请参见
+<a href="https://github.com/GoogleChrome/chrome-app-samples/tree/master/identity">identity</a> <!--@sample.-->
+示例。
+</p>
+
+<h2 id="how"><!--@How it works-->工作方式</h2>
+
+<p>
+<!--@Apps that use Google accounts
+need to specify the OAuth2 client ID
+and scopes in their manifest.
+When users install the apps,
+the OAuth2 permissions are displayed along with the Chrome permissions.
+Once a user accepts the permissions,
+the apps can get the access token
+using <code>getAuthToken</code>.-->
+使用 Google 帐户的应用需要在清单文件中指定 OAuth2
+客户端标识符及区域。当用户安装应用程序时，OAuth2
+权限将与 Chrome
+浏览器权限一起显示。一旦用户接受了这些权限，应用就可以使用
+<code>getAuthToken</code> 获取访问令牌。
+</p>
+
+<p>
+<!--@Apps that want to perform authentication
+with any provider must call <code>launchAuthFlow</code>.
+This method uses a browser pop-up to show the provider pages
+and captures redirects to the specific URL patterns.
+The redirect URLs are passed to the app
+and the app extracts the token from the URL.-->
+需要与任何提供商进行认证的应用必须调用
+<code>launchAuthFlow</code>。该方法使用浏览器弹出窗口显示提供商页面，并捕获特定
+URL 匹配表达式的重定向。重定向 URL 将传递给应用，应用可以从 URL 中提取令牌。
+</p>
+
+<h2 id="google">Google <!--@account authentication-->帐户认证</h2>
+
+<p>
+<!--@Here are the five steps you need to complete:-->
+如下是您需要完成的五个步骤：
+</p>
+
+<ol>
+	<li><!--@Add permissions to your manifest and upload your app.-->
+    向您的清单文件中添加权限，并上传应用。
+    </li>
+	<li><!--@Copy key in the installed <code>manifest.json</code> to your source manifest.-->
+    在已安装的 <code>manifest.json</code> 中把密钥复制到您原来的清单文件中。
+    </li>
+	<li><!--@Get your client ID.-->获取您的客户端标识符。</li>
+	<li><!--@Update your manifest to include the client ID and scopes.-->
+    更新清单文件，包含客户端标识符与区域。
+    </li>
+	<li><!--@Get the authentication token.-->获取认证令牌。</li>
+</ol>
+
+<h3 id="add_permissions"><!--@Add permissions and upload app-->添加权限并上传应用</h3>
+
+<p>
+<!--@The identity API is still experimental.
+You need to make sure the experimental
+and identity permissions are in your manifest.
+You can then upload your app to the apps and extensions management page
+(see <a href="publish_app.html">Publish</a>).-->
+认证 API 仍然是实验性的，您需要确保 "experimental" 与
+"identity" 权限包含在您的清单文件中。然后您可以将您的应用上传至应用与扩展程序管理页面（参见<a
+href="publish_app.html">发布</a>）。
+</p>
+
+<pre>
+"permissions": [
+  "experimental",
+  "identity"
+ ]
+</pre>
+
+<h3 id="copy_key"><!--@Copy key to your manifest-->把密钥复制到您的清单文件中</h3>
+
+<p>
+<!--@You need to copy the key in the installed
+<code>manifest.json</code> to your source manifest.
+This ensures that the key isn't overridden anytime your reload your app
+or share the app with other users.
+It's not the most graceful task, but here's how it goes:-->
+您需要把已安装的 <code>manifest.json</code>
+中的密钥复制到您原来的清单文件中，这样可以确保任何时候您重新载入或者与其他用户分享您的应用时密钥不会被覆盖。这一任务做起来并不轻松，如下是具体步骤：
+</p>
+
+<ol>
+  <li><!--@Go to your <a href="http://www.chromium.org/user-experience/user-data-directory">user data
+  directory</a>. Example on MacOs:
+  <code>~/Library/Application\ Support/Google/Chrome/Default/Extensions</code>-->
+  进入您的<a href="http://www.chromium.org/user-experience/user-data-directory">用户配置文件目录</a>。在
+  Mac OS X 上的例子：<code>~/Library/Application\ Support/Google/Chrome/Default/Extensions</code>
+  </li>
+  <li><!--@List the installed apps and extensions and match your app ID on the apps and extensions
+  management page to the same ID here.-->
+  列出已安装的应用与扩展程序，找出应用与扩展程序管理页面中您的应用的标识符，并在此目录中找到匹配的同一标识符。
+  </li>
+  <li><!--@Go to the installed app directory (this will be a version within the app ID).
+  Open the installed <code>manifest.json</code> (pico is a quick way to open the file).-->
+  进入已安装的应用目录（在应用标识符中还有一个版本），打开已安装的
+  <code>manifest.json</code>（pico 可以方便地打开文件）。
+  </li>
+  <li><!--@Copy the "key" in the installed <code>manifest.json</code> and paste it into your app's
+  source manifest file.-->
+  将已安装的 <code>manifest.json</code> 中的 "key"
+  复制并粘贴到您的应用原来的清单文件中。
+  </li>
+</ol>
+
+<h3 id="client_id"><!--@Get your client ID-->获取您的客户端标识符</h3>
+
+<p>
+<!--@You need to register your app
+in the Google APIs Console
+to get the client ID:-->
+您需要在 Google API
+控制台中注册您的应用，获取客户端标识符：
+</p>
+ 
+<ol>
+  <li><!--@Login to the <a href="https://code.google.com/apis/console/">Google APIs Console</a>
+  using the same Google account used to upload your app to the Chrome Web Store. -->
+  使用上传应用至 Chrome 网上应用店的同一个 Google 帐户登录
+  <a href="https://code.google.com/apis/console/">Google API 控制台</a>。
+  </li>
+  <li><!--@Create a new project by expanding the drop-down menu in the top-left
+  corner and selecting the <strong>Create...</strong> menu item. -->
+  展开左上角的下拉菜单并选择 <strong>Create...</strong> 菜单项，创建新的项目。
+  </li>
+  <li> <!--@Once created and named, go to the "Services" navigation menu item and
+  turn on any Google services your app needs. -->
+  创建并命名后，进入“Services”导航菜单项，打开你的应用需要的 Google 服务。
+  </li>
+  <li> <!--@Go to the "API Access" navigation menu item and click on the
+  <strong>Create an OAuth 2.0 client ID...</strong> blue button. -->
+  进入“API Access”导航菜单项，并单击
+  <strong>Create an OAuth 2.0 client ID...</strong> 这一蓝色按钮。
+  </li>
+  <li> <!--@Enter the requested branding information,
+  select the <strong>Installed application</strong> type. -->
+  输入请求的商标信息，选择 <strong>Installed application</strong>
+  的类型。
+  </li>
+  <li> <!--@Select <strong>Chrome Application</strong> and enter your application ID
+  (same ID displayed in the apps and extensions management page). -->
+  选择 <strong>Chrome Application</strong>
+  并输入您的应用标识符（在应用和扩展程序管理页面显示的标识符）。
+  </li>
+</ol>
+
+<p class="warning">
+<strong><!--@Warning: -->警告：</strong><!--@
+If the app ID here does not match your app ID,
+an error will occur when your app calls -->
+如果这里的应用标识符不匹配您的应用标识符，当您的应用调用
+<a href="#token">getAuthToken()</a><!--@.-->
+时会产生错误。
+</p>
+
+<h3 id="update_manifest"><!--@Update your manifest-->更新您的清单文件</h3>
+
+<p>
+<!--@You need to update your manifest to include
+the client ID and scopes.
+Here's the sample "oauth2" for the
+<a href="https://github.com/GoogleChrome/chrome-app-samples/tree/master/gdocs">gdocs sample</a>:-->
+您需要更新您的清单文件来包含客户端标识符与区域。如下是
+<a href="https://github.com/GoogleChrome/chrome-app-samples/tree/master/gdocs">gdocs</a>
+示例的 "oauth2" 例子：
+</p>
+
+<pre>
+"oauth2": {
+    "client_id": "665859454684.apps.googleusercontent.com",
+    "scopes": [
+      "https://docs.google.com/feeds/",
+      "https://docs.googleusercontent.com/",
+      "https://spreadsheets.google.com/feeds/",
+      "https://www.googleapis.com/auth/drive.file"
+    ]
+  }
+</pre>
+
+<h3 id="token"><!--@Get the token-->获取令牌</h3>
+
+<p>
+<!--@You are now ready to get the auth token:-->
+现在您已经准备好获取令牌：
+</p>
+
+<pre>
+chrome.experimental.identity.getAuthToken(function(token) { })
+</pre>
+
+<h2 id="non"><!--@Non-Google account authentication-->非 Google 帐户认证</h2>
+
+<p>
+<!--@Here are the three steps you need to complete:-->
+如下是您需要完成的三个步骤：
+</p>
+
+<ol>
+	<li><!--@Register with the provider.-->在提供商注册。</li>
+	<li><!--@Add permissions for provider resources that your app will access.-->
+    添加您的应用需要访问的提供商资源的权限。
+    </li>
+	<li><!--@Get the authentication token.-->获取认证令牌</li>
+</ol>
+
+<h3 id="register_provider"><!--@Register with the provider-->在提供商注册</h3>
+
+<p>
+<!--@You need to register an OAuth2 client ID with the provider
+and configure the client ID as a website.
+For the  redirect URI to be entered during registration,
+use the URL of the form:
+-->您需要在提供商注册一个
+OAuth2 客户端标识符，并将客户端标识符配置为一个网站。注册期间如果要输入重定向
+URI，请使用这种形式的
+URL：<code>https://<em>&lt;扩展程序标识符&gt;</em>.chromiumapp.org/<em>&lt;此处可以是任意内容&gt;</em></code>
+</p>
+
+<p>
+<!--@For example, if you app ID is abcdefghijklmnopqrstuvwxyzabcdef and
+you want provider_cb to be the path,
+to distinguish it with redirect URIs from other providers,
+you should use:
+-->例如，如果您的应用标识符为
+abcdefghijklmnopqrstuvwxyzabcdef，并且您希望路径为
+provider_cb，为了与其他提供商的重定向 URI
+区分，您应该使用：<code>https://abcdefghijklmnopqrstuvwxyzabcdef.chromiumapp.org/provider_cb</code>
+</p>
+
+<h3 id="permissions_provider"><!--@Add permissions for provider-->为提供商添加权限</h3>
+
+<p>
+<!--@To make cross-original XHRs to Google API endpoints,
+you need to whitelist those patterns in the permissions:-->
+为了向 Google API 端点发出跨来源
+XHR，您需要在权限中将这些匹配表达式加入白名单：
+</p>
+
+<pre>
+"permissions": [
+  ...
+  "https://docs.google.com/feeds/",
+  "https://docs.googleusercontent.com/",
+  "https://www.website-of-provider-with-user-photos.com/photos/"
+]
+</pre>
+
+<h3 id="token2"><!--@Get the token-->获取令牌</h3>
+
+<p>
+<!--@To get the token:-->
+要获取令牌：
+</p>
+
+<pre>
+chrome.experimental.identity.launchWebAuthFlow(
+  {'url': '<em>&lt;进行认证的 URL&lt;</em>', 'interactive': true},
+  function(redirect_url) { // 从 redirect_url 提取令牌 });
+</pre>
+
+<p>
+<!--@The &lt;url-to-do-auth> is whatever the URL is to do auth to the provider from a website.
+For example, let us say that you are performing OAuth2 flow with a provider
+and have registered your app with client id 123456789012345 and
+you want access to user’s photos on the provider’s website:-->
+&lt;进行认证的 URL&gt; 是从网站向提供商进行认证的任何
+URL。例如，假设您正在与一个提供商进行 OAuth2
+流程，以客户端标识符 123456789012345
+注册了您的应用，您希望访问提供商网站上的用户照片：<code>https://www.website-of-provider-with-user-photos.com/dialog/oauth?client_id=123456789012345&amp;<br>redirect_uri=https://abcdefghijklmnopqrstuvwxyzabcdef.chromiumapp.org/provider_cb&amp;response_type=token&amp;scope=user_photos</code>
+</p>
+
+<p>
+<!--@The provider will perform authentication and if appropriate,
+will show login and/or approval UI to the user.
+It will then redirect to-->
+提供商会执行认证，如果合适的话还会向用户显示登录和/或授权用户界面，然后将重定向至
+<code>https://abcdefghijklmnopqrstuvwxyzabcdef.chromiumapp.org/provider_cb#authToken=&lt;auth-token&gt;</code>
+</p>
+
+<p>
+<!--@Chrome will capture that and invoke the callback
+of the app with the full redirect URL.
+The app should extract the token out of the URL.-->
+Chrome 浏览器会捕获它并执行应用的回调函数，传递完整的重定向
+URL。应用应该从 URL 中提取令牌。
+</p>
+
+<h3 id="interactive"><!--@Interactive versus silent mode-->互动模式与自动模式</h3>
+
+<p>
+<!--@When calling <code>launchWebAuthFlow</code>,
+you can pass a flag (‘interactive’: true in the example above)
+indicating whether you want the API to be called
+in interactive mode or not (aka silent mode).
+If you invoke the API in interactive mode,
+the user is shown UI, if necessary,
+to get the token (signin UI and/or approval UI;
+or for that matter any provider specific UI).-->
+调用 <code>launchWebAuthFlow</code>
+时，您可以传递一个标志（在以上例子中为
+'interactive': true），表示您是否希望 API
+以交互模式调用。如果您以交互模式调用
+API，如果有必要的话，为了获取令牌将会向用户显示用户界面（登录用户界面和/或授权用户界面，或者任何提供商特定的相关用户界面）。
+</p>
+
+<p>
+<!--@If you invoke the API in silent mode,
+the API will only return a token if the provider is able
+to provide a token without showing any UI.
+This is useful in cases when an app is doing the flow at app startup, for example,
+or in general in cases where there is no user gesture involved.-->
+如果您以自动模式调用
+API，只有当提供商不显示任何用户界面就能够提供令牌时才会返回令牌。例如当应用在启动时执行这一流程或者更一般地没有涉及到用户操作的情况下，这是很有用的。
+</p>
+
+<p>
+<!--@The best practice we suggest is to use silent mode
+when there is no user gesture involved and use interactive mode
+if there is a user gesture (for example, the user clicked the Sign In button in your app).
+Note that we do not enforce gesture requirement.-->
+我们建议的最佳做法是，当没有涉及到用户操作（例如用户单击您的应用中的登录按钮）时使用自动模式。注意我们并没有对用户操作有强制要求。
+</p>
+

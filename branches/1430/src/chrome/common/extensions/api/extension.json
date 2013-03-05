@@ -1,0 +1,235 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+[
+  {
+    "namespace": "extension",
+    "compiler_options": {
+      "implemented_in": "chrome/browser/extensions/api/module/module.h"
+    },
+    "dependencies": [ "events", "tabs" ],
+    "types": [
+      {
+        "id": "MessageSender",
+        "type": "object",
+//@        "description": "An object containing information about the script context that sent a message or request.",
+        "description": "包含有关发送消息或请求的脚本上下文信息的对象。",
+        "properties": {
+//@          "tab": {"$ref": "tabs.Tab", "optional": true, "description":"This property will <b>only</b> be present when the connection was opened from a tab or content script."},
+          "tab": {"$ref": "tabs.Tab", "optional": true, "description":"<b>只有</b>当连接从标签页或内容脚本中打开时才会存在这一属性。"},
+//@          "id": {"type": "string", "description": "The extension ID of the extension that opened the connection."}
+          "id": {"type": "string", "description": "打开连接的扩展程序标识符。"}
+        }
+      }
+    ],
+    "properties": {
+      "lastError": {
+        "type": "object",
+        "optional": true,
+        "unprivileged": true,
+//@        "description": "Set for the lifetime of a callback if an ansychronous extension api has resulted in an error. If no error has occured lastError will be <var>undefined</var>.",
+        "description": "如果异步扩展程序 API 发生错误，将在回调函数的生命周期内设置该属性。如果没有错误发生，lastError 将为 <var>undefined</var>。",
+        "properties": {
+//@          "message": { "type": "string", "description": "Description of the error that has taken place." }
+          "message": { "type": "string", "description": "对发生的错误的描述。" }
+        }
+      },
+      "inIncognitoContext": {
+        "type": "boolean",
+        "optional": true,
+        "unprivileged": true,
+//@        "description": "True for content scripts running inside incognito tabs, and for extension pages running inside an incognito process. The latter only applies to extensions with 'split' incognito_behavior."
+        "description": "如果内容脚本正在隐身标签页中运行，或者扩展程序页面在隐身进程中运行，则为 true。后一种情况只适用于具有分离（\"split\"）隐身行为的扩展程序。"
+      }
+    },
+    "functions": [
+      {
+        "name": "sendRequest",
+        "nocompile": true,
+        "nodoc": true,
+        "type": "function",
+        "allowAmbiguousOptionalArguments": true,
+        "unprivileged": true,
+        "description": "Deprecated: Please use sendMessage.",
+        "parameters": [
+          {"type": "string", "name": "extensionId", "optional": true, "description": "The extension ID of the extension you want to connect to. If omitted, default is your own extension."},
+          { "type": "any", "name": "request" },
+          {
+            "type": "function",
+            "name": "responseCallback",
+            "optional": true,
+            "parameters": [
+              {
+                "name": "response",
+                "type": "any",
+                "description": "The JSON response object sent by the handler of the request. If an error occurs while connecting to the extension, the callback will be called with no arguments and $ref:runtime.lastError will be set to the error message."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "getURL",
+        "nocompile": true,
+        "type": "function",
+        "unprivileged": true,
+//@        "description": "Converts a relative path within an extension install directory to a fully-qualified URL.",
+        "description": "将扩展程序安装目录中的相对路径转换为完整的 URL。",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "path",
+//@            "description": "A path to a resource within an extension expressed relative to its install directory."
+            "description": "扩展程序内的资源，以相对于安装目录的路径表示。"
+          }
+        ],
+        "returns": {
+          "type": "string",
+//@          "description": "The fully-qualified URL to the resource."
+          "description": "指向资源的完整 URL。"
+        }
+      },
+      {
+        "name": "getViews",
+        "nocompile": true,
+        "type": "function",
+//@        "description": "Returns an array of the JavaScript 'window' objects for each of the pages running inside the current extension.",
+        "description": "返回一个数组，含有每一个在当前扩展程序中运行的页面的JavaScript window 对象。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "fetchProperties",
+            "optional": true,
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["tab", "infobar", "notification", "popup"],
+                "optional": true,
+//@                "description": "The type of view to get. If omitted, returns all views (including background pages and tabs). Valid values: 'tab', 'infobar', 'notification', 'popup'."
+                "description": "要获取的视图类型。如果省略，返回所有视图（包括后台页面和标签页）。有效值为：\"tab\"（标签页）、\"infobar\"（信息栏）、\"notification\"（通知）、\"popup\"（弹出窗口）。"
+              },
+              "windowId": {
+                "type": "integer",
+                "optional": true,
+//@                "description": "The window to restrict the search to. If omitted, returns all views."
+                "description": "将搜索限制在指定窗口中。如果省略，返回所有视图。"
+              }
+            }
+          }
+        ],
+        "returns": {
+          "type": "array",
+//@          "description": "Array of global objects",
+          "description": "全局对象的数组。",
+          "items": { "type": "object", "isInstanceOf": "global", "additionalProperties": { "type": "any" } }
+        }
+      },
+      {
+        "name": "getBackgroundPage",
+        "nocompile": true,
+        "type": "function",
+//@        "description": "Returns the JavaScript 'window' object for the background page running inside the current extension. Returns null if the extension has no background page.",
+        "description": "返回运行在当前扩展程序中的后台网页的 JavaScript window 对象。如果扩展程序没有后台网页则返回 null。",
+        "parameters": [],
+        "returns": {
+          "type": "object", "isInstanceOf": "global", "additionalProperties": { "type": "any" }
+         }
+      },
+      {
+        "name": "getExtensionTabs",
+        "nocompile": true,
+        "nodoc": true,
+        "type": "function",
+        "maximumManifestVersion": 1,
+        "description": "Deprecated. Please use getViews({type: 'TAB'}). Returns an array of the JavaScript 'window' objects for each of the tabs running inside the current extension. If windowId is specified, returns only the 'window' objects of tabs attached to the specified window.",
+        "parameters": [
+          {"type": "integer", "name": "windowId", "optional": true}
+        ],
+        "returns": {
+          "type": "array",
+          "description": "Array of global window objects",
+          "items": { "type": "object", "isInstanceOf": "global", "additionalProperties": { "type": "any" } }
+        }
+      },
+      {
+        "name": "isAllowedIncognitoAccess",
+        "type": "function",
+//@        "description": "Retrieves the state of the extension's access to Incognito-mode (as determined by the user-controlled 'Allowed in Incognito' checkbox.",
+        "description": "获取该扩展程序能否在隐身模式中使用（由用户控制的“在隐身模式下启用”复选框决定）的状态。",
+        "min_version": "12.0.706.0",
+        "parameters": [
+          {
+            "type": "function",
+            "name": "callback",
+            "parameters": [
+              {
+                "name": "isAllowedAccess",
+                "type": "boolean",
+//@                "description": "True if the extension has access to Incognito mode, false otherwise."
+                "description": "如果该扩展程序允许在隐身模式下使用则为 true，否则为 false。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "isAllowedFileSchemeAccess",
+        "type": "function",
+//@        "description": "Retrieves the state of the extension's access to the 'file://' scheme (as determined by the user-controlled 'Allow access to File URLs' checkbox.",
+        "description": "获取该扩展程序能否访问 file:// 协议（由用户控制的“允许访问文件网址”复选框决定）的状态。",
+        "min_version": "12.0.706.0",
+        "parameters": [
+          {
+            "type": "function",
+            "name": "callback",
+            "parameters": [
+              {
+                "name": "isAllowedAccess",
+                "type": "boolean",
+//@                "description": "True if the extension can access the 'file://' scheme, false otherwise."
+                "description": "如果该扩展程序可以访问 file:// 协议则为 true，否则为 false。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "setUpdateUrlData",
+        "type": "function",
+//@        "description": "Sets the value of the ap CGI parameter used in the extension's update URL.  This value is ignored for extensions that are hosted in the Chrome Extension Gallery.",
+        "description": "设置扩展程序更新 URL 中使用的 CGI 参数 ap 的值，对于托管在 Chrome 网上应用店的扩展程序将忽略这一值。",
+        "parameters": [
+          {"type": "string", "name": "data", "maxLength": 1024}
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "onRequest",
+        "nodoc": true,
+        "type": "function",
+        "anonymous": true,
+        "unprivileged": true,
+        "description": "Deprecated: please use onMessage.",
+        "parameters": [
+          {"name": "request", "type": "any", "description": "The request sent by the calling script."},
+          {"name": "sender", "$ref": "MessageSender" },
+          {"name": "sendResponse", "type": "function", "description": "Function to call (at most once) when you have a response. The argument should be any JSON-ifiable object, or undefined if there is no response. If you have more than one <code>onRequest</code> listener in the same document, then only one may send a response." }
+        ]
+      },
+      {
+        "name": "onRequestExternal",
+        "nodoc": true,
+        "type": "function",
+        "anonymous": true,
+        "description": "Deprecated: please use onMessageExternal.",
+        "parameters": [
+          {"name": "request", "type": "any", "description": "The request sent by the calling script."},
+          {"name": "sender", "$ref": "MessageSender" },
+          {"name": "sendResponse", "type": "function", "description": "Function to call when you have a response. The argument should be any JSON-ifiable object, or undefined if there is no response." }
+        ]
+      }
+    ]
+  }
+]
