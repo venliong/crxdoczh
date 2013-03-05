@@ -114,9 +114,11 @@
             "parameters": [
               {
                 "name": "window",
-                "$ref": "windows.Window",
+                "type": "object",
+                "isInstanceOf": "global",
+                "additionalProperties": { "type": "any" },
 //@                "description": "The <code>window</code> object of panel's page."
-                "description": "面板页面的 <code>Window</code> 对象。"
+                "description": "面板页面的 JavaScript <code>window</code> 对象。"
               }
             ]
           },
@@ -228,10 +230,12 @@
             "parameters": [
               {
                 "name": "window",
-                "$ref": "windows.Window",
+                "type": "object",
+                "isInstanceOf": "global",
+                "additionalProperties": { "type": "any" },
                 "optional": true,
 //@                "description": "The <code>window</code> object of the sidebar page, if one was set with the <code>setPage()</code> method."
-                "description": "侧边栏页面的 <code>Window</code> 对象，如果已经用 <code>setPage()</code> 方法设置过的话。"
+                "description": "侧边栏页面的 JavaScript <code>window</code> 对象，如果已经用 <code>setPage()</code> 方法设置过的话。"
               }
             ]
           },
