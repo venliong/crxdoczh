@@ -5,7 +5,7 @@
   </tr>
   <tr>
     <td><strong><!--@Description:-->描述：</strong></td>
-    <td><!--@Use the-->使用 <code>chrome.experimental.notification</code> <!--@module
+    <td><!--@Use the-->使用 <code>chrome.notifications</code> <!--@module
     to create rich notifications using templates and
     show these notifications to users in the system tray
     (see <a href="#usage">Usage</a>).-->
@@ -15,13 +15,11 @@
   </tr>
   <tr>
     <td><strong><!--@Availability:-->可用版本：</strong></td>
-    <td><!--@Experimental API. You must enable the
-    -->实验性
-    API。您必须启用<a href="experimental.html#using"><!--@"Experimental Extensions API"-->“实验性扩展程序 API”</a><!--@.-->。</td>
+    <td>仅用于 Dev 分支的 Google Chrome 浏览器</td>
   </tr>
   <tr>
     <td><strong><!--@Permissions:-->权限：</strong></td>
-    <td><code>"experimental"</code></td>
+    <td><code>"notifications"</code></td>
   </tr>
   <tr>
     <td><strong><!--@Learn more:-->了解更多：</strong></td>
@@ -31,21 +29,19 @@
 
 <p class="warning">
 <b><!--@Warning: -->警告：</b><!--@
-Currently this API only works on ChromeOS and Windows.
-Linux and Mac should fail gracefully by displaying normal HTML5 notifications;
-however, some information may not be displayed.-->目前该 API 只能在 ChromeOS
-和 Windows 上正常工作，Linux 和 Mac 会显示普通的 HTML5 通知，但是某些信息可能不会显示。
+Currently this API only works on ChromeOS and Windows.-->目前该 API 只能在
+ChromeOS 和 Windows 上正常工作。
 </p>
 
 <h2 id="usage"><!--@Usage-->用法</h2>
 
 <p>
 <!--@To use this API,
-call the -->
-要使用该 API，请调用
-<a href="#method-create">create()</a><!--@ method,
+call the $ref:experimental.notification.create method,
 passing in the notification details
 via the <code>options</code> parameter:-->
+要使用该 API，请调用
+$ref:experimental.notification.create
 方法，并通过 <code>options</code> 参数传递通知详情：
 </p>
 
@@ -55,13 +51,16 @@ chrome.experimental.notification
 </pre>
 
 <p>
-<a href="#type-NotificationOptions">NotificationOptions</a> <!--@must include the-->必须包含
-<a href="#type-TemplateType">TemplateType</a><!--@
+<!--@The $ref:experimental.notification.NotificationOptions must include the
+$ref:experimental.notification.TemplateType
 which defines available notification details
 and how those details are displayed.
 All four available template types
 (<code>simple</code>, <code>basic</code>, <code>image</code>, <code>list</code>)
-include the notification <code>title</code> and <code>message</code>.-->，它定义了可用的通知详情以及这些详情是如何显示的。这四种可用的模板类型（<code>simple</code>、<code>basic</code>、<code>image</code>、<code>list</code>）都包含通知的
+include the notification <code>title</code> and <code>message</code>.-->
+$ref:experimental.notification.NotificationOptions
+必须包含
+$ref:experimental.notification.TemplateType，它定义了可用的通知详情以及这些详情是如何显示的。这四种可用的模板类型（<code>simple</code>、<code>basic</code>、<code>image</code>、<code>list</code>）都包含通知的
 <code>title</code>（标题）和 <code>message</code>（消息）。
 </p>
 
@@ -74,12 +73,13 @@ The <code>image</code> template displays icons and images
 more prominently than the text
 (use <code>iconURL</code> or <code>imageURL</code>).
 Due to a strict <a href="app_csp.html">Content Security Policy</a>,
-all icon and image URLs in packaged apps should point to a local resource.-->
+all of these URLs in packaged apps should point to a local resource
+or use a <a href="http://developer.chrome.com/apps/app_external.html">data URL</a>.-->
 它们还可以包含指向图标或图片的 URL。<code>simple</code>（简单）、<code>basic</code>（基本）和
 <code>list</code>（列表）模板中的小图标链接（<code>secondIconUrl</code>）会显示在通知消息的左侧，<code>image</code>（图片）模板显示的图标和图片比文字更明显（使用
 <code>iconUrl</code> 或 <code>imageUrl</code>）。由于严格的<a
-href="app_csp.html">内容安全策略</a>，打包应用中的所有图标和图片 URL
-都应该指向本地资源。
+href="app_csp.html">内容安全策略</a>，打包应用中的所有 URL
+都应该指向本地资源或使用<a href="app_external.html">数据 URL</a>。
 </p>
 
 <p>
@@ -133,9 +133,9 @@ all notifications can include event listeners and event handlers
 which respond to user actions.
 For example,
 you can write an event handler to respond to an
-<a href="#event-onButtonClicked">onButtonClicked</a> event.-->
+$ref:experimental.notification.onButtonClicked event.-->
 除了 <code>simple</code>（简单）模板，所有通知都可以包含事件监听器和事件处理函数，响应用户的操作。例如，您可以编写一个简单的事件处理函数，响应
-<a href="#event-onButtonClicked">onButtonClicked</a> 事件。
+$ref:experimental.notification.onButtonClicked 事件。
 </p>
 
 <p><!--@Consider including event listeners and handlers within the
