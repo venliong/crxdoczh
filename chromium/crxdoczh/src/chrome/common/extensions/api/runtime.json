@@ -279,8 +279,8 @@
       {
         "name": "onStartup",
         "type": "function",
-//@        "description": "Fired when the browser first starts up."
-        "description": "当浏览器刚启动时产生。"
+//@        "description": "Fired when a profile that has this extension installed first starts up. This event is not fired when an incognito profile is started, even if this extension is operating in 'split' incognito mode."
+        "description": "当安装了该扩展程序的配置文件第一次启动时产生。即使扩展程序以“分离式”隐身模式运行，启动隐身配置文件时也不会产生该事件。"
       },
       {
         "name": "onInstalled",
