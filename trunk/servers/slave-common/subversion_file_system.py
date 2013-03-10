@@ -6,9 +6,12 @@ import re
 import xml.dom.minidom as xml
 from xml.parsers.expat import ExpatError
 from google.appengine.ext import db
+import logging
 
 import file_system
 from future import Future
+from url_constants import SVN_URL
+from appengine_url_fetcher import AppEngineUrlFetcher
 
 def _ListGoogleCodeSvnDir(directory):
   # HACK Filter '<hr noshade>' in Google Code's SVN server to become
@@ -23,6 +26,83 @@ def _ListGoogleCodeSvnDir(directory):
       if not (href.startswith('http://') or href.startswith('https://')):
         files.append(name)
   return files
+
+class StatModel(db.Model):
+  path = db.StringProperty(required=True)
+  revision = db.StringProperty(required=True)
+  child_revisions = db.StringListProperty(required=True)
+
+class LastRevisionModel(db.Model):
+  revision = db.StringProperty(required=True)
+
+class StatUpdater:
+  @staticmethod
+  def _GetLastRevision():
+    revision = LastRevisionModel.get(db.Key.from_path('LastRevisionModel', 'LAST_CHANGE'))
+    if revision is None:
+      revision = LastRevisionModel(key_name = 'LAST_CHANGE', revision = '0')
+      revision.put()
+    return revision.revision
+
+  @staticmethod
+  def _SetLastRevision(revision):
+    LastRevisionModel(key_name = 'LAST_CHANGE', revision = revision).put()
+
+  @staticmethod
+  def _ParseGoogleCodeSvnChanges(feed):
+    last_revision = StatUpdater._GetLastRevision()
+    result = []
+    dom = xml.parseString(feed)
+    new_revision = last_revision
+    for entry in dom.getElementsByTagName('entry'):
+      revision = entry.getElementsByTagName('id')[0].childNodes[0].data.rsplit('/', 1)[1]
+      if int(revision) <= int(last_revision):
+        break
+      new_revision = str(max(int(revision), int(new_revision)))
+      content = entry.getElementsByTagName('content')[0].childNodes[0].data
+      changes = re.findall(r'<br/>(?:\s|\xa0|&#160;|&nbsp;)+([A-Za-z]+)(?:\s|\xa0|&#160;|&nbsp;)+(\S+)', content)
+      for change in changes:
+        result.append((change[0], change[1], revision))
+    return (result, new_revision)
+
+  @staticmethod
+  def Update():
+    CRXDOCZH_SVN_CHANGES_FEED = 'https://code.google.com/feeds/p/crxdoczh/svnchanges/basic'
+    fetcher = AppEngineUrlFetcher(None)
+    result = fetcher.Fetch(CRXDOCZH_SVN_CHANGES_FEED)
+    if result.status_code == 200:
+      changes = []
+      new_revision = 0
+      try:
+        (changes, new_revision) = StatUpdater._ParseGoogleCodeSvnChanges(result.content)
+      except Exception as e:
+        logging.error('Error parsing changes from Google Code SVN changes feed: %s' % str(e))
+      for change in changes:
+        how = change[0]
+        (base_path, name) = change[1].rsplit('/', 1)
+        revision = change[2]
+        logging.info('Change: %s %s %s %s' % (how, base_path, name, revision))
+        model = StatModel.get(db.Key.from_path('StatModel', base_path))
+        if model is not None:
+          model.revision = str(max(int(model.revision), int(revision)))
+          # NOTE: Directories are not considered.
+          if how == 'Add':
+            model.child_revisions.append(name + ':' + revision)
+          elif how == 'Delete' or how == 'Modify':
+            to_remove = None
+            for c in model.child_revisions:
+              if c.split(':')[0] == name:
+                to_remove = c
+                break
+            if to_remove is not None:
+              model.child_revisions.remove(to_remove)
+          else:
+            logging.error('Unknown svn change method: %s' % how)
+          if how == 'Modify':
+            model.child_revisions.append(name + ':' + revision)
+          model.put()
+      if len(changes) > 0:
+        StatUpdater._SetLastRevision(new_revision)
 
 class _AsyncFetchFuture(object):
   def __init__(self, paths, fetcher, binary):
@@ -55,11 +135,6 @@ class _AsyncFetchFuture(object):
     if self._error is not None:
       raise self._error
     return self._value
-
-class StatModel(db.Model):
-  path = db.StringProperty(required=True)
-  revision = db.StringProperty(required=True)
-  child_revisions = db.StringListProperty(required=True)
 
 class SubversionFileSystem(file_system.FileSystem):
   """Class to fetch resources from src.chromium.org.
@@ -121,6 +196,9 @@ class SubversionFileSystem(file_system.FileSystem):
     stat_model.put()
     return self._StatFromModel(stat_model)
 
+  def _UpdateStatInfo(self, updates):
+    pass
+
   def _StatFromModel(self, model):
     child_revisions = {}
     for cur in model.child_revisions:
@@ -130,13 +208,15 @@ class SubversionFileSystem(file_system.FileSystem):
     
   def Stat(self, path):
     directory = path.rsplit('/', 1)[0]
-    result = StatModel.get(db.Key.from_path('ResponseModel', directory))
+    full_path = (self._stat_fetcher._base_path.replace(SVN_URL, '') + '/' +
+        directory)
+    result = StatModel.get(db.Key.from_path('StatModel', full_path))
     stat_info = None
-    if result == None:
+    if result is None:
       result = self._stat_fetcher.Fetch(directory + '/')
       if result.status_code == 404:
         raise file_system.FileNotFoundError(path)
-      stat_info = self._InitStatInfo(directory, result.content)
+      stat_info = self._InitStatInfo(full_path, result.content)
     else:
       stat_info = self._StatFromModel(result)
     #result = self._stat_fetcher.Fetch(directory + '/')
@@ -148,4 +228,5 @@ class SubversionFileSystem(file_system.FileSystem):
       if filename not in stat_info.child_versions:
         raise file_system.FileNotFoundError(path)
       stat_info.version = stat_info.child_versions[filename]
+    logging.info('Stat: %s of %s' % (path, stat_info.version))
     return stat_info

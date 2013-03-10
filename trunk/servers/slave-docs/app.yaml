@@ -1,5 +1,5 @@
 application: <REPLACE_WITH_YOUR_DOCS_APP_ID>
-version: 2-0-17-1
+version: 2-0-17
 runtime: python27
 api_version: 1
 threadsafe: false
