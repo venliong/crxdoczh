@@ -159,9 +159,15 @@ class SamplesDataSource(object):
           icon_base = url_constants.RAW_GITHUB_BASE + '/' + sample_base_path
           download_url = url
         else:
-          url = sample_base_path
-          icon_base = sample_base_path
-          download_url = sample_base_path + '.zip'
+          official_baseurl = ('https://developer.chrome.com/' +
+            self._channel + '/')
+          if is_apps:
+            official_baseurl = official_baseurl + 'apps/'
+          else:
+            official_baseurl = official_baseurl + 'extensions/'
+          url = official_baseurl + sample_base_path
+          icon_base = official_baseurl + sample_base_path
+          download_url = official_baseurl + sample_base_path + '.zip'
 
         if manifest_data['icon'] is None:
           icon_path = DEFAULT_ICON_PATH
@@ -187,6 +193,9 @@ class SamplesDataSource(object):
     self._request = request
 
   def _GetAcceptedLanguages(self):
+    return ['zh_CN']
+
+  def _OriginalGetAcceptedLanguages(self):
     accept_language = self._request.headers.get('Accept-Language', None)
     if accept_language is None:
       return []

@@ -5,6 +5,7 @@
 import re
 import xml.dom.minidom as xml
 from xml.parsers.expat import ExpatError
+from google.appengine.ext import db
 
 import file_system
 from future import Future
@@ -45,6 +46,11 @@ class _AsyncFetchFuture(object):
     if self._error is not None:
       raise self._error
     return self._value
+
+class StatModel(db.Model):
+  path = db.StringProperty(required=True)
+  revision = db.IntegerProperty(required=True)
+  child_revision = db.StringListProperty(required=True)
 
 class SubversionFileSystem(file_system.FileSystem):
   """Class to fetch resources from src.chromium.org.
