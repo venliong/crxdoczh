@@ -111,6 +111,10 @@ namespace app.window {
     // 使窗口拥有焦点。
     static void focus();
 
+    // <!--@Is the window fullscreen?-->
+    // 窗口是否处于全屏状态。
+    static boolean isFullscreen();
+
     // <!--@Minimize the window.-->
     // 最小化窗口。
     static void minimize();
@@ -236,8 +240,13 @@ namespace app.window {
     // 当窗口关闭时产生。
     [nocompile] static void onClosed();
 
+    // <!--@Fired when the window is fullscreened.-->
+    // 窗口全屏时产生。
+    [nocompile] static void onFullscreened();
+
     // <!--@Fired when the window is maximized.-->
     // 当窗口最大化时产生。
+    // Fired when the window is maximized.
     [nocompile] static void onMaximized();
 
     // <!--@Fired when the window is minimized.-->
