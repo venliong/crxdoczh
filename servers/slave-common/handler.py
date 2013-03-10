@@ -247,6 +247,11 @@ class Handler(webapp.RequestHandler):
 
     self._CacheSamplesJSON('trunk', 'apps', update=True)
 
+  def _HandleFeedUpdate(self):
+    from subversion_file_system import StatUpdater
+    StatUpdater.Update()
+    self.response.status = 200
+
   def _CacheSamplesJSON(self, channel, key, update=False):
     count = 0
     while count < 10:
@@ -415,5 +420,7 @@ class Handler(webapp.RequestHandler):
     path = self.request.path
     if path.startswith('/_ah/start'):
       self._HandleBackends()
+    elif path == '/_/update':
+      self._HandleFeedUpdate()
     else:
       self._HandleGet(path.strip('/'))

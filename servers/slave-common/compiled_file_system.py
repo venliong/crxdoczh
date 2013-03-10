@@ -87,9 +87,6 @@ class CompiledFileSystem(object):
     apply for the first time the file is fetched; if already cached, |binary|
     will be ignored.
     """
-    # HACK
-    version = 0
-    #if os.environ.get('CRXDOCZH_SLAVE_TYPE') != 'docs':
     version = self._file_system.Stat(path).version
     cache_entry = self._object_store.Get(self._MakeKey(path),
                                          object_store.FILE_SYSTEM_CACHE,
@@ -111,9 +108,6 @@ class CompiledFileSystem(object):
     """
     if not path.endswith('/'):
       path += '/'
-    # HACK
-    #version = 0
-    #if os.environ.get('CRXDOCZH_SLAVE_TYPE') != 'docs':
     version = self._file_system.Stat(path).version
     cache_entry = self._object_store.Get(
         self._MakeKey(path),
