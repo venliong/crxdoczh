@@ -29,7 +29,6 @@ deploy_slave () (
   sed -f $KEYS_SED $SRC/app.yaml > $DST/app.yaml
 
   $DST/build_server.py
-  bash
   $APPENGINE_APPCFG update $DST
   if [ "$1" == samples ]; then
     $APPENGINE_APPCFG backends update $DST

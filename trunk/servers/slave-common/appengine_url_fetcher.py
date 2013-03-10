@@ -38,7 +38,7 @@ class AppEngineUrlFetcher(object):
       return urlfetch.fetch('%s/%s' % (self._base_path, url), headers=headers, validate_certificate=False)
     else:
       logging.info(url)
-      return urlfetch.fetch(url, headers={ 'Cache-Control': 'max-age=0' }, validate_certificate=False)
+      return urlfetch.fetch(url, headers={ 'Cache-Control': 'max-age=0' })
 
   def FetchAsync(self, url, username=None, password=None):
     """Fetches a file asynchronously, and returns a Future with the result.
@@ -50,7 +50,7 @@ class AppEngineUrlFetcher(object):
       logging.info('%s/%s' % (self._base_path, url))
       urlfetch.make_fetch_call(rpc,
                                '%s/%s' % (self._base_path, url),
-                               headers=headers, validate_certificate=False)
+                               headers=headers)
     else:
       logging.info(url)
       urlfetch.make_fetch_call(rpc, url, headers=headers, validate_certificate=False)

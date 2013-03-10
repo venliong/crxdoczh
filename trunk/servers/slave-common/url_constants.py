@@ -36,3 +36,4 @@ if os.environ.get('CRXDOCZH_SLAVE_TYPE') == 'docs':
   SVN_URL = 'https://crxdoczh.googlecode.com/svn'
   SVN_TRUNK_URL = 'https://crxdoczh.googlecode.com/svn/trunk/chromium/crxdoczh'
   SVN_BRANCH_URL = 'https://crxdoczh.googlecode.com/svn/branches'
+  VIEWVC_URL = SVN_URL

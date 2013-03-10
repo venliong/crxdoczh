@@ -10,6 +10,20 @@ from google.appengine.ext import db
 import file_system
 from future import Future
 
+def _ListGoogleCodeSvnDir(directory):
+  # HACK Filter '<hr noshade>' in Google Code's SVN server to become
+  # valid XML
+  dom = xml.parseString(directory.replace('<hr noshade>', ''))
+  files = []
+  # HACK Filter Google Code links at the bottom
+  for elem in dom.getElementsByTagName('a'):
+    name = elem.childNodes[0].data
+    href = elem.getAttribute('href')
+    if '..' != name:
+      if not (href.startswith('http://') or href.startswith('https://')):
+        files.append(name)
+  return files
+
 class _AsyncFetchFuture(object):
   def __init__(self, paths, fetcher, binary):
     # A list of tuples of the form (path, Future).
@@ -19,17 +33,12 @@ class _AsyncFetchFuture(object):
     self._binary = binary
 
   def _ListDir(self, directory):
-    # HACK Filter '<hr noshade>' in Google Code's SVN server to become
-    # valid XML
-    dom = xml.parseString(directory.replace('<hr noshade>', ''))
-    files = []
-    # HACK Filter Google Code links at the bottom
-    for elem in dom.getElementsByTagName('a'):
-      name = elem.childNodes[0].data
-      href = elem.getAttribute('href')
-      if '..' != name:
-        if not (href.startswith('http://') or href.startswith('https://')):
-          files.append(name)
+    # CRXDOCZH
+    return _ListGoogleCodeSvnDir(directory)
+    dom = xml.parseString(directory)
+    files = [elem.childNodes[0].data for elem in dom.getElementsByTagName('a')]
+    if '..' in files:
+      files.remove('..')
     return files
 
   def Get(self):
@@ -49,8 +58,8 @@ class _AsyncFetchFuture(object):
 
 class StatModel(db.Model):
   path = db.StringProperty(required=True)
-  revision = db.IntegerProperty(required=True)
-  child_revision = db.StringListProperty(required=True)
+  revision = db.StringProperty(required=True)
+  child_revisions = db.StringListProperty(required=True)
 
 class SubversionFileSystem(file_system.FileSystem):
   """Class to fetch resources from src.chromium.org.
@@ -103,12 +112,37 @@ class SubversionFileSystem(file_system.FileSystem):
           child_revisions[name + '/'] = rev.firstChild.nodeValue
     return file_system.StatInfo(dir_revision, child_revisions)
 
+  def _InitStatInfo(self, directory, svn_listing):
+    files = _ListGoogleCodeSvnDir(svn_listing)
+    child_revisions = []
+    for cur in files:
+      child_revisions.append(cur + ':0')
+    stat_model = StatModel(key_name = directory, path = directory, revision = '0', child_revisions = child_revisions)
+    stat_model.put()
+    return self._StatFromModel(stat_model)
+
+  def _StatFromModel(self, model):
+    child_revisions = {}
+    for cur in model.child_revisions:
+      value = cur.split(':')
+      child_revisions[value[0]] = value[1]
+    return file_system.StatInfo(model.revision, child_revisions)
+    
   def Stat(self, path):
     directory = path.rsplit('/', 1)[0]
-    result = self._stat_fetcher.Fetch(directory + '/')
-    if result.status_code == 404:
-      raise file_system.FileNotFoundError(path)
-    stat_info = self._CreateStatInfo(result.content)
+    result = StatModel.get(db.Key.from_path('ResponseModel', directory))
+    stat_info = None
+    if result == None:
+      result = self._stat_fetcher.Fetch(directory + '/')
+      if result.status_code == 404:
+        raise file_system.FileNotFoundError(path)
+      stat_info = self._InitStatInfo(directory, result.content)
+    else:
+      stat_info = self._StatFromModel(result)
+    #result = self._stat_fetcher.Fetch(directory + '/')
+    #if result.status_code == 404:
+    #  raise file_system.FileNotFoundError(path)
+    #stat_info = self._CreateStatInfo(result.content)
     if not path.endswith('/'):
       filename = path.rsplit('/', 1)[-1]
       if filename not in stat_info.child_versions:
