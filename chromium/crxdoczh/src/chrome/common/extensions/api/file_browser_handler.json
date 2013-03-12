@@ -49,26 +49,6 @@
             "description": "文件处理程序执行事件的详情。"
           }
         ]
-      },
-      {
-        "name": "onExecuteContentHandler",
-        "type": "function",
-//@        "description": "Fired when a resource is fetched which matches a mime type handled by this extension. The resource request is cancelled, and the extension is expected to handle the request. The event is restricted to a small number of white-listed fileBrowserHandlers.",
-        "description": "当获取的资源与该扩展程序处理的 MIME 类型匹配时产生。资源请求将取消，扩展程序将处理该请求。该事件仅限于一小部分加入白名单的文件浏览器处理器使用。",
-        "parameters": [
-          {
-            "name": "mime_type",
-            "type": "string",
-//@            "description": "The MIME type of the intercepted URL request."
-            "description": "截获的 URL 请求的 MIME 类型。"
-          },
-          {
-            "name": "content_url",
-            "type": "string",
-//@            "description": "The intercepted URL request. The handler should fetch and handle data referenced by the URL."
-            "description": "截获的 URL 请求。处理程序应该获取并处理该 URL 引用的数据。"
-          }
-        ]
       }
     ],
 
