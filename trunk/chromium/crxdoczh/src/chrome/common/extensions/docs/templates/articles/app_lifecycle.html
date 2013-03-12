@@ -105,18 +105,14 @@ to the event page and are directly scriptable by the event page.-->
 </p>
 
 <p>
-<!--@Windows can either be shells or panels.
-Shell windows have no browser chrome.
-Panel windows are the same as shell windows,
-except they have different size and position restrictions,
-for example, a chat panel.-->
-窗口可以为外壳或面板。外壳窗口没有浏览器界面，面板窗口与外壳窗口类似，区别在于它们的大小与位置限制，例如聊天面板。
+<!--@Windows have an optional frame with title bar and size controls. They are
+not associated with any Chrome browser windows.-->
+窗口可以具有可选的框架，包含标题栏和大小控件，它们不和任何 Chrome
+浏览器窗口关联。
 </p>
 
-<p><!--@Here's a sample <code>background.js</code>
-  with a 'shell' window:-->
-  如下是创建外壳（'shell'）窗口的示例
-  <code>backrgound.js</code>：
+<p><!--@Here's a sample window created from <code>background.js</code>:-->
+如下是在 <code>backrgound.js</code> 中创建窗口的示例：
 </p>
 
 <pre>
@@ -127,24 +123,7 @@ chrome.app.runtime.onLaunched.addListener(function() {
     minWidth: 800,
     minHeight: 600,
     left: 100,
-    top: 100,
-    type: 'shell'
-  });
-});
-</pre>
-
-<p><!--@Here's a sample <code>background.js</code>
-  with a 'panel' window:-->
-  如下是创建面板（'panel'）窗口的示例
-  <code>backrgound.js</code>：
-</p>
-
-<pre>
-chrome.app.runtime.onLaunched.addListener(function() {
-  chrome.app.window.create('index.html', {
-    width: 400,
-    height: 200,
-    type: 'panel'
+    top: 100
   });
 });
 </pre>
