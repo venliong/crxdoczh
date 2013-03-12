@@ -1,0 +1,120 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+[
+  {
+    "namespace": "proxy",
+    "dependencies": [ "types" ],
+    "types": [
+      {
+        "id": "ProxyServer",
+        "type": "object",
+//@        "description": "An object encapsulating a single proxy server's specification.",
+        "description": "包含单个代理服务器信息的对象。",
+        "properties": {
+//@          "scheme": {"type": "string", "optional": true, "enum": ["http", "https", "socks4", "socks5"], "description": "The scheme (protocol) of the proxy server itself. Defaults to 'http'."},
+          "scheme": {"type": "string", "optional": true, "enum": ["http", "https", "socks4", "socks5"], "description": "代理服务器自己的协议，默认为 \"http\"。"},
+//@          "host": {"type": "string", "description": "The URI of the proxy server. This must be an ASCII hostname (in Punycode format). IDNA is not supported, yet."},
+          "host": {"type": "string", "description": "代理服务器的 URL，必须为 ASCII 主机名（以 <a href=\"https://en.wikipedia.org/wiki/Punycode\">Punycode</a> 的格式），暂时还不支持 IDNA。"},
+//@          "port": {"type": "integer", "optional": true, "description": "The port of the proxy server. Defaults to a port that depends on the scheme."}
+          "port": {"type": "integer", "optional": true, "description": "代理服务器的端口，默认值与协议相关。"}
+        }
+      },
+      {
+        "id": "ProxyRules",
+        "type": "object",
+//@        "description": "An object encapsulating the set of proxy rules for all protocols. Use either 'singleProxy' or (a subset of) 'proxyForHttp', 'proxyForHttps', 'proxyForFtp' and 'fallbackProxy'.",
+        "description": "包含用于所有协议的代理规则的对象。仅使用 \"singleProxy\" 属性或者使用以下属性（及其子集）：\"proxyForHttp\"、\"proxyForHttps\"、\"proxyForFtp\" 和 \"fallbackProxy\"。",
+        "properties": {
+//@          "singleProxy": {"$ref": "ProxyServer", "optional": true, "description": "The proxy server to be used for all per-URL requests (that is http, https, and ftp)."},
+          "singleProxy": {"$ref": "ProxyServer", "optional": true, "description": "用于所有 URL 请求（即 HTTP、HTTPS 和 FTP）的代理服务器。"},
+//@          "proxyForHttp": {"$ref": "ProxyServer", "optional": true, "description": "The proxy server to be used for HTTP requests."},
+          "proxyForHttp": {"$ref": "ProxyServer", "optional": true, "description": "用于 HTTP 请求的代理服务器。"},
+//@          "proxyForHttps": {"$ref": "ProxyServer", "optional": true, "description": "The proxy server to be used for HTTPS requests."},
+          "proxyForHttps": {"$ref": "ProxyServer", "optional": true, "description": "用于 HTTPS 请求的代理服务器。"},
+//@          "proxyForFtp": {"$ref": "ProxyServer", "optional": true, "description": "The proxy server to be used for FTP requests."},
+          "proxyForFtp": {"$ref": "ProxyServer", "optional": true, "description": "用于 FTP 请求的代理服务器。"},
+//@          "fallbackProxy": {"$ref": "ProxyServer", "optional": true, "description": "The proxy server to be used for everthing else or if any of the specific proxyFor... is not specified."},
+          "fallbackProxy": {"$ref": "ProxyServer", "optional": true, "description": "用于其他协议或者未指定 proxyFor... 的协议的代理服务器。"},
+//@          "bypassList": {"type": "array", "items": {"type": "string"}, "optional": true, "description": "List of servers to connect to without a proxy server."}
+          "bypassList": {"type": "array", "items": {"type": "string"}, "optional": true, "description": "不通过代理服务器连接的服务器列表。"}
+        }
+      },
+      {
+        "id": "PacScript",
+        "type": "object",
+//@        "description": "An object holding proxy auto-config information. Exactly one of the fields should be non-empty.",
+        "description": "包含代理自动配置信息的对象。以下前两个属性中有且只有一个非空。",
+        "properties": {
+//@          "url": {"type": "string", "optional": true, "description": "URL of the PAC file to be used."},
+          "url": {"type": "string", "optional": true, "description": "要使用的 PAC 文件 URL。"},
+//@          "data": {"type": "string", "optional": true, "description": "A PAC script."},
+          "data": {"type": "string", "optional": true, "description": "PAC 脚本内容。"},
+//@          "mandatory": {"type": "boolean", "optional": true, "description": "If true, an invalid PAC script will prevent the network stack from falling back to direct connections. Defaults to false."}
+          "mandatory": {"type": "boolean", "optional": true, "description": "如果为 true，无效的 PAC 脚本将不会使网络栈回退到直接连接方式。默认为 false。"}
+        }
+      },
+      {
+        "id": "ProxyConfig",
+        "type": "object",
+//@        "description": "An object encapsulating a complete proxy configuration.",
+        "description": "包含完整代理配置的对象。",
+        "properties": {
+//@          "rules": {"$ref": "ProxyRules", "optional": true, "description": "The proxy rules describing this configuration. Use this for 'fixed_servers' mode."},
+          "rules": {"$ref": "ProxyRules", "optional": true, "description": "描述该配置的代理规则。请在 \"fixed_servers\" 模式下使用该属性。"},
+//@          "pacScript": {"$ref": "PacScript", "optional": true, "description": "The proxy auto-config (PAC) script for this configuration. Use this for 'pac_script' mode."},
+          "pacScript": {"$ref": "PacScript", "optional": true, "description": "该配置下的代理服务器自动配置（PAC）脚本。请在 \"pac_script\" 模式下使用该属性。"},
+          "mode": {
+            "type": "string",
+            "enum": ["direct", "auto_detect", "pac_script", "fixed_servers", "system"],
+//@            "description": "'direct' = Never use a proxy<br>'auto_detect' = Auto detect proxy settings<br>'pac_script' = Use specified PAC script<br>'fixed_servers' = Manually specify proxy servers<br>'system' = Use system proxy settings"
+            "description": "\"direct\" = 永远不使用代理服务器<br>\"auto_detect\" = 自动检测代理服务器设置<br>\"pac_script\" = 使用指定的 PAC 脚本<br>\"fixed_servers\" = 手动指定代理服务器<br>\"system\" = 使用系统的代理服务器设置"
+          }
+        }
+      }
+    ],
+    "properties": {
+      "settings": {
+        "$ref": "types.ChromeSetting",
+//@        "description": "Proxy settings to be used. The value of this setting is a ProxyConfig object.",
+        "description": "使用的代理服务器设置，这一设置的值是一个 ProxyConfig 对象。",
+        "value": [
+          "proxy",
+          {"$ref": "ProxyConfig"}
+        ]
+      }
+    },
+    "events": [
+      {
+        "name": "onProxyError",
+        "type": "function",
+//@        "description": "Notifies about proxy errors.",
+        "description": "通知代理服务器错误。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "details",
+            "properties": {
+              "fatal": {
+                "type": "boolean",
+//@                "description": "If true, the error was fatal and the network transaction was aborted. Otherwise, a direct connection is used instead."
+                "description": "如果为 true，该错误是致命的，网络连接将终止。否则，将改用直接连接。"
+              },
+              "error": {
+                "type": "string",
+//@                "description": "The error description."
+                "description": "错误描述。"
+              },
+              "details": {
+                "type": "string",
+//@                "description": "Additional details about the error such as a JavaScript runtime error."
+                "description": "有关错误的其他详情，例如 JavaScript 运行时错误。"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

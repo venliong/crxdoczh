@@ -1,0 +1,44 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// File-level comment to appease parser. Eventually this will not be necessary.
+namespace experimental.systemInfo.cpu {
+
+  dictionary CpuInfo {
+    // <!--@The number of logical processors.-->
+    // 逻辑处理器数目。
+    long numOfProcessors;
+    // <!--@The architecture name of the processors.-->
+    // 处理器的架构名称。
+    DOMString archName;
+    // <!--@The model name of the processors.-->
+    // 处理器的模型名称。
+    DOMString modelName;
+  };
+
+  dictionary CpuUpdateInfo {
+    // <!--@The average usage percent of all processors, as a number 
+    // between 0 and 100.-->
+    // 所有处理器的平均占用率，表示为 0 和 100 之间的数。
+    double averageUsage;
+    // <!--@The CPU usage array for each logic processor.-->
+    // 包含每一个逻辑处理器 CPU 占用率的数组。
+    double[] usagePerProcessor;
+  };
+
+  callback CpuInfoCallback = void (CpuInfo info);
+  
+  interface Functions {
+    // <!--@Get CPU information.-->
+    // 获取 CPU 信息。
+    static void get(CpuInfoCallback callback);
+  };
+
+  interface Events {
+    // <!--@Fired periodically to report CPU history usage information. The default
+    // period interval is 1 seconds.-->
+    // 周期性产生，报告 CPU 历史占用率信息，默认的周期间隔为 1 秒。
+    static void onUpdated(CpuUpdateInfo info);
+  };
+};
