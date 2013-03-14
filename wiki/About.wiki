@@ -16,5 +16,9 @@
   * 由 [https://plus.google.com/112135441441434668109 Sunny Jerry] 翻译的 [https://chrome-apps-docs-chs.appspot.com/extensions/index.html Google Chrome 简体中文扩展和应用文档]
 
 
+= 镜像网站 =
+  * https://crxdoczh2.appspot.com/ （与主站相同，在主站配额用完时可以尝试访问这一网站。）
+  * http://www.lmk123.com/Doc/ （仅包含 Dev 分支的文档）
+
 TODO.
 
