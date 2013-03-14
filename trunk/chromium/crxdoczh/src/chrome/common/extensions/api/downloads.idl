@@ -53,7 +53,7 @@ namespace downloads {
     // 使用选择文件对话框，允许用户选择文件名。
     boolean? saveAs;
 
-    // @!--@The HTTP method to use if the URL uses the HTTP[S] protocol.-->
+    // <!--@The HTTP method to use if the URL uses the HTTP[S] protocol.-->
     // 如果 URL 使用 HTTP[S] 协议，则为使用的 HTTP 方法。
     HttpMethod? method;
 

@@ -58,6 +58,10 @@ namespace syncFileSystem {
     local_to_remote, remote_to_local
   };
 
+  enum ConflictResolutionPolicy {
+    last_write_win, manual
+  };
+
   dictionary FileInfo {
     // <!--@<code>fileEntry</code> for the target file whose status has changed.
     // Contains name and path information of synchronized file.
@@ -68,15 +72,15 @@ namespace syncFileSystem {
     // <code>fileEntry</code>（文件项），包含已同步文件的名称和路径信息。当文件删除时，<code>fileEntry</code>
     // 信息仍然可用，但文件不再存在。
     [instanceOf=FileEntry] object fileEntry;
-    
+
     // <!--@Resulting file status after $ref:onFileStatusChanged event.
-    // The status value can be <code>'synced'</code>, 
+    // The status value can be <code>'synced'</code>,
     // <code>'pending'</code> or <code>'conflicting'</code>.-->
     // $ref:onFileStatusChanged 事件发生后的文件状态，状态值可以为
     // <code>'synced'</code>（已同步）、<code>'pending'</code>（待定）或
     // <code>'conflicting'</code>（冲突）。
     FileStatus status;
-    
+
     // <!--@Sync action taken to fire $ref:onFileStatusChanged event.
     // The action value can be
     // <code>'added'</code>, <code>'updated'</code> or <code>'deleted'</code>.
@@ -86,7 +90,7 @@ namespace syncFileSystem {
     // <code>'deleted'</code>（删除）。只有当状态为
     // <code>'synced'</code>（已同步）时才适用。
     SyncAction? action;
-    
+
     // <!--@Sync direction for the $ref:onFileStatusChanged event.
     // Sync direction value can be
     // <code>'local_to_remote'</code> or <code>'remote_to_local'</code>.
@@ -125,18 +129,48 @@ namespace syncFileSystem {
   // 用于 getFileStatus 的回调函数。
   callback GetFileStatusCallback = void (FileStatus status);
 
+  // <!--@A callback type for getConflictResolutionPolicy.-->
+  // 用于 getConflictResolutionPolicy 的回调函数。
+  callback GetConflictResolutionPolicyCallback =
+      void (ConflictResolutionPolicy policy);
+
+  // <!--@A generic result callback to indicate success or failure.-->
+  // 表示成功或失败的一般结果回调函数。
+  callback ResultCallback = void ();
+
   interface Functions {
-    // <!--@Returns a syncable filesystem backed by Google Drive. 
+    // <!--@Returns a syncable filesystem backed by Google Drive.
     // The returned <code>DOMFileSystem</code> instance can be operated on
     // in the same way as the Temporary and Persistant file systems (see
     // <a href="http://www.w3.org/TR/file-system-api/">http://www.w3.org/TR/file-system-api/</a>).
     // Calling this multiple times from
-    // the same app will return the same handle to the same file system. -->
+    // the same app will return the same handle to the same file system.-->
     // 返回由 Google 云端硬盘支持的同步文件系统，返回的
     // <code>DOMFileSystem</code> 实例可以以类似于临时和持久文件系统（参见
     // <a href="http://www.w3.org/TR/file-system-api/">http://www.w3.org/TR/file-system-api/</a>）的方式操作。在同一个应用中多次调用该方法会返回指向同一个文件系统的同一个句柄。
-    // 
     static void requestFileSystem(GetFileSystemCallback callback);
+
+    // <!--@Sets the default conflict resolution policy
+    // for the <code>'syncable'</code> file storage for the app.
+    // By default it is set to <code>'manual'</code>.
+    // When conflict resolution policy is set to <code>'last_write_win'</code>
+    // conflicts for existing files are automatically resolved next time
+    // the file is updated.
+    // |callback| can be optionally given to know if the request has
+    // succeeded or not.-->
+    // 为应用设置同步文件存储的默认冲突解决策略，默认情况下为
+    // <code>'manual'</code>（手动）。当冲突解决策略设置为
+    // <code>'last_write_win'</code>
+    // 时，已有文件的冲突在文件下一次更新时会自动解决。可以指定可选的
+    // <code>callback</code>，以便知道请求是否成功。
+    static void setConflictResolutionPolicy(
+        ConflictResolutionPolicy policy,
+        optional ResultCallback callback);
+
+    // <!--@Gets the current conflict resolution policy.-->
+    // 获取当前的冲突解决策略。
+    static void getConflictResolutionPolicy(
+        GetConflictResolutionPolicyCallback callback);
 
     // <!--@Returns the current usage and quota in bytes
     // for the <code>'syncable'</code> file storage for the app.-->
@@ -151,11 +185,15 @@ namespace syncFileSystem {
 
     // <!--@Returns the $ref:FileStatus for the given <code>fileEntry</code>.
     // The status value can be <code>'synced'</code>,
-    // <code>'pending'</code> or <code>'conflicting'</code>.-->
+    // <code>'pending'</code> or <code>'conflicting'</code>.
+    // Note that <code>'conflicting'</code> state only happens when
+    // the service's conflict resolution policy is set to <code>'manual'</code>.-->
     // 返回指定 <code>fileEntry</code>（文件项）的
     // $ref:FileStatus （文件状态），状态值可以为
     // <code>'synced'</code>（已同步）、<code>'pending'</code>（待定）或
-    // <code>'conflicting'</code>（冲突）。
+    // <code>'conflicting'</code>（冲突）。注意，只有当服务的冲突解决策略设置为
+    // <code>'manual'</code>（手动）时，才会发生
+    // <code>'conflicting'</code>（冲突）状态。
     static void getFileStatus([instanceOf=FileEntry] object fileEntry,
                               GetFileStatusCallback callback);
   };
