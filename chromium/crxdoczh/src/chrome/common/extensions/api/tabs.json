@@ -32,7 +32,7 @@
 //@          "title": {"type": "string", "optional": true, "optional": true, "description": "The title of the tab. This will only be present if the extension has the 'tabs' or 'webNavigation' permission. It may also be an empty string if the tab is loading."},
           "title": {"type": "string", "optional": true, "optional": true, "description": "标签页的标题，只有当扩展程序拥有 \"tabs\" 或 \"webNavigation\" 权限时才会存在，如果标签页正在载入它也可能是空字符串。"},
 //@          "favIconUrl": {"type": "string", "optional": true, "optional": true, "description": "The URL of the tab's favicon. This will only be present if the extension has the 'tabs' or 'webNavigation' permission. It may also be an empty string if the tab is loading."},
-          "favIconUrl": {"type": "string", "optional": true, "optional": true, "description": "标签页的收藏夹图标URL，只有当扩展程序拥有 \"tabs\" 或 \"webNavigation\" 权限时才会存在，如果标签页正在载入它也可能是空字符串。"},
+          "favIconUrl": {"type": "string", "optional": true, "optional": true, "description": "标签页的收藏夹图标 URL，只有当扩展程序拥有 \"tabs\" 或 \"webNavigation\" 权限时才会存在，如果标签页正在载入它也可能是空字符串。"},
 //@          "status": {"type": "string", "optional": true, "description": "Either <em>loading</em> or <em>complete</em>."},
           "status": {"type": "string", "optional": true, "description": "<em>\"loading\"</em>（正在载入）或 <var>\"complete\"</var>（完成）。"},
 //@          "incognito": {"type": "boolean", "description": "Whether the tab is in an incognito window."}
@@ -818,6 +818,12 @@
                 "optional": true,
 //@                "description": "The tab's new pinned state."
                 "description": "标签页新的固定状态。"
+              },
+              "favIconUrl": {
+                "type": "string",
+                "optional": true,
+//@                "description": "The tab's new favicon URL."
+                "description": "标签页新的收藏夹图标 URL。"
               }
             }
           },
