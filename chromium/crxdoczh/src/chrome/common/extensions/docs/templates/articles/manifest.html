@@ -52,6 +52,11 @@ are <b>name</b> and <b>version</b>.-->
   "<a href="content_scripts.html">content_scripts</a>": [...],
   "<a href="../extensions/contentSecurityPolicy.html">content_security_policy</a>": "<em>策略字符串</em>",
   "<a href="fileBrowserHandler.html">file_browser_handlers</a>": [...],
+{{/is_apps}}
+{{?is_apps}}
+  "<a href="#file_handlers">file_handlers</a>": {...},
+{{/is_apps}}
+{{^is_apps}}
   "<a href="#homepage_url">homepage_url</a>": "http://<em>path/to/homepage</em>",
 {{/is_apps}}
   "<a href="#incognito">incognito</a>": "spanning" <em>或</em> "split",
@@ -93,7 +98,7 @@ see the <a href="#overview">Field summary</a>.-->
 <h3 id="app">app</h3>
 
 <p>
-<!--@Used by -->用于<a href="http://developer.chrome.com/trunk/apps/app_lifecycle.html#eventpage"><!--@packaged apps-->打包应用</a><!--@
+<!--@Used by -->用于<a href="../apps/app_lifecycle.html#eventpage"><!--@packaged apps-->打包应用</a><!--@
 to specify the app's background scripts.
 Also used by -->，指定应用的后台脚本；也用于<a href="https://developers.google.com/chrome/apps/docs/developers_guide#live"><!--@hosted apps-->托管应用</a><!--@
 to specify the URLs that the app uses.-->，指定应用使用的 URL。
@@ -135,6 +140,48 @@ see <a href="i18n.html">Internationalization</a> for details.-->
 网上应用店</a>中显示。您可以在该字段中指定语言相关的字符串，有关细节请参见<a
 href="i18n.html">国际化支持</a>。
 </p>
+
+{{?is_apps}}
+<h3 id="file_handlers">file_handlers</h3>
+
+<p>
+<!--@Used by -->由<a href="../apps/app_lifecycle.html#eventpage"><!--@packaged apps-->打包应用</a><!--@
+to specify what types of files the app can handle. An app can have multiple <code>file_handlers</code>, with each one having an identifier, a list of MIME types that can be handled, and
+a title. Here's an example of specifying file handlers:-->使用，指定应用可以处理的文件类型。一个应用可以包含多个
+<code>file_handlers</code>（文件处理器），每一个都应该包含标识符、可以处理的
+MIME 类型列表以及标题。如下是一个指定文件处理器的例子：
+</p>
+
+<pre>
+"file_handlers": {
+  "text": {
+    "types": [
+      "text/*"
+    ],
+    "title": "文本编辑器"
+  },
+  "image": {
+    "types": [
+      "image/png",
+      "image/jpeg"
+    ],
+    "title": "图片编辑器"
+  }
+}
+</pre>
+
+<p>
+<!--@To handle files, apps also need to declare the $ref:fileSystem
+permission. Apps can then be passed files in the $ref:app.runtime.onLaunched
+event - either from the system
+file manager (currently supported on ChromeOS only) or by providing
+a path on the <a href="../apps/first_app.html#open">command line</a>.-->
+为了处理文件，应用还需要声明 $ref:fileSystem 权限。这样就会在
+$ref:app.runtime.onLaunched
+事件中向应用传递文件，文件可能来自系统的文件管理器（当前仅在 ChromeOS
+上支持），也可能是通过<a href="../apps/first_app.html#open">命令行</a>指定的路径。
+</p>
+{{/is_apps}}
 
 {{^is_apps}}
 <h3 id="homepage_url">homepage_url</h3>
@@ -279,9 +326,9 @@ it is loaded during development.-->
 use this value. Instead, write your
 code so that the key value doesn't matter
 by using <a href="overview.html#relative-urls">relative paths</a>
-and $ref:extension.getURL.-->
+and $ref:runtime.getURL.-->
 <b>注意：</b>通常您不需要使用这一值。相反，您应该使用<a
-href="overview.html#relative-urls">相对路径</a>以及 $ref:extension.getURL
+href="overview.html#relative-urls">相对路径</a>以及 $ref:runtime.getURL
 来编写不依赖这一值的代码。
 </p>
 
@@ -618,12 +665,12 @@ etc.) as follows:-->
 <p>
 <!--@These resources would then be available in a webpage via the URL
 <code>chrome-extension://[PACKAGE ID]/[PATH]</code>, which can be generated with
-the $ref:extension.getURL method. Whitelisted resources are served with appropriate
+the $ref:runtime.getURL method. Whitelisted resources are served with appropriate
 <a href="http://www.w3.org/TR/cors/">CORS</a> headers, so they're available via
 mechanisms like XHR.-->
 这些资源将可以通过 URL
 <code>chrome-extension://[扩展程序包的标识符]/[路径]</code>
-使用，URL 可以通过 $ref:extension.getURL
+使用，URL 可以通过 $ref:runtime.getURL
 方法产生。加入白名单的资源将以合适的
 <a href="http://www.w3.org/TR/cors/">CORS</a>
 头信息提供，所以它们可以通过 XHR 之类的机制使用。

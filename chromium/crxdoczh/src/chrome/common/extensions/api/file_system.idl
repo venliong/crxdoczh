@@ -99,8 +99,12 @@ namespace fileSystem {
     // 返回指定标识符的文件项。
     [nocompile] static FileEntry getEntryById(DOMString id);
 
-    // <!--@Returns the id of the given file entry.-->
-    // 返回指定文件项的标识符。
+    // <!--@Returns the id of the given file entry. This can be used to retrieve file
+    // entries with getEntryById(). When an app is restarted (ie: it is sent the
+    // onRestarted event) it can regain access to the file entries it had by
+    // remembering their ids and calling getEntryById().-->
+    // 返回指定文件项的标识符，可以通过 getEntryById() 获取文件项。当应用重新启动（即发送了 onRestarted 事件）时，它可以通过记录下的标识符调用
+    // getEntryById() 重新访问原来拥有的文件项。
     [nocompile] static DOMString getEntryId(
         [instanceOf=FileEntry] object fileEntry);
   };
