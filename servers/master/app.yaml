@@ -1,5 +1,5 @@
 application: crxdoc-zh
-version: 0-1
+version: 0-2
 runtime: python27
 api_version: 1
 threadsafe: true
@@ -21,3 +21,5 @@ handlers:
   script: handler.app
   secure: always
 
+env_variables:
+  CRXDOCZH_MASTER_API_KEY: '<REPLACE_WITH_YOUR_MASTER_API_KEY>'

@@ -2,6 +2,7 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
+import os
 import re
 import xml.dom.minidom as xml
 from xml.parsers.expat import ExpatError
@@ -208,21 +209,23 @@ class SubversionFileSystem(file_system.FileSystem):
     
   def Stat(self, path):
     directory = path.rsplit('/', 1)[0]
-    full_path = (self._stat_fetcher._base_path.replace(SVN_URL, '') + '/' +
-        directory)
-    result = StatModel.get(db.Key.from_path('StatModel', full_path))
-    stat_info = None
-    if result is None:
+    if os.environ.get('CRXDOCZH_SLAVE_TYPE') == 'docs':
+      full_path = (self._stat_fetcher._base_path.replace(SVN_URL, '') +
+          '/' + directory)
+      result = StatModel.get(db.Key.from_path('StatModel', full_path))
+      stat_info = None
+      if result is None:
+        result = self._stat_fetcher.Fetch(directory + '/')
+        if result.status_code == 404:
+          raise file_system.FileNotFoundError(path)
+        stat_info = self._InitStatInfo(full_path, result.content)
+      else:
+        stat_info = self._StatFromModel(result)
+    else:
       result = self._stat_fetcher.Fetch(directory + '/')
       if result.status_code == 404:
         raise file_system.FileNotFoundError(path)
-      stat_info = self._InitStatInfo(full_path, result.content)
-    else:
-      stat_info = self._StatFromModel(result)
-    #result = self._stat_fetcher.Fetch(directory + '/')
-    #if result.status_code == 404:
-    #  raise file_system.FileNotFoundError(path)
-    #stat_info = self._CreateStatInfo(result.content)
+      stat_info = self._CreateStatInfo(result.content)
     if not path.endswith('/'):
       filename = path.rsplit('/', 1)[-1]
       if filename not in stat_info.child_versions:

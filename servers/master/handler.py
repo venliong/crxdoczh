@@ -1,7 +1,28 @@
-import webapp2, logging
-import mimetypes
-import os
+import webapp2, os, logging, mimetypes, json
 from google.appengine.api import urlfetch, memcache
+from google.appengine.ext import db
+
+class CacheModel(db.Model):
+  data = db.BlobProperty(required=True)
+
+class Cache:
+  @staticmethod
+  def get(path):
+    data = memcache.get(path)
+    if data is not None:
+      return data
+
+    data = db.get(db.Key.from_path('CacheModel', path))
+    if data is not None:
+      memcache.add(path, data)
+      return data
+
+    return None
+
+  @staticmethod
+  def update(self, path, data):
+    model = CacheModel(key_name = path, data = data)
+    model.put()
 
 def AddSecurityHeaders(response):
   response.headers.add('Strict-Transport-Security',
@@ -19,58 +40,50 @@ def AddSecurityHeaders(response):
                        'pin-sha1="wHqYaI2J+6sFZAwRfap9ZbjKzE4="')
   response.headers.add('X-Frame-Options', 'SAMEORIGIN')
 
-class HandlerCache(webapp2.RequestHandler):
-  def __init__(self, request, response):
-    self.request = request
-    self.response = response
+# Parameters:
+# |slashed_channel|: trunk/|dev/|beta/|stable/|<empty>
+# |doc_type|: apps|extensions|static
+# |remaining_path|: xxx.html|css/xxx.css|...
+# Returns:
+# A path that can be passed to Cache or None if invalid.
+def NormalizePath(slashed_channel, doc_type, remaining_path):
+  channel = slashed_channel[0:-1]
+  if len(channel) == 0:
+    channel = 'stable'
+  path = '/' + channel + '/' + doc_type + '/'
 
-  def get(self):
-    cached = memcache.get(self.request.path)
-    if cached is not None:
-      logging.info('Serving %s from memcache.' % self.request.path)
-      self.response.write(cached)
-      return True
+  if doc_type == 'static':
+    return path + remaining_path
+  else:
+    if not remaining_path.endswith('.html'):
+      return None
+    file_title = remaining_path[:-len('.html')]
+    return path + file_title.replace('.', '_') + '.html'
+
+def Handle404(response, slashed_channel = None, doc_type = None):
+  response.status = 404
+  if slashed_channel is None:
+    slashed_channel = 'stable/'
+  if doc_type != 'apps':
+    doc_type = 'extensions'
+  response.content_type = 'text/html'
+  response.write(Cache.get(NormalizePath(
+      slashed_channel, doc_type, '404.html')))
+
+class Handler(webapp2.RequestHandler):
+  def get(self, slashed_channel, doc_type, remaining_path):
+    path = NormalizePath(slashed_channel, doc_type, remaining_path)
+
+    data = Cache.get(path)
+    AddSecurityHeaders(self.response)
+
+    if data is None:
+      Handle404(self.response, slashed_channel, doc_type)
     else:
-      return False
-
-  def add(self, content):
-    memcache.add(key = self.request.path, value = content, time = 3600)
-
-class HTMLHandler(webapp2.RequestHandler):
-  def get(self, slashed_channel, doctype, filename):
-    channel = slashed_channel[1:-1]
-    if len(channel) == 0:
-      channel = 'stable'
-    cache = HandlerCache(self.request, self.response)
-
-    if not cache.get():
-      url = 'https://crxdoczh-slave-docs-qjn45lbk2r.appspot.com/' + channel + '/_/api/Oxd3faDoX570NSlaItOqbmen8tmxyg54nhnbo9qo66333kEHLU8jbd/html/docs/' + doctype + '/' + filename
-      logging.info(url)
-      result = urlfetch.fetch(url, deadline=40)
-      logging.info(result.status_code)
-      if result.status_code == 200:
-        cache.add(result.content)
-        AddSecurityHeaders(self.response)
-        self.response.write(result.content)
-      else:
-        self.response.status = result.status_code
-
-class StaticHandler(webapp2.RequestHandler):
-  def get(self, static_path):
-    cache = HandlerCache(self.request, self.response)
-    mimetypes.init()
-    base, ext = os.path.splitext(static_path)
-    self.response.content_type = mimetypes.types_map[ext]
-
-    if not cache.get():
-      url = 'https://crxdoczh.googlecode.com/svn/trunk/chromium/crxdoczh/src/chrome/common/extensions/docs/static/' + static_path
-      result = urlfetch.fetch(url, deadline=20)
-      if result.status_code == 200:
-        cache.add(result.content)
-        self.response.write(result.content)
-        AddSecurityHeaders(self.response)
-      else:
-        self.response.status = 404
+      mimetypes.init()
+      base, ext = os.path.splitext(remaining_path)
+      self.response.content_type = mimetypes.types_map[ext]
+      self.response.write(data)
 
 class HomeRedirectHandler(webapp2.RequestHandler):
   def get(self):
@@ -96,18 +109,31 @@ class ExtensionsIndexRedirectHandler(webapp2.RequestHandler):
     AddSecurityHeaders(self.response)
     self.response.status = 301
 
+class NotFoundHandler(webapp2.RequestHandler):
+  def get(self):
+    AddSecurityHeaders(self.response)
+    Handle404(self.response)
+
+class APIUpdateHandler(webapp2.RequestHandler):
+  def post(self):
+    paths = json.loads(self.request.body)
+    for path in paths:
+      pass
+    # TODO Request updated resources from slave-docs and update cache
+
 app = webapp2.WSGIApplication([
-  (r'(/trunk/|/dev/|/beta/|/stable/|/)(apps|extensions)/([^/]*\.html)', HTMLHandler),
-  (r'/trunk/static/(.*)', StaticHandler),
-  (r'/dev/static/(.*)', StaticHandler), # TODO
-  (r'/beta/static/(.*)', StaticHandler), # TODO
+  (r'/_/api/' + os.environ.get('CRXDOCZH_MASTER_API_KEY') + '/pushUpdate',
+      APIUpdateHandler),
   (r'(/trunk/|/dev/|/beta/|/stable/|/)extensions/examples/(.*)', ExamplesRedirectHandler),
   (r'/', HomeRedirectHandler),
   (r'/index.html', HomeRedirectHandler),
+  (r'(/trunk/|/dev/|/beta/|/stable/|/)apps', AppsIndexRedirectHandler),
   (r'(/trunk/|/dev/|/beta/|/stable/|/)apps', AppsIndexRedirectHandler),
   (r'(/trunk/|/dev/|/beta/|/stable/|/)apps/', AppsIndexRedirectHandler),
   (r'(/trunk/|/dev/|/beta/|/stable/|/)apps/index\.html', AppsIndexRedirectHandler),
   (r'(/trunk/|/dev/|/beta/|/stable/|/)extensions', ExtensionsIndexRedirectHandler),
   (r'(/trunk/|/dev/|/beta/|/stable/|/)extensions/', ExtensionsIndexRedirectHandler),
+  (r'/(trunk/|dev/|beta/|stable/|)(apps|extensions|static)/(.+)', Handler),
+  (r'.*', NotFoundHandler)
 ])
 

@@ -8,6 +8,7 @@ CP='rsync -a --exclude=.svn --exclude=test_data'
 prepare_keys () {
   cat > $KEYS_SED << END_OF_SED
 #!/bin/sed -f
+s#<REPLACE_WITH_YOUR_MASTER_API_KEY>#`cat private/MASTER_API_KEY`#
 s#<REPLACE_WITH_YOUR_DOCS_APP_ID>#`cat private/SLAVE_DOCS_APP_ID`#
 s#<REPLACE_WITH_YOUR_DOCS_API_KEY>#`cat private/SLAVE_DOCS_API_KEY`#
 s#<REPLACE_WITH_YOUR_SAMPLES_APP_ID>#`cat private/SLAVE_SAMPLES_APP_ID`#
@@ -32,9 +33,7 @@ deploy_slave () (
   rm $DST/build_server.py
   rm $DST/diff-chromium.sh
   $APPENGINE_APPCFG update $DST
-  if [ "$1" == samples ]; then
-    $APPENGINE_APPCFG backends update $DST
-  fi
+  $APPENGINE_APPCFG backends update $DST
   rm -rf $DST
 )
 
@@ -48,6 +47,8 @@ deploy_master () {
   if [ "$1" == mirror ]; then
     $CP $SRC_MIRROR/* $DST/
   fi
+  sed -f $KEYS_SED $DST/app.yaml > $DST/app.yaml.1
+  mv $DST/app.yaml.1 $DST/app.yaml
 
   $APPENGINE_APPCFG update $DST
 

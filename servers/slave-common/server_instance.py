@@ -158,6 +158,8 @@ class ServerInstance(object):
     if content:
       response.headers['cache-control'] = 'max-age=300'
       response.out.write(content)
+      cache_url = '/' + templates._branch_info['current'] + '/' + path
+      ResponseCache.Set(cache_url, content.encode('utf-8'))
     else:
       response.set_status(404);
       response.out.write(templates.Render('404'))

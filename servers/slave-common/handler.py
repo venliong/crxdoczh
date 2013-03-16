@@ -297,6 +297,7 @@ class Handler(webapp.RequestHandler):
       time.sleep(5 * count)
 
   def _HandleDocsBackends(self):
+    self._HandleCron('/cron/trunk')
     pass
 
   def _Render(self, files, channel):
@@ -348,7 +349,7 @@ class Handler(webapp.RequestHandler):
     invalidation_cache = factory.Create(lambda _, __: needs_render.Set(True),
                                         compiled_fs.CRON_INVALIDATION,
                                         version=_VERSION)
-    for path in [TEMPLATE_PATH, EXAMPLES_PATH, API_PATH]:
+    for path in [TEMPLATE_PATH, API_PATH]:
       invalidation_cache.GetFromFile(path + '/')
 
     if needs_render.Get():
