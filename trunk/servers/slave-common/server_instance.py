@@ -46,21 +46,13 @@ class ServerInstance(object):
 
   def Get(self, path, request, response):
     if os.environ.get('CRXDOCZH_SLAVE_TYPE') == 'samples':
-      self._GetSamplesAPI(path, request, response)
+      logging.error('NOTREACHED: slave-samples: server_instance: Get')
     elif os.environ.get('CRXDOCZH_SLAVE_TYPE') == 'docs':
       if not self._GetDocsAPI(path, request, response):
         self._OriginalGet(path, request, response)
     else:
       self._OriginalGet(path, request, response)
   
-  def _GetSamplesAPI(self, path, request, response):
-    if path.startswith(url_constants.SLAVE_SAMPLES_API_BASE_URL):
-      key = path[len(url_constants.SLAVE_SAMPLES_API_BASE_URL):]
-      response.headers['content-type'] = 'text/plain'
-      response.out.write(self._GetSamplesJSON(request, key))
-    else:
-      response.set_status(404)
-
   def _GetSamplesJSON(self, request, key, update=False):
     templates = self._template_data_source_factory.Create(request, 
         key + '/samples.html')

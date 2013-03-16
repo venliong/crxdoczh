@@ -33,6 +33,7 @@ from subversion_file_system import SubversionFileSystem
 from template_data_source import TemplateDataSource
 from third_party.json_schema_compiler.model import UnixName
 import url_constants
+from response_cache import ResponseCache
 
 # Increment this version to force the server to reload all pages in the first
 # cron job that is run.
@@ -224,19 +225,49 @@ class Handler(webapp.RequestHandler):
                                                               self.response)
 
   def _HandleGet(self, path):
+    if os.environ.get('CRXDOCZH_SLAVE_TYPE') is None:
+      self._OriginalHandleGet(path)
+      return
+
     channel_name, real_path = BRANCH_UTILITY.SplitChannelNameFromPath(path)
-    _CleanBranches()
     if channel_name is None:
       channel_name = _DEFAULT_CHANNEL
-    _GetInstanceForBranch(channel_name, self._local_path).Get(real_path,
-                                                              self.request,
-                                                              self.response)
+
+    if os.environ.get('CRXDOCZH_SLAVE_TYPE') == 'samples':
+      self._HandleSamplesAPI(channel_name, real_path)
+    else:
+      _CleanBranches()
+      _GetInstanceForBranch(channel_name, self._local_path).Get(real_path,
+                                                                self.request,
+                                                                self.response)
 
   def _HandleBackends(self):
     if os.environ.get('CRXDOCZH_SLAVE_TYPE') == 'samples':
       self._HandleSamplesBackends()
     elif os.environ.get('CRXDOCZH_SLAVE_TYPE') == 'docs':
       self._HandleDocsBackends()
+
+  def _HandleSamplesAPI(self, channel_name, real_path):
+    if real_path.startswith(url_constants.SLAVE_SAMPLES_API_BASE_URL):
+      key = real_path[len(url_constants.SLAVE_SAMPLES_API_BASE_URL):]
+      if key == 'apps' or key == 'extensions':
+        self.response.headers['content-type'] = 'text/plain'
+        cache_url = None
+        if key == 'apps':
+          cache_url = '/trunk/' + key
+        else:
+          cache_url = '/' + channel_name + '/' + key
+        logging.info('Serving API request %s' % cache_url)
+        data = ResponseCache.Get(cache_url)
+        if data is None:
+          self.response.out.write('[]')
+          logging.error('No samples data. Please regenerate it manually.')
+        else:
+          self.response.out.write(data)
+      else:
+        self.response.set_status(404)
+    else:
+      self.response.set_status(404)
 
   def _HandleSamplesBackends(self):
     _CleanBranches()
@@ -397,7 +428,7 @@ class Handler(webapp.RequestHandler):
     self.redirect(newUrl)
     return True
 
-  def OriginalGet(self):
+  def _OriginalGet(self):
     path = self.request.path
     if self._RedirectSpecialCases(path):
       return
@@ -417,6 +448,10 @@ class Handler(webapp.RequestHandler):
       self._HandleGet(path)
 
   def get(self):
+    if os.environ.get('CRXDOCZH_SLAVE_TYPE') is None:
+      self._OriginalGet()
+      return
+
     path = self.request.path
     if path.startswith('/_ah/start'):
       self._HandleBackends()

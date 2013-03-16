@@ -5,7 +5,6 @@
 from file_system import FileSystem, StatInfo, FileNotFoundError
 from future import Future
 import object_store
-import os
 
 class _AsyncUncachedFuture(object):
   def __init__(self,

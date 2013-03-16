@@ -8,17 +8,17 @@ import logging
 import re
 import os
 
-from google.appengine.api import urlfetch
-from google.appengine.api import memcache
-
 import compiled_file_system as compiled_fs
 from file_system import FileNotFoundError
 import third_party.json_schema_compiler.json_comment_eater as json_comment_eater
 import third_party.json_schema_compiler.model as model
 import url_constants
 
-DEFAULT_ICON_PATH = 'https://developer.chrome.com/stable/static/images/sample-default-icon.png'
+if os.environ.get('CRXDOCZH_SLAVE_TYPE') is not None:
+  from google.appengine.api import urlfetch
+  from google.appengine.api import memcache
 
+DEFAULT_ICON_PATH = 'https://developer.chrome.com/stable/static/images/sample-default-icon.png'
 # See api_data_source.py for more info on _VERSION.
 _VERSION = 3
 
@@ -259,10 +259,10 @@ class SamplesDataSource(object):
     return return_list
 
   def _OriginalGet(self, key):
-    if key == 'apps':
-      return self._CreateSamplesDict('apps')
-    elif key == 'extensions':
-      return self._CreateSamplesDict('extensions')
+    return {
+      'apps': lambda: self._CreateSamplesDict('apps'),
+      'extensions': lambda: self._CreateSamplesDict('extensions')
+    }.get(key, lambda: {})()
 
   def get(self, key):
     if os.environ.get('CRXDOCZH_SLAVE_TYPE') == 'samples':
@@ -270,7 +270,7 @@ class SamplesDataSource(object):
     elif os.environ.get('CRXDOCZH_SLAVE_TYPE') == 'docs':
       return self._GetFromAPI(key)
     else:
-      self._OriginalGet(key)
+      return self._OriginalGet(key)
 
   def GetAsJSON(self, key):
     return json.dumps(self._OriginalGet(key))
