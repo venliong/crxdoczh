@@ -46,8 +46,7 @@ $ref:notifications.create
 </p>
 
 <pre>
-chrome.notifications
-  .create(id, options, creationCallback);
+chrome.notifications.create(id, options, creationCallback);
 </pre>
 
 <p>
@@ -71,7 +70,7 @@ templates link to small icons (<code>secondIconUrl</code>) displayed
 to the left of the notification message.
 The <code>image</code> template displays icons and images
 more prominently than the text
-(use <code>iconURL</code> or <code>imageURL</code>).
+(use <code>iconUrl</code> or <code>imageUrl</code>).
 Due to a strict <a href="app_csp.html">Content Security Policy</a>,
 all of these URLs in packaged apps should point to a local resource
 or use a <a href="http://developer.chrome.com/apps/app_external.html">data URL</a>.-->
@@ -120,7 +119,7 @@ var opt = {
 
 <p>
 <!--@Let us know if you have ideas for new templates with varying layouts
-by filing a <a href="crbug.com/new">crbug</a>!-->
+by filing a <a href="http://crbug.com/new">crbug</a>!-->
 如果您有关于不同布局的新模板的想法，请报告<a
 href="http://crbug.com/new">问题</a>让我们知道。
 </p>
