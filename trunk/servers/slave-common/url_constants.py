@@ -37,3 +37,4 @@ if os.environ.get('CRXDOCZH_SLAVE_TYPE') == 'docs':
   SVN_TRUNK_URL = 'https://crxdoczh.googlecode.com/svn/trunk/chromium/crxdoczh'
   SVN_BRANCH_URL = 'https://crxdoczh.googlecode.com/svn/branches'
   VIEWVC_URL = SVN_URL
+  CRXDOCZH_MASTER_UPDATE_URL = 'https://0-2-dot-crxdoc-zh.appspot.com/_/api/<REPLACE_WITH_YOUR_MASTER_API_KEY>/pushUpdate'

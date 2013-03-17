@@ -8,7 +8,9 @@ handlers:
 - url: /robots\.txt
   static_files: robots.txt
   upload: robots.txt
-- url: /(stable|beta|dev|trunk)/_/api/<REPLACE_WITH_YOUR_DOCS_API_KEY>/html/docs/(apps|extensions)/.*
+- url: /(stable|beta|dev|trunk)/_/api/<REPLACE_WITH_YOUR_DOCS_API_KEY>/html/docs/(apps|extensions|static)/.*
+  script: appengine_main.py
+- url: /(stable|beta|dev|trunk)/_/api/<REPLACE_WITH_YOUR_DOCS_API_KEY>/html/docs/404\.html
   script: appengine_main.py
 - url: /.*
   script: appengine_main.py

@@ -6,6 +6,7 @@ import logging
 import os
 from StringIO import StringIO
 import sys
+import json
 
 from appengine_wrappers import webapp
 from appengine_wrappers import memcache
@@ -59,6 +60,7 @@ EXTENSIONS_PATH = 'chrome/common/extensions'
 DOCS_PATH = 'docs'
 API_PATH = 'api'
 TEMPLATE_PATH = DOCS_PATH + '/templates'
+STATIC_PATH = DOCS_PATH + '/static'
 INTRO_PATH = TEMPLATE_PATH + '/intros'
 ARTICLE_PATH = TEMPLATE_PATH + '/articles'
 PUBLIC_TEMPLATE_PATH = TEMPLATE_PATH + '/public'
@@ -298,21 +300,32 @@ class Handler(webapp.RequestHandler):
 
   def _HandleDocsBackends(self):
     self._HandleCron('/cron/trunk')
-    pass
+    self._HandleCron('/cron/dev')
+    self._HandleCron('/cron/beta')
+    self._HandleCron('/cron/stable')
 
-  def _Render(self, files, channel):
+  def _Render(self, files, channel, base = PUBLIC_TEMPLATE_PATH):
     original_response = self.response
+    rendered_paths = []
     for f in files:
-      if f.endswith('404.html'):
-        continue
-      path = channel + f.split(PUBLIC_TEMPLATE_PATH)[-1]
+      #if f.endswith('404.html'):
+      #  continue
+      path = channel + f.split(base)[-1]
       self.request = _MockRequest(path)
       self.response = _MockResponse()
       try:
         self._HandleGet(path)
+        rendered_paths.append(path)
       except Exception as e:
         logging.error('Error rendering %s: %s' % (path, str(e)))
     self.response = original_response
+    try:
+      urlfetch.fetch(url_constants.CRXDOCZH_MASTER_UPDATE_URL,
+          payload = json.dumps(rendered_paths),
+          method = 'POST',
+          deadline = 5)
+    except Exception as e:
+      pass
 
   class _ValueHolder(object):
     """Class to allow a value to be changed within a lambda.
@@ -349,7 +362,7 @@ class Handler(webapp.RequestHandler):
     invalidation_cache = factory.Create(lambda _, __: needs_render.Set(True),
                                         compiled_fs.CRON_INVALIDATION,
                                         version=_VERSION)
-    for path in [TEMPLATE_PATH, API_PATH]:
+    for path in [TEMPLATE_PATH, API_PATH, STATIC_PATH]:
       invalidation_cache.GetFromFile(path + '/')
 
     if needs_render.Get():
@@ -357,6 +370,10 @@ class Handler(webapp.RequestHandler):
                                           compiled_fs.CRON_FILE_LISTING)
       self._Render(file_listing_cache.GetFromFileListing(PUBLIC_TEMPLATE_PATH),
                    channel)
+      file_listing_cache = factory.Create(lambda _, x: x,
+                                          compiled_fs.CRON_FILE_LISTING)
+      self._Render(file_listing_cache.GetFromFileListing(STATIC_PATH),
+                   channel + '/static', STATIC_PATH)
     else:
       # If |needs_render| was True, this page was already rendered, and we don't
       # need to render again.
