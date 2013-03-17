@@ -495,3 +495,8 @@ span.displayModeWarning {
 .imaged + p {
   clear: right;
 }
+
+.crxdoczh-footer a {
+  margin-left: 1.5ex;
+  margin-right: 1.5ex;
+}
