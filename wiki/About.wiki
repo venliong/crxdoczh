@@ -18,7 +18,7 @@
 
 = 镜像网站 =
   * https://crxdoczh2.appspot.com/ （与主站相同，在主站配额用完时可以尝试访问这一网站。）
-  * http://www.lmk123.com/Doc/ （仅包含 Dev 分支的文档）
+  * http://www.lmk123.com/Docs/ （仅包含 Dev 分支的文档）
 
 TODO.
 

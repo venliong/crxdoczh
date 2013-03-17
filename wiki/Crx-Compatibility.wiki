@@ -1,3 +1,4 @@
 #summary 简单介绍 Chrome 扩展程序的兼容性问题
+#labels Chrome-Extensions
 
 TODO.
