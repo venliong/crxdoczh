@@ -89,7 +89,7 @@ class ServerInstance(object):
       new_path = path[len(url_constants.SLAVE_DOCS_API_BASE_URL):]
       if new_path.startswith('static/'):
         response.headers['content-type'] = 'text/plain';
-        response.out.write(self._FetchStaticResource(path, response))
+        response.out.write(self._FetchStaticResource(new_path, response))
         return True
       if not new_path.endswith('.html'):
         return False
@@ -159,7 +159,10 @@ class ServerInstance(object):
       response.headers['cache-control'] = 'max-age=300'
       response.out.write(content)
       cache_url = '/' + templates._branch_info['current'] + '/' + path
-      ResponseCache.Set(cache_url, content.encode('utf-8'))
+      if isinstance(content, unicode):
+        ResponseCache.Set(cache_url, content.encode('utf-8'))
+      else:
+        ResponseCache.Set(cache_url, content)
     else:
       response.set_status(404);
       response.out.write(templates.Render('404'))
