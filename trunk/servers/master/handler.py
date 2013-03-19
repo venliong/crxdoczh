@@ -85,6 +85,8 @@ class Handler(webapp2.RequestHandler):
       mimetypes.init()
       base, ext = os.path.splitext(remaining_path)
       self.response.content_type = mimetypes.types_map[ext]
+      if doc_type == 'static':
+        self.response.headers['Cache-Control'] = 'public, max-age=10800'
       self.response.write(data)
 
 class HomeRedirectHandler(webapp2.RequestHandler):
