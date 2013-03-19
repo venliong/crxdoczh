@@ -244,10 +244,13 @@ class Handler(webapp.RequestHandler):
                                                                 self.response)
 
   def _HandleBackends(self):
+    self.response.set_status(200)
+    self.response.write('Started')
     if os.environ.get('CRXDOCZH_SLAVE_TYPE') == 'samples':
       self._HandleSamplesBackends()
     elif os.environ.get('CRXDOCZH_SLAVE_TYPE') == 'docs':
       self._HandleDocsBackends()
+    self.response.write('Completed')
 
   def _HandleSamplesAPI(self, channel_name, real_path):
     if real_path.startswith(url_constants.SLAVE_SAMPLES_API_BASE_URL):
@@ -299,10 +302,22 @@ class Handler(webapp.RequestHandler):
       time.sleep(5 * count)
 
   def _HandleDocsBackends(self):
-    self._HandleCron('/cron/trunk')
-    self._HandleCron('/cron/dev')
-    self._HandleCron('/cron/beta')
-    self._HandleCron('/cron/stable')
+    try:
+      self._HandleCron('/cron/trunk')
+    except Exception as e:
+      pass
+    try:
+      self._HandleCron('/cron/dev')
+    except Exception as e:
+      pass
+    try:
+      self._HandleCron('/cron/beta')
+    except Exception as e:
+      pass
+    try:
+      self._HandleCron('/cron/stable')
+    except Exception as e:
+      pass
 
   def _Render(self, files, channel, base = PUBLIC_TEMPLATE_PATH):
     original_response = self.response
@@ -323,7 +338,14 @@ class Handler(webapp.RequestHandler):
       urlfetch.fetch(url_constants.CRXDOCZH_MASTER_UPDATE_URL,
           payload = json.dumps(rendered_paths),
           method = 'POST',
-          deadline = 5)
+          deadline = 6)
+    except Exception as e:
+      pass
+    try:
+      urlfetch.fetch(url_constants.CRXDOCZH_MASTER_MIRROR_UPDATE_URL,
+          payload = json.dumps(rendered_paths),
+          method = 'POST',
+          deadline = 6)
     except Exception as e:
       pass
 

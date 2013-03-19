@@ -13,6 +13,11 @@ handlers:
   script: handler.app
   secure: always
 
+env_variables:
+  CRXDOCZH_MASTER_API_KEY: '<REPLACE_WITH_YOUR_MASTER_API_KEY>'
+  CRXDOCZH_SLAVE_DOCS_APP_DOMAIN: '<REPLACE_WITH_YOUR_DOCS_APP_ID>.appspot.com'
+  CRXDOCZH_SLAVE_DOCS_API_KEY: '<REPLACE_WITH_YOUR_DOCS_API_KEY>'
+
 pagespeed:
   domains_to_rewrite:
   - developer.chrome.com
