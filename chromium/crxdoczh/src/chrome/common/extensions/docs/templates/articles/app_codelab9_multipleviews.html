@@ -37,7 +37,7 @@ function DropCtrl($scope) {
 中，添加调用创建新窗口：
 <pre>
 chrome.app.window.create(&#39;droparea.html&#39;,
-  {id: &#39;dropArea&#39;, width: 200, height: 200 },
+  {id: &#39;dropArea&#39;, bounds: {width: 200, height: 200} },
   function(dropWin) {
     dropWin.contentWindow.$parentScope = $scope; 
   });
