@@ -234,9 +234,8 @@ table.-->托管应用只能使用
 {{?is_apps}}
 <tr>
   <td id="fullscreen"> "fullscreen" </td>
-  <td> <!--@Allows the app to use the proposed HTML5-->允许应用使用提议的 HTML5
-       <a href="https://dvcs.w3.org/hg/fullscreen/raw-file/tip/Overview.html"><!--@fullscreen-->全屏 API</a>
-       <!--@without prompting the user for permission.-->而不需要提示用户权限。</td>
+  <td> <!--@Allows the app to use the-->允许应用使用<a href="https://dvcs.w3.org/hg/fullscreen/raw-file/tip/Overview.html"><!--@fullscreen-->全屏 API</a><!--@.
+       See -->，有关行为上的差异请参见<a href="api_other.html"><!--@Other APIs-->其他 API</a><!--@ for behavior differences.-->。</td>
 </tr>
 {{/is_apps}}
 <tr>
@@ -279,15 +278,16 @@ table.-->托管应用只能使用
 <tr>
   <td> "pointerLock" </td>
   <td> <!--@Required to use
-    <a href="http://www.w3.org/TR/pointerlock/">Pointer Lock</a> via calls to
-    <code>webkitRequestPointerLock</code> or Pepper's
-    <a href="https://developers.google.com/native-client/peppercpp/classpp_1_1_mouse_lock">
-    Mouse Lock API</a>.-->
-    如果通过
-    <code>webkitRequestPointerLock</code>
-    或 Pepper 的<a
-    href="https://developers.google.com/native-client/peppercpp/classpp_1_1_mouse_lock"
-    >鼠标锁定 API</a>使用<a href="http://www.w3.org/TR/pointerlock/">指针锁定</a>功能则必须指定。
+       <a href="http://www.w3.org/TR/pointerlock/">Pointer Lock</a> via calls to
+       <code>webkitRequestPointerLock</code> or Pepper's
+       <a href="https://developers.google.com/native-client/peppercpp/classpp_1_1_mouse_lock">
+       Mouse Lock API</a>.-->
+       如果通过
+       <code>webkitRequestPointerLock</code>
+       或 Pepper 的<a
+       href="https://developers.google.com/native-client/peppercpp/classpp_1_1_mouse_lock"
+       >鼠标锁定 API</a>使用<a href="http://www.w3.org/TR/pointerlock/">指针锁定</a>功能则必须指定。<!--@
+       See -->有关行为上的差异请参见<a href="api_other.html"><!--@Other APIs-->其他 API</a><!--@ for behavior differences.-->。</td></td>
   </td>
 </tr>
 {{/is_apps}}
