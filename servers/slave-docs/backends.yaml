@@ -1,3 +1,0 @@
-backends:
-- name: update-docs
-  options: dynamic
