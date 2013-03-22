@@ -122,7 +122,7 @@ namespace app.window {
 
     // <!--@Is the window maximized?-->
     // 窗口是否最大化。
-    static bool isMaximized();
+    static boolean isMaximized();
 
     // <!--@Restore the window.-->
     // 恢复窗口。
