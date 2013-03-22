@@ -160,11 +160,20 @@
     ]
   },
   {
-    "title": "示例",
-    "fileName": "samples.html"
-  },
-  {
-    "title": "已知问题",
-    "fileName": "app_known_issues.html"
+    "title": "更多",
+    "items": [
+      {
+        "title": "常见问题",
+        "fileName": "faq.html"
+      },
+      {
+        "title": "示例",
+        "fileName": "samples.html"
+      },
+      {
+        "title": "已知问题",
+        "fileName": "app_known_issues.html"
+      }
+    ]
   }
 ]
