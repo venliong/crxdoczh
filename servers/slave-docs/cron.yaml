@@ -1,5 +1,0 @@
-cron:
-- description: Update docs
-  url: /_ah/start
-  schedule: every 12 hours
-  target: update-docs
