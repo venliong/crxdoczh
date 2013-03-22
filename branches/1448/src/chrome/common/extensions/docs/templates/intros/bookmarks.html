@@ -1,0 +1,112 @@
+<p id="classSummary">
+<!--@Use the <code>chrome.bookmarks</code> module to create, organize,
+and otherwise manipulate bookmarks.
+Also see <a href="override.html">Override Pages</a>,
+which you can use to create a custom Bookmark Manager page.-->
+使用 <code>chrome.bookmarks</code>
+模块创建、组织以及通过其它方式操纵书签。您也可以参见<a
+href="override.html">替代页面</a>，通过它您可以创建一个自定义的书签管理器页面。
+</p>
+
+<img src="{{static}}/images/bookmarks.png"
+     width="210" height="147" alt="Clicking the star adds a bookmark" />
+
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
+<p><!--@You must declare the "bookmarks" permission
+in the <a href="manifest.html">extension manifest</a>
+to use the bookmarks API.
+For example:-->
+您必须在<a href="manifest.html">扩展程序的清单文件</a>中声明
+"bookmarks" 权限才能使用书签 API。例如：
+</p>
+<pre>{
+  "name": "我的扩展程序",
+  ...
+  <b>"permissions": [
+    "bookmarks"
+  ]</b>,
+  ...
+}</pre>
+
+<h2 id="description"><!--@Objects and properties-->对象和属性</h2>
+
+<p>
+<!--@Bookmarks are organized in a tree,
+where each node in the tree
+is either a bookmark or a folder
+(sometimes called a <em>group</em>).
+Each node in the tree
+is represented by a
+$ref:bookmarks.BookmarkTreeNode object.-->
+书签以树的形式组织，树中每一个节点为一个书签或者文件夹（有时称为<em
+>组</em>），每一个节点使用 $ref:bookmarks.BookmarkTreeNode 对象来表示。
+</p>
+
+<p>
+<!--@<code>BookmarkTreeNode</code> properties
+are used throughout the <code>chrome.bookmarks</code> API.
+For example, when you call
+$ref:bookmarks.create,
+you pass in the new node's parent (<code>parentId</code>),
+and, optionally, the node's
+<code>index</code>, <code>title</code>, and <code>url</code> properties.
+See $ref:bookmarks.BookmarkTreeNode
+for information about the properties a node can have.-->
+<code>BookmarkTreeNode</code> 的各种属性在 <code>chrome.bookmarks</code>
+API 中经常使用。例如，当您调用 $ref:bookmarks.create
+时，您传递新节点所属的父节点（<code>parentId</code>），并且可选地传递节点的
+索引号（<code>index</code>）、标题（<code>title</code>）和
+<code>url</code> 属性。有关一个节点可以包含的属性，请参见
+$ref:bookmarks.BookmarkTreeNode。
+</p>
+
+<p class="note"><!--<b>Note:</b> You cannot use this API to add or remove entries
+in the root folder.  You also cannot rename, move, or remove the special
+"Bookmarks Bar" and "Other Bookmarks" folders.-->
+<b>注意：</b>您不可以使用这一 API 在根文件夹中添加或删除项目，您也不能重命名、移动或删除特殊的“书签栏”和“其他书签”文件夹。
+</p>
+
+<h2 id="overview-examples"><!--@Examples-->例子</h2>
+
+<p>
+<!--@The following code creates a folder with the title "Extension bookmarks".
+The first argument to <code>create()</code> specifies properties
+for the new folder.
+The second argument defines a function
+to be executed after the folder is created.-->
+以下代码创建一个标题为“扩展程序书签”的文件夹，<code>create()</code>
+的第一个参数指定新文件夹的属性，第二个参数定义文件夹创建后执行的函数。
+</p>
+
+<pre>
+chrome.bookmarks.create({'parentId': bookmarkBar.id,
+                         'title': '扩展程序书签'},
+                        function(newFolder) {
+  console.log("已添加文件夹：" + newFolder.title);
+});
+</pre>
+
+<p>
+<!--The next snippet creates a bookmark pointing to
+the developer documentation for extensions.
+Since nothing bad will happen if creating the bookmark fails,
+this code doesn't bother to define a callback function.-->
+下一个片段创建一个指向扩展程序开发者文档的书签。既然创建书签失败不会造成什么问题，下列代码省去了定义回调函数的麻烦。
+</p>
+
+<pre>
+chrome.bookmarks.create({'parentId': extensionsFolderId,
+                         'title': '扩展程序文档',
+                         'url': 'https://developer.chrome.com/extensions'});
+</pre>
+
+<p>
+<!--@For an example of using this API, see the
+<a href="http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/api/bookmarks/basic/">basic bookmarks sample</a>.
+For other examples and for help in viewing the source code, see
+<a href="samples.html">Samples</a>.-->
+有关使用这一 API 的一个例子，请参见<a
+href="https://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/api/bookmarks/basic/"
+>基本的书签示例</a>。有关其它例子以及查看源代码的帮助，请参见<a
+href="samples.html">示例</a>。
+</p>

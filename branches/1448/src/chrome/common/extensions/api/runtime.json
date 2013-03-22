@@ -1,0 +1,437 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+[
+  {
+    "namespace": "runtime",
+    "dependencies": [ "events", "tabs" ],
+    "documentation_permissions_required": ["runtime"],
+    "types": [
+      {
+        "id": "Port",
+        "type": "object",
+//@        "description": "An object which allows two way communication with other pages.",
+        "description": "允许与其他页面双向通信的对象。",
+        "properties": {
+          "name": {"type": "string"},
+          "disconnect": { "type": "function" },
+          "onDisconnect": { "$ref": "events.Event" },
+          "onMessage": { "$ref": "events.Event" },
+          "postMessage": {"type": "function"},
+          "sender": {
+            "$ref": "MessageSender",
+            "optional": true,
+//@            "description": "This property will <b>only</b> be present on ports passed to onConnect/onConnectExternal listeners."
+            "description": "<b>只有</b>当端口传递给 onConnect/onConnectExternal 监听器时才会存在该属性。"
+          }
+        },
+        "additionalProperties": { "type": "any"}
+      },
+      {
+        "id": "MessageSender",
+        "type": "object",
+//@        "description": "An object containing information about the script context that sent a message or request.",
+        "description": "包含有关发送消息或请求的脚本上下文信息的对象。",
+        "properties": {
+//@          "tab": {"$ref": "tabs.Tab", "optional": true, "description":"This property will <b>only</b> be present when the connection was opened from a tab or content script."},
+          "tab": {"$ref": "tabs.Tab", "optional": true, "description":"<b>只有</b>当连接从标签页或内容脚本中打开时才会存在这一属性。"},
+//@          "id": {"type": "string", "description": "The ID of the extension/app that opened the connection."}
+          "id": {"type": "string", "description": "打开连接的扩展程序/应用的标识符。"}
+        }
+      }
+    ],
+    "properties": {
+      "lastError": {
+        "type": "object",
+        "optional": true,
+//@        "description": "This will be defined during an API method callback if there was an error",
+        "description": "如果发生错误，在 API 方法的回调函数执行的过程中将会定义该属性。",
+        "unprivileged": true,
+        "properties": {
+          "message": {
+            "optional": true,
+            "type": "string",
+//@            "description": "Details about the error which occurred."
+            "description": "有关发生错误的详情。"
+          }
+        }
+      },
+      "id": {
+        "type": "string",
+//@        "description": "The ID of the extension/app.",
+        "description": "扩展程序/应用的标识符。",
+        "unprivileged": true
+      }
+    },
+    "functions": [
+      {
+        "name": "getBackgroundPage",
+        "type": "function",
+//@        "description": "Retrieves the JavaScript 'window' object for the background page running inside the current extension/app. If the background page is an event page, the system will ensure it is loaded before calling the callback. If there is no background page, an error is set.",
+        "description": "获取当前扩展程序/应用中正在运行的后台网页的 JavaScript window 对象。如果后台网页是事件页面，系统会确保在调用回调函数前它已经载入。如果没有后台网页，将会设置错误信息。",
+        "parameters": [
+          {
+            "type": "function",
+            "name": "callback",
+            "parameters": [
+              {
+                "name": "backgroundPage",
+                // Note: Only optional because we don't support validation
+                // for custom callbacks.
+                "optional": true,
+                "type": "object",
+                "isInstanceOf": "global",
+                "additionalProperties": { "type": "any" },
+//@                "description": "The JavaScript 'window' object for the background page."
+                "description": "后台页面的 JavaScript window 对象。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "getManifest",
+//@        "description": "Returns details about the app or extension from the manifest. The object returned is a serialization of the full <a href=\"manifest.html\">manifest file</a>.",
+        "description": "从清单文件中返回有关应用或扩展程序的详情，返回的对象是完整<a href=\"manifest.html\">清单文件</a>序列化的结果。",
+        "type": "function",
+        "unprivileged": true,
+        "parameters": [],
+        "returns": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": { "type": "any" },
+//@          "description": "The manifest details."
+          "description": "清单文件详情。"
+        }
+      },
+      {
+        "name": "getURL",
+        "type": "function",
+        "unprivileged": true,
+//@        "description": "Converts a relative path within an app/extension install directory to a fully-qualified URL.",
+        "description": "将应用或扩展程序安装目录内的相对路径转换为完全限定的 URL。",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "path",
+//@            "description": "A path to a resource within an app/extension expressed relative to its install directory."
+            "description": "指向应用或扩展程序内资源的路径，相对于它的安装目录。"
+          }
+        ],
+        "returns": {
+          "type": "string",
+//@          "description": "The fully-qualified URL to the resource."
+          "description": "指向资源的完全限定 URL。"
+        }
+      },
+      {
+        "name": "reload",
+//@        "description": "Reloads the app or extension.",
+        "description": "重新载入应用或扩展程序。",
+        "type": "function",
+        "unprivileged": true,
+        "parameters": []
+      },
+      {
+        "name": "requestUpdateCheck",
+        "type": "function",
+        "unprivileged": true,
+//@        "description": "Requests an update check for this app/extension.",
+        "description": "为当前应用/扩展程序请求检查更新。",
+        "parameters": [
+          {
+            "type": "function",
+            "name": "callback",
+            "parameters": [
+              {
+                "name": "status",
+                "type": "string",
+                "enum": ["throttled", "no_update", "update_available"],
+//@                "description": "Result of the update check."
+                "description": "检查更新的结果。"
+              },
+              {
+                "name": "details",
+                "type": "object",
+                "optional": true,
+                "properties": {
+                  "version": {
+                    "type": "string",
+//@                    "description": "The version of the available update."
+                    "description": "可用更新的版本。"
+                  }
+                },
+//@                "description": "If an update is available, this contains more information about the available update."
+                "description": "如果更新可用的话，包含有关可用更新的更多信息。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "connect",
+        "type": "function",
+        "unprivileged": true,
+//@        "description": "Attempts to connect to other listeners within the extension/app (such as the background page), or other extensions/apps. This is useful for content scripts connecting to their extension processes. Note that this does not connect to any listeners in a content script. Extensions may connect to content scripts embedded in tabs via $ref:tabs.connect.",
+        "description": "尝试连接到扩展程序/应用中其它的监听者（例如后台网页）或其他扩展程序/应用，该方法对于需要连接到它们的扩展程序进程的内容脚本非常有用。注意，该方法不能连接到内容脚本中的监听者，扩展程序可以通过 $ref:tabs.connect 连接到嵌入至标签页中的内容脚本。",
+        "parameters": [
+//@          {"type": "string", "name": "extensionId", "optional": true, "description": "The ID of the extension/app you want to connect to. If omitted, default is your own extension."},
+          {"type": "string", "name": "extensionId", "optional": true, "description": "您需要连接到的扩展程序/应用的标识符，如果省略，默认为您自己的扩展程序。"},
+          {
+            "type": "object",
+            "name": "connectInfo",
+            "properties": {
+//@              "name": { "type": "string", "optional": true, "description": "Will be passed into onConnect for processes that are listening for the connection event." }
+              "name": { "type": "string", "optional": true, "description": "将传递给监听连接事件的扩展程序进程的 onConnect 事件。" }
+            },
+            "optional": true
+          }
+        ],
+        "returns": {
+          "$ref": "Port",
+//@          "description": "Port through which messages can be sent and received. The port's $ref:[runtime.Port onDisconnect] event is fired if the extension/app does not exist. "
+          "description": "用来与扩展程序发送和接受消息的端口。如果扩展程序不存在则引发该端口的 $ref:runtime.Port.onDisconnect 事件。"
+        }
+      },
+      {
+        "name": "connectNative",
+        "nodoc": true,
+        "type": "function",
+        "description": "Attempts to connect a native application in the host machine. The native application must have already registered itself in the proper directory.",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "appName",
+            "description": "The name of the registered app to connect to."
+          }
+        ],
+        "returns": {
+          "$ref": "Port",
+          "description": "Port through which messages can be sent and received with the application"
+        }
+      },
+      {
+        "name": "sendMessage",
+        "type": "function",
+        "allowAmbiguousOptionalArguments": true,
+        "unprivileged": true,
+//@        "description": "Sends a single message to onMessage event listeners within the extension (or another extension/app). Similar to chrome.runtime.connect, but only sends a single message with an optional response. The $ref:runtime.onMessage event is fired in each extension page of the extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use $ref:tabs.sendMessage.",
+        "description": "向扩展程序中的其它监听者（或另一个扩展程序/应用）发送单个请求。与 chrome.runtime.connect 类似，但是只发送具有可选回应的单个请求。$ref:runtime.onMessage 事件将在扩展程序的每一个页面中产生。注意，扩展程序不能使用该方法向内容脚本发送消息。要向内容脚本发送消息，请使用 $ref:tabs.sendMessage。",
+        "parameters": [
+//@          {"type": "string", "name": "extensionId", "optional": true, "description": "The extension ID of the extension you want to connect to. If omitted, default is your own extension."},
+          {"type": "string", "name": "extensionId", "optional": true, "description": "您要连接的扩展程序标识符。如果省略，默认为您自己的扩展程序。"},
+          { "type": "any", "name": "message" },
+          {
+            "type": "function",
+            "name": "responseCallback",
+            "optional": true,
+            "parameters": [
+              {
+                "name": "response",
+                "type": "any",
+//@                "description": "The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and $ref:runtime.lastError will be set to the error message."
+                "description": "消息处理程序发送的 JSON 响应对象。如果连接到扩展程序的过程中发生错误，调用这一回调函数时将不传递参数，并将 $ref:runtime.lastError 设为错误消息。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "sendNativeMessage",
+        "nodoc": true,
+        "type": "function",
+        "description": "Send a single message to a registered native application.",
+        "parameters": [
+          {
+            "name": "registeredNativeApp",
+            "description": "The name of the registered native application.",
+            "type": "string"
+          },
+          {
+            "name": "message",
+            "description": "The message that will be passed to the registered native application.",
+            "type": "object",
+            "additionalProperties": {
+              "type": "any"
+            }
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "optional": true,
+            "description": "Called with the response from the native application.",
+            "parameters": [
+              {
+                "name": "nativeResponse",
+                "type": "object",
+                "description": "Whatever the native application responds with.",
+                "additionalProperties": {
+                  "type": "any"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "onStartup",
+        "type": "function",
+//@        "description": "Fired when a profile that has this extension installed first starts up. This event is not fired when an incognito profile is started, even if this extension is operating in 'split' incognito mode."
+        "description": "当安装了该扩展程序的配置文件第一次启动时产生。即使扩展程序以“分离式”隐身模式运行，启动隐身配置文件时也不会产生该事件。"
+      },
+      {
+        "name": "onInstalled",
+        "type": "function",
+//@        "description": "Fired when the extension is first installed, when the extension is updated to a new version, and when Chrome is updated to a new version.",
+        "description": "当扩展程序第一次安装、更新至新版本或 Chrome 浏览器更新至新版本时产生。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "details",
+            "properties": {
+              "reason": {
+                "type": "string",
+                "enum": ["install", "update", "chrome_update"],
+//@                "description": "The reason that this event is being dispatched."
+                "description": "分发这一事件的原因。"
+              },
+              "previousVersion": {
+                "type": "string",
+                "optional": true,
+//@                "description": "Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'."
+                "description": "表示已更新扩展程序的前一个版本，只有当 reason 为 'update' 时才存在。"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "onSuspend",
+        "type": "function",
+//@        "description": "Sent to the event page just before it is unloaded. This gives the extension opportunity to do some clean up. Note that since the page is unloading, any asynchronous operations started while handling this event are not guaranteed to complete. If more activity for the event page occurs before it gets unloaded the onSuspendCanceled event will be sent and the page won't be unloaded. "
+        "description": "在事件页面即将卸载前发送，这样扩展程序就有机会进行清理。注意，由于页面即将卸载，处理该事件时开始的任何异步操作都不能保证完成。如果卸载前事件页面产生了更多活动，将产生 onSuspendCanceled 事件，并且事件页面不会卸载。"
+      },
+      {
+        "name": "onSuspendCanceled",
+        "type": "function",
+//@        "description": "Sent after onSuspend to indicate that the app won't be unloaded after all."
+        "description": "在 onSuspend 之后发送，表示应用最终不会被卸载。"
+      },
+      {
+        "name": "onUpdateAvailable",
+        "type": "function",
+//@        "description": "Fired when an update is available, but isn't installed immediately because the app is currently running. If you do nothing, the update will be installed the next time the background page gets unloaded, if you want it to be installed sooner you can explicitly call chrome.runtime.reload().",
+        "description": "当更新可用时产生，然而由于应用当前还在运行，不能立即安装。如果您什么都不做，更新将在后台网页下一次卸载时安装。如果您希望快点安装，您可以显式调用 $ref:runtime.reload。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "details",
+            "properties": {
+              "version": {
+                "type": "string",
+//@                "description": "The version number of the available update."
+                "description": "可用更新的版本号。"
+              }
+            },
+            "additionalProperties": { "type": "any" },
+//@            "description": "The manifest details of the available update."
+            "description": "可用更新的清单文件详情。"
+          }
+        ]
+      },
+      {
+        "name": "onBrowserUpdateAvailable",
+        "type": "function",
+//@        "description": "Fired when a Chrome update is available, but isn't installed immediately because a browser restart is required.",
+        "description": "当 Chrome 浏览器的更新可用，但是由于需要浏览器重新启动而没有立即安装时产生。",
+        "parameters": []
+      },
+      {
+        "name": "onConnect",
+        "type": "function",
+        "unprivileged": true,
+        "anonymous": true,
+//@        "description": "Fired when a connection is made from either an extension process or a content script.",
+        "description": "当连接从扩展程序进程或内容脚本中发起时产生。",
+        "parameters": [
+          {"$ref": "Port", "name": "port"}
+        ]
+      },
+      {
+        "name": "onConnectExternal",
+        "type": "function",
+        "anonymous": true,
+//@        "description": "Fired when a connection is made from another extension.",
+        "description": "当连接从另一个扩展程序发起时产生。",
+        "parameters": [
+          {"$ref": "Port", "name": "port"}
+        ]
+      },
+      {
+        "name": "onMessage",
+        "type": "function",
+        "anonymous": true,
+        "unprivileged": true,
+//@        "description": "Fired when a message is sent from either an extension process or a content script.",
+        "description": "当消息从扩展程序进程或者内容脚本中发送时产生。",
+        "parameters": [
+//@          {"name": "message", "type": "any", "description": "The message sent by the calling script."},
+          {"name": "message", "type": "any", "description": "调用脚本发送的消息。"},
+          {"name": "sender", "$ref": "MessageSender" },
+//@          {"name": "sendResponse", "type": "function", "description": "Function to call (at most once) when you have a response. The argument should be any JSON-ifiable object. If you have more than one <code>onMessage</code> listener in the same document, then only one may send a response. This function becomes invalid when the event listener returns, unless you return true from the event listener to indicate you wish to send a response asynchronously (this will keep the message channel open to the other end until <code>sendResponse</code> is called)." }
+          {"name": "sendResponse", "type": "function", "description": "当您产生响应时调用（最多一次）的函数，参数可以是任何可转化为 JSON 的对象。如果您在同一个文档中有一个以上的 <code>onRequest</code> 事件处理函数，只有其中一个可以发送响应。当事件处理函数返回时，该函数将失效，除非您在事件处理函数中返回 true，表示您希望通过异步方式发送响应（这样，与另一端之间的消息通道将会保持打开状态，直到调用了 <code>sendResponse</code>）。",
+          "parameters": [
+              {
+                "name": "response",
+                "type": "any",
+//@                "description": "The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and $ref:runtime.lastError will be set to the error message."
+                "description": "要发送的 JSON 响应对象。"
+              }
+            ]
+          }
+        ],
+        "returns": {
+          "type": "boolean",
+          "optional": "true",
+//@          "description": "Return true from the event listener if you wish to call <code>sendResponse</code> after the event listener returns."
+          "description": "如果您需要在事件监听器返回后再调用 <code>sendResponse</code> 请在事件监听器中返回 true。"
+        }
+      },
+      {
+        "name": "onMessageExternal",
+        "type": "function",
+        "anonymous": true,
+//@        "description": "Fired when a message is sent from another extension/app. Cannot be used in a content script.",
+        "description": "当消息从另一个扩展程序/应用发送时产生。不能在内容脚本中使用。",
+        "parameters": [
+//@          {"name": "message", "type": "any", "description": "The message sent by the calling script."},
+          {"name": "message", "type": "any", "description": "调用脚本发送的消息。"},
+          {"name": "sender", "$ref": "MessageSender" },
+//@          {"name": "sendResponse", "type": "function", "description": "Function to call (at most once) when you have a response. The argument should be any JSON-ifiable object. If you have more than one <code>onMessage</code> listener in the same document, then only one may send a response. This function becomes invalid when the event listener returns, unless you return true from the event listener to indicate you wish to send a response asynchronously (this will keep the message channel open to the other end until <code>sendResponse</code> is called)." }
+          {"name": "sendResponse", "type": "function", "description": "当您产生响应时调用（最多一次）的函数，参数可以是任何可转化为 JSON 的对象。如果您在同一个文档中有一个以上的 <code>onRequest</code> 事件处理函数，只有其中一个可以发送响应。当事件处理函数返回时，该函数将失效，除非您在事件处理函数中返回 true，表示您希望通过异步方式发送响应（这样，与另一端之间的消息通道将会保持打开状态，直到调用了 <code>sendResponse</code>）。",
+          "parameters": [
+              {
+                "name": "response",
+                "type": "any",
+//@                "description": "The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and $ref:runtime.lastError will be set to the error message."
+                "description": "要发送的 JSON 响应对象。"
+              }
+            ]
+          }
+        ],
+        "returns": {
+          "type": "boolean",
+          "optional": "true",
+//@          "description": "Return true from the event listener if you wish to call <code>sendResponse</code> after the event listener returns."
+          "description": "如果您需要在事件监听器返回后再调用 <code>sendResponse</code> 请在事件监听器中返回 true。"
+        }
+      }
+
+
+
+    ]
+  }
+]

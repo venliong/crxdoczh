@@ -1,0 +1,213 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+namespace syncFileSystem {
+  enum SyncAction {
+    added, updated, deleted
+  };
+
+  enum ServiceStatus {
+    // <!--@The sync service is being initialized (e.g. restoring data from the
+    // database, checking connectivity and authenticating to the service etc).-->
+    // 同步服务正在初始化（例如从数据库恢复数据、检查连接状况以及与服务认证等）。
+    initializing,
+
+    // <!--@The sync service is up and running.-->
+    // 同步服务已启动，并且正在运行。
+    running,
+
+    // <!--@The sync service is not synchronizing files because the remote service
+    // needs to be authenticated by the user to proceed.-->
+    // 由于远程服务需要用户继续认证，同步服务不能同步文件。
+    authentication_required,
+
+    // <!--@The sync service is not synchronizing files because the remote service
+    // is (temporarily) unavailable due to some recoverable errors, e.g.
+    // network is offline, the remote service is down or not
+    // reachable etc. More details should be given by |description| parameter
+    // in OnServiceInfoUpdated (which could contain service-specific details).-->
+    // 远程服务因为某些可恢复的错误（例如网络离线、远程服务不可用或无法访问等）不可用，所以同步服务无法同步文件。更多详情应该会通过
+    // onServiceInfoUpdated（可能会包含服务特定的详情）的
+    // <code>description</code> 参数提供。
+    temporary_unavailable,
+
+    // <!--@The sync service is disabled and the content will never sync.
+    // (E.g. this could happen when the user has no account on
+    // the remote service or the sync service has had an unrecoverable
+    // error.)-->
+    // 同步服务已禁用，内容不会被同步。（例如当用户没有远程服务的账户或者远程服务有不可恢复的错误时导致这样的结果。）
+    disabled
+  };
+
+  enum FileStatus {
+    // <!--@Not conflicting and has no pending local changes.-->
+    // 没有冲突，也没有待定的本地更改。
+    synced,
+
+    // <!--@Has one or more pending local changes that haven't been synchronized.-->
+    // 有一个或多个待定本地更改还未同步。
+    pending,
+
+    // <!--@File conflicts with remote version and must be resolved manually.-->
+    // 文件与远程版本冲突，必须手动解决。
+    conflicting
+  };
+
+  enum SyncDirection {
+    local_to_remote, remote_to_local
+  };
+
+  enum ConflictResolutionPolicy {
+    last_write_win, manual
+  };
+
+  dictionary FileInfo {
+    // <!--@<code>fileEntry</code> for the target file whose status has changed.
+    // Contains name and path information of synchronized file.
+    // On file deletion,
+    // <code>fileEntry</code> information will still be available
+    // but file will no longer exist.-->
+    // 状态更改的目标文件的
+    // <code>fileEntry</code>（文件项），包含已同步文件的名称和路径信息。当文件删除时，<code>fileEntry</code>
+    // 信息仍然可用，但文件不再存在。
+    [instanceOf=FileEntry] object fileEntry;
+
+    // <!--@Resulting file status after $ref:onFileStatusChanged event.
+    // The status value can be <code>'synced'</code>,
+    // <code>'pending'</code> or <code>'conflicting'</code>.-->
+    // $ref:onFileStatusChanged 事件发生后的文件状态，状态值可以为
+    // <code>'synced'</code>（已同步）、<code>'pending'</code>（待定）或
+    // <code>'conflicting'</code>（冲突）。
+    FileStatus status;
+
+    // <!--@Sync action taken to fire $ref:onFileStatusChanged event.
+    // The action value can be
+    // <code>'added'</code>, <code>'updated'</code> or <code>'deleted'</code>.
+    // Only applies if status is <code>'synced'</code>.-->
+    // 产生 $ref:onFileStatusChanged 事件时执行的同步操作，操作值可以为
+    // <code>'added'</code>（添加）、<code>'updated'</code>（更新）或
+    // <code>'deleted'</code>（删除）。只有当状态为
+    // <code>'synced'</code>（已同步）时才适用。
+    SyncAction? action;
+
+    // <!--@Sync direction for the $ref:onFileStatusChanged event.
+    // Sync direction value can be
+    // <code>'local_to_remote'</code> or <code>'remote_to_local'</code>.
+    // Only applies if status is <code>'synced'</code>.-->
+    // 本次 $ref:onFileStatusChanged 事件的方向，同步方向值可以为
+    // <code>'local_to_remote'</code>（本地到远程）或 
+    // <code>'remote_to_local'</code>（远程到本地）。只有当状态为
+    // <code>'synced'</code> 时才适用。
+    SyncDirection? direction;
+  };
+
+  dictionary StorageInfo {
+    long usageBytes;
+    long quotaBytes;
+  };
+
+  dictionary ServiceInfo {
+    ServiceStatus state;
+    DOMString description;
+  };
+
+  // <!--@A callback type for requestFileSystem.-->
+  // 用于 requestFileSystem 的回调函数。
+  callback GetFileSystemCallback =
+      void ([instanceOf=DOMFileSystem] object fileSystem);
+
+  // <!--@A callback type for getUsageAndQuota.-->
+  // 用于 getUsageAndQuota 的回调函数。
+  callback QuotaAndUsageCallback = void (StorageInfo info);
+
+  // <!--@Returns true if operation was successful.-->
+  // 如果操作成功则返回 true。
+  callback DeleteFileSystemCallback = void (boolean result);
+
+  // <!--@A callback type for getFileStatus.-->
+  // 用于 getFileStatus 的回调函数。
+  callback GetFileStatusCallback = void (FileStatus status);
+
+  // <!--@A callback type for getConflictResolutionPolicy.-->
+  // 用于 getConflictResolutionPolicy 的回调函数。
+  callback GetConflictResolutionPolicyCallback =
+      void (ConflictResolutionPolicy policy);
+
+  // <!--@A generic result callback to indicate success or failure.-->
+  // 表示成功或失败的一般结果回调函数。
+  callback ResultCallback = void ();
+
+  interface Functions {
+    // <!--@Returns a syncable filesystem backed by Google Drive.
+    // The returned <code>DOMFileSystem</code> instance can be operated on
+    // in the same way as the Temporary and Persistant file systems (see
+    // <a href="http://www.w3.org/TR/file-system-api/">http://www.w3.org/TR/file-system-api/</a>).
+    // Calling this multiple times from
+    // the same app will return the same handle to the same file system.-->
+    // 返回由 Google 云端硬盘支持的同步文件系统，返回的
+    // <code>DOMFileSystem</code> 实例可以以类似于临时和持久文件系统（参见
+    // <a href="http://www.w3.org/TR/file-system-api/">http://www.w3.org/TR/file-system-api/</a>）的方式操作。在同一个应用中多次调用该方法会返回指向同一个文件系统的同一个句柄。
+    static void requestFileSystem(GetFileSystemCallback callback);
+
+    // <!--@Sets the default conflict resolution policy
+    // for the <code>'syncable'</code> file storage for the app.
+    // By default it is set to <code>'manual'</code>.
+    // When conflict resolution policy is set to <code>'last_write_win'</code>
+    // conflicts for existing files are automatically resolved next time
+    // the file is updated.
+    // |callback| can be optionally given to know if the request has
+    // succeeded or not.-->
+    // 为应用设置同步文件存储的默认冲突解决策略，默认情况下为
+    // <code>'manual'</code>（手动）。当冲突解决策略设置为
+    // <code>'last_write_win'</code>
+    // 时，已有文件的冲突在文件下一次更新时会自动解决。可以指定可选的
+    // <code>callback</code>，以便知道请求是否成功。
+    static void setConflictResolutionPolicy(
+        ConflictResolutionPolicy policy,
+        optional ResultCallback callback);
+
+    // <!--@Gets the current conflict resolution policy.-->
+    // 获取当前的冲突解决策略。
+    static void getConflictResolutionPolicy(
+        GetConflictResolutionPolicyCallback callback);
+
+    // <!--@Returns the current usage and quota in bytes
+    // for the <code>'syncable'</code> file storage for the app.-->
+    // 返回该应用同步文件存储的当前用量与配额，以字节为单位。
+    static void getUsageAndQuota([instanceOf=DOMFileSystem] object fileSystem,
+                                 QuotaAndUsageCallback callback);
+
+    // <!--@Deletes everything in the syncable filesystem.-->
+    // 删除同步文件系统中的所有内容。
+    static void deleteFileSystem([instanceOf=DOMFileSystem] object fileSystem,
+                                 DeleteFileSystemCallback callback);
+
+    // <!--@Returns the $ref:FileStatus for the given <code>fileEntry</code>.
+    // The status value can be <code>'synced'</code>,
+    // <code>'pending'</code> or <code>'conflicting'</code>.
+    // Note that <code>'conflicting'</code> state only happens when
+    // the service's conflict resolution policy is set to <code>'manual'</code>.-->
+    // 返回指定 <code>fileEntry</code>（文件项）的
+    // $ref:FileStatus （文件状态），状态值可以为
+    // <code>'synced'</code>（已同步）、<code>'pending'</code>（待定）或
+    // <code>'conflicting'</code>（冲突）。注意，只有当服务的冲突解决策略设置为
+    // <code>'manual'</code>（手动）时，才会发生
+    // <code>'conflicting'</code>（冲突）状态。
+    static void getFileStatus([instanceOf=FileEntry] object fileEntry,
+                              GetFileStatusCallback callback);
+  };
+
+  interface Events {
+    // <!--@Fired when an error or other status change has happened in the
+    // sync backend (for example, when the sync is temporarily disabled due to
+    // network or authentication error).-->
+    // 当同步后端发生错误或其他状态更改时产生（例如同步由于网络或认证错误而暂时不可用）。
+    static void onServiceStatusChanged(ServiceInfo detail);
+
+    // <!--@Fired when a file has been updated by the background sync service.-->
+    // 当文件由后台的同步服务更新时产生。
+    static void onFileStatusChanged(FileInfo detail);
+  };
+
+};
