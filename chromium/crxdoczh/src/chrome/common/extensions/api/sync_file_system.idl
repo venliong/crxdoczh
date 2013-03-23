@@ -102,6 +102,24 @@ namespace syncFileSystem {
     SyncDirection? direction;
   };
 
+  dictionary FileStatusInfo {
+    // <!--@File path of one of the FileEntry's originally given to getFileStatuses.-->
+    // 原来提供给 getFileStatuses 的某个 FileEntry（文件项）的文件路径。
+    DOMString file_path;
+
+    // <!--@The status value can be <code>'synced'</code>,
+    // <code>'pending'</code> or <code>'conflicting'</code>.-->
+    // 状态值可以为
+    // <code>'synced'</code>（已同步）、<code>'pending'</code>（待定）或
+    // <code>'conflicting'</code>（冲突）。
+    FileStatus status;
+
+    // <!--@Optional error that is only returned if there was a problem retrieving
+    // the FileStatus for the given file.-->
+    // 如果获取指定文件的文件状态时遇到问题则返回可选的错误。
+    DOMString? error;
+  };
+
   dictionary StorageInfo {
     long usageBytes;
     long quotaBytes;
@@ -128,6 +146,10 @@ namespace syncFileSystem {
   // <!--@A callback type for getFileStatus.-->
   // 用于 getFileStatus 的回调函数。
   callback GetFileStatusCallback = void (FileStatus status);
+
+  // <!--@A callback type for getFileStatuses.-->
+  // 用于 getFileStatuses 的回调函数。
+  callback GetFileStatusesCallback = void (FileStatusInfo[] status);
 
   // <!--@A callback type for getConflictResolutionPolicy.-->
   // 用于 getConflictResolutionPolicy 的回调函数。
@@ -191,6 +213,14 @@ namespace syncFileSystem {
     // <code>'conflicting'</code>（冲突）状态。
     static void getFileStatus([instanceOf=FileEntry] object fileEntry,
                               GetFileStatusCallback callback);
+
+    // <!--@Returns each $ref:FileStatus for the given <code>fileEntry</code> array.
+    // Typically called with the result from dirReader.readEntries().-->
+    // 返回指定 <code>fileEntry</code>（文件项）数组的每一个
+    // $ref:FileStatus（文件状态），调用时通常传递
+    // dirReader.readEntries() 的结果。
+    static void getFileStatuses([instanceOf=EntryArray] object fileEntries,
+                                GetFileStatusesCallback callback);
   };
 
   interface Events {
