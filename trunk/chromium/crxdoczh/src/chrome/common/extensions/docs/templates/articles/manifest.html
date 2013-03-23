@@ -64,6 +64,9 @@ are <b>name</b> and <b>version</b>.-->
   "<a href="#minimum_chrome_version">minimum_chrome_version</a>": "<em>版本字符串</em>",
 
   "<a href="#nacl_modules">nacl_modules</a>": [...],
+{{?is_apps}}
+  "<a href="#kiosk_enabled">kiosk_enabled</a>": true,
+{{/is_apps}}
   "<a href="#offline_enabled">offline_enabled</a>": true,
 {{^is_apps}}
   "<a href="omnibox.html">omnibox</a>": { "keyword": "<em>aString</em>" },
@@ -458,6 +461,20 @@ to display a particular type of content.-->
 模块，只有当您需要浏览器使用您的 Native Client
 模块显示特定类型的内容时才需要使用 "nacl_modules"。
 </p>
+
+{{?is_apps}}
+<h3 id="kiosk_enabled">kiosk_enabled</h3>
+
+<p>
+<!--@Whether the packaged app is designed to expected to work in ChromeOS kiosk mode.
+In kiosk mode, the platform app window will cover the entire surface of the
+display (forced full screen). The kiosk-enabled apps are expected to be designed
+with this constraint in mind.-->
+打包应用是否设计为可以在 Chrome OS 的 kiosk 模式中运行。在 kiosk
+模式中，打包应用的窗口会覆盖显示器的整个表面（强制全屏），启用了 kiosk
+的应用在设计时应该考虑到这一约束。
+</p>
+{{/is_apps}}
 
 <h3 id="offline_enabled">offline_enabled</h3>
 

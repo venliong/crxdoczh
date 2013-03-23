@@ -92,7 +92,7 @@ namespace downloads {
   // <!--@These string constants will never change, however the set of DangerTypes
   // may change.-->
   // 这些字符串常数不会更改，但是 DangerType 允许的值可能会更改。
-  enum DangerType {file, url, content, uncommon, host, safe};
+  enum DangerType {file, url, content, uncommon, host, safe, accepted};
 
   // <dl><dt>in_progress</dt>
   //     <dd><!--@The download is currently receiving data from the server.-->下载项当前正在从服务器接收数据。</dd>
