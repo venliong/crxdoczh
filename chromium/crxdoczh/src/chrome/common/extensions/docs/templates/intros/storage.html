@@ -136,10 +136,11 @@ enormous amounts of material.-->
 <p><!--@For details on the current limits
 of the storage API, and what happens
 when those limits are exceeded, please
-see the-->
+see the quota information for-->
 有关目前对存储 API 的限制以及超出限制的结果，请参见
-<a href="#apiReference">API <!--@reference-->参考</a><!--@.-->。
-
+<a href="#sync-properties">sync</a> <!--@and-->和
+<a href="#local-properties">local</a><!--@.-->
+的配额信息。
 
 <h2 id="examples"><!--@Examples-->例子</h2>
 
@@ -196,10 +197,3 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
   }
 });
 </pre>
-
-<p>
-<!--@You can find examples that use this API on the
-<a href="samples.html#sty">Samples page</a>.-->
-您可以在<a href="samples.html#storage">示例页面</a>找到使用这一
-API 的例子。
-</p>
