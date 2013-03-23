@@ -28,6 +28,7 @@
       {
         "id": "StorageArea",
         "type": "object",
+        "js_module": "StorageArea",
         "functions": [
           {
             "name": "get",
