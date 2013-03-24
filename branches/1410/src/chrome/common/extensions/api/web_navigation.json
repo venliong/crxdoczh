@@ -192,7 +192,7 @@
         "name": "onDOMContentLoaded",
         "type": "function",
 //@        "description": "Fired when the page's DOM is fully constructed, but the referenced resources may not finish loading.",
-        "description": "当页面的 DOM 已完全构造时产生，但是此时引用的资源可能还未载入完成。",
+        "description": "当页面的 DOM 已完全构造时产生，但是此时引用的资源可能还未完成加载。",
         "filters": [
           {
             "name": "url",
@@ -224,7 +224,7 @@
         "name": "onCompleted",
         "type": "function",
 //@        "description": "Fired when a document, including the resources it refers to, is completely loaded and initialized.",
-        "description": "当文档（包括它所引用的资源）已经完全载入并初始化完成时产生。",
+        "description": "当文档（包括它所引用的资源）已经完全加载并初始化完成时产生。",
         "filters": [
           {
             "name": "url",
@@ -247,7 +247,7 @@
 //@              "frameId": {"type": "integer", "description": "0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique within a tab."},
               "frameId": {"type": "integer", "description": "0 表示导航发生在标签页内容窗口中，正数表示导航发生在子框架中。框架标识符在标签页中唯一。"},
 //@              "timeStamp": {"type": "number", "description": "The time when the document finished loading, in milliseconds since the epoch."}
-              "timeStamp": {"type": "number", "description": "文档载入完成的时间，表示为自 1970 年 1 月 1 日午夜开始所经过的毫秒数。"}
+              "timeStamp": {"type": "number", "description": "文档加载完成的时间，表示为自 1970 年 1 月 1 日午夜开始所经过的毫秒数。"}
             }
           }
         ]

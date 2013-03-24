@@ -230,7 +230,7 @@ Store is the repository that holds the loaded models,
 and it also provides functions such as creating,
 querying and filtering the model instances contained within it.-->
 与让模型处理持久存储有所区别的方式是引入单独的存储区与适配器 API
-的概念。存储区、模型与适配器（在某些框架中称为代理）同时工作。存储区是包含已载入模型的库，并提供诸如创建、查询及过滤包含在其中的模型实例的功能。
+的概念。存储区、模型与适配器（在某些框架中称为代理）同时工作。存储区是包含已加载模型的库，并提供诸如创建、查询及过滤包含在其中的模型实例的功能。
 </p>
 
 <p>
@@ -284,7 +284,7 @@ to both the model and a datastore
 and is responsible for keeping the model persisted.
 The controller responds to lifecycle events like Load, Save, Delete,
 and issues commands to the datastore to fetch or update the model. -->
-在这种模式中，控制器包含对模型与数据存储区的引用，并负责保持模型持久存储。控制器对诸如载入、保存、删除之类的生命周期事件作出响应，并向数据存储区发送命令以便获取或更新模型。
+在这种模式中，控制器包含对模型与数据存储区的引用，并负责保持模型持久存储。控制器对诸如加载、保存、删除之类的生命周期事件作出响应，并向数据存储区发送命令以便获取或更新模型。
 </p>
 
 <p>
@@ -327,7 +327,7 @@ the AppController responds to events
 and changes the app’s current screen by issuing a call
 to the datastore to load any models needed and
 constructing all of the matching views and controllers for that screen.-->
-在应用控制器模式中，应用控制器响应事件，并通过向数据存储区发出调用，载入所需的模型并构造所有匹配视图及控制器的方式更改应用的当前屏幕。
+在应用控制器模式中，应用控制器响应事件，并通过向数据存储区发出调用，加载所需的模型并构造所有匹配视图及控制器的方式更改应用的当前屏幕。
 </p>
 
 <p>

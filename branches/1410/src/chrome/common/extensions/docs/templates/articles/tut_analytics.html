@@ -45,13 +45,13 @@ extension.-->
   modification to the usual tracking snippet to pull <code>ga.js</code> directly
   from <code>https://ssl.google-analytics.com/ga.js</code> instead of the
   default location.-->
-  如果当前页面使用 <code>https://</code> 协议载入，标准的
+  如果当前页面使用 <code>https://</code> 协议加载，标准的
   Google Analytics（分析）代码片段通过受 SSL 保护的 URL
   获取名为 <code>ga.js</code> 的文件。<strong>Chrome
   浏览器的扩展程序和应用<em>只能</em>使用受 SSL
   保护的 <code>ga.js</code></strong>。Chrome 浏览器默认的<a
   href="contentSecurityPolicy.html">内容安全策略</a>禁止通过不安全的
-  HTTP 载入 <code>ga.js</code>，再加上 Chrome 扩展程序托管在
+  HTTP 加载 <code>ga.js</code>，再加上 Chrome 扩展程序托管在
   <code>chrome-extension://</code>
   协议下，所以需要稍微修改一下通常的跟踪代码，直接从
   <code>https://ssl.google-analytics.com/ga.js</code>
@@ -91,7 +91,7 @@ extension.-->
   tracking code via an external JavaScript file (<code>popup.js</code>) and
   tracks a single page view:-->
   如下是一个弹出内容的网页（<code>popup.html</code>），通过外部的
-  JavaScript 文件（<code>popup.js</code>）载入异步跟踪代码，并跟踪一次浏览：
+  JavaScript 文件（<code>popup.js</code>）加载异步跟踪代码，并跟踪一次浏览：
 </p>
 
 <pre>popup.js:

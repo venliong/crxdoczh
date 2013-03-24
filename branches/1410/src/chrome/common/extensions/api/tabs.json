@@ -30,11 +30,11 @@
 //@          "url": {"type": "string", "optional": true, "description": "The URL the tab is displaying. This will only be present if the extension has the 'tabs' or 'webNavigation' permission."},
           "url": {"type": "string", "optional": true, "description": "标签页中显示的 URL，只有当扩展程序拥有 \"tabs\" 或 \"webNavigation\" 权限时才会存在。"},
 //@          "title": {"type": "string", "optional": true, "optional": true, "description": "The title of the tab. This will only be present if the extension has the 'tabs' or 'webNavigation' permission. It may also be an empty string if the tab is loading."},
-          "title": {"type": "string", "optional": true, "optional": true, "description": "标签页的标题，只有当扩展程序拥有 \"tabs\" 或 \"webNavigation\" 权限时才会存在，如果标签页正在载入它也可能是空字符串。"},
+          "title": {"type": "string", "optional": true, "optional": true, "description": "标签页的标题，只有当扩展程序拥有 \"tabs\" 或 \"webNavigation\" 权限时才会存在，如果标签页正在加载它也可能是空字符串。"},
 //@          "favIconUrl": {"type": "string", "optional": true, "optional": true, "description": "The URL of the tab's favicon. This will only be present if the extension has the 'tabs' or 'webNavigation' permission. It may also be an empty string if the tab is loading."},
           "favIconUrl": {"type": "string", "optional": true, "optional": true, "description": "标签页的收藏夹图标URL，只有当扩展程序拥有 \"tabs\" 或 \"webNavigation\" 权限时才会存在，如果标签页正在载入它也可能是空字符串。"},
 //@          "status": {"type": "string", "optional": true, "description": "Either <em>loading</em> or <em>complete</em>."},
-          "status": {"type": "string", "optional": true, "description": "<em>\"loading\"</em>（正在载入）或 <var>\"complete\"</var>（完成）。"},
+          "status": {"type": "string", "optional": true, "description": "<em>\"loading\"</em>（正在加载）或 <var>\"complete\"</var>（完成）。"},
 //@          "incognito": {"type": "boolean", "description": "Whether the tab is in an incognito window."}
           "incognito": {"type": "boolean", "description": "标签页是否在隐身窗口中。"}
         }
@@ -381,7 +381,7 @@
                 "optional": true,
                 "enum": ["loading", "complete"],
 //@                "description": "Whether the tabs have completed loading."
-                "description": "标签页是否已经完成载入。"
+                "description": "标签页是否已经加载完成。"
               },
               "title": {
                 "type": "string",
@@ -603,7 +603,7 @@
         "name": "reload",
         "type": "function",
 //@        "description": "Reload a tab.",
-        "description": "重新载入标签页。",
+        "description": "重新加载标签页。",
         "parameters": [
 //@          {"type": "integer", "name": "tabId", "optional": true, "description": "The ID of the tab to reload; defaults to the selected tab of the current window."},
           {"type": "integer", "name": "tabId", "optional": true, "description": "要重新载入的标签页标识符，默认为当前窗口的选定标签页。"},
@@ -805,7 +805,7 @@
                 "type": "string",
                 "optional": true,
 //@                "description": "The status of the tab. Can be either <em>loading</em> or <em>complete</em>."
-                "description": "标签页的状态，可以为 <em>loading</em>（正在载入）或 <em>complete</em>（完成）。"
+                "description": "标签页的状态，可以为 <em>loading</em>（正在加载）或 <em>complete</em>（完成）。"
               },
               "url": {
                 "type": "string",
