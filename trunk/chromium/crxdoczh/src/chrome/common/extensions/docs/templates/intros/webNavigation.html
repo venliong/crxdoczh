@@ -90,7 +90,7 @@ Pages</a>, a completely loaded page is swapped into the current tab. In that
 case, an <code>onTabReplaced</code> event is fired.-->
 如果导航通过 <a
 href="https://support.google.com/chrome/bin/answer.py?answer=177873">Chrome
-即搜即得</a>功能或<a href="https://support.google.com/chrome/bin/answer.py?answer=1385029">网页即时看</a>功能触发，已完全载入的页面将与当前标签页中的页面交换，这种情况下将产生
+即搜即得</a>功能或<a href="https://support.google.com/chrome/bin/answer.py?answer=1385029">网页即时看</a>功能触发，已完全加载的页面将与当前标签页中的页面交换，这种情况下将产生
 <code>onTabReplaced</code> 事件。
 </p>
 
@@ -102,7 +102,7 @@ webNavigation API. It is possible that webRequest events are still received for
 frames that already started a new navigation, or that a navigation only
 proceeds after the network resources are already fully loaded.-->
 在<a href="webRequest.html">网络请求 API</a> 与网页导航 API
-产生的事件之间没有确定的顺序。已经开始新导航的框架可能还会收到网络请求事件，或者也可能导航仅在网络资源完全载入后才继续进行。
+产生的事件之间没有确定的顺序。已经开始新导航的框架可能还会收到网络请求事件，或者也可能导航仅在网络资源完全加载后才继续进行。
 </p>
 <p>
 <!--@In general, the webNavigation events are closely related to the navigation
@@ -164,7 +164,7 @@ times. This happens when the load is redirected to a different site. In this
 case, you will receive repeated <code>onBeforeNavigate</code> and
 <code>onErrorOccurred</code> events, until you receive the final
 <code>onCommitted</code> event.-->
-同时也请注意，在临时载入的过程中，进程可能会多次切换。当载入过程需要重定向至另一个站点时就会发生这种情况。在这种情况下，您会多次收到
+同时也请注意，在临时加载的过程中，进程可能会多次切换。当加载过程需要重定向至另一个站点时就会发生这种情况。在这种情况下，您会多次收到
 <code>onBeforeNavigate</code> 和 <code>onErrorOccurred</code>
 事件，直到您接收到最终的 <code>onCommitted</code> 事件。
 </p>
