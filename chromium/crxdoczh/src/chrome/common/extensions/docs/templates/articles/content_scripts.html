@@ -201,7 +201,7 @@ JavaScript 和 CSS 文件，<code>content_scripts</code>
     <br><br>
 
     <!--@In the case of "document_end", the files are injected immediately after the DOM is complete, but before subresources like images and frames have loaded.-->
-    如果是 "document_end"，文件将在 DOM 完成之后立即插入，但是在载入子资源（如图像与框架）之前插入。
+    如果是 "document_end"，文件将在 DOM 完成之后立即插入，但是在加载子资源（如图像与框架）之前插入。
 
     <br><br>
 
@@ -209,7 +209,7 @@ JavaScript 和 CSS 文件，<code>content_scripts</code>
     如果是 "document_idle"，浏览器将在 "document_end" 和刚发生 <code><a
     href="http://www.whatwg.org/specs/web-apps/current-work/#handler-onload">
     window.onload</a></code>
-    事件这两个时刻之间选择合适的时候插入，具体的插入时间取决于文档的复杂程度以及载入文档所花的时间，并且浏览器会尽可能地为加快页面载入速度而优化。
+    事件这两个时刻之间选择合适的时候插入，具体的插入时间取决于文档的复杂程度以及加载文档所花的时间，并且浏览器会尽可能地为加快页面加载速度而优化。
 
     <br><br>
 

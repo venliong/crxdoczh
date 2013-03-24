@@ -194,7 +194,7 @@ it's the same as the relative URL.-->
 在这一 URL 中，<em>&lt;扩展程序标识符&gt;</em>
 是扩展程序系统为每一个扩展程序生成的唯一标识符，您可以进入
 <b>chrome://extensions</b>
-查看您载入的所有扩展程序的标识符。<em>&lt;文件路径&gt;</em>
+查看您加载的所有扩展程序的标识符。<em>&lt;文件路径&gt;</em>
 是扩展程序的主目录下的文件位置，与相对 URL 相同。
 </p>
 
@@ -210,7 +210,7 @@ needs to specify the full path to a file within the extension,
 you can use the <code>@@extension_id</code>
 <a href="i18n.html#overview-predefined">predefined message</a>
 to avoid hardcoding the ID during development.-->
-当您编写扩展程序时（打包之前），扩展程序标识符可能会更改。特别地，如果您从另一个目录载入未打包的扩展程序，它的标识符会改变，当您打包扩展程序时会再次改变。如果您的扩展程序代码需要指定扩展程序中某个文件的完整路径，您可以使用
+当您编写扩展程序时（打包之前），扩展程序标识符可能会更改。特别地，如果您从另一个目录加载未打包的扩展程序，它的标识符会改变，当您打包扩展程序时会再次改变。如果您的扩展程序代码需要指定扩展程序中某个文件的完整路径，您可以使用
 <code>@@extension_id</code> 这一<a href="i18n.html#overview-predefined"
 >预定义消息</a>，避免开发过程中硬编码标识符。
 </p>
@@ -274,7 +274,7 @@ that present the extension's UI.
 If an extension needs to interact with web pages that the user loads
 (as opposed to pages that are included in the extension),
 then the extension must use a content script.-->
-许多扩展程序有一个<em>后台网页</em>，它是一个包含扩展程序主要逻辑的不可见页面。扩展程序也可以包含其它页面，展现扩展程序的用户界面。如果扩展程序需要与用户载入的网页交互（相对于包含在扩展程序中的页面），扩展程序必须使用内容脚本。
+许多扩展程序有一个<em>后台网页</em>，它是一个包含扩展程序主要逻辑的不可见页面。扩展程序也可以包含其它页面，展现扩展程序的用户界面。如果扩展程序需要与用户加载的网页交互（相对于包含在扩展程序中的页面），扩展程序必须使用内容脚本。
 </p>
 
 
@@ -397,7 +397,7 @@ not as part of the extension it was packaged with
 (its <em>parent extension</em>).-->
 如果您的扩展程序需要与网页交互，您就需要使用<em>内容脚本</em>。内容脚本是一些
 JavaScript
-代码，它们在浏览器中已载入页面的上下文中执行。您应该将内容脚本视为已载入页面的一部分，而不是打包在一起的扩展程序（它<em>所属的扩展程序</em>）的一部分。
+代码，它们在浏览器中已加载页面的上下文中执行。您应该将内容脚本视为已加载页面的一部分，而不是打包在一起的扩展程序（它<em>所属的扩展程序</em>）的一部分。
 </p>
 
 <!-- [PENDING: Consider explaining that the reason content scripts are separated from the extension is due to chrome's multiprocess design.  Something like:
