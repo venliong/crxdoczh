@@ -24,7 +24,7 @@ it simply contains a blank rectangular area.
 This allows an app to blend with “native” apps on the system,
 and it prevents the user from “messing” with the app logic
 by manually changing the URL.-->
-应用容器描述了打包应用的视觉外观及载入行为。打包应用与传统的网上应用外观不同，因为应用容器不显示任何传统网页的用户界面控件，它只包含一个空白的矩形区域。这样使应用能够与系统上的“原生”应用一致，并且防止用户通过手动更改
+应用容器描述了打包应用的视觉外观及加载行为。打包应用与传统的网上应用外观不同，因为应用容器不显示任何传统网页的用户界面控件，它只包含一个空白的矩形区域。这样使应用能够与系统上的“原生”应用一致，并且防止用户通过手动更改
 URL 的方式干扰应用的逻辑。
 </p>
 
@@ -39,9 +39,9 @@ of the packaged app from a local source.
 This forces all packaged apps to be at least minimally functional
 when offline and it provides a place
 to enforce stricter security measures.-->
-打包应用载入的方式与网上应用不同。它们都载入相同类型的内容：包含 CSS 和
+打包应用加载的方式与网上应用不同。它们都加载相同类型的内容：包含 CSS 和
 JavaScript 的 HTML
-文档，然而打包应用在应用容器而不是浏览器标签页中载入。此外，应用容器必须从本地来源载入打包应用的主文档，这样可以强制所有打包应用在离线状态下至少具有最小的功能，并提供了强制实施更严格安全策略的环境。
+文档，然而打包应用在应用容器而不是浏览器标签页中加载。此外，应用容器必须从本地来源加载打包应用的主文档，这样可以强制所有打包应用在离线状态下至少具有最小的功能，并提供了强制实施更严格安全策略的环境。
 </p>
 
 <img src="{{static}}/images/container.png"
@@ -113,7 +113,7 @@ to get you started:-->
       that your app requires,
       how they look, and how they communicate
       with the event page and with other windows.-->
-      载入事件页面，产生 'launch'
+      加载事件页面，产生 'launch'
       事件，并在窗口中打开应用的页面。您可以创建您的应用需要的窗口，并指定它们的外观以及它们与事件页面和其它窗口的通信方式。
     </td>
   </tr>
@@ -171,7 +171,7 @@ to set up privilege separation on a per window basis.
 This allows you to minimize the code in your app
 that has access to dangerous APIs,
 while still getting to use them.-->
-在本地载入打包应用的主页面为强制实施比网络更严格的安全策略提供了环境。与
+在本地加载打包应用的主页面为强制实施比网络更严格的安全策略提供了环境。与
 Chrome
 浏览器的扩展程序类似，安装时用户必须显式同意信任打包应用，授予应用访问并使用用户数据的权限。您的应用使用的每一个
 API
@@ -195,7 +195,7 @@ this content runs in a separate process from the app.-->
 扩展程序的进程隔离，并进一步将存储区与外部内容隔离。每一个应用都有自己私有的存储区，不能访问其它应用的存储区或您在浏览器中使用的网站的个人数据（例如
 Cookie）。所有外部进程都与应用隔离。由于
 iframe
-与包含页面运行在同一进程中，它们只能用来载入其他应用页面。您可以使用对象标签来<a href="app_external.html">嵌入外部内容</a>，这些内容会在与应用分开的进程中运行。
+与包含页面运行在同一进程中，它们只能用来加载其他应用页面。您可以使用对象标签来<a href="app_external.html">嵌入外部内容</a>，这些内容会在与应用分开的进程中运行。
 </p>
 
 <p>

@@ -13,7 +13,7 @@
   为了缓解很大一部分潜在的跨站脚本问题，Chrome
   浏览器的扩展程序系统引入了<a
   href="http://dvcs.w3.org/hg/content-security-policy/raw-file/tip/csp-specification.dev.html"
-  ><strong>内容安全策略（CSP）</strong></a>的一般概念。这将引入一些相当严格的策略，会使扩展程序在默认情况下更加安全，并使您能够创建并强制应用一些规则，管理您的扩展程序和应用允许载入的内容类型。
+  ><strong>内容安全策略（CSP）</strong></a>的一般概念。这将引入一些相当严格的策略，会使扩展程序在默认情况下更加安全，并使您能够创建并强制应用一些规则，管理您的扩展程序和应用允许加载的内容类型。
 </p>
 
 <p>
@@ -24,7 +24,7 @@
   your extension has access to. These policies provide security over and above
   the <a href="declare_permissions.html">host permissions</a> your extension
   requests; they're an additional layer of protection, not a replacement.-->
-  大体上，CSP 以白名单/黑名单的机制对您的扩展程序载入或执行的资源起作用。为您的扩展程序定义一项合理的策略使您可以仔细考虑您的扩展程序需要的资源，并且使浏览器确保您的扩展程序只能访问指定的那些资源。这些策略提供了比您的扩展程序请求的<a href="declare_permissions.html">主机权限</a>更高的安全性，它们是额外的保护层，而不是替代品。
+  大体上，CSP 以白名单/黑名单的机制对您的扩展程序加载或执行的资源起作用。为您的扩展程序定义一项合理的策略使您可以仔细考虑您的扩展程序需要的资源，并且使浏览器确保您的扩展程序只能访问指定的那些资源。这些策略提供了比您的扩展程序请求的<a href="declare_permissions.html">主机权限</a>更高的安全性，它们是额外的保护层，而不是替代品。
 </p>
 
 <p>
@@ -225,7 +225,7 @@ function main() {
   // 在这里进行初始化工作。
 }
 
-// 通过监听文档的 `DOMContentLoaded` 事件在 DOM 完全载入后添加
+// 通过监听文档的 `DOMContentLoaded` 事件在 DOM 完全加载后添加
 // 事件监听器，当事件触发时向指定元素添加您自己的监听器。
 <strong>document.addEventListener('DOMContentLoaded', function () {</strong>
   document.querySelector('button').addEventListener('click', clickHandler);
@@ -249,21 +249,21 @@ function main() {
 <p>
 
 
-<h3 id="resourceLoading"><!--@Only local script and and object resources are loaded-->只有本地脚本和对象资源才会载入</h3>
+<h3 id="resourceLoading"><!--@Only local script and and object resources are loaded-->只有本地脚本和对象资源才会加载</h3>
 
 <p>
   <!--@Script and object resources can only be loaded from the extension's
   package, not from the web at large. This ensures that your extension only
   executes the code you've specifically approved, preventing an active network
   attacker from maliciously redirecting your request for a resource.-->
-  脚本与对象资源只能从扩展程序包中载入，而不能从范围更大的网上载入。这样确保您的扩展程序只会执行您确实允许的代码，避免任何主动的网络攻击者，恶意地重定向您对资源的请求。
+  脚本与对象资源只能从扩展程序包中加载，而不能从范围更大的网上加载。这样确保您的扩展程序只会执行您确实允许的代码，避免任何主动的网络攻击者，恶意地重定向您对资源的请求。
 </p>
 
 <p>
   <!--@Instead of writing code that depends on jQuery (or any other library) loading
   from an external CDN, consider including the specific version of jQuery in
   your extension package. That is, instead of:-->
-  不要编写依赖于外部 CDN 载入的
+  不要编写依赖于外部 CDN 加载的
   jQuery（或其它库）的代码，而应该考虑将特定版本的
   jQuery 包含在您的扩展程序包中。即，不要：
 </p>
@@ -324,7 +324,7 @@ function main() {
   schemes: <code>HTTPS</code>, <code>chrome-extension</code>, and
   <code>chrome-extension-resource</code>.-->
   如果您需要某些外部 JavaScript
-  代码或对象资源，您可以在有限的程度上放宽策略，将安全来源的可接受脚本加入白名单。我们希望确保以扩展程序提升的权限载入的可执行资源一定是您预期的，而没有被主动的网络攻击者替换。由于<a href="http://en.wikipedia.org/wiki/Man-in-the-middle_attack">中间人攻击</a>非常普遍，并且通过
+  代码或对象资源，您可以在有限的程度上放宽策略，将安全来源的可接受脚本加入白名单。我们希望确保以扩展程序提升的权限加载的可执行资源一定是您预期的，而没有被主动的网络攻击者替换。由于<a href="http://en.wikipedia.org/wiki/Man-in-the-middle_attack">中间人攻击</a>非常普遍，并且通过
   HTTP 无法检测到，这些来源不会被接受。目前，我们允许将来源为以下协议的资源加入白名单：<code>HTTPS</code>、<code>chrome-extension</code>
   和 <code>chrome-extension-resource</code>。
 </p>
@@ -335,7 +335,7 @@ function main() {
   object sources on any port of either <code>http://127.0.0.1</code> or
   <code>http://localhost</code>.-->
   为了方便开发，我们也允许将那些通过 HTTP
-  从本地计算机的服务器上载入的资源列入白名单，您可以将
+  从本地计算机的服务器上加载的资源列入白名单，您可以将
   <code>http://127.0.0.1</code> 或
   <code>http://localhost</code>
   任意端口上的脚本和对象来源加入白名单。
@@ -347,7 +347,7 @@ function main() {
   make XMLHTTPRequest connections to any origin you like; the default policy
   doesn't restrict <code>connect-src</code> or any of the other CSP directives
   in any way.-->
-  对于通过 HTTP 载入资源的限制仅仅适用于直接执行的那些资源，您仍然可以，例如，向您希望使用的任何来源发起
+  对于通过 HTTP 加载资源的限制仅仅适用于直接执行的那些资源，您仍然可以，例如，向您希望使用的任何来源发起
   XMLHttpRequest 连接，默认策略不会以任何方式限制
   <code>connect-src</code> 或者其它任何 CSP 指示符。
 </p>
@@ -355,7 +355,7 @@ function main() {
 <p>
   <!--@A relaxed policy definition which allows script resources to be loaded from
   <code>example.com</code> over HTTPS might look like:-->
-  允许通过 HTTPS 载入来自 <code>example.com</code>
+  允许通过 HTTPS 加载来自 <code>example.com</code>
   的脚本资源的放宽策略定义如下所示：
 </p>
 
@@ -410,6 +410,6 @@ function main() {
   would be appropriate. The <a href="samples.html#mappy">Mappy</a> sample
   extension is a good example of an extension that's been locked down above and
   beyond the defaults.-->
-  您当然也可以以带来更多不便为代价，使用您的扩展程序允许的更严格的策略，来增强安全性。例如，要指定您的扩展程序只能从自己的包中载入<em>所有</em>类型（如图片等）的资源，可以使用这样的策略：<code>default_src 'self'</code>。<a
+  您当然也可以以带来更多不便为代价，使用您的扩展程序允许的更严格的策略，来增强安全性。例如，要指定您的扩展程序只能从自己的包中加载<em>所有</em>类型（如图片等）的资源，可以使用这样的策略：<code>default_src 'self'</code>。<a
 href="samples.html#mappy">Mappy</a> 示例扩展程序就是使用的策略比默认设置更加严格的例子。
 </p>

@@ -152,7 +152,7 @@
   <ul>
     <li>新的<a href="manifest.html#manifest_version">清单文件版本</a>字段指定您的扩展操作包需要的清单文件版本。从 Chrome 18
       开始，您应该使用<a href="manifestVersion.html">清单文件版本 2</a>。
-    <li>新的<a href="contentSecurityPolicy.html">内容安全策略（CSP）</a>字段用来定义扩展程序的策略，指定扩展程序能够载入和执行的内容类型。
+    <li>新的<a href="contentSecurityPolicy.html">内容安全策略（CSP）</a>字段用来定义扩展程序的策略，指定扩展程序能够加载和执行的内容类型。
     <li>大部分后台页面仅包括脚本文件的列表，对于这些后台页面，您可以使用新的
       <a href="background_pages.html">background.scripts</a>
       属性，Chrome 浏览器会自动为您生成后台页面。
@@ -222,8 +222,8 @@
     <li>新的
     $ref:tabs.query 方法获取具有指定属性的所有标签页，或者如果没有指定属性的话获取所有标签页。
     <li>新的
-    $ref:tabs.reload method
-    方法重新载入标签页，并包含一个保留重新载入标签页本地缓存的选项。
+    $ref:tabs.reload
+    方法重新加载标签页，并包含一个保留重新加载标签页本地缓存的选项。
     <li>管理 API 的
     $ref:management.ExtensionInfo 对象现在增加了 <code>updateURL</code> 属性。
     <li>您现在可以通过向 <code>external_extensions.json</code> 添加
