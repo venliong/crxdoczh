@@ -291,7 +291,7 @@ tab will be sent to the shared process, with an <em>incognito</em> flag
 indicating where it came from. Because incognito tabs cannot use this shared
 process, an extension using the "spanning" incognito mode will not be able to
 load pages from its extension package into the main frame of an incognito tab.-->
-对于扩展程序来说默认值为 "spanning"，意味着扩展程序将会在单个共享进程中运行，任何来自隐身标签页的事件或消息都将发送至共享的进程，以 <em>incognito</em> 标志指示它的来源。由于隐身标签页无法使用这一共享进程，使用 "spanning" 隐身模式的扩展程序不能将扩展程序包中的页面载入到隐身标签的主框架。
+对于扩展程序来说默认值为 "spanning"，意味着扩展程序将会在单个共享进程中运行，任何来自隐身标签页的事件或消息都将发送至共享的进程，以 <em>incognito</em> 标志指示它的来源。由于隐身标签页无法使用这一共享进程，使用 "spanning" 隐身模式的扩展程序不能将扩展程序包中的页面加载到隐身标签的主框架。
 </p>
 
 <p>
@@ -310,7 +310,7 @@ The processes are unable to communicate with each other.-->
 <em>split</em> incognito behavior. If your extension or app needs to be logged
 into a remote server or persist settings locally, use <em>spanning</em>
 incognito behavior.-->
-选择的准则是，如果您的扩展程序或者应用需要在隐身模式下载入标签页，请使用
+选择的准则是，如果您的扩展程序或者应用需要在隐身模式下加载标签页，请使用
 <em>"split"</em>
 隐身行为。如果您的扩展程序或应用需要登录远程服务器或者在本地保留设置，请使用 <em>"spanning"</em> 隐身模式。
 </p>
@@ -321,7 +321,7 @@ incognito behavior.-->
 <!--@This value can be used to control
 the unique ID of an extension, app, or theme when
 it is loaded during development.-->
-这一值用来控制在开发过程中载入的扩展程序、应用或主题背景的唯一标识符。
+这一值用来控制在开发过程中加载的扩展程序、应用或主题背景的唯一标识符。
 </p>
 
 <p class="note">
@@ -737,7 +737,7 @@ blocked.-->
 <!--@Defines an collection of app or extension pages that are to be served
 in a sandboxed unique origin, and optionally a Content Security Policy to use
 with them. Being in a sandbox has two implications:-->
-要在受沙箱保护的唯一来源中载入的页面路径（相对于扩展程序包根目录）列表，还可以指定可选的内容安全策略来一起使用。在沙箱中意味着如下两点：
+要在受沙箱保护的唯一来源中加载的页面路径（相对于扩展程序包根目录）列表，还可以指定可选的内容安全策略来一起使用。在沙箱中意味着如下两点：
 </p>
 
 <ol>
@@ -798,7 +798,7 @@ windows or frames. Resources used by sandboxed pages (e.g. stylesheets or
 JavaScript source files) do not need to appear in the
 <code>sandboxed_page</code> list, they will use the sandbox of the page
 that embeds them.-->
-注意，您只需要列出您期望在窗口或框架中载入的页面。受沙箱保护的页面所使用的资源（例如样式表或 JavaScript 源文件）不需要出现在 <code>sandbox</code>
+注意，您只需要列出您期望在窗口或框架中加载的页面。受沙箱保护的页面所使用的资源（例如样式表或 JavaScript 源文件）不需要出现在 <code>sandbox</code>
 列表中，它们会使用内嵌它们的页面所使用的沙箱。
 </p>
 

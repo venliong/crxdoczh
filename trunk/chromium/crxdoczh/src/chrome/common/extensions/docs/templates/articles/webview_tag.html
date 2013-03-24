@@ -15,7 +15,7 @@
     react to error events that happen within it, and more
     (see <a href="#usage">Usage</a>).-->
     使用 <code>webview</code>
-    标签主动通过网络载入网上的活动内容，并将它嵌入在您的打包应用中。您的应用可以控制
+    标签主动通过网络加载网上的活动内容，并将它嵌入在您的打包应用中。您的应用可以控制
     <code>webview</code>
     的外观，与网上内容交互，在嵌入的网页中进行导航，响应其中发生的错误事件等等。（请参见<a href="#usage">用法</a>）。
     </td>
@@ -104,7 +104,7 @@ and displays a "loading..." message during the load time:-->
 如果您希望以任何方式控制来宾内容，您可以编写 JavaScript，监听
 <a href="#events">webview 事件</a>，并使用
 <a href="#methods">webview 方法</a>响应这些事件。如下是 <code>app.js</code>
-中的示例代码，包含两个事件监听器：一个监听网页开始载入，另一个监听网页停止载入，并在载入的时候显示“正在载入...”消息：
+中的示例代码，包含两个事件监听器：一个监听网页开始加载，另一个监听网页停止加载，并在加载的时候显示“正在加载...”消息：
 </p>
 
 <pre>
@@ -113,7 +113,7 @@ onload = function() {
   var indicator = document.querySelector(".indicator");
 
   var loadstart = function() {
-    indicator.innerText = "正在载入...";
+    indicator.innerText = "正在加载...";
   }
   var loadstop = function() {
     indicator.innerText = "";
@@ -211,7 +211,7 @@ onload = function() {
   <div class="description">
     <p>
     <!--@Stops the loading of the current <code>webview</code> navigation, if one is in progress.-->
-    如果正在进行，则停止载入当前的 <code>webview</code> 导航。
+    如果正在进行，则停止加载当前的 <code>webview</code> 导航。
     </p>
   </div>
 
@@ -222,7 +222,7 @@ onload = function() {
   <div class="description">
     <p>
     <!--@Reloads the current top-level page.-->
-    重新载入当前的顶层网页。
+    重新加载当前的顶层网页。
     </p>
   </div>
 
@@ -276,7 +276,7 @@ onload = function() {
     by adding a <code>message</code> event listener to its own frame.
     The <code>event.source</code> corresponds to the guest frame that sent the reply.-->
     如果嵌入内容显示的网页来自 <code>targetOrigin</code>
-    指定的来源（例如："https://www.google.com"），则会向嵌入的网上内容发送消息（<code>message</code>，例如："从应用到嵌入网页的消息"）。只有在页面载入完成后该方法才可用，请监听
+    指定的来源（例如："https://www.google.com"），则会向嵌入的网上内容发送消息（<code>message</code>，例如："从应用到嵌入网页的消息"）。只有在页面加载完成后该方法才可用，请监听
     <a href="#event-loadstop">loadstop 事件</a>并调用该方法。该方法允许来宾发送回复，并会向来宾提供嵌入者网页窗口的
     JavaScript 引用（通过 <code>event.source</code>），使用的是和网页相同的
     <a href="https://developer.mozilla.org/en-US/docs/DOM/window.postMessage">HTML5 postMessage</a> API。嵌入者应该在自己的框架中添加
@@ -344,7 +344,7 @@ onload = function() {
   <div class="description">
     <p>
     <!--@Fired when a load has begun.-->
-    开始载入时产生。
+    开始加载时产生。
     </p>    
     <h4><!--@Properties-->属性</h4>
       <dt>
@@ -359,7 +359,7 @@ onload = function() {
       </dt>
       <dd>
         <!--@Whether the load is top-level or in a subframe.-->
-        本次载入来自顶层还是子框架。
+        本次加载来自顶层还是子框架。
       </dd>
   </div>
 
@@ -370,7 +370,7 @@ onload = function() {
   <div class="description">
     <p>
     <!--@Fired when a top-level load has aborted without committing.-->
-    当顶层的载入提交前就终止时产生。
+    当顶层的加载提交前就终止时产生。
     </p>
     <h4><!--@Properties-->属性</h4>
       <dt>
@@ -385,7 +385,7 @@ onload = function() {
       </dt>
       <dd>
         <!--@Whether the load is top-level or in a subframe.-->
-        本次载入来自顶层还是子框架。
+        本次加载来自顶层还是子框架。
       </dd>
       <dt>
        	<span class="property">reason</span>
@@ -405,7 +405,7 @@ onload = function() {
   <div class="description">
       <p>
       <!--@Fired when a top-level load request has redirected to a different URL.-->
-      当顶层载入请求重定向至另一个不同的 URL 时产生。
+      当顶层加载请求重定向至另一个不同的 URL 时产生。
       </p>
       <h4><!--@Properties-->属性</h4>
         <dt>
@@ -439,7 +439,7 @@ onload = function() {
   <div class="description">
     <p>
     <!--@Fired when a load has committed.-->
-    一次载入提交时产生。
+    一次加载提交时产生。
     </p>
     <h4><!--@Properties-->属性</h4>
       <dt>
@@ -454,7 +454,7 @@ onload = function() {
       </dt>
       <dd>
         <!--@Whether the load is top-level or in a subframe.-->
-        本次载入来自顶层还是子框架。
+        本次加载来自顶层还是子框架。
       </dd>
   </div>
 
@@ -471,7 +471,7 @@ onload = function() {
     除了每一个框架都会发生的
     <a href="#event-loadcommit">loadCommit</a> 或
     <a href="#event-loadabort">loadAbort</a>
-    外，当标签中的所有载入（包括所有子框架）完成后也会产生该事件。
+    外，当标签中的所有加载（包括所有子框架）完成后也会产生该事件。
     </p>
   </div>
 

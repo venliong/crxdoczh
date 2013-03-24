@@ -73,11 +73,11 @@
   to safely include <code>eval</code>-driven code in our extension's workflow.-->
   我们通过这样的方法来实现这一点：列出扩展程序包内需要在沙箱中运行的特定
   HTML
-  文件。每当沙箱保护的页面载入时，它将会被移至某个<a
+  文件。每当沙箱保护的页面加载时，它将会被移至某个<a
   href='http://www.whatwg.org/specs/web-apps/current-work/multipage/origin-0.html#sandboxed-origin-browsing-context-flag'
   >唯一的来源</a>，并且拒绝访问
   <code>chrome.* API</code>。如果我们通过 <code>iframe</code>
-  将这一受沙箱保护的页面载入扩展程序中，我们可以向它传递消息，让它以某种方式基于这些消息运行，并等待它传回结果。这种简单的消息机制使我们能够安全地在扩展程序的工作流程中包含
+  将这一受沙箱保护的页面加载到扩展程序中，我们可以向它传递消息，让它以某种方式基于这些消息运行，并等待它传回结果。这种简单的消息机制使我们能够安全地在扩展程序的工作流程中包含
   <code>eval</code> 驱动的代码。
 </p>
 
@@ -118,7 +118,7 @@
   ...
 }</pre>
 
-<h3 id="load_file"><!--@Load the sandboxed file-->载入受沙箱保护的文件</h3>
+<h3 id="load_file"><!--@Load the sandboxed file-->加载受沙箱保护的文件</h3>
 
 <p>
   <!--@In order to do something interesting with the sandboxed file, we need to load
@@ -133,10 +133,10 @@
   <code>contentWindow</code>. The message is an object containing two
   properties: <code>context</code> and <code>command</code>. We'll dive into
   both in a moment.-->
-  为了通过受沙箱保护的文件做一些有意义的事，我们需要在扩展程序代码可以访问的环境中载入它。在该示例中，<a href='examples/howto/sandbox/sandbox.html'>sandbox.html</a>
+  为了通过受沙箱保护的文件做一些有意义的事，我们需要在扩展程序代码可以访问的环境中加载它。在该示例中，<a href='examples/howto/sandbox/sandbox.html'>sandbox.html</a>
   通过 <code>iframe</code> 在扩展程序的<a href="event_pages.html"
   >事件页面</a>（<a href='examples/howto/sandbox/eventpage.html'
-  >eventpage.html</a>）中载入。每当浏览器按钮单击时，<a href='examples/howto/sandbox/eventpage.js'>eventpage.js</a>
+  >eventpage.html</a>）中加载。每当浏览器按钮单击时，<a href='examples/howto/sandbox/eventpage.js'>eventpage.js</a>
   中包含的代码会找到页面中的 <code>iframe</code>，并在它的
   <code>contentWindow</code> 上执行 <code>postMessage</code>
   方法，向沙箱发送消息。该消息为包含两个属性的对象：<code>context</code>
@@ -170,7 +170,7 @@
 <p>
   <!--@When <code>sandbox.html</code> is loaded, it loads the Handlebars library, and
   creates and compiles an inline template in the way Handlebars suggests:-->
-  当 <code>sandbox.html</code> 载入时，它会载入 Handlebars 库，并以
+  当 <code>sandbox.html</code> 加载时，它会加载 Handlebars 库，并以
   Handlebars 提供的方式创建并编译内嵌模板：
 </p>
 
