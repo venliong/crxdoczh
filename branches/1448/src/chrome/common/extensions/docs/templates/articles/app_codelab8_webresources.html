@@ -1,11 +1,11 @@
 <h1 id="lab_8_web_resources"><!--@Lab 8 - Web Resources-->实验八：网上资源</h1>
 
 <p>Chrome <!--@apps have a strict <a href="http://developer.chrome.com/trunk/apps/app_csp.html">Content Security Policy</a> which will not let the user execute code or load resources that are hosted remotely.-->
-应用有一种严格的<a href="app_csp.html">内容安全策略</a>，不会让用户执行或载入远程托管的代码和资源。
+应用有一种严格的<a href="app_csp.html">内容安全策略</a>，不会让用户执行或加载远程托管的代码和资源。
 </p>
 
 <p><!--@Many applications, however, need to be able to load and display content from a remote location. A News Reader, for example, needs to display remote content inline or load and show images from a remote URL.-->
-然而许多应用都需要载入并显示来自远程位置的内容。例如新闻阅读器需要以内嵌方式显示远程内容，或者从远程 URL 载入并显示图片。
+然而许多应用都需要加载并显示来自远程位置的内容。例如新闻阅读器需要以内嵌方式显示远程内容，或者从远程 URL 加载并显示图片。
 </p>
 
 <h2 id="you_should_also_read"><!--@You should also read-->您还应该阅读</h2>
@@ -14,7 +14,7 @@
 <li>Chrome 应用文档中的<a href="app_external.html"><!--@Embed Content-->嵌入内容</a><!--@ in Chrome app docs--></li>
 </ul>
 
-<h2 id="loading_external_web_content_into_an_element"><!--@Loading external web content into an element-->将外部网上内容载入一个元素</h2>
+<h2 id="loading_external_web_content_into_an_element"><!--@Loading external web content into an element-->将外部网上内容加载到某个元素中</h2>
 
 <p><!--@Sites on the internet are inherently a security risk and rendering arbitrary web pages directly into your application with elevated privileges would be a potential source of exploits.-->
 互联网上的站点有固有的安全风险，直接在您的应用中以提升的权限渲染网页是漏洞的潜在来源。
@@ -33,8 +33,8 @@ webview 包含一些很简单的 API，在您的应用中您可以：
 
 <ul>
 <li> <!--@Change the URL of the WebView.-->更改 webview 的 URL。</li>
-<li> <!--@Navigate forwards and backward, stop loading and reload.-->前进和后退导航、停止载入和重新载入。</li>
-<li> <!--@Check if the WebView has finished loading and if it is possible, go back and forward in the history stack.-->检查 webview 是否完成载入，如果可能的话在历史栈中前进和后退。</li>
+<li> <!--@Navigate forwards and backward, stop loading and reload.-->前进和后退导航、停止加载和重新加载。</li>
+<li> <!--@Check if the WebView has finished loading and if it is possible, go back and forward in the history stack.-->检查 webview 是否加载完成，如果可能的话在历史栈中前进和后退。</li>
 </ul></p>
 
 <p><!--@We will change our code to render the content of URLs dropped in the drag-and-drop operations in a WebView when the user clicks on a link.-->
@@ -84,22 +84,22 @@ If it&#39;s not showing, inspect the page and check if you set the webview size 
 
 <p class="note"><b><!--@Note:-->注意：</b><!--@  If you get stuck and want to see the app in action, go to <code>chrome://extensions</code>,
 load the unpacked <a href="https://github.com/GoogleChrome/chrome-app-codelab/tree/master/lab8_webresources/angularjs/1_webview">1_webview</a>, and launch the app from a new tab.-->如果您遇到了困难，希望立刻看到修改后的应用，请进入
-<code>chrome://extensions</code>，载入未打包的
+<code>chrome://extensions</code>，加载未打包的
 <a href="https://github.com/GoogleChrome/chrome-app-codelab/tree/master/lab8_webresources/angularjs/1_webview">1_webview</a>
 应用，并从新标签页中运行应用。
 </p>
 
-<h2 id="loading_external_images"><!--@Loading external images-->载入外部图片</h2>
+<h2 id="loading_external_images"><!--@Loading external images-->加载外部图片</h2>
 
 <p><!--@If you try to add an <code>&lt;img&gt;</code> tag to your <code>index.html</code>, and point its <code>src</code> attribute to any site on the web, the following exception is thrown in the console and the image isn&#39;t loaded:-->
 如果您试着在 <code>index.html</code> 中添加一个 <code>&lt;img&gt;</code>
 标签，并将它的 <code>src</code>
-属性指向网上的任何一个站点，则会在控制台中产生如下异常，图片不会载入：
+属性指向网上的任何一个站点，则会在控制台中产生如下异常，图片不会加载：
 </p>
 
-<p class="note"><b></b> Refused to load the image &#39;http://angularjs.org/img/AngularJS-large.png&#39; because it violates the following Content Security Policy directive: &quot;img-src &#39;self&#39; data: chrome-extension-resource:&quot;.（拒绝载入图片 &#39;http://angularjs.org/img/AngularJS-large.png&#39;，因为它违反了以下内容安全策略的指示：&quot;img-src &#39;self&#39; data: chrome-extension-resource:&quot;。）</p>
+<p class="note"><b></b> Refused to load the image &#39;http://angularjs.org/img/AngularJS-large.png&#39; because it violates the following Content Security Policy directive: &quot;img-src &#39;self&#39; data: chrome-extension-resource:&quot;.（拒绝加载图片 &#39;http://angularjs.org/img/AngularJS-large.png&#39;，因为它违反了以下内容安全策略的指示：&quot;img-src &#39;self&#39; data: chrome-extension-resource:&quot;。）</p>
 
-<p><!--@Chrome apps cannot load any external resource directly in the DOM, because of the -->由于<a href="app_csp.html"><!--@CSP restrictions-->内容安全策略的限制</a>，Chrome 应用不能直接在 DOM 中载入任何外部资源。</p>
+<p><!--@Chrome apps cannot load any external resource directly in the DOM, because of the -->由于<a href="app_csp.html"><!--@CSP restrictions-->内容安全策略的限制</a>，Chrome 应用不能直接在 DOM 中加载任何外部资源。</p>
 
 <p><!--@To avoid this restriction, you can use XHR requests, grab the blob corresponding to the remote file and use it appropriately.
 For example, <code>&lt;img&gt;</code> tags can use a blob URL.
@@ -119,7 +119,7 @@ Change -->
 <pre>
 &quot;permissions&quot;: [&quot;storage&quot;, &quot;webview&quot;, &quot;&lt;all_urls&gt;&quot;]
 </pre></p></li>
-<li><p><!--@Add to your project a placeholder image-->在您的项目中添加一个占位符图片 <img src="https://github.com/GoogleChrome/chrome-app-codelab/raw/master/lab8_webresources/angularjs/2_loading_resources/loading.gif" alt="loading.gif"><!--@ that will be shown while we are loading the proper image.-->，当我们载入正确的图片时显示它。
+<li><p><!--@Add to your project a placeholder image-->在您的项目中添加一个占位符图片 <img src="https://github.com/GoogleChrome/chrome-app-codelab/raw/master/lab8_webresources/angularjs/2_loading_resources/loading.gif" alt="loading.gif"><!--@ that will be shown while we are loading the proper image.-->，当我们加载正确的图片时显示它。
 </p></li>
 <li><p><!--@Add the <code>&lt;img&gt;</code> tag to the Todo item on the-->在 <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab8_webresources/angularjs/2_loading_resources/index.html">index.html</a><!--@:-->
 中向待办事项添加 <code>&lt;img&gt;</code> 标签：
@@ -143,7 +143,7 @@ var loadImage = function(uri, callback) {
 }
 </pre></p></li>
 <li><p><!--@In the-->在 <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab8_webresources/angularjs/2_loading_resources/controller.js">controller.js</a><!--@, add a new method that will search the scope.todolist looking for images that are not loaded yet:-->
-中，添加一个新方法，搜索 $scope.todolist，寻找还未载入的图片：
+中，添加一个新方法，搜索 $scope.todolist，寻找还未加载的图片：
 <pre>
 // for each image with no imageUrl, start a new loader
 $scope.loadImages = function() {
@@ -211,7 +211,7 @@ Assuming no mistakes were made, you should now have a thumbnail of every image U
 
 <p class="note"><b><!--@Note:-->注意：</b><!--@  If you get stuck and want to see the app in action, go to <code>chrome://extensions</code>,
 load the unpacked -->如果您遇到了困难，希望立刻看到修改后的应用，请进入
-<code>chrome://extensions</code>，载入未打包的
+<code>chrome://extensions</code>，加载未打包的
 <a href="https://github.com/GoogleChrome/chrome-app-codelab/tree/master/lab8_webresources/angularjs/2_loading_resources">2_loading_resources</a><!--@, and launch the app from a new tab.-->，并从新标签页中运行应用。</p>
 
 <p><!--@The-->以上的 <code>loadImage()</code> <!--@method above is not the best solution for this problem, because it doesn&#39;t handle errors correctly and it could cache images in a local filesystem.
@@ -232,7 +232,7 @@ WebView 可以使用异步的
 和您的应用（或反过来）通信。</p></li>
 <li><p><!--@Loading resources like images from the web is not straightforward compared to a standard web page.
 But it&#39;s not too different from traditional native platforms, where you need to handle the resource download and, only when it is correctly downloaded, you can render it in the UI. We have also developed <a href="https://github.com/GoogleChrome/apps-resource-loader">a sample library</a> to assyncronously handle resource loading from XHR calls. Feel free to use it in your projects.-->
-与标准网页相比，从网上载入图片之类的资源并不是那么直白，但是与传统的本机平台相比并没有太大的区别，您都需要处理资源下载，只有当它正确下载后才能在用户界面中显示。我们也开发了<a href="https://github.com/GoogleChrome/apps-resource-loader">一个示例库</a>，异步处理从 XHR 调用载入的资源。您可以在您的项目中自由使用它。
+与标准网页相比，从网上加载图片之类的资源并不是那么直白，但是与传统的本机平台相比并没有太大的区别，您都需要处理资源下载，只有当它正确下载后才能在用户界面中显示。我们也开发了<a href="https://github.com/GoogleChrome/apps-resource-loader">一个示例库</a>，异步处理从 XHR 调用加载的资源。您可以在您的项目中自由使用它。
 </p></li>
 </ul>
 

@@ -127,7 +127,7 @@
           },
           "installType": {
 //@            "description": "How the extension was installed. One of<br><var>admin</var>: The extension was installed because of an administrative policy,<br><var>development</var>: The extension was loaded unpacked in developer mode,<br><var>normal</var>: The extension was installed normally via a .crx file,<br><var>sideload</var>: The extension was installed by other software on the machine,<br><var>other</var>: The extension was installed by other means.",
-            "description": "扩展程序是如何安装的，为下列值之一：<br><var>\"admin\"</var> 表示扩展程序由于管理策略而安装；<br><var>\"development\"</var> 表示扩展程序以未打包形式在开发者模式下载入；<br><var>\"normal\"</var> 表示扩展程序由 .crx 文件正常安装；<br><var>\"sideload\"</var> 表示扩展程序由计算机上的其它软件安装；<br><var>\"other\"</var> 表示扩展程序通过其他方式安装。",
+            "description": "扩展程序是如何安装的，为下列值之一：<br><var>\"admin\"</var> 表示扩展程序由于管理策略而安装；<br><var>\"development\"</var> 表示扩展程序以未打包形式在开发者模式下加载；<br><var>\"normal\"</var> 表示扩展程序由 .crx 文件正常安装；<br><var>\"sideload\"</var> 表示扩展程序由计算机上的其它软件安装；<br><var>\"other\"</var> 表示扩展程序通过其他方式安装。",
             "type": "string",
             "enum": ["admin", "development", "normal", "sideload", "other"]
           }
