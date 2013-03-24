@@ -81,7 +81,7 @@ var rule = {
 which simplifies unregistering previously registered rules, and a priority to
 define precedences among rules. Priorities are only considered if rules conflict
 each other or need to be executed in a specific order. Actions are executed in
-decendending order of the priority of their rules.-->
+descending order of the priority of their rules.-->
 除了条件和操作外，您还可以为每一条规则提供标志符，这样可以更简单地取消注册之前注册的规则，以及通过优先级定义规则间的优先顺序。只有当规则互相之间冲突或者需要以特定的顺序执行时才会考虑优先级。操作以对应规则优先级从大到小的顺序执行。
 </p>
 
@@ -205,7 +205,7 @@ function getRules(rule_ids, function callback(details) {...});
 </pre>
 
 <p>
-<!--@The <code>details</code> parameter passed to the <code>calback()</code> function
+<!--@The <code>details</code> parameter passed to the <code>callback()</code> function
 refers to an array of rules including filled optional parameters.-->
 传递给 <code>callback()</code> 函数的 <code>details</code>
 参数指向含有自动填充的可选参数的规则数组。
@@ -256,7 +256,7 @@ event in the "filters" section.-->
 </p>
 
 <p><!--@When matching URLs (as in the example above), event filters support the same
-URL matching capabilities as expressable with a 
+URL matching capabilities as expressible with a
   $ref:events.UrlFilter, except for scheme and port
 matching.-->
 当匹配 URL 时（如上如例子所示），除了协议与端口的匹配，事件过滤器支持与
