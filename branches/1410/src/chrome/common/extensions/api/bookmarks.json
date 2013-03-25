@@ -18,7 +18,7 @@
       "MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE": {
         "value": 2,
 //@        "description": "The maximum number of <code>move</code>, <code>update</code>, <code>create</code>, or <code>remove</code> operations that can be performed each minute, sustained over 10 minutes. Updates that would cause this limit to be exceeded fail."
-        "description": "10 分钟内每分钟可以执行的移动（<code>move</code>）、更新（<code>update</code>）、创建（<code>create</code>）或删除（<code>remove</code>）操作的最大数目，超过这一限制的更新将会失败。"
+        "description": "在连续的 10 分钟内每分钟可以执行的移动（<code>move</code>）、更新（<code>update</code>）、创建（<code>create</code>）或删除（<code>remove</code>）操作的最大数目，超过这一限制的更新将会失败。"
       }
     },
     "types": [
