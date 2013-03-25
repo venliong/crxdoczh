@@ -219,7 +219,7 @@
           "MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE": {
             "value": 10,
 //@            "description": "The maximum number of <code>set</code>, <code>remove</code>, or <code>clear</code> operations that can be performed each minute, sustained over 10 minutes. Updates that would cause this limit to be exceeded fail immediately and set $ref:runtime.lastError."
-            "description": "在连续的 10 分钟内，每分钟可以进行的 <code>se</code>（设置）、<code>remove</code>（移除）或<code>clear</code>（清除）操作的最大次数。超出该限制的更新将失败，并设置 $ref:runtime.lastError。"
+            "description": "在连续的 10 分钟内每分钟可以进行的 <code>se</code>（设置）、<code>remove</code>（移除）或<code>clear</code>（清除）操作的最大次数。超出该限制的更新将失败，并设置 $ref:runtime.lastError。"
           }
         }
       },
