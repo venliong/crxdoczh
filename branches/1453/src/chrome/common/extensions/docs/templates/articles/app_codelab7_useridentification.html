@@ -1,0 +1,168 @@
+<h1 id="lab_7_user_identity"><!--@Lab 7 - User Identity-->实验七：用户认证</h1>
+
+<p><!--@Most modern applications are attached to the web to synchronize data. When synchronizing data, you need to identify who the user is.
+Chrome apps come with an <a href="http://developer.chrome.com/trunk/apps/experimental.identity.html">identity API</a> that makes it easy to integrate either with Google accounts or with any other service that supports OAuth.-->
+大部分现代应用程序都为了同步数据而依赖网络。同步数据时，您需要确定用户是谁。Chrome
+应用内建<a href="experimental.identity.html">认证 API</a>，使您更方便地与
+Google 账户或任何其他支持 OAuth 的服务集成。
+</p>
+
+<ol>
+<li> <!--@Built in - Google Authenticiation-->内建 Google 认证</li>
+<li> <!--@Third Party Authentication (Twitter, Foursquare, etc.)-->第三方认证（Twitter、Foursquare 等等）</li>
+</ol>
+
+<h2 id="you_should_also_read"><!--@You should also read-->您还应该阅读</h2>
+
+<p>Chrome 应用文档中的<a href="app_identity.html"><!--@Identify User-->认证用户</a><!--@ in Chrome app docs--></p>
+
+<p class="note"><b><!--@Note:-->注意：</b><!--@  Apps with authentication require the experimental permission in the <code>manifest.json</code> and, until they came out of experimental state, they cannot be uploaded to the Chrome Web Store.
+If you prefer, you can choose to skip this lab.-->使用认证的应用需要在
+<code>manifest.json</code> 中指定 experimental
+权限，而且在它们仍然处于实验性状态时不能上传到 Chrome
+网上应用店。如果您愿意的话，您可以选择跳过这一实验。
+</p>
+
+<h2 id="authenticating_with_google"><!--@Authenticating with Google-->与 Google 认证</h2>
+
+<p><!--@We are working on a very easy integration flow for apps that authenticate with Google accounts. However, this flow is not yet available for general use. In the meantime, you may still use the third-party flow described below, even for Google services.-->
+我们正在开发一种很简单的整合流程，用于和 Google
+账户认证的应用。然而，该流程还不能用于一般用途。在此同时，您仍然可以使用如下所述的第三方流程，即使是用在
+Google 服务上。
+</p>
+
+<h2 id="integrating_with_a_third_party_service"><!--@Integrating with a third-party service-->与第三方服务整合</h2>
+
+<p><!--@Chrome apps have a dedicated API for lauching the authentication flow to any third-party OAuth2 service, called $ref:experimental.identity.launchWebAuthFlow.
+To show how this flow works, we&#39;re going to update our sample to import <a href="https://developers.google.com/google-apps/tasks/">Google Tasks</a> into the Todo list.-->
+Chrome 应用有一个专门的 API，可以对任何第三方 OAuth2 服务进行认证流程，称为
+$ref:experimental.identity.launchWebAuthFlow。为了演示该流程的工作方式，我们将更新我们的示例，将
+<a href="https://developers.google.com/google-apps/tasks/">Google 工作表</a>
+引入到待办事项列表中。
+</p>
+
+<h3 id="register_with_the_provider"><!--@Register with the provider-->与提供商注册</h3>
+
+<p><!--@To use a third-party OAuth2 provider, you will first need to register your application with the provider. Each provider has a different way of registering applications, but in general it will be in a section called Developer or API at the provider&#39;s website.-->
+要使用第三方 OAuth2 提供商，您首先需要在提供商注册您的应用程序。每一个提供商都有自己的方式来注册应用程序，但是大体上应该在提供商网站上一个称为开发者或
+API 的部分。
+</p>
+
+<p><!--@Here we are treating Google as a third-party service. Just follow Google&#39;s own registration procedure for apps requiring API access below:-->
+这里我们将 Google 视为第三方服务，只需要遵循 Google 自己过程，为需要 API
+访问的应用注册。
+</p>
+
+<ol>
+<li><!--@Create a new project in the-->在 <a href="https://code.google.com/apis/console">Google API <!--@console-->控制台</a><!--@.-->创建一个新项目。</li>
+<li><!--@Activate the Tasks API on the Services secion.-->在 Services（服务）部分激活 Tasks（工作表） API。</li>
+<li><!--@Create a new OAuth2.0 client ID on API Access section. Select Web application and leave other fields unchanged.-->在 API Access 部分创建一个新的 OAuth2.0 客户端标识符，选择 Web application，其他字段不用修改。</li>
+<li><!--@Click on Edit settings for the newly created client ID.-->在新创建的客户端标识符上单击 Edit settings。</li>
+<li><!--@In Authorized Redirect URLs, add <code>https://&lt;YOURAPP_ID&gt;.chromiumapp.org/</code>,
+replacing &lt;YOURAPP_ID&gt; with your app ID (this is the app&#39;s long alphanumeric ID you can find in <code>chrome://extensions</code>).-->
+在 Authorized Redirect URLs 中添加
+<code>https://&lt;YOURAPP_ID&gt;.chromiumapp.org/</code>，将
+&lt;YOURAPP_ID&gt;
+替换为您的应用标识符（也就是由字母和数字组成的应用的长标识符，您可以在
+<code>chrome://extensions</code> 中找到）。
+</li>
+</ol>
+
+<h3 id="add_permissions"><!--@Add permissions-->添加权限</h3>
+
+<p><!--@Update the-->更新 <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab7_useridentification/angularjs/manifest.json">manifest.json</a> <!--@to use-->使用 &quot;experimental&quot; <!--@features. Note that we&#39;ve also requested permission to make XHR requests to the Tasks service URL - for security reasons, you need to request explicit permission in the manifest for every URL you will call via XHR.-->
+特性。注意我们也请求了向工作表服务 URL 发出 XHR
+请求的权限，出于安全原因，您需要在清单文件中为您需要通过 XHR 调用的每一个
+URL 明确请求权限。
+<pre>
+{
+     ... ,
+     &quot;permissions&quot;: [&quot;storage&quot;, &quot;experimental&quot;, &quot;https://www.googleapis.com/tasks/*&quot;]
+}
+</pre></p>
+
+<h3 id="add_google_tasks_to_the_todo_list"><!--@Add Google tasks to the Todo list-->将 Google 工作表添加到待办事项列表</h3>
+
+<p><!--@Now we are ready to ask user&#39;s authorization, so we can connect to the Tasks service and import his tasks into our Todo list. First, we will need to request an access token - which, at the first run will automatically pops up an authentication and authorization window to the user.
+Once we have this token, we are able to call the Google Tasks API directly.-->
+现在我们已经准备好请求用户认证，以便连接到工作表服务，并将工作表导入我们的待办事项列表。首先，我们需要请求访问令牌，第一次运行时会自动向用户弹出认证和授权窗口。一旦我们拥有了这一令牌，我们就能直接调用 Google 工作表 API 了。
+</p>
+
+<ol>
+<li><p><!--@Since this is time consuming and error prone, you can cheat and copy our JavaScript that handles the authentication to the Google Tasks API from here: <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab7_useridentification/angularjs/gapi_tasks.js">gapi_tasks.js</a>.
+This script calls <code>launchWebFlow</code> and gets a valid access token for the specified client ID. It also has simple JavaScript methods that, after authenticated, goes to the Tasks API and gets the user&#39;s task lists and the corresponding tasks. -->
+由于这一部分很费时间，而且容易出错，您可以直接从这里复制我们用来处理
+Google 工作表 API 认证的
+JavaScript：<a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab7_useridentification/angularjs/gapi_tasks.js">gapi_tasks.js</a>。该脚本调用
+<code>launchWebFlow</code>
+并为指定的客户端标识符获取有效的访问令牌。它还有一些简单的 JavaScript
+方法，可以在认证后进入工作表 API，并获取用户的任务列表以及对应的任务。
+</p>
+
+<p class="note"><b><!--@Note:-->注意：</b><!--@  this script is NOT intented to be used in production - it is just a very simple, limited and definitely not robust piece of code intented to highlight the basic authentication and API calls.-->该脚本<em>并非</em>用于产品中的，它只是一段很简单、很有限而且肯定不健壮的代码，仅仅是为了突出基本认证过程和 API 调用。</p></li>
+<li><p><!--@Add a new method to the existing-->向现有的 <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab7_useridentification/angularjs/controller.js">controller.js</a> <!--@that, using the methods from the script of the previous step, authenticates the user and imports his Google tasks into the Todo list:-->
+添加一个新方法，使用前一步脚本中的方法认证用户并将他的 Google
+任务导入待办事项列表：
+<pre>
+$scope.importFromGTasks = function() {
+  var api = new TasksAPI();
+  var clientId = &quot;&lt;GET_YOURS_AT_https://code.google.com/apis/console&gt;&quot;;
+  api.authenticate(clientId, function() {
+    api.getLists(function(result) {
+      console.log(result);
+      if (!result || !result.items || result.items.length==0) {
+        throw &quot;No task lists available&quot;;
+      }
+      var listId=result.items[0].id;
+      api.getTasks(listId, function(tasks) {
+        console.log(tasks);
+        for (var j=0; j&lt;tasks.items.length; j++) {
+          $scope.$apply(function() {
+            $scope.todos.push({text:tasks.items[j].title, done:tasks.items[j].status!=&quot;needsAction&quot;});
+          });
+        }
+      });
+    });
+  });
+}
+</pre>   </p>
+
+<p><!--@Replace the following line in the code above:-->
+将以上代码的下面几行：
+<pre>
+  var clientId = &quot;&lt;GET_YOURS_AT_https://code.google.com/apis/console&gt;&quot;;
+</pre>
+<!--@with your own project&#39;s Client ID that you got from the Google API Console. Should look like this:-->
+替换为您自己的项目在 Google API 客户端获得的客户端标识符，应该如下所示：
+<pre>
+  var clientId = &quot;xxxxxxxxxxxxxx.apps.googleusercontent.com&quot;;
+</pre></p></li>
+<li><p><!--@Now we just need a button that starts the import process. Update the <code>index.html</code> to include <code>gapi_tasks.js</code> and add a new button to call <code>importFromGTasks</code>:-->
+现在我们只需要一个按钮，开始导入过程。更新 <code>index.html</code>
+包含 <code>gapi_tasks.js</code>，并添加一个新的按钮，调用
+<code>importFromGTasks</code>：
+<pre>
+&lt;script src=&quot;gapi_tasks.js&quot;&gt;&lt;/script&gt;
+...
+&lt;button ng-click=&quot;importFromGTasks()&quot;&gt;import tasks from GTasks&lt;/button&gt;
+</pre></p></li>
+</ol>
+
+<p class="note"><b><!--@Note:-->注意：</b><!--@  If you get stuck and want to see the app in action,
+go to <code>chrome://extensions</code>, load the unpacked <a href="app_codelab7_useridentification.html">lab7_useridentification</a> app,
+and launch the app from a new tab.-->
+如果您遇到了困难，希望立刻看到修改后的应用，请进入
+<code>chrome://extensions</code>，加载未打包的
+<a href="https://github.com/GoogleChrome/chrome-app-codelab/tree/master/lab7_useridentification">实验七应用</a>，并从新标签页中运行应用。
+</p>
+
+<h1 id="what_39_s_next_"><!--@What&#39;s next?-->接下来做什么？</h1>
+
+<p><!--@In-->在 <a href="app_codelab8_webresources.html">lab8_webresources</a><!--@,
+you will learn how to load and show images from a remote URL.-->
+中，您将会学习如何加载并显示来自远程 URL 的图片。
+</p>
+
+<p class="note"><b><!--@Note:-->注意：</b><!--@  Up until now, the code in each lab builds upon the previous lab code sample.
+We&#39;ve decided not to include the user identification code changes in the remainder of the lab since the <code>identity API</code> is still experimental and as such it would prevent you from publishing your final code to the Chrome Web Store.-->直到现在，每一个实验中的代码都基于前一个实验的代码示例建立。我们决定不将用户认证代码的更改包含在剩下的实验中，因为认证
+API 还是实验性的，这样会阻止您将您的最终代码发布到 Chrome 网上应用店。</p>

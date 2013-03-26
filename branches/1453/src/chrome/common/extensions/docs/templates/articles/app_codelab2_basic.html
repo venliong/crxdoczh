@@ -1,0 +1,122 @@
+<h1 id="lab_2_work_with_code"><!--@Lab 2 - Work with code-->实验二：编写代码</h1>
+
+<h2 id="create_your_first_chrome_app"><!--@Create your first Chrome app-->创建您的第一个 Chrome 应用</h2>
+
+<p><!--@There are three core pieces to any Chrome app:-->每一个 Chrome 应用都包含三个核心部分：</p>
+
+<ul>
+<li><!--@The manifest that descibes meta-information about your applicaiton: name, description, version number and how to launch your application-->
+清单文件描述有关您的应用的元信息：名称、描述、版本号以及如何运行您的应用
+</li>
+<li><!--@The background script, which sets up how your application responds to system events such as the user installing and launching the app and the system suspending it-->
+后台脚本设置您的应用响应系统事件的方式，例如用户安装和运行应用以及系统关闭它
+</li>
+<li><!--@The view (which is optional, but you normally need to show the user something)-->
+视图（是可选的，但通常您需要向用户显示一些内容）
+</li>
+</ul>
+
+<p><!--@Let&#39;s look at each of these components at their simplest level. -->
+让我们从最简单的层面看看每一个部分：
+</p>
+
+<ol>
+<li><p><!--@In an empty directory (let&#39;s call it <code>&lt;myappdir&gt;</code>), create three files:-->
+在一个空目录（让我们称之为 <code>&lt;myappdir&gt;</code>）中创建三个文件：
+</p>
+
+<ul>
+<li><!--@Manifest: -->清单文件：<a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab2_basic/manifest.json">manifest.json</a>
+<pre>
+{
+  &quot;manifest_version&quot;: 2,
+  &quot;name&quot;: &quot;My first app&quot;,
+  &quot;version&quot;: &quot;1&quot;,
+  &quot;app&quot;: {
+    &quot;background&quot;: {
+      &quot;scripts&quot;: [&quot;main.js&quot;]
+    }
+  }
+}
+</pre></li>
+<li><!--@Background script: -->后台脚本：<a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab2_basic/main.js">main.js</a>
+<pre>
+chrome.app.runtime.onLaunched.addListener(function() {
+  chrome.app.window.create(&#39;index.html&#39;, {
+    bounds: {
+      width: 500,
+      height: 309
+    }
+  });
+});
+</pre></li>
+<li><!--@User interface: -->用户界面：<a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab2_basic/index.html">index.html</a>
+<pre>
+&lt;html&gt;
+  &lt;head&gt;
+      &lt;meta charset=&quot;utf-8&quot;&gt;
+      &lt;title&gt;Hello World&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+      &lt;h1&gt;Hello, World!&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre></li>
+</ul></li>
+<li><p><!--@Install and execute your sample app: -->安装并运行您的示例应用：</p>
+
+<ul>
+<li><!--@Go to-->进入 <code>chrome://extensions</code><!--@.-->。</li>
+<li><!--@Load unpacked extension...-->加载正在开发的扩展程序...</li>
+<li><!--@Select the-->选择 <code>&lt;myappdir&gt;</code> <!--@directory.-->目录。</li>
+<li><!--@Open a new Chrome tab.-->打开一个新的 Chrome 浏览器标签页。</li>
+<li><!--@Click on the &quot;-->单击“My First App”图标。<!--@&quot; icon.--></li>
+</ul></li>
+</ol>
+
+<h2 id="you_should_also_read"><!--@You should also read-->您还应该阅读</h2>
+
+<ul>
+<li><a href="/trunk/apps/first_app.html"><!--@Create Your First App-->创建您的第一个应用</a></li>
+<li><a href="/trunk/apps/app.runtime.html">chrome.app.runtime</a></li>
+<li><a href="/trunk/apps/app.window.html">chrome.app.window</a></li>
+</ul>
+
+<h2 id="debug_fix_and_reload_app"><!--@Debug, fix, and reload app-->调试、修复问题和重新加载应用</h2>
+
+<p class="note"><b><!--@Tip:-->提示：</b><!--@  If you have enabled Developer mode in <code>chrome://extensions</code>, your apps can be inspected and debugged using the Chrome Developer Tools just like any standard web page: right-click on page, select Inspect Element. For the background page, which doesn&#39;t have UI, you can either right-click on any app window and select <code>Inspect Background Page</code> or go to <code>chrome://extensions</code> and click on Inspect Views...-->
+如果您在 <code>chrome://extensions</code> 中启用了开发者模式，您可以使用
+Chrome
+浏览器的开发者工具审查和调试应用，就像标准网页一样：右键单击网页，选择“审查元素”。对于没有用户界面的后台网页，您既可以右键单击应用窗口并选择“检查背景页”，也可以进入
+<code>chrome://extensions</code> 并单击“检查视图”。
+</p>
+
+<ol>
+<li><p><!--@Change the text &quot;Hello world&quot; to &quot;My first app&quot; in index.html.-->在 index.html 中将“Hello world”文本更改为“我的第一个应用”</p></li>
+<li><p><!--@Change the-->修改 <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab2_basic/main.js">main.js</a> <!--@background script to create two windows instead of one. Don&#39;t bother to create another html. For now, you can open index.html on both.-->后台脚本，创建两个而不是一个窗口。不用担心要创建另一个
+HTML 文件，目前您可以在两个窗口中都打开 index.html。</p></li>
+<li><p><!--@After changing code, right-click on your app and select Reload App to reload the changed files. All Developer Tools windows will be reopened when you reload your app.-->
+修改代码后，右键单击您的应用，并单击重新加载应用，以便重新加载更改的文件。当您重新加载您的应用时，所有开发者工具窗口都会重新打开。</p></li>
+<li><p><!--@Launch the app in a new tab page. Move the top window and you will see the second window behind it. -->
+在“打开新的标签页”页面中运行应用，移动顶端的窗口，您就会看到后面的第二个窗口。
+</p></li>
+</ol>
+
+<h1 id="takeaways"><!--@Takeaways-->更多信息</h1>
+
+<ul>
+<li><!--@Chrome apps have three basic pieces. The first and foremost is the manifest.json, which describes your app, requests special permissions, defines important meta information and much more. The second part is the background script, which contains all logic not tied to a specific user interface. The last part is the user interface: HTML, CSS, JavaScripts related to the interface, images, etc.-->
+Chrome 应用包含三个基本部分。第一个同时也是最重要的是
+manifest.json，用来描述您的应用、请求特殊的权限、定义重要的元信息等等。第二个部分是后台脚本，包含与具体用户界面无关的所有逻辑。最后一部分是用户界面：与界面相关的 HTML、CSS、JavaScript、图片等。
+</li>
+<li><!--@Chrome apps can be debugged just like standard web pages using the Chrome Developer Tools. But since an app doesn&#39;t have the Reload control of a browser, a Reload App option has been added when you run in Developer mode.-->
+Chrome 应用可以像标准网页一样使用 Chrome 浏览器的开发者工具调试，但是由于应用没有浏览器的“重新加载”控件，当您以开发者模式运行时会新增一个“重新加载应用”的选项。
+</li>
+</ul>
+
+<h1 id="what_39_s_next_"><!--@What&#39;s next?-->接下来做什么？</h1>
+
+<p><!--@In-->在 <a href="app_codelab3_mvc.html">lab3_mvc</a><!--@,
+you will use the <a href="http://angularjs.org/">AngluarJS framework</a> to build your app.-->
+中，您会使用 <a href="http://angularjs.org/">AngularJS 框架</a>建立您的应用。
+</p>

@@ -1,0 +1,147 @@
+<table class="intro">
+  <tr>
+    <th scope="col"></th>
+    <th scope="col"></th>
+  </tr>
+  <tr>
+    <td><strong><!--@Description:-->描述：</strong></td>
+    <td><!--@Use the-->使用 <code>chrome.declarativeContent</code> <!--@module to take
+    actions depending on the content of a page, without requiring
+    permission to read the page's content (see <a
+    href="#usage">Usage</a>).-->模块根据网页内容采取行动，而不需要读取页面内容的权限（请参见<a href="#usage">用法</a>）。</td>
+  </tr>
+  <tr>
+    <td><strong><!--@Availability:-->可用版本：</strong></td>
+    <td>Trunk</td>
+  </tr>
+  <tr>
+    <td><strong><!--@Permissions:-->权限：</strong></td>
+    <td><code>"declarativeContent"</code>
+      <!--TODO: Mention host permissions if/when some actions require them.-->
+    </td>
+  </tr>
+  <tr>
+    <td><strong><!--@Learn more:-->了解更多：</strong></td>
+    <td><a href="events.html"><!--@Declarative Events-->声明式事件</a><br/>
+    <!--@The--> <a href="activeTab.html">activeTab</a> <!--@permission-->权限</td>
+  </tr>
+</table>
+
+<h2 id="usage"><!--@Usage-->用法</h2>
+
+<p>
+<!--@The Declarative Content API allows you to show your extension's
+$ref:[pageAction page action] depending on the URL of a web page and
+the CSS selectors its content matches, without needing to take a <a
+href="declare_permissions.html#host-permission">host permission</a> or
+inject a <a href="content_scripts.html">content script</a>.  Use the
+<a href="activeTab.html">activeTab</a> permission in order to be able
+to interact with a page after the user clicks on your page action.-->
+声明式内容 API 允许您根据网页的 URL
+和它的内容匹配的 CSS
+选择器来显示您的扩展程序的$ref:[pageAction 页面按钮]，而不需要拥有<a
+href="declare_permissions.html#host-permission">主机权限</a>或插入<a
+href="content_scripts.html">内容脚本</a>。为了在用户单击您的页面按钮后能够与网页交互，请使用
+<a href="activeTab.html">activeTab</a> 权限。
+</p>
+
+<p>
+<!--@If you need more precise control over when your page action appears or
+you need to change its appearance to match the current tab before the
+user clicks on it, you'll have to keep using the $ref:pageAction API.-->
+如果您需要更精确地控制什么时候显示您的页面按钮，或者需要在用户单击它之前更改它的外观以匹配当前标签页，您还是需要继续使用$ref:[pageAction 页面按钮] API。
+</p>
+
+<h2 id="rules"><!--@Rules-->规则</h2>
+
+<p><!--@As a <a href="events.html#declarative">declarative API</a>, this
+API lets you register rules on the
+<code>$ref:declarativeContent.onPageChanged</code> event object which
+take an action (currently just <code>$ref:ShowPageAction</code>) when
+a set of conditions, represented as a
+<code>$ref:[PageStateMatcher]</code>, are met.-->
+作为一种<a href="events.html#declarative">声明式 API</a>，该 API 让您在
+<code>$ref:declarativeContent.onPageChanged</code>
+事件对象上注册规则，当一系列由
+<code>$ref:PageStateMatcher</code>
+表示的条件满足时执行某个操作（目前只有
+<code>$ref:ShowPageAction</code>）。
+</p>
+
+<p>
+<!--@The <code>$ref:PageStateMatcher</code> matches web pages if and only
+if all listed criteria are met. The following rule would show a page
+action for pages on <code>https://www.google.com/</code> when a
+password field is present on it:-->
+当且仅当列出的所有条件都满足时，<code>$ref:PageStateMatcher</code>
+才会匹配网页。当 <code>https://www.google.com/</code>
+上的页面存在密码字段时，以下规则将为该页面显示页面按钮：
+</p>
+
+<pre>
+var rule1 = {
+  conditions: [
+    new $ref:[declarativeContent.PageStateMatcher chrome.declarativeContent.PageStateMatcher]({
+      $ref:[PageStateMatcher.pageUrl pageUrl]: { $ref:[events.UrlFilter.hostEquals hostEquals]: 'www.google.com', $ref:[events.UrlFilter.schemes schemes]: ['https'] },
+      $ref:[PageStateMatcher.css css]: ["input[type='password']"]
+    })
+  ],
+  actions: [ new $ref:[declarativeContent.ShowPageAction chrome.declarativeContent.ShowPageAction]() ]
+};
+</pre>
+
+<p class="note">
+<strong><!--@Note:-->注意：</strong><!--@ All conditions and actions are created via a constructor
+as shown in the example above.-->所有条件和操作都通过构造函数创建，如以上例子所示。
+<p>
+
+<p>
+<!--@In order to also show a page action for sites with a video, you can
+add a second condition, as each condition is sufficient to trigger all
+specified actions:-->
+如果要为包含视频的网站显示页面按钮，您可以添加第二个条件，每一个条件都足以触发所有指定的操作：
+</p>
+<pre>
+var rule2 = {
+  conditions: [
+    new $ref:[declarativeContent.PageStateMatcher chrome.declarativeContent.PageStateMatcher]({
+      $ref:[PageStateMatcher.pageUrl pageUrl]: { $ref:[events.UrlFilter.hostEquals hostEquals]: 'www.google.com', $ref:[events.UrlFilter.schemes schemes]: ['https'] },
+      $ref:[PageStateMatcher.css css]: ["input[type='password']"]
+    })<strong>,
+    new chrome.declarativeContent.PageStateMatcher({
+      $ref:[PageStateMatcher.css css]: ["video"]
+    })</strong>
+  ],
+  actions: [ new $ref:[declarativeContent.ShowPageAction chrome.declarativeContent.ShowPageAction]() ]
+};
+</pre>
+
+<p>
+<a href="events.html#addingrules"><!--@Added rules-->添加的规则</a><!--@ are saved across
+browser restarts, so register them as follows:-->在浏览器重新启动后也将保留，所以请按照下面的方式注册它们：
+</p>
+<pre>
+$ref:[runtime.onInstalled chrome.runtime.onInstalled].addListener(function(details) {
+  $ref:[declarativeContent.onPageChanged chrome.declarativeContent.onPageChanged].<a href="events.html#removingrules">removeRules</a>(undefined, function() {
+    $ref:[declarativeContent.onPageChanged chrome.declarativeContent.onPageChanged].<a href="events.html#addingrules">addRules</a>([rule2]);
+  });
+});
+</pre>
+
+<p class="note">
+<strong><!--@Note:-->注意：</strong><!--@ You should always register or unregister rules in bulk
+rather than individually because each of these operations recreates internal
+data structures.  This re-creation is computationally expensive but facilitates
+a faster matching algorithm.-->您一定要批量注册或取消注册规则，而不是一个一个地进行，因为每一次这样的操作都会重新创建内部的数据结构，这一重新创建的过程需要大量的计算，但是利用了一种更快的匹配算法。
+</p>
+
+<p>
+<!--@Combine the above rule with the <a href="activeTab.html">activeTab</a>
+permission to create an extension that doesn't need any install-time
+permissions but can invite the user to click its page action on
+relevant pages and can run on those pages when the user clicks the
+page action.-->
+将以上规则与
+<a href="activeTab.html">activeTab</a>
+权限一起使用，就能创建一个不需要任何安装时警告的扩展程序，使用户在相关的页面上单击它的页面按钮，并当用户单击页面按钮时在这些页面上运行。
+</p>
