@@ -112,6 +112,23 @@ table.-->托管应用只能使用
   </td>
 </tr>
 {{/is_apps}}
+<tr id="alarms">
+  <td> "alarms" </td>
+  <td> <!--@Required if the extension or app uses the-->
+       如果扩展程序或应用使用
+       <a href="alarms.html">chrome.alarms</a> <!--@module.-->
+       模块则必须指定。
+  </td>
+{{?is_apps}}
+<tr id="audioCapture">
+  <td> "audioCapture" </td>
+  <td> <!--@Requests that the app be granted permissions to capture audio
+       directly from the user's Microphone via the-->
+       请求授予应用权限，以便通过
+       <a href="http://dev.w3.org/2011/webrtc/editor/getusermedia.html">getUserMedia</a> API<!--@.-->直接从用户的麦克风捕获音频。
+  </td>
+</tr>
+{{/is_apps}}
 <tr id="bg">
   <td> "background" </td>
   <td> <p>
@@ -156,6 +173,16 @@ table.-->托管应用只能使用
        </p>
        </td>
 </tr>
+{{?is_apps}}
+<tr id="bluetooth">
+  <td> "bluetooth" </td>
+  <td> <!--@Required if the app uses the-->
+       如果应用使用
+       <a href="bluetooth.html">chrome.bluetooth</a> <!--@module.-->
+       模块则必须指定。
+  </td>
+</tr>
+{{/is_apps}}
 {{^is_apps}}
 <tr>
   <td> "bookmarks" </td>
@@ -226,9 +253,9 @@ table.-->托管应用只能使用
 {{/is_apps}}
 {{?is_apps}}
 <tr>
-  <td id="fileSystem"> "fileSystem": ["write"] </td>
+  <td id="fileSystem"> "fileSystem", "fileSystem.write" </td>
   <td> <!--@Required if the app uses the-->如果应用使用
-       <a href="fileSystem.html">fileSystem API</a> <!--@to write files.-->写入文件则必须指定。</td>
+       <a href="fileSystem.html">chrome.fileSystem</a> <!--@module.-->模块则必须指定。</td>
 </tr>
 {{/is_apps}}
 {{?is_apps}}
@@ -263,17 +290,44 @@ table.-->托管应用只能使用
        <a href="management.html">chrome.management</a> <!--@module.-->模块则必须指定。 </td>
 </tr>
 {{/is_apps}}
+{{?is_apps}}
+<tr>
+  <td id="mediaGalleries"> "mediaGalleries": ["read"], "mediaGalleries": ["read", "allAutoDetected"] </td>
+  <td> <!--@Required if the app uses the-->
+       如果应用使用
+       <a href="mediaGalleries.html">chrome.mediaGalleries</a> <!--@module.-->模块则必须指定。 </td>
+</tr>
+{{/is_apps}}
+{{^is_apps}}
 <tr>
   <td> "notifications" </td>
-  <td> <!--@Allows the extension or app to use the proposed HTML5-->允许扩展程序或应用使用提议的 HTML5
+  <td> <!--@Allows the extension to use the proposed HTML5-->允许扩展程序使用提议的 HTML5
        <a href="http://www.chromium.org/developers/design-documents/desktop-notifications/api-specification"><!--@notification-->通知 API</a>
        <!--@without calling permission methods
        (such as <code>checkPermission()</code>).
-       For more information see
-       -->而不用调用权限方法（例如
+       For more information see-->
+       而不用调用权限方法（例如
        <code>checkPermission()</code>）。有关更多信息，请参见<a
-       href="notifications.html"><!--@Desktop Notifications-->桌面通知</a><!--@.-->。</td>
+       href="desktop_notifications.html"><!--@Desktop Notifications-->桌面通知</a><!--@.-->。</td>
 </tr>
+{{/is_apps}}
+{{?is_apps}}
+<tr>
+  <td> "notifications" </td>
+  <td> <!--@Required if the app uses the-->
+       如果应用使用
+       <a href="notifications.html">chrome.notifications</a> <!--@module.
+       Also allows the app to use the proposed HTML5-->
+       模块则必须指定，同时还允许应用使用提议的 HTML5
+       <a href="http://www.chromium.org/developers/design-documents/desktop-notifications/api-specification"><!--@notification-->通知 API</a>
+       <!--@without calling permission methods
+       (such as <code>checkPermission()</code>).
+       For more information see-->
+       而不用调用权限方法（例如
+       <code>checkPermission()</code>）。有关更多信息，请参见<a
+       href="desktop_notifications.html"><!--@Desktop Notifications-->桌面通知</a><!--@.-->。</td>
+</tr>
+{{/is_apps}}
 {{?is_apps}}
 <tr>
   <td> "pointerLock" </td>
@@ -304,6 +358,26 @@ table.-->托管应用只能使用
 </tr>
 {{/is_apps}}
 <tr>
+  <td> "pushMessaging" </td>
+  <td> <!--@Required if the extension or app uses the-->
+       如果扩展程序或应用使用
+       <a href="pushMessaging.html">chrome.pushMessaging</a> <!--@module.-->模块则必须指定。 </td>
+</tr>
+{{?is_apps}}
+<tr>
+  <td id="serial"> "serial" </td>
+  <td> <!--@Required if the app uses the-->
+       如果应用使用
+       <a href="serial.html">chrome.serial</a> <!--@module.-->模块则必须指定。</td>
+</tr>
+<tr>
+  <td id="socket"> "socket": ["rule1", "rule2"]  </td>
+  <td> <!--@Required if the app uses the-->
+       如果应用使用
+       <a href="socket.html">chrome.socket</a> <!--@module.-->模块则必须指定。</td>
+</tr>
+{{/is_apps}}
+<tr>
   <td> "storage" </td>
   <td> <!--@Required if the extension or app uses the-->如果扩展程序或应用使用
        <a href="storage.html">chrome.storage</a> <!--@module.-->模块则必须指定。 </td>
@@ -311,9 +385,9 @@ table.-->托管应用只能使用
 {{?is_apps}}
 <tr>
   <td id="syncFileSystem"> "syncFileSystem" </td>
-  <td> <!--@Required if the app uses the-->如果扩展程序使用<!--@
-       --><a href="syncFileSystem.html"><!--@syncFileSystem-->同步文件系统 API</a>
-       <!--@to save and synchronize data on Google Drive.-->在
+  <td> <!--@Required if the app uses the-->如果应用使用
+       <a href="syncFileSystem.html">chrome.syncFileSystem</a> <!--@module
+       to save and synchronize data on Google Drive.-->模块在
        Google 云端硬盘上保存和同步数据则必须指定。</td>
 </tr>
 {{/is_apps}}
@@ -364,6 +438,25 @@ table.-->托管应用只能使用
       </p>
   </td>
 <tr>
+{{?is_apps}}
+<tr>
+  <td id="usb"> "usb" </td>
+  <td> <!--@Required if the app uses the-->
+       如果应用使用
+       <a href="usb.html">chrome.usb</a> <!--@module.-->模块则必须指定。</td>
+</tr>
+{{/is_apps}}
+{{?is_apps}}
+<tr id="videoCapture">
+  <td> "videoCapture" </td>
+  <td> <!--@Requests that the app be granted permissions to capture video
+       directly from the user's Web Cam via the-->
+       请求授予应用权限，以便通过
+       <a href="http://dev.w3.org/2011/webrtc/editor/getusermedia.html">getUserMedia</a> API<!--@.-->
+       直接从用户的网络摄像头捕获视频。
+  </td>
+</tr>
+{{/is_apps}}
 {{^is_apps}}
 <tr>
   <td> "webNavigation" </td>
