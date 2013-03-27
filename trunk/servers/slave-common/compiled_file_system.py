@@ -96,10 +96,11 @@ class CompiledFileSystem(object):
     cache_data = self._populate_function(
         path,
         self._file_system.ReadSingle(path, binary=binary))
-    self._object_store.Set(self._MakeKey(path),
-                           _CacheEntry(cache_data, version),
-                           object_store.FILE_SYSTEM_CACHE,
-                           time=0)
+    if not STATIC in self._namespace:
+      self._object_store.Set(self._MakeKey(path),
+                             _CacheEntry(cache_data, version),
+                             object_store.FILE_SYSTEM_CACHE,
+                             time=0)
     return cache_data
 
   def GetFromFileListing(self, path):
@@ -119,8 +120,9 @@ class CompiledFileSystem(object):
         path,
         self._RecursiveList(
             [path + f for f in self._file_system.ReadSingle(path)]))
-    self._object_store.Set(self._MakeKey(path),
-                           _CacheEntry(cache_data, version),
-                           object_store.FILE_SYSTEM_CACHE_LISTING,
-                           time=0)
+    if not STATIC in self._namespace:
+      self._object_store.Set(self._MakeKey(path),
+                             _CacheEntry(cache_data, version),
+                             object_store.FILE_SYSTEM_CACHE_LISTING,
+                             time=0)
     return cache_data
