@@ -204,6 +204,10 @@ class Handler(webapp.RequestHandler):
   def _OriginalHandleGet(self, path):
     channel_name, real_path = BRANCH_UTILITY.SplitChannelNameFromPath(path)
 
+    if channel_name == _DEFAULT_CHANNEL:
+      self.redirect('/%s' % real_path)
+      return
+
     # TODO: Detect that these are directories and serve index.html out of them.
     if real_path.strip('/') == 'apps':
       real_path = 'apps/index.html'
@@ -302,6 +306,7 @@ class Handler(webapp.RequestHandler):
       time.sleep(5 * count)
 
   def _HandleDocsBackends(self):
+    return
     try:
       self._HandleCron('/cron/trunk')
     except Exception as e:
@@ -380,11 +385,24 @@ class Handler(webapp.RequestHandler):
     file_system = _CreateMemcacheFileSystem(branch, branch_memcache)
     factory = CompiledFileSystem.Factory(file_system, branch_memcache)
 
+    needs_render_static = self._ValueHolder(False)
+    invalidation_cache_static = factory.Create(lambda _, __: needs_render_static.Set(True),
+                                        compiled_fs.CRON_INVALIDATION,
+                                        version=_VERSION)
+
+    invalidation_cache_static.GetFromFile(STATIC_PATH + '/')
+
+    if needs_render_static.Get():
+      file_listing_cache = factory.Create(lambda _, x: x,
+                                          compiled_fs.CRON_FILE_LISTING)
+      self._Render(file_listing_cache.GetFromFileListing(STATIC_PATH),
+                   channel + '/static', STATIC_PATH)
+
     needs_render = self._ValueHolder(False)
     invalidation_cache = factory.Create(lambda _, __: needs_render.Set(True),
                                         compiled_fs.CRON_INVALIDATION,
                                         version=_VERSION)
-    for path in [TEMPLATE_PATH, API_PATH, STATIC_PATH]:
+    for path in [TEMPLATE_PATH, API_PATH]:
       invalidation_cache.GetFromFile(path + '/')
 
     if needs_render.Get():
@@ -392,10 +410,6 @@ class Handler(webapp.RequestHandler):
                                           compiled_fs.CRON_FILE_LISTING)
       self._Render(file_listing_cache.GetFromFileListing(PUBLIC_TEMPLATE_PATH),
                    channel)
-      file_listing_cache = factory.Create(lambda _, x: x,
-                                          compiled_fs.CRON_FILE_LISTING)
-      self._Render(file_listing_cache.GetFromFileListing(STATIC_PATH),
-                   channel + '/static', STATIC_PATH)
     else:
       # If |needs_render| was True, this page was already rendered, and we don't
       # need to render again.
@@ -459,7 +473,7 @@ class Handler(webapp.RequestHandler):
     path = path.split('/')
     if len(path) > 0 and path[0] == 'chrome':
       path.pop(0)
-    for channel in BRANCH_UTILITY.GetAllBranchNames():
+    for channel in BranchUtility.GetAllBranchNames():
       if channel in path:
         position = path.index(channel)
         path.pop(position)
@@ -497,5 +511,9 @@ class Handler(webapp.RequestHandler):
       self._HandleBackends()
     elif path == '/_/update':
       self._HandleFeedUpdate()
+    elif path.startswith('/cron'):
+      self._HandleCron(path)
+      return
     else:
       self._HandleGet(path.strip('/'))
+

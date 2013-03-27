@@ -91,9 +91,9 @@ class Handler(webapp2.RequestHandler):
 
 class HomeRedirectHandler(webapp2.RequestHandler):
   def get(self):
-    self.response.location = '/trunk/extensions/index.html'
+    self.response.location = '/extensions/index.html'
     AddSecurityHeaders(self.response)
-    self.response.status = 302
+    self.response.status = 301
 
 class ExamplesRedirectHandler(webapp2.RequestHandler):
   def get(self, slashed_channel, example_path):
