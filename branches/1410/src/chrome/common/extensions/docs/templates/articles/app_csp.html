@@ -52,7 +52,7 @@ you from doing the following:-->
 <ul>
 	<li><!--@You can’t use inline scripting in your packaged app pages.
 		The restriction bans both &lt;script> blocks and
-		event handlers (&lt;button onclick=”...”>).-->
+		event handlers (&lt;button onclick="...">).-->
         您不能在打包应用中使用内嵌脚本，这些限制既禁止了
         &lt;script&gt; 块，也禁止了事件处理器（&lt;button
         onclick="..."&gt;）。
@@ -64,7 +64,7 @@ you from doing the following:-->
         iframe 中嵌入外部资源。
     </li>
 	<li><!--@You can’t use string-to-JavaScript methods like
-		<code>eval()</code> and <code>function()</code>.-->
+		<code>eval()</code> and <code>new Function()</code>.-->
         您不能使用字符串到 JavaScript 的方法，例如
         <code>eval()</code> 与 <code>new Function()</code>。
     </li>
@@ -161,8 +161,8 @@ because they have good fallback behavior when offline or under spotty connectivi
 <p>
 <!--@Instead of using an iframe,
 you can call out to an external URL using an object tag
-(see <a href="app_external.html#objecttag">Embed external web pages</a>).-->
+(see <a href="app_external.html#webview">Embed external web pages</a>).-->
 您不能使用 iframe，而应该使用对象标签调用外部
-URL（参见<a href="app_external.html#objecttag">嵌入外部网页</a>）。
+URL（参见<a href="app_external.html#webview">嵌入外部网页</a>）。
 </p>
 
