@@ -81,20 +81,22 @@ For example:-->
 <h3 id="connecting"><!--@Connecting to a socket-->连接到套接字</h3>
 
 <p>
-<!--@Here's a sample showing how to connect to a socket:-->
-如下是一个演示如何连接到套接字的示例：
+<!--@Here's a sample showing how to connect
+($ref:socket.connect) to a socket:-->
+如下是一个演示如何连接（$ref:socket.connect）到套接字的示例：
 </p>
 
 <pre>
 chrome.socket.create('tcp', {}, function(createInfo) {
-  socket.connect(createInfo.socketId, IP, PORT, onConnectedCallback);
+  chrome.socket.connect(createInfo.socketId, IP, PORT, onConnectedCallback);
 });
 </pre>
 
 <p>
 <!--@Keep a handle to the socketId so that
-you can later read and write to this socket.-->
-保存 socketId 的值以便您可以之后读取或写入套接字。
+you can later read and write
+($ref:socket.write) to this socket.-->
+保存 socketId 的值以便您可以之后读取或写入（$ref:socket.write）套接字。
 </p>
 
 <pre>
@@ -104,8 +106,16 @@ chrome.socket.write(socketId, arrayBuffer, onWriteCompleteCallback);
 <h3 id="reading"><!--@Reading to & writing from a socket-->读取或写入套接字</h3>
 
 <p>
-<!--@Reading and writing from a socket uses ArrayBuffer objects.-->
-读取或写入套接字时使用 ArrayBuffer 对象。
+<!--@Reading ($ref:socket.read) and writing from a socket uses ArrayBuffer objects.
+To learn about ArrayBuffers,
+check out the overview,
+<a href="https://developer.mozilla.org/en-US/docs/JavaScript_typed_arrays">JavaScript typed arrays</a>,
+and the tutorial,
+<a href="http://updates.html5rocks.com/2012/06/How-to-convert-ArrayBuffer-to-and-from-String">How to convert ArrayBuffer to and from String</a>.-->
+读取（$ref:socket.read）或写入套接字时使用 ArrayBuffer 对象。要想了解 ArrayBuffer，请参见
+<a href="https://developer.mozilla.org/en-US/docs/JavaScript_typed_arrays">JavaScript
+类型化数组</a>概述和<a href="http://updates.html5rocks.com/2012/06/How-to-convert-ArrayBuffer-to-and-from-String"
+>如何在 ArrayBuffer 和字符串之间转换</a>的教程。
 </p>
 
 <pre>
@@ -118,7 +128,7 @@ chrome.socket.read(socketId, null, function(readInfo) {
 
 <h3 id="disconnecting"><!--@Disconnecting from a socket-->断开套接字的连接</h3>
 
-<p><!--@Here's how to disconnect:-->如下是断开连接的方法：</p>
+<p><!--@Here's how to disconnect ($ref:socket.disconnect):-->如下是断开连接（$ref:socket.disconnect）的方法：</p>
 
 <pre>chrome.socket.disconnect(socketId);</pre>
 

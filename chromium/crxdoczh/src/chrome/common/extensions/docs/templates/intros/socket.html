@@ -18,8 +18,12 @@
   <tr>
     <td><strong><!--@Permissions:-->权限：</strong></td>
     <td><code>"socket": ["rule1", "rule2"]</code><br>
-      <!--@See <a href="app_network.html">Network Communications</a> for rule syntax.-->
-      有关规则的语法请参见<a href="app_network.html">网络通信</a>。
+      <!--@For example: <code>"socket": ["tcp-connect:*:*"]</code>
+      means connecting on any port of any host.
+      See <a href="app_network.html">Network Communications</a> for rule syntax.-->
+      例如：<code>"socket": ["tcp-connect:*:*"]</code>
+      表示可以连接到任意主机的任意端口。有关规则的语法请参见<a
+      href="app_network.html">网络通信</a>。
     </td>
   </tr>
   <tr>
