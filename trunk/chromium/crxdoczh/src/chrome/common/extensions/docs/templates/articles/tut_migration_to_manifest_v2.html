@@ -66,7 +66,7 @@ followed by more detailed summaries of what these changes mean and why they were
   <li><!--@Are you using the-->您使用 <code>chrome.extension.getTabContentses()</code>
     <!--@or the-->或 <code>chrome.extension.getExtensionTabs()</code> <!--@APIs?-->API 吗？</li>
     <ul>
-      <li><!--@Replace with-->请替换为 <code>chrome.extension.getViews( { “type” : “tab” } )</code><!--@.--></li>
+      <li><!--@Replace with-->请替换为 <code>chrome.extension.getViews( { "type" : "tab" } )</code><!--@.--></li>
     </ul>
   <li><!--@Does your extension use a background page?-->您的扩展程序使用后台网页吗？</li>
     <ul>
@@ -244,7 +244,7 @@ API 用新的来代替。
     with-->属性已替换为 <code>Port.sender</code><!--@.-->。</li>
   <li><!--@The--> <code>chrome.extension.getTabContentses()</code> <!--@and the-->和
     <code>chrome.extension.getExtensionTabs()</code> <!--@APIs have been replaced
-    by-->API 已替换为 <code>chrome.extension.getViews( { “type” : “tab” } )</code><!--@.-->。</li>
+    by-->API 已替换为 <code>chrome.extension.getViews( { "type" : "tab" } )</code><!--@.-->。</li>
 </ul>
 
 <h2 id="security-summary"><!--@Summary of security changes-->安全性更改摘要</h2>
@@ -298,8 +298,8 @@ For example, consider common instances such as:-->
 </p>
 
 <pre>
-&lt;body onload=”initialize()”&gt;
-&lt;button onclick=”handleClick()” id=”button1”&gt;
+&lt;body onload="initialize()"&gt;
+&lt;button onclick="handleClick()" id="button1"&gt;
 </pre>
 
 <p>
@@ -314,9 +314,9 @@ JS 文件中，并使用 <code>addEventListener()</code>
 </p>
 
 <pre>
-window.addEventListener(“load”, initialize);
+window.addEventListener("load", initialize);
 ...
-document.getElementById(“button1”).addEventListener(“click”,handleClick);
+document.getElementById("button1").addEventListener("click",handleClick);
 </pre>
 
 <p>
