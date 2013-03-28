@@ -609,9 +609,10 @@ your app or extension should start
 and you should receive the test push message.-->
 要想在本地测试消息推送，在扩展程序管理页面（在您的浏览器中进入
 <strong>chrome://extensions</strong>）上将您的应用或扩展程序的测试版本<a
-href="packaging.html">打包</a>。您的应用或扩展程序不需要运行，只要已安装就可以。您将会使用
-<a href="../apps/app.runtime.html#event-onLaunched">app.runtime.onLaunched</a>（应用）或
-<a href="../extensions/runtime.html#event-onInstalled">runtime.onInstalled</a>（扩展程序）在安装的时候获取通道标识符，然后在服务器上使用该通道标识符向系统发送一个测试的推送消息。如果一切正常，您的应用或扩展程序应该启动，您也应该收到测试的推送消息。
+href="packaging.html">打包</a>。您的应用或扩展程序不需要运行，只要已安装就可以。您需要使用
+{{?is_apps}}$ref:app.runtime.onLaunched.{{/is_apps}}
+{{^is_apps}}$ref:runtime.onInstalled.{{/is_apps}}
+在安装的时候获取通道标识符，然后在服务器上使用该通道标识符向系统发送一个测试的推送消息。如果一切正常，您的应用或扩展程序应该启动，您也应该收到测试的推送消息。
 </p>
 
 <p>
