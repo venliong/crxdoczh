@@ -378,28 +378,33 @@ event is fired with the <code>'synced'</code> status
 is fired when a file's status changes to <code>'conflicting'</code>.
 'Conflicting' means there are conflicting changes
 on both the local storage and Google Drive.
-Currently the API does NOT provide automatic reconciliation mechanism
-for conflicting files.-->
+A file can be in this state only if the conflict resolution policy
+is set to <code>'manual'</code>.  The default policy is
+<code>'last_write_win'</code> and conflicts are automatically resolved
+by simple last-write-win policy.  The system's conflict resolution policy
+can be changed by $ref:[syncFileSystem.setConflictResolutionPolicy].-->
 当文件状态更改为 <code>'conflicting'</code> 时也会产生
 $ref:syncFileSystem.onFileStatusChanged 事件。'conflicting'
-意味着本地存储和 Google 云端硬盘之间的更改有冲突，当前该 API
-<em>不提供</em>冲突文件的自动协调机制。
+意味着本地存储和 Google 云端硬盘之间的更改有冲突。只有当冲突解决策略设置为
+<code>'manual'</code>（手动）时文件才有可能处于这种状态，默认策略是
+<code>'last_write_win'</code>（最后写入优先），冲突会按照最后写入优先的策略自动解决。系统的冲突解决策略可以通过
+$ref:[syncFileSystem.setConflictResolutionPolicy] 修改。
 </p>
 
 <p>
-<!--@If no action is taken,
-the app can continue to read/write the file as a detached local offline file,
-but the file will be kept detached from the remote changes made on other clients.
-The conflict is automatically resolved
-once the local or conflicting version is deleted.
-For example,
-when a file is in conflicting state,
-the app can delete or rename the local version.
-This forces the remote version to be synchronized,
+<!--@If the conflict resolution policy is set to <code>'manual'</code> and
+a file results in <code>'conflicting'</code> state, the app can still
+read and write the file as a local offline file, but the changes are not
+sync'ed and the file will be kept detached from remote changes made on
+other clients until the conflict is resolved.
+The easiest way to resolve a conflict is to delete or rename the local
+version of file. This forces the remote version to be synchronized,
 the conflicting state is resolved, and
 the <code>onFileStatusChanged</code> event is fired
 with the <code>'synced'</code> status.-->
-如果不进行任何操作，应用可以继续读取/写入该文件，将它作为一个已脱离的本地离线文件，但是该文件将保持脱离状态，不受其他客户端所作的远程更改的影响。一旦本地或冲突的版本删除，冲突就能自动解决。例如，当一个文件处于冲突状态时，应用可以删除或重命名本地的版本，这样会强制使远程版本同步过来，解决冲突状态，并产生
+如果冲突解决策略设置为
+<code>'manual'</code>（手动），并且文件处于
+<code>'conflicting'</code>（冲突）状态，应用仍然可以继续读取和写入该文件，将它作为一个本地离线文件，但是更改不会被同步，并且该文件将保持脱离状态，不受其他客户端所作的远程更改的影响，直到冲突解决。解决冲突最简单的办法就是删除或重命名本地版本的文件，这样会强制同步远程版本，解决冲突状态，并产生
 <code>onFileStatusChanged</code> 事件，传递 <code>'synced'</code> 状态。
 </p>
 
@@ -437,12 +442,14 @@ Google 云端硬盘下载到本地存储中。如果远程更改是添加了一�
 </p>
 
 <p>
-<!--@If both the local and remote side have conflicting changes for the same file,
+<!--@If both the local and remote side have conflicting changes for the same file
+and if the conflict resolution policy is set to <code>'manual'</code>,
 the file status is changed to <code>conflicting</code> state,
 is detached from the sync service,
 and won't be synchronized until the conflict is resolved.
 In this case an event with following values is fired:-->
-如果本地和远程两端都有对同一文件冲突的更改，文件状态会变成
+如果本地和远程两端都有对同一文件冲突的更改，而且冲突解决策略设置为
+<code>'manual'</code>（手动），文件状态就会变成
 <code>conflicting</code>（冲突）状态，并从同步服务脱离，只有当冲突解决后才会同步。在这种情况下，将会产生一个事件，传递下列值：<code>{ fileEntry: <em>文件的文件项</em>, status: 'conflicting', action: null,
   direction: null }</code>.
 </p>
@@ -494,10 +501,15 @@ chrome.syncFileSystem.getUsageAndQuota(fileSystem, function (storageInfo) {
 
 <p>
 <!--@You can also look at the user's sync backend service storage (in Google Drive).
-Synced files are saved in the Google Drive folder,-->
-您也可以查看用户的同步后端存储（在 Google 云端硬盘中），同步的文件保存在
-Google 云端硬盘的
-<strong>Chrome Syncable FileSystem</strong><!--@.-->
-文件夹中。
+Synced files are saved in a hidden Google Drive folder,
+<strong>Chrome Syncable FileSystem</strong>. The folder won't be shown in
+your 'My Drive' list but can be accessed by searching the folder name
+in the search box.  (Note that the remote folder layout is
+<strong>not</strong> guaranteed to remain backwards compatible between
+releases.)-->
+您也可以查看用户的同步后端存储（在 Google 云端硬盘中），同步的文件保存在一个隐藏的
+Google 云端硬盘文件夹中：<strong>Chrome Syncable
+FileSystem</strong>。文件夹不会在您的“我的云端硬盘”列表中显示，但是可以通过在搜索框中搜索文件夹名称来访问。（注意，远程文件夹的布局<strong
+>不保证</strong>在不同版本间向后兼容。）
 </p>
 
