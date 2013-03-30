@@ -29,8 +29,20 @@ JavaScript 应用程序上，大部分也都能在 Chrome 应用中使用。在�
 
 <ol>
 <li><p><!--@Download the-->下载 <a href="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js">Angular <!--@script-->脚本</a><!--@ and save it as-->并将它保存为 <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab3_mvc/angularjs/simpleview/angular.min.js">angular.min.js</a><!--@.-->。</p></li>
-<li><p><!--@Change your-->修改您的 <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab3_mvc/angularjs/simpleview/index.html">index.html</a><!--@ to use a simple Angular sample:-->，使用简单的 Angular 示例：
-<pre>
+<li><p><!--@Change your-->修改您的 <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab3_mvc/angularjs/simpleview/index.html">index.html</a><!--@ to use a simple Angular sample:-->，使用简单的 Angular 示例：</p>
+
+<tabs data-group="source">
+
+  <header tabindex="0" data-value="js">JavaScript</header>
+  <header tabindex="0" data-value="angular">Angular</header>
+
+  <content>
+    <pre>
+      This is where the pure javascript code comes in
+    </pre>
+  </content>
+  <content>
+    <pre>
 &lt;html ng-app ng-csp&gt;
   &lt;head&gt;
     &lt;script src=&quot;angular.min.js&quot;&gt;&lt;/script&gt;
@@ -49,7 +61,12 @@ JavaScript 应用程序上，大部分也都能在 Chrome 应用中使用。在�
     &lt;/div&gt;
   &lt;/body&gt;
 &lt;/html&gt;
-</pre></p></li>
+    </pre>
+  </content>
+
+</tabs>
+
+</li>
 <li><p><!--@Add a simple stylesheet: -->添加一个简单的样式表：<a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab3_mvc/angularjs/simpleview/todo.css">todo.css</a>
 <pre>
 body {
