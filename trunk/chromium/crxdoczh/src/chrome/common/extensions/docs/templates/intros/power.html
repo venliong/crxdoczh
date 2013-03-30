@@ -1,0 +1,72 @@
+<table class="intro">
+  <tr>
+    <th scope="col"></th>
+    <th scope="col"></th>
+  </tr>
+  <tr>
+    <td><strong><!--@Description:-->描述：</strong></td>
+    <td><!--@Use the-->使用 <code>chrome.power</code> <!--@module
+    to temporarily disable aspects of system power management 
+    (see <a href="#usage">Usage</a>).-->
+      模块临时禁用系统电源管理的某些特性（参见<a href="#usage">用法</a>）。
+    </td>
+  </tr>
+  <tr>
+    <td><strong><!--@Availability:-->可用版本：</strong></td>
+    <td>仅用于 Dev 分支的 Google Chrome <!--@Dev Channel Only;-->浏览器<br>
+    仅用于 Chrome OS <!--@only--></td>
+  </tr>
+  <tr>
+    <td><strong><!--@Permissions:-->权限：</strong></td>
+    <td><code>"power"</code></td>
+  </tr>
+</table>
+
+<h2 id="usage"><!--@Usage-->用法</h2>
+
+<p>
+<!--@By default,
+operating systems dim the screen when users are inactive
+and eventually suspend the system.
+With the power API,
+an app or extension can keep the system awake.-->
+默认情况下，当用户处于不活动状态时操作系统会使屏幕变暗，最后使系统待机。通过电源管理
+API，应用或扩展程序可以使系统保持唤醒状态。
+</p>
+
+<p>
+<!--@Using this API,
+you can specify the
+$ref:Level to which power management is disabled.
+The <code>"system"</code> level keeps the system active,
+but allows the screen to be dimmed or turned off.
+For example,
+a communication app can continue to receive messages
+while the screen is off.
+The <code>"display"</code> level keeps the screen and system active.
+E-book and presentation apps, for example,
+can keep the screen and system active
+while users read.-->
+使用该 API
+时，您可以指定电源管理禁用的程度（$ref:Level）。<code>"system"</code>（系统）级别使系统保持活动状态，但是允许屏幕变暗或关闭。例如，通信应用在屏幕关闭时还可以继续接收消息。<code>"display"</code>（显示器）级别使屏幕和系统保持活动状态。例如，电子书和演示文稿应用可以在用户阅读时使屏幕和系统保持活动状态。
+</p>
+
+<p>
+<!--@When a user has more than one app or extension active,
+each with its own power level,
+the highest-precedence level takes precedence;
+<code>"display"</code> always takes precendence
+over <code>"system"</code>.
+For example,
+if app A asks for <code>"system"</code> power management,
+and app B asks for <code>"display"</code>,
+<code>"display"</code> is used until app B
+is unloaded or releases its request.
+If app A is still active,
+<code>"system"</code> is then used.-->
+当用户有不止一个应用或扩展程序活动，并且有各自的电源级别时，优先级最高的级别优先，<code>"display"</code>（显示器）总是优先于<code>"system"</code>（系统）。例如，如果应用 A 请求
+<code>"system"</code>（系统）级电源管理，应用 B 请求
+<code>"display</code>（显示器），则会使用
+<code>"display</code>（显示器），直到应用 B 卸载或释放它的请求。如果应用 A
+仍处于活动状态，则使用 <code>"system"</code>（系统）。
+</p>
