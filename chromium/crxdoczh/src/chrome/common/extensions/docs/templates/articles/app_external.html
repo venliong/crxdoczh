@@ -291,7 +291,7 @@ chrome.app.runtime.onLaunched.addListener(function() {
     }
   }, function(win) {
        myWin = win;
-       myWin.postMessage('只是打个招呼。', '*');
+       myWin.contentWindow.postMessage('只是打个招呼。', '*');
      });
 });
 </pre>
