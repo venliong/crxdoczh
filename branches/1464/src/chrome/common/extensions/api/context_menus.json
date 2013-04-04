@@ -1,0 +1,352 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+[
+  {
+    "namespace": "contextMenus",
+    "types": [
+      {
+        "id": "OnClickData",
+        "type": "object",
+//@        "description": "Information sent when a context menu item is clicked.",
+        "description": "包含右键菜单项单击时发送的信息。",
+        "properties": {
+          "menuItemId": {
+            "choices": [
+              { "type": "integer" },
+              { "type": "string" }
+            ],
+//@            "description": "The ID of the menu item that was clicked."
+            "description": "单击的菜单项标识符。"
+          },
+          "parentMenuItemId": {
+            "choices": [
+              { "type": "integer" },
+              { "type": "string" }
+            ],
+            "optional": true,
+//@            "description": "The parent ID, if any, for the item clicked."
+            "description": "单击的菜单项的父菜单项标识符（如果有的话）。"
+          },
+          "mediaType": {
+            "type": "string",
+            "optional": true,
+//@            "description": "One of 'image', 'video', or 'audio' if the context menu was activated on one of these types of elements."
+            "description": "如果右键菜单在其中某一种类型的元素上激活则值为'image'、'video' 或 'audio'。"
+          },
+          "linkUrl": {
+            "type": "string",
+            "optional": true,
+//@            "description": "If the element is a link, the URL it points to."
+            "description": "如果元素是一个链接，指定它指向的 URL。"
+          },
+          "srcUrl": {
+            "type": "string",
+            "optional": true,
+//@            "description": "Will be present for elements with a 'src' URL."
+            "description": "如果元素的 src 属性指定了 URL 将会存在这一属性。"
+          },
+          "pageUrl": {
+            "type": "string",
+            "optional": true,
+//@            "description": "The URL of the page where the menu item was clicked. This property is not set if the click occured in a context where there is no current page, such as in a launcher context menu."
+            "description": "菜单项单击时所在页面的 URL。如果单击时所在上下文没有当前页面，例如在应用执行器的右键菜单中，则不会设置该属性。"
+          },
+          "frameUrl": {
+            "type": "string",
+            "optional": true,
+//@            "description": " The URL of the frame of the element where the context menu was clicked, if it was in a frame."
+            "description": "如果在框架中的话，则为单击后弹出右键菜单时框架元素的 URL。"
+          },
+          "selectionText": {
+            "type": "string",
+            "optional": true,
+//@            "description": "The text for the context selection, if any."
+            "description": "当前选中的文本（如果有的话）。"
+          },
+          "editable": {
+            "type": "boolean",
+//@            "description": "A flag indicating whether the element is editable (text input, textarea, etc.)."
+            "description": "一个标志，指定当前元素是否可以编辑（&lt;input type=\"text\"&gt;、&lt;textarea&gt; 等）。"
+          },
+          "wasChecked": {
+            "type": "boolean",
+            "optional": true,
+//@            "description": "A flag indicating the state of a checkbox or radio item before it was clicked."
+            "description": "表示单击前复选框或单选菜单项状态的标志。"
+          },
+          "checked": {
+            "type": "boolean",
+            "optional": true,
+//@            "description": "A flag indicating the state of a checkbox or radio item after it is clicked."
+            "description": "表示单击后复选框或单选菜单项状态的标志。"
+          }
+        }
+      }
+    ],
+    "functions": [
+      {
+        "name": "create",
+        "type": "function",
+//@        "description": "Creates a new context menu item. Note that if an error occurs during creation, you may not find out until the creation callback fires (the details will be in chrome.runtime.lastError).",
+        "description": "创建一个新的右键菜单项。注意，如果创建过程中发生错误，您可能要等到回调函数调用时才能得知（详情可从 $ref:runtime.lastError 获得）",
+        "returns": {
+          "choices": [
+            { "type": "integer" },
+            { "type": "string" }
+          ],
+//@          "description": "The ID of the newly created item."
+          "description": "新创建菜单项的标识符。"
+        },
+        "parameters": [
+          {
+            "type": "object",
+            "name": "createProperties",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["normal", "checkbox", "radio", "separator"],
+                "optional": true,
+//@                "description": "The type of menu item. Defaults to 'normal' if not specified."
+                "description": "菜单项的类型。如果没有指定则默认为 'normal'（普通）。"
+              },
+              "id": {
+                "type": "string",
+                "optional": true,
+//@                "description": "The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension."
+                "description": "指派给该菜单项的唯一标志符，对于事件页面来说必须存在，不能与同一扩展程序中的其它标志符相同。"
+              },
+              "title": {
+                "type": "string",
+                "optional": true,
+//@                "description": "The text to be displayed in the item; this is <em>required</em> unless <em>type</em> is 'separator'. When the context is 'selection', you can use <code>%s</code> within the string to show the selected text. For example, if this parameter's value is \"Translate '%s' to Pig Latin\" and the user selects the word \"cool\", the context menu item for the selection is \"Translate 'cool' to Pig Latin\"."
+                "description": "显示在菜单项中的文字，除非 <em>type</em>（类型）是 'separator'（分隔符），该参数是<em>必选</em>的。当上下文为 'selection'（选定内容）时，您可以在字符串中使用 <code>%s</code> 来显示选中的文本。例如，如果参数值是“将‘%s’翻译为儿童黑话”，当用户选择一个词语“酷”时，对于选中内容的右键菜单项为“将‘酷’翻译为儿童黑话”。"
+              },
+              "checked": {
+                "type": "boolean",
+                "optional": true,
+//@                "description": "The initial state of a checkbox or radio item: true for selected and false for unselected. Only one radio item can be selected at a time in a given group of radio items."
+                "description": "单选或复选菜单项的初始状态：选定为 true，未选定为 false。在一组单选菜单项中，一次只能有一项选定。"
+              },
+              "contexts": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": ["all", "page", "frame", "selection", "link", "editable", "image", "video", "audio", "launcher"]
+                },
+                "minItems": 1,
+                "optional": true,
+//@                "description": "List of contexts this menu item will appear in. Defaults to ['page'] if not specified. Specifying ['all'] is equivalent to the combination of all other contexts except for 'launcher'. The 'launcher' context is only supported by apps and is used to add menu items to the context menu that appears when clicking on the app icon in the launcher/taskbar/dock/etc. Different platforms might put limitations on what is actually supported in a launcher context menu."
+                "description": "列出该菜单项将会出现在哪些上下文中，包括 \"all\"（全部）、\"page\"（页面）、\"frame\"（框架）、\"selection\"（选定内容）、\"link\"（链接）、\"editable\"（可编辑内容）、\"image\"（图片）、\"video\"（视频）、\"audio\"（音频），如果没有指定则默认为 ['page']（页面），指定 ['all'] 相当于除 'launcher' 以外的所有其它上下文的组合。'launcher' 上下文仅在应用中支持，为右键菜单添加菜单项，在单击执行器/任务栏/窗格/等等中的应用图标时显示。不同的平台对于执行器中实际支持的特性可能会有一些限制。"
+              },
+              "onclick": {
+                "type": "function",
+                "optional": true,
+//@                "description": "A function that will be called back when the menu item is clicked. Event pages cannot use this; instead, they should register a listener for chrome.contextMenus.onClicked.",
+                "description": "当菜单项单击时的回调函数。事件页面不能使用该属性，相反，它们应该为 chrome.contextMenus.onClicked 注册事件处理函数。",
+                "parameters": [
+                  {
+                    "name": "info",
+                    "$ref": "OnClickData",
+//@                    "description": "Information about the item clicked and the context where the click happened."
+                    "description": "有关单击发生时的菜单项和上下文的信息。"
+                  },
+                  {
+                    "name": "tab",
+                    "$ref": "tabs.Tab",
+//@                    "description": "The details of the tab where the click took place."
+                    "description": "单击发生的标签页详情。"
+                  }
+                ]
+              },
+              "parentId": {
+                "choices": [
+                  { "type": "integer" },
+                  { "type": "string" }
+                ],
+                "optional": true,
+//@                "description": "The ID of a parent menu item; this makes the item a child of a previously added item."
+                "description": "父菜单项标识符，指定这一参数使新添加的菜单项成为原先添加菜单项的子菜单项。"
+              },
+              "documentUrlPatterns": {
+                "type": "array",
+                "items": {"type": "string"},
+                "optional": true,
+//@                "description": "Lets you restrict the item to apply only to documents whose URL matches one of the given patterns. (This applies to frames as well.) For details on the format of a pattern, see <a href='match_patterns.html'>Match Patterns</a>."
+                "description": "让您将该菜单项限制在 URL 匹配给定表达式的文档中显示。（也适用于框架。）有关表达式的格式的详情，请参见<a href='match_patterns.html'>匹配表达式</a>。"
+              },
+              "targetUrlPatterns": {
+                "type": "array",
+                "items": {"type": "string"},
+                "optional": true,
+//@                "description": "Similar to documentUrlPatterns, but lets you filter based on the src attribute of img/audio/video tags and the href of anchor tags."
+                "description": "类似于 documentUrlPatterns，但是允许您基于 <img>/<audio>/<video> 标签的 src 属性以及 <a> 标签的 href 属性过滤。"
+              },
+              "enabled": {
+                "type": "boolean",
+                "optional": true,
+//@                "description": "Whether this context menu item is enabled or disabled. Defaults to true."
+                "description": "该右键菜单项是启用还是禁用，默认为 true。"
+              }
+            }
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "optional": true,
+//@            "description": "Called when the item has been created in the browser. If there were any problems creating the item, details will be available in chrome.runtime.lastError.",
+            "description": "当菜单项已经在浏览器中创建后调用。如果创建过程中出现任何错误，详情可从 $ref:runtime.lastError 获得。",
+            "parameters": []
+          }
+        ]
+      },
+      {
+        "name": "update",
+        "type": "function",
+//@        "description": "Updates a previously created context menu item.",
+        "description": "更新以前创建的菜单项。",
+        "parameters": [
+          {
+            "choices": [
+              { "type": "integer" },
+              { "type": "string" }
+            ],
+            "name": "id",
+//@            "description": "The ID of the item to update."
+            "description": "要更新的菜单项标识符。"
+          },
+          {
+            "type": "object",
+            "name": "updateProperties",
+//@            "description": "The properties to update. Accepts the same values as the create function.",
+            "description": "要更新的属性，与 create 函数的 createProperties 参数使用的相同值。",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["normal", "checkbox", "radio", "separator"],
+                "optional": true
+              },
+              "title": {
+                "type": "string",
+                "optional": true
+              },
+              "checked": {
+                "type": "boolean",
+                "optional": true
+              },
+              "contexts": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": ["all", "page", "frame", "selection", "link", "editable", "image", "video", "audio", "launcher"]
+                },
+                "minItems": 1,
+                "optional": true
+              },
+              "onclick": {
+                "type": "function",
+                "optional": true
+              },
+              "parentId": {
+                "choices": [
+                  { "type": "integer" },
+                  { "type": "string" }
+                ],
+                "optional": true,
+//@                "description": "Note: You cannot change an item to be a child of one of its own descendants."
+                "description": "注意：您不能更改菜单项，使它成为自己的子菜单。"
+              },
+              "documentUrlPatterns": {
+                "type": "array",
+                "items": {"type": "string"},
+                "optional": true
+              },
+              "targetUrlPatterns": {
+                "type": "array",
+                "items": {"type": "string"},
+                "optional": true
+              },
+              "enabled": {
+                "type": "boolean",
+                "optional": true
+              }
+            }
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "optional": true,
+            "parameters": [],
+//@            "description": "Called when the context menu has been updated."
+            "description": "右键菜单项更新后调用。"
+          }
+        ]
+      },
+      {
+        "name": "remove",
+        "type": "function",
+//@        "description": "Removes a context menu item.",
+        "description": "移除右键菜单项。",
+        "parameters": [
+          {
+            "choices": [
+              { "type": "integer" },
+              { "type": "string" }
+            ],
+            "name": "menuItemId",
+//@            "description": "The ID of the context menu item to remove."
+            "description": "要移除的菜单项标识符。"
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "optional": true,
+            "parameters": [],
+//@            "description": "Called when the context menu has been removed."
+            "description": "右键菜单项移除后调用。"
+          }
+        ]
+      },
+      {
+        "name": "removeAll",
+        "type": "function",
+//@        "description": "Removes all context menu items added by this extension.",
+        "description": "移除该扩展程序添加的所有右键菜单项。",
+        "parameters": [
+          {
+            "type": "function",
+            "name": "callback",
+            "optional": true,
+            "parameters": [],
+//@            "description": "Called when removal is complete."
+            "description": "移除完成后调用。"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "onClicked",
+        "type": "function",
+//@        "description": "Fired when a context menu item is clicked.",
+        "description": "当右键菜单项单击时产生。",
+        "parameters": [
+          {
+            "name": "info",
+            "$ref": "OnClickData",
+//@            "description": "Information about the item clicked and the context where the click happened."
+            "description": "有关单击发生时的菜单项和上下文的信息。"
+          },
+          {
+            "name": "tab",
+            "$ref": "tabs.Tab",
+//@            "description": "The details of the tab where the click took place. If the click did not take place in a tab, this parameter will be missing.",
+            "description": "单击发生的标签页的细节。如果单击不在标签页中产生，将不会传递该参数。",
+            "optional": true
+          }
+        ]
+      }
+    ]
+  }
+]
