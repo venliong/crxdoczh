@@ -14,8 +14,34 @@
         "properties": {
 //@          "tabId": { "type": "integer", "optional": true, "description": "The id of the tab which you intend to debug." },
           "tabId": { "type": "integer", "optional": true, "description": "您要调试的标签页的标识符。" },
-//@          "extensionId": { "type": "string", "optional": true, "description": "The id of the extension which you intend to debug. Attaching to an extension background page is only possible when 'enable-silent-debugging' flag is enabled on the target browser." }
-          "extensionId": { "type": "string", "optional": true, "description": "您要调试的扩展程序的标识符。只有当目标浏览器上启用了“enable-silent-debugging”标志后，才可以附加到扩展程序的后台网页。" }
+//@          "extensionId": { "type": "string", "optional": true, "description": "The id of the extension which you intend to debug. Attaching to an extension background page is only possible when 'enable-silent-debugging' flag is enabled on the target browser." },
+          "extensionId": { "type": "string", "optional": true, "description": "您要调试的扩展程序的标识符。只有当目标浏览器上启用了“enable-silent-debugging”标志后，才可以附加到扩展程序的后台网页。" },
+//@          "targetId": { "type": "string", "optional": true, "description": "The opaque id of the debug target." }
+          "targetId": { "type": "string", "optional": true, "description": "调试目标的不透明标识符。" }
+        }
+      },
+      {
+        "id": "TargetInfo",
+        "type": "object",
+//@        "description": "Debug target information",
+        "description": "调试目标的信息。",
+        "properties": {
+          "type": {
+            "type": "string",
+//@            "description": "Target type.",
+            "description": "目标类型。",
+            "enum" : ["page", "background_page", "other" ]
+          },
+//@          "id": { "type": "string", "description": "Target id." },
+          "id": { "type": "string", "description": "目标标识符。" },
+//@          "attached": { "type": "boolean", "description": "True if debugger is already attached." },
+          "attached": { "type": "boolean", "description": "如果已附加调试器则为 true。" },
+//@          "title": { "type": "string", "description": "Target page title." },
+          "title": { "type": "string", "description": "目标网页的标题。" },
+//@          "url": { "type": "string", "description": "Target URL." },
+          "url": { "type": "string", "description": "目标 URL。" },
+//@          "faviconUrl": { "type": "string", "optional": true, "description": "Target favicon URL." }
+          "faviconUrl": { "type": "string", "optional": true, "description": "目标的收藏夹图标 URL。" }
         }
       }
     ],
@@ -112,6 +138,27 @@
             ],
 //@            "description": "Response body. If an error occurs while posting the message, the callback will be called with no arguments and $ref:runtime.lastError will be set to the error message."
             "description": "响应正文。如果发送消息时产生错误，将不传递参数调用这一回调函数，并将 $ref:runtime.lastError 设置为错误消息。"
+          }
+        ]
+      },
+      {
+        "name": "getTargets",
+        "type": "function",
+//@        "description": "Returns the list of available debug targets.",
+        "description": "返回可用调试目标的列表。",
+        "parameters": [
+          {
+            "type": "function",
+            "name": "callback",
+            "parameters": [
+              {
+                "type": "array",
+                "name": "result",
+                "items": {"$ref": "TargetInfo"},
+//@                "description": "Array of TargetInfo objects corresponding to the available debug targets."
+                "description": "包含可用调试目标对应的 TargetInfo 对象的数组。"
+              }
+            ]
           }
         ]
       }
