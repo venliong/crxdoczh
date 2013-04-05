@@ -40,12 +40,6 @@ namespace bluetooth {
     // 表示设备是否已和系统配对。
     boolean paired;
 
-    // <!--@Indicates whether or not the device is bonded with the system. A device
-    // is bonded if it is paired and high-security link keys have been
-    // exchanged so that connections may be encrypted.-->
-    // 表示设备是否与系统绑定。如果设备已配对并且已交换高安全性的连接密钥，连接可以加密，则设备已绑定。
-    boolean bonded;
-
     // <!--@Indicates whether the device is currently connected to the system.-->
     // 表示设备当前是否已连接到系统。
     boolean connected;
@@ -209,8 +203,8 @@ namespace bluetooth {
     static void getAdapterState(AdapterStateCallback callback);
 
     // <!--@Get a bluetooth devices known to the system.  Known devices are either
-    // currently bonded, or have been bonded in the past.-->
-    // 获取系统已知的蓝牙设备列表。已知设备为目前已绑定或者以前绑定过的设备。
+    // currently paired, or have been paired in the past.-->
+    // 获取系统已知的蓝牙设备列表。已知设备为目前已配对或者以前配对过的设备。
     // |options|  : <!--@Controls which devices are returned and provides
     //              |deviceCallback|, which is called for each matching device.-->
     // 控制返回哪些设备，并提供 <code>deviceCallback</code>，为每一个匹配的设备调用。
