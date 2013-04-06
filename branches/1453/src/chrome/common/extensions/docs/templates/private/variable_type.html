@@ -13,7 +13,8 @@ array of {{+partials.variable_type}}
 {{simple_type}}
 {{/simple_type}}
 {{?enum_values}}
-enumerated string [{{#enum_values}}"{{name}}"{{^@.last}}, {{/}}{{/}}]
+可以是
+{{#enum_values}}{{^last}}{{^first}}、{{/}}{{/}}{{?last}} 或 {{/}}<code>"{{name}}"</code>{{/enum_values}}。
 {{/enum_values}}
 {{?value}}
 <code>{{value}}</code>
