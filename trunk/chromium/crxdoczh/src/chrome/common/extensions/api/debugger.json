@@ -30,7 +30,7 @@
             "type": "string",
 //@            "description": "Target type.",
             "description": "目标类型。",
-            "enum" : ["page", "background_page", "other" ]
+            "enum" : ["page", "background_page", "worker", "other" ]
           },
 //@          "id": { "type": "string", "description": "Target id." },
           "id": { "type": "string", "description": "目标标识符。" },
