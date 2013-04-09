@@ -10,6 +10,10 @@ namespace app.window {
     long? height;
   };
 
+  // <!--@State of a window: normal, fullscreen, maximized, minimized.-->
+  // 窗口的状态：正常、全屏、最大化、最小化。
+  enum State { normal, fullscreen, maximized, minimized };
+
   // 'shell' is the default window type. 'panel' is managed by the OS
   // (Currently experimental, Ash only).
   [nodoc] enum WindowType { shell, panel };
@@ -84,6 +88,12 @@ namespace app.window {
     // 启用窗口背景透明，仅在 ash 中支持，需要实验性 API 权限。
     boolean? transparentBackground;
 
+    // <!--@The initial state of the window, allowing it to be created already
+    // fullscreen, maximized, or minimized. Defaults to 'normal'.-->
+    // 窗口的初始状态，允许使它在创建时就全屏、最大化或最小化。默认为
+    // 'normal'（正常）。
+    State? state;
+
     // <!--@If true, the window will be created in a hidden state. Call show() on
     // the window to show it once it has been created. Defaults to false.-->
     // 如果为 true，该窗口创建后将处于隐藏状态，创建之后在该窗口上调用
@@ -94,6 +104,7 @@ namespace app.window {
     // 如果为 true 的话，用户可以调整窗口的大小。默认为 true。
     boolean? resizable;
 
+    // <!--@By default if you specify an id for the window, the window will only be
     // created if another window with the same id doesn't already exist. If a
     // window with the same id already exists that window is activated instead.
     // If you do want to create multiple windows with the same id, you can
@@ -110,6 +121,10 @@ namespace app.window {
     // <!--@Focus the window.-->
     // 使窗口拥有焦点。
     static void focus();
+
+    // <!--@Fullscreens the window.-->
+    // 使窗口进入全屏状态。
+    static void fullscreen();
 
     // <!--@Is the window fullscreen?-->
     // 窗口是否处于全屏状态。
@@ -131,8 +146,8 @@ namespace app.window {
     // 窗口是否最大化。
     static boolean isMaximized();
 
-    // <!--@Restore the window, exiting a maximized or minimized state.-->
-    // 从最大化或最小化状态恢复窗口。
+    // <!--@Restore the window, exiting a maximized, minimized, or fullscreen state.-->
+    // 从最大化、最小化或全屏状态恢复窗口。
     static void restore();
 
     // <!--@Move the window to the position (|left|, |top|).-->
