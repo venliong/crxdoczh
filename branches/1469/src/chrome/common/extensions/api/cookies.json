@@ -1,0 +1,256 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+[
+  {
+    "namespace": "cookies",
+    "types": [
+      {
+        "id": "Cookie",
+        "type": "object",
+//@        "description": "Represents information about an HTTP cookie.",
+        "description": "代表一个 HTTP Cookie 的有关信息。",
+        "properties": {
+//@          "name": {"type": "string", "description": "The name of the cookie."},
+          "name": {"type": "string", "description": "Cookie 的名称。"},
+//@          "value": {"type": "string", "description": "The value of the cookie."},
+          "value": {"type": "string", "description": "Cookie 的值。"},
+//@          "domain": {"type": "string", "description": "The domain of the cookie (e.g. \"www.google.com\", \"example.com\")."},
+          "domain": {"type": "string", "description": "Cookie 的域名（例如 “www.google.com”、“example.com”）。"},
+//@          "hostOnly": {"type": "boolean", "description": "True if the cookie is a host-only cookie (i.e. a request's host must exactly match the domain of the cookie)."},
+          "hostOnly": {"type": "boolean", "description": "如果 Cookie 仅用于指定主机则为 true（即请求的主机必须精确匹配 Cookie 的域名）。"},
+//@          "path": {"type": "string", "description": "The path of the cookie."},
+          "path": {"type": "string", "description": "Cookie 的路径。"},
+//@          "secure": {"type": "boolean", "description": "True if the cookie is marked as Secure (i.e. its scope is limited to secure channels, typically HTTPS)."},
+          "secure": {"type": "boolean", "description": "如果 Cookie 被标记为安全的则为 true（即它的范围限定在以 HTTPS 为典型的安全通道内）。"},
+//@          "httpOnly": {"type": "boolean", "description": "True if the cookie is marked as HttpOnly (i.e. the cookie is inaccessible to client-side scripts)."},
+          "httpOnly": {"type": "boolean", "description": "如果 Cookie 被标记为仅用于 HTTP 则为 true（即客户端脚本不能访问该 Cookie）。"},
+//@          "session": {"type": "boolean", "description": "True if the cookie is a session cookie, as opposed to a persistent cookie with an expiration date."},
+          "session": {"type": "boolean", "description": "如果是会话 Cookie 则为 true，与之相对，如果是具有过期日期的持久 Cookie 则为 false。"},
+//@          "expirationDate": {"type": "number", "optional": true, "description": "The expiration date of the cookie as the number of seconds since the UNIX epoch. Not provided for session cookies."},
+          "expirationDate": {"type": "number", "optional": true, "description": "Cookie 的过期日期，表示为自从 UNIX 纪元（1970 年 1 月 1 日午夜）开始所经过的秒数。对于会话 Cookie 省略。"},
+//@          "storeId": {"type": "string", "description": "The ID of the cookie store containing this cookie, as provided in getAllCookieStores()."}
+          "storeId": {"type": "string", "description": "包含此 Cookie 的 Cookie 存储区标识符，与 getAllCookieStores() 返回的一致。"}
+        }
+      },
+      {
+        "id": "CookieStore",
+        "type": "object",
+//@        "description": "Represents a cookie store in the browser. An incognito mode window, for instance, uses a separate cookie store from a non-incognito window.",
+        "description": "代表浏览器中的一个 Cookie 存储区。例如隐身窗口使用与非隐身窗口不同的单独的 Cookie 存储区。",
+        "properties": {
+//@          "id": {"type": "string", "description": "The unique identifier for the cookie store."},
+          "id": {"type": "string", "description": "Cookie 存储区的标识符。"},
+//@          "tabIds": {"type": "array", "items": {"type": "integer"}, "description": "Identifiers of all the browser tabs that share this cookie store."}
+          "tabIds": {"type": "array", "items": {"type": "integer"}, "description": "共享这一 Cookie 存储区的所有浏览器标签页的标识符。"}
+        }
+      }
+    ],
+    "functions": [
+      {
+        "name": "get",
+        "type": "function",
+//@        "description": "Retrieves information about a single cookie. If more than one cookie of the same name exists for the given URL, the one with the longest path will be returned. For cookies with the same path length, the cookie with the earliest creation time will be returned.",
+        "description": "获得单个 Cookie 的有关信息。如果给定的 URL 具有多个名称相同的 Cookie，将返回路径最长的一个。如果路径长度相同，将返回创建时间最早的一个。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "details",
+//@            "description": "Details to identify the cookie being retrieved.",
+            "description": "需要获得的Cookie详情。",
+            "properties": {
+//@              "url": {"type": "string", "description": "The URL with which the cookie to retrieve is associated. This argument may be a full URL, in which case any data following the URL path (e.g. the query string) is simply ignored. If host permissions for this URL are not specified in the manifest file, the API call will fail."},
+              "url": {"type": "string", "description": "与需要获取的 Cookie 相关联的 URL。该参数可以是一个完整的 URL，这种情况下 URL 路径后的任何数据（例如查询字符串）将被忽略。如果该 URL 的主机权限没有在清单文件中指定，该 API 将会失败。"},
+//@              "name": {"type": "string", "description": "The name of the cookie to retrieve."},
+              "name": {"type": "string", "description": "需要获取的 Cookie 的名称。"},
+//@              "storeId": {"type": "string", "optional": true, "description": "The ID of the cookie store in which to look for the cookie. By default, the current execution context's cookie store will be used."}
+              "storeId": {"type": "string", "optional": true, "description": "需要搜索的 Cookie 存储区的标识符。默认情况下，将使用当前执行环境的 Cookie 存储区。"}
+            }
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "parameters": [
+              {
+//@                "name": "cookie", "$ref": "Cookie", "optional": true, "description": "Contains details about the cookie. This parameter is null if no such cookie was found."
+                "name": "cookie", "$ref": "Cookie", "optional": true, "description": "有关 Cookie 的详情。如果没有找到，则该参数为 null。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "getAll",
+        "type": "function",
+//@        "description": "Retrieves all cookies from a single cookie store that match the given information.  The cookies returned will be sorted, with those with the longest path first.  If multiple cookies have the same path length, those with the earliest creation time will be first.",
+        "description": "返回一个 Cookie 存储区中符合给定条件的所有 Cookie。返回的 Cookie 将按照路径长度从大到小排序，如果多个 Cookie 的路径长度相等，则创建时间最早的排在最前面。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "details",
+//@            "description": "Information to filter the cookies being retrieved.",
+            "description": "用于筛选出要想获取的 Cookie 的信息。",
+            "properties": {
+//@              "url": {"type": "string", "optional": true, "description": "Restricts the retrieved cookies to those that would match the given URL."},
+              "url": {"type": "string", "optional": true, "description": "将返回结果限制为匹配给定 URL 的 Cookie。"},
+//@              "name": {"type": "string", "optional": true, "description": "Filters the cookies by name."},
+              "name": {"type": "string", "optional": true, "description": "通过名称筛选 Cookie。"},
+//@              "domain": {"type": "string", "optional": true, "description": "Restricts the retrieved cookies to those whose domains match or are subdomains of this one."},
+              "domain": {"type": "string", "optional": true, "description": "将返回结果限制为匹配指定域名或者是指定域名的子域名的 Cookie。"},
+//@              "path": {"type": "string", "optional": true, "description": "Restricts the retrieved cookies to those whose path exactly matches this string."},
+              "path": {"type": "string", "optional": true, "description": "将返回结果限制为路径完全匹配该属性的 Cookie。"},
+//@              "secure": {"type": "boolean", "optional": true, "description": "Filters the cookies by their Secure property."},
+              "secure": {"type": "boolean", "optional": true, "description": "根据 Secure（安全）属性筛选 Cookie。"},
+//@              "session": {"type": "boolean", "optional": true, "description": "Filters out session vs. persistent cookies."},
+              "session": {"type": "boolean", "optional": true, "description": "筛选出会话或持久 Cookie。"},
+//@              "storeId": {"type": "string", "optional": true, "description": "The cookie store to retrieve cookies from. If omitted, the current execution context's cookie store will be used."}
+              "storeId": {"type": "string", "optional": true, "description": "指定从哪一个存储区获取 Cookie。如果省略该属性，则使用当前执行环境的 Cookie 存储区。"}
+            }
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "parameters": [
+              {
+//@                "name": "cookies", "type": "array", "items": {"$ref": "Cookie"}, "description": "All the existing, unexpired cookies that match the given cookie info."
+                "name": "cookies", "type": "array", "items": {"$ref": "Cookie"}, "description": "存在、未过期并且匹配给定信息的所有 Cookie。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "set",
+        "type": "function",
+//@        "description": "Sets a cookie with the given cookie data; may overwrite equivalent cookies if they exist.",
+        "description": "用给定的数据设置 Cookie，如果同样的 Cookie 已存在则会覆盖。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "details",
+//@            "description": "Details about the cookie being set.",
+            "description": "有关要设置的 Cookie 的详情。",
+            "properties": {
+//@              "url": {"type": "string", "description": "The request-URI to associate with the setting of the cookie. This value can affect the default domain and path values of the created cookie. If host permissions for this URL are not specified in the manifest file, the API call will fail."},
+              "url": {"type": "string", "description": "与要设置的 Cookie 相关联的请求 URI，它的值会影响到创建的 Cookie 的默认域名和路径。如果这一 URL 的主机权限没有在清单文件中指定，则这一API调用会失败。"},
+//@              "name": {"type": "string", "optional": true, "description": "The name of the cookie. Empty by default if omitted."},
+              "name": {"type": "string", "optional": true, "description": "Cookie 的名称，如果省略的话默认为空。"},
+//@              "value": {"type": "string", "optional": true, "description": "The value of the cookie. Empty by default if omitted."},
+              "value": {"type": "string", "optional": true, "description": "Cookie 的值，如果省略的话默认为空。"},
+//@              "domain": {"type": "string", "optional": true, "description": "The domain of the cookie. If omitted, the cookie becomes a host-only cookie."},
+              "domain": {"type": "string", "optional": true, "description": "Cookie 的域名。如果省略的话该 Cookie 仅适用于 URL 中指定的主机。"},
+//@              "path": {"type": "string", "optional": true, "description": "The path of the cookie. Defaults to the path portion of the url parameter."},
+              "path": {"type": "string", "optional": true, "description": "Cookie 的路径，默认为 url 参数的路径部分。"},
+//@              "secure": {"type": "boolean", "optional": true, "description": "Whether the cookie should be marked as Secure. Defaults to false."},
+              "secure": {"type": "boolean", "optional": true, "description": "该 Cookie 是否应该标记为 Secure（安全的），默认为 false。"},
+//@              "httpOnly": {"type": "boolean", "optional": true, "description": "Whether the cookie should be marked as HttpOnly. Defaults to false."},
+              "httpOnly": {"type": "boolean", "optional": true, "description": "该 Cookie 是否应该标记为 HttpOnly（仅用于 HTTP），默认为 false。"},
+//@              "expirationDate": {"type": "number", "optional": true, "description": "The expiration date of the cookie as the number of seconds since the UNIX epoch. If omitted, the cookie becomes a session cookie."},
+              "expirationDate": {"type": "number", "optional": true, "description": "Cookie 的过期日期，以自从 UNIX 纪元（1970 年 1 月 1 日午夜）开始所经过的秒数表示。如果省略的话，该 Cookie 仅在会话中有效。"},
+//@              "storeId": {"type": "string", "optional": true, "description": "The ID of the cookie store in which to set the cookie. By default, the cookie is set in the current execution context's cookie store."}
+              "storeId": {"type": "string", "optional": true, "description": "要设置的 Cookie 存储区的唯一标识符。默认情况下，Cookie 在当前执行环境的 Cookie 存储区中设置。"}
+            }
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "optional": true,
+            "min_version": "11.0.674.0",
+            "parameters": [
+              {
+//@                "name": "cookie", "$ref": "Cookie", "optional": true, "description": "Contains details about the cookie that's been set.  If setting failed for any reason, this will be \"null\", and \"chrome.runtime.lastError\" will be set."
+                "name": "cookie", "$ref": "Cookie", "optional": true, "description": "包含已经设置的 Cookie 详情。如果由于任何原因操作失败，则为 null，并设置 $ref:runtime.lastError。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "remove",
+        "type": "function",
+//@        "description": "Deletes a cookie by name.",
+        "description": "根据名称删除 Cookie。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "details",
+//@            "description": "Information to identify the cookie to remove.",
+            "description": "用于标识要删除的Cookie的信息。",
+            "properties": {
+//@              "url": {"type": "string", "description": "The URL associated with the cookie. If host permissions for this URL are not specified in the manifest file, the API call will fail."},
+              "url": {"type": "string", "description": "与 Cookie 相关联的 URL。如果该 URL 的主机权限没有在清单文件中指定，则这一 API 调用将会失败。"},
+//@              "name": {"type": "string", "description": "The name of the cookie to remove."},
+              "name": {"type": "string", "description": "要想删除的 Cookie 名称。"},
+//@              "storeId": {"type": "string", "optional": true, "description": "The ID of the cookie store to look in for the cookie. If unspecified, the cookie is looked for by default in the current execution context's cookie store."}
+              "storeId": {"type": "string", "optional": true, "description": "Cookie 存储区的标识符。如果未指定，则在当前执行环境的 Cookie 存储区中寻找 Cookie。"}
+            }
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "optional": true,
+            "min_version": "11.0.674.0",
+            "parameters": [
+              {
+                "name": "details",
+                "type": "object",
+//@                "description": "Contains details about the cookie that's been removed.  If removal failed for any reason, this will be \"null\", and \"chrome.runtime.lastError\" will be set.",
+                "description": "包含已经删除的 Cookie 详情。如果由于任何原因删除操作失败，则该参数为 null，并设置 $ref:runtime.lastError。",
+                "optional": true,
+                "properties": {
+//@                  "url": {"type": "string", "description": "The URL associated with the cookie that's been removed."},
+                  "url": {"type": "string", "description": "与以删除的 Cookie 相关联的 URL。"},
+//@                  "name": {"type": "string", "description": "The name of the cookie that's been removed."},
+                  "name": {"type": "string", "description": "已删除的 Cookie 名称。"},
+//@                  "storeId": {"type": "string", "description": "The ID of the cookie store from which the cookie was removed."}
+                  "storeId": {"type": "string", "description": "已删除的 Cookie 来自的存储区。"}
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "getAllCookieStores",
+        "type": "function",
+//@        "description": "Lists all existing cookie stores.",
+        "description": "列举所有存在的 Cookie 存储区。",
+        "parameters": [
+          {
+            "type": "function",
+            "name": "callback",
+            "parameters": [
+              {
+//@                "name": "cookieStores", "type": "array", "items": {"$ref": "CookieStore"}, "description": "All the existing cookie stores."
+                "name": "cookieStores", "type": "array", "items": {"$ref": "CookieStore"}, "description": "所有存在的 Cookie 存储区。"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "onChanged",
+        "type": "function",
+//@        "description": "Fired when a cookie is set or removed. As a special case, note that updating a cookie's properties is implemented as a two step process: the cookie to be updated is first removed entirely, generating a notification with \"cause\" of \"overwrite\" .  Afterwards, a new cookie is written with the updated values, generating a second notification with \"cause\" \"explicit\".",
+        "description": "当 Cookie 设置或删除时产生。注意更新 Cookie 的属性为特殊情况，实现为两步的过程：首先将要更新的 Cookie 完全删除，产生 cause 属性为 \"overwrite\"（覆盖）的通知；然后，新的 Cookie 用更新后的值写入，产生 cause 属性为 \"explicit\" 的第二个通知。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "changeInfo",
+            "properties": {
+//@              "removed": {"type": "boolean", "description": "True if a cookie was removed."},
+              "removed": {"type": "boolean", "description": "如果是删除 Cookie 则为 true。"},
+//@              "cookie": {"$ref": "Cookie", "description": "Information about the cookie that was set or removed."},
+              "cookie": {"$ref": "Cookie", "description": "有关设置或删除的 Cookie 信息。"},
+//@              "cause": {"min_version": "12.0.707.0", "type": "string", "enum": ["evicted", "expired", "explicit", "expired_overwrite", "overwrite"], "description": "The underlying reason behind the cookie's change. If a cookie was inserted, or removed via an explicit call to \"chrome.cookies.remove\", \"cause\" will be \"explicit\". If a cookie was automatically removed due to expiry, \"cause\" will be \"expired\". If a cookie was removed due to being overwritten with an already-expired expiration date, \"cause\" will be set to \"expired_overwrite\".  If a cookie was automatically removed due to garbage collection, \"cause\" will be \"evicted\".  If a cookie was automatically removed due to a \"set\" call that overwrote it, \"cause\" will be \"overwrite\". Plan your response accordingly."}
+              "cause": {"min_version": "12.0.707.0", "type": "string", "enum": ["evicted", "expired", "explicit", "expired_overwrite", "overwrite"], "description": "Cookie 更改的原因。<br>如果是添加 Cookie，或者通过显式调用 $ref:cookies.remove 方法删除，则为 \"explicit\"。<br>如果 Cookie 由于过期被自动删除，则为 \"expired_overwrite\"。如果 Cookie 由于垃圾收集自动删除，则为 \"evicted\"。<br>如果 Cookie 由于 $ref:cookies.set 方法的调用被覆盖而自动删除，则为 \"overwrite\"。<br>您应该根据这一参数作出相应的回应。"}
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
