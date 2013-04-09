@@ -326,8 +326,15 @@
           },
           "lowerPriorityThan": {
             "type": "integer",
-//@            "description": "If set, rules with a lower priority than the specified value are ignored. This boundary is not persisted, it affects only rules and their actions of the same network request stage."
-            "description": "如果设置的话，将忽略优先级低于指定值的规则。这一界限不是持久的，它只会影响同一网络请求阶段的规则与它们对应的操作。"
+//@            "description": "If set, rules with a lower priority than the specified value are ignored. This boundary is not persisted, it affects only rules and their actions of the same network request stage.",
+            "description": "如果设置的话，将忽略优先级低于指定值的规则。这一界限不是持久的，它只会影响同一网络请求阶段的规则与它们对应的操作。",
+            "optional": true
+          },
+          "hasTag": {
+            "type": "string",
+//@            "description": "If set, rules with the specified tag are ignored. This ignoring is not persisted, it affects only rules and their actions of the same network request stage. Note that rules are executed in descending order of their priorities. This action affects rules of lower priority than the current rule. Rules with the same priority may or may not be ignored.",
+            "description": "如果设置的话，包含指定标签的规则将被忽略。这一忽略不是持久的，它只影响同一网络请求阶段的规则及其操作。注意，规则按照优先级递减的顺序执行，该操作只会影响优先级低于当前规则的规则，具有相同优先级的规则可能会也可能不会被忽略。",
+            "optional": true
           }
         }
       },

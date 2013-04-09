@@ -22,6 +22,13 @@
 //@            "description": "Optional identifier that allows referencing this rule."
             "description": "用于引用这一条规则的可选标志符。"
           },
+          "tags": {
+            "type": "array",
+            "items": {"type": "string"},
+            "optional": true,
+//@            "description":  "Tags can be used to annotate rules and perform operations on sets of rules."
+            "description":  "标签可以用来注解规则，并针对一系列规则进行操作。"
+          },
           "conditions": {
             "type": "array",
             "items": {"type": "any"},
