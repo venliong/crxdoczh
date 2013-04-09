@@ -210,6 +210,66 @@ refers to an array of rules including filled optional parameters.-->
 传递给 <code>callback()</code> 函数的 <code>details</code>
 参数指向含有自动填充的可选参数的规则数组。
 </p>
+
+<h3 id="performance"><!--@Performance-->性能</h3>
+
+<p>
+<!--@To achieve maximum performance, you should keep the following guidelines in
+mind:-->
+为了达到最佳性能，您应该牢记以下几点：
+<ul>
+  <li><p><!--@Register and unregister rules in bulk. After each
+  registration or unregistration, Chrome needs to update internal data
+  structures. This update is an expensive operation.-->
+  批量注册或取消注册规则。每一次注册或取消注册后，Chrome
+  浏览器需要更新内部数据结构，这一更新是一项昂贵的操作。
+  </p>
+  <p><!--@Instead of-->请不要使用</p>
+  <pre>
+var rule1 = {...};
+var rule2 = {...};
+chrome.declarativeWebRequest.onRequest.addRules([rule1]);
+chrome.declarativeWebRequest.onRequest.addRules([rule2]);</pre>
+  <p><!--@prefer to write-->而应该首选</p>
+  <pre>
+var rule1 = {...};
+var rule2 = {...};
+chrome.declarativeWebRequest.onRequest.addRules([rule1, rule2]);</pre>
+  <li><!--@Prefer substring matching over matching using regular expressions in a
+  $ref:events.UrlFilter.  Substring based matching is extremely fast.-->
+  在 $ref:events.UrlFilter
+  中优先选择子串匹配，而不是正则表达式，基于子串的匹配非常快。
+  <p><!--@Instead of-->请不要使用</p>
+  <pre>
+var match = new chrome.declarativeWebRequest.RequestMatcher({
+    url: {urlMatches: "example.com/[^?]*foo" } });</pre>
+  <p><!--@prefer to write-->而应该首选</p>
+  <pre>
+var match = new chrome.declarativeWebRequest.RequestMatcher({
+    url: {hostSuffix: "example.com", pathContains: "foo"} });</pre>
+  <li><!--@If you have many rules that all share the same actions, you may merge
+  the rules into one because rules trigger their actions as soon as a single
+  condition is fulfilled. This speeds up the matching and reduces memory
+  consumption for duplicate action sets.-->
+  如果您有操作相同的多个规则，您可以将这些规则合并为一个，因为任何一个条件满足后都会立即触发规则。这样可以加快匹配速度，并减少重复操作集占用的内存。
+  <p><!--@Instead of-->请不要使用</p>
+  <pre>
+var condition1 = new chrome.declarativeWebRequest.RequestMatcher({
+    url: { hostSuffix: 'example.com' } });
+var condition2 = new chrome.declarativeWebRequest.RequestMatcher({
+    url: { hostSuffix: 'foobar.com' } });
+var rule1 = { conditions: [condition1],
+              actions: [new chrome.declarativeWebRequest.CancelRequest()]};
+var rule2 = { conditions: [condition2],
+              actions: [new chrome.declarativeWebRequest.CancelRequest()]};
+chrome.declarativeWebRequest.onRequest.addRules([rule1, rule2]);</pre>
+  <p><!--@prefer to write-->而应该首选</p>
+  <pre>
+var rule = { conditions: [condition1, condition2],
+             actions: [new chrome.declarativeWebRequest.CancelRequest()]};
+chrome.declarativeWebRequest.onRequest.addRules([rule]);</pre>
+</ul>
+</p>
 </div>
 {{/is_apps}}
 
