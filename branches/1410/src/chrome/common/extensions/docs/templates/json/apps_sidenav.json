@@ -165,10 +165,6 @@
       {
         "title": "示例",
         "fileName": "samples.html"
-      },
-      {
-        "title": "已知问题",
-        "fileName": "app_known_issues.html"
       }
     ]
   }
