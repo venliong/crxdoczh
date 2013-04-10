@@ -838,7 +838,7 @@
         "name": "onMoved",
         "type": "function",
 //@        "description": "Fired when a tab is moved within a window. Only one move event is fired, representing the tab the user directly moved. Move events are not fired for the other tabs that must move in response. This event is not fired when a tab is moved between windows. For that, see $ref:onDetached.",
-        "description": "当标签页在窗口中移动时产生。仅产生一次移动事件，代表用户的直接移动，其它标签页因此而随之移动并不产生此事件。当标签页在窗口间移动时不产生此事件，在这种情况下，请参见 $ref:onDetached。",
+        "description": "当标签页在窗口中移动时产生。仅产生一次移动事件，代表用户的直接移动，其他标签页因此而随之移动并不产生此事件。当标签页在窗口间移动时不产生此事件，在这种情况下，请参见 $ref:onDetached。",
         "parameters": [
           {"type": "integer", "name": "tabId", "minimum": 0},
           {
