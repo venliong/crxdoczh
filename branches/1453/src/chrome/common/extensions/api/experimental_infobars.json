@@ -14,7 +14,7 @@
         "name": "show",
         "type": "function",
 //@        "description": "Shows an infobar in the specified tab. The infobar will be closed automatically when the tab navigates. Use window.close() to close the infobar before then.",
-        "description": "在指定标签页中显示信息栏。当标签页导航到其它页面时信息栏会自动关闭。如果要在那之前关闭，请调用 window.close()。",
+        "description": "在指定标签页中显示信息栏。当标签页导航到其他页面时信息栏会自动关闭。如果要在那之前关闭，请调用 window.close()。",
         "parameters": [
           {
             "name": "details",

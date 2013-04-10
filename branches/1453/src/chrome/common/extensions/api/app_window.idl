@@ -210,7 +210,7 @@ namespace app.window {
     // but individual coordinates are not. So if you specify a top (or left)
     // coordinate, you should also specify a left (or top) coordinate, and
     // similar for size.-->
-    // 您也可以组合这几种选项，例如显式指定大小的同时使位置自动记住，或者其它类似的组合。大小与位置是单独对待的，但是单独的坐标不是这样。所以如果您指定了顶（或左）坐标，您同时应该指定左（或顶）坐标，大小也是类似的。
+    // 您也可以组合这几种选项，例如显式指定大小的同时使位置自动记住，或者其他类似的组合。大小与位置是单独对待的，但是单独的坐标不是这样。所以如果您指定了顶（或左）坐标，您同时应该指定左（或顶）坐标，大小也是类似的。
     //
     // <!--@If you specify both a regular and a default value for the same option
     // the regular value is the only one that takes effect.-->

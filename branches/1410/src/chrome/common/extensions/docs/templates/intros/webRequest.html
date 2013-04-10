@@ -193,7 +193,7 @@ deadlocks.-->
 >chrome-extension://other_extension_id</code>，其中
 <code>other_extension_id</code>不是处理该请求的扩展程序标识符；还有
 <code>https://www.google.com/chrome</code>
-及其它（该列表并不完整）。此外来自您的扩展程序的同步 XMLHttpRequest
+及其他（该列表并不完整）。此外来自您的扩展程序的同步 XMLHttpRequest
 将对阻塞的事件处理函数隐藏，以免产生死锁。
 </p>
 
@@ -213,7 +213,7 @@ browser session and the context of an extension. It remains constant during the
 the life cycle of a request and can be used to match events for the same
 request. Note that several HTTP requests are mapped to one web request in case
 of HTTP redirection or HTTP authentication.-->
-每一个请求由请求标识符标识，这一标识符在浏览器会话以及扩展程序的上下文中保证唯一，在请求的生命周期内保持不变，可以用来匹配同一请求的其它事件。注意在
+每一个请求由请求标识符标识，这一标识符在浏览器会话以及扩展程序的上下文中保证唯一，在请求的生命周期内保持不变，可以用来匹配同一请求的其他事件。注意在
 HTTP 重定向或 HTTP 认证时，多个 HTTP
 请求将映射至同一个网络请求。
 </p>
@@ -333,7 +333,7 @@ redirect has been ignored.-->
 在网络请求 API
 的当前实现中，如果至少一个扩展程序要求取消请求，则请求将被取消。如果一个扩展程序取消了一个请求，所有扩展程序都会收到
 <code>onErrorOccurred</code>
-事件的通知。一次只有一个扩展程序允许重定向请求或者修改头信息。如果多于一个扩展程序尝试修改请求，最近安装的扩展程序具有优先级，而忽略所有其它扩展程序。如果扩展程序修改或重定向的要求被忽略，也不会收到通知。
+事件的通知。一次只有一个扩展程序允许重定向请求或者修改头信息。如果多于一个扩展程序尝试修改请求，最近安装的扩展程序具有优先级，而忽略所有其他扩展程序。如果扩展程序修改或重定向的要求被忽略，也不会收到通知。
 </p>
 
 <h3 id="caching"><!--@Caching-->缓存</h3>

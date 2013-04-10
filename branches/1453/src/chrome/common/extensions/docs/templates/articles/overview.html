@@ -113,7 +113,7 @@ See the <a href="devguide.html">Developer's Guide</a>
 for a complete list of extension features,
 with links to implementation details
 for each one.-->
-扩展程序（以及打包应用）也可以以其它形式呈现用户界面，例如在 Chrome
+扩展程序（以及打包应用）也可以以其他形式呈现用户界面，例如在 Chrome
 浏览器的右键菜单中添加内容，提供选项页面，或者利用内容脚本更改页面的显示方式。有关完整的扩展程序功能以及每一种功能的实现细节，请参见<a href="devguide.html">开发者指南</a>。
 </p>
 
@@ -129,7 +129,7 @@ for each one.-->
   <li><!--@One or more <b>HTML files</b> (unless the extension is a theme)-->一个或多个 <b>HTML 文件</b>（除非扩展程序是一个主题背景）</li>
   <li><!--@<em>Optional:</em> One or more <b>JavaScript files</b>--><em>可选：</em>一个或多个 <b>JavaScript 文件</b></li>
   <li><!--@<em>Optional:</em> Any other files your extension needs&mdash;for
-  example, image files--><em>可选：</em>您的扩展程序需要的任何其它文件，例如图片</li>
+  example, image files--><em>可选：</em>您的扩展程序需要的任何其他文件，例如图片</li>
 </ul>
 
 <p>
@@ -274,7 +274,7 @@ that present the extension's UI.
 If an extension needs to interact with web pages that the user loads
 (as opposed to pages that are included in the extension),
 then the extension must use a content script.-->
-许多扩展程序有一个<em>后台网页</em>，它是一个包含扩展程序主要逻辑的不可见页面。扩展程序也可以包含其它页面，展现扩展程序的用户界面。如果扩展程序需要与用户加载的网页交互（相对于包含在扩展程序中的页面），扩展程序必须使用内容脚本。
+许多扩展程序有一个<em>后台网页</em>，它是一个包含扩展程序主要逻辑的不可见页面。扩展程序也可以包含其他页面，展现扩展程序的用户界面。如果扩展程序需要与用户加载的网页交互（相对于包含在扩展程序中的页面），扩展程序必须使用内容脚本。
 </p>
 
 
@@ -340,14 +340,14 @@ to display any other HTML files that are in the extension.-->
 网页，用来显示扩展程序的用户界面。例如，浏览器按钮可以包含弹出菜单，通过
 HTML 文件实现。任何一个扩展程序都可以有选项页面，让用户自定义扩展程序的工作方式。另外一种特殊页面是替代页面。最后，您可以使用
 $ref:tabs.create 或 <code>window.open()</code>
-来显示扩展程序中的任何其它 HTML 文件。
+来显示扩展程序中的任何其他 HTML 文件。
 </p>
 
 <p>
 <!--@The HTML pages inside an extension
 have complete access to each other's DOMs,
 and they can invoke functions on each other.-->
-扩展程序中的 HTML 网页可以互相访问其它页面的全部
+扩展程序中的 HTML 网页可以互相访问其他页面的全部
 DOM，并且可以互相调用函数。
 </p>
 
@@ -509,7 +509,7 @@ string chrome.runtime.getURL()
 because it synchronously returns the URL
 and performs no other, asynchronous work.-->
 该方法没有回调参数，但是有返回值类型 <code>string</code>，因为它同步地返回
-URL，不进行任何其它异步操作。
+URL，不进行任何其他异步操作。
 </p>
 
 

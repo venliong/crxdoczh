@@ -116,7 +116,7 @@
                 "type": "string",
                 "optional": true,
 //@                "description": "The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension."
-                "description": "指派给该菜单项的唯一标志符，对于事件页面来说必须存在，不能与同一扩展程序中的其它标志符相同。"
+                "description": "指派给该菜单项的唯一标志符，对于事件页面来说必须存在，不能与同一扩展程序中的其他标志符相同。"
               },
               "title": {
                 "type": "string",
@@ -139,7 +139,7 @@
                 "minItems": 1,
                 "optional": true,
 //@                "description": "List of contexts this menu item will appear in. Defaults to ['page'] if not specified. Specifying ['all'] is equivalent to the combination of all other contexts except for 'launcher'. The 'launcher' context is only supported by apps and is used to add menu items to the context menu that appears when clicking on the app icon in the launcher/taskbar/dock/etc. Different platforms might put limitations on what is actually supported in a launcher context menu."
-                "description": "列出该菜单项将会出现在哪些上下文中，包括 \"all\"（全部）、\"page\"（页面）、\"frame\"（框架）、\"selection\"（选定内容）、\"link\"（链接）、\"editable\"（可编辑内容）、\"image\"（图片）、\"video\"（视频）、\"audio\"（音频），如果没有指定则默认为 ['page']（页面），指定 ['all'] 相当于除 'launcher' 以外的所有其它上下文的组合。'launcher' 上下文仅在应用中支持，为右键菜单添加菜单项，在单击执行器/任务栏/窗格/等等中的应用图标时显示。不同的平台对于执行器中实际支持的特性可能会有一些限制。"
+                "description": "列出该菜单项将会出现在哪些上下文中，包括 \"all\"（全部）、\"page\"（页面）、\"frame\"（框架）、\"selection\"（选定内容）、\"link\"（链接）、\"editable\"（可编辑内容）、\"image\"（图片）、\"video\"（视频）、\"audio\"（音频），如果没有指定则默认为 ['page']（页面），指定 ['all'] 相当于除 'launcher' 以外的所有其他上下文的组合。'launcher' 上下文仅在应用中支持，为右键菜单添加菜单项，在单击执行器/任务栏/窗格/等等中的应用图标时显示。不同的平台对于执行器中实际支持的特性可能会有一些限制。"
               },
               "onclick": {
                 "type": "function",
