@@ -14,12 +14,22 @@ namespace downloads {
     DOMString value;
   };
 
+  // <dl><dt>uniquify</dt>
+  //     <dd><!--@To avoid duplication, the <code>filename</code> is changed to
+  //     include a counter before the filename extension.-->为了避免重复，<code>filename</code> 可能会更改，在文件扩展名前包含一个计数器。</dd>
+  //     <dt>overwrite</dt>
+  //     <dd><!--@The existing file will be overwritten with the new file.-->现有文件会被新文件覆盖。</dd>
+  //     <dt>prompt</dt>
+  //     <dd><!--@The user will be prompted with a file chooser dialog.-->显示文件选择对话框提示用户。</dd>
+  // </dl>
+  [inline_doc] enum FilenameConflictAction {uniquify, overwrite, prompt};
+
   // <!--@$ref:onDeterminingFilename listeners may pass a $ref:FilenameSuggestion
   // object to <code>suggest()</code> in order to override a download's target
   // filename.-->
   // $ref:onDeterminingFilename 监听器可以向 <code>suggest()</code> 传递一个
   // $ref:FilenameSuggestion 对象，修改下载项的目标文件名。
-  dictionary FilenameSuggestion {
+  [inline_doc] dictionary FilenameSuggestion {
     // <!--@The $ref:DownloadItem's new target $ref:DownloadItem.filename, as a path
     // relative to the user's default Downloads directory, possibly containing
     // subdirectories. Absolute paths, empty paths, and paths containing
@@ -28,9 +38,9 @@ namespace downloads {
     // $ref:DownloadItem.filename（文件名），以相对于用户默认下载目录的路径表示，可以包含子目录。绝对路径、空路径以及包含父目录引用“..”的路径将被忽略。
     DOMString filename;
 
-    // <!--@Whether to overwrite any existing files.-->
-    // 是否覆盖已经存在的文件。
-    boolean? overwrite;
+    // <!--@The action to take if $ref:FilenameSuggestion.filename already exists.-->
+    // 如果 $ref:FilenameSuggestion.filename 已存在的话要采取的行动。
+    FilenameConflictAction? conflict_action;
   };
 
   [inline_doc] enum HttpMethod {GET, POST};
@@ -91,9 +101,6 @@ namespace downloads {
   //     <dt>accepted</dt>
   //     <dd><!--@The user has accepted the dangerous download.-->用户已经接受了有风险的下载。</dd>
   // </dl>
-  // <!--@These string constants will never change, however the set of DangerTypes
-  // may change.-->
-  // 这些字符串常数不会更改，但是 DangerType 允许的值可能会更改。
   enum DangerType {file, url, content, uncommon, host, safe, accepted};
 
   // <dl><dt>in_progress</dt>
@@ -103,9 +110,6 @@ namespace downloads {
   //     <dt>complete</dt>
   //     <dd><!--@The download completed successfully.-->下载成功完成。</dd>
   // </dl>
-  // <!--@These string constants will never change, however the set of States may
-  // change.-->
-  // 这些字符串常数不会更改，但是 State 允许的值可能会更改。
   enum State {in_progress, interrupted, complete};
 
   // <!--@The state of the process of downloading a file.-->
@@ -602,13 +606,15 @@ namespace downloads {
     // <!--@Fires with the <code>downloadId</code> when a download is erased from
     // history.-->
     // 当下载项从历史记录中删除时产生，并传递 <code>downloadId</code>。
-    // |downloadId|: <!--@The <code>id</code> of the $ref:DownloadItem that was erased.-->
+    // |downloadId|: <!--@The <code>id</code> of the $ref:DownloadItem that was
+    // erased.-->
     // 已删除的 $ref:DownloadItem 的 <code>id</code>。
     static void onErased(long downloadId);
 
     // <!--@When any of a $ref:DownloadItem's properties
     // except <code>bytesReceived</code> changes, this event fires with the
-    // <code>downloadId</code> and an object containing the properties that changed.-->
+    // <code>downloadId</code> and an object containing the properties that
+    // changed.-->
     // 当某个 $ref:DownloadItem 除 <code>bytesReceived</code>
     // 以外的任何属性更改时，将会产生该事件，并传递 <code>id</code>
     // 以及描述属性更改的对象。
