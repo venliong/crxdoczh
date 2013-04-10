@@ -140,7 +140,7 @@
             "type": "boolean",
             "optional": true,
 //@            "description": "If set to true, matches requests that are subject to third-party cookie policies. If set to false, matches all other requests."
-            "description": "如果设为 true，则匹配受第三方 Cookie 策略约束的请求；如果设为 false，则匹配所有其它请求。"
+            "description": "如果设为 true，则匹配受第三方 Cookie 策略约束的请求；如果设为 false，则匹配所有其他请求。"
           },
           "stages": {
             "type": "array",

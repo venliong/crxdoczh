@@ -43,7 +43,7 @@ will be set if another extension in the same profile is making use of the API.
 Otherwise <code>noRecordingDeviceFound</code>, <code>recordingDeviceInUse</code>
 or <code>unableToStart</code> will be set depending on the situation.-->
 这一 API
-对请求它的第一个扩展程序提供对默认录音设备的独占访问，所以当设备正在由其它扩展程序或网页使用时
+对请求它的第一个扩展程序提供对默认录音设备的独占访问，所以当设备正在由其他扩展程序或网页使用时
 <code>start()</code>
 的任何调用都会失败，并且会设置
 $ref:runtime.lastError。如果同一个用户配置文件中的另一个扩展程序正在使用这一

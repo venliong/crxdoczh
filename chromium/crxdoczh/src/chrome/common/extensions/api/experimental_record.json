@@ -72,7 +72,7 @@
                 "items": {"type": "string"},
                 "name": "errors",
 //@                "description": "List of any URLs that failed to load, one error per textline, along with failure reason (e.g. unknown domain).  Also may include general abnormal-exit message if the subbrowser run failed for other reasons."
-                "description": "不能正常加载的 URL 列表，每行一个错误，包含失败的原因（例如未知域名），如果子浏览器由于其它原因无法运行也可能包含一般的异常退出消息。"
+                "description": "不能正常加载的 URL 列表，每行一个错误，包含失败的原因（例如未知域名），如果子浏览器由于其他原因无法运行也可能包含一般的异常退出消息。"
               }
             ]
           }
