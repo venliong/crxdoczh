@@ -1,0 +1,133 @@
+<p id="classSummary">
+<!--@The--> <code>chrome.types</code> <!--@module contains type declarations for Chrome.
+Currently this comprises only a prototype for giving other
+modules access to manage Chrome browser settings. This prototype is used,
+for example, for -->
+模块包含用于 Chrome 浏览器的类型声明，当前只包含用于其他模块访问 Chrome
+浏览器设置的原型，例如，这一原型在
+  $ref:proxy.settings<!--@.-->
+中使用。
+</p>
+
+<h2 id="ChromeSetting">Chrome <!--@settings-->浏览器设置</h2>
+
+<p>
+<!--@The--> <code>ChromeSetting</code> <!--@prototype provides a common set of functions
+(<code>get()</code>, <code>set()</code>, and <code>clear()</code>) as
+well as an event publisher (<code>onChange</code>) for settings of the
+Chrome browser. The <a href="proxy.html#overview-examples">proxy settings
+ examples</a> demonstrate how these functions are intended to be used.-->
+原型提供一组常用函数（<code>get()</code>、<code>set()</code> 和
+<code>clear()</code>）以及一个事件发布器（<code>onChange</code>），用于
+Chrome 浏览器设置。<a href="proxy.html#overview-examples"
+>代理设置的例子</a>演示了这些函数应该如何使用。
+</p>
+
+<h3 id="ChromeSetting-lifecycle"><!--@Scope and life cycle-->范围和生命周期</h3>
+
+<p>
+<!--@Chrome distinguishes between three different scopes of browser settings:-->
+Chrome 浏览器区分三种不同范围的浏览器设置：
+<dl>
+  <dt><code>regular</code></dt>
+  <dd><!--@Settings set in the <code>regular</code> scope apply to regular
+  browser windows and are inherited by incognito windows if they are not
+  overwritten. These settings are stored to disk and remain in place until
+  they are cleared by the governing extension, or the governing extension is
+  disabled or uninstalled.-->
+  在 <code>regular</code>
+  范围中的设置应用于普通浏览器窗口，并且在没有覆盖的情况下由隐身窗口继承。这些设置存储在磁盘上，一直保留，除非它们由所属扩展程序清除，或者所属扩展程序禁用或卸载。
+  </dd>
+
+  <dt><code>incognito_persistent</code></dt>
+  <dd><!--@Settings set in the <code>incognito_persistent</code> scope apply only
+  to incognito windows. For these, they override <code>regular</code>
+  settings. These settings are stored to disk and remain in place until
+  they are cleared by the governing extension, or the governing extension is
+  disabled or uninstalled.-->
+  在 <code>incognito_persistent</code>
+  范围中的设置仅应用于隐身窗口，覆盖 <code>regular</code>
+  范围中的设置。这些设置保存在磁盘上，一直保留，直到它们由所属扩展程序清除，或所属扩展程序禁用或卸载。
+  </dd>
+
+  <dt><code>incognito_session_only</code></dt>
+  <dd><!--@Settings set in the <code>incognito_session_only</code> scope apply only
+  to incognito windows. For these, they override <code>regular</code> and
+  <code>incognito_session_only</code> settings. These settings are not
+  stored to disk and are cleared when the last incognito window is closed. They
+  can only be set when at least one incognito window is open.-->
+  在 <code>incognito_session_only</code> 范围中的设置仅应用于隐身窗口，覆盖
+  <code>regular</code> 和 <code>incognito_persistent</code>
+  范围中的设置。这些设置不保存在磁盘上，当最后一个隐身窗口关闭时清除。它们只能在至少一个隐身窗口打开的情况下设置。
+  </dd>
+
+</dl>
+</p>
+
+<h3 id="ChromeSetting-precedence"><!--@Precedence-->优先级</h3>
+
+<p>
+<!--@Chrome manages settings on different layers. The following list describes the
+layers that may influence the effective settings, in increasing order of
+precedence.-->
+Chrome
+浏览器在不同的层面上管理设置。以下列表按照优先级递增的顺序描述了可能影响有效设置的不同层面。
+<ol>
+  <li><!--@System settings provided by the operating system-->由操作系统提供的系统设置</li>
+  <li><!--@Command-line parameters-->命令行参数</li>
+  <li><!--@Settings provided by extensions-->由扩展程序提供的设置</li>
+  <li><!--@Policies-->策略</li>
+</ol>
+</p>
+
+<p>
+<!--@As the list implies, policies might overrule any changes that you specify with
+your extension. You can use the <code>get()</code> function to determine whether
+your extension is capable of providing a setting or whether this setting would
+be overridden.-->
+这一列表暗含着策略可以覆盖您用扩展程序指定的任何更改，您可以使用
+<code>get()</code> 函数来确定您的扩展程序能否提供设置或者设置是否会被覆盖。
+</p>
+
+<p>
+<!--@As discussed above, Chrome allows using different settings for regular
+windows and incognito windows. The following example illustrates the behavior.
+Assume that no policy overrides the settings and that an extension can set
+settings for regular windows <b>(R)</b> and settings for incognito windows
+<b>(I)</b>.-->
+如前面所讨论，Chrome
+浏览器允许普通窗口与隐身窗口使用不同的设置。以下例子演示了这一行为。假设没有策略覆盖设置并且扩展程序可以分别为普通窗口<b>（R）</b>和隐身窗口<b>（I）</b>更改设置。
+</p>
+
+<p>
+<ul>
+  <li><!--@If only <b>(R)</b> is set, these settings are effective for both
+  regular and incognito windows.-->
+  如果只设置了<b>（R）</b>，这些设置对普通窗口和隐身窗口都有效。
+  </li>
+  <li><!--@If only <b>(I)</b> is set, these settings are effective for only
+  incognito windows. Regular windows use the settings determined by the lower
+  layers (command-line options and system settings).-->
+  如果只设置了<b>（I）</b>，这些设置仅对隐身窗口有效。普通窗口使用更低的层面确定的设置（命令行参数和系统设置）。
+  </li>
+  <li><!--@If both <b>(R)</b> and <b>(I)</b> are set, the respective settings are
+  used for regular and incognito windows.-->
+  如果<b>（R）</b>和<b>（I）</b>都设置，将分别为普通窗口与隐身窗口使用相应的设置。
+  </li>
+</ul>
+</p>
+
+<p>
+<!--@If two or more extensions want to set the same setting to different values,
+the extension installed most recently takes precedence over the other
+extensions.  If the most recently installed extension sets only <b>(I)</b>, the
+settings of regular windows can be defined by previously installed extensions.-->
+如果两个或更多的扩展程序需要将同一设置修改为不同的值，最近安装的扩展程序优先于其他扩展程序。如果最近安装的扩展程序只设置了<b>（I）</b>，普通窗口的设置可以由之前安装的扩展程序定义。
+</p>
+
+<p>
+<!--@The <em>effective</em> value of a setting is the one that results from
+considering the precedence rules. It is used by Chrome.-->
+设置的<em>有效</em>值是考虑到以上优先级规则之后的结果，Chrome
+浏览器将会采用它。
+<p>

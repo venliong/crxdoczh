@@ -1,0 +1,49 @@
+<p><!--@The downloads API allows you to programmatically initiate, monitor,
+manipulate, and search for downloads.-->
+下载 API 允许您以编程方式开始下载以及监视、操纵、搜索下载的文件。
+</p>
+
+<h2 id='manifest'><!--@Manifest-->清单文件</h2>
+
+<p> <!--@You must declare the 'downloads' permission in the <a
+href='manifest.html'>extension manifest</a> to use this API, along with <a
+href='declare_permissions.html'>host permissions</a> for any hosts that you
+may pass to $ref:downloads.download.-->
+您必须在<a href='manifest.html'>扩展程序的清单文件</a>中声明
+"downloads"
+权限才能使用该
+API，此外对于您可能会传递给
+$ref:downloads.download
+的主机还需要<a href='declare_permissions.html'>主机权限</a>。
+</p>
+
+<pre>{
+  'name': '我的扩展程序',
+  ...
+<b>  'permissions': [
+    'downloads',
+    '*://*.google.com'
+  ]</b>,
+  ...
+}</pre>
+
+<p><!--@If the URL's hostname is not specified in the permissions, then 
+$ref:downloads.download will call its callback with a null
+<code>downloadId</code> and set the 
+$ref:runtime.lastError
+object to indicate that the extension does not have permission to access that
+hostname.-->
+如果 URL 的主机名没有在权限中指定，$ref:downloads.download
+调用回调函数时将传递值为 null 的 <code>downloadId</code>，并设置
+$ref:runtime.lastError 对象，表示扩展程序没有权限访问主机名。
+</p>
+
+<h2 id='examples'><!--@Examples-->例子</h2>
+
+<p><!--@You can find simple examples of using the downloads module in the-->您可以在 <a
+href='http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/api/downloads/'>examples/api/downloads</a>
+<!--@directory. For other examples and for help in viewing the source code, see <a
+href='samples.html'>Samples</a>.-->
+目录中找到使用下载模块的简单例子。有关其他例子以及查看源代码的帮助，请参见<a
+href='samples.html'>示例</a>。
+</p>
