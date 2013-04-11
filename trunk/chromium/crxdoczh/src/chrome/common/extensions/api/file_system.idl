@@ -23,29 +23,34 @@ namespace fileSystem {
     DOMString[]? extensions;
   };
 
+  enum ChooseEntryType {
+
+    // <!--@Prompts the user to open an existing file and returns a read-only
+    // FileEntry on success.-->
+    // 提示用户打开现有文件，并在成功后返回只读的 FileEntry（文件项）。
+    openFile,
+
+    // <!--@Prompts the user to open an existing file and returns a writable
+    // FileEntry on success. Calls using this type will fail unless the
+    // application has the 'write' permission under 'fileSystem'.-->
+    // 提示用户打开现有文件，并在成功后返回可写的
+    // FileEntry（文件项）。除非应用拥有 'fileSystem' 下的 'write'
+    // 权限，否则使用这种类型的调用将会失败。
+    openWritableFile,
+
+    // <!--@Prompts the user to open an existing file or a new file and returns a
+    // writable FileEntry on success. Calls using this type will fail unless the
+    // application has the 'write' permission under 'fileSystem'.-->
+    // 提示用户打开现有文件或新文件，并在成功后返回可写的
+    // FileEntry（文件项）。除非应用拥有 'fileSystem' 下的 'write'
+    // 权限，否则使用这种类型的调用将会失败。
+    saveFile
+  };
+
   dictionary ChooseEntryOptions {
-    // <!--@Type of the prompt to show. Valid types are 'openFile',
-    // 'openWritableFile' or 'saveFile'.-->
-    // 要显示的提示类型。有效的类型包括 'openFile'、'openWritableFile'
-    // 或 'saveFile'。
-    //
-    // <!--@Both 'openFile' and 'openWritableFile' will prompt the user to open an
-    // existing file, with 'openFile' returning a read-only FileEntry on
-    // success. 'saveFile' will prompt the user to choose an existing file or
-    // a new file, and will return a writable FileEntry.
-    // Calls to chooseFile with either 'openWritableFile' or 'saveFile' will
-    // fail unless the application has the 'write' permission under
-    // 'fileSystem'.-->
-    // 'openFile' 和 'openWritableFile'
-    // 都将提示用户打开已经存在的文件，但 'openFile'
-    // 成功时将返回只读的文件项。'saveFile'
-    // 将提示用户选择已经存在的文件或者新文件，并返回可写的文件项。除非应用程序拥有
-    // 'fileSystem' 下的 'write' 权限，以 'openWritableFile' 或
-    // 'saveFile' 调用 chooseFile 会失败。
-    //
-    // <!--@The default is 'openFile'.-->
-    // 默认值为 'openFile'。
-    DOMString? type;
+    // <!--@Type of the prompt to show. The default is 'openFile'.-->
+    // 显示的提示类型，默认为 'openFile'（打开文件）。
+    ChooseEntryType? type;
 
     // <!--@The suggested file name that will be presented to the user as the
     // default name to read or write. This is optional.-->
