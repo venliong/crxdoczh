@@ -315,7 +315,13 @@
           "urlMatches": {
             "type": "string",
 //@            "description": "Matches if the URL (without fragment identifier) matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the <a href=\"http://code.google.com/p/re2/wiki/Syntax\">RE2 syntax</a>.",
-            "description": "如果 URL（不包括片段标识符）匹配指定正则表达式则匹配。端口号如果匹配默认端口号则将从 URL 中去除。正则表达式使用 <a href=\"http://code.google.com/p/re2/wiki/Syntax\">RE2语法</a>。",
+            "description": "如果 URL（不包括片段标识符）匹配指定正则表达式则匹配。端口号如果匹配默认端口号则将从 URL 中去除。正则表达式使用 <a href=\"https://code.google.com/p/re2/wiki/Syntax\">RE2 语法</a>。",
+            "optional": true
+          },
+          "originAndPathMatches": {
+            "type": "string",
+//@            "description": "Matches if the URL without query segment and fragment identifier matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the <a href=\"http://code.google.com/p/re2/wiki/Syntax\">RE2 syntax</a>.",
+            "description": "如果不包含查询部分和片段标识符的 URL 匹配指定的正则表达式则匹配。如果端口号匹配默认端口号，则会从 URL 中去除。正则表达式使用 <a href=\"https://code.google.com/p/re2/wiki/Syntax\">RE2 语法</a>。",
             "optional": true
           },
           "urlPrefix": {
