@@ -25,8 +25,8 @@ href="browserAction.html">浏览器按钮</a>）时能够临时访问当前活�
 </p>
 
 <p>
-<!--@The main benefit of the <code>activeTab</code> permission is that it displays <em>no warning message</em> during installation:-->
-<code>activeTab</code> 的主要优势是它在安装过程中<em>不显示警告消息</em>。
+<!--@This serves as an alternative for many uses of <code>&lt;all_urls&gt;</code>, but displays <em>no warning message</em> during installation:-->
+在很多情况下，它可以代替 <code>&lt;all_urls&gt;</code>，在安装过程中<em>不显示警告消息</em>。
 </p>
 
 <table id="active-tab-images" class="simple">
@@ -44,20 +44,29 @@ href="browserAction.html">浏览器按钮</a>）时能够临时访问当前活�
 
 <h2 id="example"><!--@Example-->例子</h2>
 
-<h3 id="manifest.json">manifest.json</h3>
+<p>
+<!--@See the <a href="samples.html#cb771f28a910d79a2fcfeb1c5be6983b">Page Redder</a> sample extension:-->
+参见 <a href="samples.html#cb771f28a910d79a2fcfeb1c5be6983b">Page Redder</a>
+示例扩展程序：
+</p>
 
+<h3 id="manifest.json">manifest.json</h3>
 <p>
 <pre>
 {
-  "manifest_version": 2,
   "name": "Page Redder",
-  "version": "1.0",
-  <b>"permissions": ["activeTab"]</b>,
-  "browser_action": {},
+  "version": "2.0",
+  <b>"permissions": [
+    "activeTab"
+  ],</b> 
   "background": {
     "scripts": ["background.js"],
     "persistent": false
-  }
+  },  
+  "browser_action": {
+    "default_title": "Make this page red"
+  },  
+  "manifest_version": 2
 }
 </pre>
 </p>
@@ -66,9 +75,13 @@ href="browserAction.html">浏览器按钮</a>）时能够临时访问当前活�
 
 <p>
 <pre>
+// Called when the user clicks on the browser action.
 chrome.browserAction.onClicked.addListener(function(tab) {
-  // 不需要 "tabs" 或主机权限！
-  chrome.tabs.executeScript(tab.id, {code:"document.body.bgColor='red'"});
+  // No tabs or host permissions needed!
+  console.log('Turning ' + tab.url + ' red!');
+  chrome.tabs.executeScript({
+    code: 'document.body.style.backgroundColor="red"'
+  }); 
 });
 </pre>
 </p>
