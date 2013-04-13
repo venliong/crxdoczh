@@ -58,9 +58,9 @@ Web 服务器应用程序中使用 OAuth 2.0</a> 详细描述了这一步。
 
 <p>
 <!--@The URL used to obtain access to the GCM for Chrome service:-->
-用来获取对 GCM 服务的访问的 URL 为：
-<code>https://accounts.google.com/o/auth2/auth</code>
-</p>.
+用来获取对 GCM 服务的访问的 URL 为：<code
+>https://accounts.google.com/o/auth2/auth</code><!--@.-->。
+</p>
 
 <h3 id="parameters"><!--@Required parameters-->必选参数</h3>
 <p>
@@ -179,8 +179,9 @@ Web 服务器应用程序中使用 OAuth 2.0</a> 详细描述了这一步。
   </tr>
   <tr>
     <td><code>paylooad</code></td>
-    <td><!--@The message body (up to 256 bytes).-->
-    消息正文（最多 256 字节）。
+    <td><!--@The message body (up to 256 bytes). This should not include any
+      personally identifiable information.-->
+      消息正文（最多 256 字节），不能包含个人识别信息。
     </td>
   </tr>
 </table>
