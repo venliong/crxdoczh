@@ -10,8 +10,9 @@ namespace pushMessaging{
     // 发送消息的子通道标识符，只有 0～3 之间的值有效。
     long subchannelId;
 
-    // <!--@The payload associated with the message, if any.-->
-    // 与消息相关联的内容，如果有的话。
+    // <!--@The payload associated with the message, if any. This should not contain
+    // any personally identifiable information.-->
+    // 与消息相关联的内容，如果有的话。不能包含任何个人识别信息。
     DOMString payload;
   };
 
