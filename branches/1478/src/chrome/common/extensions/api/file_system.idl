@@ -1,0 +1,116 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+namespace fileSystem {
+  dictionary AcceptOption {
+    // <!--@This is the optional text description for this option. If not present,
+    // a description will be automatically generated; typically containing an
+    // expanded list of valid extensions (e.g. "text/html" may expand to
+    // "*.html, *.htm").-->
+    // 这是该选项的可选文字描述。如果不存在的话，将会自动生成描述，通常包含扩充之后的有效扩展名列表（例如
+    // "text/html" 将扩充为 "*.html, *.htm"）。
+    DOMString? description;
+
+    // <!--@Mime-types to accept, e.g. "image/jpeg" or "audio/*". One of mimeTypes or
+    // extensions must contain at least one valid element.-->
+    // 可接受的 MIME 类型，例如 "image/jpeg" 或 "audio/*"。mimeTypes
+    // 或 extensions 其中之一必须包含至少一个有效元素。
+    DOMString[]? mimeTypes;
+
+    // <!--@Extensions to accept, e.g. "jpg", "gif", "crx".-->
+    // 可接受的扩展名，例如 ["jpg", "gif", "crx"]。
+    DOMString[]? extensions;
+  };
+
+  enum ChooseEntryType {
+
+    // <!--@Prompts the user to open an existing file and returns a read-only
+    // FileEntry on success.-->
+    // 提示用户打开现有文件，并在成功后返回只读的 FileEntry（文件项）。
+    openFile,
+
+    // <!--@Prompts the user to open an existing file and returns a writable
+    // FileEntry on success. Calls using this type will fail unless the
+    // application has the 'write' permission under 'fileSystem'.-->
+    // 提示用户打开现有文件，并在成功后返回可写的
+    // FileEntry（文件项）。除非应用拥有 'fileSystem' 下的 'write'
+    // 权限，否则使用这种类型的调用将会失败。
+    openWritableFile,
+
+    // <!--@Prompts the user to open an existing file or a new file and returns a
+    // writable FileEntry on success. Calls using this type will fail unless the
+    // application has the 'write' permission under 'fileSystem'.-->
+    // 提示用户打开现有文件或新文件，并在成功后返回可写的
+    // FileEntry（文件项）。除非应用拥有 'fileSystem' 下的 'write'
+    // 权限，否则使用这种类型的调用将会失败。
+    saveFile
+  };
+
+  dictionary ChooseEntryOptions {
+    // <!--@Type of the prompt to show. The default is 'openFile'.-->
+    // 显示的提示类型，默认为 'openFile'（打开文件）。
+    ChooseEntryType? type;
+
+    // <!--@The suggested file name that will be presented to the user as the
+    // default name to read or write. This is optional.-->
+    // 展现给用户的推荐文件名，作为要读取或写入的默认文件名，该参数可选。
+    DOMString? suggestedName;
+
+    // <!--@The optional list of accept options for this file opener. Each option
+    // will be presented as a unique group to the end-user.-->
+    // 该文件打开器可选接受选项的列表，对最终用户来说，每一个选项都会呈现为唯一的分组。
+    AcceptOption[]? accepts;
+
+    // <!--@Whether to accept all file types, in addition to the options specified
+    // in the accepts argument. The default is true. If the accepts field is
+    // unset or contains no valid entries, this will always be reset to true.-->
+    // 除了 accepts 字段中指定的选项外，是否接受所有文件类型，默认为
+    // true。如果 accepts 字段未设置或没有包含有效的项，它始终会被重置为
+    // true 。
+    boolean? acceptsAllTypes;
+  };
+  callback GetDisplayPathCallback = void (DOMString displayPath);
+  callback FileEntryCallback = void ([instanceOf=FileEntry] object fileEntry);
+  callback IsWritableCallback = void (boolean isWritable);
+
+  interface Functions {
+    // <!--@Get the display path of a FileEntry object. The display path is based on
+    // the full path of the file on the local file system, but may be made more
+    // readable for display purposes.-->
+    // 获取 <code>FileEntry</code>
+    // 对象的显示路径。显示路径基于文件在本地文件系统上的完整路径，但是可能会为了显示的目的而使可读性更好。
+    static void getDisplayPath([instanceOf=FileEntry] object fileEntry,
+                               GetDisplayPathCallback callback);
+
+    // <!--@Get a writable FileEntry from another FileEntry. This call will fail if
+    // the application does not have the 'write' permission under 'fileSystem'.-->
+    // 从另一个 <code>FileEntry</code> 获取可写的文件项。如果应用程序没有
+    // 'fileSystem' 下的 'write' 权限则该方法会失败。
+    static void getWritableEntry([instanceOf=FileEntry] object fileEntry,
+                                 FileEntryCallback callback);
+
+    // <!--@Gets whether this FileEntry is writable or not.-->
+    // 获取该 <code>FileEntry</code> 是否可以写入的信息。
+    static void isWritableEntry([instanceOf=FileEntry] object fileEntry,
+                                IsWritableCallback callback);
+
+    // <!--@Ask the user to choose a file.-->
+    // 让用户选择文件。
+    static void chooseEntry(optional ChooseEntryOptions options,
+                            FileEntryCallback callback);
+
+    // <!--@Returns the file entry with the given id.-->
+    // 返回指定标识符的文件项。
+    [nocompile] static FileEntry getEntryById(DOMString id);
+
+    // <!--@Returns the id of the given file entry. This can be used to retrieve file
+    // entries with getEntryById(). When an app is restarted (ie: it is sent the
+    // onRestarted event) it can regain access to the file entries it had by
+    // remembering their ids and calling getEntryById().-->
+    // 返回指定文件项的标识符，可以通过 getEntryById() 获取文件项。当应用重新启动（即发送了 onRestarted 事件）时，它可以通过记录下的标识符调用
+    // getEntryById() 重新访问原来拥有的文件项。
+    [nocompile] static DOMString getEntryId(
+        [instanceOf=FileEntry] object fileEntry);
+  };
+};
