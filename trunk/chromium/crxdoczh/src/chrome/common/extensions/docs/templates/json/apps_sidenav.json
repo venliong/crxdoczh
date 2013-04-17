@@ -46,6 +46,49 @@
         ]
       },
       {
+        "title": "通过代码实验室学习",
+        "toggleable": true,
+        "items": [
+          {
+            "title": "关于代码实验室",
+            "fileName": "app_codelab.html"
+          },
+          {
+            "title": "1 - 设置开发环境",
+            "fileName": "app_codelab1_setup.html"
+          },
+          {
+            "title": "2 -  创建基本的应用",
+            "fileName": "app_codelab2_basic.html"
+          },
+          {
+            "title": "3 - 创建 MVC",
+            "fileName": "app_codelab3_mvc.html"
+          },
+          {
+            "title": "4 - 保存和获取数据",
+            "fileName": "app_codelab5_data.html"
+          },
+          {
+            "title": "5 - 管理应用的生命周期",
+            "fileName": "app_codelab6_lifecycle.html"
+          },
+           
+          {
+            "title": "6 - 访问用户数据",
+            "fileName": "app_codelab7_useridentification.html"
+          },
+          {
+            "title": "7 - 访问网络资源",
+            "fileName": "app_codelab8_webresources.html"
+          },
+          {
+            "title": "8 - 发布应用",
+            "fileName": "app_codelab_10_publishing.html"
+          }
+        ]
+      },
+      {
         "title": "安全和隐私权",
         "toggleable": true,
         "items": [
