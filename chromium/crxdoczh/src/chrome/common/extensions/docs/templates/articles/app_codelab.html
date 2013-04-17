@@ -1,74 +1,84 @@
-<h1 id="get_ready_to_build_chrome_apps_"><!--@Get Ready to Build Chrome Apps!-->准备开发 Chrome 应用！</h1>
+<h1 id="get_ready_to_build_chrome_apps_"><!--@About this Codelab-->关于代码实验室</h1>
 
-<p><!--@Chrome apps are written in HTML5, JavaScript, and CSS, just like web apps.
-But they look and behave more like native apps, and they have super-powerful capabilities,
-like the ability to interact with network and hardware devices, media tools, and much more.-->
-Chrome 应用使用 HTML5、JavaScript 和 CSS
-编写，就像网络应用一样。但是它们的外观与行为更像原生应用，而且它们拥有很强大的能力，例如能够与网络、硬件设备、媒体工具等等进行交互。
+<p><!--@The goal of this codelab is to
+get you building Chrome packaged apps fast.
+We&#39;ve done our best to capture some of the trickier parts
+to the development process
+keeping the samples simple and straightforward.
+Once you&#39;ve completed this codelab,
+you will have a simple Todo app.-->
+代码实验室的目标是让您迅速地建立 Chrome
+浏览器的打包应用。我们尽可能抓住开发过程中一些比较困难的部分，确保示例既简单又直白。一旦您完成了该教程，您就得到了一个“待办事项”应用。
 </p>
 
-<h2 id="help_us_make_chrome_apps_better_"><!--@Help us make Chrome Apps better!-->帮助我们改进 Chrome 应用！</h2>
-
-<p><!--@Chrome apps are still in developer preview-- we know they aren&#39;t perfect. But we&#39;re trying to do something new here, bridging together the native and web experience, giving developers choice and users the best experience possible.-->
-Chrome 应用还处于开发者预览的状态，我们知道它们还不完美。但是我们正在试着做一些新的事情，将原生与网络体验结合在一起，给开发者更多选择，尽可能为用户提供最好的体验。
-</p>
-
-<p><!--@For Chrome apps to succeed, we need and want your feedback and we don&#39;t want you to have to go in circles to provide it.
-We appreciate your feedback either at the <a href="http://groups.google.com/a/chromium.org/group/chromium-apps">chromium-apps group</a> or, if appropriate, as a bug filled at the <a href="http://crbug.com/new">official issue tracker</a></a>.-->
-为了使 Chrome
-应用获得成功，我们需要并期待您的反馈。我们不希望您为了提供反馈而绕圈子，我们欢迎您在
-<a href="http://groups.google.com/a/chromium.org/group/chromium-apps">chromium-apps
-讨论组</a>或（如果合适的话）<a href="http://crbug.com/new">官方的问题跟踪器</a>上反馈。
-</p>
-
-<h2 id="learn_more_about_chrome_apps"><!--@Learn more about Chrome Apps-->了解 Chrome 应用的更多内容</h2>
-
-<ul>
-<li><!--@Read the <a href="http://developer.chrome.com/apps/">docs</a>.-->
-阅读<a href="about_apps.html">文档</a>。
-</li>
-<li><!--@Check out the <a href="http://developer.chrome.com/apps/api_index.html">Chrome Apps APIs</a>.-->
-查看 <a href="api_index.html">Chrome 应用的 API</a>。
-</li>
-<li><!--@Fork any and all <a href="https://github.com/GoogleChrome/chrome-app-samples">chrome-app-samples</a> and make something of your own.-->
-修改 <a href="https://github.com/GoogleChrome/chrome-app-samples">Chrome
-应用示例</a>，做一些您自己的东西。
-</li>
-<li><!--@Watch the <a href="https://developers.google.com/live/chrome/">Chrome Apps GDL sessions</a>.-->
-观看 <a href="https://developers.google.com/live/chrome/">Chrome 应用 GDL
-会话</a>（英文）。
-</li>
-<li><!--@Follow the Chrome Apps Todo tutorial here.-->
-遵循这里的 Chrome 应用“待办事项”教程。
-</li>
-</ul>
-
-<h2 id="about_this_tutorial"><!--@About this Tutorial-->关于该教程</h2>
-
-<p><!--@The goal of this tutorial is to get you building Chrome apps fast.
-We&#39;ve done our best to capture some of the trickier parts to the development process
-keeping the sample simple and straightforward.-->
-该教程的目标是让您迅速地建立 Chrome 应用。我们尽可能抓住开发过程中一些比较困难的部分，确保示例既简单又直白。
-</p>
-
-<p><!--@Once you&#39;ve completed the tutorial,
-you will have a simple Todo app. The sample code in each lab builds upon the previous.
+<p>
+<!--@All sample code can be downloaded from the
+<a href="https://github.com/GoogleChrome/chrome-app-codelab">chrome-app-codelab repository</a>. 
+Each lab builds upon the previous lab's sample code.
 To see how the Todo app changes as you work through the lab,
-you can upload the code in each lab and launch the app from a new tab.-->
-一旦您完成了该教程，您就得到了一个“待办事项”应用。每一个实验中的代码都建立在前一个的基础上。要想了解“待办事项”应用在您进行实验的过程中发生了怎样的变化，您可以将每一个实验中的代码上传，并在新的标签页中执行应用。
+upload the code from the extensions management page
+and launch the app
+(see <a href="first_app.html#five">Create Your First App tutorial</a>).-->
+所有示例代码都可以从
+<a href="https://github.com/GoogleChrome/chrome-app-codelab">chrome-app-codelab
+代码库</a>中下载，每一个实验建立在前一个实验的示例代码之上。要想了解“待办事项”应用在您进行实验的过程中发生了怎样的变化，您可以在扩展程序管理页面中上传每一个实验中的代码，并执行应用（参见<a
+href="first_app.html#five"><!--@Create Your First App tutorial-->创建您的第一个应用的教程</a>）。
 </p>
 
-<h2 id="tutorial_structure"><!--@Tutorial structure-->教程的结构</h2>
+<p class="note">
+<strong><!--@Note: -->注意：</strong><!--@
+After the first launch,
+ChromeOS and Windows users can see their apps in the
+<a href="http://blog.chromium.org/2013/02/chrome-app-launcher-developer-preview.html">Chrome app launcher</a>.
+Other platforms can see installed apps on a new Chrome tab
+or by navigating to <code>chrome://extensions</code>.-->第一次执行之后，Chrome
+OS 和 Windows 用户可以在 <a
+href="http://blog.chromium.org/2013/02/chrome-app-launcher-developer-preview.html"
+>Chrome 浏览器的应用执行器</a>中看到他们的应用，其他平台可以在 Chrome
+浏览器的新标签页上看到已安装的应用，也可以浏览至
+<code>chrome://extensions</code>。
+</p>
+
+<h2 id="options"><!--@Choose your framework-->选择您的框架</h2>
+
+<p>
+<!--@You can choose to write your sample Todo app
+using a preferred
+<a href="app_frameworks.html">MVC framework</a>.
+Starting in
+<a href="app_codelab3_mvc.html">3 - Create MVC</a>,
+we've provided sample code in pure JavaScript
+and using
+<a href="http://angularjs.org">AngularJS</a>.
+We've also included code snippets for both versions
+throughout the codelab docs.
+As you continue through the codelab,
+make sure your sample code builds from the same version.-->
+您可以使用喜爱的 <a href="app_frameworks.html">MVC
+框架</a>编写您的示例“待办事项”应用。请从 <a href="app_codelab3_mvc.html"
+>3 - 创建 MVC</a>
+开始，我们分别提供了纯 JavaScript 以及使用
+<a href="http://angularjs.org">AngularJS</a>
+的示例代码，我们也在整个代码实验室文档中提供了这两种版本的代码片段。在您继续实验的过程中，确保您的示例代码从同一个版本建立。
+</p>
+
+<p class="note">
+<strong><!--@Want to add a framework?-->想增加一个框架？</strong><br><!--@
+You can always create your own Todo app
+in a different preferred framework.
+And we would be very happy to include it
+in the sample code repository.-->您始终可以通过另一个喜爱的框架创建您自己的“待办事项”应用，我们很乐意将它包含在示例代码库中。
+</p>
+
+<h2 id="tutorial_structure"><!--@Codelab structure-->代码实验室的结构</h2>
 
 <ul>
-<li><!--@Set up development environment: -->设置开发环境：<a href="app_codelab1_setup.html">lab1_setup</a></li>
-<li><!--@Create basic app: -->创建基本的应用：<a href="app_codelab2_basic.html">lab2_basic</a></li>
-<li><!--@Create model-view-controller: -->创建模型-视图-控制器：<a href="app_codelab3_mvc.html">lab3_mvc</a></li>
-<li><!--@Test app **Work-in-progress**: -->测试应用（待完善）：<a href="app_codelab4_testing.html">lab4_testing</a></li>
-<li><!--@Save and fetch data: -->保存和获取数据：<a href="app_codelab5_data.html">lab5_data</a></li>
-<li><!--@Manage app lifecycle: -->管理应用的生命周期：<a href="app_codelab6_lifecycle.html">lab6_lifecycle</a></li>
-<li><!--@Access user&#39;s data: -->访问用户数据：<a href="app_codelab7_useridentification.html">lab7_useridentification</a></li>
-<li><!--@Access resources from the web: -->访问网上的资源：<a href="app_codelab8_webresources.html">lab8_webresources</a></li>
-<li><!--@Create multiple views: -->创建多个视图：<a href="app_codelab9_multipleviews.html">lab9_multipleviews</a></li>
-<li><!--@Publish app in Chrome Web Store: -->在 Chrome 网上应用店中发布应用：<a href="app_codelab_10_publishing.html">lab_10_publishing</a></li>
+<li><a href="app_codelab1_setup.html">1 - <!--@Set Up Development Environment-->设置开发环境</a></li>
+<li><a href="app_codelab2_basic.html">2 - <!--@Create Basic App-->创建基本的应用</a></li>
+<li><a href="app_codelab3_mvc.html">3 - <!--@Create-->创建 MVC</a></li>
+<li><a href="app_codelab5_data.html">4 - <!--@Save and Feth Data-->保存和获取数据</a></li>
+<li><a href="app_codelab6_lifecycle.html">5 - <!--@Manage App Lifecycle-->管理应用的生命周期</a></li>
+<li><a href="app_codelab7_useridentification.html">6 - <!--@Access User's Data-->访问用户数据</a></li>
+<li><a href="app_codelab8_webresources.html">7 - <!--@Access Web Resources-->访问网络资源</a></li>
+<li><a href="app_codelab_10_publishing.html">8 - <!--@Publish App-->发布应用</a></li>
 </ul>
