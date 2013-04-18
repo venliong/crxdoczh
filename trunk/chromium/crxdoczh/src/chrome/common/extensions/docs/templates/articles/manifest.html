@@ -243,21 +243,12 @@ BMP、GIF、ICO 和 JPEG。如下是一个指定图标的例子：
 </pre>
 
 <p class="note">
-<!--@<b>Important:</b>
-Use only the documented icon sizes.-->
-<b>重要提示：</b>只能使用文档中规定的图标大小。
-<br><br>
-<!--@You might notice that Chrome sometimes resizes these icons down to smaller
-sizes. For example, the install dialog might shrink the 128-pixel
-icon down to 69 pixels.-->
-您可能注意到 Chrome 有时候会缩小这些图标。例如，安装对话框可能将 128
-像素的图标缩小至 69 像素。
-<br><br>
-<!--@However, the details of
-Chrome's UI may change between versions, and these changes assume that
-developers are using the documented sizes. If you use other sizes,
-your icon may look bad in future versions of the browser.-->
-然而，Chrome 浏览器用户界面的细节可能会在不同版本间更改，并且这些更改假定开发者使用了文档中规定的大小。如果您使用其他大小，您的图标在将来版本的浏览器中可能会看起来效果不佳。
+<!--@You may provide icons of any other size you wish, and Chrome will attempt to use
+the best size where appropriate. For example, Windows often requires 32-pixel
+icons, and if the app includes a 32-pixel icon, Chrome will choose that instead
+of shrinking a 48-pixel icon down. However, you should ensure that all of your
+icons are square, or unexpected behavior may result.-->
+您可以提供您希望的任何其他大小的图标，Chrome 浏览器会在恰当的时候尝试使用最合适的大小。例如，Windows 通常需要 32 像素的图标，如果应用包含了 32 像素的图标，Chrome 浏览器会选择它，而不是将 48 像素的图标缩小。然而，您应该确保您的所有图标都是正方形的，否则可能会导致意料之外的结果。
 </p>
 
 <p>
