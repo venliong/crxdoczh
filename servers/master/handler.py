@@ -119,6 +119,14 @@ class ExtensionsIndexRedirectHandler(webapp2.RequestHandler):
     AddSecurityHeaders(self.response)
     self.response.status = 301
 
+class StableRedirectHandler(webapp2.RequestHandler):
+  def get(self, remaining_path):
+    if not remaining_path:
+      remaining_path = '/'
+    self.response.location = remaining_path
+    AddSecurityHeaders(self.response)
+    self.response.status = 301
+
 class NotFoundHandler(webapp2.RequestHandler):
   def get(self):
     AddSecurityHeaders(self.response)
@@ -147,6 +155,7 @@ app = webapp2.WSGIApplication([
   (r'(/trunk/|/dev/|/beta/|/stable/|/)apps/?', AppsIndexRedirectHandler),
   (r'(/trunk/|/dev/|/beta/|/stable/|/)apps/index\.html', AppsIndexRedirectHandler),
   (r'(/trunk/|/dev/|/beta/|/stable/|/)extensions/?', ExtensionsIndexRedirectHandler),
+  (r'/stable(/.*|)', StableRedirectHandler),
   (r'/(trunk/|dev/|beta/|stable/|)(apps|extensions|static)/(.+)', Handler),
   (r'.*', NotFoundHandler)
 ])
