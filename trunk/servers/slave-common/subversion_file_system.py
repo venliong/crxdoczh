@@ -236,7 +236,7 @@ class SubversionFileSystem(FileSystem):
     for cur in model.child_revisions:
       value = cur.split(':')
       child_revisions[value[0]] = value[1]
-    return file_system.StatInfo(model.revision, child_revisions)
+    return StatInfo(model.revision, child_revisions)
 
   def Stat(self, path):
     directory = path.rsplit('/', 1)[0]
