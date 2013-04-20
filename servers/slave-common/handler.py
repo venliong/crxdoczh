@@ -13,6 +13,7 @@ from appengine_wrappers import urlfetch
 from branch_utility import BranchUtility
 from server_instance import ServerInstance
 import svn_constants
+import url_constants
 import time
 from response_cache import ResponseCache
 
@@ -82,16 +83,7 @@ class Handler(webapp.RequestHandler):
     if os.environ.get('CRXDOCZH_SLAVE_TYPE') == 'samples':
       self._HandleSamplesAPI(channel_name, real_path)
     else:
-      server_instance = ServerInstance.GetOrCreate(channel_name)
-
-      canonical_path = server_instance.path_canonicalizer.Canonicalize(real_path)
-      if real_path != canonical_path:
-        self.redirect(canonical_path)
-        return
-
-      ServerInstance.GetOrCreate(channel_name).Get(real_path,
-                                                   self.request,
-                                                   self.response)
+      self._OriginalHandleGet(path)
 
   def _HandleBackends(self):
     self.response.set_status(200)
@@ -203,13 +195,13 @@ class Handler(webapp.RequestHandler):
           server_instance.Get(path, MockRequest(path), response)
           if response.status != 200:
             error = 'Got %s response' % response.status
-          try:
-            urlfetch.fetch(url_constants.CRXDOCZH_MASTER_UPDATE_URL,
-                payload = json.dumps([f]),
-                method = 'POST',
-                deadline = 6)
-          except Exception as e:
-            pass
+          #try:
+          #  urlfetch.fetch(url_constants.CRXDOCZH_MASTER_UPDATE_URL,
+          #      payload = json.dumps([f]),
+          #      method = 'POST',
+          #      deadline = 6)
+          #except Exception as e:
+          #  pass
           try:
             urlfetch.fetch(url_constants.CRXDOCZH_MASTER_MIRROR_UPDATE_URL,
                 payload = json.dumps([f]),
