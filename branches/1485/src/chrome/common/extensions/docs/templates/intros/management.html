@@ -1,0 +1,28 @@
+<p id="classSummary">
+<!--@The--> <code>chrome.management</code> <!--@module provides ways to manage the list of extensions/apps that are installed and running. It is particularly useful for extensions that <a href="override.html">override</a> the built-in New Tab page.-->
+模块可以用来管理已经安装并且正在运行的扩展程序或应用，它对于<a href="override.html">替代</a>内建的“打开新的标签页”页面的扩展程序特别有用。
+</p>
+
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
+
+<p><!--@You must declare the "management" permission
+in the <a href="manifest.html">extension manifest</a>
+to use the management API.
+For example:-->
+您必须在<a href="manifest.html">扩展程序的清单文件</a>中声明
+"management" 权限才能使用管理 API。例如：
+</p>
+<pre>{
+  "name": "我的扩展程序",
+  ...
+  <b>"permissions": [
+    "management"
+  ]</b>,
+  ...
+}</pre>
+
+<p>
+$ref:management.getPermissionWarningsByManifest <!--@and-->和
+$ref:management.uninstallSelf <!--@do not require the management permission-->
+不需要 "management" 权限。
+</p>

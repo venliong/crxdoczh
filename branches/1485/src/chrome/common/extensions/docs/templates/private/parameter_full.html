@@ -1,0 +1,24 @@
+<div>
+  {{?parent_name}}<a name="{{id}}"></a>{{/}}
+  {{+partials.property}}
+  {{?properties}}
+  <dd>
+    <dl>
+    {{#properties}}
+      {{+partials.parameter_full}}
+    {{/properties}}
+    </dl>
+  </dd>
+  {{/properties}}
+  {{?parameters}}
+  <dd>
+    <dl>
+    <h5><!--@Parameters-->参数</h5>
+    {{#parameters}}
+      {{+partials.parameter_full}}
+    {{/}}
+    </dl>
+    {{?callback}}{{+partials.callback}}{{/}}
+  </dd>
+  {{/parameters}}
+</div>

@@ -1,0 +1,86 @@
+<p>
+<!--@The omnibox API allows you to register a
+keyword with Google Chrome's address bar,
+which is also known as the omnibox.-->
+多功能框 API 允许您在 Google Chrome
+浏览器的地址栏（又叫多功能框）中注册一个关键字。
+</p>
+
+<p>
+<img src="{{static}}/images/omnibox.png" width="300" height="150"
+  alt="A screenshot showing suggestions related to the keyword 'Chromium Search'"/>
+</p>
+
+<p>
+<!--@When the user enters your extension's
+keyword, the user starts
+interacting solely with your extension.
+Each keystroke is sent to your
+extension, and you can provide suggestions
+in response.-->
+当用户输入您的扩展程序的关键字时，用户开始完全与您的扩展程序交互。每一次按键消息都将发送至您的扩展程序，您可以作出回应，提供建议。
+</p>
+
+<p>
+<!--@The suggestions can be richly formatted
+in a variety of ways.
+
+When the user accepts
+a suggestion, your extension is notified
+and can take action.-->
+建议可以具有各种不同格式。当用户接受某个建议时，将通知您的扩展程序作出反应。
+</p>
+
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
+
+<p>
+<!--@You must include an <code>omnibox</code> <code>keyword</code> field
+in the <a href="manifest.html">manifest</a> 
+to use the omnibox API.
+You should also
+specify a 16x16-pixel icon, which will be
+displayed in the address bar when suggesting that users
+enter keyword mode.-->
+您必须在<a href="manifest.html">清单文件</a>中包含 <code>omnibox </code>
+<code>keyword</code> 属性来使用多功能框 API，您还应该指定一个 16×16
+像素的图标，当用户进入关键字模式时，显示在地址栏中。
+</p>
+
+<p>
+<!--@For example:-->例如：
+</p>
+
+<pre>{
+  "name": "Aaron 的多功能框扩展程序",
+  "version": "1.0",
+  <b>"omnibox": { "keyword" : "aaron" },</b>
+  <b>"icons": {</b>
+    <b>"16": "16-full-color.png"</b>
+  <b>},</b>
+  "background": {
+    "persistent": false,
+    "scripts": ["background.js"]
+  }
+}</pre>
+
+<p class="note">
+<strong><!--@Note:-->注意：</strong><!--@
+Chrome automatically creates a grayscale version of
+your 16x16-pixel icon. You should provide
+a full-color version so that it can also be
+used in other situations that require color.
+For example, the <a href="contextMenus.html"
+>context menus API</a> also uses a 16x16-pixel
+icon, but it is displayed in color.-->Chrome
+浏览器会自动创建您的 16×16
+像素图标的灰度版本。您应该提供彩色的图标，以便用于其他需要颜色的情况，例如，右键菜单
+API 也使用 16×16 像素的图标，但是显示为彩色。
+</p>
+
+
+<h2 id="examples"><!--@Examples-->例子</h2>
+
+<p>
+<!--@You can find samples of this API on the
+<a href="samples.html#omnibox">sample page</a>.-->
+您可以在<a href="samples.html#omnibox">示例页面</a>找到这一 API 的例子。
