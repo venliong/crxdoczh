@@ -45,6 +45,48 @@ namespace bluetooth {
     boolean connected;
   };
 
+  dictionary Profile {
+    // <!--@Unique profile identifier, e.g. 00001401-0000-1000-8000-00805F9B23FB-->
+    // 唯一的规范标识符，例如 00001401-0000-1000-8000-00805F9B23FB。
+    DOMString uuid;
+
+    // <!--@Human-readable name of the Profile, e.g. "Health Device"-->
+    // 可读的规范名称，例如“Health Device”。
+    DOMString? name;
+
+    // <!--@The RFCOMM channel id, used when the profile is to be exported to remote
+    // devices.-->
+    // RFCOMM 通道标识符，当规范输出至远程设备时使用。
+    long? channel;
+
+    // <!--@The LS2CAP PSM number, used when the profile is to be exported to remote
+    // deviecs.-->
+    // LS2CAP PSM 编号，当规范输出至远程设备时使用。
+    long? psm;
+
+    // <!--@Specifies whether pairing (and encryption) is required to be able to
+    // connect.-->
+    // 指定连接时是否要求配对（与加密）。
+    boolean? requireAuthentication;
+
+    // <!--@Specifies whether user authorization is required to be able to connect.-->
+    // 指定连接时是否要求用户认证。
+    boolean? requireAuthorization;
+
+    // <!--@Specifies whether this profile will be automatically connected if any
+    // other profile of device also exporting this profile connects to the host.-->
+    boolean? autoConnect;
+
+    // <!--@Specifies the implemented version of the profile.-->
+    // 指定规范的实现版本。
+    long? version;
+
+    // <!--@Specifies the profile-specific bit field of features the implementation
+    // supports.-->
+    // 指定实现支持的规范特定的特性位域。
+    long? features;
+  };
+
   dictionary ServiceRecord {
     // <!--@The name of the service.-->
     // 服务名称。
@@ -116,6 +158,14 @@ namespace bluetooth {
     // excluded.  This can take some time.-->
     // 为每一个匹配的设备调用。注意必须首先向每一个不匹配的设备发出服务发现请求后才能确定地排除它们，这可能需要一些时间。
     DeviceCallback deviceCallback;
+  };
+
+  // <!--@Options for the getProfiles function.-->
+  // getProfiles 函数中使用的选项。
+  dictionary GetProfilesOptions {
+    // <!--@The remote Bluetooth device to retrieve the exported profiles list from.-->
+    // 要获取导出的规范列表的远程蓝牙设备。
+    Device device;
   };
 
   // <!--@Options for the getServices function.-->
@@ -195,6 +245,25 @@ namespace bluetooth {
 
   // These functions all report failures via chrome.runtime.lastError.
   interface Functions {
+    // <!--@Registers the JavaScript application as an implementation for the given
+    // Profile; if a channel or PSM is specified, the profile will be exported
+    // in the host's SDP and GATT tables and advertised to other devices.-->
+    // 将 JavaScript 应用程序注册为指定规范的实现。如果指定了通道或
+    // PSM，规范将输出至主机的 SDP 与 GATT 表，并广播到其他设备。
+    static void addProfile(Profile profile, ResultCallback callback);
+
+    // <!--@Unregisters the JavaScript application as an implementation for the given
+    // Profile; only the uuid field of the Profile object is used.-->
+    // 取消注册 JavaScript 应用程序，不作为指定规范的实现。Profile
+    // 对象中只使用 uuid 字段。
+    static void removeProfile(Profile profile, ResultCallback callback);
+
+    // <!--@Returns the set of exported profiles for the device specified in options.
+    // This function will not initiate a connection to the remote device.-->
+    // 返回选项中指定设备导出的规范。该函数不会向远程设备发起连接。
+    static void getProfiles(GetProfilesOptions options,
+                            ResultCallback callback);
+
     // <!--@Get information about the Bluetooth adapter.-->
     // 获取蓝牙适配器的有关信息。
     // |callback| : <!--@Called with an AdapterState object describing the adapter
@@ -305,5 +374,9 @@ namespace bluetooth {
     // |state| : <!--@The new state of the adapter.-->
     // 适配器的新状态。
     static void onAdapterStateChanged(AdapterState state);
+
+    // Fired when a connection has been made for a registered profile.
+    // |socket| : The socket for the connection.
+    static void onConnection(Socket socket);
   };
 };
