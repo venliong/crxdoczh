@@ -121,6 +121,7 @@ namespace usb {
   callback FindDevicesCallback = void (Device[] device);
   callback CloseDeviceCallback = void ();
   callback TransferCallback = void (TransferResultInfo info);
+  callback ResetDeviceCallback = void(boolean result);
 
   interface Functions {
     // <!--@Finds the first instance of the USB device specified by the vendorId/
@@ -231,5 +232,23 @@ namespace usb {
     static void isochronousTransfer(Device device,
         IsochronousTransferInfo transferInfo,
         TransferCallback callback);
+
+    // <!--@Try to reset the USB device and restore the previous status.-->
+    // 尝试将 USB 设备重置，并恢复原来的状态。
+    //
+    // <!--@If the reset fails, the given device will be closed and the USB device
+    // will appear to be disconected and reconnected.
+    // You must call <code>findDevice</code> again to acquire the device.-->
+    // 如果重置失败，会关闭指定的设备，USB
+    // 设备就像断开并重新连接了一样。您必须再次调用 <code>findDevice</code>
+    // 获取设备。
+    //
+    // |device|: <!--@An opened device to reset.-->
+    // 要重置的已打开设备。
+    // |callback|: <!--@Invoked once the device is reset with a boolean indicating
+    // whether the reset is completed successfully.-->
+    // 设备重置后调用，传递布尔值表示重置是否成功完成。
+    static void resetDevice(Device device,
+        ResetDeviceCallback callback);
   };
 };

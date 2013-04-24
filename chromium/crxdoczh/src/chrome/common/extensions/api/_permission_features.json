@@ -25,6 +25,10 @@
     "channel": "stable",
     "extension_types": ["platform_app"]
   },
+  "audio": {
+    "channel": "stable",
+    "extension_types": ["platform_app"]
+  },
   "autotestPrivate": {
     "channel": "stable",
     "extension_types": ["extension", "packaged_app"],
@@ -143,7 +147,7 @@
     }
   ],
   "downloads": {
-    "channel": "dev",
+    "channel": "beta",
     "extension_types": [
       "extension", "packaged_app"
     ]
