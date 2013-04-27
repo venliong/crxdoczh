@@ -246,6 +246,13 @@
                     "optional": true,
 //@                    "description": "True to display the auxiliary text, false to hide it."
                     "description": "要显示辅助文字则为 true，隐藏则为 false。"
+                  },
+                  "windowPosition": {
+                    "type": "string",
+//@                    "description": "Where to display the candidate window. If set to 'cursor', the window follows the cursor. If set to 'composition', the window is locked to the beginning of the composition.",
+                    "description": "显示候选窗口的位置。如果设置为 'cursor'，窗口会跟随光标；如果设置为 'composition'，窗口会固定在候选内容的开头。",
+                    "enum": ["cursor", "composition"],
+                    "optional": true
                   }
                 }
               }

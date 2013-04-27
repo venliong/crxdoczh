@@ -15,14 +15,45 @@
           "content": {
             "type": "string",
             "minLength": 1,
-//@            "description": "The text that is put into the URL bar, and that is sent to the extension when the user chooses this entry."
-            "description": "输入在地址栏中的文字，当用户选择这一项时发送给扩展程序。"
+//@            "description": "The text that is put into the URL bar, and that is sent to the extension when the user chooses this entry. This field must be blank for $ref:setDefaultSuggestion."
+            "description": "输入在地址栏中的文字，当用户选择这一项时发送给扩展程序。使用 $ref:setDefaultSuggestion 时该字段必须为空。"
           },
           "description": {
             "type": "string",
             "minLength": 1,
 //@            "description": "The text that is displayed in the URL dropdown. Can contain XML-style markup for styling. The supported tags are 'url' (for a literal URL), 'match' (for highlighting text that matched what the user's query), and 'dim' (for dim helper text). The styles can be nested, eg. <dim><match>dimmed match</match></dim>."
             "description": "显示在地址栏下拉框中的文字，可以包含 XML 样式标记。支持的标记为 <url>（用于字面的 URL）、<match>（用于匹配用户查询的高亮文本）和 <dim>（用于帮助文本的浅色效果）。样式也可以嵌套，例如：<dim><match>浅色的匹配文本</match></dim>。"
+          },
+          "descriptionStyles": {
+            "nodoc": true,
+            "optional": true,
+            "type": "array",
+            "description": "The style ranges for the description, as provided by the extension.",
+            "items": {
+              "type": "object",
+              "name": "matchClassification",
+              "description": "Placeholder description.",
+              "properties": {
+                "offset": { "type": "integer" },
+                "type": { "description": "The style type", "type": "string", "enum": ["url", "match", "dim"]},
+                "length": { "type": "integer", "optional": true }
+              }
+            }
+          },
+          "descriptionStylesRaw": {
+            "nodoc": true,
+            "optional": true,
+            "type": "array",
+            "description": "The style ranges for the description, as provided by ToValue().",
+            "items": {
+              "type": "object",
+              "name": "matchClassification",
+              "description": "Placeholder description.",
+              "properties": {
+                "offset": { "type": "integer" },
+                "type": { "type": "integer" }
+              }
+            }
           }
         }
       }
@@ -38,10 +69,9 @@
           {
             "name": "suggestResults",
             "type": "array",
-            "description": "Array of suggest results",
+            "description": "An array of suggest results",
             "items": {
-              "type": "object",
-              "additionalProperties": { "type": "any" }
+              "$ref": "SuggestResult"
             }
           }
         ]
@@ -53,18 +83,10 @@
         "description": "设置默认建议的描述和样式，默认建议即显示在 URL 栏下的第一行建议。",
         "parameters": [
           {
-            "type": "object",
             "name": "suggestion",
-//@            "description": "A partial SuggestResult object, without the 'content' parameter. See SuggestResult for a description of the parameters.",
-            "description": "具有部分内容的 SuggestResult 对象，没有\"content\"参数。有关参数的描述请参见 $ref:omnibox.SuggestResult。",
-            "properties": {
-              "description": {
-                "type": "string",
-                "minLength": 1,
-//@                "description": "The text to display in the default suggestion. The placeholder string '%s' can be included and will be replaced with the user's input."
-                "description": "显示在默认建议中的文字，可以包含占位符字符串“%s”，表示用户的输入。"
-              }
-            }
+            "$ref": "SuggestResult",
+//@            "description": "A partial SuggestResult object, without the 'content' parameter. See SuggestResult for a description of the parameters."
+            "description": "具有部分内容的 SuggestResult 对象，没有\"content\"参数。有关参数的描述请参见 SuggestResult。",
           }
         ]
       }
