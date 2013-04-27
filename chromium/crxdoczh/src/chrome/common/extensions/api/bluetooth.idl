@@ -133,25 +133,20 @@ namespace bluetooth {
   callback DevicesCallback = void (Device[] result);
   callback NameCallback = void (DOMString result);
   callback OutOfBandPairingDataCallback = void (OutOfBandPairingData data);
+  callback ProfilesCallback = void(Profile[] result);
   callback ResultCallback = void ();
   callback ServicesCallback = void(ServiceRecord[] result);
   callback SizeCallback = void (long result);
   callback SocketCallback = void (Socket result);
 
-  // <!--@Options for the getDevices function. If neither |uuid| or |name| are
-  // provided, all devices known to the system are returned.-->
-  // 在 getDevices 函数中使用的选项。如果 <code>uuid</code> 与 <code>name</code>
-  // 都没有提供，系统已知的所有设备都会返回。
+  // <!--@Options for the getDevices function. If |profile| is not provided, all
+  // devices known to the system are returned.-->
+  // 在 getDevices 函数中使用的选项。如果没有提供
+  // <code>profile</code>，系统已知的所有设备都会返回。
   dictionary GetDevicesOptions {
-    // <!--@Only devices providing a service with a UUID that matches |uuid| will be
-    // returned.-->
-    // 只返回提供的服务 UUID 与 <code>uuid</code> 匹配的设备。
-    DOMString? uuid;
-
-    // <!--@Only devices providing a service with a name that matches |name| will be
-    // returned.-->
-    // 只返回提供的服务名称与 <code>name</code> 匹配的设备。
-    DOMString? name;
+    // <!--@Only devices providing |profile| will be returned.-->
+    // 只返回提供了 <code>profile</code> 的设备。
+    Profile? profile;
 
     // <!--@Called for each matching device.  Note that a service discovery request
     // must be made to each non-matching device before it can be definitively
@@ -258,12 +253,6 @@ namespace bluetooth {
     // 对象中只使用 uuid 字段。
     static void removeProfile(Profile profile, ResultCallback callback);
 
-    // <!--@Returns the set of exported profiles for the device specified in options.
-    // This function will not initiate a connection to the remote device.-->
-    // 返回选项中指定设备导出的规范。该函数不会向远程设备发起连接。
-    static void getProfiles(GetProfilesOptions options,
-                            ResultCallback callback);
-
     // <!--@Get information about the Bluetooth adapter.-->
     // 获取蓝牙适配器的有关信息。
     // |callback| : <!--@Called with an AdapterState object describing the adapter
@@ -284,6 +273,12 @@ namespace bluetooth {
     // <code>options.deviceCallback</code> 了。
     static void getDevices(GetDevicesOptions options,
                            ResultCallback callback);
+
+    // <!--@Returns the set of exported profiles for the device specified in options.
+    // This function will not initiate a connection to the remote device.-->
+    // 返回选项中指定设备导出的规范。该函数不会向远程设备发起连接。
+    static void getProfiles(GetProfilesOptions options,
+                            ProfilesCallback callback);
 
     // <!--@Get a list of services provided by a device.-->
     // 获取设备提供的服务列表。
