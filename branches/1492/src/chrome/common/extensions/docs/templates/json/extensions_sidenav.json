@@ -1,0 +1,222 @@
+[
+  {
+    "title": "入门",
+    "fileName": "getstarted.html"
+  },
+  {
+    "title": "概述",
+    "fileName": "overview.html"
+  },
+  {
+    "title": "新增功能",
+    "fileName": "whats_new.html"
+  },
+  {
+    "title": "开发者指南",
+    "fileName": "devguide.html",
+    "items": [
+      {
+        "title": "浏览器用户界面",
+        "toggleable": true,
+        "items": [
+          {
+            "title": "浏览器按钮",
+            "fileName": "browserAction.html"
+          },
+          {
+            "title": "右键菜单",
+            "fileName": "contextMenus.html"
+          },
+          {
+            "title": "桌面通知",
+            "fileName": "desktop_notifications.html"
+          },
+          {
+            "title": "多功能框",
+            "fileName": "omnibox.html"
+          },
+          {
+            "title": "选项页面",
+            "fileName": "options.html"
+          },
+          {
+            "title": "替代页面",
+            "fileName": "override.html"
+          },
+          {
+            "title": "页面按钮",
+            "fileName": "pageAction.html"
+          }
+        ]
+      },
+      {
+        "title": "浏览器交互",
+        "toggleable": true,
+        "items": [
+          {
+            "title": "书签",
+            "fileName": "bookmarks.html"
+          },
+          {
+            "title": "Cookie",
+            "fileName": "cookies.html"
+          },
+          {
+            "title": "开发者工具",
+            "fileName": "devtools.html"
+          },
+          {
+            "title": "事件",
+            "fileName": "events.html"
+          },
+          {
+            "title": "历史记录",
+            "fileName": "history.html"
+          },
+          {
+            "title": "管理",
+            "fileName": "management.html"
+          },
+          {
+            "title": "标签页",
+            "fileName": "tabs.html"
+          },
+          {
+            "title": "窗口",
+            "fileName": "windows.html"
+          }
+        ]
+      },
+      {
+        "title": "实现",
+        "toggleable": true,
+        "items": [
+          {
+            "title": "辅助功能",
+            "fileName": "a11y.html"
+          },
+          {
+            "title": "事件页面",
+            "fileName": "event_pages.html"
+          },
+          {
+            "title": "内容安全策略",
+            "fileName": "contentSecurityPolicy.html"
+          },
+          {
+            "title": "内容脚本",
+            "fileName": "content_scripts.html"
+          },
+          {
+            "title": "跨站 XHR",
+            "fileName": "xhr.html"
+          },
+          {
+            "title": "国际化支持",
+            "fileName": "i18n.html"
+          },
+          {
+            "title": "消息传递",
+            "fileName": "messaging.html"
+          },
+          {
+            "title": "可选权限",
+            "fileName": "permissions.html"
+          },
+          {
+            "title": "NPAPI 插件",
+            "fileName": "npapi.html"
+          }
+        ]
+      },
+      {
+        "title": "完成",
+        "toggleable": true,
+        "items": [
+          {
+            "title": "托管",
+            "fileName": "hosting.html"
+          },
+          {
+            "title": "其他发布选项",
+            "fileName": "external_extensions.html"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "教程",
+    "fileName": "tutorials.html",
+    "items": [
+      {
+        "title": "清单文件版本 2",
+        "fileName": "tut_migration_to_manifest_v2.html"
+      },
+      {
+        "title": "调试",
+        "fileName": "tut_debugging.html"
+      },
+      {
+        "title": "Google Analytics（分析）",
+        "fileName": "tut_analytics.html"
+      },
+      {
+        "title": "OAuth",
+        "fileName": "tut_oauth.html"
+      }
+    ]
+  },
+  {
+    "title": "参考",
+    "items": [
+      {
+        "title": "格式",
+        "toggleable": true,
+        "items": [
+          {
+            "title": "清单文件",
+            "fileName": "manifest.html"
+          },
+          {
+            "title": "匹配表达式",
+            "fileName": "match_patterns.html"
+          }
+        ]
+      },
+      {
+        "title": "权限警告",
+        "fileName": "permission_warnings.html"
+      },
+      {
+        "title": "chrome.* API",
+        "fileName": "api_index.html"
+      },
+      {
+        "title": "其他 API",
+        "fileName": "api_other.html"
+      }
+    ]
+  },
+  {
+    "title": "更多",
+    "items": [
+      {
+        "title": "常见问题",
+        "fileName": "faq.html"
+      },
+      {
+        "title": "Chrome 网上应用店",
+        "fileName": "https://code.google.com/chrome/webstore/docs/index.html"
+      },
+      {
+        "title": "托管应用",
+        "fileName": "https://code.google.com/chrome/apps/docs/developers_guide.html"
+      },
+      {
+        "title": "主题背景",
+        "fileName": "themes.html"
+      }
+    ]
+  }
+]

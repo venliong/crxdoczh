@@ -1,0 +1,365 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+[
+  {
+    "namespace": "events",
+    "compiler_options": {
+      "implemented_in": "chrome/browser/extensions/api/declarative/declarative_api.h"
+    },
+    "unprivileged": true,
+    "types": [
+      {
+        "id": "Rule",
+        "type": "object",
+//@        "description": "Description of a declarative rule for handling events.",
+        "description": "对用于处理事件的一条声明式规则的描述。",
+        "properties": {
+          "id": {
+            "type": "string",
+            "optional": true,
+//@            "description": "Optional identifier that allows referencing this rule."
+            "description": "用于引用这一条规则的可选标志符。"
+          },
+          "tags": {
+            "type": "array",
+            "items": {"type": "string"},
+            "optional": true,
+//@            "description":  "Tags can be used to annotate rules and perform operations on sets of rules."
+            "description":  "标签可以用来注解规则，并针对一系列规则进行操作。"
+          },
+          "conditions": {
+            "type": "array",
+            "items": {"type": "any"},
+//@            "description": "List of conditions that can trigger the actions."
+            "description": "可以触发指定操作的条件列表。"
+          },
+          "actions": {
+            "type": "array",
+            "items": {"type": "any"},
+//@            "description": "List of actions that are triggered if one of the condtions is fulfilled."
+            "description": "任何一个条件满足时触发的操作列表。"
+          },
+          "priority": {
+            "type": "integer",
+            "optional": true,
+//@            "description": "Optional priority of this rule. Defaults to 100."
+            "description": "该规则的优先级（可选），默认为 100。"
+          }
+        }
+      },
+      {
+        "id": "Event",
+        "type": "object",
+//@        "description": "An object which allows the addition and removal of listeners for a Chrome event.",
+        "description": "允许添加、删除 Chrome 浏览器事件监听器的对象。",
+        "additionalProperties": { "type": "any"},
+        "functions": [
+          {
+            "name": "addListener",
+            "nocompile": true,
+            "type": "function",
+//@            "description": "Registers an event listener <em>callback</em> to an event.",
+            "description": "为事件注册事件监听器的回调函数。",
+            "parameters": [
+              {
+                "name": "callback",
+                "type": "function",
+//@                "description": "Called when an event occurs. The parameters of this function depend on the type of event."
+                "description": "事件发生时调用，该函数的参数取决于事件类型。"
+              }
+            ]
+          },
+          {
+            "name": "removeListener",
+            "nocompile": true,
+            "type": "function",
+//@            "description": "Deregisters an event listener <em>callback</em> from an event.",
+            "description": "为事件取消注册事件监听器的回调函数。",
+            "parameters": [
+              {
+                "name": "callback",
+                "type": "function",
+//@                "description": "Listener that shall be unregistered."
+                "description": "要取消注册的监听器。"
+              }
+            ]
+          },
+          {
+            "name": "hasListener",
+            "nocompile": true,
+            "type": "function",
+            "parameters": [
+              {
+                "name": "callback",
+                "type": "function",
+//@                "description": "Listener whose registration status shall be tested."
+                "description": "要测试注册状态的监听器。"
+              }
+            ],
+            "returns": {
+              "type": "boolean",
+//@              "description": "True if <em>callback</em> is registered to the event."
+              "description": "如果 <em>callback</em> 已注册至该事件则为 true。"
+            }
+          },
+          {
+            "name": "hasListeners",
+            "nocompile": true,
+            "type": "function",
+            "parameters": [],
+            "returns": {
+              "type": "boolean",
+//@              "description": "True if any event listeners are registered to the event."
+              "description": "如果有事件监听器注册至该事件则为 true。"
+            }
+          },
+          {
+            "name": "addRules",
+            "type": "function",
+//@            "description": "Registers rules to handle events.",
+            "description": "注册规则来处理事件。",
+            "parameters": [
+              {
+                "nodoc": "true",
+                "name": "eventName",
+                "type": "string",
+                "description": "Name of the event this function affects."
+              },
+              {
+                "name": "rules",
+                "type": "array",
+                "items": {"$ref": "Rule"},
+//@                "description": "Rules to be registered. These do not replace previously registered rules."
+                "description": "要注册的规则，它们不会替换之前注册的规则。"
+              },
+              {
+                "name": "callback",
+                "optional": true,
+                "type": "function",
+                "parameters": [
+                  {
+                    "name": "rules",
+                    "type": "array",
+                    "items": {"$ref": "Rule"},
+//@                    "description": "Rules that were registered, the optional parameters are filled with values."
+                    "description": "已注册的规则，可选参数将用默认值填充。"
+                  }
+                ],
+//@                "description": "Called with registered rules."
+                "description": "规则注册后调用。"
+              }
+            ]
+          },
+          {
+            "name": "getRules",
+            "type": "function",
+//@            "description": "Returns currently registered rules.",
+            "description": "返回当前注册的规则。",
+            "parameters": [
+              {
+                "nodoc": "true",
+                "name": "eventName",
+                "type": "string",
+                "description": "Name of the event this function affects."
+              },
+              {
+                "name": "ruleIdentifiers",
+                "optional": "true",
+                "type": "array",
+                "items": {"type": "string"},
+//@                "description": "If an array is passed, only rules with identifiers contained in this array are returned."
+                "description": "如果传递了数组，只返回该数组中包含的标志符所对应的规则。"
+              },
+              {
+                "name": "callback",
+                "type": "function",
+                "parameters": [
+                  {
+                    "name": "rules",
+                    "type": "array",
+                    "items": {"$ref": "Rule"},
+//@                    "description": "Rules that were registered, the optional parameters are filled with values."
+                    "description": "已注册的规则，可选参数将用默认值填充。"
+                  }
+                ],
+//@                "description": "Called with registered rules."
+                "description": "调用时传递已注册的规则。"
+              }
+            ]
+          },
+          {
+            "name": "removeRules",
+            "type": "function",
+//@            "description": "Unregisters currently registered rules.",
+            "description": "取消注册当前已注册的规则。",
+            "parameters": [
+              {
+                "nodoc": "true",
+                "name": "eventName",
+                "type": "string",
+                "description": "Name of the event this function affects."
+              },
+              {
+                "name": "ruleIdentifiers",
+                "optional": "true",
+                "type": "array",
+                "items": {"type": "string"},
+//@                "description": "If an array is passed, only rules with identifiers contained in this array are unregistered."
+                "description": "如果传递了数组，只移除该数组中包含的标志符所对应的规则。"
+              },
+              {
+                "name": "callback",
+                "optional": true,
+                "type": "function",
+                "parameters": [],
+//@                "description": "Called when rules were unregistered."
+                "description": "规则移除后调用。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "UrlFilter",
+        "type": "object",
+//@        "description": "Filters URLs for various criteria. See <a href='#filtered'>event filtering</a>. All criteria are case sensitive.",
+        "description": "通过多种条件过滤 URL，参见<a href='#filtered'>事件过滤</a>。所有条件都区分大小写。",
+        "nocompile": true,
+        "properties": {
+          "hostContains": {
+            "type": "string",
+//@            "description": "Matches if the host name of the URL contains a specified string. To test whether a host name component has a prefix 'foo', use hostContains: '.foo'. This matches 'www.foobar.com' and 'foo.com', because an implicit dot is added at the beginning of the host name. Similarly, hostContains can be used to match against component suffix ('foo.') and to exactly match against components ('.foo.'). Suffix- and exact-matching for the last components need to be done separately using hostSuffix, because no implicit dot is added at the end of the host name.",
+            "description": "如果 URL 中的主机名包含指定字符串则匹配。要测试主机名是否包含前缀 'foo'，请使用 hostContains: '.foo'，将匹配 'www.foobar.com' 和 'foo.com'，因为主机名前面会添加隐式的点。类似地，hostContains 可以用于匹配某一部分的后缀（'foo.'），或者精确匹配某一部分（'.foo.'）。最后一部分的后缀匹配和精确匹配需要单独用 hostSuffix 实现，因为主机名末尾不会添加隐式的点。",
+            "optional": true
+          },
+          "hostEquals": {
+            "type": "string",
+//@            "description": "Matches if the host name of the URL is equal to a specified string.",
+            "description": "如果 URL 中的主机名与指定字符串相等则匹配。",
+            "optional": true
+          },
+          "hostPrefix": {
+            "type": "string",
+//@            "description": "Matches if the host name of the URL starts with a specified string.",
+            "description": "如果 URL 中的主机名以指定字符串开始则匹配。",
+            "optional": true
+          },
+          "hostSuffix": {
+            "type": "string",
+//@            "description": "Matches if the host name of the URL ends with a specified string.",
+            "description": "如果 URL 中的主机名以指定字符串结尾则匹配。",
+            "optional": true
+          },
+          "pathContains": {
+            "type": "string",
+//@            "description": "Matches if the path segment of the URL contains a specified string.",
+            "description": "如果 URL 中的路径部分包含指定字符串则匹配。",
+            "optional": true
+          },
+          "pathEquals": {
+            "type": "string",
+//@            "description": "Matches if the path segment of the URL is equal to a specified string.",
+            "description": "如果 URL 中的路径部分与指定字符串相等则匹配。",
+            "optional": true
+          },
+          "pathPrefix": {
+            "type": "string",
+//@            "description": "Matches if the path segment of the URL starts with a specified string.",
+            "description": "如果 URL 中的路径部分以指定字符串开始则匹配。",
+            "optional": true
+          },
+          "pathSuffix": {
+            "type": "string",
+//@            "description": "Matches if the path segment of the URL ends with a specified string.",
+            "description": "如果 URL 中的路径部分以指定字符串结尾则匹配。",
+            "optional": true
+          },
+          "queryContains": {
+            "type": "string",
+//@            "description": "Matches if the query segment of the URL contains a specified string.",
+            "description": "如果 URL 中的查询部分包含指定字符串则匹配。",
+            "optional": true
+          },
+          "queryEquals": {
+            "type": "string",
+//@            "description": "Matches if the query segment of the URL is equal to a specified string.",
+            "description": "如果 URL 中的查询部分与指定字符串相等则匹配。",
+            "optional": true
+          },
+          "queryPrefix": {
+            "type": "string",
+//@            "description": "Matches if the query segment of the URL starts with a specified string.",
+            "description": "如果 URL 中的查询部分以指定字符串开始则匹配。",
+            "optional": true
+          },
+          "querySuffix": {
+            "type": "string",
+//@            "description": "Matches if the query segment of the URL ends with a specified string.",
+            "description": "如果 URL 中的查询部分以指定字符串结尾则匹配。",
+            "optional": true
+          },
+          "urlContains": {
+            "type": "string",
+//@            "description": "Matches if the URL (without fragment identifier) contains a specified string. Port numbers are stripped from the URL if they match the default port number.",
+            "description": "如果 URL（不包括片段标识符）包含指定字符串则匹配。端口号如果匹配默认端口号则将从 URL 中去除。",
+            "optional": true
+          },
+          "urlEquals": {
+            "type": "string",
+//@            "description": "Matches if the URL (without fragment identifier) is equal to a specified string. Port numbers are stripped from the URL if they match the default port number.",
+            "description": "如果 URL（没有片段标识符）与指定字符串相等则匹配。端口号如果匹配默认端口号则将从 URL 中去除。",
+            "optional": true
+          },
+          "urlMatches": {
+            "type": "string",
+//@            "description": "Matches if the URL (without fragment identifier) matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the <a href=\"http://code.google.com/p/re2/wiki/Syntax\">RE2 syntax</a>.",
+            "description": "如果 URL（不包括片段标识符）匹配指定正则表达式则匹配。端口号如果匹配默认端口号则将从 URL 中去除。正则表达式使用 <a href=\"https://code.google.com/p/re2/wiki/Syntax\">RE2 语法</a>。",
+            "optional": true
+          },
+          "originAndPathMatches": {
+            "type": "string",
+//@            "description": "Matches if the URL without query segment and fragment identifier matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the <a href=\"http://code.google.com/p/re2/wiki/Syntax\">RE2 syntax</a>.",
+            "description": "如果不包含查询部分和片段标识符的 URL 匹配指定的正则表达式则匹配。如果端口号匹配默认端口号，则会从 URL 中去除。正则表达式使用 <a href=\"https://code.google.com/p/re2/wiki/Syntax\">RE2 语法</a>。",
+            "optional": true
+          },
+          "urlPrefix": {
+            "type": "string",
+//@            "description": "Matches if the URL (without fragment identifier) starts with a specified string. Port numbers are stripped from the URL if they match the default port number.",
+            "description": "如果 URL（不包括片段标识符）以指定字符串开始则匹配。端口号如果匹配默认端口号则将从 URL 中去除。",
+            "optional": true
+          },
+          "urlSuffix": {
+            "type": "string",
+//@            "description": "Matches if the URL (without fragment identifier) ends with a specified string. Port numbers are stripped from the URL if they match the default port number.",
+            "description": "如果 URL（不包括片段标识符）以指定字符串结尾则匹配。端口号如果匹配默认端口号则将从 URL 中去除。",
+            "optional": true
+          },
+          "schemes": {
+            "type": "array",
+//@            "description": "Matches if the scheme of the URL is equal to any of the schemes specified in the array.",
+            "description": "如果 URL 的协议与数组中指定的任意一种协议相同则匹配。",
+            "optional": true,
+            "items": { "type": "string" }
+          },
+          "ports": {
+            "type": "array",
+//@            "description": "Matches if the port of the URL is contained in any of the specified port lists. For example <code>[80, 443, [1000, 1200]]</code> matches all requests on port 80, 443 and in the range 1000-1200.",
+            "description": "如果 URL 的端口包含在指定的端口列表中则匹配。例如 [80, 443, [1000, 1200]] 匹配端口为 80、443 或者在 1000—2000 范围内的所有请求。",
+            "optional": true,
+            "items": {
+              "choices": [
+//@                {"type": "integer", "description": "A specific port."},
+                {"type": "integer", "description": "某个端口。"},
+//@                {"type": "array", "items": {"type": "integer"}, "description": "A pair of integers identiying the start and end (both inclusive) of a port range."}
+                {"type": "array", "items": {"type": "integer"}, "description": "一对整数，表示端口范围的开始和结束（都包括它们本身）。"}
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+]
+
