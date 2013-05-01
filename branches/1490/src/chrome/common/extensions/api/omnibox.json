@@ -86,7 +86,7 @@
             "name": "suggestion",
             "$ref": "SuggestResult",
 //@            "description": "A partial SuggestResult object, without the 'content' parameter. See SuggestResult for a description of the parameters."
-            "description": "具有部分内容的 SuggestResult 对象，没有\"content\"参数。有关参数的描述请参见 SuggestResult。",
+            "description": "具有部分内容的 SuggestResult 对象，没有\"content\"参数。有关参数的描述请参见 SuggestResult。"
           }
         ]
       }
