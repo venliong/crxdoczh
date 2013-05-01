@@ -102,9 +102,9 @@ namespace bluetooth {
     // 与该套接字关联的远程蓝牙设备。
     Device device;
 
-    // <!--@The remote Bluetooth service associated with this socket.-->
-    // 与该套接字关联的远程蓝牙服务。
-    DOMString serviceUuid;
+    // <!--@The remote Bluetooth profile associated with this socket.-->
+    // 与该套接字关联的远程蓝牙规范。
+    Profile profile;
 
     // <!--@An identifier for this socket that should be used with the
     // read/write/disconnect methods.-->
@@ -175,16 +175,13 @@ namespace bluetooth {
   // <!--@Options for the connect function.-->
   // connect 函数中使用的选项。
   dictionary ConnectOptions {
-    // <!--@The connection is made to the device at |deviceAddress|.
-    // |deviceAddress| should be in the format 'XX:XX:XX:XX:XX:XX'.-->
-    // 将连接至地址为 <code>deviceAddress</code>
-    // 的设备。<code>deviceAddress</code>
-    // 的格式为“XX:XX:XX:XX:XX:XX”。
-    DOMString deviceAddress;
+    // <!--@The connection is made to |device|.-->
+    // 连接到 <code>device</code> 设备。
+    Device device;
 
-    // <!--@The connection is made to the service with UUID |serviceUuid|.-->
-    // 将连接至 UUID 为 <code>serviceUuid</code> 的服务。
-    DOMString serviceUuid;
+    // <!--@The connection is made to |profile|.-->
+    // 连接到 <code>profile</code> 规范。
+    Profile profile;
   };
 
   // <!--@Options for the disconnect function.-->
@@ -192,7 +189,7 @@ namespace bluetooth {
   dictionary DisconnectOptions {
     // <!--@The socket to disconnect.-->
     // 要断开连接的套接字。
-    long socketId;
+    Socket socket;
   };
 
   // <!--@Options for the read function.-->
@@ -200,7 +197,7 @@ namespace bluetooth {
   dictionary ReadOptions {
     // <!--@The socket to read from.-->
     // 要读取的套接字。
-    long socketId;
+    Socket socket;
   };
 
   // <!--@Options for the write function.-->
@@ -208,7 +205,7 @@ namespace bluetooth {
   dictionary WriteOptions {
     // <!--@The socket to write to.-->
     // 要写入的套接字。
-    long socketId;
+    Socket socket;
 
     // <!--@The data to write.-->
     // 要写入的数据。

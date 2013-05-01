@@ -133,6 +133,16 @@ namespace socket {
 
   callback GetNetworkCallback = void (NetworkInterface[] result);
 
+  callback JoinGroupCallback = void (long result);
+
+  callback LeaveGroupCallback = void (long result);
+
+  callback SetMulticastTimeToLiveCallback = void (long result);
+
+  callback SetMulticastLoopbackModeCallback = void (long result);
+
+  callback GetJoinedGroupsCallback = void (DOMString[] groups);
+
   interface Functions {
     // <!--@Creates a socket of the specified type that will connect to the specified
     // remote machine.-->
@@ -269,6 +279,8 @@ namespace socket {
     // 本地计算机的端口。
     // |backlog| : <!--@Length of the socket's listen queue.-->
     // 套接字监听队列的长度。
+    // |callback| : <!--@Called when listen operation completes.-->
+    // 监听操作完成时调用。
     static void listen(long socketId,
                        DOMString address,
                        long port,
@@ -336,6 +348,102 @@ namespace socket {
     // |callback| : <!--@Called when local adapter information is available.-->
     // 本地适配器信息可用时调用。
     static void getNetworkList(GetNetworkCallback callback);
+
+    // <!--@Join the multicast group and start to receive packets from that group.
+    // The socket must be of UDP type and must be bound to a local port
+    // before calling this method.-->
+    // 加入多播组，并开始接收数据包。调用该方法之前，套接字的类型必须是
+    // UDP，并且已经绑定至本机端口。
+    // |socketId| : <!--@The socketId.-->
+    // 套接字标识符。
+    // |address| : <!--@The group address to join. Domain names are not supported.-->
+    // 要加入的多播组地址，不支持域名。
+    // |callback| : <!--@Called when the join group operation is done with an 
+    // integer parameter indicating the platform-independent error code.-->
+    // 加入多播组的操作完成后调用，并传递一个整型参数，表示平台无关的错误代码。
+    static void joinGroup(long socketId,
+                          DOMString address,
+                          JoinGroupCallback callback);
+
+    // <!--@Leave the multicast group previously joined using <code>joinGroup</code>.
+    // It's not necessary to leave the multicast group before destroying the 
+    // socket or exiting. This is automatically called by the OS.-->
+    // 离开之前使用 <code>joinGroup</code>
+    // 加入的多播组。释放套接字或退出前不用离开多播组，这会由操作系统自动调用。
+    //
+    // <!--@Leaving the group will prevent the router from sending multicast 
+    // datagrams to the local host, presuming no other process on the host is 
+    // still joined to the group.-->
+    // 离开多播组后，如果没有其他进程仍然加入多播组，路由器不会继续向本机发送多播数据包。
+    //
+    // |socketId| : <!--@The socketId.-->
+    // 套接字标识符。
+    // |address| : <!--@The group address to leave. Domain names are not supported.-->
+    // 要离开的多播组地址，不支持域名。
+    // |callback| : <!--@Called when the leave group operation is done with an
+    // integer parameter indicating the platform-independent error code.-->
+    // 离开多播组的操作完成后调用，并传递一个整型参数，表示平台无关的错误代码。
+    static void leaveGroup(long socketId, DOMString address,
+                           LeaveGroupCallback callback);
+
+    // <!--@Set the time-to-live of multicast packets sent to the multicast group.-->
+    // 设置发送至多播组的多播数据包的 TTL 值。
+    //
+    // <!--@Calling this method does not require multicast permissions.-->
+    // 调用该方法不需要多播权限。
+    //
+    // |socketId| : <!--@The socketId.-->
+    // 套接字标识符。
+    // |ttl| : <!--@The time-to-live value.-->
+    // TTL 值。
+    // |callback| : <!--@Called when the configuration operation is done.-->
+    // 配置操作完成后调用。
+    static void setMulticastTimeToLive(
+        long socketId,
+        long ttl,
+        SetMulticastTimeToLiveCallback callback);
+
+    // <!--@Set whether multicast packets sent from the host to the multicast 
+    // group will be looped back to the host.-->
+    // 设置主机向多播组发送的多播包是否要回环至主机。
+    //
+    // <!--@Note: the behavior of <code>setMulticastLoopbackMode</code> is slightly
+    // different between Windows and Unix-like systems. The inconsistency
+    // happens only when there is more than one application on the same host
+    // joined to the same multicast group while having different settings on
+    // multicast loopback mode. On Windows, the applications with loopback off
+    // will not RECEIVE the loopback packets; while on Unix-like systems, the
+    // applications with loopback off will not SEND the loopback packets to
+    // other applications on the same host. See MSDN: http://goo.gl/6vqbj-->
+    // 注意：<code>setMulticastLookbackMode</code> 在 Windows 与类 Unix
+    // 系统上的行为不同。只有当同一主机上不止一个应用程序加入了同一个多播组，并且多播回环模式的设置不同时才会出现这一不一致性。在
+    // Windows 中，关闭回环的应用程序不会<b>接受</b>到回环包；而在类 Unix
+    // 系统中，关闭回环的应用程序不会向同一主机上的其他应用程序<b
+    // >发送</b>回环包。请参见 MSDN：<a href="http://goo.gl/6vqbj"
+    // >http://goo.gl/6vqbj</a>。
+    //
+    // <!--@Calling this method does not require multicast permissions.-->
+    // 调用该方法不需要多播权限。
+    //
+    // |socketId| : <!--@The socketId.-->
+    // 套接字标识符。
+    // |enabled| : <!--@Indicate whether to enable loopback mode.-->
+    // 表示是否启用回环模式。
+    // |callback| : <!--@Called when the configuration operation is done.-->
+    // 配置操作完成后调用。
+    static void setMulticastLoopbackMode(
+        long socketId,
+        boolean enabled,
+        SetMulticastLoopbackModeCallback callback);
+
+    // <!--@Get the multicast group addresses the socket is currently joined to.-->
+    // 获取套接字当前加入的多播组地址。
+    // |socketId| : <!--@The socketId.-->
+    // 套接字标识符。
+    // |callback| : <!--@Called with an array of strings of the result.-->
+    // 调用时传递字符串数据，表示结果。
+    static void getJoinedGroups(long socketId,
+                                GetJoinedGroupsCallback callback);
   };
 
 };
