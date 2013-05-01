@@ -1,0 +1,69 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// File-level comment to appease parser. Eventually this will not be necessary.
+namespace experimental.systemInfo.display {
+
+  dictionary DisplayUnitInfo {
+    // <!--@The unique identifier of the display device.-->
+    // 显示设备的唯一标识符。
+    DOMString id;
+    // <!--@The ordinal index for each display device.-->
+    // 每一个显示设备的索引序号。
+    long index;
+    // <!--@True if the display is the primary one.-->
+    // 如果是主显示器则为 true。
+    boolean isPrimary;
+    // <!--@The y-coordinate of the upper-left corner of the work area on the
+    // display's screen.-->
+    // 显示器屏幕上工作区域左上角的 Y 坐标。
+    long availTop;
+    // <!--@The x-coordinate of the upper-left corner of the work area on the
+    // display's screen.-->
+    // 显示器屏幕上工作区域左上角的 X 坐标。
+    long availLeft;
+    // <!--@The height of the work area on the display's screen in pixels.-->
+    // 显示器屏幕上工作区域的高度，以像素为单位。
+    long availHeight;
+    // <!--@The width of the work area on the display's screen in pixels.-->
+    // 显示器屏幕上工作区域的宽度，以像素为单位。
+    long availWidth;
+    // <!--@The color depth of the display's screen.-->
+    // 显示器屏幕的颜色深度。
+    long colorDepth;
+    // <!--@The pixel depth of the display's screen.-->
+    // 显示器屏幕的像素深度。
+    long pixelDepth;
+    // <!--@The height of the display's screen in pixels.-->
+    // 显示器屏幕的高度，以像素为单位。
+    long height;
+    // <!--@The width of the display's screen in pixels.-->
+    // 显示器屏幕的宽度，以像素为单位。
+    long width;
+    // <!--@The absolute offset of the upper-left corner of the display's screen in
+    // the virtual-screen coordinate.-->
+    // 在虚拟屏幕坐标下显示器屏幕左上角的绝对偏移。
+    long absoluteTopOffset;
+    // <!--@The absolute offset of the upper-left corner of the display's screen in
+    // the virtual-screen coodinate.-->
+    // 在虚拟屏幕坐标下显示器屏幕左上角的绝对偏移。
+    long absoluteLeftOffset;
+    // <!--@The number of pixel per logic inch along the display's screen width.-->
+    // 沿着显示器屏幕宽度方向下每逻辑英寸的像素数目。
+    long dpiX;
+    // <!--@The number of pixel per logic inch along the display's screen height.-->
+    // 沿着显示器屏幕高度方向下每逻辑英寸的像素数目。
+    long dpiY;
+  };
+
+  callback DisplayInfoCallback = void (DisplayUnitInfo[] info);
+
+  interface Functions {
+    // <!--@Get all display information on the system. The argument passed to the
+    // callback is an array of DisplayUnitInfo objects.-->
+    // 获取系统中所有显示器的信息，传递给回调函数的参数为
+    // $ref:DisplayUnitInfo 对象数组。
+    static void get(DisplayInfoCallback callback);
+  };
+};
