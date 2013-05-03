@@ -1,0 +1,240 @@
+<h1><!--@Packaging-->打包</h1>
+
+
+<p>
+<!--@This page describes how to package your extension.
+As the <a href="overview.html">Overview</a> explains,
+extensions are packaged as signed ZIP files
+with the file extension "crx"&mdash;for example,
+<code>myextension.crx</code>.-->
+这一页面描述如何将您的扩展程序打包。如<a href="overview.html"
+>概述</a>中所述，扩展程序打包为已签名的 ZIP 文件，文件扩展名为“crx”，例如
+<code>myextension.crx</code>。
+</p>
+
+<p>
+<!--@<b>Note:</b>
+You do not need to package your own extension.
+If you publish your extension using the
+<a href="https://chrome.google.com/webstore/developer/dashboard">Chrome Developer Dashboard</a>,
+then the only reason to create your own <code>.crx</code> file
+would be to distribute a non-public version&mdash;for example,
+to alpha testers.
+You can find information on publishing extensions and apps in the
+Chrome Web Store getting started tutorial, starting at
+<a href="http://code.google.com/chrome/webstore/docs/get_started_simple.html#step5">Step 5: Zip up your app</a>.-->
+注意：您通常不需要为您的扩展程序打包。如果您使用 <a
+href="https://chrome.google.com/webstore/developer/dashboard">Chrome
+开发者信息中心</a>发布扩展程序，那么您不需要创建自己的 <code>.crx</code>
+文件，除非您需要发布一个非公开版本，例如用于测试人员。您可以在 Chrome
+网上应用店的入门教程中从<a
+href="https://code.google.com/chrome/webstore/docs/get_started_simple.html#step5">步骤
+5：为您的应用创建 ZIP
+文件</a>（英文）这一部分开始，找到发布扩展程序和应用的有关信息。
+</p>
+
+<p>
+<!--@When you package an extension,
+the extension is assigned a unique key pair.
+The extension's ID is based on a hash of the public key.
+The private key is used to sign each version of the extension
+and must be secured from public access.
+Be careful not to include your private key within
+your extensions!-->
+当您为扩展程序打包时，扩展程序将获得唯一的密钥对，扩展程序的标识符基于公钥的散列，私有密钥用来为每一个版本的扩展程序签名，必须严格保护，不能由公众访问。注意千万不要将您的私有密钥包含在扩展程序中！
+</p>
+
+
+<h2 id="creating"><!--@Creating a package-->创建包</h2>
+
+<p><!--@To package an extension:-->要为扩展程序打包：</p>
+<ol>
+  <li>
+    <!--@Bring up the Extensions management page
+    by going to this URL:-->
+    进入以下URL，打开扩展程序管理页面：
+    <blockquote>
+    <b>chrome://extensions</b>
+    </blockquote>
+  </li>
+
+  <li>
+    <!--@Ensure that the "Developer mode" checkbox in the top right-hand corner
+    is checked.-->
+    确保右上角的<b>开发者模式</b>复选框已选中。
+  </li>
+
+  <li>
+    <!--@Click the <b>Pack extension</b> button.
+    A dialog appears.-->
+    单击<b>打包扩展程序</b>按钮，出现一个对话框。
+  </li>
+
+  <li>
+    <!--@In the <b>Extension root directory</b> field,
+    specify the path to the extension's folder&mdash;for example,
+    <code>c:\myext</code>.
+    (Ignore the other field;
+    you don't specify a private key file
+    the first time you package a particular extension.)-->
+    在<b>扩展程序根目录</b>字段中，指定扩展程序所在文件夹的路径，例如，<code>c:\myext</code>。（忽略其他字段，您第一次为一个扩展程序打包时不需要指定私有密钥文件。）
+  </li>
+
+  <li>
+    <!--@Click <b>Package</b>.
+    The packager creates two files:
+    a <code>.crx</code> file,
+    which is the actual extension that can be installed,
+    and a <code>.pem</code> file,
+    which contains the private key.-->
+    单击<b>打包扩展程序</b>。打包程序将创建两个文件：一个
+    <code>.crx</code> 文件，是实际的可安装的扩展程序；另一个是
+    <code>.pem</code> 文件，包含私有密钥。
+  </li>
+</ol>
+
+
+<p>
+<b><!--@Do not lose the private key!-->不要丢失私有密钥！</b><!--@
+Keep the <code>.pem</code> file secret and in a safe place.
+You'll need it later if you want to do any of the following:-->确保
+<code>.pem</code>
+文件保密，并存放在安全的地方。如果您今后需要做如下事情，您需要这一文件：
+</p>
+<ul>
+<li><a href="#update"><!--@Update-->更新</a><!--@ the extension-->扩展程序</li>
+<li>将扩展程序<a href="#upload"><!--@Upload-->上传</a><!--@ the extension to the Chrome Web Store-->至 Chrome 网上应用店</li>
+</ul>
+
+<p>
+<!--@If the extension is successfully packaged, you'll see a dialog like this
+that tells you where to find
+the <code>.crx</code> and <code>.pem</code> files:</p>-->
+如果扩展程序打包成功，您会看到如下对话框，告诉您
+<code>.crx</code> 文件与 <code>.pem</code> 文件的位置：
+</p>
+
+<img src="{{static}}/images/package-success.gif"
+  width="554" height="208" />
+
+
+<h2 id="update"><!--@Updating a package-->更新扩展程序</h2>
+
+<p><!--@To create an updated version of your extension:-->要创建您的扩展程序的更新版本：</p>
+<ol>
+  <li>
+    <!--@Increase the version number in-->增加 <code>manifest.json</code><!--@.-->
+    中的版本号。
+  </li>
+
+  <li>
+    <!--@Bring up the Extensions management page
+    by going to this URL: -->
+    进入如下 URL，打开扩展程序管理页面：
+    <b>chrome://extensions</b>
+  </li>
+
+  <li>
+    <!--@Click the <b>Pack extension</b> button.
+    A dialog appears.-->
+    单击<b>打包扩展程序</b>按钮，出现一个对话框。
+  </li>
+
+  <li>
+    <!--@In the <b>Extension root directory</b> field,
+    specify the path to the extension's folder&mdash;for example,
+    <code>c:\myext</code>.-->
+    在<b>扩展程序根目录</b>字段中指定扩展程序所在文件夹，例如
+    <code>c:\myext</code>。
+  </li>
+
+  <li>
+    <!--@In the <b>Private key file</b> field,
+    specify the location of the
+    already generated <code>.pem</code> file for this extension&mdash;for
+    example, <code>c:\myext.pem</code>.-->
+    在<b>私有密钥文件</b>字段中，指定已生成的用于该扩展程序的
+    <code>.pem</code> 文件位置，例如 <code>c:\myext.pem</code>。
+  </li>
+
+  <li>
+    <!--@Click <b>OK</b>.-->
+    单击<b>打包扩展程序</b>。
+  </li>
+</ol>
+
+<p><!--@If the updated extension is successfully packaged, you'll see a dialog like this:-->
+如果已更新的扩展程序打包成功，您将会看到如下对话框：
+</p>
+
+<img src="{{static}}/images/update-success.gif"
+  width="298" height="160" />
+
+
+<h2 id="upload"> <!--@Uploading a previously packaged extension to the Chrome Web Store-->将已经打包的扩展程序上传到 Chrome 网上应用店</h2>
+
+<p>
+<!--@You can use the Chrome Developer Dashboard
+to upload an extension that you've previously packaged yourself.
+However, unless you take special steps,
+the extension's ID in the Chrome Web Store
+will be different from its ID in the package you created.
+This different ID might be a problem if you've
+distributed your extension package,
+because it allows users to install multiple versions of your extension,
+each with its own local data.-->
+您可以使用 Chrome
+开发者信息中心来上传您之前自己打包的扩展程序。然而，除非您进行特别的处理，Chrome
+网上应用店中的扩展程序标识符将与您创建的扩展程序包不同。如果您已经发布了扩展程序包，不同的标识符可能会出问题，因为这样将允许用户安装您的扩展程序的多个版本，分别具有单独的本地数据。
+</p>
+
+<p>
+<!--@If you want to keep the extension ID the same,
+follow these steps:-->
+如果您希望保持扩展程序的标识符不变，请遵循以下步骤：
+</p>
+
+<ol>
+  <li> <!--@Rename the private key that was generated
+    when you created the <code>.crx</code> file to <code>key.pem</code>. -->
+    将您创建 <code>.crx</code> 文件时生成的私有密钥文件重命名为
+    <code>key.pem</code>。
+  </li>
+  <li> <!--@Put <code>key.pem</code> in the top directory
+    of your extension. -->
+    将 <code>key.pem</code> 文件放在您的扩展程序根目录中。
+  </li>
+  <li> <!--@Compress that directory into a ZIP file.-->将这一目录压缩为 ZIP 文件。 </li>
+  <li> <!--@Upload the ZIP file using the-->使用
+    <a href="https://chrome.google.com/webstore/developer/dashboard">Chrome <!--@Developer Dashboard-->开发者信息中心</a><!--@.-->上传 ZIP 文件。 </li>
+</ol>
+
+
+<h2 id="packaging"><!--@Packaging at the command line-->在命令行中打包</h2>
+
+<p>
+<!--@Another way to package extensions
+is by invoking <code>chrome.exe</code> at the command line.
+Use the <code>--pack-extension</code> flag
+to specify the location of the extension's folder.
+Use <code>--pack-extension-key</code>
+to specify the location of the extension's private key file.
+For example:-->
+为扩展程序打包的另一种方式是在命令行中执行
+<code>chrome.exe</code>（在 Linux 或 Mac OS X 上为
+<code>chrome</code>）。使用 <code>--pack-extension</code>
+参数指定扩展程序所在文件夹的位置，使用 <code>--pack-extension-key</code>
+指定扩展程序私有密钥文件的位置。例如：
+</p>
+
+<pre>
+chrome.exe --pack-extension=c:\myext --pack-extension-key=c:\myext.pem
+</pre>
+
+<h2 id="format"><!--@Package format and scripts-->扩展程序包的格式和脚本</h2>
+<p>
+<!--@For more information on the format, as well as pointers to scripts you can use
+to create <code>.crx</code> files, see <a href="crx.html">CRX Package Format</a>.-->
+有关格式的更多信息以及您可以用来创建 <code>.crx</code> 文件的脚本，请参见
+<a href="crx.html">CRX 包的格式</a>。
+</p>

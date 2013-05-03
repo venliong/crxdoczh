@@ -1,0 +1,25 @@
+<h4><!--@Callback-->回调函数</h4>
+<p>
+  {{?optional}}
+      <!--@If you specify the <em>{{name}}</em> parameter, it should
+      specify a function that looks like this:-->
+      如果您指定了 <em>{{name}}</em> 参数，它应该指定一个如下形式的函数：
+  {{:optional}}
+      <!--@The <em>{{name}}</em> parameter should specify a function
+      that looks like this:-->
+      <em>{{name}}</em> 参数应该指定一个如下形式的函数：
+  {{/optional}}
+</p>
+<pre>function({{#parameters}}{{+partials.variable_type}} {{name}}{{^last}}, {{/}}{{/}}) <span class="subdued">{...}</span>;</pre>
+{{?description}}
+<p>
+  {{{description}}}
+</p>
+{{/description}}
+{{?parameters}}
+<dl>
+  {{#parameters}}
+    {{+partials.parameter_full}}
+  {{/parameters}}
+</dl>
+{{/parameters}}
