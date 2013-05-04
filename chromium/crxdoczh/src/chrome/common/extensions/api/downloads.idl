@@ -24,11 +24,6 @@ namespace downloads {
   // </dl>
   [inline_doc] enum FilenameConflictAction {uniquify, overwrite, prompt};
 
-  // <!--@$ref:onDeterminingFilename listeners may pass a
-  // <code>FilenameSuggestion</code> object to <code>suggest()</code> in order
-  // to override a download's target filename.-->
-  // $ref:onDeterminingFilename 监听器可以向 <code>suggest()</code> 传递一个
-  // <code>FilenameSuggestion</code> 对象，修改下载项的目标文件名。
   [inline_doc] dictionary FilenameSuggestion {
     // <!--@The $ref:DownloadItem's new target $ref:DownloadItem.filename, as a path
     // relative to the user's default Downloads directory, possibly containing
@@ -38,9 +33,8 @@ namespace downloads {
     // $ref:DownloadItem.filename（文件名），以相对于用户默认下载目录的路径表示，可以包含子目录。绝对路径、空路径以及包含父目录引用“..”的路径将被忽略。
     DOMString filename;
 
-    // <!--@The action to take if <code>FilenameSuggestion.filename</code> already
-    // exists.-->
-    // 如果 <code>FilenameSuggestion.filename</code> 已存在的话要采取的行动。
+    // <!--@The action to take if <code>filename</code> already exists.-->
+    // 如果 <code>filename</code> 已存在的话要采取的行动。
     FilenameConflictAction? conflict_action;
   };
 
@@ -633,15 +627,15 @@ namespace downloads {
     // until all listeners have called <code>suggest</code>. Listeners may call
     // <code>suggest</code> without any arguments in order to allow the download
     // to use <code>downloadItem.filename</code> for its filename, or pass a
-    // <code>FilenameSuggestion</code> object to <code>suggest</code> in order
-    // to override the target filename. If more than one extension overrides the
+    // <code>suggestion</code> object to <code>suggest</code> in order to
+    // override the target filename. If more than one extension overrides the
     // filename, then the last extension installed whose listener passes a
-    // <code>FilenameSuggestion</code> object to <code>suggest</code> wins. In
-    // order to avoid confusion regarding which extension will win, users should
-    // not install extensions that may conflict. If the download is initiated by
+    // <code>suggestion</code> object to <code>suggest</code> wins. In order to
+    // avoid confusion regarding which extension will win, users should not
+    // install extensions that may conflict. If the download is initiated by
     // $ref:download and the target filename is known before the MIME type and
-    // tentative filename have been determined, use
-    // <code>DownloadOptions.filename</code> instead.-->
+    // tentative filename have been determined, pass <code>filename</code> to
+    // $ref:download instead.-->
     // 在确定文件名的过程中，扩展程序有机会修改目标
     // $ref:DownloadItem.filename（文件名）。每一个扩展程序不能为该事件注册一个以上的监听器，每个监听器必须恰好调用一次
     // <code>suggest</code>，既可以是同步地，也可以是异步地。如果监听器异步地调用
@@ -651,12 +645,13 @@ namespace downloads {
     // 前，$ref:DownloadItem（下载项）不会完成。监听器应该不传递任何参数调用
     // <code>suggest</code>，允许下载项使用 <code>downloadItem.filename</code>
     // 作为它的文件名，或者向 <code>suggest</code> 传递一个
-    // $ref:FilenameSuggestion，修改目标文件名。如果不止一个扩展程序修改文件名，最后安装并且向
-    // <code>suggest</code> 传递 $ref:FilenameSuggestion
+    // <code>suggestion</code>
+    // 对象，修改目标文件名。如果不止一个扩展程序修改文件名，最后安装并且向
+    // <code>suggest</code> 传递 <code>suggestion</code>
     // 对象的扩展程序优先。为了避免哪个扩展程序优先造成的混淆，用户不应该安装可能会导致冲突的扩展程序。如果下载由
     // $ref:download 发起，并且在 MIME
-    // 类型和待定文件名确定前就指定了文件名，则使用
-    // <code>DownloadOptions.filename</code>。
+    // 类型和待定文件名确定前就指定了文件名，请将 <code>filename</code>
+    // 传递给 $ref:download。
     [maxListeners=1] static void onDeterminingFilename(
         DownloadItem downloadItem, SuggestFilenameCallback suggest);
   };

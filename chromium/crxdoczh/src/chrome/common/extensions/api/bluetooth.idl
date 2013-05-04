@@ -286,12 +286,10 @@ namespace bluetooth {
     // 连接到设备上的某个服务。
     // |options|  : <!--@The options for the connection.-->
     // 连接选项。
-    // |callback| : <!--@Called when the connection is established with a Socket
-    //              that can be used to communicate with |device|.-->
-    // 连接通过 $ref:Socket（套接字）建立后调用，可以用来与
-    // <code>device</code>（设备）通信。
+    // |callback| : <!--@Called to indicate success or failure.-->
+    // 调用时指示成功或失败。
     static void connect(ConnectOptions options,
-                        SocketCallback callback);
+                        ResultCallback callback);
 
     // <!--@Close a Bluetooth connection.-->
     // 关闭蓝牙连接。

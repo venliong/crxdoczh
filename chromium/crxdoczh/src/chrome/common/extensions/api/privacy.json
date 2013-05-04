@@ -97,9 +97,9 @@
           "protectedContentEnabled": {
             "$ref": "types.ChromeSetting",
             "value": ["protectedContentEnabled", {"type":"boolean"}],
-//@            "description": "<strong>Available on ChromeOS only</strong>: If enabled, Chrome provides a unique ID to plugins in order to run protected content. The value of this preference is of type boolean, and the default value is <code>true</code>.",
-            "description": "<strong>仅在 Chrome OS 上可用：</strong>如果启用的话，Chrome 浏览器将会向插件提供唯一标志符来运行受保护的内容。这一选项的值为布尔类型，默认为 <code>true</code>。",
-            "platforms": ["cros", "cros touch"]
+//@            "description": "<strong>Available on Windows and ChromeOS only</strong>: If enabled, Chrome provides a unique ID to plugins in order to run protected content. The value of this preference is of type boolean, and the default value is <code>true</code>.",
+            "description": "<strong>仅在 Windows 和 Chrome OS 上可用：</strong>如果启用的话，Chrome 浏览器将会向插件提供唯一标志符来运行受保护的内容。这一选项的值为布尔类型，默认为 <code>true</code>。",
+            "platforms": ["windows", "cros", "cros touch"]
           }
         }
       }
