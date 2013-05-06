@@ -34,15 +34,15 @@ namespace bluetooth {
 
     // <!--@The human-readable name of the device.-->
     // 可读的设备名称。
-    DOMString name;
+    DOMString? name;
 
     // <!--@Indicates whether or not the device is paired with the system.-->
     // 表示设备是否已和系统配对。
-    boolean paired;
+    boolean? paired;
 
     // <!--@Indicates whether the device is currently connected to the system.-->
     // 表示设备当前是否已连接到系统。
-    boolean connected;
+    boolean? connected;
   };
 
   dictionary Profile {
