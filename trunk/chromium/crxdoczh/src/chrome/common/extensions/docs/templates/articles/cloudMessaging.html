@@ -172,7 +172,7 @@ to use the push messaging service
       </li>	
   	</ul>
    </li>
-  <li><!--@Publish and get whitelisted.-->发布并使之列入白名单。 </li>
+  <li><!--@Publish your app in the Chrome Web Store.-->在 Chrome 网上应用店发布您的应用。 </li>
   <li><!--@Use refresh token to get a valid access token.-->使用刷新令牌获取有效的访问令牌。</li>
   <li><!--@Send message to user.-->向用户发送消息。</li>
 </ol>
@@ -394,19 +394,14 @@ the handler can be registered after the message arrives.-->
 当消息到达时，应用或扩展程序不一定正在运行，处理函数可以在消息到达后注册。
 </p>
 
-<h2 id="store"><!--@Publish and get whitelisted-->发布并使之列入白名单</h2>
+<h2 id="store"><!--@Publish your app-->发布您的应用</h2>
 
 {{^is_apps}}
 <p>
 <!--@To use the push messaging service,
 you must publish your extension in the-->
 要使用消息推送服务，您必须在
-<a href="https://developers.google.com/chrome/web-store/docs/get_started_simple">Chrome <!--@Web Store-->网上应用店</a><!--@.
-Your extension must also be whitelisted.
-To be added to the whitelist,
-please email-->发布您的扩展程序，您的扩展程序还必须被列入白名单。要使之被列入白名单，请发送您的扩展程序标识符至
-<a href="mailto:gcm-for-chrome-whitelist@google.com">gcm-for-chrome-whitelist@google.com</a><!--@
-with your extension ID and we will reply appropriately.-->，我们会适时回复。
+<a href="https://developers.google.com/chrome/web-store/docs/get_started_simple">Chrome <!--@Web Store-->网上应用店</a>发布您的扩展程序。
 </p>
 {{/is_apps}}
 
@@ -415,12 +410,7 @@ with your extension ID and we will reply appropriately.-->，我们会适时回�
 <!--@To use the push messaging service,
 you must publish your extension in the-->
 要使用消息推送服务，您必须在
-<a href="https://developers.google.com/chrome/web-store/docs/get_started_simple">Chrome <!--@Web Store-->网上应用店</a><!--@.
-Your app must also be whitelisted.
-To be added to the whitelist,
-please email-->发布您的应用，您的应用还必须被列入白名单。要使之被列>    入白名单，请发送您的应用标识符至
-<a href="mailto:gcm-for-chrome-whitelist@google.com">gcm-for-chrome-whitelist@google.com</a><!--@
-with your app ID and we will reply appropriately.-->，我们会适时回复。
+<a href="https://developers.google.com/chrome/web-store/docs/get_started_simple">Chrome <!--@Web Store-->网上应用店</a>发布您的应用。
 </p>
 {{/is_apps}}
 
@@ -576,9 +566,6 @@ and operational errors (for example, push messaging service is currently down).-
   </li>
   <li>Google Account calling the push messaging service does not own the app or extension.
   <br>调用消息推送服务的 Google 帐户不是应用或扩展程序的所有者。
-  </li>
-  <li>App or extension is not whitelisted.
-  <br>应用或扩展程序没有被列入白名单。
   </li>
   <li>An internal error has occurred.
   This indicates something went wrong on the Google server side
