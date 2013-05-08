@@ -21,8 +21,8 @@ namespace app.window {
   dictionary CreateWindowOptions {
     // <!--@Id to identify the window. This will be used to remember the size
     // and position of the window and restore that geometry when a window
-    // with the same id (and no explicit size or position) is later opened.-->
-    // 用于标识窗口的标识符，会用来记住窗口的大小与位置，当同一标识符的窗口（并且没有显式指定大小或位置）再次打开时恢复原来的尺寸。
+    // with the same id is later opened.-->
+    // 用于标识窗口的标识符，会用来记住窗口的大小与位置，当同一标识符的窗口再次打开时恢复原来的尺寸。
     DOMString? id;
 
     // Default width of the window. (Deprecated; regular bounds act like this
@@ -76,11 +76,11 @@ namespace app.window {
     // 框架类型：'none' 或 'chrome'（默认为 'chrome'）。
     DOMString? frame;
 
-    // <!--@Size of the content in the window (excluding the titlebar). If specified
-    // in addition to any of the deprecated left/top/width/height parameters,
-    // this field takes precedence.-->
-    // 窗口中内容的大小（不包括标题栏）。如果除了已弃用的
-    // left/top/width/height 参数外还指定了该参数，该参数优先。
+    // <!--@Size and position of the content in the window (excluding the titlebar).
+    // If an id is also specified and a window with a matching id has been shown
+    // before, the remembered bounds of the window will be used instead.-->
+    // 窗口中内容的大小与位置（不包括标题栏）。如果同时指定了
+    // id，并且以前显示过匹配标识符的窗口，则会使用记录下来的窗口大小与位置。
     Bounds? bounds;
 
     // <!--@Enable window background transparency.
@@ -203,34 +203,23 @@ namespace app.window {
     // be used.-->
     // 窗口的大小与位置可以以几种不同的方式指定。最简单的选择是什么都不指定，这种情况下会使用默认大小与平台相关的位置。
     //
-    // <!--@Another option is to use the top/left and width/height properties,
-    // which will always put the window at the specified coordinates with the
-    // specified size.-->
-    // 另一种选择是使用 bounds 的 top/left 和 width/height
-    // 属性，这样窗口总是会放在指定位置并且具有指定大小。
+    // <!--@Another option is to use the bounds property, which will put the window
+    // at the specified coordinates with the specified size. If the window has
+    // a frame, it's total size will be the size given plus the size of the
+    // frame; that is, the size in bounds is the content size, not the window
+    // size.-->
+    // 另一种选择是使用 bounds
+    // 属性，这样窗口总是会放在指定位置并且具有指定大小。如果窗口有边框，它的总大小是指定大小加上边框的大小。也就是说，bounds
+    // 中的大小是内容大小，而不是窗口大小。
     //
-    // <!--@Yet another option is to give the window a (unique) id. This id is then
-    // used to remember the size and position of the window whenever it is
-    // moved or resized. This size and position is then used instead of the
-    // specified bounds on subsequent opening of a window with the same id. If
-    // you need to open a window with an id at a location other than the
-    // remembered default, you can create it hidden, move it to the desired
-    // location, then show it.-->
-    // 还有一种选择是给窗口一个（唯一的）标识符，每当窗口移动或调整大小时该标识符用来记录窗口的大小与位置，以后打开相同标识符的窗口时将使用这一大小与位置，而不是指定的
-    // bounds。如果您需要打开一个指定了标识符的窗口，并在指定位置而不是记录下来的默认位置显示，您可以首先在创建时使它隐藏，将它移动到期望的位置，然后显示。
-    //
-    // <!--@You can also combine these various options, explicitly specifying for
-    // example the size while having the position be remembered or other
-    // combinations like that. Size and position are dealt with seperately,
-    // but individual coordinates are not. So if you specify a top (or left)
-    // coordinate, you should also specify a left (or top) coordinate, and
-    // similar for size.-->
-    // 您也可以组合这几种选项，例如显式指定大小的同时使位置自动记住，或者其他类似的组合。大小与位置是单独对待的，但是单独的坐标不是这样。所以如果您指定了顶（或左）坐标，您同时应该指定左（或顶）坐标，大小也是类似的。
-    //
-    // <!--@If you specify both a regular and a default value for the same option
-    // the regular value is the only one that takes effect.-->
-    // 如果您同时指定了同一选项的普通与默认值，只有普通值才有效。
-    // 
+    // <!--@To automatically remember the positions of windows you can give them ids.
+    // If a window has an id, This id is used to remember the size and position
+    // of the window whenever it is moved or resized. This size and position is
+    // then used instead of the specified bounds on subsequent opening of a
+    // window with the same id. If you need to open a window with an id at a
+    // location other than the remembered default, you can create it hidden,
+    // move it to the desired location, then show it.-->
+    // 如果要自动记录窗口的位置，您可以为它们提供标识符。如果窗口有标识符，该标识符将在窗口移动或调整大小时用于记录它的大小和位置。以后打开具有同样标识符的窗口时使用这一大小和位置，而不是指定的大小和位置。如果您需要打开一个具有标识符的窗口，并且使用不同于记录的默认位置，您可以使它创建时隐藏，将它移动到期望的位置，然后显示它。
     static void create(DOMString url,
                        optional CreateWindowOptions options,
                        optional CreateWindowCallback callback);
