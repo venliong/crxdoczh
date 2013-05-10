@@ -54,15 +54,15 @@ USB API 要求清单文件中包含特殊的 "usb" 权限：
 <!--@Every device in a USB bus is identified
 by its vendor and product IDs.
 To find a device,
-use the <code>findDevice()</code> method
-which has four parameters:-->
+use the <code>findDevices()</code> method
+which has two parameters:-->
 USB 总线的每一个设备都由制造商与产品 ID
-标志。要找到某个设备，使用具有四个参数的
-<code>findDevice()</code> 方法：
+标志。要找到某个设备，使用具有两个参数的
+<code>findDevices()</code> 方法：
 </p>
 
 <pre>
-chrome.usb.findDevice(vendorId, productId, options, onDeviceFoundCallback)
+chrome.usb.findDevices(FindDeviceOptions, callback)
 </pre>
 
 <br>
@@ -73,37 +73,35 @@ chrome.usb.findDevice(vendorId, productId, options, onDeviceFoundCallback)
     <th scope="col"> <!--@Description-->描述 </th>
   </tr>
   <tr>
-    <td>vendorId (long)</td>
-    <td><!--@The vendor ID for your USB device (in Linux, use lsusb to find it).-->
-    您的 USB 设备的制造商 ID（在 Linux 中，可以用 lsusb 找到它）。
+    <td>FindDeviceOptions (object)</td>
+    <td><!--@An object specifying both a <code>vendorId</code> (long) and
+      <code>productId</code> (long) used to find the correct type of device on
+      the bus. Before calling this, your extension manifest must declare the
+      <code>optional_permissons</code> with a <code>usbDevices</code>
+      section containing the same <code>vendorId</code> and
+      <code>deviceId</code> combination and must have received user consent
+      via <code>chrome.permissions.request(...)</code>.-->
+      指定 <code>vendorId</code> (long) 和 <code>productId</code> (long)
+      的对象，用来寻找总线上正确类型的设备。调用前，您的扩展程序的清单文件必须在
+      <code>optional_permissons</code> （可选权限）中的
+      <code>usbDevices</code> 部分声明同样的 <code>vendorId</code> 和
+      <code>deviceId</code>，并且必须通过
+      <code>chrome.permissions.request(...)</code>
+      得到用户的同意。
     </td>
   </tr>
   <tr>
-    <td>productId (long)</td>
-    <td><!--@The product ID for your USB device (in Linux, use lsusb to find it).-->
-    您的 USB 设备的产品 ID（在 Linux 中，可以用 lsusb 找到它）。
-    </td>
-  </tr>
-  <tr>
-    <td>options (object)</td>
-    <td><!--@An object with a single key, "onEvent",
-      that will be called whenever an event is received from the corresponding device.
-      This will be the primary method of receiving information from the device.
-      As the host-initiated USB protocol is complex, read on to learn more.-->
-      包含单个键 "onEvent"
-      的对象，每当对应设备发生事件时调用。这是从设备接收信息的主要方法。由于主机启动的
-      USB 协议比较复杂，请继续阅读以了解更多内容。
-    </td>
-  </tr>
-  <tr>
-    <td>onDeviceFoundCallback (function)</td>
-    <td><!--@Called when the device is found.
-      The callback will be executed with one parameter, an object
+    <td>callback (function)</td>
+    <td><!--@Called when the device scan is finished.
+      The callback will be executed with one parameter, an array of device objects
       with three properties: <code>handle</code>,
       <code>vendorId</code>,
-      <code>productId</code>. If the device could not be found, the parameter will be <code>null</code>. Save this parameter for later use, as it's required in the other methods.-->
-      当设备发现时调用。调用回调函数时会传递一个参数，即包含三个属性的对象：<code>handle</code>、<code>vendorId</code>、<code>productId</code>。如果找不到设备则该参数为
-      <code>null</code>。请保存这一对象，因为在其他方法中需要使用。
+      <code>productId</code>. If the optional permissions for this USB device
+      were not declared in the extension manifest or the user did not consent
+      to the permissions requested, the parameter will be <code>null</code>.
+      If no devices could be found, the array will be empty.-->
+      当设备扫描完成后调用。执行回调函数时会传递一个参数，为设备对象的数组，包含三个属性：<code>handle</code>、<code>vendorId</code>、<code>productId</code>。如果该 USB 设备的可选权限没有在扩展程序的清单文件中声明，或者用户不同意请求的权限，该参数将为
+      <code>null</code>。如果没有找到设备，该数组为空。
     </td>
   </tr>
 </table>
@@ -114,20 +112,19 @@ chrome.usb.findDevice(vendorId, productId, options, onDeviceFoundCallback)
 </p>
 
 <pre>
-var onDeviceFound = function(device) {
-  _this.device=device;
-  if (device) {
-     console.log("发现设备："+device.handle);
-  } else {
-     console.log("找不到设备");
+var onDeviceFound = function(devices) {
+  _this.devices=devices;
+  if (devices) {
+    if (devices.length &gt; 0) {
+      console.log("发现设备："+devices.length);
+    } else {
+      console.log("找不到设备");
+    }
+    console.log("没有正确请求权限");
   }
 };
 
-var onUsbEvent = function(event) {
-     console.log("从 USB 设备获得了某些消息！");
-};
-
-chrome.usb.findDevice(vendorId, productId, {"onEvent": onUsbEvent}, onDeviceFound);
+chrome.usb.findDevices({"vendorId": vendorId, "productId": productId}, onDeviceFound);
 </pre>
 
 <h3 id="usb_transfers"><!--@USB transfers and receiving data from a device-->USB 传输以及从设备接收数据</h3>
@@ -145,18 +142,16 @@ USB 协议定义了四种类型的传输：<a href="#control_transfers"
 </p>
 
 <p>
-<!--@However, due to the nature of the USB protocol, both inbound and outbound messages must be initiated by the host (your computer). For inbound (device-to-host) messages, the host, your JavaScript code, sends a message flagged as "inbound" to the device. The exact contents of the message depends on the device, but usually will have some identification of what you are requesting from it. The device then responds with the requested data. The device's response is handled by Chrome and delivered assynchronously to the <code>onEvent</code> callback you defined in the <code>findDevice</code> method.
-An outbound (host-to-device) message is much simpler and doesn't generate an answer from the device.-->
+<!--@However, due to the nature of the USB protocol, both inbound and outbound messages must be initiated by the host (your computer). For inbound (device-to-host) messages, the host, your JavaScript code, sends a message flagged as "inbound" to the device. The exact contents of the message depends on the device, but usually will have some identification of what you are requesting from it. The device then responds with the requested data. The device's response is handled by Chrome and delivered asynchronously to the callback you specified in the transfer method.
+An outbound (host-to-device) message is similar, but the response doesn't contain data returned from the device.-->
 然而，由于 USB
 协议的本质，传入与传出消息都必须由主机（您的计算机）发起。对于传入（设备到主机）消息，主机，即您的
 JavaScript，向设备发送标记为“传入”的消息。消息的具体内容取决于设备，但是通常包含某些信息，标识您请求的内容。然后设备以请求的数据响应。设备的响应由
-Chrome 浏览器处理，并异步地传递给您在 <code>findDevice</code>
-方法中定义的 <code>onEvent</code>
-回调函数。传出（主机到设备）消息要简单得多，也不会产生来自设备的应答。
+Chrome 浏览器处理，并异步地传递给您在传输方法中指定的回调函数。传出（主机到设备）消息与之类似，但是响应不包含从设备返回的数据。
 </p>
 
 <p><!--@For each message from the device,
-the <code>onEvent</code> callback will receive 
+the specified callback will receive 
 an event object with the following properties:-->
 对于来自设备的每一条消息，<code>onEvent</code>
 回调函数都会接收一个具有如下属性的事件对象：
@@ -170,27 +165,18 @@ an event object with the following properties:-->
     <th scope="col"> <!--@Description-->描述 </th>
   </tr>
   <tr>
-    <td>type (string)</td>
-    <td><!--@Currently always contains the string "transferResult".-->
-      目前总是包含字符串 "transferResult"。
-    </td>
-  </tr>
-  <tr>
     <td>resultCode (integer)</td>
-    <td><!--@0 is success; other values indicate failure.-->
-      0 表示成功，其他值表示失败。
+    <td><!--@0 is success; other values indicate failure. An error string can be read from
+      <code>chrome.extension.lastError</code> when a failure is indicated.-->
+      0 表示成功，其他值表示失败。表示失败时可以从
+      <code>chrome.extension.lastError</code>
+      读取错误字符串。
     </td>
   </tr>
   <tr>
     <td>data (arraybuffer)</td>
-    <td><!--@Contains the data sent by the device.-->
-    包含设备发送的数据。
-    </td>
-  </tr>
-  <tr>
-    <td>error (string)</td>
-    <td><!--@If resultCode is not 0, this field will contain a textual description of the error that occurred during the transfer.-->
-    如果 resultCode 不为 0，该字段将包含传输过程中产生的错误的文字描述。
+    <td><!--@Contains the data sent by the device if transfer was inbound.-->
+    如果是传入传输则包含设备发送的数据。
     </td>
   </tr>
 </table>
@@ -201,13 +187,13 @@ an event object with the following properties:-->
 </p>
 
 <pre>
-var onUsbEvent = function(event) {
-    if (event &amp;&amp; event.resultCode===0 &amp;&amp; event.data) {
+var onTransferCallback = function(event) {
+   if (event &amp;&amp; event.resultCode === 0 &amp;&amp; event.data) {
      console.log("收到 "+event.data.byteLength+" 字节");
-    }
+   }
 };
 
-chrome.usb.findDevice( vendorId, productId, {"onEvent": onUsbEvent}, onDeviceFound);
+chrome.usb.bulkTransfer(device, transferInfo, onTransferCallback);
 </pre>
 
 <h3 id="control_transfers"><!--@CONTROL transfers--><b>控制</b>传输</h3>
@@ -244,13 +230,8 @@ chrome.usb.controlTransfer(deviceObj, transferInfo, transferCallback)
   </tr>
   <tr>
     <td>transferCallback()</td>
-    <td><!--@Invoked when the transfer has completed.
-      Please note this only indicates that
-      the transfer has been processed.
-      The device's response, if any, will always be sent through
-      the <code>onEvent()</code> callback set on <code>findDevice()</code>.-->
-      传输完成时调用。请注意这仅仅表示传输已处理，设备的响应（如果有的话）一定会通过
-      <code>findDevice()</code> 设置的 <code>onEvent()</code> 回调函数发送。
+    <td><!--@Invoked when the transfer has completed.-->
+      传输完成时调用。
     </td>
   </tr>
 </table>
@@ -364,14 +345,8 @@ chrome.usb.isochronousTransfer(deviceObj, isochronousTransferInfo, transferCallb
   </tr>
   <tr>
     <td>transferCallback()</td>
-    <td><!--@Invoked when the transfer has completed.
-      Notice that this callback doesn't contain any response from the device.
-      It's just to notify you that the asynchronous transfer request
-      has been processed and you can go ahead.
-      The device's response, if any, will always be sent through
-      the <code>onEvent()</code> callback set on <code>findDevice()</code>.-->
-      传输完成时调用。注意该回调函数并不包含来自设备的任何回应，它只是通知您异步传输请求已处理，您可以继续往前走，设备的响应（如果有的话）一定会通过
-      <code>findDevice()</code> 设置的 <code>onEvent()</code> 回调函数发送。
+    <td><!--@Invoked when the transfer has completed.-->
+      传输完成时调用。
     </td>
   </tr>
 </table>
@@ -478,14 +453,8 @@ chrome.usb.bulkTransfer(deviceObj, transferInfo, transferCallback)
   </tr>
   <tr>
     <td>transferCallback</td>
-    <td><!--@Invoked when the transfer has completed.
-      Notice that this callback doesn't contain the device's response.
-      It's just to notify your code that the asynchronous transfer request
-      has been processed and you can go ahead.
-      The device's response, if any, will always be sent through
-      the <code>onEvent()</code> callback set on <code>findDevice()</code>.-->
-      传输完成时调用。注意该回调函数并不包含来自设备的任何回应，它只是通知您的代码异步传输请求已处理，您可以继续往前走，设备的响应（如果有的话）一定会通过
-      <code>findDevice()</code> 设置的 <code>onEvent()</code> 回调函数发送。
+    <td><!--@Invoked when the transfer has completed.-->
+      传输完成时调用。
     </td>
   </tr>
 </table>
