@@ -49,7 +49,6 @@
         "optional": true,
 //@        "description": "This will be defined during an API method callback if there was an error",
         "description": "如果发生错误，在 API 方法的回调函数执行的过程中将会定义该属性。",
-        "unprivileged": true,
         "properties": {
           "message": {
             "optional": true,
@@ -61,9 +60,8 @@
       },
       "id": {
         "type": "string",
-//@        "description": "The ID of the extension/app.",
-        "description": "扩展程序/应用的标识符。",
-        "unprivileged": true
+//@        "description": "The ID of the extension/app."
+        "description": "扩展程序/应用的标识符。"
       }
     },
     "functions": [
@@ -98,7 +96,6 @@
         "description": "从清单文件中返回有关应用或扩展程序的详情，返回的对象是完整<a href=\"manifest.html\">清单文件</a>序列化的结果。",
         "type": "function",
         "nocompile": true,
-        "unprivileged": true,
         "parameters": [],
         "returns": {
           "type": "object",
@@ -112,7 +109,6 @@
         "name": "getURL",
         "type": "function",
         "nocompile": true,
-        "unprivileged": true,
 //@        "description": "Converts a relative path within an app/extension install directory to a fully-qualified URL.",
         "description": "将应用或扩展程序安装目录内的相对路径转换为完全限定的 URL。",
         "parameters": [
@@ -135,13 +131,11 @@
         "description": "重新加载应用或扩展程序。",
         "type": "function",
         "nocompile": true,
-        "unprivileged": true,
         "parameters": []
       },
       {
         "name": "requestUpdateCheck",
         "type": "function",
-        "unprivileged": true,
 //@        "description": "Requests an update check for this app/extension.",
         "description": "为当前应用/扩展程序请求检查更新。",
         "parameters": [
@@ -178,7 +172,6 @@
         "name": "connect",
         "type": "function",
         "nocompile": true,
-        "unprivileged": true,
 //@        "description": "Attempts to connect to other listeners within the extension/app (such as the background page), or other extensions/apps. This is useful for content scripts connecting to their extension processes. Note that this does not connect to any listeners in a content script. Extensions may connect to content scripts embedded in tabs via $ref:tabs.connect.",
         "description": "尝试连接到扩展程序/应用中其他的监听者（例如后台网页）或其他扩展程序/应用，该方法对于需要连接到它们的扩展程序进程的内容脚本非常有用。注意，该方法不能连接到内容脚本中的监听者，扩展程序可以通过 $ref:tabs.connect 连接到嵌入至标签页中的内容脚本。",
         "parameters": [
@@ -225,7 +218,6 @@
         "type": "function",
         "nocompile": true,
         "allowAmbiguousOptionalArguments": true,
-        "unprivileged": true,
 //@        "description": "Sends a single message to onMessage event listeners within the extension (or another extension/app). Similar to chrome.runtime.connect, but only sends a single message with an optional response. The $ref:runtime.onMessage event is fired in each extension page of the extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use $ref:tabs.sendMessage.",
         "description": "向扩展程序中的其他监听者（或另一个扩展程序/应用）发送单个请求。与 chrome.runtime.connect 类似，但是只发送具有可选回应的单个请求。$ref:runtime.onMessage 事件将在扩展程序的每一个页面中产生。注意，扩展程序不能使用该方法向内容脚本发送消息。要向内容脚本发送消息，请使用 $ref:tabs.sendMessage。",
         "parameters": [
@@ -406,7 +398,6 @@
         "name": "onConnect",
         "type": "function",
         "nocompile": true,
-        "unprivileged": true,
         "anonymous": true,
 //@        "description": "Fired when a connection is made from either an extension process or a content script.",
         "description": "当连接从扩展程序进程或内容脚本中发起时产生。",
@@ -429,7 +420,6 @@
         "name": "onMessage",
         "type": "function",
         "anonymous": true,
-        "unprivileged": true,
 //@        "description": "Fired when a message is sent from either an extension process or a content script.",
         "description": "当消息从扩展程序进程或者内容脚本中发送时产生。",
         "parameters": [

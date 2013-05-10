@@ -149,10 +149,10 @@ href="i18n.html">国际化支持</a>。
 
 <p>
 <!--@Used by -->由<a href="../apps/app_lifecycle.html#eventpage"><!--@packaged apps-->打包应用</a><!--@
-to specify what types of files the app can handle. An app can have multiple <code>file_handlers</code>, with each one having an identifier, a list of MIME types that can be handled, and
+to specify what types of files the app can handle. An app can have multiple <code>file_handlers</code>, with each one having an identifier, a list of MIME types and/or a list of file extensions that can be handled, and
 a title. Here's an example of specifying file handlers:-->使用，指定应用可以处理的文件类型。一个应用可以包含多个
 <code>file_handlers</code>（文件处理器），每一个都应该包含标识符、可以处理的
-MIME 类型列表以及标题。如下是一个指定文件处理器的例子：
+MIME 类型和/或文件扩展名列表以及标题。如下是一个指定文件处理器的例子：
 </p>
 
 <pre>
@@ -168,7 +168,16 @@ MIME 类型列表以及标题。如下是一个指定文件处理器的例子：
       "image/png",
       "image/jpeg"
     ],
+    "extensions": [
+      "tiff"
+    ]
     "title": "图片编辑器"
+  },
+  "any": {
+    "extensions": [
+      "*"
+    ]
+    "title": "任意类型文件的编辑器"
   }
 }
 </pre>

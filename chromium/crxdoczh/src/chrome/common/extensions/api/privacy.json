@@ -38,12 +38,6 @@
 //@            "description": "If enabled, Chrome offers to automatically fill in forms. This preference's value is a boolean, defaulting to <code>true</code>."
             "description": "如果启用的话，Chrome 浏览器会自动填充表单。这一选项的值是布尔类型，默认为 <code>true</code>。"
           },
-          "instantEnabled": {
-            "$ref": "types.ChromeSetting",
-            "value": ["instantEnabled", {"type":"boolean"}],
-//@            "description": "If enabled, Chrome automatically performs and displays search requests for text you type into the Omnibox as you type it. This preference's value is a boolean, defaulting to <code>true</code>."
-            "description": "如果启用的话，Chrome 浏览器会在您输入时自动为您在多功能框中输入的文字执行并显示搜索请求。这一选项的值是布尔类型，默认为 <code>true</code>。"
-          },
           "safeBrowsingEnabled": {
             "$ref": "types.ChromeSetting",
             "value": ["safeBrowsingEnabled", {"type":"boolean"}],
