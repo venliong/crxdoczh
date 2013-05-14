@@ -32,22 +32,40 @@
 <h2 id="usage"><!--@Usage-->用法</h2>
 <p><!--@The commands API allows you to define specific commands, and bind them to a
 default key combination. Each command your extension accepts must be listed in
-the manifest as an attribute of the 'commands' manifest key. Note: Combinations
-that involve Ctrl+Alt are not permitted in order to avoid conflicts with the
-AltGr key. Also note that on Mac 'Ctrl' is automatically converted to 'Command'.
-If you want 'Ctrl' instead, please specify 'MacCtrl'.-->
+the manifest as an attribute of the 'commands' manifest key. An extension can
+have many commands but only 4 suggested keys can be specified. The user can
+manually add more shortcuts from the chrome://extensions page.-->
 命令 API
 允许您定义特定的命令，并为它们绑定默认的组合键。您的扩展程序接受的每一个命令都必须在清单文件中列出，作为
-'commands' 键的属性。注意：不允许使用涉及到 Ctrl+Alt 的组合键，以免与 AltGr
-键冲突。另外还要注意在 Mac 中 'Ctrl' 将自动转换为 'Command'，如果您希望使用
-'Ctrl'，请指定 'MacCtrl'。
+'commands'
+键的属性。扩展程序可以包含很多命令，但是只能指定四个推荐的按键。用户可以在
+chrome://extensions 页面手动添加更多的快捷键。
 </p>
 
-<p><!--@An extension can have many commands but only 4 suggested keys can be
-specified. The user can manually add more shortcuts from the chrome://extensions
-page.-->
-扩展程序可以包含任意数目的命令，但是只能指定四个推荐的按键。用户可以在
-chrome://extensions 页面手动添加更多的快捷键。
+<p><!--@Supported keys: A-Z, 0-9, Comma, Period, Home, End, PageUp, PageDown, Insert,
+Delete, Tab and the arrow keys (Up, Down, Left, Right).-->
+支持的按键包括：A～Z、0～9、逗号、句号、Home、End、PageUp、PageDown、Insert、Delete、Tab
+和方向键（上、下、左、右）。
+</p>
+
+<p><!--@Note: All key combinations must include either Ctrl* or Alt. Combinations
+that involve Ctrl+Alt are not permitted in order to avoid conflicts with the
+AltGr key. Shift can be used in addition to Alt or Ctrl, but is not required.-->
+注意：所有组合键必须包含 Ctrl* 或 Alt 中的一个，不允许使用涉及到 Ctrl+Alt
+的组合键，以免与 AltGr 键冲突。除了 Alt 或 Ctrl 外还可以使用 Shift
+键，但不是必须使用。
+</p>
+
+<p>* <!--@Also note that on Mac 'Ctrl' is automatically converted to 'Command'. If
+you want 'Ctrl' instead, please specify 'MacCtrl'.-->
+另外请注意，在 Mac 中 Ctrl 会自动转换为 Command 键。如果您希望使用
+Ctrl，请指定“MacCtrl”。
+</p>
+
+<p><!--@Certain Chrome shortcuts (e.g. window management) always take priority over
+Extension Command shortcuts and can not be overwritten.-->
+某些 Chrome
+浏览器的快捷键（例如窗口管理）优先级始终比扩展程序命令的快捷键高，不能被覆盖。
 </p>
 
 <pre>{
