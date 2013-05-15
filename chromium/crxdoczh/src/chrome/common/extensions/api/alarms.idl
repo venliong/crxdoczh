@@ -64,21 +64,18 @@ namespace alarms {
     //
     // <!--@In order to reduce the load on the user's machine, Chrome limits alarms
     // to at most once every 1 minute but may delay them an arbitrary amount
-    // more.  That is, setting <code>$ref:[alarms.AlarmCreateInfo.delayInMinutes
-    // delayInMinutes]</code> or
-    // <code>$ref:[alarms.AlarmCreateInfo.periodInMinutes
-    // periodInMinutes]</code> to less than <code>1</code> will not be honored
-    // and will cause a warning.  <code>$ref:[alarms.AlarmCreateInfo.when
-    // when]</code> can be set to less than 1 minute after "now" without
-    // warning but won't actually cause the alarm to fire for at least 1 minute.-->
+    // more.  That is, setting <code>delayInMinutes</code> or
+    // <code>periodInMinutes</code> to less than <code>1</code> will not be
+    // honored and will cause a warning.  <code>when</code> can be set to less
+    // than 1 minute after "now" without warning but won't actually cause the
+    // alarm to fire for at least 1 minute.-->
     // 为了降低用户计算机的资源占用，Chrome 浏览器将定时器限制为最多每 1
     // 分钟一次，而且可能会推迟任意长度的时间。也就是说，将
-    // <code>$ref:[alarms.AlarmCreateInfo.delayInMinutes delayInMinutes]</code>
-    // 或
-    // <code>$ref:[alarms.AlarmCreateInfo.periodInMinutes periodInMinutes]</code>
+    // <code>delayInMinutes</code> 或 <code>periodInMinutes</code>
     // 设置为小于 1
-    // 的值会导致错误，<code>$ref:[alarms.AlarmCreateInfo.when when]</code>
-    // 可以设置为当前时间后小于1分钟的值，但是定时器至少在1分钟内不会运行。
+    // 的值不会被认可，并会导致警告，<code>when</code>
+    // 可以设置为当前时间后小于1分钟的值，但是定时器至少在 1
+    // 分钟内不会运行。
     //
     // <!--@To help you debug your app or extension, when you've loaded it unpacked,
     // there's no limit to how often the alarm can fire.-->
