@@ -25,8 +25,10 @@
           "altKey": {"type": "boolean", "optional": true, "description": "是否按下了 Alt 键。"},
 //@          "ctrlKey": {"type": "boolean", "optional": true, "description": "Whether or not the CTRL key is pressed."},
           "ctrlKey": {"type": "boolean", "optional": true, "description": "是否按下了 Ctrl 键。"},
-//@          "shiftKey": {"type": "boolean", "optional": true, "description": "Whether or not the SHIFT key is pressed."}
-          "shiftKey": {"type": "boolean", "optional": true, "description": "是否按下了 Shift 键。"}
+//@          "shiftKey": {"type": "boolean", "optional": true, "description": "Whether or not the SHIFT key is pressed."},
+          "shiftKey": {"type": "boolean", "optional": true, "description": "是否按下了 Shift 键。"},
+//@          "capsLock": {"type": "boolean", "optional": true, "description": "Whether or not the CAPS_LOCK is enabled."}
+          "capsLock": {"type": "boolean", "optional": true, "description": "Caps Lock 键是否启用。"}
         }
       },
       {
