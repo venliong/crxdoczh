@@ -357,17 +357,17 @@ namespace downloads {
     boolean? exists;
   };
 
-  [inline_doc] dictionary DownloadStringDiff {
+  dictionary StringDelta {
     DOMString? previous;
     DOMString? current;
   };
 
-  [inline_doc] dictionary DownloadLongDiff {
+  dictionary LongDelta {
     long? previous;
     long? current;
   };
 
-  [inline_doc] dictionary DownloadBooleanDiff {
+  dictionary BooleanDelta {
     boolean? previous;
     boolean? current;
   };
@@ -382,55 +382,55 @@ namespace downloads {
 
     // <!--@The change in <code>url</code>, if any.-->
     // <code>url</code> 属性的更改（如果有的话）。
-    DownloadStringDiff? url;
+    StringDelta? url;
 
     // <!--@The change in <code>filename</code>, if any.-->
     // <code>filename</code> 属性的更改（如果有的话）。
-    DownloadStringDiff? filename;
+    StringDelta? filename;
 
     // <!--@The change in <code>danger</code>, if any.-->
     // <code>danger</code> 属性的更改（如果有的话）。
-    DownloadStringDiff? danger;
+    StringDelta? danger;
 
     // <!--@The change in <code>dangerAccepted</code>, if any.-->
     // <code>dangerAccepted</code> 属性的更改（如果有的话）。
-    DownloadBooleanDiff? dangerAccepted;
+    BooleanDelta? dangerAccepted;
 
     // <!--@The change in <code>mime</code>, if any.-->
     // <code>mime</code> 属性的更改（如果有的话）。
-    DownloadStringDiff? mime;
+    StringDelta? mime;
 
     // <!--@The change in <code>startTime</code>, if any.-->
     // <code>startTime</code> 属性的更改（如果有的话）。
-    DownloadStringDiff? startTime;
+    StringDelta? startTime;
 
     // <!--@The change in <code>endTime</code>, if any.-->
     // <code>endTime</code> 属性的更改（如果有的话）。
-    DownloadStringDiff? endTime;
+    StringDelta? endTime;
 
     // <!--@The change in <code>state</code>, if any.-->
     // <code>state</code> 属性的更改（如果有的话）。
-    DownloadStringDiff? state;
+    StringDelta? state;
 
     // <!--@The change in <code>paused</code>, if any.-->
     // <code>paused</code> 属性的更改（如果有的话）。
-    DownloadBooleanDiff? paused;
+    BooleanDelta? paused;
 
     // <!--@The change in <code>error</code>, if any.-->
     // <code>error</code> 属性的更改（如果有的话）。
-    DownloadLongDiff? error;
+    LongDelta? error;
 
     // <!--@The change in <code>totalBytes</code>, if any.-->
     // <code>totalBytes</code> 属性的更改（如果有的话）。
-    DownloadLongDiff? totalBytes;
+    LongDelta? totalBytes;
 
     // <!--@The change in <code>fileSize</code>, if any.-->
     // <code>fileSize</code> 属性的更改（如果有的话）。
-    DownloadLongDiff? fileSize;
+    LongDelta? fileSize;
 
     // <!--@The change in <code>exists</code>, if any.-->
     // <code>exists</code> 属性的更改（如果有的话）。
-    DownloadBooleanDiff? exists;
+    BooleanDelta? exists;
   };
 
   [inline_doc] dictionary GetFileIconOptions {
