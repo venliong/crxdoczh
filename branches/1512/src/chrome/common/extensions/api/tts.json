@@ -1,0 +1,270 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+[
+  {
+    "namespace": "tts",
+    "types": [
+      {
+        "id": "TtsEvent",
+        "type": "object",
+//@        "description": "An event from the TTS engine to communicate the status of an utterance.",
+        "description": "来自 TTS 引擎的事件，通知朗读状态。",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["start", "end", "word", "sentence", "marker", "interrupted", "cancelled", "error"],
+//@            "description": "The type can be 'start' as soon as speech has started, 'word' when a word boundary is reached, 'sentence' when a sentence boundary is reached, 'marker' when an SSML mark element is reached, 'end' when the end of the utterance is reached, 'interrupted' when the utterance is stopped or interrupted before reaching the end, 'cancelled' when it's removed from the queue before ever being synthesized, or 'error' when any other error occurs."
+            "description": "类型可以为：<br>'start'：朗读刚开始；<br>'word'：遇到词语边界；<br>'sentence'：遇到句子边界；<br>'marker'：遇到 SSML 标记元素；<br>'end'：朗读完成；<br>'interrupted'：朗读停止或在到达结尾前中断；<br>'cancelled'：朗读在合成前就从队列中移除；<br>'error'：发生错误。"
+          },
+          "charIndex": {
+            "type": "number",
+            "optional": true,
+//@            "description": "The index of the current character in the utterance."
+            "description": "当前朗读的字符索引。"
+          },
+          "errorMessage": {
+            "type": "string",
+//@            "description": "The error description, if the event type is 'error'.",
+            "description": "如果事件类型为 'error'，则包含错误描述。",
+            "optional": true
+          },
+          "srcId": {
+            "type": "number",
+            "description": "An ID unique to the calling function's context so that events can get routed back to the correct tts.speak call.",
+            "nodoc": true,
+            "optional": true
+          },
+          "isFinalEvent": {
+            "type": "boolean",
+            "description": "True if this is the final event that will be sent to this handler.",
+            "nodoc": true,
+            "optional": true
+          }
+        }
+      },
+      {
+        "id": "TtsVoice",
+        "type": "object",
+//@        "description": "A description of a voice available for speech synthesis.",
+        "description": "描述可用于语音合成的语音。",
+        "properties": {
+          "voiceName": {
+            "type": "string",
+            "optional": true,
+//@            "description": "The name of the voice."
+            "description": "语音的名称。"
+          },
+          "lang": {
+            "type": "string",
+            "optional": true,
+//@            "description": "The language that this voice supports, in the form <em>language</em>-<em>region</em>. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'."
+            "description": "语音支持的语言，以<em>语言</em>-<em>区域</em>的形式表示。例如：'zh-CN'、'en'、'en-US'、'en-GB'。"
+          },
+          "gender": {
+            "type": "string",
+            "optional": true,
+//@            "description": "This voice's gender.",
+            "description": "语音的性别，\"male\" 表示男性，\"female\" 表示女性。",
+            "enum": ["male", "female"]
+          },
+          "extensionId": {
+            "type": "string",
+            "optional": true,
+//@            "description": "The ID of the extension providing this voice."
+            "description": "提供语音的扩展程序的标识符。"
+          },
+          "eventTypes": {
+            "type": "array",
+            "items": {"type": "string"},
+            "optional": true,
+//@            "description": "All of the callback event types that this voice is capable of sending."
+            "description": "这一语音能够发送的所有回调事件类型。"
+          }
+        }
+      }
+    ],
+    "functions": [
+      {
+        "name": "speak",
+        "type": "function",
+//@        "description": "Speaks text using a text-to-speech engine.",
+        "description": "使用文字语音转换朗读文本。",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "utterance",
+//@            "description": "The text to speak, either plain text or a complete, well-formed SSML document. Speech engines that do not support SSML will strip away the tags and speak the text. The maximum length of the text is 32,768 characters."
+            "description": "要朗读的文本，既可以是纯文本，也可以是完整的、形式正确的 SSML 文档。不支持 SSML 的语音引擎会忽略标签只朗读文本。这一文本的最大长度为 32 768 个字符。"
+          },
+          {
+            "type": "object",
+            "name": "options",
+            "optional": true,
+//@            "description": "The speech options.",
+            "description": "朗读选项。",
+            "properties": {
+              "enqueue": {
+                "type": "boolean",
+                "optional": true,
+//@                "description": "If true, enqueues this utterance if TTS is already in progress. If false (the default), interrupts any current speech and flushes the speech queue before speaking this new utterance."
+                "description": "如果为 true，若当前 TTS 正在朗读则将这一次朗读放入队列。如果为 false（默认值），则中断当前的朗读，清理语音队列，然后朗读新的文本。"
+              },
+              "voiceName": {
+                "type": "string",
+                "optional": true,
+//@                "description": "The name of the voice to use for synthesis. If empty, uses any available voice."
+                "description": "用来合成的语音名称。如果为空，使用任何可用的语音。"
+              },
+              "extensionId": {
+                "type": "string",
+                "optional": true,
+//@                "description": "The extension ID of the speech engine to use, if known."
+                "description": "要使用的语音引擎扩展程序的标识符，如果已知的话。"
+              },
+              "lang": {
+                "type": "string",
+                "optional": true,
+//@                "description": "The language to be used for synthesis, in the form <em>language</em>-<em>region</em>. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'."
+                "description": "用于合成的语言，以<em>语言</em>-<em>区域</em>的形式。例如：'zh-CN'、'en'、'en-US'、'en-GB'。"
+              },
+              "gender": {
+                "type": "string",
+                "optional": true,
+//@                "description": "Gender of voice for synthesized speech.",
+                "description": "语音合成所使用的性别，\"male\" 表示男性，\"female\" 表示女性。",
+                "enum": ["male", "female"]
+              },
+              "rate": {
+                "type": "number",
+                "optional": true,
+                "minimum": 0.1,
+                "maximum": 10,
+//@                "description": "Speaking rate relative to the default rate for this voice. 1.0 is the default rate, normally around 180 to 220 words per minute. 2.0 is twice as fast, and 0.5 is half as fast. Values below 0.1 or above 10.0 are strictly disallowed, but many voices will constrain the minimum and maximum rates further&mdash;for example a particular voice may not actually speak faster than 3 times normal even if you specify a value larger than 3.0."
+                "description": "朗读速率，相对于这一语音的默认速率。1.0 表示默认速率，通常为每分钟 180 至 220 个单词。2.0 表示快一倍，而 0.5 是默认速率的一半。不允许 0.1 以下的值或者 10.0 以上的值，并且许多语音会进一步限制最低和最高速率，例如某种语音也许不可能朗读地比默认速率快三倍，即使您指定了大于 3.0 的值。"
+              },
+              "pitch": {
+                "type": "number",
+                "optional": true,
+                "minimum": 0,
+                "maximum": 2,
+//@                "description": "Speaking pitch between 0 and 2 inclusive, with 0 being lowest and 2 being highest. 1.0 corresponds to a voice's default pitch."
+                "description": "指定 0 到 2 之间（包括 0 和 2）的声调，0 表示最低，2 表示最高，1.0 对应于语音的默认声调。"
+              },
+              "volume": {
+                "type": "number",
+                "optional": true,
+                "minimum": 0,
+                "maximum": 1,
+//@                "description": "Speaking volume between 0 and 1 inclusive, with 0 being lowest and 1 being highest, with a default of 1.0."
+                "description": "0 到 1 之间（包括 0 和 1）的朗读音量，0 为最低，1 为最高，默认为 1.0。"
+              },
+              "requiredEventTypes": {
+                "type": "array",
+                "items": {"type": "string"},
+                "optional": true,
+//@                "description": "The TTS event types the voice must support."
+                "description": "语音必须支持的 TTS 事件类型。"
+              },
+              "desiredEventTypes": {
+                "type": "array",
+                "items": {"type": "string"},
+                "optional": true,
+//@                "description": "The TTS event types that you are interested in listening to. If missing, all event types may be sent."
+                "description": "您需要处理的 TTS 事件类型。如果省略，会发送所有事件。"
+              },
+              "onEvent": {
+                "type": "function",
+                "optional": true,
+//@                "description": "This function is called with events that occur in the process of speaking the utterance.",
+                "description": "该函数将在朗读过程中发生事件时调用。",
+                "parameters": [
+                  {
+                    "name": "event",
+                    "$ref": "TtsEvent",
+//@                    "description": "The update event from the text-to-speech engine indicating the status of this utterance."
+                    "description": "来自 TTS 引擎的更新事件，指示当前朗读的状态。"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "optional": true,
+//@            "description": "Called right away, before speech finishes. Check chrome.runtime.lastError to make sure there were no errors. Use options.onEvent to get more detailed feedback.",
+            "description": "在朗读完成前立即调用。检查 $ref:runtime.lastError 确保没有错误发生。使用 options.onEvent 获得更详细的反馈。",
+            "parameters": []
+          }
+        ]
+      },
+      {
+        "name": "stop",
+        "type": "function",
+//@        "description": "Stops any current speech.",
+        "description": "停止当前的朗读。",
+        "parameters": []
+      },
+      {
+        "name": "isSpeaking",
+        "type": "function",
+//@        "description": "Checks whether the engine is currently speaking. On Mac OS X, the result is true whenever the system speech engine is speaking, even if the speech wasn't initiated by Chrome.",
+        "description": "检查引擎当前是否正在朗读。在 Mac OS X 中，只要系统的语音引擎正在朗读，即使此次朗读并不是由 Chrome 浏览器发起的，结果也是 true。",
+        "parameters": [
+          {
+            "type": "function",
+            "name": "callback",
+            "optional": true,
+            "parameters": [
+              {
+                "name": "speaking",
+                "type": "boolean",
+//@                "description": "True if speaking, false otherwise."
+                "description": "如果正在朗读则为 true ，否则为 false。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "getVoices",
+        "type": "function",
+//@        "description": "Gets an array of all available voices.",
+        "description": "获得包含所有可用语音的数组。",
+        "parameters": [
+          {
+            "type": "function",
+            "name": "callback",
+            "optional": true,
+            "parameters": [
+              {
+                "type": "array",
+                "name": "voices",
+                "items": { "$ref": "TtsVoice" },
+//@                "description": "Array of $ref:TtsVoice objects representing the available voices for speech synthesis."
+                "description": "包含 $ref:TtsVoice 对象的数组，代表语音合成可用的语音。"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "onEvent",
+        "type": "function",
+        "nodoc": true,
+        "parameters": [
+          {
+            "name": "event",
+            "$ref": "TtsEvent",
+            "description": "The event from the text-to-speech engine indicating the status of this utterance."
+          }
+        ],
+        "description": "Used to pass events back to the function calling speak()."
+      }
+    ]
+  }
+]

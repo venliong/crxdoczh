@@ -1,0 +1,53 @@
+<div id="gc-topnav">
+  <table><tr>
+  <td id="chrome-logo">
+    <a href="." title="Google Chrome {{title}}" id="view-original">
+      <img src="{{static}}/images/chrome-logo.png" alt="">
+      chrome {{title}}（非官方中文版）
+    </a>
+    <script type="text/javascript">
+      document.getElementById('view-original').href = "https://developer.chrome.com" + location.pathname;
+    </script>
+    <div id="branch-chooser">
+      <button id="branch-chooser-toggle"
+              class="{{branchInfo.current}}" data-menu="branch-chooser-popup">
+        {{branchInfo.current}} &#x25be;&#x202F;
+      </button>
+      <div id="branch-chooser-popup">
+        {{#branchInfo.channels}}
+        {{^isCurrent}}
+        <button class="{{name}}">{{name}}</button>
+        {{/isCurrent}}
+        {{/branchInfo.channels}}
+      </div>
+    </div>
+  </td>
+  <td>
+    <ul>
+      <li>
+        <!--@<a href="samples.html"
+           title="Sample {{title}} (with source code)">Samples</a>-->
+        <a href="samples.html"
+           title="示例{{title}}（包含源代码）">示例</a>
+      </li>
+      <li>
+        <!--@<a href="http://groups.google.com/a/chromium.org/group/chromium-{{platform}}s"
+           title="Google Chrome {{title}} developer forum"
+           target="_blank">Group</a>-->
+        <a href="https://groups.google.com/a/chromium.org/group/chromium-{{platform}}s"
+           title="Google Chrome {{title}}开发者论坛"
+           target="_blank">论坛（英文）</a>
+      </li>
+      <li>
+        <!--@<a href="http://stackoverflow.com/questions/tagged/google-chrome-{{platform}}"
+           title="[google-chrome-{{platform}}] tag on Stack Overflow"
+           target="_blank">Stack overflow</a>-->
+        <a href="http://stackoverflow.com/questions/tagged/google-chrome-{{platform}}"
+           title="Stack Overflow 上的 [google-chrome-{{platform}}] 标签"
+           target="_blank">Stack overflow</a>
+      </li>
+    </ul>
+  </td>
+  </tr></table>
+</div>
+<div id="gc-topnav-space"></div>

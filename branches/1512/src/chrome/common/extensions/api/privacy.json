@@ -1,0 +1,102 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+[
+  {
+    "namespace": "privacy",
+    "properties": {
+      "network": {
+        "type": "object",
+        "value": {},
+//@        "description": "Settings that influence Chrome's handling of network connections in general.",
+        "description": "总体上影响 Chrome 浏览器对网络连接的处理的设置。",
+        "properties": {
+          "networkPredictionEnabled": {
+            "$ref": "types.ChromeSetting",
+            "value": ["networkPredictionEnabled", {"type":"boolean"}],
+//@            "description": "If enabled, Chrome attempts to speed up your web browsing experience by pre-resolving DNS entries, prerendering sites (<code>&lt;link rel='prefetch' ...&gt;</code>), and preemptively opening TCP and SSL connections to servers.  This preference's value is a boolean, defaulting to <code>true</code>."
+            "description": "如果启用的话，Chrome 浏览器会尝试通过预取 DNS 项、预呈现站点（<code>&lt;link rel=\"prefetch\" ...&gt;</code>），并提前打开向服务器的 TCP 和 SSL 连接。这一选项的值为布尔类型，默认为 <code>true</code>。"
+          }
+        }
+      },
+      "services": {
+        "type": "object",
+        "value": {},
+//@        "description": "Settings that enable or disable features that require third-party network services provided by Google and your default search provider.",
+        "description": "启用或禁用需要由 Google 以及您的默认搜索引擎提供的第三方网络服务。",
+        "properties": {
+          "alternateErrorPagesEnabled": {
+            "$ref": "types.ChromeSetting",
+            "value": ["alternateErrorPagesEnabled", {"type":"boolean"}],
+//@            "description": "If enabled, Chrome uses a web service to help resolve navigation errors. This preference's value is a boolean, defaulting to <code>true</code>."
+            "description": "如果启用的话，Chrome 浏览器将使用网络服务帮助解决导航错误。这一选项的值是布尔类型，默认为 <code>true</code>。"
+          },
+          "autofillEnabled": {
+            "$ref": "types.ChromeSetting",
+            "value": ["autofillEnabled", {"type":"boolean"}],
+//@            "description": "If enabled, Chrome offers to automatically fill in forms. This preference's value is a boolean, defaulting to <code>true</code>."
+            "description": "如果启用的话，Chrome 浏览器会自动填充表单。这一选项的值是布尔类型，默认为 <code>true</code>。"
+          },
+          "safeBrowsingEnabled": {
+            "$ref": "types.ChromeSetting",
+            "value": ["safeBrowsingEnabled", {"type":"boolean"}],
+//@            "description": "If enabled, Chrome does its best to protect you from phishing and malware. This preference's value is a boolean, defaulting to <code>true</code>."
+            "description": "如果启用的话，Chrome 浏览器会尽可能地保护您，以防网上诱骗和恶意软件。这一选项的值为布尔类型，默认为 <code>true</code>。"
+          },
+          "searchSuggestEnabled": {
+            "$ref": "types.ChromeSetting",
+            "value": ["searchSuggestEnabled", {"type":"boolean"}],
+//@            "description": "If enabled, Chrome sends the text you type into the Omnibox to your default search engine, which provides predictions of websites and searches that are likely completions of what you've typed so far. This preference's value is a boolean, defaulting to <code>true</code>."
+            "description": "如果启用的话，Chrome 浏览器将会把您在多功能框中输入的文字发送至您的默认搜索引擎，提供网站预测以及对您已输入内容的自动完成。这一选项的值为布尔类型，默认为 <code>true</code>。"
+          },
+          "spellingServiceEnabled": {
+            "$ref": "types.ChromeSetting",
+            "value": ["spellingServiceEnabled", {"type":"boolean"}],
+//@            "description": "If enabled, Chrome uses a web service to help correct spelling errors. This preference's value is a boolean, defaulting to <code>false</code>."
+            "description": "如果启用的话，Chrome 浏览器将使用网络服务帮助您纠正拼写错误。这一选项的值为布尔类型，默认为 <code>false</code>。"
+          },
+          "translationServiceEnabled": {
+            "$ref": "types.ChromeSetting",
+            "value": ["translationServiceEnabled", {"type":"boolean"}],
+//@            "description": "If enabled, Chrome offers to translate pages that aren't in a language you read. This preference's value is a boolean, defaulting to <code>true</code>."
+            "description": "如果启用的话，Chrome 会对不使用您所用语言撰写的页面进行翻译。这一选项的值为布尔类型，默认为 <code>true</code>。"
+          }
+        }
+      },
+      "websites": {
+        "type": "object",
+        "value": {},
+//@        "description": "Settings that determine what information Chrome makes available to websites.",
+        "description": "决定 Chrome 浏览器使哪些信息对网站可用。",
+        "properties": {
+          "thirdPartyCookiesAllowed": {
+            "$ref": "types.ChromeSetting",
+            "value": ["thirdPartyCookiesAllowed", {"type": "boolean"}],
+//@            "description": "If disabled, Chrome blocks third-party sites from setting cookies. The value of this preference is of type boolean, and the default value is <code>true</code>."
+            "description": "如果禁用的话，Chrome 浏览器会阻止第三方站点设置 Cookie。这一选项的值为布尔类型，默认为 <code>true</code>。"
+          },
+          "hyperlinkAuditingEnabled": {
+            "$ref": "types.ChromeSetting",
+            "value": ["hyperlinkAuditingEnabled", {"type":"boolean"}],
+//@            "description": "If enabled, Chrome sends auditing pings when requested by a website (<code>&lt;a ping&gt;</code>). The value of this preference is of type boolean, and the default value is <code>true</code>."
+            "description": "如果启用的话，Chrome 浏览器在网站请求（<code>&lt;a ping&gt;</code>）时会自动发送审核信息。这一选项的值为布尔类型，默认为 <code>true</code>。"
+          },
+          "referrersEnabled": {
+            "$ref": "types.ChromeSetting",
+            "value": ["referrersEnabled", {"type":"boolean"}],
+//@            "description": "If enabled, Chrome sends <code>referer</code> headers with your requests. Yes, the name of this preference doesn't match the misspelled header. No, we're not going to change it. The value of this preference is of type boolean, and the default value is <code>true</code>."
+            "description": "如果启用的话，Chrome 浏览器发送您的请求时会同时发送 <code>referer</code> 头信息。的确，这一选项的名称与拼写错误的头信息名称不匹配，然而我们不打算更改它。这一选项的值为布尔类型，默认值为 <code>true</code>。"
+          },
+          "protectedContentEnabled": {
+            "$ref": "types.ChromeSetting",
+            "value": ["protectedContentEnabled", {"type":"boolean"}],
+//@            "description": "<strong>Available on Windows and ChromeOS only</strong>: If enabled, Chrome provides a unique ID to plugins in order to run protected content. The value of this preference is of type boolean, and the default value is <code>true</code>.",
+            "description": "<strong>仅在 Windows 和 Chrome OS 上可用：</strong>如果启用的话，Chrome 浏览器将会向插件提供唯一标志符来运行受保护的内容。这一选项的值为布尔类型，默认为 <code>true</code>。",
+            "platforms": ["windows", "cros", "cros touch"]
+          }
+        }
+      }
+    }
+  }
+]

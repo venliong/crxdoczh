@@ -1,0 +1,204 @@
+<h1><!--@Network Communications-->网络通信</h1>
+
+<p>
+<!--@Packaged apps can act as a network client
+for TCP and UDP connections.
+This doc shows you how to use TCP and UDP
+to send and receive data over the network.
+For more information,
+see the 
+<a href="socket.html">Sockets API</a>.-->
+打包应用可以用作 TCP 与 UDP 连接的网络客户端，该文档向您展示如何使用 TCP 与
+UDP 在网络上发送与接收数据。有关更多信息，请参见<a
+href="socket.html">套接字 API</a>。
+</p>
+
+<p class="note">
+<b>API <!--@Samples: -->示例：</b><!--@
+Want to play with the code?
+Check out the-->想试试这些代码吗？请参见
+<a href="https://github.com/GoogleChrome/chrome-app-samples/tree/master/telnet">telnet</a>
+<!--@and-->与 <a href="https://github.com/GoogleChrome/chrome-app-samples/tree/master/udp">udp</a><!--@ samples.-->
+示例。
+</p>
+
+<h2 id="manifest"><!--@Manifest requirements-->清单文件的要求</h2>
+
+<p>
+<!--@For packaged apps that use TCP or UDP,
+add the "socket" permission to the manifest
+and specify the IP end point permission rules.
+For example:-->
+对于使用 TCP 或 UDP 的打包应用来说，请向清单文件添加
+"socket" 权限并指定 IP 端点权限规则。例如：
+</p>
+
+<pre>
+"permissions": [
+    {"socket": [
+      "rule1",
+      "rule2",
+      ...
+    ]}
+  ]
+</pre>
+
+<p>
+<!--@The syntax of socket permission rules follows these patterns:-->
+套接字权限规则的语法遵循如下模式：
+</p>
+
+<pre>
+&lt;socket-permission-rule&gt;
+     := &lt;op&gt; | &lt;op&gt; ':' &lt;host&gt; | &lt;op&gt; ':' ':' &lt;port&gt; |
+        &lt;op&gt; ':' &lt;host&gt; ':' &lt;port&gt;
+ &lt;op&gt; := 'tcp-connect' | 'tcp-listen' | 'udp-bind' | 'udp-send-to'
+ &lt;host&gt; := '*' | '*.' &lt;anychar except '/' and '*'&gt;+
+ &lt;port&gt; := '*' | &lt;port number between 1 and 65535&gt;)
+</pre>
+
+<p>
+<!--@Examples of socket permission rules:-->
+套接字权限规则的例子如下：
+</p>
+
+<ul>
+  <li>"tcp-connect:*:23" &ndash; <!--@connecting on port 23 of any hosts-->连接到任意主机的 23 端口</li>
+  <li>"tcp-connect:www.example.com:23" &ndash; <!--@connecting port 23 of-->连接到 <em>www.example.com</em> 的 23 端口</li>
+  <li>"tcp-connect" &ndash; <!--@connecting any ports of any hosts-->连接任意主机的任意端口</li>
+  <li>"udp-send-to::99" &ndash; <!--@sending UDP packet to port 99 of any hosts-->向任意主机的 99 端口发送 UDP 包</li>
+  <li>"udp-bind::8899" &ndash; <!--@binding local port 8899 to receive UDP package-->绑定本地端口 8899 以接收 UDP 包</li>
+  <li>"tcp-listen::8080" &ndash; <!--@TCP listening on local port 8080-->在本机 8080 端口进行 TCP 监听</li>
+</ul>
+
+<h2 id="tcp"><!--@Using-->使用 TCP</h2>
+
+<p>
+<!--@Packaged apps can make connections to any service that supports TCP.-->
+打包应用可以连接到任何支持 TCP 的服务。
+</p>
+
+<h3 id="connecting"><!--@Connecting to a socket-->连接到套接字</h3>
+
+<p>
+<!--@Here's a sample showing how to connect
+($ref:socket.connect) to a socket:-->
+如下是一个演示如何连接（$ref:socket.connect）到套接字的示例：
+</p>
+
+<pre>
+chrome.socket.create('tcp', {}, function(createInfo) {
+  chrome.socket.connect(createInfo.socketId, IP, PORT, onConnectedCallback);
+});
+</pre>
+
+<p>
+<!--@Keep a handle to the socketId so that
+you can later read and write
+($ref:socket.write) to this socket.-->
+保存 socketId 的值以便您可以之后读取或写入（$ref:socket.write）套接字。
+</p>
+
+<pre>
+chrome.socket.write(socketId, arrayBuffer, onWriteCompleteCallback);
+</pre>
+
+<h3 id="reading"><!--@Reading to & writing from a socket-->读取或写入套接字</h3>
+
+<p>
+<!--@Reading ($ref:socket.read) and writing from a socket uses ArrayBuffer objects.
+To learn about ArrayBuffers,
+check out the overview,
+<a href="https://developer.mozilla.org/en-US/docs/JavaScript_typed_arrays">JavaScript typed arrays</a>,
+and the tutorial,
+<a href="http://updates.html5rocks.com/2012/06/How-to-convert-ArrayBuffer-to-and-from-String">How to convert ArrayBuffer to and from String</a>.-->
+读取（$ref:socket.read）或写入套接字时使用 ArrayBuffer 对象。要想了解 ArrayBuffer，请参见
+<a href="https://developer.mozilla.org/en-US/docs/JavaScript_typed_arrays">JavaScript
+类型化数组</a>概述和<a href="http://updates.html5rocks.com/2012/06/How-to-convert-ArrayBuffer-to-and-from-String"
+>如何在 ArrayBuffer 和字符串之间转换</a>的教程。
+</p>
+
+<pre>
+chrome.socket.read(socketId, null, function(readInfo) {
+  if (readInfo.resultCode &gt; 0) {
+    // readInfo.data 是一个 ArrayBuffer 对象。
+  }
+});
+</pre>
+
+<h3 id="disconnecting"><!--@Disconnecting from a socket-->断开套接字的连接</h3>
+
+<p><!--@Here's how to disconnect ($ref:socket.disconnect):-->如下是断开连接（$ref:socket.disconnect）的方法：</p>
+
+<pre>chrome.socket.disconnect(socketId);</pre>
+
+<h2 id="udp"><!--@Using-->使用 UDP</h2>
+
+<p>
+<!--@Packaged apps can make connections to any service that supports UDP.-->
+打包应用可以连接到支持 UDP 的任何服务。
+</p>
+
+<h3 id="sending"><!--@Sending data-->发送数据</h3>
+
+<p>
+<!--@Here's a sample showing how to send data
+over the network using UDP:-->
+如下是演示如何使用 UDP 通过网络发送数据的示例：
+</p>
+
+<pre>
+// 创建套接字
+chrome.socket.create('udp', '127.0.0.1', 1337, {},
+ function(socketInfo) {
+   // 套接字已创建，现在我们希望连接到服务
+   var socketId = socketInfo.socketId;
+   chrome.socket.connect(socketId, function(result) {
+     // 已连接到套接字，发送一些数据
+     chrome.socket.write(socketId, arrayBuffer,
+       function(sendInfo) {
+         console.log("已写入字节数：" + sendInfo.bytesWritten);
+       }
+     );
+   });
+ }
+);
+</pre>
+
+<h3 id="receiving"><!--@Receiving data-->接收数据</h3>
+
+<p>
+<!--@This example is very similar to the 'Sending data' example
+with the addition of a special handler in the 'create' method.
+The parameter is an object with one value 'onEvent'
+that is a function reference to the method
+that will be called when data is available on the port.-->
+这一例子与“发送数据”的例子很相似，但是在 create
+方法中增加了一个特殊的处理函数。该参数为一个对象，只包含一个值
+'onEvent'，内容为一个函数引用，指向数据在端口上可用时调用的方法。
+</p>
+
+<pre>
+// 处理数据响应
+var handleDataEvent = function(d) {
+  var data = chrome.socket.read(d.socketId);
+  console.log(data);
+};
+
+// 创建套接字
+chrome.socket.create('udp', '127.0.0.1', 1337, { onEvent: handleDataEvent },
+ function(socketInfo) {
+   // 套接字已创建，现在我们希望连接到服务
+   var socketId = socketInfo.socketId;
+   chrome.socket.connect(socketId, function(result) {
+     // 已连接到套接字，发送一些数据
+     chrome.socket.write(socketId, arrayBuffer,
+       function(sendInfo) {
+         console.log("已写入字节数：" + sendInfo.bytesWritten);
+       }
+     );
+   });
+ }
+);
+</pre>
+
