@@ -742,6 +742,20 @@
             }
           }
         ]
+      },
+      {
+        "name": "onReset",
+        "type": "function",
+//@        "description": "This event is sent when chrome terminates ongoing text input session.",
+        "description": "当 Chrome 浏览器终止正在进行的文字输入会话时发送该事件。",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "engineID",
+//@            "description": "ID of the engine receiving the event"
+            "description": "接收该事件的引擎标识符。"
+          }
+        ]
       }
     ]
   }
