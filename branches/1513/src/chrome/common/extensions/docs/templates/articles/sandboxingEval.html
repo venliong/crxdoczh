@@ -1,0 +1,260 @@
+<h1><!--@Using eval in Chrome Extensions. Safely.-->安全地在 Chrome 扩展程序中使用 eval</h1>
+
+
+<p>
+  <!--@Chrome's extension system enforces a fairly strict default
+  <a href='contentSecurityPolicy.html'>
+    <strong>Content Security Policy (CSP)</strong>
+  </a>. The policy restrictions are straightforward: script must be moved
+  out-of-line into separate JavaScript files, inline event handlers must be
+  converted to use <code>addEventListener</code>, and <code>eval()</code> is
+  disabled. Chrome Apps have an
+  <a href='http://developer.chrome.com/trunk/apps/app_csp.html'>even more strict
+  policy</a>, and we're quite happy with the security properties these policies
+  provide.-->
+  Chrome 浏览器的扩展程序系统默认情况下强制实施相当严格的<a
+  href='contentSecurityPolicy.html'><strong>内容安全策略（CSP）</strong></a>。这些策略限制非常直白：内嵌脚本必须移动至单独的
+  JavaScript 文件，内嵌的事件处理函数必须转换为使用
+  <code>addEventListener</code>，并且 <code>eval()</code> 已禁用。Chrome
+  浏览器的应用具有更严格的策略，然而我们对于这些策略提供的安全特性相当满意。
+</p>
+
+<p>
+  <!--@We recognize, however, that a variety of libraries use <code>eval()</code> and
+  <code>eval</code>-like constructs such as <code>new Function()</code> for
+  performance optimization and ease of expression. Templating libraries are
+  especially prone to this style of implementation. While some (like
+  <a href='http://angularjs.org/'>Angular.js</a>) support CSP out of the box,
+  many popular frameworks haven't yet updated to a mechanism that is compatible
+  with extensions' <code>eval</code>-less world. Removing support for that
+  functionality has therefore proven <a href='http://crbug.com/107538'>more
+  problematic than expected</a> for developers.-->
+  然而我们也承认，出于性能优化以及更简洁的表达，许多库都使用
+  <code>eval()</code> 或者类似于 eval 的构造，例如
+  <code>new Function()</code>。尽管其中某些（像
+  <a href='http://angularjs.org/'>Angular.js</a>）已经可以直接支持
+  CSP，许多流行的框架还没能更新至与扩展程序中禁止 <code>eval</code>
+  的环境兼容的机制，事实证明移除该功能的支持对开发人员来说产生的问题<a href='http://crbug.com/107538'>比预料中更多</a>。
+</p>
+
+<p>
+  <!--@This document introduces sandboxing as a safe mechanism to include these
+  libraries in your projects without compromising on security. For brevity,
+  we'll be using the term <em>extensions</em> throughout, but the concept
+  applies equally to applications.-->
+  该文档引入了沙箱，作为一种安全的机制，来将这些库包含在您的项目中，同时不威胁安全。为了简单起见，我们通篇使用<em>扩展程序</em>这一术语，但是这一概念同样适用于应用。
+</p>
+
+<h2 id="why_sandbox"><!--@Why sandbox?-->为什么使用沙箱？</h2>
+
+<p>
+  <code>eval</code> <!--@is dangerous inside an extension because the code it
+  executes has access to everything in the extension's high-permission
+  environment. A slew of powerful <code>chrome.*</code> APIs are available that
+  could severely impact a user's security and privacy; simple data exfiltration
+  is the least of our worries. The solution on offer is a sandbox in which
+  <code>eval</code> can execute code without access either to the extension's
+  data or the extension's high-value APIs. No data, no APIs, no problem.-->
+  在扩展程序中是危险的，因为它执行的代码可以在扩展程序高权限的环境下访问所有内容，对可用的强大
+  <code>chrome.* API</code>
+  的滥用会严重地影响用户的安全与隐私，而不仅仅是简单的数据泄漏。我们提供的解决方案是能够使
+  <code>eval</code> 执行代码，但是不能访问扩展程序数据或者扩展程序强大的
+  API。没有数据，没有 API，就不会有问题。
+</p>
+
+<p>
+  <!--@We accomplish this by listing specific HTML files inside the extension package
+  as being sandboxed. Whenever a sandboxed page is loaded, it will be moved to a
+  <a href='http://www.whatwg.org/specs/web-apps/current-work/multipage/origin-0.html#sandboxed-origin-browsing-context-flag'>unique origin</a>,
+  and will be denied access to <code>chrome.*</code> APIs. If we load this
+  sandboxed page into our extension via an <code>iframe</code>, we can pass it
+  messages, let it act upon those messages in some way, and wait for it to pass
+  us back a result. This simple messaging mechanism gives us everything we need
+  to safely include <code>eval</code>-driven code in our extension's workflow.-->
+  我们通过这样的方法来实现这一点：列出扩展程序包内需要在沙箱中运行的特定
+  HTML
+  文件。每当沙箱保护的页面加载时，它将会被移至某个<a
+  href='http://www.whatwg.org/specs/web-apps/current-work/multipage/origin-0.html#sandboxed-origin-browsing-context-flag'
+  >唯一的来源</a>，并且拒绝访问
+  <code>chrome.* API</code>。如果我们通过 <code>iframe</code>
+  将这一受沙箱保护的页面加载到扩展程序中，我们可以向它传递消息，让它以某种方式基于这些消息运行，并等待它传回结果。这种简单的消息机制使我们能够安全地在扩展程序的工作流程中包含
+  <code>eval</code> 驱动的代码。
+</p>
+
+<h2 id="creating_and_using"><!--@Creating and using a sandbox.-->创建和使用沙箱</h2>
+
+<p>
+  <!--@If you'd like to dive straight into code, please grab the
+  <a href='http://code.google.com/chrome/extensions/samples.html#3c6dfba67f6a7480d931b5a4a646c151ad1a049b'>sandboxing
+  sample extension and take off</a>. It's a working example of a tiny messaging
+  API built on top of the <a href='http://handlebarsjs.com'>Handlebars</a>
+  templating library, and it should give you everything you need to get going.
+  For those of you who'd like a little more explanation, let's walk through that
+  sample together here.-->
+  如果您想直接深入代码，请参考<a href='samples.html#3c6dfba67f6a7480d931b5a4a646c151ad1a049b'
+  >沙箱示例扩展程序</a>。这一可以正常工作的例子包含基于
+  <a href='http://handlebarsjs.com'>Handlebars</a>
+  模板库构建的短小精悍的消息
+  API，它应该能够使您了解接下来所需的所有内容。如果您需要更多的解释，请跟我们一起在这里进行该示例的演练。
+</p>
+
+<h3 id="list_files"><!--@List files in manifest-->在清单文件中列出文件</h3>
+
+<p>
+  <!--@Each file that ought to be run inside a sandbox must be listed in the
+  extension manifest by adding a <code>sandbox</code> property. This is a
+  critical step, and it's easy to forget, so please double check that your
+  sandboxed file is listed in the manifest. In this sample, we're sandboxing the
+  file cleverly named "sandbox.html". The manifest entry looks like this:-->
+  应该在沙箱中执行的每一个文件都必须在扩展程序的清单文件中列出，添加
+  <code>sandbox</code> 属性。这是最关键的一步，也是最容易忘记的，所以请再次检查您需要沙箱保护的文件确实已在清单文件中列出。在该示例中，我们需要沙箱保护的文件恰好命名为“sandbox.html”。清单文件项如下所示：
+</p>
+
+<pre>{
+  ...,
+  "sandbox": {
+     "pages": ["sandbox.html"]
+  },
+  ...
+}</pre>
+
+<h3 id="load_file"><!--@Load the sandboxed file-->加载受沙箱保护的文件</h3>
+
+<p>
+  <!--@In order to do something interesting with the sandboxed file, we need to load
+  it in a context where it can be addressed by the extension's code. Here,
+  <a href='http://code.google.com/chrome/extensions/examples/howto/sandbox/sandbox.html'>sandbox.html</a>
+  has been loaded into the extension's <a href='http://code.google.com/chrome/extensions/dev/event_pages.html'>Event
+  Page</a> (<a href='http://code.google.com/chrome/extensions/examples/howto/sandbox/eventpage.html'>eventpage.html</a>)
+  via an <code>iframe</code>. <a href='http://code.google.com/chrome/extensions/examples/howto/sandbox/eventpage.js'>eventpage.js</a>
+  contains code that sends a message into the sandbox whenever the browser
+  action is clicked by finding the <code>iframe</code> on the page, and
+  executing the <code>postMessage</code> method on its
+  <code>contentWindow</code>. The message is an object containing two
+  properties: <code>context</code> and <code>command</code>. We'll dive into
+  both in a moment.-->
+  为了通过受沙箱保护的文件做一些有意义的事，我们需要在扩展程序代码可以访问的环境中加载它。在该示例中，<a href='examples/howto/sandbox/sandbox.html'>sandbox.html</a>
+  通过 <code>iframe</code> 在扩展程序的<a href="event_pages.html"
+  >事件页面</a>（<a href='examples/howto/sandbox/eventpage.html'
+  >eventpage.html</a>）中加载。每当浏览器按钮单击时，<a href='examples/howto/sandbox/eventpage.js'>eventpage.js</a>
+  中包含的代码会找到页面中的 <code>iframe</code>，并在它的
+  <code>contentWindow</code> 上执行 <code>postMessage</code>
+  方法，向沙箱发送消息。该消息为包含两个属性的对象：<code>context</code>
+  和 <code>command</code>，我们稍后会详细解释它们。
+</p>
+
+<pre>chrome.browserAction.onClicked.addListener(function() {
+ var iframe = document.getElementById('theFrame');
+ var message = {
+   command: 'render',
+   context: {thing: 'world'}
+ };
+ iframe.contentWindow.postMessage(message, '*');
+});</pre>
+
+<p class="note">
+  <!--@For general information about the <code>postMessage</code> API, take a look at
+  the <a href="https://developer.mozilla.org/en/DOM/window.postMessage">
+    <code>postMessage</code> documentation on MDN
+  </a>. It's quite complete and worth reading. In particular, note that data can
+  only be passed back and forth if it's serializable. Functions, for instance,
+  are not.-->
+  有关 <code>postMessage</code> API 的一般信息，请参考
+  <a href="https://developer.mozilla.org/en/DOM/window.postMessage">MDN
+  上的 <code>postMessage</code>
+  文档</a>（英文），它非常完整，值得一读。特别注意只有可以序列化的数据才能来回传递，例如函数就不行。
+</p>
+
+<h3 id="do_something"><!--@Do something dangerous-->做一些有潜在危险的事</h3>
+
+<p>
+  <!--@When <code>sandbox.html</code> is loaded, it loads the Handlebars library, and
+  creates and compiles an inline template in the way Handlebars suggests:-->
+  当 <code>sandbox.html</code> 加载时，它会加载 Handlebars 库，并以
+  Handlebars 提供的方式创建并编译内嵌模板：
+</p>
+
+<pre>&lt;script src="handlebars-1.0.0.beta.6.js"&gt;&lt;/script&gt;
+ &lt;script id="hello-world-template" type="text/x-handlebars-template"&gt;
+   &lt;div class="entry"&gt;
+     &lt;h1&gt;Hello, &#123&#123thing&#125&#125!&lt;/h1&gt;
+   &lt;/div&gt;
+ &lt;/script&gt;
+ &lt;script&gt;
+   var templates = [];
+   var source = document.getElementById('hello-world-template').innerHTML;
+   templates['hello'] = Handlebars.compile(source);
+ &lt;/script&gt;</pre>
+
+<p>
+  <!--@This doesn't fail! Even though <code>Handlebars.compile</code> ends up using
+  <code>new Function</code>, things work exactly as expected, and we end up with
+  a compiled template in <code>templates[‘hello']</code>.-->
+  以上代码不会失败！尽管 <code>Handlebars.compile</code> 最终会使用
+  <code>new Function</code>，一切都完全与预期中一样，最终
+  <code>templates['hello']</code> 中包含了已编译的模板。
+</p>
+
+<h3 id="pass_result"><!--@Pass the result back-->将结果传回</h3>
+
+<p>
+  <!--@We'll make this template available for use by setting up a message listener
+  that accepts commands from the Event Page. We'll use the <code>command</code>
+  passed in to determine what ought to be done (you could imagine doing more
+  than simply rendering; perhaps creating templates? Perhaps managing them in
+  some way?), and the <code>context</code> will be passed into the template
+  directly for rendering. The rendered HTML will be passed back to the Event
+  Page so the extension can do something useful with it later on:-->
+  我们将设置消息监听器，从事件页面接收命令，使得该模板可以使用。我们将使用传入的
+  <code>command</code>
+  来确定做什么（您可以想象，能做的不仅仅是简单的渲染，也许创建模板？也许用某种方式管理它们？），而
+  <code>context</code>
+  将直接传入模板，用于渲染。渲染得到的 HTML
+  将传回事件页面，以便扩展程序利用它接着做一些有用的事：
+</p>
+
+<pre>window.addEventListener('message', function(event) {
+  var command = event.data.command;
+  var name = event.data.name || 'hello';
+  switch(command) {
+    case 'render':
+      event.source.postMessage({
+        name: name,
+        html: templates[name](event.data.context)
+      }, event.origin);
+      break;
+
+    // case 'somethingElse':
+    //   ...
+  }
+});</pre>
+
+<p>
+  <!--@Back in the Event Page, we'll receive this message, and do something
+  interesting with the <code>html</code> data we've been passed. In this case,
+  we'll just echo it out via a <a href='desktop_notifications.html'>Desktop
+  Notification</a>, but it's entirely possible to use this HTML safely as part
+  of the extension's UI. Inserting it via <code>innerHTML</code> doesn't pose a
+  significant security risk, as even a complete compromise of the sandboxed code
+  through some clever attack would be unable to inject dangerous script or
+  plugin content into the high-permission extension context.-->
+  回到事件页面，我们会接收到该消息，并利用传递给我们的 <code>html</code>
+  数据做一些有意义的事。在这一例子中，我们只是通过<a
+  href="desktop_notifications.html">桌面通知</a>显示它，但是完全可能安全地使用这一
+  HTML 作为扩展程序用户界面的一部分。通过 <code>innerHTML</code>
+  将其插入并没有严重的安全风险，即使是通过某些巧妙的攻击完全利用沙箱中的代码，也不可能向高权限的扩展程序环境插入危险的脚本或插件内容。
+</p>
+
+<p>
+  <!--@This mechanism makes templating straightforward, but it of course isn't
+  limited to templating. Any code that doesn't work out of the box under a
+  strict Content Security Policy can be sandboxed; in fact, it's often useful
+  to sandbox components of your extensions that <em>would</em> run correctly in
+  order to restrict each piece of your program to the smallest set of privileges
+  necessary for it to properly execute. The
+  <a href="http://www.youtube.com/watch?v=GBxv8SaX0gg">Writing Secure Web Apps
+  and Chrome Extensions</a> presentation from Google I/O 2012 gives some good
+  examples of these technique in action, and is worth 56 minutes of your time.-->
+  这一机制很直白地描述了模板的使用，然而它当然不仅仅限于使用模板，所有不能在严格的内容安全策略下直接运行的代码都可以在沙箱中运行。事实上，将您的扩展程序中<em>能够</em>正确运行的各组件限制在沙箱中，可以使您的程序的每一部分都限制在正常执行所需的最小权限下。来自
+  Google I/O 2012 的演示文稿<a href="https://www.youtube.com/watch?v=GBxv8SaX0gg">编写安全的网络应用和 Chrome 扩展程序</a>（英文）提供了利用这些技术的例子，值得花费您 56 分钟的时间。
+</p>

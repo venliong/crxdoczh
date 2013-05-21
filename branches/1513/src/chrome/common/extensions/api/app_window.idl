@@ -1,0 +1,264 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+namespace app.window {
+  dictionary Bounds {
+    long? left;
+    long? top;
+    long? width;
+    long? height;
+  };
+
+  // <!--@State of a window: normal, fullscreen, maximized, minimized.-->
+  // 窗口的状态：正常、全屏、最大化、最小化。
+  enum State { normal, fullscreen, maximized, minimized };
+
+  // 'shell' is the default window type. 'panel' is managed by the OS
+  // (Currently experimental, Ash only).
+  [nodoc] enum WindowType { shell, panel };
+
+  dictionary CreateWindowOptions {
+    // <!--@Id to identify the window. This will be used to remember the size
+    // and position of the window and restore that geometry when a window
+    // with the same id is later opened.-->
+    // 用于标识窗口的标识符，会用来记住窗口的大小与位置，当同一标识符的窗口再次打开时恢复原来的尺寸。
+    DOMString? id;
+
+    // Default width of the window. (Deprecated; regular bounds act like this
+    // now.)
+    [nodoc] long? defaultWidth;
+
+    // Default height of the window. (Deprecated; regular bounds act like this
+    // now.)
+    [nodoc] long? defaultHeight;
+
+    // Default X coordinate of the window. (Deprecated; regular bounds act like
+    // this now.)
+    [nodoc] long? defaultLeft;
+
+    // Default Y coordinate of the window. (Deprecated; regular bounds act like
+    // this now.)
+    [nodoc] long? defaultTop;
+
+    // Width of the window. (Deprecated; use 'bounds'.)
+    [nodoc] long? width;
+
+    // Height of the window. (Deprecated; use 'bounds'.)
+    [nodoc] long? height;
+
+    // X coordinate of the window. (Deprecated; use 'bounds'.)
+    [nodoc] long? left;
+
+    // Y coordinate of the window. (Deprecated; use 'bounds'.)
+    [nodoc] long? top;
+
+    // <!--@Minimum width for the lifetime of the window.-->
+    // 窗口在其生命周期内的最小宽度。
+    long? minWidth;
+
+    // <!--@Minimum height for the lifetime of the window.-->
+    // 窗口在其生命周期内的最小高度。
+    long? minHeight;
+
+    // <!--@Maximum width for the lifetime of the window.-->
+    // 窗口在其生命周期内的最大宽度。
+    long? maxWidth;
+
+    // <!--@Maximum height for the lifetime of the window.-->
+    // 窗口在其生命周期内的最大高度。
+    long? maxHeight;
+
+    // Type of window to create.
+    [nodoc] WindowType? type;
+
+    // <!--@Frame type: 'none' or 'chrome' (defaults to 'chrome').-->
+    // 框架类型：'none' 或 'chrome'（默认为 'chrome'）。
+    DOMString? frame;
+
+    // <!--@Size and position of the content in the window (excluding the titlebar).
+    // If an id is also specified and a window with a matching id has been shown
+    // before, the remembered bounds of the window will be used instead.-->
+    // 窗口中内容的大小与位置（不包括标题栏）。如果同时指定了
+    // id，并且以前显示过匹配标识符的窗口，则会使用记录下来的窗口大小与位置。
+    Bounds? bounds;
+
+    // <!--@Enable window background transparency.
+    // Only supported in ash. Requires experimental API permission.-->
+    // 启用窗口背景透明，仅在 ash 中支持，需要实验性 API 权限。
+    boolean? transparentBackground;
+
+    // <!--@The initial state of the window, allowing it to be created already
+    // fullscreen, maximized, or minimized. Defaults to 'normal'.-->
+    // 窗口的初始状态，允许使它在创建时就全屏、最大化或最小化。默认为
+    // 'normal'（正常）。
+    State? state;
+
+    // <!--@If true, the window will be created in a hidden state. Call show() on
+    // the window to show it once it has been created. Defaults to false.-->
+    // 如果为 true，该窗口创建后将处于隐藏状态，创建之后在该窗口上调用
+    // show() 可以显示它。默认为 false。
+    boolean? hidden;
+
+    // <!--@If true, the window will be resizable by the user. Defaults to true.-->
+    // 如果为 true 的话，用户可以调整窗口的大小。默认为 true。
+    boolean? resizable;
+
+    // <!--@By default if you specify an id for the window, the window will only be
+    // created if another window with the same id doesn't already exist. If a
+    // window with the same id already exists that window is activated instead.
+    // If you do want to create multiple windows with the same id, you can
+    // set this property to false.-->
+    // 默认情况下，如果您指定了窗口的标识符，只有当另一个具有相同标识符的窗口不存在时才会创建。如果另一个具有相同标识符的窗口存在，则它将变为活动窗口。如果您确实需要创建多个相同标识符的窗口，您可以将该属性设置为
+    // false。
+    boolean? singleton;
+  };
+
+  callback CreateWindowCallback =
+      void ([instanceOf=AppWindow] object created_window);
+
+  dictionary AppWindow {
+    // <!--@Focus the window.-->
+    // 使窗口拥有焦点。
+    static void focus();
+
+    // <!--@Fullscreens the window.-->
+    // 使窗口进入全屏状态。
+    static void fullscreen();
+
+    // <!--@Is the window fullscreen?-->
+    // 窗口是否处于全屏状态。
+    static boolean isFullscreen();
+
+    // <!--@Minimize the window.-->
+    // 最小化窗口。
+    static void minimize();
+
+    // <!--@Is the window minimized?-->
+    // 窗口是否最小化。
+    static boolean isMinimized();
+
+    // <!--@Maximize the window.-->
+    // 最大化窗口。
+    static void maximize();
+
+    // <!--@Is the window maximized?-->
+    // 窗口是否最大化。
+    static boolean isMaximized();
+
+    // <!--@Restore the window, exiting a maximized, minimized, or fullscreen state.-->
+    // 从最大化、最小化或全屏状态恢复窗口。
+    static void restore();
+
+    // <!--@Move the window to the position (|left|, |top|).-->
+    // 将窗口移到指定位置（<code>left</code>、<code>top</code>）。
+    static void moveTo(long left, long top);
+
+    // <!--@Resize the window to |width|x|height| pixels in size.-->
+    // 将窗口大小调整为 <code>width</code> × <code>height</code> 像素。
+    static void resizeTo(long width, long height);
+
+    // <!--@Draw attention to the window.-->
+    // 吸引用户注意该窗口。
+    static void drawAttention();
+
+    // <!--@Clear attention to the window.-->
+    // 取消对窗口的吸引。
+    static void clearAttention();
+
+    // <!--@Close the window.-->
+    // 关闭窗口。
+    static void close();
+
+    // <!--@Show the window. Does nothing if the window is already visible.-->
+    // 显示窗口，如果窗口已经可见则什么都不做。
+    static void show();
+
+    // <!--@Hide the window. Does nothing if the window is already hidden.-->
+    // 隐藏窗口，如果窗口已经可见则什么都不做。
+    static void hide();
+
+    // <!--@Get the window's bounds as a $ref:Bounds object.-->
+    // 获取窗口的大小与位置，以 $ref:Bounds 对象表示。
+    [nocompile] static Bounds getBounds();
+
+    // <!--@Set the window's bounds.-->
+    // 设置窗口的大小与位置。
+    static void setBounds(Bounds bounds);
+
+    // Set the app icon for the window (experimental).
+    // Currently this is only being implemented on Ash.
+    // TODO(stevenjb): Investigate implementing this on Windows and OSX.
+    [nodoc] static void setIcon(DOMString icon_url);
+
+    // <!--@The JavaScript 'window' object for the created child.-->
+    // 已创建子窗口的 JavaScript window 对象。
+    [instanceOf=global] object contentWindow;
+  };
+
+  interface Functions {
+    // <!--@The size and position of a window can be specified in a number of
+    // different ways. The most simple option is not specifying anything at
+    // all, in which case a default size and platform dependent position will
+    // be used.-->
+    // 窗口的大小与位置可以以几种不同的方式指定。最简单的选择是什么都不指定，这种情况下会使用默认大小与平台相关的位置。
+    //
+    // <!--@Another option is to use the bounds property, which will put the window
+    // at the specified coordinates with the specified size. If the window has
+    // a frame, it's total size will be the size given plus the size of the
+    // frame; that is, the size in bounds is the content size, not the window
+    // size.-->
+    // 另一种选择是使用 bounds
+    // 属性，这样窗口总是会放在指定位置并且具有指定大小。如果窗口有边框，它的总大小是指定大小加上边框的大小。也就是说，bounds
+    // 中的大小是内容大小，而不是窗口大小。
+    //
+    // <!--@To automatically remember the positions of windows you can give them ids.
+    // If a window has an id, This id is used to remember the size and position
+    // of the window whenever it is moved or resized. This size and position is
+    // then used instead of the specified bounds on subsequent opening of a
+    // window with the same id. If you need to open a window with an id at a
+    // location other than the remembered default, you can create it hidden,
+    // move it to the desired location, then show it.-->
+    // 如果要自动记录窗口的位置，您可以为它们提供标识符。如果窗口有标识符，该标识符将在窗口移动或调整大小时用于记录它的大小和位置。以后打开具有同样标识符的窗口时使用这一大小和位置，而不是指定的大小和位置。如果您需要打开一个具有标识符的窗口，并且使用不同于记录的默认位置，您可以使它创建时隐藏，将它移动到期望的位置，然后显示它。
+    static void create(DOMString url,
+                       optional CreateWindowOptions options,
+                       optional CreateWindowCallback callback);
+
+    // <!--@Returns an $ref:AppWindow object for the
+    // current script context (ie JavaScript 'window' object). This can also be
+    // called on a handle to a script context for another page, for example:
+    // otherWindow.chrome.app.window.current().-->
+    // 返回当前脚本上下文（即 JavaScript window 对象）的
+    // $ref:AppWindow 对象。这也可以在另一个页面的脚本上下文句柄上调用，例如
+    // otherWindow.chrome.app.window.current()。
+    [nocompile] static AppWindow current();
+    [nocompile, nodoc] static void initializeAppWindow(object state);
+  };
+
+  interface Events {
+    // <!--@Fired when the window is resized.-->
+    // 当窗口改变大小时产生。
+    [nocompile] static void onBoundsChanged();
+
+    // <!--@Fired when the window is closed.-->
+    // 当窗口关闭时产生。
+    [nocompile] static void onClosed();
+
+    // <!--@Fired when the window is fullscreened.-->
+    // 窗口全屏时产生。
+    [nocompile] static void onFullscreened();
+
+    // <!--@Fired when the window is maximized.-->
+    // 当窗口最大化时产生。
+    // Fired when the window is maximized.
+    [nocompile] static void onMaximized();
+
+    // <!--@Fired when the window is minimized.-->
+    // 当窗口最小化时产生。
+    [nocompile] static void onMinimized();
+
+    // <!--@Fired when the window is restored from being minimized or maximized.-->
+    // 当窗口从最小化或最大化的状态恢复时产生。
+    [nocompile] static void onRestored();
+  };
+};
