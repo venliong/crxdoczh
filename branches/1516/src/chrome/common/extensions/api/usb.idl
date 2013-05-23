@@ -1,0 +1,254 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+namespace usb {
+
+  // <!--@Direction, Recipient and RequestType all map to their namesakes within the
+  // USB specification.-->
+  // Direction（方向）、Recipient（接收方）和 RequestType（请求类型）都与
+  // USB 规范中一致。
+  enum Direction {in, out};
+  enum Recipient {device, _interface, endpoint, other};
+  enum RequestType {standard, class, vendor, reserved};
+
+  // <!--@A Device encapsulates everything that is needed to communicate with a USB
+  // device. They are returned by findDevice calls and have all of their
+  // fields populated before being returned.-->
+  // Device 对象包含与 USB 设备所需的所有信息，由 findDevices
+  // 调用返回，返回前会设置好所有字段。
+  dictionary Device {
+    long handle;
+    long vendorId;
+    long productId;
+  };
+
+  // <!--@ControlTransferInfo represents that parameters to a single USB control
+  // transfer.-->
+  // ControlTransferInfo 对象表示一次 USB 控制传输的参数。
+  dictionary ControlTransferInfo {
+    // <!--@The direction of this transfer.-->
+    // 本次传输的方向。
+    Direction direction;
+
+    // <!--@The intended recipient for this transfer.-->
+    // 本次传输的接收方。
+    Recipient recipient;
+
+    // <!--@The type of this request.-->
+    // 本次请求的类型。
+    RequestType requestType;
+
+    long request;
+    long value;
+    long index;
+
+    // <!--@If this transfer is an input transfer, then this field must be set to
+    // indicate the expected data length. If this is an output transfer, then
+    // this field is ignored.-->
+    // 如果本次传输是输入传输，则该字段必须设置为预期的数据长度。如果本次传输是输出传输，将忽略该字段。
+    long? length;
+
+    // <!--@The data payload carried by this transfer. If this is an output tranfer
+    // then this field must be set.-->
+    // 本次传输所携带的数据。如果是输出传输，则必须设置该字段。
+    ArrayBuffer? data;
+  };
+
+  // <!--@GenericTransferInfo is used by both bulk and interrupt transfers to
+  // specify the parameters of the transfer.-->
+  // GenericTransferInfo 对象在大块传输与中断传输中用来指定传输参数。
+  dictionary GenericTransferInfo {
+    // <!--@The direction of this transfer.-->
+    // 本次传输的方向。
+    Direction direction;
+
+    long endpoint;
+
+    // <!--@If this is an input transfer then this field indicates the size of the
+    // input buffer. If this is an output transfer then this field is ignored.-->
+    // 如果本次传输是输入传输，则该字段表示输入缓冲区的大小。如果本次传输是输出传输，将忽略该字段。
+    long? length;
+
+    // <!--@If this is an output transfer then this field must be populated.
+    // Otherwise, it will be ignored.-->
+    // 如果是输出传输，则必须包含该字段，否则将忽略。
+    ArrayBuffer? data;
+  };
+
+  // <!--@IsochronousTransferInfo describes a single multi-packet isochronous
+  // transfer.-->
+  // IsochronousTransferInfo 对象描述一次多包同步传输。
+  dictionary IsochronousTransferInfo {
+    // <!--@All of the normal transfer parameters are encapsulated in the
+    // transferInfo parameters. Note that the data specified in this parameter
+    // block is split along packetLength boundaries to form the individual
+    // packets of the transfer.-->
+    // 所有一般的传输参数都包含在此 transferInfo
+    // 参数中。注意，该参数块中指定的数据将按照数据包长度（packetLength）分割，构成传输过程中的每一个数据包。
+    GenericTransferInfo transferInfo;
+
+    // <!--@The total number of packets in this transfer.-->
+    // 本次传输中数据包的总数。
+    long packets;
+
+    // <!--@The length of each of the packets in this transfer.-->
+    // 本次传输中每个数据包的长度。
+    long packetLength;
+  };
+
+  dictionary TransferResultInfo {
+    // <!--@A value of 0 indicates that the transfer was a success. Other values
+    // indicate failure.-->
+    // 0 表示传输成功，其他值表示失败。
+    long? resultCode;
+
+    // <!--@If the transfer was an input transfer then this field will contain all
+    // of the input data requested.-->
+    // 如果本次传输是输入传输，该字段将包含所有请求的输入数据。
+    ArrayBuffer? data;
+  };
+
+  // <!--@FindDevicesOptions describes the properties of devices which are found and
+  // opened via findDevices.-->
+  // FindDevicesOptions 对象描述通过 findDevices 发现和打开的设备属性。
+  dictionary FindDevicesOptions {
+    long vendorId;
+    long productId;
+  };
+
+  callback VoidCallback = void ();
+  callback FindDevicesCallback = void (Device[] device);
+  callback CloseDeviceCallback = void ();
+  callback TransferCallback = void (TransferResultInfo info);
+  callback ResetDeviceCallback = void(boolean result);
+
+  interface Functions {
+    // <!--@Finds the first instance of the USB device specified by the vendorId/
+    // productId pair and, if permissions allow, opens it for use.
+    // Upon successfully opening a device the callback is invoked with a
+    // populated Device object. On failure, the callback is invoked with null.-->
+    // 寻找制造商标识符（venderId）/产品标识符（productId）指定的
+    // USB 设备的第一个实例，如果权限允许的话，打开设备以使用。成功打开设备后，回调函数调用时会传递完整的
+    // Device 对象。如果操作失败，调用回调函数时传递 null。
+    // |options|: <!--@The properties to search for on target devices.-->
+    // 用于搜索目标设备的属性。
+    // |callback|: <!--@Invoked with the opened Device on success.-->
+    // 如果成功，调用时传递打开的设备对象。
+    static void findDevices(FindDevicesOptions options,
+        FindDevicesCallback callback);
+
+    // <!--@Closes an open device instance. Invoking operations on a device after it
+    // has been closed is a safe operation, but causes no action to be taken.-->
+    // 关闭已打开的设备实例。在已关闭的设备上进行操作是安全的，但是不会产生任何效果。
+    // |device|: <!--@The device to close.-->
+    // 要关闭的设备。
+    // |callback|: <!--@The callback to invoke once the device is closed.-->
+    // 设备关闭后调用的回调函数。
+    static void closeDevice(Device device,
+        optional CloseDeviceCallback callback);
+
+    // <!--@Claims an interface on the specified USB device.-->
+    // 在指定 USB 设备上获取接口。
+    // |device|: <!--@The device on which the interface is to be claimed.-->
+    // 要获取接口的设备。
+    // |interface|: <!--@The interface number to be claimed.-->
+    // 要获取的接口编号。
+    // |callback|: <!--@The callback to invoke once the interface is claimed.-->
+    // 获取接口后调用的回调函数。
+    static void claimInterface(Device device, long interfaceNumber,
+        VoidCallback callback);
+
+    // <!--@Releases a claim to an interface on the provided device.-->
+    // 释放在提供的设备上获取的接口。
+    // |device|: <!--@The device on which the interface is to be released.-->
+    // 要释放接口的设备。
+    // |interface|: <!--@The interface number to be released.-->
+    // 要释放的接口编号。
+    // |callback|: <!--@The callback to invoke once the interface is released.-->
+    // 接口释放后调用的回调函数。
+    static void releaseInterface(Device device, long interfaceNumber,
+        VoidCallback callback);
+
+    // <!--@Selects an alternate setting on a previously claimed interface on a
+    // device.-->
+    // 在之前获取的设备接口上选择替代的设置。
+    // |device|: <!--@The device on which the interface settings are to be set.-->
+    // 要设置接口设置的设备。
+    // |interface|: <!--@The interface number to be set.-->
+    // 要设置的接口编号。
+    // |alternateSetting|: <!--@The alternate setting to set.-->
+    // 要设置的替代设置。
+    // |callback|: <!--@The callback to invoke once the interface setting is set.-->
+    // 接口设置后调用的回调函数。
+    static void setInterfaceAlternateSetting(Device device,
+        long interfaceNumber, long alternateSetting, VoidCallback callback);
+
+    // <!--@Performs a control transfer on the specified device. See the
+    // ControlTransferInfo structure for the parameters required to make a
+    // transfer.-->
+    // 在指定设备上进行控制传输，有关进行传输所需要的参数，请参见
+    // $ref:ControlTransferInfo 结构。
+    // |device|: <!--@An open device to make the transfer on.-->
+    // 要进行传输的已打开设备。
+    // |transferInfo|: <!--@The parameters to the transfer. See ControlTransferInfo.-->
+    // 传输的参数，参见 $ref:ControlTransferInfo。
+    // |callback|: <!--@Invoked once the transfer has completed.-->
+    // 传输完成后调用。
+    static void controlTransfer(Device device,
+        ControlTransferInfo transferInfo, TransferCallback callback);
+
+    // <!--@Performs a bulk transfer on the specified device.-->
+    // 在指定设备上进行大块传输。
+    // |device|: <!--@An open device to make the transfer on.-->
+    // 要进行传输的已打开设备。
+    // |transferInfo|: <!--@The parameters to the transfer. See GenericTransferInfo.-->
+    // 传输的参数，参见 $ref:GenericTransferInfo。
+    // |callback|: <!--@Invoked once the transfer has completed.-->
+    // 传输完成后调用。
+    static void bulkTransfer(Device device, GenericTransferInfo transferInfo,
+        TransferCallback callback);
+
+    // <!--@Performs an interrupt transfer on the specified device.-->
+    // 在指定设备上进行中断传输。
+    // |device|: <!--@An open device to make the transfer on.-->
+    // 要进行传输的已打开设备。
+    // |transferInfo|: <!--@The parameters to the transfer. See GenericTransferInfo.-->
+    // 传输的参数，参见 $ref:GenericTransferInfo。
+    // |callback|: <!--@Invoked once the transfer has completed.-->
+    // 传输完成后调用。
+    static void interruptTransfer(Device device,
+        GenericTransferInfo transferInfo, TransferCallback callback);
+
+    // <!--@Performs an isochronous transfer on the specific device.-->
+    // 在指定设备上进行同步传输。
+    // |device|: <!--@An open device to make the transfer on.-->
+    // 要进行传输的已打开设备。
+    // |transferInfo|: <!--@The parameters to the transfer. See
+    // IsochronousTransferInfo.-->
+    // 传输的参数，参见 $ref:IsochronousTransferInfo。
+    // |callback|: <!--@Invoked once the transfer has been completed.-->
+    // 传输完成后调用。
+    static void isochronousTransfer(Device device,
+        IsochronousTransferInfo transferInfo,
+        TransferCallback callback);
+
+    // <!--@Try to reset the USB device and restore the previous status.-->
+    // 尝试将 USB 设备重置，并恢复原来的状态。
+    //
+    // <!--@If the reset fails, the given device will be closed and the USB device
+    // will appear to be disconected and reconnected.
+    // You must call <code>findDevice</code> again to acquire the device.-->
+    // 如果重置失败，会关闭指定的设备，USB
+    // 设备就像断开并重新连接了一样。您必须再次调用 <code>findDevice</code>
+    // 获取设备。
+    //
+    // |device|: <!--@An opened device to reset.-->
+    // 要重置的已打开设备。
+    // |callback|: <!--@Invoked once the device is reset with a boolean indicating
+    // whether the reset is completed successfully.-->
+    // 设备重置后调用，传递布尔值表示重置是否成功完成。
+    static void resetDevice(Device device,
+        ResetDeviceCallback callback);
+  };
+};

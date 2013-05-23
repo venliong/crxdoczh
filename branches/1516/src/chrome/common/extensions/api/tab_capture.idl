@@ -1,0 +1,91 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// An API for tab media streams.
+
+namespace tabCapture {
+
+  enum TabCaptureState {
+    pending,
+    active,
+    stopped,
+    error
+  };
+
+  dictionary CaptureInfo {
+    // <!--@The id of the tab whose status changed.-->
+    // 状态更改的标签页标识符。
+    long tabId;
+
+    // <!--@The new capture status of the tab.-->
+    // 新的标签页捕获状态。
+    TabCaptureState status;
+
+    // <!--@Whether an element in the tab being captured is in fullscreen mode.-->
+    // 正在捕获的标签页中的元素是否处于全屏模式。
+    boolean fullscreen;
+  };
+
+  // <!--@MediaTrackConstraints for the media streams that will be passed to WebRTC.
+  // See section on MediaTrackConstraints:
+  // http://dev.w3.org/2011/webrtc/editor/getusermedia.html-->
+  // 传递给 WebRTC 的流媒体的 MediaTrackConstraints，参见下列文档的
+  // MediaTrackConstraints 部分：http://dev.w3.org/2011/webrtc/editor/getusermedia.html
+  dictionary MediaStreamConstraint {
+    object mandatory;
+  };
+
+  // <!--@Whether we are requesting tab video and/or audio and the
+  // MediaTrackConstraints that should be set for these streams.-->
+  // 请求的是标签页的视频还是音频，以及为这些流媒体设置的
+  // MediaTrackConstraints
+  dictionary CaptureOptions {
+    boolean? audio;
+    boolean? video;
+    MediaStreamConstraint? audioConstraints;
+    MediaStreamConstraint? videoConstraints;
+  };
+
+  callback GetTabMediaCallback =
+      void ([instanceOf=LocalMediaStream] object stream);
+
+  callback GetCapturedTabsCallback = void (CaptureInfo[] result);
+
+  interface Functions {
+    // <!--@Captures the visible area of the currently active tab.
+    // This method can only be used on the currently active page after the
+    // extension has been <em>invoked</em>, similar to the way that
+    // <a href="activeTab.html">activeTab</a> works.
+    // Note that Chrome internal pages cannot be captured.-->
+    // 捕获当前活动标签页的可视区域。该方法只能在扩展程序被<em
+    // >调用</em>之后在当前活动网页上使用，与
+    // <a href="activeTab.html">activeTab</a>
+    // 的工作方式类似。注意，不能捕获 Chrome 浏览器的内部页面。
+    // |options| : <!--@Configures the returned media stream.-->
+    // 配置返回的流媒体。
+    // |callback| : <!--@Callback with either the stream returned or null.-->
+    // 传递返回的流媒体或 null 的回调函数。
+    static void capture(CaptureOptions options,
+                        GetTabMediaCallback callback);
+
+    // <!--@Returns a list of tabs that have requested capture or are being
+    // captured, i.e. status != stopped and status != error.
+    // This allows extensions to inform the user that there is an existing
+    // tab capture that would prevent a new tab capture from succeeding (or
+    // to prevent redundant requests for the same tab).-->
+    // 返回已经请求捕获或者正在捕获的标签页列表，即
+    // status != "stopped" 并且 status !=
+    // "error"。这样扩展程序就能告知用户已经存在标签页捕获，使新的标签页捕获不能成功（或者防止同一个标签页的重复请求）。
+    static void getCapturedTabs(GetCapturedTabsCallback callback);
+  };
+
+  interface Events {
+    // <!--@Event fired when the capture status of a tab changes.
+    // This allows extension authors to keep track of the capture status of
+    // tabs to keep UI elements like page actions and infobars in sync.-->
+    // 标签页的捕获状态更改时产生该事件，这样扩展程序就能跟踪标签页的捕获状态，使用户界面元素（例如页面按钮及信息栏）保持同步。
+    static void onStatusChanged(CaptureInfo info);
+  };
+
+};
