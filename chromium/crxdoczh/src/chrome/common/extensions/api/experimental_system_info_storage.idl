@@ -5,24 +5,23 @@
 namespace experimental.systemInfo.storage {
 
   enum StorageUnitType {
-    // <!--@Unknow storage type.-->
+    // <!--@The storage has fixed media, e.g. hard disk or SSD.-->
+    // 存储器是固定媒体，例如硬盘或 SSD。
+    fixed,
+    // <!--@The storage is removable, e.g. USB flash drive.-->
+    // 存储器可移动，例如 USB 闪存盘。
+    removable,
+    // <!--@The storage type is unknown.-->
     // 存储器类型未知。
-    unknown,
-    // <!--@Hard disk.-->
-    // 硬盘。
-    harddisk,
-    // <!--@Removable storage, e.g.USB device.-->
-    // 可移动存储器，例如 USB 设备。
-    removable
+    unknown
   };
 
   dictionary StorageUnitInfo {
     // <!--@The unique id of the storage unit.-->
     // 存储单元的唯一标识符。
     DOMString id;
-    // <!--@The type of storage device. The value is one of the constants defined
-    // for this type.-->
-    // 存储单元的类型，值为为这一类型定义的常量之一。
+    // <!--@The media type of the storage unit.-->
+    // 存储单元的媒体类型。
     StorageUnitType type;
     // <!--@The total amount of the storage space, in bytes.-->
     // 存储空间的总共大小，以字节为单位。
@@ -58,10 +57,12 @@ namespace experimental.systemInfo.storage {
     // 指定存储单元已更改的信息。
     static void onAvailableCapacityChanged(StorageChangeInfo info);
 
-    // Fired when a new removable storage is attached to the system.
+    // <!--@Fired when a new removable storage is attached to the system.-->
+    // 当可移动存储器连接到系统时产生。
     static void onAttached(StorageUnitInfo info);
 
-    // Fired when a removable storage is detached from the system.
+    // <!--@Fired when a removable storage is detached from the system.-->
+    // 当可移动设备从系统移除时产生。
     static void onDetached(DOMString id);
   };
  
