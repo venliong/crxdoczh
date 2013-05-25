@@ -76,18 +76,13 @@ chrome.usb.findDevices(FindDeviceOptions, callback)
     <td>FindDeviceOptions (object)</td>
     <td><!--@An object specifying both a <code>vendorId</code> (long) and
       <code>productId</code> (long) used to find the correct type of device on
-      the bus. Before calling this, your extension manifest must declare the
-      <code>optional_permissons</code> with a <code>usbDevices</code>
-      section containing the same <code>vendorId</code> and
-      <code>deviceId</code> combination and must have received user consent
-      via <code>chrome.permissions.request(...)</code>.-->
+      the bus. Your manifest must declare the<code>usbDevices</code> permission
+      section listing all the <code>vendorId</code> and
+      <code>deviceId</code> pairs your app wants to access.-->
       指定 <code>vendorId</code> (long) 和 <code>productId</code> (long)
-      的对象，用来寻找总线上正确类型的设备。调用前，您的扩展程序的清单文件必须在
-      <code>optional_permissons</code> （可选权限）中的
-      <code>usbDevices</code> 部分声明同样的 <code>vendorId</code> 和
-      <code>deviceId</code>，并且必须通过
-      <code>chrome.permissions.request(...)</code>
-      得到用户的同意。
+      的对象，用来寻找总线上正确类型的设备。您的清单文件必须在
+      <code>usbDevices</code> 权限中列出您的应用需要访问的所有设备对应的
+      <code>vendorId</code> 和 <code>deviceId</code>。
     </td>
   </tr>
   <tr>
