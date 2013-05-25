@@ -4,13 +4,21 @@
 
 namespace usb {
 
-  // <!--@Direction, Recipient and RequestType all map to their namesakes within the
-  // USB specification.-->
+  // <!--@Direction, Recipient, RequestType, and TransferType all map to their
+  // namesakes within the USB specification.-->
   // Direction（方向）、Recipient（接收方）和 RequestType（请求类型）都与
-  // USB 规范中一致。
+  // USB 规范中的相应术语一致。
   enum Direction {in, out};
   enum Recipient {device, _interface, endpoint, other};
   enum RequestType {standard, class, vendor, reserved};
+  enum TransferType {control, interrupt, isochronous, bulk};
+
+  // <!--@For isochronous mode, SynchronizationType and UsageType map to their
+  // namesakes within the USB specification.-->
+  // 对于同步模式，SynchronizationType 和 UsageType
+  // 与 USB 规范中的相应术语一致。
+  enum SynchronizationType {asynchronous, adaptive, synchronous};
+  enum UsageType {data, feedback, explicitFeedback};
 
   // <!--@A Device encapsulates everything that is needed to communicate with a USB
   // device. They are returned by findDevice calls and have all of their
@@ -21,6 +29,32 @@ namespace usb {
     long handle;
     long vendorId;
     long productId;
+  };
+
+  dictionary EndpointDescriptor {
+    long address;
+    TransferType type;
+    Direction direction;
+    long maximumPacketSize;
+
+    // <!--@Used for isochronous mode.-->
+    // 用于同步模式。
+    SynchronizationType? synchronization;
+    UsageType? usage;
+
+    // <!--@If this is an interrupt endpoint, this will be 1-255-->
+    // 如果是中断端点，这一值为 1～255。
+    long? pollingInterval;
+  };
+
+  dictionary InterfaceDescriptor {
+    long interfaceNumber;
+    long alternateSetting;
+    long interfaceClass;
+    long interfaceSubclass;
+    long interfaceProtocol;
+    DOMString? description;
+    EndpointDescriptor[] endpoints;
   };
 
   // <!--@ControlTransferInfo represents that parameters to a single USB control
@@ -119,6 +153,7 @@ namespace usb {
 
   callback VoidCallback = void ();
   callback FindDevicesCallback = void (Device[] device);
+  callback ListInterfacesCallback = void (InterfaceDescriptor[] descriptors);
   callback CloseDeviceCallback = void ();
   callback TransferCallback = void (TransferResultInfo info);
   callback ResetDeviceCallback = void(boolean result);
@@ -148,6 +183,15 @@ namespace usb {
     static void closeDevice(Device device,
         optional CloseDeviceCallback callback);
 
+    // <!--@Lists all the interfaces on the USB device.-->
+    // 列举 USB 设备上的所有接口。
+    // |device|: <!--@The device from which the interfaces should be listed.-->
+    // 要列举接口的设备。
+    // |callback|: <!--@The callback to invoke when the interfaces are enumerated.-->
+    // 接口列举完成时调用的回调函数。
+    static void listInterfaces(Device device,
+        ListInterfacesCallback callback);
+
     // <!--@Claims an interface on the specified USB device.-->
     // 在指定 USB 设备上获取接口。
     // |device|: <!--@The device on which the interface is to be claimed.-->
@@ -156,6 +200,10 @@ namespace usb {
     // 要获取的接口编号。
     // |callback|: <!--@The callback to invoke once the interface is claimed.-->
     // 获取接口后调用的回调函数。
+    // Claims an interface on the specified USB device.
+    // |device|: The device on which the interface is to be claimed.
+    // |interface|: The interface number to be claimed.
+    // |callback|: The callback to invoke once the interface is claimed.
     static void claimInterface(Device device, long interfaceNumber,
         VoidCallback callback);
 
