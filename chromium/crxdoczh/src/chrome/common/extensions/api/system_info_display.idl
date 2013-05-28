@@ -6,10 +6,10 @@ namespace systemInfo.display {
 
   dictionary Bounds {
     // <!--@The x-coordinate of the upper-left corner.-->
-    // 左上角的 x 坐标。
+    // 左上角的 X 坐标。
     long left;
     // <!--@The y-coordinate of the upper-left corner.-->
-    // 左上角的 y 坐标。
+    // 左上角的 Y 坐标。
     long top;
     // <!--@The width of the display in pixels.-->
     // 显示器宽度，以像素为单位。
