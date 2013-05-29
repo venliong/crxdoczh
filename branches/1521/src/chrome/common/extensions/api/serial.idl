@@ -1,0 +1,171 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+namespace serial {
+
+  callback GetPortsCallback = void (DOMString[] ports);
+
+  dictionary OpenOptions {
+    // <!--@The requested bitrate of the connection to be opened. For compatibility
+    // with the widest range of hardware, this number should match one of
+    // commonly-available bitrates, such as 110, 300, 1200, 2400, 4800, 9600,
+    // 14400, 19200, 38400, 57600, 115200. There is no guarantee, of course,
+    // that the device connected to the serial port will support the requested
+    // bitrate, even if the port itself supports that bitrate.-->
+    // 打开连接时请求的比特率。为了尽可能地与各种硬件兼容，该数值应该匹配常用的比特率，例如
+    // 110、300、1200、2400、4800、9600、14400、19200、38400、57600、115200。当然，不能保证连接到串行端口的设备能支持请求的比特率，即使端口本身支持该比特率。
+    long bitrate;
+  };
+
+  dictionary OpenInfo {
+    // <!--@The id of the opened connection.-->
+    // 已打开连接的标识符。
+    long connectionId;
+  };
+
+  callback OpenCallback = void (OpenInfo openInfo);
+
+  // <!--@Returns true if operation was successful.-->
+  // 如果操作成功则返回 true。
+  callback CloseCallback = void (boolean result);
+
+  dictionary ReadInfo {
+    // <!--@The number of bytes received, or a negative number if an error occurred.
+    // This number will be smaller than the number of bytes requested in the
+    // original read call if the call would need to block to read that number
+    // of bytes.-->
+    // 接收到的字节数，或者为负数，表示发生了错误。如果调用需要阻塞才能读取指定的字节数，该数目会比原来读取调用中请求的字节数小。
+    long bytesRead;
+
+    // <!--@The data received.-->
+    // 接收到的数据。
+    ArrayBuffer data;
+  };
+
+  callback ReadCallback = void (ReadInfo readInfo);
+
+  dictionary WriteInfo {
+    // <!--@The number of bytes written.-->
+    // 写入的字节数。
+    long bytesWritten;
+  };
+
+  callback WriteCallback = void (WriteInfo writeInfo);
+
+  // <!--@Returns true if operation was successful.-->
+  // 如果操作成功则返回 true。
+  callback FlushCallback = void (boolean result);
+
+  // Boolean true = mark signal (negative serial voltage).
+  // Boolean false = space signal (positive serial voltage).
+  // 
+  //
+  // For SetControlSignals, include the sendable signals that you wish to
+  // change. Signals not included in the dictionary will be left unchanged.
+  //
+  // GetControlSignals includes all receivable signals.
+  dictionary ControlSignalOptions {
+    // <!--@Serial control signals that your machine can send. Missing fields will
+    // be set to false.-->
+    // 您的计算机能够发送的串行控制信号，省略的字段将设置为 false。
+    boolean? dtr;
+    boolean? rts;
+
+    // <!--@Serial control signals that your machine can receive. If a get operation
+    // fails, success will be false, and these fields will be absent.-->
+    // 您的计算机能够接收的串行控制信号。如果获取操作失败，success
+    // 将为 false，这些字段也不会存在。
+    //
+    // <!--@DCD (Data Carrier Detect) is equivalent to RLSD (Receive Line Signal
+    // Detect) on some platforms.-->
+    // 在某些平台上，DCD（Data Carrier Detect）与
+    // RLSD（Receive Line Signal Detect）等价。
+    boolean? dcd;
+    boolean? cts;
+  };
+
+  // <!--@Returns a snapshot of current control signals.-->
+  // 返回当前控制信号的快照。
+  callback GetControlSignalsCallback = void (ControlSignalOptions options);
+
+  // <!--@Returns true if operation was successful.-->
+  // 如果操作成功则返回 true。
+  callback SetControlSignalsCallback = void (boolean result);
+
+  interface Functions {
+    // <!--@Returns names of valid ports on this machine, each of which is likely to
+    // be valid to pass as the port argument to open(). The list is regenerated
+    // each time this method is called, as port validity is dynamic.-->
+    // 返回当前计算机上有效端口的名称，将它们中的任何一个传递给
+    // open() 的 port
+    // 参数都可能是有效的。此列表每次调用该方法时都会重新生成，因为端口的有效性是动态的。
+    //
+    // |callback| : <!--@Called with the list of ports.-->
+    // 调用时传递端口列表。
+    static void getPorts(GetPortsCallback callback);
+
+    // <!--@Opens a connection to the given serial port.-->
+    // 打开到指定串行端口的连接。
+    // |port| : <!--@The name of the serial port to open.-->
+    // 要打开的串行端口名称。
+    // |options| : <!--@Connection options.-->
+    // 链接选项。
+    // |callback| : <!--@Called when the connection has been opened.-->
+    // 连接打开后调用。
+    static void open(DOMString port,
+                     optional OpenOptions options,
+                     OpenCallback callback);
+
+    // <!--@Closes an open connection.-->
+    // 关闭打开的连接。
+    // |connectionId| : <!--@The id of the opened connection.-->
+    // 打开的连接的标识符。
+    // |callback| : <!--@Called when the connection has been closed.-->
+    // 连接关闭后调用。
+    static void close(long connectionId,
+                      CloseCallback callback);
+
+    // <!--@Reads a byte from the given connection.-->
+    // 从指定连接读取内容。
+    // |connectionId| : <!--@The id of the connection.-->
+    // 连接标识符。
+    // |bytesToRead| : <!--@The number of bytes to read.-->
+    // 要读取的字节数。
+    // |callback| : <!--@Called when all the requested bytes have been read or
+    //              when the read blocks.-->
+    // 所有请求的字节都读取到或者读取操作阻塞时调用。
+    static void read(long connectionId,
+                     long bytesToRead,
+                     ReadCallback callback);
+
+    // <!--@Writes a string to the given connection.-->
+    // 向指定连接写入数据。
+    // |connectionId| : <!--@The id of the connection.-->
+    // 连接标识符。
+    // |data| : <!--@The string to write.-->
+    // 要写入的数据。
+    // |callback| : <!--@Called when the string has been written.-->
+    // 数据写入后调用。
+    static void write(long connectionId,
+                      ArrayBuffer data,
+                      WriteCallback callback);
+
+    // <!--@Flushes all bytes in the given connection's input and output buffers.-->
+    // 清洗给定连接输入输出缓存中的所有内容。
+    // |connectionId| : <!--@The id of the connection.-->
+    // 连接标识符。
+    // |callback| : <!--@Called when the flush is complete.-->
+    // 清洗操作完成后调用。
+    static void flush(long connectionId,
+                      FlushCallback callback);
+
+    static void getControlSignals(long connectionId,
+                                  GetControlSignalsCallback callback);
+
+    static void setControlSignals(long connectionId,
+                                  ControlSignalOptions options,
+                                  SetControlSignalsCallback callback);
+  };
+
+};

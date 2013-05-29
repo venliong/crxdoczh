@@ -1,0 +1,210 @@
+<h1><!--@Override Pages-->替代页面</h1>
+
+
+<style>
+#pics {
+  margin:2em 1em 1.5em;
+}
+
+#pics td {
+  text-align:center;
+  width:50%!important;
+  border:none;
+  padding:0 1em;
+  font-size:90%;
+}
+
+#pics img {
+  width:188;
+  height:246;
+  border:none;
+}
+</style>
+
+<p>
+<!--@Override pages are a way to substitute an HTML file from your extension
+for a page that Google Chrome normally provides.
+In addition to HTML,
+an override page usually has CSS and JavaScript code.-->
+替代页面是一种使用来自您的扩展程序的 HTML 文件替换 Google Chrome 默认提供页面的方式。除了 HTML，替代页面通常还包含 CSS 和 JavaScript 代码。
+</p>
+
+<p>
+<!--@An extension can replace any one of the following pages:-->
+扩展程序可以替换以下任一页面：
+<ul>
+  <li> <b><!--@Bookmark Manager:-->书签管理器：</b><!--@
+  The page that appears when the user chooses
+  the Bookmark Manager menu item
+  from the Chrome menu or, on Mac,
+  the Bookmark Manager item from the Bookmarks menu.
+  You can also get to this page by entering the URL
+  <b>chrome://bookmarks</b>.-->当用户选择 Chrome
+  菜单中（或
+  Mac 系统上的书签菜单中）的书签管理器菜单项时出现的页面。您也可以输入 URL
+  <b>chrome://bookmarks</b> 进入该页面。
+  </li>
+
+  <li> <b><!--@History:-->历史记录：</b><!--@
+  The page that appears when the user
+  chooses the History menu item
+  from the Chrome menu or, on Mac,
+  the Show Full History item from the History menu.
+  You can also get to this page by entering the URL
+  <b>chrome://history</b>.-->当用户选择 Chrome 菜单中的历史记录（或者 Mac
+  系统上历史记录菜单中的显示所有历史记录）时出现的页面。您也可以输入 URL
+  <b>chrome://history</b> 进入该页面。
+  </li>
+
+  <li> <b><!--@New Tab:-->“打开新的标签页”页面：</b><!--@
+  The page that appears when the user creates a new tab or window.
+  You can also get to this page by entering the URL
+  <b>chrome://newtab</b>.-->当用户创建新标签页或新窗口时出现的页面。您也可以输入
+  URL <b>chrome://newtab</b> 进入该页面。
+  </li>
+</ul>
+</p>
+
+<p class="note">
+<b><!--@Note:-->注意：</b><!--@
+A single extension can override
+<b>only one page</b>.
+For example, an extension can't override both
+the Bookmark Manager and History pages.-->一个扩展程序<b
+>只能替换一个页面</b>。例如，一个扩展程序不能既替换书签管理页面，又替换历史记录页面。
+</p>
+
+<p>
+<!--@Incognito windows are treated specially.
+New Tab pages cannot be overridden in incognito windows.
+Other override pages work in incognito windows
+as long as the
+<a href="manifest.html#incognito">incognito</a>
+manifest property is set to "spanning"
+(which is the default value).
+See <a href="overview.html#incognito">Saving data and incognito mode</a>
+in the Overview for more details on how you should treat
+incognito windows.-->
+隐身窗口是特殊对待的，“打开新的标签页”页面不能在隐身窗口中替换。只要清单文件中的
+<a href="manifest.html#incognito">incognito</a>
+属性设置为
+"spanning"（也是默认值），其他替代页面将在隐身窗口中工作。有关您应该如何对待隐身窗口的更多细节，请参见概述中的<a href="overview.html#incognito">保存数据和隐身模式</a>。
+</p>
+
+<p>
+<!--@The following screenshots show the default New Tab page
+next to a custom New Tab page.-->
+以下屏幕截图展现了缺省的“打开新的标签页”页面和自定义的“打开新的标签页”页面。
+</p>
+
+<table id="pics">
+  <tr>
+    <td> <b><!--@The default New Tab page-->缺省的“打开新的标签页”页面</b> </td>
+    <td> <b><!--@An alternative New Tab page-->替代的“打开新的标签页”页面</b> </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="{{static}}/images/ntp-default.png"
+        alt="default New Tab page"
+        width="200" height="173">
+    </td>
+    <td>
+      <img src="{{static}}/images/ntp-blank.png"
+        alt="a blank New Tab page"
+        width="200" height="173">
+    </td>
+  </tr>
+</table>
+
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
+
+<p>
+<!--@Register an override page in the
+<a href="manifest.html">extension manifest</a> like this:-->
+如下所示在<a href="manifest.html">扩展程序的清单文件</a>中注册替代页面：
+</p>
+
+<pre>{
+  "name": "我的扩展程序",
+  ...
+
+<b>  "chrome_url_overrides" : {
+    "<em>pageToOverride</em>": "<em>myPage.html</em>"
+  }</b>,
+  ...
+}</pre>
+
+<p>
+<!--@For-->将 <code><em>pageToOverride</em></code><!--@, substitute one of the following:-->
+替换为以下值之一：
+</p>
+
+<ul>
+  <li> <code>bookmarks</code>
+  <li> <code>history</code>
+  <li> <code>newtab</code>
+</ul>
+
+
+<h2 id="tips"><!--@Tips-->提示</h2>
+
+<p>
+<!--@For an effective override page, follow these guidelines:-->
+要想创建一个高效的替代页面，请遵循这些指导：
+</p>
+
+<ul>
+  <li>
+    <p>
+    <b><!--@Make your page quick and small.-->使您的页面又快又小。</b> <br />
+    <!--@Users expect built-in browser pages to open instantly.
+    Avoid doing things that might take a long time.
+    For example, avoid synchronous fetches of network or database resources.-->
+    用户期望内置的浏览器页面能够立即打开。请避免做任何可能花较长时间的事情，例如，避免同步地获取网络或数据库资源。
+    </p>
+  </li>
+  <li>
+    <p>
+    <b><!--@Include a title in your page.-->在您的页面中包含标题。</b> <br />
+    <!--@Otherwise people might see the URL of the page,
+    which could be confusing.
+    Here's an example of specifying the title:
+    <code>&lt;title>New&nbsp;Tab&lt;/title></code>-->
+    否则用户可能会看到页面的
+    URL，会令人感到疑惑。这是一个指定标题的例子：<code>&lt;title&gt;新标签页&lt;/title&gt;</code>
+    </p>
+  </li>
+  <li>
+    <p>
+    <b><!--@Don't rely on the page having the keyboard focus.-->不要假定页面具有键盘焦点。</b> <br />
+    <!--@The address bar always gets the focus first
+    when the user creates a new tab.-->
+    当用户创建新标签页时总是地址栏先获得焦点。
+    </p>
+  </li>
+  <li>
+    <p>
+    <b><!--@Don't try to emulate the default New Tab page.-->不要试着模仿默认的“打开新的标签页”页面。</b> <br />
+    <!--@The APIs necessary to create
+    a slightly modified version of the default New Tab page &mdash;
+    with top pages,
+    recently closed pages,
+    tips,
+    a theme background image,
+    and so on &mdash;
+    don't exist yet.
+    Until they do,
+    you're better off trying to make something completely different.-->
+    用于创建与默认的“打开新的标签页”页面类似（具有最常访问的网站、最近关闭的标签页、提示、主题背景图像等等）的修改版本所需的
+    API 还不存在。在出现那些 API
+    之前您还是最好还是考虑一些完全不同的新想法。
+    </p>
+  </li>
+</ul>
+
+<h2 id="examples"> <!--@Examples-->例子 </h2>
+
+<p>
+<!--@See the
+-->请参见<a href="samples.html#chrome_url_overrides"><!--@override samples-->替代页面示例</a><!--@.-->。
+</p>

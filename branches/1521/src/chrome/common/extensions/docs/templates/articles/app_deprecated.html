@@ -1,0 +1,127 @@
+<h1><!--@Disabled Web Features-->禁用的网页特性</h1>
+<!--  -->
+
+<p>
+<!--@Though packaged apps use the web platform,
+some web features have been disabled
+or else are used in a different way.
+Mainly this is to avoid security issues and
+to improve programming practices.
+Below is a summary of the disabled features
+of the web platform
+and potential work-arounds:-->
+尽管打包应用使用网络平台，某些网页特性已禁用或者以其他方式使用，这主要是为了避免安全问题，并改善编程习惯。如下是已禁用的网络平台特性的概述及可能的解决方法：
+</p>
+
+<table class="simple">
+  <tr>
+    <th scope="col"> <!--@Disabled-->已禁用的特性 </th>
+    <th scope="col"> <!--@Work-around-->解决方法 </th>
+  </tr>
+  <tr>
+    <td><code>alert</code></td>
+    <td><!--@Use a custom lightbox/popup.-->使用自定义的 Lightbox/弹出式窗口。</td>
+  </tr>
+  <tr>
+    <td><!--@Browser chrome APIs-->浏览器的 Chrome API</td>
+    <td><!--@N/A.-->不可用。</td>
+  </tr>
+  <tr>
+    <td><code>confirm</code></td>
+    <td><!--@Use a custom lightbox/popup.-->使用自定义的 Lightbox/弹出式窗口。</td>
+  </tr>
+  <tr>
+    <td><code>document.cookie</code></td>
+    <td><!--@Packaged app pages are not rendered on the server, so there is no need to use these.-->
+    打包应用的页面不在服务器上渲染，所以不用使用这些功能。
+    </td>
+  </tr>
+  <tr>
+    <td><code>document.close</code></td>
+    <td><!--@N/A.-->不可用。</td>
+  </tr>
+  <tr>
+    <td><code>document.open</code></td>
+    <td><!--@N/A.-->不可用。</td>
+  </tr>
+  <tr>
+    <td><code>document.write</code></td>
+    <td><!--@Use document.createElement.-->请使用 document.createElement。</td>
+  </tr>
+  <tr>
+    <td><!--@External resources-->外部资源</td>
+    <td><!--@Use the-->请使用 <code>webview</code> <!--@tag for iframes.
+      See -->标签代替
+      iframe，参见<a href="app_external.html"><!--@Embed Content-->嵌入内容</a><!--@
+      and -->和
+      <a href="webview_tag.html">Webview <!--@Tag-->标签 API</a><!--@.
+      Video and audio are allowed to have non-local URLs.-->。视频与音频允许包含非本地 URL。
+    </td>
+  </tr>
+  <tr>
+    <td>Flash</td>
+    <td><!--@Use HTML5 Platform.-->使用 HTML5 平台。</td>
+  </tr>
+  <tr>
+    <td><!--@Form submission-->表单提交</td>
+    <td><!--@Use JavaScript to process form content
+      (listen for submit event, process data locally first
+      before sending to server).-->
+      使用 JavaScript
+      处理表单内容（监听提交事件、发送至服务器前先在本地处理）。
+    </td>
+  </tr>
+  <tr>
+    <td>javascript: <!--@urls-->URL</td>
+    <td><!--@You cannot use bookmarklets for inline javascript on anchors.
+      Use the traditional click handler instead.-->
+      您不能在 &lt;a&gt;
+      元素中使用内嵌脚本的小书签，请改用传统的单击处理函数。
+    </td>
+  </tr>
+  <tr>
+    <td>localStorage</td>
+    <td><!--@Use IndexedDB or the Storage API (which also syncs to the cloud).-->使用 IndexedDB 或者存储 API（还能同步到云端）。</td>
+  </tr>
+  <tr>
+    <td><!--@Navigation-->导航</td>
+    <td><!--@Links open up with the system web browser.
+      <code>window.history</code> and <code>window.location</code>
+      are disabled.-->
+      链接将使用系统的网页浏览器打开。<code>window.history</code>
+      与 <code>window.location</code> 已禁用。
+    </td>
+  </tr>
+  <tr>
+    <td><!--@Non-sandboxed plugins-->没用经过沙盒屏蔽的插件</td>
+    <td><!--@N/A.-->不可用。</td>
+  </tr>
+  <tr>
+    <td><code>showModalDialog</code></td>
+    <td><!--@Use a custom lightbox/popup.-->使用自定义的 Lightbox/弹出窗口。</td>
+  </tr>
+  <tr>
+    <td><!--@Synchronous-->同步 <code>XMLHttpRequest</code></td>
+    <td><!--@Use async-only-->只能使用异步 <code>XMLHttpRequest</code><!--@:
+      -->：<a href="http://updates.html5rocks.com/2012/01/Getting-Rid-of-Synchronous-XHRs"><!--@Getting Rid of Synchrounous XXRs-->摆脱同步 XHR</a><!--@.-->。</td>
+  </tr>
+  <tr>
+    <td><!--@User Text selection-->用户文本选择</td>
+    <td><!--@By default,
+        users can no longer select text like they can on a web page.
+        To make areas of the app's text selectable,
+        apply the CSS style, -->
+        默认情况下，用户不能像网页上那样选择文本。要使应用中某一部分的文本可以选中，请使用
+        <code>-webkit-user-select: text;</code><!--@.-->
+        CSS 样式。
+        </td>
+  </tr>
+  <tr>
+    <td>webSql</td>
+    <td><!--@Use IndexedDB or
+      <a href="app_storage.html">Filesystem API</a>.-->
+      使用 IndexedDB 或<a href="app_storage.html">文件系统 API</a>。
+    </td>
+  </tr>
+</table>
+
