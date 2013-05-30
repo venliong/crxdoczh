@@ -80,6 +80,8 @@ namespace notifications {
 
   callback ClearCallback = void (boolean wasCleared);
 
+  callback GetAllCallback = void (object notifications);
+
   interface Functions {
     // <!--@Creates and displays a notification having the contents in |options|,
     // identified by the id |notificationId|. If |notificationId| is empty,
@@ -112,6 +114,11 @@ namespace notifications {
     // 清除指定的由 <code>create</code> 方法返回的 <code>notificationId</code>
     // 对应的通知，<code>callback</code> 指示是否存在匹配的通知。
     static void clear(DOMString notificationId, ClearCallback callback);
+
+    // <!--@|callback| is executed with the set of notification_ids currently in
+    // the system.-->
+    // 执行 <code>callback</code> 时传递系统当前所有的通知标识符。
+    static void getAll(GetAllCallback callback);
   };
 
   interface Events {
