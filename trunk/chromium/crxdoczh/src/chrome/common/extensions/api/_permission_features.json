@@ -262,7 +262,8 @@
       "gnedhmakppccajfpfiihfcdlnpgomkcf",  // Citrix Receiver Beta
       "fjcibdnjlbfnbfdjneajpipnlcppleek",  // Citrix Receiver Dev
       "pnhechapfaindjhompbnflcldabbghjo",  // HTerm
-      "okddffdblfhhnmhodogpojmfkjmhinfp"   // HTerm dev
+      "okddffdblfhhnmhodogpojmfkjmhinfp",  // HTerm dev
+      "fpfbhcjppmaeaijcidgiibchfbnhbelj"  // Google Japanese Input
     ]
   },
   "location": [
@@ -343,6 +344,14 @@
       "ehibbfinohgbchlgdbfpikodjaojhccn",  // Editor
       "pmofbkohncoogjjhahejjfbppikbjigm",  // Google Now
       "iejldcgjigodajhjecapkeiggcncflph"   // Google Now dev
+    ]
+  },
+  "musicManagerPrivate": {
+    "channel": "dev",
+    "extension_types": ["platform_app"],
+    "whitelist": [
+      "4B1D0E19C6C43C008C44A8278C8B5BFE15ABEB3C", // Music Manager
+      "B8F61FD1B25DE03706DBB8906A73261E4DBB992A"  // Test
     ]
   },
   "nativeMessaging": [
