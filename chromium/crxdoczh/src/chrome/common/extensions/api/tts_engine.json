@@ -107,8 +107,20 @@
       {
         "name": "onStop",
         "type": "function",
-//@        "description": "Fired when a call is made to tts.stop and this extension may be in the middle of speaking. If an extension receives a call to onStop and speech is already stopped, it should do nothing (not raise an error)."
-        "description": "当发出 $ref:tts.stop 调用时发生，扩展程序可能正在朗读。如果扩展程序收到这一事件但是朗读已经结束，它应该什么都不做（而不是产生错误）。"
+//@        "description": "Fired when a call is made to tts.stop and this extension may be in the middle of speaking. If an extension receives a call to onStop and speech is already stopped, it should do nothing (not raise an error). If speech is in the paused state, this should cancel the paused state."
+        "description": "当发出 $ref:tts.stop 调用时发生，扩展程序可能正在朗读。如果扩展程序收到这一事件但是朗读已经结束，它应该什么都不做（而不是产生错误）。如果语音正处于暂停状态，它应该取消暂停状态。"
+      },
+      {
+        "name": "onPause",
+        "type": "function",
+//@        "description": "Optional: if an engine supports the pause event, it should pause the current utterance being spoken, if any, until it receives a resume event or stop event. Note that a stop event should also clear the paused state."
+        "description": "可选：如果引擎支持暂停事件，它应该暂停正在朗读的内容（如果有的话），直到它接收到恢复或停止事件。注意停止事件还应该清除暂停状态。"
+      },
+      {
+        "name": "onResume",
+        "type": "function",
+//@        "description": "Optional: if an engine supports the pause event, it should also support the resume event, to continue speaking the current utterance, if any. Note that a stop event should also clear the paused state."
+        "description": "可选：如果引擎支持暂停事件，它也应该支持恢复事件，继续当前朗读的内容（如果有的话）。注意停止事件还应该清除暂停状态。"
       }
     ]
   }

@@ -33,7 +33,9 @@ try the-->
     <li><a href="#faq-dev-05"><!--@Can extensions create UI outside of the rendered web page?-->扩展程序能否在呈现的网页外创建用户界面？</a></li>
     <li><a href="#faq-interact-chrome"><!--@Can extensions listen to clicks on Chrome tabs and navigation buttons?-->扩展程序能否监听 Chrome 标签页以及导航按钮的点击？</a>
     <li><a href="#faq-dev-11"><!--@Can two extensions communicate with each other?-->两个扩展程序能否互相通信？</a></li>
+{{^is_apps}}
     <li><a href="#faq-dev-13"><!--@Can extensions use Google Analytics?-->扩展程序能否使用 Google Analytics（分析）？</a></li>
+{{/is_apps}}
     <li><a href="#faq-dev-15"><!--@Can extensions modify chrome:// URLs?-->扩展程序能否修改 chrome:// 协议的 URL？</a></li>
     <li><a href="#faq-open-popups"><!--@Can extensions open browser/page action popups without user interaction?-->扩展程序能否在没有用户交互的情况下打开浏览器/页面按钮的弹出内容？</a></li>
     <li><a href="#faq-persist-popups"><!--@Can extensions keep popups open after the user clicks away from them?-->扩展程序能否在用户单击其他地方后仍然使弹出内容保持打开状态？</a></li>
@@ -287,6 +289,7 @@ cros,beta,#.#.###.#,#.#.###.#,mm/dd/yy,mm/dd/yy,#####,#####,#####</pre>
   href="messaging.html#external">消息传递文档</a>。
 </p>
 
+{{^is_apps}}
 <h3 id="faq-dev-13"><!--@Can extensions use Google Analytics?-->扩展程序能否使用 Google Analytics（分析）？</h3>
 <p>
   <!--@Yes, since extensions are built just like websites, they can use
@@ -299,6 +302,7 @@ cros,beta,#.#.###.#,#.#.###.#,mm/dd/yy,mm/dd/yy,#####,#####,#####</pre>
   Google Analytics（分析）来跟踪使用情况。然而，您需要修改所有的追踪代码，使用
   HTTPS 版本的 Google Analytics（分析）库。有关更多信息请参见<a href="tut_analytics.html">这一教程</a>。
 </p>
+{{/is_apps}}
 
 <h3 id="faq-dev-15"><!--@Can extensions modify chrome:// URLs?-->扩展程序能否修改 chrome:// 协议的 URL？</h3>
 <p>
