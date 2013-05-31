@@ -5,9 +5,11 @@
   </tr>
   <tr>
     <td><strong><!--@Description:-->描述：</strong></td>
-    <td><!--@Use-->使用 <code>chrome.pushMessaging</code> <!--@to send message data
-    to app or extension users.-->
-    向应用或扩展程序发送消息数据。
+    <td><!--@Use-->使用 <code>chrome.pushMessaging</code> <!--@to enable to
+    enable apps and extensions to receive message data sent
+    through <a href="cloudMessaging.html">Google Cloud Messaging</a>.-->
+    使应用或扩展程序能够接收通过
+    <a href="cloudMessaging.html">Google 云消息服务</a>发送的消息数据。
     </td>
   </tr>
   <tr>
@@ -20,7 +22,39 @@
   </tr>
   <tr>
     <td><strong><!--@Learn more:-->了解更多：</strong></td>
-    <td><a href="cloudMessaging.html"><!--@Google Cloud Messaging for Chrome-->用于 Chrome 浏览器的 Google 云消息服务</a>;<br>
+    <td><a href="cloudMessaging.html"><!--@Google Cloud Messaging for Chrome-->用于 Chrome 浏览器的 Google 云消息服务</a><br>
     <a href="gcm_server.html"><!--@API Reference for GCM service-->GCM 服务的 API 参考</a></td>
   </tr>
 </table>
+
+<h2 id="debugging"><!--@Debugging-->调试</h2>
+ 
+<h3 id="internal-server-error"><!--@Internal Server Error-->内部服务器错误</h3>
+
+<p>
+<!--@The Push Messaging server responds with HTTP status code 500
+(internal server error) if the app that calls the pushMessaging API
+is not found in the Chrome Web Store. This ownership check
+is designed to prevent people from sending messages to your app
+without your permission. Commonly this error occurs during
+development if you run a version of your app without the correct
+<code>key</code> attribute in its manifest file.-->
+如果调用 pushMessaging API 的应用不能在 Chrome
+网上应用店中找到，消息推送服务器会返回 HTTP 状态码 500。这一所有者检查是为了防止他人未经过您的同意就向您的应用发送消息。通常在开发过程中，如果您运行的应用没有在清单文件中包含正确的
+<code>key</code> 属性，就会产生这一错误。
+</p>
+
+<p>
+<!--@To fix this problem, simply install your app from
+the Chrome Web Store and copy the <a href="manifest.html#key">key</a>
+field from manifest.json in the installed app to manifest.json in
+the version of the app that you are developing
+(see <a href="cloudMessaging.html#test-cloud">Testing in the cloud</a> for
+detailed instructions). Note that you need to remove the <code>key</code>
+field from manifest.json before you upload the app to the Chrome Web Store again.-->
+为了修复这一问题，只要从 Chrome 网上应用店安装您的应用，从已安装应用的
+manifest.json 中将 <a href="manifest.html#key">key</a>
+字段复制到您正在开发的应用的 manifest.json 中（有关详细的步骤请参见<a
+href="cloudMessaging.html#test-cloud">在云端测试</a>）。注意，在您再次将应用上传到
+Chrome 网上应用店之前，您需要从 manifest.json 删除 <code>key</code> 字段。
+</p>
