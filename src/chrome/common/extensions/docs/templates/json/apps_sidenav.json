@@ -4,15 +4,15 @@
     "items": [
       {
         "title": "什么是打包应用？",
-        "fileName": "about_apps.html"
+        "href": "/apps/about_apps.html"
       },
       {
         "title": "理解架构",
-        "fileName": "app_architecture.html"
+        "href": "/apps/app_architecture.html"
       },
       {
         "title": "创建您的第一个应用",
-        "fileName": "first_app.html"
+        "href": "/apps/first_app.html"
       }
     ]
   },
@@ -21,7 +21,7 @@
     "items": [
       {
         "title": "在您开始之前",
-        "fileName": "develop_apps.html"
+        "href": "/apps/develop_apps.html"
       },
       {
         "title": "基础知识",
@@ -29,19 +29,19 @@
         "items": [
           {
             "title": "管理应用的生命周期",
-            "fileName": "app_lifecycle.html"
+            "href": "/apps/app_lifecycle.html"
           },
           {
             "title": "管理数据",
-            "fileName": "app_storage.html"
+            "href": "/apps/app_storage.html"
           },
           {
             "title": "首先考虑离线",
-            "fileName": "offline_apps.html"
+            "href": "/apps/offline_apps.html"
           },
           {
             "title": "嵌入内容",
-            "fileName": "app_external.html"
+            "href": "/apps/app_external.html"
           }
         ]
       },
@@ -51,40 +51,39 @@
         "items": [
           {
             "title": "关于代码实验室",
-            "fileName": "app_codelab.html"
+            "href": "/apps/app_codelab.html"
           },
           {
             "title": "1 - 设置开发环境",
-            "fileName": "app_codelab1_setup.html"
+            "href": "/apps/app_codelab1_setup.html"
           },
           {
             "title": "2 -  创建基本的应用",
-            "fileName": "app_codelab2_basic.html"
+            "href": "/apps/app_codelab2_basic.html"
           },
           {
             "title": "3 - 创建 MVC",
-            "fileName": "app_codelab3_mvc.html"
+            "href": "/apps/app_codelab3_mvc.html"
           },
           {
             "title": "4 - 保存和获取数据",
-            "fileName": "app_codelab5_data.html"
+            "href": "/apps/app_codelab5_data.html"
           },
           {
             "title": "5 - 管理应用的生命周期",
-            "fileName": "app_codelab6_lifecycle.html"
+            "href": "/apps/app_codelab6_lifecycle.html"
           },
-           
           {
             "title": "6 - 访问用户数据",
-            "fileName": "app_codelab7_useridentification.html"
+            "href": "/apps/app_codelab7_useridentification.html"
           },
           {
             "title": "7 - 访问网络资源",
-            "fileName": "app_codelab8_webresources.html"
+            "href": "/apps/app_codelab8_webresources.html"
           },
           {
             "title": "8 - 发布应用",
-            "fileName": "app_codelab_10_publishing.html"
+            "href": "/apps/app_codelab_10_publishing.html"
           }
         ]
       },
@@ -94,11 +93,11 @@
         "items": [
           {
             "title": "用户认证",
-            "fileName": "app_identity.html"
+            "href": "/apps/app_identity.html"
           },
           {
             "title": "遵循 CSP（内容安全策略）",
-            "fileName": "app_csp.html"
+            "href": "/apps/app_csp.html"
           }
         ]
       },
@@ -112,25 +111,25 @@
             "items": [
               {
                 "title": "关于云消息服务",
-                "fileName": "cloudMessaging.html"
+                "href": "/apps/cloudMessaging.html"
               },
               {
                 "title": "客户端参考",
-                "fileName": "pushMessaging.html"
+                "href": "/apps/pushMessaging.html"
               },
               {
                 "title": "服务参考",
-                "fileName": "gcm_server.html"
+                "href": "/apps/gcm_server.html"
               },
               {
                 "title": "服务条款",
-                "fileName": "gcm_tos.html"
+                "href": "/apps/gcm_tos.html"
               }
             ]
           },
           {
             "title": "桌面通知",
-            "fileName": "desktop_notifications.html"
+            "href": "/apps/desktop_notifications.html"
           }
         ]
       },
@@ -140,11 +139,11 @@
         "items": [
           {
             "title": "网络通信",
-            "fileName": "app_network.html"
+            "href": "/apps/app_network.html"
           },
           {
             "title": "访问硬件设备",
-            "fileName": "app_hardware.html"
+            "href": "/apps/app_hardware.html"
           }
         ]
       },
@@ -154,15 +153,15 @@
         "items": [
           {
             "title": "关于 MVC 架构",
-            "fileName": "app_frameworks.html"
+            "href": "/apps/app_frameworks.html"
           },
           {
             "title": "用 AngularJS 建立应用",
-            "fileName": "angular_framework.html"
+            "href": "/apps/angular_framework.html"
           },
           {
             "title": "用 Sencha Ext JS 建立应用",
-            "fileName": "sencha_framework.html"
+            "href": "/apps/sencha_framework.html"
           }
         ]
       }
@@ -173,7 +172,7 @@
     "items": [
       {
         "title": "发布",
-        "fileName": "publish_app.html"
+        "href": "/apps/publish_app.html"
       }
     ]
   },
@@ -182,23 +181,23 @@
     "items": [
       {
         "title": "清单文件",
-        "fileName": "manifest.html"
+        "href": "/apps/manifest.html"
       },
       {
         "title": "Chrome 浏览器的 JavaScript API",
-        "fileName": "api_index.html"
+        "href": "/apps/api_index.html"
       },
       {
         "title": "Webview 标签 API",
-        "fileName": "webview_tag.html"
+        "href": "/apps/webview_tag.html"
       },
       {
         "title": "支持的库",
-        "fileName": "api_other.html"
+        "href": "/apps/api_other.html"
       },
       {
         "title": "禁用的网页特性",
-        "fileName": "app_deprecated.html"
+        "href": "/apps/app_deprecated.html"
       }
     ]
   },
@@ -207,11 +206,11 @@
     "items": [
       {
         "title": "常见问题",
-        "fileName": "faq.html"
+        "href": "/apps/faq.html"
       },
       {
         "title": "示例",
-        "fileName": "samples.html"
+        "href": "/apps/samples.html"
       }
     ]
   }
