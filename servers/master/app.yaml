@@ -1,5 +1,5 @@
 application: crxdoc-zh
-version: 0-2-1
+version: 0-2-3
 runtime: python27
 api_version: 1
 threadsafe: true
@@ -9,6 +9,10 @@ handlers:
   static_files: robots.txt
   upload: robots.txt
   expiration: 30d
+- url: /favicon\.ico
+  static_files: chrome-32.ico
+  upload: chrome-32.ico
+  expiration: 30d
 - url: /google4ee2ea4bf10dbdf8\.html
   static_files: google4ee2ea4bf10dbdf8.html
   upload: google4ee2ea4bf10dbdf8.html
@@ -17,6 +21,10 @@ handlers:
   static_files: BingSiteAuth.xml
   upload: BingSiteAuth.xml
   expiration: 30d
+#- url: /appcache\.manifest
+#  static_files: appcache.manifest
+#  upload: appcache.manifest
+#  mime_type: text/cache-manifest
 - url: /.*
   script: handler.app
   secure: always
