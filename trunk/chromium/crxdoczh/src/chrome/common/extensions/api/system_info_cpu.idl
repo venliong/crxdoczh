@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 // File-level comment to appease parser. Eventually this will not be necessary.
-namespace experimental.systemInfo.cpu {
+namespace systemInfo.cpu {
 
   dictionary CpuInfo {
     // <!--@The number of logical processors.-->
@@ -30,8 +30,8 @@ namespace experimental.systemInfo.cpu {
   callback CpuInfoCallback = void (CpuInfo info);
   
   interface Functions {
-    // <!--@Get CPU information.-->
-    // 获取 CPU 信息。
+    // <!--@Queries basic CPU information of the system.-->
+    // 查询系统 CPU 的基本信息。
     static void get(CpuInfoCallback callback);
   };
 
