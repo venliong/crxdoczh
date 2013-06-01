@@ -1,0 +1,11 @@
+indexes:
+- kind: CacheModel
+  properties:
+  - name: path[0]
+  - name: path[1]
+
+- kind: CacheModel
+  properties:
+  - name: path[1]
+  - name: path[0]
+

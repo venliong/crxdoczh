@@ -1,8 +1,8 @@
-import webapp2, os, logging, mimetypes, json
+import json, logging, mimetypes, os, webapp2
 from google.appengine.api import urlfetch, memcache
 from google.appengine.ext import db
 
-class CacheModel(db.Model):
+class CacheModel(db.Expando):
   data = db.BlobProperty(required=True)
 
 class Cache:
@@ -24,7 +24,11 @@ class Cache:
 
   @staticmethod
   def update(path, data):
-    model = CacheModel(key_name = path, data = data)
+    components = path.strip('/').split('/')
+    model = CacheModel(key_name = path,
+                       data = data,
+                       **{'path[%s]' % i: components[i]
+                        for i in range(len(components))})
     model.put()
     if memcache.get(path) is not None:
       memcache.set(path, data)
@@ -67,10 +71,10 @@ def NormalizePath(slashed_channel, doc_type, remaining_path):
     file_title = remaining_path[:-len('.html')]
     return path + file_title.replace('.', '_') + '.html'
 
-def Handle404(response, slashed_channel = 'trunk/'):
+def Handle404(response, slashed_channel = '/', doc_type = 'extensions'):
   response.status = 404
   response.write(Cache.get(NormalizePath(
-      slashed_channel, None, '404.html')))
+      slashed_channel, doc_type, '404.html')))
 
 class Handler(webapp2.RequestHandler):
   def get(self, slashed_channel, doc_type, remaining_path):
@@ -80,13 +84,17 @@ class Handler(webapp2.RequestHandler):
     AddSecurityHeaders(self.response)
 
     if data is None:
-      Handle404(self.response, slashed_channel)
+      Handle404(self.response, slashed_channel, doc_type)
     else:
       mimetypes.init()
       base, ext = os.path.splitext(remaining_path)
       self.response.content_type = mimetypes.types_map[ext]
       if doc_type == 'static':
         self.response.headers['Cache-Control'] = 'public, max-age=10800'
+      else:
+        pass
+        # AppCache support is not yet ready.
+        # data = data.replace('<html>', '<html manifest="/appcache.manifest">', 1)
       self.response.write(data)
 
 class HomeRedirectHandler(webapp2.RequestHandler):
@@ -133,21 +141,38 @@ class NotFoundHandler(webapp2.RequestHandler):
     Handle404(self.response)
 
 class APIUpdateHandler(webapp2.RequestHandler):
+  # TODO: Store file listing so that 404 can be handled quickly.
+  # TODO: Use task queues to avoid timeout.
   def post(self):
-    paths = json.loads(self.request.body)
-    for path in paths:
-      # path == trunk|dev|beta|stable/xxx
-      (channel, real_path) = path.split('/', 1)
-      url = 'https://' + os.environ.get('CRXDOCZH_SLAVE_DOCS_APP_DOMAIN') + '/' + channel + '/_/api/' + os.environ.get('CRXDOCZH_SLAVE_DOCS_API_KEY') + '/html/docs/' + real_path
-      result = urlfetch.fetch(url, deadline = 20)
-      if result.status_code == 200:
-        Cache.update('/' + path, result.content)
-      else:
-        logging.error('Failed to update ' + path)
+    try:
+      api_data = json.loads(self.request.body)
+      logging.info(api_data)
+      if api_data.get('channel') == None:
+        return
+      channel = api_data.get('channel')
+      path_prefix = api_data.get('path_prefix', '')
+      files = api_data.get('files', [])
+      for path in files:
+        url = 'https://%s/_api/%s/render/%s/%s' % (
+            os.environ.get('CRXDOCZH_SLAVE_DOCS_APP_DOMAIN'),
+            os.environ.get('CRXDOCZH_SLAVE_DOCS_API_KEY'),
+            channel,
+            path_prefix + path)
+        result = urlfetch.fetch(url, deadline = 20)
+        if result.status_code == 200:
+          Cache.update('/%s/%s%s' % (channel,
+                                     path_prefix,
+                                     path),
+                       result.content)
+        else:
+          logging.error('Failed to request ' + path)
+    except Exception as e:
+      logging.error(e)
 
 app = webapp2.WSGIApplication([
   (r'/_/api/' + os.environ.get('CRXDOCZH_MASTER_API_KEY') + '/pushUpdate',
       APIUpdateHandler),
+  ('r/_cron/update', APIUpdateHandler),
   (r'(/trunk/|/dev/|/beta/|/stable/|/)extensions/examples/(.*)', ExamplesRedirectHandler),
   (r'/', HomeRedirectHandler),
   (r'/index.html', HomeRedirectHandler),
