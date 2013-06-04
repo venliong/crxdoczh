@@ -40,7 +40,19 @@ namespace experimental.systemInfo.storage {
     double availableCapacity;
   };
 
+  // <!--@A dictionary that describes the add particular storage device watch
+  // request results.-->
+  // 描述对某个存储设备监视请求结果的词典。
+  dictionary AddWatchResult {
+    DOMString id;
+    boolean success;
+  };
+
   callback StorageInfoCallback = void (StorageUnitInfo[] info);
+
+  callback AddWatchCallback = void (AddWatchResult info);
+
+  callback GetAllWatchCallback = void (DOMString[] storageIds);
 
   interface Functions {
     // <!--@Get the storage information from the system. The argument passed to the
@@ -48,6 +60,22 @@ namespace experimental.systemInfo.storage {
     // 从系统获取存储信息，传递给回调函数的参数为
     // $ref:StorageUnitInfo 对象的数组。
     static void get(StorageInfoCallback callback);
+
+    // <!--@Monitor a particular storage device available change capacity.-->
+    // 监视指定存储设备可用容量的更改。
+    static void addWatch(DOMString id, AddWatchCallback callback);
+
+    // <!--@Remove the monitor of a particular device.-->
+    // 取消对指定设备的监视。
+    static void removeWatch(DOMString id);
+
+    // <!--@Get all the watched storage devices.-->
+    // 获取正在监视的所有存储设备。
+    static void getAllWatch(GetAllWatchCallback callback);
+
+    // <!--@Remove all the storage devices monitors.-->
+    // 取消对所有设备的监视。
+    static void removeAllWatch();
   };
 
   interface Events {
