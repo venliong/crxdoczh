@@ -21,4 +21,13 @@
     {{?callback}}{{+partials.callback}}{{/}}
   </dd>
   {{/parameters}}
+  {{?returns}}
+  <dd>
+    <dl>
+      <dt><!--@Returns-->返回值<span class="property">
+        {{+partials.variable_type}}
+      </span></dt>
+    </dl>
+  </dd>
+  {{/returns}}
 </div>
