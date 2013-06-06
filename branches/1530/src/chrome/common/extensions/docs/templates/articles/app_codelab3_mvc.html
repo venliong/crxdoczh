@@ -1,0 +1,452 @@
+<h1 id="lab_3_model_view_controller"><!--@Create-->创建 MVC</h1>
+
+<p><!--@Whenever your application grows beyond a single script with a few dozen lines,
+it gets harder and harder to manage without a good separation
+of roles among app components.
+One of the most common models for structuring a complex application,
+no matter what language, is the Model-View-Controller (MVC) and its variants,
+like Model-View-Presentation (MVP).-->
+当您的应用的规模超出一个几十行的脚本时，如果应用的组成部分之间没有良好的角色分离，管理起来就越发的困难。无论使用哪种语言，组织复杂应用的一种最常见的模型是“模型-视图-控制器”（MVC）及其变体，如“模型-视图-展示（MVP）”。
+</p>
+
+<p><!--@There are several frameworks to help apply
+<a href="http://developer.chrome.com/trunk/apps/app_frameworks.html">MVC concepts</a>
+to a Javascript application, and most of them,
+as long as they are CSP compliant, can be used in a Chrome packaged app.
+In this lab,
+we'll add an MVC model using both pure JavaScript and
+the <a href="http://angularjs.org/">AngularJS</a> framework.
+Most of the AngularJS code from this section was copied,
+with small changes, from the AngularJS Todo tutorial.-->
+有好几种框架能够帮助您将 <a href="app_frameworks.html">MVC 概念</a>应用到
+JavaScript 应用程序上，大部分也都能在 Chrome
+浏览器的打包应用中使用。在这一代码实验室中我们将分别使用纯 JavaScript 以及
+<a href="http://angularjs.org/">AngularJS</a>
+框架添加 MVC 模型。这一部分的大部分 AngularJS 代码都是从 AngularJS“待办事项”教程中复制过来的，只是做了一点改动。
+</p>
+
+<p class="note"><b><!--@Note:-->注意：</b><!--@
+Chrome packaged apps don&#39;t enforce any specific framework or programming style.-->Chrome
+浏览器的打包应用并不强制要求使用任何特定的框架或编程风格。
+</p>
+
+<h2 id="simple"><!--@Create a simple view-->创建简单视图</h2>
+
+<h3 id="basic-mvc"><!--@Add MVC basics-->添加 MVC 的基本内容</h3>
+
+<p><!--@If using AngularJS, download the-->如果您使用 AngularJS，请下载
+<a href="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js">Angular <!--@script-->脚本</a><!--@
+and save it as-->并将它存储为
+<a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab3_mvc/angularjs/simpleview/angular.min.js">angular.min.js</a><!--@.-->。</p>
+
+<p><!--@If using JavaScript,
+you will need to add a very simple controller with basic MVC functionalities:
+-->
+如果使用 JavaScript，您需要添加一个非常简单并具有基本 MVC 功能的
+<a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab3_mvc/javascript/simpleview/controller.js">JavaScript controller.js</a></p>
+
+<h3 id="update-view"><!--@Update view-->更新视图</h3>
+
+<p><!--@Change the-->修改 <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab3_mvc/angularjs/simpleview/index.html">AngularJS index.html</a> <!--@or-->或
+<a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab3_mvc/javascript/simpleview/index.html">JavaScript index.html</a> <!--@to use a simple sample:-->使用简单的示例：
+</p>
+
+<tabs data-group="source">
+
+  <header tabindex="0" data-value="angular">Angular</header>
+  <header tabindex="0" data-value="js">JavaScript</header>
+
+  <content>
+    <pre>
+&lt;!doctype html&gt;
+&lt;html ng-app ng-csp&gt;
+  &lt;head&gt;
+    &lt;script src=&quot;angular.min.js&quot;&gt;&lt;/script&gt;
+    &lt;link rel="stylesheet" href="todo.css"&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h2&gt;Todo&lt;/h2&gt;
+    &lt;div&gt;
+      &lt;ul&gt;
+        &lt;li&gt;
+          &#123;&#123;todoText&#125;&#125;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;input type=&quot;text&quot; ng-model=&quot;todoText&quot;  size="30"
+             placeholder=&quot;type your todo here&quot;&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+    </pre>
+  </content>
+  <content>
+    <pre>
+&lt;!doctype html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;todo.css&quot;&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h2&gt;Todo&lt;/h2&gt;
+    &lt;div&gt;
+      &lt;ul&gt;
+        &lt;li id=&quot;todoText&quot;&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;input type=&quot;text&quot; id=&quot;newTodo&quot; size=&quot;30&quot;
+             placeholder=&quot;type your todo here&quot;&gt;
+    &lt;/div&gt;
+    &lt;script src=&quot;controller.js&quot;&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+    </pre>
+  </content>
+</tabs>
+
+<p class="note"><b><!--@Note:-->注意：</b><!--@  The --><code>ng-csp</code> <!--@directive tells Angular to run in a &quot;content security mode&quot;. You don&#39;t need this directive when using Angular v1.1.0+. We&#39;ve included it here so that the sample works regardless of the Angular version in use.-->
+指示符告诉 Angular 以“内容安全模式”运行，如果您使用
+Angular v1.1.0+，您不需要该指示符。我们在这里包含了它，以便让示例在任何使用的
+Angular 版本下都能正常工作。
+</p>
+
+<h3 id="stylesheet"><!--@Add stylesheet-->添加样式表</h3>
+
+<p><a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab3_mvc/angularjs/simpleview/todo.css">AngularJS todo.css</a> <!--@and-->和
+<a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab3_mvc/javascript/simpleview/todo.css">JavaScript todo.css</a> <!--@are the same:-->是相同的：
+</p>
+
+<pre>
+body {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+ul {
+  list-style: none;
+}
+
+button, input[type=submit] {
+  background-color: #0074CC;
+  background-image: linear-gradient(top, #08C, #05C);
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  color: white;
+}
+
+.done-true {
+  text-decoration: line-through;
+  color: grey;
+}
+</pre>
+
+<h3 id="check1"><!--@Check the results-->检查结果</h3>
+
+<p>
+<!--@Check the results by reloading the app: open the app, right-click and select Reload App.</li>-->
+重新加载应用，检查结果：打开应用，单击右键并选择“重新加载应用”。
+</p>
+
+<h2 id="real-todo"><!--@Create real Todo list-->创建真正的待办事项列表</h2>
+
+<p>
+<!--@The previous sample, although interesting, is not exactly useful.
+Let&#39;s transform it into a real Todo list, instead of a simple Todo item.-->
+前面的示例尽管很有意思，但是并不是很有用，让我们将它转变成一个真正的“待办事项”列表。
+</p>
+
+<h3 id="controller"><!--@Add controller-->添加控制器</h3>
+
+<p>
+<!--@Whether using pure JavaScript or AngularJS,
+the controller manages the Todo list:
+-->无论是用纯 JavaScript 还是 AngularJS，待办事项列表由控制器管理：<a
+href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab3_mvc/angularjs/withcontroller/controller.js">AngularJS controller.js</a> <!--@or-->或
+<a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab3_mvc/javascript/withcontroller/controller.js">JavaScript controller.js</a><!--@.-->。
+</p>
+
+<tabs data-group="source">
+
+  <header tabindex="0" data-value="angular">Angular</header>
+  <header tabindex="0" data-value="js">JavaScript</header>
+
+  <content>
+    <pre>
+function TodoCtrl($scope) {
+  $scope.todos = [
+    {text:&#39;learn angular&#39;, done:true},
+    {text:&#39;build an angular Chrome packaged app&#39;, done:false}];
+
+$scope.addTodo = function() {
+    $scope.todos.push({text:$scope.todoText, done:false});
+    $scope.todoText = &#39;&#39;;
+  };
+
+$scope.remaining = function() {
+    var count = 0;
+    angular.forEach($scope.todos, function(todo) {
+      count += todo.done ? 0 : 1;
+    });
+    return count;
+  };
+
+$scope.archive = function() {
+    var oldTodos = $scope.todos;
+    $scope.todos = [];
+    angular.forEach(oldTodos, function(todo) {
+      if (!todo.done) $scope.todos.push(todo);
+    });
+  };
+}
+    </pre>
+  </content>
+  <content>
+    <pre>
+(function(exports) {
+
+  var nextId = 1;
+
+  var TodoModel = function() {
+    this.todos = {};
+    this.listeners = [];
+  }
+
+  TodoModel.prototype.clearTodos = function() {
+    this.todos = {};
+    this.notifyListeners('removed');
+  }
+
+  TodoModel.prototype.archiveDone = function() {
+    var oldTodos = this.todos;
+    this.todos={};
+    for (var id in oldTodos) {
+      if ( ! oldTodos[id].isDone ) {
+        this.todos[id] = oldTodos[id];
+      }
+    }
+    this.notifyListeners('archived');
+  }
+
+  TodoModel.prototype.setTodoState = function(id, isDone) {
+    if ( this.todos[id].isDone != isDone ) {
+      this.todos[id].isDone = isDone;
+      this.notifyListeners('stateChanged', id);
+    }
+  }
+
+  TodoModel.prototype.addTodo = function(text, isDone) {
+    var id = nextId++;
+    this.todos[id]={'id': id, 'text': text, 'isDone': isDone};
+    this.notifyListeners('added', id);
+  }
+
+  TodoModel.prototype.addListener = function(listener) {
+    this.listeners.push(listener);
+  }
+
+  TodoModel.prototype.notifyListeners = function(change, param) {
+    var this_ = this;
+    this.listeners.forEach(function(listener) {
+      listener(this_, change, param);
+    });
+  }
+
+  exports.TodoModel = TodoModel;
+
+})(window);
+
+
+window.addEventListener('DOMContentLoaded', function() {
+
+  var model = new TodoModel();
+  var form = document.querySelector('form');
+  var archive = document.getElementById('archive');
+  var list = document.getElementById('list');
+  var todoTemplate = document.querySelector('#templates &gt; [data-name="list"]');
+
+  form.addEventListener('submit', function(e) {
+    var textEl = e.target.querySelector('input[type="text"]');
+    model.addTodo(textEl.value, false);
+    textEl.value=null;
+    e.preventDefault();
+  });
+
+  archive.addEventListener('click', function(e) {
+    model.archiveDone();
+    e.preventDefault();
+  });
+
+  model.addListener(function(model, changeType, param) {
+    if ( changeType === 'removed' || changeType === 'archived') {
+      redrawUI(model);
+    } else if ( changeType === 'added' ) {
+      drawTodo(model.todos[param], list);
+    } else if ( changeType === 'stateChanged') {
+      updateTodo(model.todos[param]);
+    }
+    updateCounters(model);
+  });
+
+  var redrawUI = function(model) {
+    list.innerHTML='';
+    for (var id in model.todos) {
+      drawTodo(model.todos[id], list);
+    }
+  };
+  
+  var drawTodo = function(todoObj, container) {
+    var el = todoTemplate.cloneNode(true);
+    el.setAttribute('data-id', todoObj.id);
+    container.appendChild(el);
+    updateTodo(todoObj);
+    var checkbox = el.querySelector('input[type="checkbox"]');
+    checkbox.addEventListener('change', function(e) {
+      model.setTodoState(todoObj.id, e.target.checked);
+    });
+  }
+
+  var updateTodo = function(model) {
+    var todoElement = list.querySelector('li[data-id="'+model.id+'"]');
+    if (todoElement) {
+      var checkbox = todoElement.querySelector('input[type="checkbox"]');
+      var desc = todoElement.querySelector('span');
+      checkbox.checked = model.isDone;
+      desc.innerText = model.text;
+      desc.className = "done-"+model.isDone;
+    }
+  }
+
+  var updateCounters = function(model) {
+    var count = 0;
+    var notDone = 0;
+    for (var id in model.todos) {
+      count++;
+      if ( ! model.todos[id].isDone ) {
+        notDone ++;
+      }
+    }
+    document.getElementById('remaining').innerText = notDone;
+    document.getElementById('length').innerText = count;
+  }
+
+  updateCounters(model);
+
+});
+    </pre>
+  </content>
+</tabs>
+
+<h3 id="index"><!--@Update view-->更新视图</h3>
+
+<p><!--@Change the-->修改 <a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab3_mvc/angularjs/withcontroller/index.html">AngularJS index.html</a> <!--@or-->或
+<a href="https://github.com/GoogleChrome/chrome-app-codelab/blob/master/lab3_mvc/javascript/withcontroller/index.html">JavaScript index.html</a><!--@:-->：
+</p>
+
+<tabs data-group="source">
+
+  <header tabindex="0" data-value="angular">Angular</header>
+  <header tabindex="0" data-value="js">JavaScript</header>
+
+  <content>
+    <pre>
+&lt;html ng-app ng-csp&gt;
+  &lt;head&gt;
+    &lt;script src=&quot;angular.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;controller.js&quot;&gt;&lt;/script&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;todo.css&quot;&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h2&gt;Todo&lt;/h2&gt;
+    &lt;div ng-controller=&quot;TodoCtrl&quot;&gt;
+      &lt;span&gt;&#123;&#123;remaining()&#125;&#125; of &#123;&#123;todos.length&#125;&#125; remaining&lt;/span&gt;
+      [ &lt;a href=&quot;&quot; ng-click=&quot;archive()&quot;&gt;archive&lt;/a&gt; ]
+      &lt;ul&gt;
+        &lt;li ng-repeat=&quot;todo in todos&quot;&gt;
+          &lt;input type=&quot;checkbox&quot; ng-model=&quot;todo.done&quot;&gt;
+          &lt;span class=&quot;done-&#123;&#123;todo.done&#125;&#125;&quot;&gt;&#123;&#123;todo.text&#125;&#125;&lt;/span&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;form ng-submit=&quot;addTodo()&quot;&gt;
+        &lt;input type=&quot;text&quot; ng-model=&quot;todoText&quot; size=&quot;30&quot;
+               placeholder=&quot;add new todo here&quot;&gt;
+        &lt;input class=&quot;btn-primary&quot; type=&quot;submit&quot; value=&quot;add&quot;&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+    </pre>
+  </content>
+  <content>
+    <pre>
+&lt;!doctype html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;todo.css&quot;&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h2&gt;Todo&lt;/h2&gt;
+    &lt;div&gt;
+      &lt;span&gt;&lt;span id=&quot;remaining&quot;&gt;&lt;/span&gt; of &lt;span id=&quot;length&quot;&gt;&lt;/span&gt; remaining&lt;/span&gt;
+      [ &lt;a href=&quot;&quot; id=&quot;archive&quot;&gt;archive&lt;/a&gt; ]
+      &lt;ul class=&quot;unstyled&quot; id=&quot;list&quot;&gt;
+      &lt;/ul&gt;
+      &lt;form&gt;
+        &lt;input type=&quot;text&quot; size=&quot;30&quot;
+               placeholder=&quot;add new todo here&quot;&gt;
+        &lt;input class=&quot;btn-primary&quot; type=&quot;submit&quot; value=&quot;add&quot;&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+
+    &lt;!-- poor man's template --&gt;
+    &lt;div id=&quot;templates&quot; style=&quot;display: none;&quot;&gt;
+      &lt;li data-name=&quot;list&quot;&gt;
+        &lt;input type=&quot;checkbox&quot;&gt;
+        &lt;span&gt;&lt;/span&gt;
+      &lt;/li&gt;
+    &lt;/div&gt;
+
+    &lt;script src=&quot;controller.js&quot;&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+    </pre>
+  </content>
+</tabs>
+
+<p><!--@Note how the data, stored in an array inside the controller, binds to the view and is automatically updated when it is changed by the controller.-->
+注意储存在控制器中一个数组内的数据是如何与视图绑定，并在控制器更改它时自动更新的。
+</p>
+
+<h3 id="check2"><!--@Check the results-->检查结果</h3>
+
+<p>
+<!--@Check the results by reloading the app: open the app, right-click and select Reload App.</li>-->
+重新加载应用，检查结果：打开应用，单击右键并选择“重新加载应用”。
+</p>
+
+<h2 id="takeaways_"><!--@Takeaways-->更多信息</h2>
+
+<ul>
+<li><p><!--@Chrome packaged apps are-->
+Chrome
+浏览器的打包应用<a href="offline_apps.html"><!--@offline first-->通常是离线的</a><!--@,
+so the recommended way to include third-party scripts is to download
+and package them inside your app.-->，所以包含第三方脚本的推荐方法是下载并将它打包在您的应用内。</p></li>
+<li><p><!--@You can use any framework you want,
+as long as it complies with Content Security Policies
+and other restrictions that Chrome apps are enforced to follow.-->您可以使用您希望使用的任何框架，只要它遵循内容安全策略以及
+Chrome 应用强制遵循的其他限制。</p></li>
+<li><p><!--@MVC frameworks make your life easier.
+Use them, specially if you want to build a non-trivial application.-->MVC 框架使您可以更方便地建立应用，如果您想建立一个非凡的应用，请使用它们。</p></li>
+</ul>
+
+<h2 id="you_should_also_read"><!--@You should also read-->您还应该阅读</h2>
+
+<ul>
+<li><p><a href="angular_framework.html"><!--@Build Apps with AngularJS-->用 AngularJS 建立应用</a><!--@ tutorial-->的教程</p></li>
+<li><p><a href="http://angularjs.org/">AngularJS <!--@Todo-->待办事项</a><!--@ tutorial-->教程</p></li>
+</ul>
+
+<h1 id="what_39_s_next_"><!--@What's next?-->接下来做什么？</h1>
+
+<p><!--@In-->在 <a href="app_codelab5_data.html">4 - <!--@Save and Fetch Data-->保存和获取数据</a><!--@,
+you will modify your Todo list app so that Todo items are saved.-->
+中，您将会修改您的“待办事项”列表应用，存储待办事项。
+</p>

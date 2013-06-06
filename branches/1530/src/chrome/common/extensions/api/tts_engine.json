@@ -1,0 +1,127 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+[
+  {
+    "namespace": "ttsEngine",
+    "functions": [
+      {
+        "name": "sendTtsEvent",
+        "nodoc": true,
+        "type": "function",
+        "description": "Routes a TTS event from a speech engine to a client.",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "requestId"
+          },
+          {
+            "name": "event",
+            "$ref": "tts.TtsEvent",
+            "description": "The update event from the text-to-speech engine indicating the status of this utterance."
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "onSpeak",
+        "type": "function",
+//@        "description": "Called when the user makes a call to tts.speak() and one of the voices from this extension's manifest is the first to match the options object.",
+        "description": "当用户发出 $ref:tts.speak 调用并且扩展程序的清单文件中的任何一种语音首先匹配 options 对象时产生。",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "utterance",
+//@            "description": "The text to speak, specified as either plain text or an SSML document. If your engine does not support SSML, you should strip out all XML markup and synthesize only the underlying text content. The value of this parameter is guaranteed to be no more than 32,768 characters. If this engine does not support speaking that many characters at a time, the utterance should be split into smaller chunks and queued internally without returning an error."
+            "description": "要朗读的文本，既可以是纯文本，也可以是完整的、形式正确的 SSML 文档。如果您的引擎不支持 SSML，您应该忽略所有 XML 标签只朗读文本。这一参数的长度确保不超过 32 768 个字符。如果您的引擎不支持一次性朗读那么多内容，您应该将朗读分成一小段一小段，并放入内部队列，而不是返回错误。"
+          },
+          {
+            "type": "object",
+            "name": "options",
+//@            "description": "Options specified to the tts.speak() method.",
+            "description": "$ref:tts.speak 方法指定的选项。",
+            "properties": {
+              "voiceName": {
+                "type": "string",
+                "optional": true,
+//@                "description": "The name of the voice to use for synthesis."
+                "description": "用来合成的语音名称。"
+              },
+              "lang": {
+                "type": "string",
+                "optional": true,
+//@                "description": "The language to be used for synthesis, in the form <em>language</em>-<em>region</em>. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'."
+                "description": "用于合成的语言，以<em>语言</em>-<em>区域</em>的形式。例如：'zh-CN'、'en'、'en-US'、'en-GB'。"
+              },
+              "gender": {
+                "type": "string",
+                "optional": true,
+//@                "description": "Gender of voice for synthesized speech.",
+                "description": "语音合成所使用的性别，\"male\" 表示男性，\"female\" 表示女性。",
+                "enum": ["male", "female"]
+              },
+              "rate": {
+                "type": "number",
+                "optional": true,
+                "minimum": 0.1,
+                "maximum": 10.0,
+//@                "description": "Speaking rate relative to the default rate for this voice. 1.0 is the default rate, normally around 180 to 220 words per minute. 2.0 is twice as fast, and 0.5 is half as fast. This value is guaranteed to be between 0.1 and 10.0, inclusive. When a voice does not support this full range of rates, don't return an error. Instead, clip the rate to the range the voice supports."
+                "description": "朗读速率，相对于这一语音的默认速率。1.0 表示默认速率，通常为每分钟 180 至 220 个单词。2.0 表示快一倍，而 0.5 是默认速率的一半。这一值确保在 0.1 和 10.0 之间（包括 0.1 和 10.0），如果语音不支持这一范围内的所有速率，不要返回错误，而是限制在语音支持范围内的速率。"
+              },
+              "pitch": {
+                "type": "number",
+                "optional": true,
+                "minimum": 0,
+                "maximum": 2,
+//@                "description": "Speaking pitch between 0 and 2 inclusive, with 0 being lowest and 2 being highest. 1.0 corresponds to this voice's default pitch."
+                "description": "指定 0 到 2 之间（包括 0 和 2）的声调，0 表示最低，2 表示最高，1.0 对应于语音的默认声调。"
+              },
+              "volume": {
+                "type": "number",
+                "optional": true,
+                "minimum": 0,
+                "maximum": 1,
+//@                "description": "Speaking volume between 0 and 1 inclusive, with 0 being lowest and 1 being highest, with a default of 1.0."
+                "description": "0 到 1 之间（包括 0 和 1）的朗读音量，0 为最低，1 为最高，默认为 1.0。"
+              }
+            }
+          },
+          {
+            "name": "sendTtsEvent",
+            "type": "function",
+//@            "description": "Call this function with events that occur in the process of speaking the utterance.",
+            "description": "调用这一函数，发送语音合成过程中发生的事件。",
+            "parameters": [
+              {
+                "name": "event",
+                "$ref": "tts.TtsEvent",
+//@                "description": "The event from the text-to-speech engine indicating the status of this utterance."
+                "description": "来自文字语音转换引擎的事件，表示朗读状态。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "onStop",
+        "type": "function",
+//@        "description": "Fired when a call is made to tts.stop and this extension may be in the middle of speaking. If an extension receives a call to onStop and speech is already stopped, it should do nothing (not raise an error). If speech is in the paused state, this should cancel the paused state."
+        "description": "当发出 $ref:tts.stop 调用时发生，扩展程序可能正在朗读。如果扩展程序收到这一事件但是朗读已经结束，它应该什么都不做（而不是产生错误）。如果语音正处于暂停状态，它应该取消暂停状态。"
+      },
+      {
+        "name": "onPause",
+        "type": "function",
+//@        "description": "Optional: if an engine supports the pause event, it should pause the current utterance being spoken, if any, until it receives a resume event or stop event. Note that a stop event should also clear the paused state."
+        "description": "可选：如果引擎支持暂停事件，它应该暂停正在朗读的内容（如果有的话），直到它接收到恢复或停止事件。注意停止事件还应该清除暂停状态。"
+      },
+      {
+        "name": "onResume",
+        "type": "function",
+//@        "description": "Optional: if an engine supports the pause event, it should also support the resume event, to continue speaking the current utterance, if any. Note that a stop event should also clear the paused state."
+        "description": "可选：如果引擎支持暂停事件，它也应该支持恢复事件，继续当前朗读的内容（如果有的话）。注意停止事件还应该清除暂停状态。"
+      }
+    ]
+  }
+]

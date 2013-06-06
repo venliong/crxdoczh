@@ -1,0 +1,53 @@
+<div>
+  <h4 id="{{id}}">{{name}}</h4>
+  <div class="summary">
+    <span class="subdued">{{?parent_name}}{{parent_name}}{{:}}chrome.{{api.name}}{{/}}.</span>{{name}}{{?supportsRules}}.addRules([{...}<span class="subdued">, ...</span>]<span class="subdued">, function(rules) {...}</span>){{:supportsRules}}<span class="subdued">.addListener</span>(function({{#parameters}}{{+partials.parameter_item}}{{^last}}, {{/}}{{/}})<span class="subdued"> {...}</span>{{#extraParameters}}, {{+partials.parameter_item}}{{/}}{{?filters}}<span class="optional">, { {{#filters}}{{name}}: <span class="subdued">...</span>{{^last}}, {{/}}{{/}} }</span>{{/}});{{/supportsRules}}
+  </div>
+  <div class="description">
+    {{?description}}<p>
+      {{{description}}}
+    </p>{{/description}}
+    {{?supportsRules}}
+      <p><!--@See-->参见 $ref:events.Event.addRules<!--@.-->。</p>
+    {{/supportsRules}}
+    {{?conditions}}
+      <h4><!--@Supported conditions-->支持的条件</h4>
+      <dl>
+        {{#conditions}}<div><dt>{{+partials.ref_link}}</dt></div>{{/}}
+      </dl>
+    {{/conditions}}
+    {{?actions}}
+      <h4><!--@Supported actions-->支持的操作</h4>
+      <dl>
+        {{#actions}}<div><dt>{{+partials.ref_link}}</dt></div>{{/}}
+      </dl>
+    {{/actions}}
+    {{?parameters}}
+      <h4><!--@Listener Parameters-->监听器参数</h4>
+      <dl>
+        {{#parameters}}{{+partials.parameter_full}}{{/}}
+      </dl>
+      {{?callback}}
+      {{+partials.listener_callback}}
+      {{/callback}}
+    {{/parameters}}
+    {{?extraParameters}}
+      <h4><code>addListener</code> 的附加参数</h4>
+      <dl>
+        {{#extraParameters}}{{+partials.parameter_full}}{{/}}
+      </dl>
+    {{/extraParameters}}
+    {{?returns}}
+      <h4>监听器返回值</h4>
+      <dl>
+        {{+partials.return_value}}
+      </dl>
+    {{/returns}}
+    {{?filters}}
+      <h4><!--@Filters--><a href="events.html#filtered">过滤器</a></h4>
+      <dl>
+        {{#filters}}{{+partials.parameter_full}}{{/}}
+      </dl>
+    {{/filters}}
+  </div>
+</div>

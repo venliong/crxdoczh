@@ -1,0 +1,138 @@
+// Copyright (c) 2013 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+namespace notifications {
+  enum TemplateType {
+    // icon, title, message, expandedMessage, up to two buttons
+    basic,
+
+    // icon, title, message, expandedMessage, image, up to two buttons
+    image,
+
+    // icon, title, message, items, up to two buttons
+    list
+  };
+
+  dictionary NotificationItem {
+    // <!--@Title of one item of a list notification.-->
+    // 通知列表中某个项目的标题。
+    DOMString title;
+
+    // <!--@Additional details about this item.-->
+    // 该项目的额外详情。
+    DOMString message;
+  };
+
+  dictionary NotificationButton {
+    DOMString title;
+    DOMString? iconUrl;
+  };
+
+  dictionary NotificationOptions {
+    // <!--@Which type of notification to display.-->
+    // 要显示哪种类型的通知。
+    TemplateType type;
+
+    // <!--@Sender's avatar, app icon, or a thumbnail for image notifications.-->
+    // 发送方的图标、应用图标或图片通知的缩略图。
+    DOMString iconUrl;
+
+    // <!--@Title of the notification (e.g. sender name for email).-->
+    // 通知标题（例如邮件发送者的姓名）。
+    DOMString title;
+
+    // <!--@Main notification content.-->
+    // 通知的主要内容。
+    DOMString message;
+
+    // <!--@Priority ranges from -2 to 2. -2 is lowest priority. 2 is highest. Zero
+    // is default.-->
+    // 优先级，从 -2 到 2，-2 优先级最低，2 最高，默认为零。
+    long? priority;
+
+    // <!--@A timestamp associated with the notification, in milliseconds past the
+    // epoch (e.g. <code>Date.now() + n</code>).-->
+    // 与通知相关联的时间，表示为 1970 年 1 月 1 日以来所经过的毫秒数（例如
+    // <code>Date.now() + n</code>）。
+    double? eventTime;
+
+    // <!--@Text and icons of notification action buttons.-->
+    // 通知动作按钮的文本和图标。
+    NotificationButton[]? buttons;
+
+    // <!--@Secondary notification content.-->
+    // 辅助通知内容。
+    [nodoc] DOMString? expandedMessage;
+
+    // <!--@Image thumbnail for image-type notifications.-->
+    // 图片类型通知的图片缩略图。
+    DOMString? imageUrl;
+
+    // <!--@Items for multi-item notifications.-->
+    // 多项目通知的项目。
+    NotificationItem[]? items;
+  };
+
+  callback CreateCallback = void (DOMString notificationId);
+
+  callback UpdateCallback = void (boolean wasUpdated);
+
+  callback ClearCallback = void (boolean wasCleared);
+
+  callback GetAllCallback = void (object notifications);
+
+  interface Functions {
+    // <!--@Creates and displays a notification having the contents in |options|,
+    // identified by the id |notificationId|. If |notificationId| is empty,
+    // |create| generates an id. If |notificationId| matches an existing
+    // notification, |create| first clears that notification before proceeding
+    // with the create operation. |callback| returns the notification id
+    // (either supplied or generated) that represents the created notification.-->
+    // 创建并显示一个通知，内容由 <code>options</code> 指定，由
+    // <code>notificationId</code> 标识。如果 <code>notificationId</code>
+    // 为空，<code>create</code> 会生成一个标识符。如果
+    // <code>notificationId</code> 匹配已有的通知，<code>create</code>
+    // 在创建操作前首先会清除这一通知。<code>callback</code>
+    // 返回通知标识符（可能是提供的，也可能是生成的），表示创建的通知。
+    static void create(DOMString notificationId,
+                       NotificationOptions options,
+                       CreateCallback callback);
+
+    // <!--@Updates an existing notification having the id |notificationId| and the
+    // options |options|. |callback| indicates whether a matching notification
+    // existed.-->
+    // 更新具有 <code>notificationId</code> 标识符和 <code>options</code>
+    // 选项的已有通知，<code>callback</code> 指示是否存在匹配的通知。
+    static void update(DOMString notificationId,
+                       NotificationOptions options,
+                       UpdateCallback callback);
+
+    // <!--@Given a |notificationId| returned by the |create| method, clears the
+    // corresponding notification. |callback| indicates whether a matching
+    // notification existed.-->
+    // 清除指定的由 <code>create</code> 方法返回的 <code>notificationId</code>
+    // 对应的通知，<code>callback</code> 指示是否存在匹配的通知。
+    static void clear(DOMString notificationId, ClearCallback callback);
+
+    // <!--@|callback| is executed with the set of notification_ids currently in
+    // the system.-->
+    // 执行 <code>callback</code> 时传递系统当前所有的通知标识符。
+    static void getAll(GetAllCallback callback);
+  };
+
+  interface Events {
+    // <!--@The notification closed, either by the system or by user action.-->
+    // 通知由系统或用户操作关闭。
+    static void onClosed(DOMString notificationId, boolean byUser);
+
+    // <!--@The user clicked in a non-button area of the notification.-->
+    // 用户单击了通知中的非按钮区域。
+    static void onClicked(DOMString notificationId);
+
+    // <!--@The user pressed a button in the notification.-->
+    // 用户按下了通知中的一个按钮。
+    static void onButtonClicked(DOMString notificationId, long buttonIndex);
+  };
+
+};
