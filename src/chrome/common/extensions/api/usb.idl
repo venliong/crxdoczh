@@ -200,10 +200,6 @@ namespace usb {
     // 要获取的接口编号。
     // |callback|: <!--@The callback to invoke once the interface is claimed.-->
     // 获取接口后调用的回调函数。
-    // Claims an interface on the specified USB device.
-    // |device|: The device on which the interface is to be claimed.
-    // |interface|: The interface number to be claimed.
-    // |callback|: The callback to invoke once the interface is claimed.
     static void claimInterface(Device device, long interfaceNumber,
         VoidCallback callback);
 
