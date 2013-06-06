@@ -149,6 +149,7 @@ namespace usb {
   dictionary FindDevicesOptions {
     long vendorId;
     long productId;
+    long? interfaceId;
   };
 
   callback VoidCallback = void ();
