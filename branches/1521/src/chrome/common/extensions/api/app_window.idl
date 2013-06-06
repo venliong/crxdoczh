@@ -117,7 +117,7 @@ namespace app.window {
   callback CreateWindowCallback =
       void ([instanceOf=AppWindow] object created_window);
 
-  dictionary AppWindow {
+  [noinline_doc] dictionary AppWindow {
     // <!--@Focus the window.-->
     // 使窗口拥有焦点。
     static void focus();
