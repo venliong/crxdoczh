@@ -121,7 +121,12 @@
           "type": "array",
 //@          "description": "Array of global objects",
           "description": "全局对象的数组。",
-          "items": { "type": "object", "isInstanceOf": "global", "additionalProperties": { "type": "any" } }
+          "items": {
+            "name": "viewGlobals",
+            "type": "object",
+            "isInstanceOf": "global",
+            "additionalProperties": { "type": "any" }
+          }
         }
       },
       {
@@ -132,7 +137,11 @@
         "description": "返回运行在当前扩展程序中的后台网页的 JavaScript window 对象。如果扩展程序没有后台网页则返回 null。",
         "parameters": [],
         "returns": {
-          "type": "object", "isInstanceOf": "global", "additionalProperties": { "type": "any" }
+            "type": "object",
+            "optional": true,
+            "name": "backgroundPageGlobal",
+            "isInstanceOf": "global",
+            "additionalProperties": { "type": "any" }
          }
       },
       {
@@ -148,7 +157,12 @@
         "returns": {
           "type": "array",
           "description": "Array of global window objects",
-          "items": { "type": "object", "isInstanceOf": "global", "additionalProperties": { "type": "any" } }
+          "items": {
+            "type": "object",
+            "name": "tabGlobals",
+            "isInstanceOf": "global",
+            "additionalProperties": { "type": "any" }
+          }
         }
       },
       {
