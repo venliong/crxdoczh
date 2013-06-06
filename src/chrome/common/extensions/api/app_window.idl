@@ -114,20 +114,6 @@ namespace app.window {
     boolean? singleton;
   };
 
-  // <!--@Called in the creating window (parent) before the load event is called in
-  // the created window (child). The parent can set fields or functions on the
-  // child usable from onload. E.g. background.js:<br>
-  // <code>function(created_window) { created_window.contentWindow.foo =
-  // function () { }; };</code>
-  // <br>window.js:<br>
-  // <code>window.onload = function () { foo(); }</code>-->
-  // 在已创建窗口（子窗口）的 load
-  // 事件产生前在父窗口中调用，父窗口可以设置子窗口中的字段或函数，以便在
-  // onload 中使用。例如：background.js：<br>
-  // <code>function(created_window) { created_window.contentWindow.foo =
-  // function () { }; };</code>
-  // <br>window.js：<br>
-  // <code>window.onload = function () { foo(); }</code>-->
   callback CreateWindowCallback =
       void ([instanceOf=AppWindow] object created_window);
 
