@@ -8,6 +8,14 @@
     "extension_types": ["extension", "packaged_app"],
     "min_manifest_version": 2
   },
+  "activityLogPrivate": {
+    "channel": "dev",
+    "extension_types": ["extension"],
+    "whitelist": [
+      "acldcpdepobcjbdanifkmfndkjoilgba",  // Activity Log
+      "ajabfgledjhbabeoojlabelaifmakodf"   // For testing
+    ]
+  },
   "adview": {
     "channel": "dev",
     "extension_types": ["platform_app"]
@@ -180,9 +188,11 @@
     "extension_types": ["extension", "platform_app"]
   },
   "enterprise.platformKeysPrivate": {
-    "channel": "dev",
+    "channel": "stable",
     "extension_types": ["extension", "packaged_app"],
     "whitelist": [
+      "inmdanhiiibfpdlljnjjbchhjgelojnn",  // Dogfood
+      "cbpmgnfekbgbgpkmokfppmldaccjcbnb"   // Test
     ]
   },
   "experimental": {
@@ -254,7 +264,7 @@
     "extension_types": ["extension", "packaged_app"],
     "inplies_full_url_access": true
   },
-  "inputMethodPrivate": {
+  "inputMethodPrivate": [{
     "channel": "stable",
     "extension_types": ["extension", "packaged_app", "platform_app"],
     "whitelist": [
@@ -262,10 +272,13 @@
       "gnedhmakppccajfpfiihfcdlnpgomkcf",  // Citrix Receiver Beta
       "fjcibdnjlbfnbfdjneajpipnlcppleek",  // Citrix Receiver Dev
       "pnhechapfaindjhompbnflcldabbghjo",  // HTerm
-      "okddffdblfhhnmhodogpojmfkjmhinfp",  // HTerm dev
-      "fpfbhcjppmaeaijcidgiibchfbnhbelj"  // Google Japanese Input
+      "okddffdblfhhnmhodogpojmfkjmhinfp"  // HTerm dev
     ]
-  },
+  },{
+    "channel": "stable",
+    "extension_types": ["extension", "packaged_app", "platform_app"],
+    "location": "component"
+  }],
   "location": [
     {
       "channel": "dev",
