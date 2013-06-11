@@ -12,6 +12,20 @@
 </style>
 
 <p>
+{{?is_apps}}
+  <!--@Applications are simply bundles of resources, wrapped
+  up with a <a href="manifest.html"><code>manifest.json</code></a> file that
+  describes the package's contents. The format of this file is generally stable,
+  but occasionally breaking changes must be made to address important issues.
+  Developers should specify which version of the manifest specification their
+  package targets by setting a <code>manifest_version</code> key in their
+  manifests.-->
+  应用只不过是经过打包的资源，外加一个
+  <a href="manifest.html"><code>manifest.json</code></a>
+  文件描述包的内容。该文件的格式大体上是稳定的，但是偶尔需要重大更改，解决重大问题。开发者应该在清单文件中设置
+<code>manifest_version</code>
+属性，指定他们的包使用的清单文件规范的版本。
+{{:is_apps}}
   <!--@Extensions, themes, and applications are simply bundles of resources, wrapped
   up with a <a href="manifest.html"><code>manifest.json</code></a> file that
   describes the package's contents. The format of this file is generally stable,
@@ -19,15 +33,38 @@
   Developers should specify which version of the manifest specification their
   package targets by setting a <code>manifest_version</code> key in their
   manifests.-->
-  扩展程序、主题背景以及应用只是打包的资源，另外附带一个
+  扩展程序、主题背景以及应用只不过是打包的资源，另外附带一个
 <a href="manifest.html"><code>manifest.json</code></a>
 文件，描述包的内容。该文件的格式大体上是稳定的，但是偶尔需要重大更改，解决重大问题。开发者应该在清单文件中设置
 <code>manifest_version</code>
 属性，指定他们的包使用的清单文件规范的版本。
+{{/is_apps}}
 </p>
 
 <h2 id="current-version"><!--@Current Version-->当前版本</h2>
 
+{{?is_apps}}
+<p>
+  <!--@Packaged app developers must currently specify-->
+  打包应用的开发者当前必须指定
+  <strong><code>'manifest_version': 2</code></strong><!--@:-->：
+</p>
+
+<pre>{
+  ...,
+  "manifest_version": 2,
+  ...
+}</pre>
+
+<p>
+  <!--@Manifest version 1 only applied to extensions and hosted apps, not
+  packaged apps.  It
+  was <a href="../extensions/manifestVersion.html">deprecated</a> in
+  Chrome 18.-->
+  清单文件版本 1 只适用于扩展程序与托管应用，不适用于打包应用，在 Chrome 18
+  中<a href="../extensions/manifestVersion.html">弃用</a>。
+</p>
+{{:is_apps}}
 <p>
   <!--@Developers should currently specify-->
   目前，开发人员应该指定
@@ -52,51 +89,55 @@
 <div id="schedule">
 <h3 id="manifest-v1-august2012"><!--@August 2012-->2012 年 8 月</h3>
 <ul>
-  <li><!--@The Web Store will block creation of new manifest version 1 items.-->
-  网上应用店将不再允许创建清单文件版本 1 的项目。
-  <li><!--@The Web Store will allow updates to existing manifest version 1 items.-->
-  网上应用店仍然允许更新现有的清单文件版本 1 的项目。
+  <li><!--@The Web Store will block creation of new manifest version 1 extensions.-->
+  网上应用店将不再允许创建清单文件版本 1 的扩展程序。
+  <li><!--@The Web Store will allow updates to existing manifest version 1 extensions.-->
+  网上应用店仍然允许更新现有的清单文件版本 1 的扩展程序。
 </ul>
 
 <h3 id="manifest-v1-march2013"><!--@March 2013-->2013 年 3 月</h3>
 <ul>
-  <li><!--@The Web Store will block updates to manifest version 1 items on March
+  <li><!--@The Web Store will block updates to manifest version 1 extensions on March
   4th, 2013.-->
-  从 2013 年 3 月 4 日开始，网上应用店将不允许更新清单文件版本 1 的项目。
+  从 2013 年 3 月 4 日开始，网上应用店将不允许更新清单文件版本 1 的扩展程序。
 </ul>
 
 <h3 id="manifest-v1-april2013"><!--@April 2013-->2013 年 4 月</h3>
 <ul>
-  <li><!--@Chrome 27 Beta will stop packaging manifest version 1 items (or loading
+  <li><!--@Chrome 27 Beta will stop packaging manifest version 1 extensions (or loading
     them for development).-->
-    Chrome 27 Beta 将不再为清单文件版本 1 的项目打包（或为开发而加载）。
-  <li><!--@The Web Store will remove manifest version 1 items from the wall,
-    search results, and category pages.-->
-    网上应用店将从展区、搜索结果以及分类页面中移除清单文件版本 1 的项目。
-  <li><!--@Notice emails will be sent to all developers with manifest
-    version 1 items still in the store reminding them that these
-    items will be unpublished and providing update instructions.-->
-    通知邮件将会发送至网上应用店中仍然有清单文件版本 1
-    的项目开发人员，提醒他们这些项目将不会发布，并提供更新指示。
+    Chrome 27 Beta 将不再为清单文件版本 1 的扩展程序打包（或为开发而加载）。
 </ul>
 
-<h3 id="manifest-v1-july2013"><!--@July 2013-->2013 年 7 月</h3>
+<h3 id="manifest-v1-june2013"><!--@June 2013-->2013 年 6 月</h3>
 <ul>
-  <li><!--@The Web Store will unpublish all manifest version 1 items.-->
-  网上应用店将不再发布所有清单文件版本 1 的项目。
-  <li><!--@Final notice emails will be sent to developers with manifest
-    version 1 items still in the Web Store.-->
-    最终的通知邮件将发送至网上应用店中仍然有清单文件版本 1 的项目开发人员。
-  <li><!--@Chrome will continue to load and run installed manifest
-    version 1 items.-->
-    Chrome 浏览器仍然会继续加载和运行已安装的清单文件版本 1 的项目。
+  <li><!--@The Web Store will remove manifest version 1 extensions from the wall,
+    search results, and category pages.-->
+    清单文件版本 1 的扩展程序将从网上应用店的展区、搜索结果以及分类页面中移除。
+  <li><!--@Notice emails will be sent to all developers with manifest
+    version 1 extensions still in the store reminding them that these
+    extensions will be unpublished and providing update instructions.-->
+    通知邮件将会发送至网上应用店中仍然有清单文件版本 1
+    的扩展程序开发人员，提醒他们这些项目将不会发布，并提供更新指示。
 </ul>
 
 <h3 id="manifest-v1-september2013"><!--@September 2013-->2013 年 9 月</h3>
 <ul>
+  <li><!--@The Web Store will unpublish all manifest version 1 extensions.-->
+  网上应用店将取消发布所有清单文件版本 1 的扩展程序。
+  <li><!--@Final notice emails will be sent to developers with manifest
+    version 1 extensions still in the Web Store.-->
+    最终的通知邮件将发送至网上应用店中仍然有清单文件版本 1 的扩展程序开发人员。
+  <li><!--@Chrome will continue to load and run installed manifest
+    version 1 extensions.-->
+    Chrome 浏览器仍然会继续加载和运行已安装的清单文件版本 1 的项目。
+</ul>
+
+<h3 id="manifest-v1-january2014"><!--@January 2014-->2014 年 1 月</h3>
+<ul>
   <li><!--@Chrome will stop loading or running manifest
-    version 1 items.-->
-    Chrome 浏览器将不再加载或运行清单文件版本 1 的项目。
+    version 1 extensions.-->
+    Chrome 浏览器将不再加载或运行清单文件版本 1 的扩展程序。
 </ul>
 </div>
 
@@ -319,3 +360,4 @@
     </p>
   </li>
 </ul>
+{{/is_apps}}
