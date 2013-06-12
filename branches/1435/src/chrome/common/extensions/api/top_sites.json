@@ -1,0 +1,44 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+[
+  {
+    "namespace": "topSites",
+    "types": [
+      {
+        "id": "MostVisitedURL",
+        "type": "object",
+//@        "description": "An object encapsulating a most visited URL, such as the URLs on the new tab page.",
+        "description": "包含最常访问 URL（例如“打开新的标签页”页面上的 URL）的对象。",
+        "properties": {
+//@          "url": {"type": "string", "description": "The most visited URL."},
+          "url": {"type": "string", "description": "最常访问的 URL。"},
+//@          "title": {"type": "string", "description": "The title of the page"}
+          "title": {"type": "string", "description": "此页面的标题。"}
+        }
+      }
+    ],
+    "functions": [
+      {
+        "name": "get",
+        "type": "function",
+//@        "description": "Gets a list of top sites.",
+        "description": "获取常去网站列表。",
+        "parameters": [
+          {
+            "type": "function",
+            "name": "callback",
+            "parameters": [
+              {
+                "type": "array",
+                "name": "data",
+                "items": {"$ref": "MostVisitedURL"}
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

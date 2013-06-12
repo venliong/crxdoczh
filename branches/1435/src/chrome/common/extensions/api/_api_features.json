@@ -1,0 +1,144 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// See c/c/e/features/* to understand this file, in particular feature.h,
+// simple_feature.h, and base_feature_provider.h.
+
+{
+  "app": {
+    "channel": "stable",
+    "extension_types": ["hosted_app", "extension", "packaged_app"],
+    "contexts": [
+      "blessed_extension", "unblessed_extension", "content_script", "web_page"
+    ],
+    "matches": [
+      "http://*/*", "https://*/*", "chrome-extension://*/*", "file://*/*"
+    ]
+  },
+  "app.runtime": {
+    "channel": "stable",
+    "contexts": ["blessed_extension"],
+    "dependencies": ["permission:app.runtime"]
+  },
+  "app.window": {
+    "channel": "stable",
+    "contexts": ["blessed_extension"],
+    "dependencies": ["permission:app.window"]
+  },
+  "app.currentWindowInternal": {
+    "internal": true,
+    "channel": "stable",
+    "contexts": ["blessed_extension", "unblessed_extension", "content_script"]
+  },
+  "bookmarks": {
+    "channel": "stable",
+    "dependencies": ["permission:bookmarks"],
+    "contexts": ["blessed_extension"]
+  },
+  "bookmarks.export": {
+    "channel": "stable",
+    "extension_types": ["extension"],
+    "contexts": ["blessed_extension"],
+    "location": "component"
+  },
+  "bookmarks.import": {
+    "channel": "stable",
+    "extension_types": ["extension"],
+    "contexts": ["blessed_extension"],
+    "location": "component"
+  },
+  "downloadsInternal": {
+    "internal": true,
+    "channel": "stable",
+    "contexts": ["blessed_extension", "unblessed_extension", "content_script"]
+  },
+  "events": {
+    "internal": true,
+    "channel": "stable",
+    "contexts": [
+      "blessed_extension", "unblessed_extension", "content_script", "web_page"
+    ],
+    "matches": ["<all_urls>"]
+  },
+  "fileBrowserHandlerInternal": {
+    "internal": true,
+    "channel": "stable",
+    "contexts": ["blessed_extension", "unblessed_extension", "content_script"]
+  },
+  "runtime": {
+    "channel": "stable",
+    "extension_types": ["extension", "packaged_app", "platform_app"],
+    "contexts": ["blessed_extension"]
+  },
+  "runtime.connect": {
+    "channel": "stable",
+    "extension_types": ["extension", "packaged_app", "platform_app"],
+    "contexts": "all",
+    "matches": ["<all_urls>"]
+  },
+  "runtime.getManifest": {
+    "channel": "stable",
+    "extension_types": ["extension", "packaged_app", "platform_app"],
+    "contexts": ["blessed_extension", "unblessed_extension", "content_script"]
+  },
+  "runtime.getURL": {
+    "channel": "stable",
+    "extension_types": ["extension", "packaged_app", "platform_app"],
+    "contexts": ["blessed_extension", "unblessed_extension", "content_script"]
+  },
+  "runtime.id": {
+    "channel": "stable",
+    "extension_types": ["extension", "packaged_app", "platform_app"],
+    "contexts": ["blessed_extension", "unblessed_extension", "content_script"]
+  },
+  "runtime.lastError": {
+    "channel": "stable",
+    "extension_types": ["extension", "packaged_app", "platform_app"],
+    "contexts": ["blessed_extension", "unblessed_extension", "content_script"]
+  },
+  "runtime.onConnect": {
+    "channel": "stable",
+    "extension_types": ["extension", "packaged_app", "platform_app"],
+    "contexts": ["blessed_extension", "unblessed_extension", "content_script"]
+  },
+  "runtime.onMessage": {
+    "channel": "stable",
+    "extension_types": ["extension", "packaged_app", "platform_app"],
+    "contexts": ["blessed_extension", "unblessed_extension", "content_script"]
+  },
+  "runtime.reload": {
+    "channel": "stable",
+    "extension_types": ["extension", "packaged_app", "platform_app"],
+    "contexts": ["blessed_extension", "unblessed_extension", "content_script"]
+  },
+  "runtime.requestUpdateCheck": {
+    "channel": "stable",
+    "extension_types": ["extension", "packaged_app", "platform_app"],
+    "contexts": ["blessed_extension", "unblessed_extension", "content_script"]
+  },
+  "runtime.sendMessage": {
+    "channel": "stable",
+    "extension_types": ["extension", "packaged_app", "platform_app"],
+    "contexts": "all",
+    "matches": ["<all_urls>"]
+  },
+  "runtime.setUninstallUrl": {
+    "channel": "dev",
+    "extension_types": ["extension", "packaged_app", "platform_app"],
+    "contexts": ["blessed_extension", "unblessed_extension", "content_script"]
+  },
+  "webRequestInternal": {
+    "internal": true,
+    "channel": "stable",
+    "contexts": ["blessed_extension", "unblessed_extension", "content_script"]
+  },
+  "webstore": {
+    // Hosted apps can use the webstore API from within a blessed context.
+    "channel": "stable",
+    "extension_types": ["hosted_app"],
+    "contexts": ["blessed_extension", "web_page"],
+    // Any webpage can use the webstore API.
+    "matches": ["http://*/*", "https://*/*"]
+  }
+}
