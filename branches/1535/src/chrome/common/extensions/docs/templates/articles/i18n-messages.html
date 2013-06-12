@@ -1,0 +1,403 @@
+<h1><!--@Formats: Locale-Specific Messages-->格式：区域特定的消息</h1>
+
+
+<p>
+<!--@Each internationalized extension or app has at least one
+file named <code>messages.json</code>
+that provides locale-specific strings.
+This page describes the format of <code>messages.json</code> files.
+For information on how to internationalize and localize,
+see the <a href="i18n.html">Internationalization</a> page.-->
+每一个具有国际化支持的扩展程序或应用至少有一个名为
+<code>messages.json</code>
+的文件，提供区域特定的字符串。这一页面描述了
+<code>messages.json</code>
+文件的格式。有关如何添加国际化支持以及如何本地化的更多内容，请参见<a
+href="i18n.html">国际化支持</a>页面。
+</p>
+
+<h2 id="overview"> <!--@Field summary-->字段概述 </h2>
+
+<p>
+<!--@The following code shows the supported fields for
+<code>messages.json</code>.
+Only the "<em>name</em>" and "message" fields are required.-->
+如下代码展示了
+<code>messages.json</code>
+支持的字段，只有 "<em>name</em>" 和
+"message" 字段是必需的。
+</p>
+
+<pre>
+{
+  "<a href="#name"><em>name</em></a>": {
+    "<a href="#message">message</a>": "<em>消息文本，可以包含可选的占位符。</em>",
+    "<a href="#description">description</a>": "<em>帮助翻译者的消息描述。</em>",
+    "<a href="#placeholders">placeholders</a>": {
+      "<em>placeholder_name</em>": {
+        "content": "<em><!--@A string to be placed within the message.-->放在消息中的字符串。</em>",
+        "example": "<em><!--@Translator-aimed example of the placeholder string.-->帮助翻译者的占位符字符串举例。</em>"
+      },
+      ...
+    }
+  },
+  ...
+}
+</pre>
+
+<h2 id="example"> <!--@Example-->例子 </h2>
+
+<p>
+<!--@Here's a <code>messages.json</code> file
+that defines three messages
+named "prompt_for_name", "hello", and "bye":-->
+如下是一个
+<code>messages.json</code>
+文件，定义了三个消息，名称分别为
+"prompt_for_name"、"hello" 和 "bye"：
+</p>
+
+<pre>
+{
+  "prompt_for_name": {
+    "message": "您叫什么名字？",
+    "description": "询问用户的姓名"
+  },
+  "hello": {
+    "message": "$USER$，您好！",
+    "description": "向用户打招呼",
+    "placeholders": {
+      "user": {
+        "content": "$1",
+        "example": "Cira"
+      }
+    }
+  },
+  "bye": {
+    "message": "$USER$，再见。欢饮再次光临 $OUR_SITE$！",
+    "description": "向用户道别",
+    "placeholders": {
+      "our_site": {
+        "content": "Example.com",
+      },
+      "user": {
+        "content": "$1",
+        "example": "Cira"
+      }
+    }
+  }
+}
+</pre>
+
+
+<h2 id="field_details"><!--@Field details-->字段详情</h2>
+
+<p>
+<!--@This section describes each field
+that can appear in a <code>messages.json</code> file.
+For details on how the messages file is used &mdash;
+for example, what happens when a locale doesn't define
+all the messages &mdash;
+see <a href="i18n.html">Internationalization</a>.-->
+这一部分描述了可以出现在
+<code>messages.json</code>
+文件中的各个字段。有关如何使用消息文件，例如某种语言没有定义所有消息的情况下如何处理，请参见<a href="i18n.html">国际化支持</a>。
+</p>
+
+
+<h3 id="name">name</h3>
+
+<p>
+<!--@Actually, there's no field called "name".
+This field's name is the name of the message &mdash;
+the same <em>name</em> that you see in
+<code>__MSG_<em>name</em>__</code>
+or <code>getMessage("<em>name</em>")</code>.-->
+事实上，没有字段名为
+"name"，该字段的名称即消息的名称——与您在
+<code><em>__MSG_name__</em></code> 或
+<code>getMessage("<em>name</em>")</code>
+中看到的是同一个<em>名称</em>。
+名称不区分大小写，通过它使您获得本地化的消息文本。名称可以包含下列字符：
+</p>
+
+<p>
+<!--@The name is a case-insensitive key
+that lets you retrieve the localized message text.
+The name can include the following characters:-->
+名称是一个不区分大小写的键，通过它使您获得本地化消息的文本。名称可以包含下列字符：
+</p>
+
+<ul>
+  <li> A-Z </li>
+  <li> a-z </li>
+  <li> 0-9 </li>
+  <li> _<!--@ (underscore)-->（下划线） </li>
+  <li> @ </li>
+</ul>
+
+<p class="note">
+<b><!--@Note:-->注意：</b><!--@
+Don't define names that begin with "@@".
+Those names are reserved for
+<a href="i18n.html#overview-predefined">predefined messages</a>.-->不要定义以“@@”开头的名称，这些名称保留给<a href="i18n.html#overview-predefined">预定义消息</a>使用。
+</p>
+
+<p>
+<!--@Here are three examples of names,
+taken from the <a href="#example">Example</a> section:-->
+如下是名称的三个例子，来自<a href="#example">例子</a>部分：
+</p>
+
+<pre>
+"prompt_for_name": {
+  ...
+},
+"hello": {
+  ...
+},
+"bye": {
+  ...
+}
+</pre>
+
+<p>
+<!--@For more examples of using names, see the
+<a href="i18n.html">Internationalization</a> page.-->
+有关使用名称的更多例子，请参见<a href="i18n.html">国际化支持</a>页面。
+</p>
+
+
+<h3 id="message">message</h3>
+
+<p>
+<!--@The translated message,
+in the form of a string that can contain
+<a href="#placeholders">placeholders</a>.
+Use <code>$<em>placeholder_name</em>$</code>
+(case insensitive)
+to refer to a particular placeholder.
+For example, you can refer to a placeholder named "our_site" as
+<code>$our_site$</code>, <code>$OUR_SITE$</code>, or <code>$oUR_sITe$</code>.-->
+经过翻译的消息，以字符串形式表示，可以包含<a href="#placeholders"
+>占位符</a>。使用
+<code>$<em>占位符名称</em>$</code>（不区分大小写）引用某个占位符。例如，您可以引用名为
+"our_site" 的占位符：<code>$our_site$</code>、<code>$OUR_SITE$</code>
+或 <code>$oUR_sITe$</code>。
+</p>
+
+<p>
+<!--@Here are three examples of messages,
+taken from the <a href="#example">Example</a> section:-->
+如下是消息的三个例子，来自<a href="#example">例子</a>部分：
+</p>
+
+<pre>
+"message": "您叫什么名字？"
+...
+"message": "$USER$，您好！"
+...
+"message": "$USER$，再见。欢饮再次光临 $OUR_SITE$！"
+</pre>
+
+<p>
+<!--@To put a dollar sign (<code>$</code>) into the string,
+use <code>$$</code>.
+For example, use the following code to specify the message
+<b>Amount (in $)</b>:-->
+如果要在字符串中使用半角美元符号（$），请使用
+<code>$$</code>。例如，使用如下代码指定消息<b>金额 $</b>：
+
+<pre>
+"message": "金额 $$"
+</pre>
+
+<p>
+<!--@Although placeholders such as <code>$USER$</code> are
+the preferred way of referring to <em>substitution strings</em>
+(strings specified using the <em>substitutions</em> parameter of
+$ref:i18n.getMessage)
+you can also refer to substitution strings directly
+within the message.
+For example, the following message
+refers to the first three substitution strings passed into
+<code>getMessage()</code>:-->
+尽管诸如
+<code>$USER$</code>
+这样的占位符是引用替代字符串（在
+$ref:i18n.getMessage 的
+<code>substitutions</code>
+参数中指定的字符串）的推荐方式，但是您也可以直接在消息中引用替代字符串。例如，如下消息引用传递给
+<code>getMessage()</code>的前三个替代字符串：
+</p>
+
+<pre>
+"message": "参数：$1, $2, $3"
+</pre>
+
+<p>
+<!--@Despite that example,
+we recommend that you stick to using placeholders
+instead of <code>$<em>n</em></code> strings
+within your messages.
+Think of placeholders as good variable names.
+A week after you write your code,
+you'll probably forget what <code>$1</code> refers to,
+but you'll know what your placeholders refer to.
+For more information on placeholders and substitution strings, see
+the <a href="#placeholders">placeholders</a> section.-->
+尽管给出了这样的例子，但我们仍然推荐您在消息中坚持使用占位符，而不是
+<code>$<em>n</em></code>
+字符串。把占位符看作是好的变量名，您编写完代码的一周后，您可能会忘记
+<code>$1</code>
+引用什么，但是您知道您的占位符引用什么。有关占位符以及替代字符串的更多信息，请参见<a href="#placeholders">占位符</a>部分。
+</p>
+
+<h3 id="description">description</h3>
+
+<p>
+<em><!--@Optional.-->可选。</em><!--@
+A description of the message,
+intended to give context
+or details to help the translator
+make the best possible translation.-->消息的描述，用于向翻译者提供语境或细节，以便作出最好的翻译。
+</p>
+
+<p>
+<!--@Here are three examples of descriptions,
+taken from the <a href="#example">Example</a> section:-->
+如下是描述的三个例子，来自<a href="#example">例子</a>部分：
+</p>
+
+<pre>
+"description": "询问用户的姓名"
+...
+"description": "向用户打招呼"
+...
+"description": "向用户道别"
+</pre>
+
+<h3 id="placeholders">placeholders</h3>
+
+<p>
+<em><!--@Optional.-->可选。</em><!--@
+Defines one or more substrings
+to be used within the message.
+Here are two reasons you might want to use a placeholder:-->定义一个或多个在消息中使用的字符串。如下是您需要使用占位符的两个原因：
+</p>
+
+<ul>
+  <li>
+    <!--@To define the text
+    for a part of your message
+    that shouldn't be translated.
+    Examples: HTML code, trademarked names, formatting specifiers.-->
+    定义文本，用于您消息中不应该翻译的部分。例如：HTML
+    代码、商标名称、格式化指示符等。
+  </li>
+  <li>
+    <!--@To refer to a substitution string passed into
+    <code>getMessage()</code>.
+    Example: <code>$1</code>.-->
+    引用传递给 <code>getMessage()</code>
+    的字符串，例如：<code>$1</code>。
+  </li>
+</ul>
+
+<p>
+<!--@Each placeholder has a name,
+a "content" item,
+and an optional "example" item.
+A placeholder's name is case-insensitive
+and can contain the same characters
+as a <a href="#name">message name</a>.-->
+每一个占位符都有名称以及
+"content" 项，以及可选的
+"example" 项。占位符的名称不分大小写，可以包含的字符与<a
+href="#name">消息名称</a>相同。
+</p>
+
+<p>
+<!--@The "content" item's value is a string
+that can refer to substitution strings, which are
+specified using the
+$ref:i18n.getMessage method's
+<em>substitutions</em> parameter.
+The value of a "content" item is typically something like
+"Example.com" or "$1".
+If you refer to
+a substitution string that doesn't exist,
+you get an empty string.
+The following table shows how
+<code>$<em>n</em></code> strings correspond to
+strings specified by the <em>substitutions</em> parameter.-->
+"content" 项的值为一字符串，用于引用
+$ref:i18n.getMessage 的
+<em>substitutions</em>
+参数中指定的替代字符串。"content"
+项的值通常为 "Example.com" 或 "$1"
+等。如果您引用了不存在的替代字符串，您将得到空字符串。下表显示
+<code>$<em>n</em></code>
+字符串如何对应
+<em>substitutions</em>
+参数中指定的字符串。
+</p>
+
+<table class="simple">
+<tr>
+<th> <em>substitutions</em> <!--@parameter-->参数 </th>
+<th> <!--@Value of--> $1 的值</th>
+<th> <!--@Value of--> $2 的值</th>
+<th> <!--@Value of--> $3 的值</th>
+</tr>
+<tr>
+  <td> <code>userName</code> </td>
+  <td> <!--@value of--> <code>userName</code> 的值 </td>
+  <td> <code>""</code> </td>
+  <td> <code>""</code> </td>
+</tr>
+<tr>
+  <td> <code>["Cira", "Kathy"]</code> </td>
+  <td> <code>"Cira"</code> </td>
+  <td> <code>"Kathy"</code> </td>
+  <td> <code>""</code> </td>
+</tr>
+</table>
+
+<p>
+<!--@The "example" item
+(optional, but highly recommended)
+helps translators by showing how the content appears to the end user.
+For example, a placeholder
+for a dollar amount
+should have an example like <code>"$23.45"</code>.-->
+"example" 项（可选，但强烈建议使用）显示内容将如何展现给最终用户，有助于翻译者。例如，用于美元金额的占位符应该具有
+"example" 属性值 <code>"$23.45"</code>。
+</p>
+
+<p>
+<!--@The following snippet,
+taken from the <a href="#example">Example</a> section,
+shows a "placeholders" item that contains two placeholders
+named "our_site" and "user".
+The "our_site" placeholder has no "example" item
+because its value is obvious from the "content" field.-->
+来自<a href="#example">例子</a>部分的如下片段展示了一个
+"placeholders" 项，包含两个占位符，分别名为
+"our_site" 和 "user"。"our_site"
+占位符没有 "example"
+属性，因为它的值从 "content"
+属性中可以明显看出。
+</p>
+
+<pre>
+"placeholders": {
+  "our_site": {
+    "content": "Example.com",
+  },
+  "user": {
+    "content": "$1",
+    "example": "Cira"
+  }
+}
+</pre>
