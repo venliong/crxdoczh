@@ -24,9 +24,16 @@ namespace notifications {
     DOMString message;
   };
 
+  [nodoc] dictionary NotificationBitmap {
+    long width;
+    long height;
+    ArrayBuffer? data;
+  };
+
   dictionary NotificationButton {
     DOMString title;
     DOMString? iconUrl;
+    [nodoc] NotificationBitmap? iconBitmap;
   };
 
   dictionary NotificationOptions {
@@ -37,6 +44,7 @@ namespace notifications {
     // <!--@Sender's avatar, app icon, or a thumbnail for image notifications.-->
     // 发送方的图标、应用图标或图片通知的缩略图。
     DOMString iconUrl;
+    [nodoc] NotificationBitmap? iconBitmap;
 
     // <!--@Title of the notification (e.g. sender name for email).-->
     // 通知标题（例如邮件发送者的姓名）。
@@ -68,6 +76,7 @@ namespace notifications {
     // <!--@Image thumbnail for image-type notifications.-->
     // 图片类型通知的图片缩略图。
     DOMString? imageUrl;
+    [nodoc] NotificationBitmap? imageBitmap;
 
     // <!--@Items for multi-item notifications.-->
     // 多项目通知的项目。
