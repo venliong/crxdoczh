@@ -8,44 +8,96 @@ namespace systemInfo.display {
     // <!--@The x-coordinate of the upper-left corner.-->
     // 左上角的 X 坐标。
     long left;
+
     // <!--@The y-coordinate of the upper-left corner.-->
     // 左上角的 Y 坐标。
     long top;
+
     // <!--@The width of the display in pixels.-->
     // 显示器宽度，以像素为单位。
     long width;
+
     // <!--@The height of the display in pixels.-->
     // 显示器高度，以像素为单位。
     long height;
+  };
+
+  dictionary Insets {
+    // <!--@The x-axis distance from the left bound.-->
+    // 与左边界之间的 x 轴距离。
+    long left;
+
+    // <!--@The y-axis distance from the top bound.-->
+    // 与顶部边界之间的 y 轴距离。
+    long top;
+
+    // <!--@The x-axis distance from the right bound.-->
+    // 与右边界之间的 x 轴距离。
+    long right;
+
+    // <!--@The y-axis distance from the bottom bound.-->
+    // 与底部边界之间的 y 轴距离。
+    long bottom;
   };
 
   dictionary DisplayUnitInfo {
     // <!--@The unique identifier of the display.-->
     // 显示器的唯一标识符。
     DOMString id;
+
     // <!--@The user-friendly name (e.g. "HP LCD monitor").-->
     // 用户友好的名称（例如“HP LCD monitor”）。
     DOMString name;
+  
+    // <!--@Identifier of the display that is being mirrored on the display unit.
+    // If mirroring is not in progress, set to an empty string.
+    // Currently exposed only on ChromeOS. Will be empty string on other
+    // platforms.-->
+    // 在显示单元上镜像的显示器标识符，如果没有镜像则设为空字符串。当前仅在
+    // Chrome OS 上可用，在其他平台上为空字符串。
+    DOMString mirroringSourceId;
+
     // <!--@True if this is the primary display.-->
     // 如果是主显示器则为 true。
     boolean isPrimary;
+
     // <!--@True if this is an internal display.-->
     // 如果是内部显示器则为 true。
     boolean isInternal;
+
     // <!--@True if this display is enabled.-->
     // 如果显示器已启用则为 true。
     boolean isEnabled;
+
     // <!--@The number of pixels per inch along the x-axis.-->
     // 沿着宽度方向每英寸的像素数目。
     double dpiX;
+
     // <!--@The number of pixels per inch along the y-axis.-->
     // 沿着高度方向每英寸的像素数目。
     double dpiY;
-    // <!--@The bounds of the display.-->
-    // 显示器的范围。
+
+    // <!--@The display's clockwise rotation in degrees relative to the vertical
+    // position.
+    // Currently exposed only on ChromeOS. Will be set to 0 on other platforms.-->
+    // 显示器相对与垂直位置顺时针转过的角度。目前仅在 Chrome OS
+    // 上可用，在其他平台上设置为 0。
+    long rotation;
+
+    // <!--@The display's logical bounds.-->
+    // 显示器的逻辑范围。
     Bounds bounds;
-    // <!--@The usable work area of the display.-->
-    // 显示器可用的工作区域。
+
+    // <!--@The display's insets within its screen's bounds.
+    // Currently exposed only on ChromeOS. Will be set to empty insets on
+    // other platforms.-->
+    // 显示器在其屏幕范围内的位置。目前仅在 Chrome OS 上可用，在其他平台上为空。
+    Insets overscan;
+
+    // <!--@The usable work area of the display within the display bounds. The work
+    // area excludes areas of the display reserved for OS, for example taskbar
+    // and launcher.-->
+    // 显示器在显示器范围内的可用工作区域，该工作区域不包括保留给操作系统（例如任务栏与执行器）的显示区域。
     Bounds workArea;
   };
   

@@ -27,7 +27,6 @@
         "name": "getMessage",
         "nocompile": true,
         "type": "function",
-        "unprivileged": true,
 //@        "description": "Gets the localized string for the specified message. If the message is missing, this method returns an empty string (''). If the format of the <code>getMessage()</code> call is wrong &mdash; for example, <em>messageName</em> is not a string or the <em>substitutions</em> array has more than 9 elements &mdash; this method returns <code>undefined</code>.",
         "description": "获得指定消息的本地化字符串。如果消息不存在，该方法返回空字符串（\"\"）。如果 <code>getMessage()</code> 的调用格式不正确，例如，<em>messageName</em> 不是字符串或者 <em>substitutions</em> 数组为空或包含的元素超过 9 个，该方法返回 <code>undefined</code>。",
         "parameters": [

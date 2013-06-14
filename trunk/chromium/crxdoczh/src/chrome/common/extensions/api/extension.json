@@ -26,7 +26,6 @@
       "lastError": {
         "type": "object",
         "optional": true,
-        "unprivileged": true,
 //@        "description": "Set for the lifetime of a callback if an ansychronous extension api has resulted in an error. If no error has occured lastError will be <var>undefined</var>.",
         "description": "如果异步扩展程序 API 发生错误，将在回调函数的生命周期内设置该属性。如果没有错误发生，lastError 将为 <var>undefined</var>。",
         "properties": {
@@ -37,7 +36,6 @@
       "inIncognitoContext": {
         "type": "boolean",
         "optional": true,
-        "unprivileged": true,
 //@        "description": "True for content scripts running inside incognito tabs, and for extension pages running inside an incognito process. The latter only applies to extensions with 'split' incognito_behavior."
         "description": "如果内容脚本正在隐身标签页中运行，或者扩展程序页面在隐身进程中运行，则为 true。后一种情况只适用于具有分离（\"split\"）隐身行为的扩展程序。"
       }
@@ -49,7 +47,6 @@
         "nodoc": true,
         "type": "function",
         "allowAmbiguousOptionalArguments": true,
-        "unprivileged": true,
         "description": "Deprecated: Please use sendMessage.",
         "parameters": [
           {"type": "string", "name": "extensionId", "optional": true, "description": "The extension ID of the extension you want to connect to. If omitted, default is your own extension."},
@@ -72,7 +69,6 @@
         "name": "getURL",
         "nocompile": true,
         "type": "function",
-        "unprivileged": true,
 //@        "description": "Converts a relative path within an extension install directory to a fully-qualified URL.",
         "description": "将扩展程序安装目录中的相对路径转换为完整的 URL。",
         "parameters": [
@@ -223,7 +219,6 @@
         "nodoc": true,
         "type": "function",
         "anonymous": true,
-        "unprivileged": true,
         "description": "Deprecated: please use onMessage.",
         "parameters": [
           {"name": "request", "type": "any", "description": "The request sent by the calling script."},

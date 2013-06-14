@@ -5,7 +5,6 @@
 [
   {
     "namespace": "runtime",
-    "documentation_permissions_required": ["runtime"],
     "types": [
       {
         "id": "Port",
@@ -328,6 +327,26 @@
                     "enum": ["arm", "x86-32", "x86-64"]
                   }
                 }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "getPackageDirectoryEntry",
+        "type": "function",
+//@        "description": "Returns a DirectoryEntry for the package directory.",
+        "description": "返回包目录对应的 DirectoryEntry（目录项）。",
+        "parameters": [
+          {
+            "type": "function",
+            "name": "callback",
+            "parameters": [
+              {
+                "name": "directoryEntry",
+                "type": "object",
+                "additionalProperties": { "type": "any" },
+                "isInstanceOf": "DirectoryEntry"
               }
             ]
           }
