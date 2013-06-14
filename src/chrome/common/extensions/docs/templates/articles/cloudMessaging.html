@@ -172,7 +172,7 @@ to use the push messaging service
       </li>	
   	</ul>
    </li>
-  <li><!--@Publish and get whitelisted.-->发布并使之列入白名单。 </li>
+  <li><!--@Publish your app in the Chrome Web Store.-->在 Chrome 网上应用店发布您的应用。 </li>
   <li><!--@Use refresh token to get a valid access token.-->使用刷新令牌获取有效的访问令牌。</li>
   <li><!--@Send message to user.-->向用户发送消息。</li>
 </ol>
@@ -394,19 +394,14 @@ the handler can be registered after the message arrives.-->
 当消息到达时，应用或扩展程序不一定正在运行，处理函数可以在消息到达后注册。
 </p>
 
-<h2 id="store"><!--@Publish and get whitelisted-->发布并使之列入白名单</h2>
+<h2 id="store"><!--@Publish your app-->发布您的应用</h2>
 
 {{^is_apps}}
 <p>
 <!--@To use the push messaging service,
 you must publish your extension in the-->
 要使用消息推送服务，您必须在
-<a href="https://developers.google.com/chrome/web-store/docs/get_started_simple">Chrome <!--@Web Store-->网上应用店</a><!--@.
-Your extension must also be whitelisted.
-To be added to the whitelist,
-please email-->发布您的扩展程序，您的扩展程序还必须被列入白名单。要使之被列入白名单，请发送您的扩展程序标识符至
-<a href="mailto:gcm-for-chrome-whitelist@google.com">gcm-for-chrome-whitelist@google.com</a><!--@
-with your extension ID and we will reply appropriately.-->，我们会适时回复。
+<a href="https://developers.google.com/chrome/web-store/docs/get_started_simple">Chrome <!--@Web Store-->网上应用店</a>发布您的扩展程序。
 </p>
 {{/is_apps}}
 
@@ -415,12 +410,7 @@ with your extension ID and we will reply appropriately.-->，我们会适时回�
 <!--@To use the push messaging service,
 you must publish your extension in the-->
 要使用消息推送服务，您必须在
-<a href="https://developers.google.com/chrome/web-store/docs/get_started_simple">Chrome <!--@Web Store-->网上应用店</a><!--@.
-Your app must also be whitelisted.
-To be added to the whitelist,
-please email-->发布您的应用，您的应用还必须被列入白名单。要使之被列>    入白名单，请发送您的应用标识符至
-<a href="mailto:gcm-for-chrome-whitelist@google.com">gcm-for-chrome-whitelist@google.com</a><!--@
-with your app ID and we will reply appropriately.-->，我们会适时回复。
+<a href="https://developers.google.com/chrome/web-store/docs/get_started_simple">Chrome <!--@Web Store-->网上应用店</a>发布您的应用。
 </p>
 {{/is_apps}}
 
@@ -577,9 +567,6 @@ and operational errors (for example, push messaging service is currently down).-
   <li>Google Account calling the push messaging service does not own the app or extension.
   <br>调用消息推送服务的 Google 帐户不是应用或扩展程序的所有者。
   </li>
-  <li>App or extension is not whitelisted.
-  <br>应用或扩展程序没有被列入白名单。
-  </li>
   <li>An internal error has occurred.
   This indicates something went wrong on the Google server side
   (for example, some backend not working
@@ -600,23 +587,6 @@ and operational errors (for example, push messaging service is currently down).-
 </p>
 
 <ol>
-<<<<<<< .mine
-  <li><!--@Go to your
-  <a href="http://www.chromium.org/user-experience/user-data-directory">user data directory</a>.
-  Example on Mac OS X: -->
-  进入您的<a href="http://www.chromium.org/user-experience/user-data-directory">用户配置文件目录</a>。在
-  Mac OS X 上的例子：<code>~/Library/Application\ Support/Google/Chrome/Default/Extensions</code></li>
-  <li><!--@Go to the installed extension directory with the appropriate Chrome Web Store app ID.-->
-  进入已安装的扩展程序目录，名称为合适的 Chrome 网上应用店的应用标识符。
-  <li><!--@Open the installed-->打开已安装的 <code>manifest.json</code><!--@
-  (pico is a quick way to open the file).-->（也许可以用 Pico
-  方便地打开该文件）。</li>
-  <li><!--@Copy the "key" in the installed <code>manifest.json</code> and
-  paste it into your app's source manifest file.-->
-  复制已安装的 <code>manifest.json</code> 中的
-  "key"，并将它粘贴到您的应用原来的清单文件中。
-  </li>
-=======
   <li><!--@<a href="packaging.html">Package</a> a test version of
   your app or extension on the Extensions management page
   (chrome://extensions).
@@ -643,19 +613,8 @@ href="packaging.html">打包</a>。您的应用或扩展程序不需要运行，
   and you should receive the test push message.-->
 在服务器上使用该通道标识符向系统发送一个测试的推送消息。如果一切正常，您的应用或扩展程序应该启动，您也应该收到测试的推送消息。
   </li>
->>>>>>> .r203246
 </ol>
 
-<<<<<<< .mine
-<p class="note">
-<!--@The Chrome Web Store app ID is in the URL of any dashboard
-or store page that's dedicated to your app or extension.
-For example, the URL-->
-Chrome 网上应用店的应用标识符在您的应用或扩展程序的信息中心或应用店页面的
-URL中，例如 URL
-<code>https://chrome.google.com/extensions/detail/aaaaaaaaaabbbbbbbbbbcccccccccc?hl=en</code>
-<!--@has the app ID -->包含应用程序标识符：<code>aaaaaaaaaabbbbbbbbbbcccccccccc</code><!--@.-->。
-=======
 <h3 id="test-cloud"><!--@Testing in the cloud-->在云端测试</h3>
 
 <p><!--@To test push messaging in the cloud, you must first make sure that the
@@ -672,14 +631,9 @@ pushMessaging API 的应用或扩展程序的标识符是否匹配 Chrome
 网上应用店中的应用或扩展程序标识符。这一所有者检查是为了防止他人未经您的同意就向您的应用或扩展程序发送消息。如果您的应用或扩展程序尝试使用
 pushMessaging API，但是所有者检查失败了，它会收到 HTTP 状态码
 500（内部服务器错误）。
->>>>>>> .r203246
 </p>
 
 <p>
-<<<<<<< .mine
-<!--@Each time you reload your extension for testing,
-you need to check that the key is present.
-=======
 <!--@One circumstance in which the ownership check commonly fails is when you are
 developing an app and you run the app without uploading it and re-downloading
 it from the Chrome Web Store. In this situation your app may not have a
@@ -725,7 +679,7 @@ downloaded_app_dir，然后以未打包扩展程序的方式从 original_app_dir
   网上应用店标识符在您的应用或扩展程序的任何信息中心或 Chrome
   网上应用店网页的 URL 中。例如 URL
   <code>https://chrome.google.com/extensions/detail/aaaaaaaaaabbbbbbbbbbcccccccccc?hl=en</code>
-  包含标识符 <code>aaaaaaaaaabbbbbbbbbbcccccccccc</code>。-->
+  包含标识符 <code>aaaaaaaaaabbbbbbbbbbcccccccccc</code>。
   </li>
 
 
