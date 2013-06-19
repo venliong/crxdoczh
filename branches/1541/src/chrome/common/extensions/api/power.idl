@@ -1,0 +1,28 @@
+// Copyright (c) 2013 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// An API that can be used to override the system's power management
+// features.
+namespace power {
+  [noinline_doc] enum Level {
+    // Prevent the system from sleeping in response to user inactivity.
+    system,
+
+    // Prevent the display from being turned off or dimmed or the system
+    // from sleeping in response to user inactivity.
+    display
+  };
+
+  interface Functions {
+    // <!--@Requests that power management be temporarily disabled. |level|
+    // describes the degree to which power management should be disabled.-->
+    // 请求临时禁用电源管理。<code>level</code>
+    // 描述了禁用电源管理的程度。
+    static void requestKeepAwake(Level level);
+
+    // <!--@Releases a request previously made via requestKeepAwake().-->
+    // 释放之前通过 requestKeepAwake() 发出的请求。
+    static void releaseKeepAwake();
+  };
+};
