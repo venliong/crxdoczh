@@ -150,9 +150,19 @@ href="i18n.html">国际化支持</a>。
 <p>
 <!--@Used by -->由<a href="../apps/app_lifecycle.html#eventpage"><!--@packaged apps-->打包应用</a><!--@
 to specify what types of files the app can handle. An app can have multiple <code>file_handlers</code>, with each one having an identifier, a list of MIME types and/or a list of file extensions that can be handled, and
-a title. Here's an example of specifying file handlers:-->使用，指定应用可以处理的文件类型。一个应用可以包含多个
+a title. The app can handle a file if it either has a matching file extension or
+has a matching MIME type.
+You can use a wildcard <code>"*"</code> in <code>types</code> or
+<code>extensions</code> to indicate that the app can handle any file type or
+<code>"<em>type</em>/*"</code> in <code>types</code> to indicate that the app
+can handle any file with a MIME type of <code><em>type</em></code>.
+Here's an example of specifying file handlers:-->使用，指定应用可以处理的文件类型。一个应用可以包含多个
 <code>file_handlers</code>（文件处理器），每一个都应该包含标识符、可以处理的
-MIME 类型和/或文件扩展名列表以及标题。如下是一个指定文件处理器的例子：
+MIME 类型和/或文件扩展名列表以及标题。应用可以处理文件扩展名匹配或者 MIME
+类型匹配的文件。您可以在 <code>types</code> 或 <code>extensions</code>
+中使用通配符“<code>*</code>”，表示应用可以处理任何文件类型，也可以在
+<code>types</code> 中指定“<code><em>type</em>/*</code>”，表示应用可以处理
+MIME 类型为 <code><em>type</em></code> 的任何文件。如下是一个指定文件处理器的例子：
 </p>
 
 <pre>
