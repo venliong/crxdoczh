@@ -325,13 +325,13 @@ example of the manifest file:-->
 清单文件的类型取决与平台：
 
 <dl>
+<<<<<<< .mine
   <dt>Windows<!--@:-->：</dt>
     <dd><!--@The manifest file can be located anywhere in the file system.
      The application installer must create registry key-->
      清单文件可以在文件系统中的任意位置，应用程序的安装程序必须创建如下注册表键
-     <code>HKEY_LOCAL_MACHINE\SOFTWARE\Google\Chrome\NativeMessagingHosts</code><!--@
-     (if it didn't exist), and then create string value with the same name as
-     the name of the host and set it to the full path to the host manifest file.-->（如果它不存在的话），并创建一个字符串值，名称与宿主名称相同，设置为宿主清单文件的完整路径。
+     <code>HKEY_LOCAL_MACHINE\SOFTWARE\Google\Chrome\NativeMessagingHosts\<em>host_name</em></code><!--
+     and set default value of that key to the full path to the manifest file.-->（如果它不存在的话），并将键的默认值设置为清单文件的完整路径。
     </dd>
 
   <dt>OSX<!--@:-->：</dt>

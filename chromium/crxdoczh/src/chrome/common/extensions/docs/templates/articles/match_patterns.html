@@ -74,7 +74,9 @@ URL。每一个匹配表达式包含三部分：
 <!--@The meaning of '<code>*</code>' depends on whether
 it's in the <em>scheme</em>, <em>host</em>, or <em>path</em> part.
 If the <em>scheme</em> is <code>*</code>,
-then it matches either <code>http</code> or <code>https</code>.
+then it matches either <code>http</code> or <code>https</code>,
+and <strong>not</strong> <code>file</code>, <code>ftp</code>,
+or <code>chrome-extension</code>.
 If the <em>host</em> is just <code>*</code>,
 then it matches any host.
 If the <em>host</em> is <code>*.<em>hostname</em></code>,
@@ -85,7 +87,9 @@ The following table shows some valid patterns.-->
 星号（“<code>*</code>”）的意义取决于它在<em>协议</em>、<em
 >主机</em>还是<em>路径</em>中。如果<em>协议</em>为
 <code>*</code>，则可以匹配 <code>http</code> 或
-<code>https</code>。如果<em>主机</em>为
+<code>https</code>，但<strong>不包括</strong>
+<code>file</code>、<code>ftp</code> 或
+<code>chrome-extension</code>。如果<em>主机</em>为
 <code>*</code>，则匹配任何主机。如果<em>主机</em>为
 <code>*.<em>hostname</em></code>，则匹配指定主机或者任何子域名。在<em
 >路径</em>部分，每一个 “<code>*</code>” 匹配 0

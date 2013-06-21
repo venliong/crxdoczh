@@ -22,8 +22,8 @@
           "selected": {"type": "boolean", "description": "标签页是否选中。", "nodoc": true},
 //@          "highlighted": {"type": "boolean", "description": "Whether the tab is highlighted."},
           "highlighted": {"type": "boolean", "description": "标签页是否高亮突出。"},
-//@          "active": {"type": "boolean", "description": "Whether the tab is active in its window."},
-          "active": {"type": "boolean", "description": "标签页是否是窗口中的活动标签页。"},
+//@          "active": {"type": "boolean", "description": "Whether the tab is active in its window. (Does not necessarily mean the window is focused.)"},
+          "active": {"type": "boolean", "description": "标签页是否是窗口中的活动标签页。（窗口不一定有焦点。）"},
 //@          "pinned": {"type": "boolean", "description": "Whether the tab is pinned."},
           "pinned": {"type": "boolean", "description": "标签页是否固定。"},
 //@          "url": {"type": "string", "optional": true, "description": "The URL the tab is displaying. This will only be present if the extension has the 'tabs' or 'webNavigation' permission."},
@@ -267,8 +267,8 @@
               "active": {
                 "type": "boolean",
                 "optional": true,
-//@                "description": "Whether the tab should become the active tab in the window. Defaults to <var>true</var>"
-                "description": "标签页是否应该成为窗口中的活动标签页，默认为 <var>true</var>。"
+//@                "description": "Whether the tab should become the active tab in the window. Does not affect whether the window is focused (see $ref:windows.update). Defaults to <var>true</var>."
+                "description": "标签页是否应该成为窗口中的活动标签页，不影响窗口是否有焦点（参见 $ref:windows.update），默认为 <var>true</var>。"
               },
               "selected": {
                 "nodoc": true,
@@ -500,8 +500,8 @@
               "active": {
                 "type": "boolean",
                 "optional": true,
-//@                "description": "Whether the tab should be active."
-                "description": "标签页是否为活动标签页。"
+//@                "description": "Whether the tab should be active. Does not affect whether the window is focused (see $ref:windows.update)."
+                "description": "标签页是否为活动标签页，不影响窗口是否有焦点（参见 $ref:windows.update）。"
               },
               "highlighted": {
                 "type": "boolean",
