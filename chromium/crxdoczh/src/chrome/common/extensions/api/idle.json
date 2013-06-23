@@ -5,6 +5,8 @@
 [
   {
     "namespace": "idle",
+//@    "description": "Use the <code>chrome.idle</code> API to detect when the machine's idle state changes.",
+    "description": "使用 <code>chrome.idle</code> API 检测计算机空闲状态的更改。",
     "types": [],
     "functions": [
       {

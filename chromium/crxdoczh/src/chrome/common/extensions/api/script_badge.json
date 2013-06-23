@@ -5,6 +5,8 @@
 [
   {
     "namespace": "scriptBadge",
+//@    "description": "Use the <code>chrome.scriptBadge</code> API to control the behaviour of the script badge.",
+    "description": "使用 <code>chrome.scriptBadge</code> API 控制脚本徽章的行为。",
     "functions": [
       {
         "name": "setPopup",

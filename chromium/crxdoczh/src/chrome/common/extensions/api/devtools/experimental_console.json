@@ -5,6 +5,8 @@
 [
   {
     "namespace": "experimental.devtools.console",
+//@    "description": "Use the <code>chrome.experimental.devtools.console</code> API to retrieve messages from the inspected page console and post messages there.",
+    "description": "使用 <code>chrome.experimental.devtools.console</code> API 从审查页面的控制台中获得消息或者在那里输出消息。",
     "nocompile": true,
     "functions": [
       {
