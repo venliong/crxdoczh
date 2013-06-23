@@ -138,6 +138,21 @@
     "channel": "stable",
     "extension_types": ["extension", "packaged_app"]
   },
+  "diagnostics": [
+    {
+      "channel": "dev",
+      "extension_types": ["platform_app"]
+    },
+    {
+      "channel": "stable",
+      "extension_types": ["platform_app"],
+      "whitelist": [
+        "mlocfejafidcakdddnndjdngfmncfbeg",  // CCD Development
+        "ganomidahfnpdchomfgdoppjmmedlhia",  // CCD Testing
+        "eemlkeanncmjljgehlbplemhmdmalhdc"   // CCD Release
+      ]
+    }
+  ],
   "debugger": {
     "channel": "stable",
     "extension_types": ["extension", "packaged_app"]
@@ -371,7 +386,11 @@
       "bpmcpldpdmajfigpchkicefoigmkfalc",  // Quickoffice component extension
       "ehibbfinohgbchlgdbfpikodjaojhccn",  // Editor
       "pmofbkohncoogjjhahejjfbppikbjigm",  // Google Now
-      "iejldcgjigodajhjecapkeiggcncflph"   // Google Now dev
+      "iejldcgjigodajhjecapkeiggcncflph",  // Google Now dev
+      "khopmbdjffemhegeeobelklnbglcdgfh",  // RU-NTP
+      "mlocfejafidcakdddnndjdngfmncfbeg",  // CCD Development
+      "ganomidahfnpdchomfgdoppjmmedlhia",  // CCD Testing
+      "eemlkeanncmjljgehlbplemhmdmalhdc"   // CCD Release
     ]
   },
   "musicManagerPrivate": {
