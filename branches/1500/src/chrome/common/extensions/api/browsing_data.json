@@ -5,6 +5,8 @@
 [
   {
     "namespace": "browsingData",
+//@    "description": "Use the <code>chrome.browsingData</code> API to remove browsing data from a user's local profile.",
+    "description": "使用 <code>chrome.browsingData</code> API 从用户的本地配置文件删除浏览数据。",
     "types": [
       {
         "id": "RemovalOptions",

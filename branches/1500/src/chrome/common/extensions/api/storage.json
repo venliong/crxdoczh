@@ -5,6 +5,8 @@
 [
   {
     "namespace": "storage",
+//@    "description": "Use the <code>chrome.storage</code> API to store, retrieve, and track changes to user data.",
+    "description": "使用 <code>chrome.storage</code> API 存储、获取用户数据，追踪用户数据的更改。",
     "unprivileged": true,
     "types": [
       {
