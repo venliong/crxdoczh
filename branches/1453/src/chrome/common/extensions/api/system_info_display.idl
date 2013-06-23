@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+// Use the <code>systemInfo.display</code> API to query display metadata.
 namespace systemInfo.display {
 
   dictionary Bounds {
@@ -48,7 +49,7 @@ namespace systemInfo.display {
     // 显示器可用的工作区域。
     Bounds workArea;
   };
-  
+
   callback DisplayInfoCallback = void (DisplayUnitInfo[] displayInfo);
 
   interface Functions {
@@ -56,7 +57,7 @@ namespace systemInfo.display {
     // 获取所有已连接显示设备的信息。
     static void getDisplayInfo(DisplayInfoCallback callback);
   };
-  
+
   interface Events {
     // <!--@Fired when anything changes to the display configuration.-->
     // 当显示器配置发生任何更改时产生。

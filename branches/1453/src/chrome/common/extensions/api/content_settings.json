@@ -5,6 +5,11 @@
 [
   {
     "namespace": "contentSettings",
+//@    "description": "Use the <code>chrome.contentSettings</code> API to change settings that control whether websites can use features such as cookies, JavaScript, and plug-ins. More generally speaking, content settings allow you to customize Chrome's behavior on a per-site basis instead of globally.",
+    "description": "使用 <code>chrome.contentSettings</code> API 更改设置，控制网站能否使用 Cookie、JavaScript 和插件之类的特性。大体上说，内容设置允许您针对不同的站点（而不是全局地）自定义 Chrome 浏览器的行为。",
+    "compiler_options": {
+      "generate_type_functions": true
+    },
     "types": [
       {
         "id": "ResourceIdentifier",

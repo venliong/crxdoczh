@@ -5,6 +5,8 @@
 [
   {
     "namespace": "i18n",
+//@    "description": "Use the <code>chrome.i18n</code> infrastructure to implement internationalization across your whole app or extension.",
+    "description": "使用 <code>chrome.i18n</code> 架构为您的整个应用或扩展程序实现国际化支持。",
     "types": [],
     "functions": [
       {
