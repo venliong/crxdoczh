@@ -2,7 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-[permissions=downloads]
+// <!--@Use the <code>chrome.downloads</code> API to programmatically initiate,
+// monitor, manipulate, and search for downloads.-->
+// 使用 <code>chrome.downloads</code> API 以编程方式开始下载，监视、操纵、搜索下载的文件。
 namespace downloads {
   [inline_doc] dictionary HeaderNameValuePair {
     // <!--@Name of the HTTP header.-->

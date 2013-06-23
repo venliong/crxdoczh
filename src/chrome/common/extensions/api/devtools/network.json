@@ -5,6 +5,8 @@
 [
   {
     "namespace": "devtools.network",
+//@    "description": "Use the <code>chrome.devtools.network</code> API to retrieve the information about network requests displayed by the Developer Tools in the Network panel.",
+    "description": "使用 <code>chrome.devtools.network</code> API 获取开发者工具的网络面板中显示的与网络请求相关的信息。",
     "nocompile": true,
     "types": [
       {

@@ -5,6 +5,8 @@
 [
   {
     "namespace": "cookies",
+//@    "description": "Use the <code>chrome.cookies</code> API to query and modify cookies, and to be notified when they change.",
+    "description": "使用 <code>chrome.cookies</code> API 查询和修改 Cookie，并在 Cookie 更改时得到通知。",
     "types": [
       {
         "id": "Cookie",
