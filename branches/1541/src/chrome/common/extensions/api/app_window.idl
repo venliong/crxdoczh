@@ -2,6 +2,12 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+// <!--@Use the <code>chrome.app.window</code> API to create windows. Windows
+// have an optional frame with title bar and size controls. They are not
+// associated with any Chrome browser windows.-->
+// 使用 <code>chrome.app.window</code> API
+// 创建窗口。窗口可以有框架，包含标题栏和大小控件，它们不和任何
+// Chrome 浏览器窗口关联。
 namespace app.window {
   dictionary Bounds {
     long? left;

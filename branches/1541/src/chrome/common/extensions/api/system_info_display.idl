@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+// Use the <code>systemInfo.display</code> API to query display metadata.
 namespace systemInfo.display {
 
   dictionary Bounds {
@@ -48,7 +49,7 @@ namespace systemInfo.display {
     // <!--@The user-friendly name (e.g. "HP LCD monitor").-->
     // 用户友好的名称（例如“HP LCD monitor”）。
     DOMString name;
-  
+
     // <!--@Identifier of the display that is being mirrored on the display unit.
     // If mirroring is not in progress, set to an empty string.
     // Currently exposed only on ChromeOS. Will be empty string on other
@@ -110,12 +111,12 @@ namespace systemInfo.display {
     // If set, no other parameter may be set.-->
     // 如果设置了该参数并且不为空，开始当前显示器与指定标识符的显示器之间的镜像（系统会确定镜像哪一个显示器）。如果设置了该参数并且为空，停止当前显示器与指定标识符的显示器之间的镜像（如果正在镜像）。设置了该参数后，不能设置其他参数。
     DOMString? mirroringSourceId;
-  
+
     // <!--@If set to true, makes the display primary. No-op if set to false.-->
     // 如果设置为 true，使当前显示器变成主显示器。设置为 false
     // 则不进行任何操作。
     boolean? isPrimary;
- 
+
     // <!--@If set, sets the display's overscan insets to the provided values. Note
     // that overscan values may not be negative or larger than a half of the
     // screen's size. Overscan cannot be changed on the internal monitor.
@@ -123,7 +124,7 @@ namespace systemInfo.display {
     // 如果设置了该参数，将显示器的过扫描设置为指定值。注意，过扫描值不能为负，也不能大于屏幕大小的一半，内部显示器的过扫描值不能更改。该参数在
     // <code>isPrimary</code> 参数之后应用。
     Insets? overscan;
- 
+
     // <!--@If set, updates the display's rotation.
     // Legal values are [0, 90, 180, 270]. The rotation is set clockwise,
     // relative to the display's vertical position.
@@ -132,7 +133,7 @@ namespace systemInfo.display {
     // 0、90、18、270，相对于显示器的垂直位置顺时针旋转。该参数在
     // <code>overscan</code> 参数之后应用。
     long? rotation;
- 
+
     // <!--@If set, updates the display's logical bounds origin along x-axis. Applied
     // together with <code>boundsOriginY</code>, if <code>boundsOriginY</code>
     // is set. Note that, when updating the display origin, some constraints
@@ -150,14 +151,14 @@ namespace systemInfo.display {
     // <code>isPrimary</code> 就不能再设置范围原点值，因为首先应用
     // <code>isPrimary</code> 参数。
     long? boundsOriginX;
- 
+
     // <!--@If set, updates the display's logical bounds origin along y-axis.
     // See documentation for <code>boundsOriginX</code> parameter.-->
     // 如果设置了该参数，更新显示器沿 y 轴方向的逻辑范围原点。参见
     // <code>boundsOriginX</code> 参数的文档。
     long? boundsOriginY;
   };
-  
+
   callback DisplayInfoCallback = void (DisplayUnitInfo[] displayInfo);
   callback SetDisplayUnitInfoCallback = void();
 
@@ -188,7 +189,7 @@ namespace systemInfo.display {
         DisplayProperties info,
         optional SetDisplayUnitInfoCallback callback);
   };
-  
+
   interface Events {
     // <!--@Fired when anything changes to the display configuration.-->
     // 当显示器配置发生任何更改时产生。

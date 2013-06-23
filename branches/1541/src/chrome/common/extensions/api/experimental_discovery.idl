@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+// <!--@An experimental API that allows extensions to inject suggest links in the recommended pane of the New Tab Page.-->
+// 允许扩展程序在“打开新的标签页”页面中的推荐窗格中插入推荐的链接的实验性 API。
 namespace experimental.discovery {
 
   dictionary SuggestDetails {

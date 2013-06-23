@@ -2,7 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-// File-level comment to appease parser. Eventually this will not be necessary.
+// <!--@Use the <code>systemInfo.cpu</code> API to query CPU metadata.-->
+// 使用 <code>systemInfo.cpu</code> API 查询 CPU 元数据。
 namespace systemInfo.cpu {
 
   dictionary CpuInfo {
@@ -18,7 +19,7 @@ namespace systemInfo.cpu {
   };
 
   callback CpuInfoCallback = void (CpuInfo info);
-  
+
   interface Functions {
     // <!--@Queries basic CPU information of the system.-->
     // 查询系统 CPU 的基本信息。

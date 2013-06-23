@@ -2,6 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+// <!--@Use the <code>chrome.experimental.systemInfo.storage</code> API to query
+// storage device information and be notified when it changes.-->
+// 使用 <code>chrome.experimental.systemInfo.storage</code> API
+// 查询存储设备信息，并在这些信息更改时得到通知。
 namespace experimental.systemInfo.storage {
 
   enum StorageUnitType {
@@ -93,6 +97,6 @@ namespace experimental.systemInfo.storage {
     // 当可移动设备从系统移除时产生。
     static void onDetached(DOMString id);
   };
- 
+
 };
 
