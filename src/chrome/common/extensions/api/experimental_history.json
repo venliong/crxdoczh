@@ -5,6 +5,8 @@
 [
   {
     "namespace": "experimental.history",
+//@    "description": "Use the <code>chrome.experimental.history</code> API to interact with the browser's record of most visited pages.",
+    "description": "使用 <code>chrome.experimental.history</code> API 与浏览器的历史记录交互。",
     "types": [
       {
         "id": "MostVisitedItem",

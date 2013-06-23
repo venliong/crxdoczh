@@ -2,8 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-// An API for tab media streams.
-
+// <!--@Use the <code>chrome.tabCapture</code> API to interact with tab media
+// streams.-->
+// 使用 <code>chrome.tabCapture</code> API 与标签页的媒体流交互。
 namespace tabCapture {
 
   enum TabCaptureState {

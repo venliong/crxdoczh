@@ -2,6 +2,12 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+// <!--@Use the <code>chrome.usb</code> API to interact with connected USB
+// devices. This API provides access to USB operations from within the context
+// of an app. Using this API, apps can function as drivers for hardware devices.-->
+// 使用 <code>chrome.usb</code> API 与已连接的 USB 设备交互。该 API
+// 提供了在应用的环境中进行 USB 操作的能力，通过该 API
+// 应用可以作为硬件设备的驱动程序使用。
 namespace usb {
 
   // <!--@Direction, Recipient and RequestType all map to their namesakes within the

@@ -2,6 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+// <!--@Use the <code>chrome.socket</code> API to send and receive data over the
+// network using TCP and UDP connections.-->
+// 使用 <code>chrome.socket</code> API 使用 TCP 和 UDP
+// 连接通过网络发送和接收数据。
 namespace socket {
   enum SocketType {
     tcp,
@@ -358,7 +362,7 @@ namespace socket {
     // 套接字标识符。
     // |address| : <!--@The group address to join. Domain names are not supported.-->
     // 要加入的多播组地址，不支持域名。
-    // |callback| : <!--@Called when the join group operation is done with an 
+    // |callback| : <!--@Called when the join group operation is done with an
     // integer parameter indicating the platform-independent error code.-->
     // 加入多播组的操作完成后调用，并传递一个整型参数，表示平台无关的错误代码。
     static void joinGroup(long socketId,
@@ -366,13 +370,13 @@ namespace socket {
                           JoinGroupCallback callback);
 
     // <!--@Leave the multicast group previously joined using <code>joinGroup</code>.
-    // It's not necessary to leave the multicast group before destroying the 
+    // It's not necessary to leave the multicast group before destroying the
     // socket or exiting. This is automatically called by the OS.-->
     // 离开之前使用 <code>joinGroup</code>
     // 加入的多播组。释放套接字或退出前不用离开多播组，这会由操作系统自动调用。
     //
-    // <!--@Leaving the group will prevent the router from sending multicast 
-    // datagrams to the local host, presuming no other process on the host is 
+    // <!--@Leaving the group will prevent the router from sending multicast
+    // datagrams to the local host, presuming no other process on the host is
     // still joined to the group.-->
     // 离开多播组后，如果没有其他进程仍然加入多播组，路由器不会继续向本机发送多播数据包。
     //
@@ -403,7 +407,7 @@ namespace socket {
         long ttl,
         SetMulticastTimeToLiveCallback callback);
 
-    // <!--@Set whether multicast packets sent from the host to the multicast 
+    // <!--@Set whether multicast packets sent from the host to the multicast
     // group will be looped back to the host.-->
     // 设置主机向多播组发送的多播包是否要回环至主机。
     //

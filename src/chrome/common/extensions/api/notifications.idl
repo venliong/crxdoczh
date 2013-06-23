@@ -2,6 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+// <!--@Use the <code>chrome.notifications</code> API to create rich notifications
+// using templates and show these notifications to users in the system tray.-->
+// 使用 <code>chrome.notifications</code> API
+// 通过模板创建丰富通知，并在系统托盘中向用户显示这些通知。
 namespace notifications {
   [noinline_doc] enum TemplateType {
     // icon, title, message
