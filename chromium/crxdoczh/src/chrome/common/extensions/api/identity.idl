@@ -5,37 +5,73 @@
 // TODO(courage): documentation.
 namespace identity {
 
-  [nodoc] dictionary TokenDetails {
-    // <!--@Whether to prompt the user to log in or grant scope permissions (if they
-    // have not already done so). Default is false.-->
-    // 是否要提示用户登录或者授予部分权限（如果还没有做的话），默认为
-    // false。
+  dictionary TokenDetails {
+    // <!--@Fetching a token may require the user to sign-in to Chrome, or
+    // approve the application's requested scopes. If the interactive
+    // flag is <code>true</code>, <code>getAuthToken</code> will
+    // prompt the user as necessary. When the flag is
+    // <code>false</code> or ommitted, <code>getAuthToken</code> will
+    // return failure any time a prompt would be required.-->
+    // 获取令牌可能需要用户登录到 Chrome
+    // 浏览器，或同意应用程序请求的范围。如果交互式标志为
+    // <code>true</code>，<code>getAuthToken</code>
+    // 会在必要时提示用户。当该标志为 <code>false</code>
+    // 或省略时，需要提示时 <code>getAuthToken</code> 会返回失败。
     boolean? interactive;
   };
 
-  [nodoc] dictionary InvalidTokenDetails {
+  dictionary InvalidTokenDetails {
     // <!--@The specific token that should be removed from the cache.-->
     // 应该从缓存中移除的某个令牌。
     DOMString token;
   };
 
-  [nodoc] dictionary WebAuthFlowDetails {
+  dictionary WebAuthFlowDetails {
     // <!--@The URL that initiates the auth flow.-->
     // 开始认证流程的 URL。
     DOMString url;
 
-    // <!--@Whether to launch auth flow in interactive mode. Default is false.-->
-    // 是否要以交互模式执行认证流程，默认为 false。
+    // <!--@Whether to launch auth flow in interactive mode.-->
+    // 是否要以交互模式执行认证流程。
+    //
+    // <!--@Since some auth flows may immediately redirect to a result URL,
+    // <code>launchWebAuthFlow</code> hides its web view until the
+    // first navigation either redirects to the final URL, or finishes
+    // loading a page meant to be displayed.-->
+    // 由于某些认证流程可能会立刻重定向至结果
+    // URL，<code>launchWebAuthFlow</code>
+    // 会隐藏该网页视图，直到第一次导航重定向至最终的
+    // URL，或者要显示的网页加载完成。
+    //
+    // <!--@If the interactive flag is <code>true</code>, the window will
+    // be displayed when a page load completes. If the flag is
+    // <code>false</code> or ommitted, <code>launchWebAuthFlow</code>
+    // will return with an error if the initial navigation does not
+    // complete the flow.-->
+    // 如果交互式标识为
+    // <code>true</code>，网页加载完成后会显示窗口。如果该标识为
+    // <code>false</code> 或省略，<code>launchWebAuthFlow</code>
+    // 在第一次导航没有完成认证流程的情况下会返回错误。
     boolean? interactive;
   };
 
-  [nodoc] callback GetAuthTokenCallback = void (optional DOMString token);
-  [nodoc] callback InvalidateAuthTokenCallback = void ();
-  [nodoc] callback LaunchWebAuthFlowCallback = void (optional DOMString responseUrl);
+  callback GetAuthTokenCallback = void (optional DOMString token);
+  callback InvalidateAuthTokenCallback = void ();
+  callback LaunchWebAuthFlowCallback = void (optional DOMString responseUrl);
 
   interface Functions {
-    // <!--@Gets an OAuth2 access token as specified by the manifest.-->
-    // 获取如清单文件中所指定的 OAuth2 访问令牌。
+    // <!--@Gets an OAuth2 access token using the client ID and scopes
+    // specified in the <a
+    // href="app_identity.html#update_manifest"><code>oauth2</code>
+    // section of manifest.json</a>.-->
+    // 获取 <a href="app_identity.html#update_manifest">manifest.json 中
+    // <code>oauth2</code> 部分</a>指定的 OAuth2 访问令牌。
+    //
+    // <!--@The Identity API caches access tokens in memory, so it's ok to
+    // call <code>getAuthToken</code> any time a token is
+    // required. The token cache automatically handles expiration.-->
+    // 认证 API 会在内存中缓存访问令牌，所以可以在需要令牌的任何时候调用
+    // <code>getAuthToken</code>。令牌缓存的过期问题会自动处理。
     //
     // |details| : <!--@Token options.-->
     // 令牌选项。
@@ -43,32 +79,46 @@ namespace identity {
     // manifest, or undefined if there was an error.-->
     // 调用时传递清单文件中指定的 OAuth2 访问令牌，如果发生错误则为
     // undefined。
-    [nodoc] static void getAuthToken(optional TokenDetails details,
-                                     GetAuthTokenCallback callback);
+    static void getAuthToken(optional TokenDetails details,
+                             GetAuthTokenCallback callback);
 
-    // <!--@Removes an OAuth2 access token from the Identity API's token cache.
-    // When an access token is discovered to be invalid, it should be
-    // passed to removeCachedAuthToken to remove it from the cache. The
-    // app may then retrieve a fresh token with getAuthToken.-->
-    // 从认证 API 的令牌缓存中移除 OAuth2
-    // 访问令牌。发现某个访问令牌无效后，应该将它传递给
-    // removeCachedAuthToken 将它从缓存中移除，接着应用可以使用 getAuthToken
+    // <!--@Removes an OAuth2 access token from the Identity API's token cache.-->
+    // 从认证 API 的令牌缓存中移除 OAuth2 访问令牌。
+    //
+    // <!--@If an access token is discovered to be invalid, it should be
+    // passed to removeCachedAuthToken to remove it from the
+    // cache. The app may then retrieve a fresh token with
+    // <code>getAuthToken</code>.-->
+    // 如果发现某个访问令牌无效，应该将它传递给 removeCachedAuthToken
+    // 将它从缓存中移除，接着应用可以使用 <code>getAuthToken</code>
     // 获取新的令牌。
     //
     // |details| : Token information.
     // |callback| : Called when the token has been removed from the cache.
-    [nodoc] static void removeCachedAuthToken(
+    static void removeCachedAuthToken(
         InvalidTokenDetails details, InvalidateAuthTokenCallback callback);
 
     // <!--@Starts an auth flow at the specified URL.-->
     // 在指定 URL 开始认证流程。
     //
+    // <!--@This method enables auth flows with non-Google identity
+    // providers by launching a web view and navigating it to the
+    // first URL in the provider's auth flow. When the provider
+    // redirects to a URL matching the pattern
+    // <code>https://&lt;app-id&gt;.chromiumapp.org/*</code>, the
+    // window will close, and the final redirect URL will be passed to
+    // the <var>callback</var> function.-->
+    // 该方法通过打开一个网页视图并导航至提供商认证流程的第一个
+    // URL，可以与非 Google 认证提供商进行认证流程。当提供商重定向至某个匹配
+    // <code>https://&lt;app-id&gt;.chromiumapp.org/*</code> 的 URL
+    // 时，窗口会关闭，最终的重定向 URL 会传递给 <var>callback</var> 函数。
+    //
     // |details| : <!--@WebAuth flow options.-->
     // WebAuth 流程选项。
     // |callback| : <!--@Called with the URL redirected back to your application.-->
     // 调用时传递重定向回您的应用程序的 URL。
-    [nodoc] static void launchWebAuthFlow(WebAuthFlowDetails details,
-                                          LaunchWebAuthFlowCallback callback);
+    static void launchWebAuthFlow(WebAuthFlowDetails details,
+                                  LaunchWebAuthFlowCallback callback);
   }
   ;
 };
