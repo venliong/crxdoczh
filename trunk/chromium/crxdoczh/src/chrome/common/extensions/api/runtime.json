@@ -424,10 +424,13 @@
         ]
       },
       {
+        // TODO(xiyuan): onBrowserUpdateAvailable is deprecated in favor of
+        // onRestartRequired. We should remove it when we are sure it is unused.
         "name": "onBrowserUpdateAvailable",
         "type": "function",
 //@        "description": "Fired when a Chrome update is available, but isn't installed immediately because a browser restart is required.",
         "description": "当 Chrome 浏览器的更新可用，但是由于需要浏览器重新启动而没有立即安装时产生。",
+        "nodoc": true,
         "parameters": []
       },
       {
@@ -509,10 +512,22 @@
 //@          "description": "Return true from the event listener if you wish to call <code>sendResponse</code> after the event listener returns."
           "description": "如果您需要在事件监听器返回后再调用 <code>sendResponse</code> 请在事件监听器中返回 true。"
         }
+      },
+      {
+        "name": "onRestartRequired",
+        "type": "function",
+//@        "description": "Fired when an app or the device that it runs on needs to be restarted. The app should close all its windows at its earliest convenient time to let the restart to happen. If the app does nothing, a restart will be enforced after a 24-hour grace period has passed. Currently, this event is only fired for Chrome OS kiosk apps.",
+        "description": "应用或者运行它的设备需要重新启动时产生，应用应该尽早关闭所有窗口，以便开始重新启动。如果应用什么都不做，超过 24 小时的宽限期后会强制重新启动。目前，只有 Chrome OS 的 Kiosk 应用会产生该事件。",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "reason",
+//@            "description": "The reason that the event is being dispatched. 'app_update' is used when the restart is needed because the application is updated to a newer version. 'os_update' is used when the restart is needed because the browser/OS is updated to a newer version. 'periodic' is used when the system runs for more than the permitted uptime set in the enterprise policy.",
+            "description": "产生该事件的原因。由于应用更新至新版本而需要重新启动时使用 'app_update'，由于浏览器/操作系统更新到新版本而需要重新启动时使用 'os_update'，当系统运行的时间超过企业策略中设置的允许值时使用 'periodic'。",
+            "enum": ["app_update", "os_update", "periodic"]
+          }
+        ]
       }
-
-
-
     ]
   }
 ]

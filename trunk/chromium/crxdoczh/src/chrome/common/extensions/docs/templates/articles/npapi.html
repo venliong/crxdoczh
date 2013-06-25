@@ -58,7 +58,6 @@ follow these steps to get your extension using it.-->
   "name": "我的扩展程序",
   ...
   <b>"plugins": [
-    { "path": "content_plugin.dll", "public": true },
     { "path": "extension_plugin.dll" }
   ]</b>,
   ...
@@ -70,10 +69,16 @@ follow these steps to get your extension using it.-->
     The "public" property specifies whether
     your plugin can be accessed by regular web pages;
     the default is false,
-    meaning only your extension can load the plugin.-->
+    meaning only your extension can load the plugin. Add
+    <code>"public": true</code> to make your plugin accessible on
+    regular web pages and content scripts. But
+    <a href="#security-considerations">be careful</a> - any
+    web page will then be able to call into your plugin.-->
     "path" 属性指定插件的路径，相对于清单文件。"public"
     属性指定普通的网页能否访问您的插件，默认为
-    false，只有您的扩展程序才能加载插件。
+    false，只有您的扩展程序才能加载插件。添加 <code>"public": true</code>
+    可以使您的插件能够在普通网页和内容脚本中访问，但是<a
+    href="#security-considerations">一定要小心</a>，任何网页都能调用您的插件。
     </p>
    </li>
 

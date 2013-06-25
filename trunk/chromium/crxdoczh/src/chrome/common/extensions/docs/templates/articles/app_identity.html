@@ -11,12 +11,12 @@ they don’t load over HTTP and can’t perform redirects or set cookies.-->
 </p>
 
 <p>
-<!--@Use the <a href="experimental.identity.html">Chrome Identity API</a>
+<!--@Use the <a href="identity.html">Chrome Identity API</a>
 to authenticate users:
 the <code>getAuthToken</code> for users logged into their Google Account and
 the <code>launchWebAuthFlow</code> for users logged into a non-Google account.
 If your app uses its own server to authenticate users, you will need to use the latter.-->
-使用 <a href="experimental.identity.html">Chrome 浏览器的认证 API</a>
+使用 <a href="identity.html">Chrome 浏览器的认证 API</a>
 验证用户：<code>getAuthToken</code> 用于登录 Google
 帐户的用户，<code>launchWebAuthFlow</code> 用于登录非 Google
 帐户的用户。如果您的应用使用自己的服务器来验证用户，您需要使用后者。
@@ -85,19 +85,17 @@ URL 匹配表达式的重定向。重定向 URL 将传递给应用，应用可�
 <h3 id="add_permissions"><!--@Add permissions and upload app-->添加权限并上传应用</h3>
 
 <p>
-<!--@The identity API is still experimental.
-You need to make sure the experimental
-and identity permissions are in your manifest.
-You can then upload your app to the apps and extensions management page
-(see <a href="publish_app.html">Publish</a>).-->
-认证 API 仍然是实验性的，您需要确保 "experimental" 与
-"identity" 权限包含在您的清单文件中。然后您可以将您的应用上传至应用与扩展程序管理页面（参见<a
+<!--@You need to make sure the identity permission is in your manifest.
+You can then upload your app to the apps and extensions management
+page (see <a href="publish_app.html">Publish</a>).-->
+您需要确保 "identity"
+权限包含在您的清单文件中，然后您可以将您的应用上传至应用与扩展程序管理页面（参见<a
 href="publish_app.html">发布</a>）。
+
 </p>
 
 <pre>
 "permissions": [
-  "experimental",
   "identity"
  ]
 </pre>
@@ -219,7 +217,7 @@ Here's the sample "oauth2" for the
 </p>
 
 <pre>
-chrome.experimental.identity.getAuthToken(function(token) { })
+chrome.identity.getAuthToken(function(token) { })
 </pre>
 
 <h2 id="non"><!--@Non-Google account authentication-->非 Google 帐户认证</h2>
@@ -287,7 +285,7 @@ XHR，您需要在权限中将这些匹配表达式加入白名单：
 </p>
 
 <pre>
-chrome.experimental.identity.launchWebAuthFlow(
+chrome.identity.launchWebAuthFlow(
   {'url': '<em>&lt;进行认证的 URL&lt;</em>', 'interactive': true},
   function(redirect_url) { // 从 redirect_url 提取令牌 });
 </pre>
