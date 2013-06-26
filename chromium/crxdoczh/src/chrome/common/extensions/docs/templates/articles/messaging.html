@@ -255,6 +255,75 @@ var port = chrome.runtime.connect(laserExtensionId);
 port.postMessage(...);
 </pre>
 
+
+<h2 id="external-webpage"><!--@Sending messages from web pages-->从网页发送消息</h2>
+<p>
+<!--@Similar to <a href="#external">cross-extension messaging</a>,
+your app or extension can receive and
+respond to messages from regular web pages.
+To use this feature, you must first
+specify in your manifest.json which web sites you want to communicate with. For
+example:-->
+与<a href="#external"
+>跨扩展程序消息传递</a>类似，您的应用或扩展程序可以接受并响应来自普通网页的消息。要使用该特性，您必须首先在您的
+manifest.json 中指定您希望与之通信的网站，例如：
+
+<pre>
+"externally_connectable": {
+  "matches": ["*://*.example.com/*"]
+}
+</pre>
+
+<p>
+<!--@This will expose the messaging API to any page which matches the URL patterns
+you specify. The URL pattern must contain at least a
+<a href="http://en.wikipedia.org/wiki/Second-level_domain">second-level domain</a>
+- that is, hostname
+patterns like "*", "*.com", "*.co.uk", and "*.appspot.com" are prohibited.
+From the web page, use the
+$ref:runtime.sendMessage
+or
+$ref:runtime.connect
+APIs to send a message to a specific app or extension. For example:-->
+这样会将消息传递 API 提供给所有匹配您指定的 URL
+表达式的网页。URL 表达式必须至少包含一个<a
+href="https://zh.wikipedia.org/wiki/%E4%BA%8C%E7%BA%A7%E5%9F%9F"
+>二级域名</a>，也就是说禁止使用类似于“*”、“*.com”、“*.co.uk”和“*.appspot.com”之类的主机名。在网页中，使用 $ref:runtime.sendMessage 或 $ref:runtime.connect API 向指定应用或扩展程序发送消息。例如：
+<pre>
+// 我们希望与之通信的扩展程序标识符。
+var editorExtensionId = "abcdefghijklmnoabcdefhijklmnoabc";
+
+// 发送一个简单的请求：
+chrome.runtime.sendMessage(editorExtensionId, {openUrlInEditor: url},
+  function(response) {
+    if (!response.success)
+      handleError(url);
+  });
+</pre>
+
+<p>
+<!--@From your app or extension, you may listen to messages from web pages via the
+$ref:runtime.onMessageExternal
+or
+$ref:runtime.onConnectExternal
+APIs, similar to <a href="#external">cross-extension messaging</a>.
+Only the web page can initiate a connection.
+Here is an example:-->
+在您的应用或扩展程序中，您可以通过 $ref:runtime.onMessageExternal 或
+$ref:runtime.onConnectExternal API 监听来自网页的消息，与<a href="#external"
+>跨扩展程序消息传递</a>类似。只有网页才能发起连接。如下是一个例子：
+
+<pre>
+chrome.runtime.onMessageExternal.addListener(
+  function(request, sender, sendResponse) {
+    if (sender.url == blacklistedWebsite)
+      return;  // 不允许该网页访问
+    if (request.openUrlInEditor)
+      openUrl(request.openUrlInEditor);
+  });
+</pre>
+
+
 <h2 id="native-messaging"><!--@Native messaging-->原生消息通信</h2>
 <p>
 <!--@Extensions can exchange messages with native applications. Native
