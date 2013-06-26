@@ -1,0 +1,274 @@
+<h1><!--@Event Pages-->事件页面</h1>
+
+
+<p>
+<!--@Event pages are very similar to
+<a href="background_pages.html">background pages</a>,
+with one important difference:
+event pages are loaded only when they are needed.
+When the event page is not actively doing something,
+it is unloaded, freeing memory and other system resources.-->
+事件页面与<a href="background_pages.html">后台网页</a>十分相似，但是有一个重要的区别：事件页面只在需要时加载，当事件页面当前不活动时将会卸载，释放内存及其他系统资源。
+</p>
+
+{{?is_apps}}
+<p>
+<!--@Packaged apps always use event pages instead of background pages.
+It is not possible for a packaged app to have a persistent background page.-->
+打包应用始终使用事件页面，而不是后台网页。打包应用不能有持久存在的后台网页。
+</p>
+{{/is_apps}}
+
+<p>
+<!--@Event pages are available in the stable channel as of Chrome 22, and the
+performance advantages are significant, especially on low-power devices. Please
+prefer them to persistent background pages whenever possible for new development
+and begin <a href="#transition">migrating existing background pages</a> to this
+new model.-->
+从 Chrome 22 的稳定版开始可以使用事件页面，它具有明显的性能优势，尤其在低功耗设备上。请您在开发新的扩展程序时尽可能首先考虑事件页面，而不是持久存在的后台页面，并开始<a href="#transition">将现有的后台页面迁移</a>到这一新模型。
+</p>
+
+<h2 id="manifest"><!--@Manifest-->清单文件</h2>
+
+<p>
+<!--@Register your event page in the
+<a href="manifest.html">extension manifest</a>:-->
+在<a href="manifest.html">扩展程序的清单文件</a>中注册您的事件页面：
+</p>
+
+{{^is_apps}}
+<pre>{
+  "name": "我的扩展程序",
+  ...
+  <b>"background": {
+    "scripts": ["eventPage.js"],
+    "persistent": false
+  }</b>,
+  ...
+}</pre>
+
+<p>
+<!--@Notice that without the "persistent" key, you have
+a regular background page. Persistence is what differentiates
+an event page from a background page.-->
+注意，如果没有 "persistent" 键，您将得到一个普通的后台网页。是否持久存在是事件页面与后台网页之间的根本区别。
+</p>
+{{/is_apps}}
+{{?is_apps}}
+<pre>{
+  "name": "我的应用",
+  ...
+  "app": {
+    <b>"background": {
+      "scripts": ["eventPage.js"]
+    }</b>,
+    ...
+  },
+  ...
+}</pre>
+{{/is_apps}}
+
+<h2 id="lifetime"><!--@Lifetime-->生命周期</h2>
+
+<p>
+<!--@The event page is loaded when it is "needed", and unloaded
+when it goes idle again. Here are some examples of things
+that will cause the event page to load:-->
+事件页面在“需要”时加载，再次进入空闲状态后卸载。如下是一些可能使事件页面加载的例子：
+</p>
+<ul>
+<li><!--@The app or extension is first installed or is updated to a new version
+(in order to <a href="#registration">register for events</a>).-->
+应用或扩展程序第一次安装或者更新到新版本（为了<a href="#registration">注册事件</a>）。
+<li><!--@The event page was listening for an event, and the event is dispatched.-->
+事件页面监听的某个事件触发。
+<li><!--@A content script or other extension
+<a href="messaging.html">sends a message.</a>-->
+内容脚本或其他扩展程序<a href="messaging.html">发送消息</a>。
+<li><!--@Another view in the extension (for example, a popup) calls
+<code>$ref:runtime.getBackgroundPage</code>.-->
+扩展程序中的其他视图调用了 <code>$ref:runtime.getBackgroundPage</code>。
+</ul>
+
+<p>
+<!--@Once it has been loaded, the event page will stay running
+as long as it is active (for example, calling an extension
+API or issuing a network request). Additionally, the
+event page will not unload until all visible views (for example,
+popup windows) are closed and all message ports are closed. Note
+that opening a view does not cause the event page to load, but
+only prevents it from closing once loaded.-->
+一旦加载后，只要它仍然处于活动状态（例如，调用扩展程序 API
+或发出网络请求），事件页面会继续运行。此外，直到所有可见视图（例如弹出窗口）关闭并且所有消息端口都关闭后，事件页面才会卸载。注意，打开某个视图并不会使事件页面载入，只会在载入后防止它关闭。
+</p>
+
+<p>
+<!--@Make sure your event page closes as soon as the event that
+opened it is processed.
+You can observe the lifetime of your event page by
+opening Chrome's task manager. You can see when your event
+page loads and unloads by observing when an entry for your
+extension appears in the list of processes.-->
+确保您的事件页面在打开它的事件处理完之后立刻关闭。您可以打开 Chrome
+浏览器的任务管理器，观察您的事件页面的生命周期。您的扩展程序对应的条目在进程列表中出现时您可以注意观察，看出您的事件页面的加载与卸载。
+</p>
+
+<p>
+<!--@Once the event page has been idle a short time
+(a few seconds), the
+<code>$ref:runtime.onSuspend</code>
+event is dispatched. The event page has a few more seconds to handle this
+event before it is forcibly unloaded. If during this time an event occurs which
+would normally cause the event page to be loaded, the suspend is canceled
+and the <code>$ref:runtime.onSuspendCanceled</code> event is dispatched.-->
+一旦事件页面保持一段时间（几秒钟）的空闲状态，将触发 $ref:runtime.onSuspend
+事件。事件页面在强制卸载之前，还有几秒钟的时间来处理该事件。如果在这段时间内产生了通常会使事件页面载入的事件，卸载操作将取消，并产生
+<code>$ref:runtime.onSuspendCanceled</code> 事件。
+</p>
+
+<h2 id="registration"><!--@Event registration-->事件注册</h2>
+
+<p>
+<!--@Chrome keeps track of events that an app or extension has added listeners
+for. When it dispatches such an event, the event page is
+loaded. Conversely, if the app or extension removes all of its listeners for
+an event by calling <code>removeListener</code>, Chrome will no longer
+load its event page for that event.-->
+Chrome 浏览器会追踪应用或扩展程序监听的事件。分发这样的事件时，将加载扩展程序的事件页面。相反，如果应用或扩展程序通过调用
+removeListener 移除所有的监听器，Chrome
+浏览器不会再为那一事件加载其事件页面。
+</p>
+
+<p>
+<!--@Because the listeners themselves only exist in the context of the
+event page, you must use <code>addListener</code> each time the event
+page loads; only doing so at
+<code>$ref:runtime.onInstalled</code>
+by itself is insufficient.-->
+因为监听器本身只在事件页面的环境中存在，您必须每次在事件页面加载时使用
+<code>addListener</code>，仅仅在 $ref:runtime.onInstalled 这么做是不够的。
+</p>
+
+<p>
+<!--@For an example of event registration in action, you can view the
+<a href="http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/extensions/gmail/">Google Mail
+Checker</a> extension.-->
+有关事件注册操作的具体例子，您可以查看<a href="https://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/extensions/gmail/">Google Mail Checker</a>扩展程序。
+</p>
+
+<h2 id="transition"><!--@Convert background page to event page-->将后台页面转换为事件页面</h2>
+<p>
+<!--@Follow this checklist to convert your extension's
+(persistent) background page to an event page.-->
+请根据下列清单，将您的扩展程序的（持久）后台网页转换为事件页面。
+
+<ol>
+  <li><!--@Add-->向您的清单文件添加 <code>"persistent": false</code><!--@ to your manifest as shown above.-->，如上所示。
+
+  <li><!--@If your extension uses <code>window.setTimeout()</code> or
+  <code>window.setInterval()</code>, switch to using the
+  <a href="alarms.html">alarms API</a> instead. DOM-based timers won't
+  be honored if the event page shuts down.-->
+  如果您的扩展程序使用 <code>window.setTimeout()</code> 或
+  <code>window.setInterval()</code>，请改用<a href="alarms.html">定时器
+  API</a>。如果事件页面已关闭，基于 DOM 的定时器不会触发。
+
+  <li><!--@Similarly, other asynchronous HTML5 APIs like notifications and
+  geolocation will not complete if the event page shuts down. Instead,
+  use equivalent extension APIs, like
+  <a href="notifications.html">notifications</a>.-->
+  类似地，其他异步 HTML5 API，例如通知与地理定位，在事件页面关闭后不能完成。请改用等价的扩展程序
+  API，例如<a href="notifications.html">通知</a>。
+
+  <li><!--@If your extension uses,
+  <code>$ref:extension.getBackgroundPage</code>,
+  switch to
+  <code>$ref:runtime.getBackgroundPage</code>
+  instead. The newer method is asynchronous so that it can start the event
+  page if necessary before returning it.-->
+  如果您的扩展程序使用
+  <code>$ref:extension.getBackgroundPage</code>，请改用
+  <code>$ref:runtime.getBackgroundPage</code>。新方法是异步的，所以如果有必要的话它可以在返回前启动事件页面。
+</ol>
+</p>
+
+<h2 id="best-practices"><!--@Best practices when using event pages-->使用事件页面时的最佳做法</h2>
+<p>
+<!--@Keep these tips in mind when using event pages to avoid common subtle pitfalls.-->
+使用事件页面时请牢记这些技巧，避免一些常见而又微妙的陷阱。
+
+<ol>
+  <li><!--@Register to receive any events your extension is interested in
+  each time the event page is loaded. The event page will be loaded once
+  for each new version of your extension. After that it will only be
+  loaded to deliver events you have registered for. This generally means that
+  your event listeners should be added at the top level scope of the event
+  page, otherwise they may not be available when the event page reloads.-->
+  每次事件页面加载时注册您的扩展程序感兴趣的事件。每次您的扩展程序升级到新版本时，事件页面都会加载一次，之后只有当传递您已注册的事件时才会加载。大体上，这意味着您的事件监听器应该在事件页面的顶层区域添加，否则事件页面重新载入时它们不一定可用。
+
+  <li><!--@If you need to do some initialization when your extension is
+  installed or upgraded, listen to the
+  <code>$ref:runtime.onInstalled</code>
+  event. This is a good place to register for
+  <a href="declarativeWebRequest.html">declarativeWebRequest</a> rules,
+  <a href="contextMenus.html">contextMenu</a> entries, and other such
+  one-time initialization.-->
+  如果您的扩展程序安装或升级时需要做一些初始化，请监听
+  $ref:runtime.onInstalled 事件。这里很适合注册<a href="declarativeWebRequest.html"
+  >声明式网络请求</a>规则、<a href="contextMenus.html">右键菜单</a>项以及其他类似的一次性初始化。
+
+  <li><!--@If you need to keep runtime state in memory throughout a browser
+  session, use the <a href="storage.html">storage API</a> or
+  IndexedDB. Since the event page does not stay loaded for long, you
+  can no longer rely on global variables for runtime state.-->
+  如果您需要在浏览器会话间保持运行时状态，请使用<a href="storage.html">存储 API</a> 或 IndexedDB。由于事件页面不会长时间保持加载状态，您不能再依赖全局变量来保存运行时状态。
+
+  <li><!--@Use <a href="events.html#filtered">event filters</a> to restrict
+  your event notifications to the cases you care about. For example, if
+  you listen to the <code>$ref:tabs.onUpdated</code>
+  event, try using the
+  <code>$ref:webNavigation.onCompleted</code>
+  event with filters instead (the tabs API does not support filters).
+  That way, your event page will only be loaded for events that
+  interest you.-->
+  使用<a href="events.html#filtered">事件过滤器</a>将事件通知限制为您关心的那些。例如，如果您监听
+  <code>$ref:tabs.onUpdated</code> 事件，尝试改用
+  <code>$ref:webNavigation.onCompleted</code> 事件并使用过滤器（标签页 API
+  不支持过滤器），这样，您的事件页面仅在您感兴趣的事件产生时才会加载。
+
+  <li><!--@Listen to the-->如果您在事件页面卸载之前需要做最后的清理，请监听
+  <code>$ref:runtime.onSuspend</code>
+  <!--@event if you need to do last second cleanup before your event page
+  is shut down. However, we recommend persisting periodically instead.
+  That way if your extension crashes without receiving
+  <code>onSuspend</code>, no data will typically be lost.-->
+  事件。然而，我们建议您定期保存数据，这样如果您的扩展程序由于崩溃而没有接收到
+  <code>onSuspend</code> 事件时，一般情况下也不会丢失数据。
+
+  <li><!--@If you're using <a href="messaging.html">message passing</a>, be sure
+  to close unused message ports. The event page will not shut down until all
+  message ports are closed.-->
+  如果您使用<a href="messaging.html">消息传递</a>，务必关闭不再使用的端口。在所有消息端口都关闭前，事件页面不会卸载。
+
+  <li><!--@If you're using the <a href="contextMenus.html">context menus</a> API,
+  pass a string <code>id</code> parameter to
+  <code>$ref:contextMenus.create</code>,
+  and use the
+  <code>$ref:contextMenus.onClicked</code>
+  callback instead of an <code>onclick</code> parameter to
+  <code>$ref:contextMenus.create</code>.-->
+  如果您使用<a href="contextMenus.html">右键菜单 API</a>，请向
+  <code>$ref:contextMenus.create</code> 传递一个字符串的
+  <code>id</code>参数，并使用 <code>$ref:contextMenus.onClicked</code>
+  回调函数代替 <code>$ref:contextMenus.create</code> 的
+  <code>onclick</code> 参数。
+
+  <li><!--@Remember to test that your event page works properly when it is unloaded
+  and then reloaded, which only happens after several seconds of inactivity. 
+  Common mistakes include doing unnecessary work at page load time (when it
+  should only be done when the extension is installed); setting an alarm at
+  page load time (which resets any previous alarm); or not adding event
+  listeners at page load time.-->
+  记得测试您的事件页面在卸载和重新载入时能正常工作，这只会在几秒钟不活动后发生。常见的错误包括在网页载入时进行不必要的工作（只应该在扩展程序安装时进行），在网页载入时设置定时器（会重置原来的定时器）以及没有在网页载入时添加事件监听器。
+</ol>
+</p>

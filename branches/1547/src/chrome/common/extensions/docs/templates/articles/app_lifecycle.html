@@ -1,0 +1,242 @@
+<meta name="doc-family" content="apps">
+<h1><!--@Manage App Lifecycle-->管理应用的生命周期</h1>
+
+
+<p>
+<!--@The app runtime and event page are responsible
+for managing the app lifecycle.
+The app runtime manages app installation,
+controls the event page,
+and can shutdown the app at anytime.
+The event page listens out for events from the app runtime
+and manages what gets launched and how.-->
+应用运行时环境与事件页面用于管理应用的生命周期。应用运行时环境管理应用的安装，控制事件页面，并且能够在任何时候关闭应用。事件页面监听来自应用运行时环境的事件，并管理运行的内容与方式。
+</p>
+
+<h2 id="lifecycle"><!--@How the lifecycle works-->生命周期的工作方式</h2>
+
+<p>
+<!--@The app runtime loads the event page
+from a user's desktop and
+the <code>onLaunch()</code> event is fired.
+This event tells the event page what windows
+to launch and their dimensions.
+The lifecycle diagram here isn't the nicest to look at,
+but it's practical (and we will make it nicer soon).-->
+应用程序运行时环境从用户的桌面加载事件页面，并产生
+<code>onLaunched()</code>
+事件。该事件告诉事件页面要打开的窗口及其大小。生命周期示意图不太好看，但是很实际（我们很快就会让它变得更好看）。
+</p>
+
+<img src="{{static}}/images/applifecycle.png"
+     width="444"
+     height="329"
+     alt="how app lifecycle works">
+
+<p>
+<!--@When the event page has no executing JavaScript,
+no pending callbacks, and no open windows,
+the runtime unloads the event page and closes the app.
+Before unloading the event page,
+the <code>onSuspend()</code> event is fired.
+This gives the event page opportunity
+to do simple clean-up tasks
+before the app is closed.-->
+当事件页面不执行
+JavaScript，没有未决的回调函数，也没有打开的窗口时，运行时环境会卸载事件页面，并关闭应用。在卸载事件页面之前，将产生
+<code>onSuspend()</code>
+事件，这样使事件页面有机会在应用关闭之前做一些简单的清理任务。
+</p>
+
+<h2 id="eventpage"><!--@Create event page and windows-->创建事件页面和窗口</h2>
+
+<p>
+<!--@All apps must have an event page.
+This page contains the top-level logic of the application
+with none of its own UI and is responsible
+for creating the windows for all other app pages.-->
+所有应用都必须有一个事件页面，该页面包含了应用的顶层逻辑，但没有任何自己的用户界面，用于为所有其他应用页面创建窗口。
+</p>
+
+<h3 id="create_event_page"><!--@Create event page-->创建事件页面</h3>
+
+<p>
+<!--@To create the event page,
+include the "background" field in the app manifest
+and include the <code>background.js</code> in the scripts array.
+Any library scripts used by the event page need to be added
+to the "background" field first:-->
+要创建事件页面，在应用程序的清单文件中包含 "background" 字段，并将
+<code>background.js</code>
+包含在脚本（"scripts"）数组中。事件页面使用的所有库脚本需要首先加入
+"backrgound" 字段：
+</p>
+
+<pre>
+"background": {
+  "scripts": [
+    "foo.js",
+    "background.js"
+  ]
+}
+</pre>
+
+<p>
+<!--@Your event page must include the <code>onLaunched()</code> function.
+This function is called
+when your application is launched in any way:-->
+您的事件页面必须包含 <code>onLaunched()</code>
+函数，当您的应用以任何方式执行时会调用该函数：
+</p>
+
+<pre>
+chrome.app.runtime.onLaunched.addListener(function() { 
+  // 告诉您的应用执行的内容与方式。
+});
+</pre>
+
+<h3 id="create_windows"><!--@Create windows-->创建窗口</h3>
+
+<p>
+<!--@An event page may create one or more windows at its discretion.
+By default, these windows are created with a script connection
+to the event page and are directly scriptable by the event page.-->
+事件页面可以创建一个或多个指定大小的窗口。默认情况下，这些创建的窗口与事件页面之间有脚本连接，并且可以直接由事件页面调用。
+</p>
+
+<p>
+<!--@Windows have an optional frame with title bar and size controls. They are
+not associated with any Chrome browser windows.-->
+窗口可以具有可选的框架，包含标题栏和大小控件，它们不和任何 Chrome
+浏览器窗口关联。
+</p>
+
+<p><!--@Here's a sample window created from <code>background.js</code>:-->
+如下是在 <code>backrgound.js</code> 中创建窗口的示例：
+</p>
+
+<pre>
+chrome.app.runtime.onLaunched.addListener(function() {
+  chrome.app.window.create('main.html', {
+    bounds: {
+      width: 800,
+      height: 600,
+      left: 100,
+      top: 100
+    },
+    minWidth: 800,
+    minHeight: 600
+  });
+});
+</pre>
+
+<h3 id="launch_data"><!--@Including Launch Data-->包含执行数据</h3>
+
+<p>
+<!--@Depending on how your app is launched,
+you may need to handle launch data
+in your event page.
+By default, there is no launch data
+when the app is started by the app launcher.
+For apps that have file handlers,
+you need to handle the
+<code>launchData.items</code> parameter to allow
+them to be launched with files.-->
+取决于您的应用的执行方式，您可能需要在事件页面中包含执行数据。默认情况下，应用启动器启动应用时没有执行数据。对于包含文件处理程序的应用，您需要处理
+<code>launchData.items</code> 参数允许它们与文件一起执行。
+</p>
+
+<h2 id="runtime"><!--@Listening for app runtime events-->监听应用的运行时事件</h2>
+
+<p>
+<!--@The app runtime controls the app installs, updates, and uninstalls.
+You don't need to do anything to set up the app runtime,
+but your event page can listen out for the <code>onInstalled()</code> event
+to store local settings and the
+<code>onSuspend()</code> event to do simple clean-up tasks
+before the event page is unloaded.-->
+应用运行时环境控制应用的安装、更新与卸载。您不需要做任何事情来设置应用运行时环境，但是您的事件页面可以监听
+<code>onInstalled()</code> 事件来储存本地设置，监听
+<code>onSuspend()</code> 事件在事件页面卸载前做一些简单的清理任务。
+</p>
+
+<h3 id="local_settings"><!--@Storing local settings-->储存本地设置</h3>
+
+<p>
+<!--@<code>chrome.runtime.onInstalled()</code>
+is called when your app has first been installed,
+or when it has been updated.
+Any time this function is called,
+the <code>onInstalled</code> event is fired.
+The event page can listen for this event and use the
+<a href="storage.html">Storage API</a>
+to store and update local settings
+(see also <a href="app_storage.html#options">Storage options</a>).-->
+当您的应用程序首次安装或者更新时将调用
+<code>chrome.runtime.onInstalled()</code>，每次调用该函数时将产生
+<code>onInstalled</code>
+事件。事件页面可以监听该事件，并使用<a href="storage.html">存储 API</a>
+储存和更新本地设置（同时请参见<a href="app_storage.html#options">存储选项</a>）。
+</p>
+
+<pre>
+chrome.runtime.onInstalled.addListener(function() { 
+  chrome.storage.local.set(object items, function callback);
+});
+</pre>
+
+<h3 id="preventing_loss"><!--@Preventing data loss-->防止数据丢失</h3>
+
+<p>
+<!--@Users can uninstall your app at any time.
+When uninstalled,
+no executing code or private data is left behind.
+This can lead to data loss
+since the users may be uninstalling an app
+that has locally edited, unsynchronized data.
+You should stash data to prevent data loss.-->
+用户可以在任何时候卸载您的应用，卸载后不会留下任何可执行代码或私有数据。这样可能会导致数据丢失，因为用户正在卸载的应用可能包含本地编辑过但尚未同步的数据，您应该储存数据以免数据丢失。
+</p>
+
+<p>
+<!--@At a minimum,
+you should store user settings
+so that if users reinstall your app,
+their information is still available for reuse.
+Using the Storage API
+($ref:storage.sync),
+user data can be automatically synced
+with Chrome sync.-->
+至少，您应该存储用户设置，以便用户重新安装您的应用后，它们的信息仍然可以重新使用。使用存储
+API（$ref:storage.sync），用户数据可以自动通过 Chrome 浏览器的同步功能同步。
+</p>
+
+<h3 id="clean-up"><!--@Clean-up before app closes-->应用关闭前的清理</h3>
+
+<p>
+<!--@The app runtime sends the <code>onSuspend()</code>
+event to the event page before unloading it.
+Your event page can listen out for this event and
+do clean-up tasks before the app closes.-->
+应用运行时环境在卸载前会向事件页面发送 <code>onSuspend()</code>
+事件，您的事件页面可以监听该事件并在应用关闭前做清理任务。
+</p>
+
+<p>
+<!--@Once this event is fired,
+the app runtime starts the process of closing the app:
+all events stop firing and
+JavaScript execution is halted.
+Any asynchronous operations started
+while handling this event are not guaranteed to complete.
+Keep the clean-up tasks synchronous and simple.-->
+一旦产生了该事件，应用运行时环境就开始了应用关闭的过程。所有事件不再产生，JavaScript
+执行将停止。处理这一事件时开始的任何异步操作都不能保证完整。请保持清理任务同步而且简单：
+</p>
+
+<pre>
+chrome.runtime.onSuspend.addListener(function() { 
+  // 做一些简单的清理任务。
+});
+</pre>
+

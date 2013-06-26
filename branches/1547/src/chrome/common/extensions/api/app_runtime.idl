@@ -1,0 +1,43 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// <!--@Use the <code>chrome.app.runtime</code> API to manage the app lifecycle.
+// The app runtime manages app installation, controls the event page, and can
+// shut down the app at anytime.-->
+// 使用 <code>chrome.app.runtime</code> API
+// 管理应用的生命周期。应用运行时环境管理应用的安装，控制事件页面，并且可以在任何时候关闭应用。
+namespace app.runtime {
+
+  [inline_doc] dictionary LaunchItem {
+    // <!--@FileEntry for the file.-->
+    // 文件的 <code>FileEntry</code>。
+    [instanceOf=FileEntry] object entry;
+
+    // <!--@The MIME type of the file.-->
+    // 文件的 MIME 类型。
+    DOMString type;
+  };
+
+  // <!--@Optional data for the launch.-->
+  // 执行时的可选数据
+  [inline_doc] dictionary LaunchData {
+    // <!--@The id of the file handler that the app is being invoked with.-->
+    // 调用应用的文件处理器标识符
+    DOMString? id;
+
+    LaunchItem[]? items;
+  };
+
+  interface Events {
+    // <!--@Fired when an app is launched from the launcher.-->
+    // 应用从执行器执行时产生。
+    static void onLaunched(optional LaunchData launchData);
+
+    // <!--@Fired at Chrome startup to apps that were running when Chrome last shut
+    // down.-->
+    // 当 Chrome 浏览器启动时产生，用于 Chrome
+    // 浏览器上一次关闭时正在运行的应用。
+    static void onRestarted();
+  };
+};
