@@ -28,6 +28,9 @@ are <b>name</b> and <b>version</b>.-->
   "<a href="#name">name</a>": "<em>我的扩展程序</em>",
   "<a href="#version">version</a>": "<em>版本字符串</em>",
   "<a href="#manifest_version">manifest_version</a>": 2,
+{{?is_apps}}
+  "<a href="#app">app</a>": {...},
+{{/is_apps}}
 
   <em>// 推荐</em>
   "<a href="#description">description</a>": "<em>纯文本描述</em>",
@@ -39,8 +42,6 @@ are <b>name</b> and <b>version</b>.-->
   "<a href="browserAction.html">browser_action</a>": {...},
   "<a href="pageAction.html">page_action</a>": {...},
   "<a href="themes.html">theme</a>": {...},
-{{/is_apps}}
-{{?is_apps}}
   "<a href="#app">app</a>": {...},
 {{/is_apps}}
 
@@ -70,8 +71,8 @@ are <b>name</b> and <b>version</b>.-->
   "<a href="#offline_enabled">offline_enabled</a>": true,
 {{^is_apps}}
   "<a href="omnibox.html">omnibox</a>": { "keyword": "<em>aString</em>" },
-{{/is_apps}}
   "<a href="options.html">options_page</a>": "<em>aFile</em>.html",
+{{/is_apps}}
   "<a href="declare_permissions.html">permissions</a>": [...],
 {{^is_apps}}
   "<a href="npapi.html">plugins</a>": [...],
@@ -338,10 +339,10 @@ it is loaded during development.-->
 <!--@<b>Note:</b> You don't usually need to
 use this value. Instead, write your
 code so that the key value doesn't matter
-by using <a href="overview.html#relative-urls">relative paths</a>
+by using <a href="../extensions/overview.html#relative-urls">relative paths</a>
 and $ref:runtime.getURL.-->
 <b>注意：</b>通常您不需要使用这一值。相反，您应该使用<a
-href="overview.html#relative-urls">相对路径</a>以及 $ref:runtime.getURL
+href="../extensions/overview.html#relative-urls">相对路径</a>以及 $ref:runtime.getURL
 来编写不依赖这一值的代码。
 </p>
 
