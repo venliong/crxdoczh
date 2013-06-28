@@ -17,7 +17,9 @@ try the-->
   <h4 id="general"><!--@General-->一般问题</h4>
   <ul>
     <li><a href="#faq-gen-01"><!--@What are Google Chrome Extensions?-->什么是 Google Chrome 浏览器扩展程序？</a></li>
+{{^is_apps}}
     <li><a href="#faq-dev-01"><!--@How can I set up Chrome for extension development?-->我应该如何设置 Chrome 浏览器以便开发扩展程序？</a></li>
+{{/is_apps}}
     <li><a href="#faq-gen-02"><!--@What technologies are used to write extensions for Chrome?-->为 Chrome 浏览器编写扩展程序时需要用到哪些技术？</a></li>
     <li><a href="#faq-gen-03"><!--@Are extensions fetched from the web every time the browser is loaded?-->扩展程序是不是每一次浏览器加载时都要从网上获取？</a></li>
     <li><a href="#faq-dev-14"><!--@How do I determine which version of Chrome is deployed to which channel?-->我应该如何确定 Chrome 浏览器版本与分支间的对应关系？</a></li>
@@ -35,8 +37,8 @@ try the-->
     <li><a href="#faq-dev-11"><!--@Can two extensions communicate with each other?-->两个扩展程序能否互相通信？</a></li>
 {{^is_apps}}
     <li><a href="#faq-dev-13"><!--@Can extensions use Google Analytics?-->扩展程序能否使用 Google Analytics（分析）？</a></li>
-{{/is_apps}}
     <li><a href="#faq-dev-15"><!--@Can extensions modify chrome:// URLs?-->扩展程序能否修改 chrome:// 协议的 URL？</a></li>
+{{/is_apps}}
     <li><a href="#faq-open-popups"><!--@Can extensions open browser/page action popups without user interaction?-->扩展程序能否在没有用户交互的情况下打开浏览器/页面按钮的弹出内容？</a></li>
     <li><a href="#faq-persist-popups"><!--@Can extensions keep popups open after the user clicks away from them?-->扩展程序能否在用户单击其他地方后仍然使弹出内容保持打开状态？</a></li>
     <li><a href="#faq-lifecycle-events"><!--@Can extensions be notified when they are installed/uninstalled?-->扩展程序能否在安装和卸载时得到通知？</a></li>
@@ -45,7 +47,9 @@ try the-->
   <ul>
     <li><a href="#faq-building-ui"><!--@How do I build a UI for my extension?-->我应该如何为我的扩展程序建立用户界面？</a>
     <li><a href="#faq-dev-09"><!--@How much data can I store in localStorage?-->我能够在本地存储中储存多少数据？</a></li>
+{{^is_apps}}
     <li><a href="#faq-dev-10"><!--@How do I create an options menu for my application?-->我应该如何为我的应用创建一个选项菜单？</a></li>
+{{/is_apps}}
     <li><a href="#faq-dev-12"><!--@What debugging tools are available to extension developers?-->扩展程序的开发者可以使用哪些调试工具？</a></li>
     <li><a href="#faq-dev-16"><!--@Why do wildcard matches not work for top level domains (TLDs)?-->为什么通配符匹配对于顶级域名（TLD）不适用？</a></li>
     <li><a href="#faq-management"><!--@Why does the management API not fire events when my extension is installed/uninstalled?-->为什么当我的扩展程序安装或卸载时管理 API 不产生事件？</a></li>
@@ -69,6 +73,7 @@ try the-->
   浏览器中运行并提供附加功能、与第三方网站或服务整合、自定义浏览体验的应用。
 </p>
 
+{{^is_apps}}
 <h3 id="faq-dev-01"><!--@How can I set up Chrome for extension development?-->我应该如何设置 Chrome 浏览器以便开发扩展程序？</h3>
 <p>
   <!--@As long as you are using a version of Chrome that supports
@@ -92,6 +97,7 @@ try the-->
   <a href="http://code.google.com/chrome/extensions/getstarted.html">Getting Started</a>.-->
   并从<b>工具(L)</b>菜单选择<b>扩展程序(E)</b>。如果“开发者模式”未选中，单击复选框选中它。现在您可以重新加载扩展程序、加载未打包的目录中的文件，就像加载已打包的扩展程序那样，还有更多。有关完整的教程，请参见<a href="getstarted.html">入门</a>。
 </p>
+{{/is_apps}}
 
 <h3 id="faq-gen-02"><!--@What technologies are used to write extensions for Chrome?-->为 Chrome 浏览器编写扩展程序时需要用到哪些技术？</h3>
 <p>
@@ -304,6 +310,7 @@ cros,beta,#.#.###.#,#.#.###.#,mm/dd/yy,mm/dd/yy,#####,#####,#####</pre>
 </p>
 {{/is_apps}}
 
+{{^is_apps}}
 <h3 id="faq-dev-15"><!--@Can extensions modify chrome:// URLs?-->扩展程序能否修改 chrome:// 协议的 URL？</h3>
 <p>
   <!--@No. The extensions APIs have been designed to minimize backwards
@@ -331,6 +338,7 @@ cros,beta,#.#.###.#,#.#.###.#,mm/dd/yy,mm/dd/yy,#####,#####,#####</pre>
   <a href="override.html">替换托管于这些 URL
   上的内容</a>是允许的，因为这样扩展程序的开发者不得不实现他们需要的所有功能，而不会依赖于浏览器的内部实现保持不变。
 </p>
+{{/is_apps}}
 
 <h3 id="faq-open-popups"><!--@Can extensions open browser/page action popups without
   user interaction?-->扩展程序能否在没有用户交互的情况下打开浏览器/页面按钮的弹出内容？</h3>
@@ -386,6 +394,7 @@ cros,beta,#.#.###.#,#.#.###.#,mm/dd/yy,mm/dd/yy,#####,#####,#####</pre>
   "unlimitedStorage" 权限则不受这一限制。
 </p>
 
+{{^is_apps}}
 <h3 id="faq-dev-10"><!--@How do I create an options menu for my application?-->我应该如何为我的应用创建一个选项菜单？</h3>
 <p>
   <!--@You can let users set options for your extension by creating an
@@ -397,6 +406,7 @@ cros,beta,#.#.###.#,#.#.###.#,mm/dd/yy,mm/dd/yy,#####,#####,#####</pre>
   您可以通过创建一个<a href="options.html">选项页面</a>让用户为您的扩展程序设置选项。选项页面是一个简单的
   HTML 页面，当用户单击您的扩展程序的“选项”链接时加载。这一页面可以从本地存储中读写数据，甚至可以将选项发送至网络服务器，以便在不同的浏览器中使用。
 </p>
+{{/is_apps}}
 
 <h3 id="faq-dev-12"><!--@What debugging tools are available to extension developers?-->扩展程序的开发者可以使用哪些调试工具？</h3>
 <p>
