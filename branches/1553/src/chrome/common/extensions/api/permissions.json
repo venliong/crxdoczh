@@ -1,0 +1,159 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+[
+  {
+    "namespace": "permissions",
+//@    "description": "Use the <code>chrome.permissions</code> API to implement optional permissions. As of Chrome 16, you can request optional permissions during your extension's regular application flow rather than at install time, so users understand why the permissions are needed and use only those that are necessary.",
+    "description": "使用 <code>chrome.permissions</code> API 实现可选权限。从 Chrome 16 开始，您可以在您的扩展程序正常使用的过程中请求可选权限，而不是在安装的时候，这样用户可以理解为什么需要这些权限，并且仅在必要时使用那些权限。",
+    "types": [
+      {
+        "id": "Permissions",
+        "type": "object",
+        "properties": {
+          "permissions": {
+            "type": "array",
+            "items": {"type": "string"},
+            "optional": true,
+//@            "description": "List of named permissions (does not include hosts or origins)."
+            "description": "权限名称列表（不包括主机权限）。"
+          },
+          "origins": {
+            "type": "array",
+            "items": {"type": "string"},
+            "optional": true,
+//@            "description": "List of origin permissions."
+            "description": "主机权限列表。"
+          }
+        }
+      }
+    ],
+    "events": [
+      {
+        "name": "onAdded",
+        "type": "function",
+//@        "description": "Fired when the extension acquires new permissions.",
+        "description": "扩展程序获得新权限时产生。",
+        "parameters": [
+          {
+            "$ref": "Permissions",
+            "name": "permissions",
+//@            "description": "The newly acquired permissions."
+            "description": "新获得的权限。"
+          }
+        ]
+      },
+      {
+        "name": "onRemoved",
+        "type": "function",
+//@        "description": "Fired when access to permissions has been removed from the extension.",
+        "description": "对权限的访问从扩展程序移除时产生。",
+        "parameters": [
+          {
+            "$ref": "Permissions",
+            "name": "permissions",
+//@            "description": "The permissions that have been removed."
+            "description": "已移除的权限。"
+          }
+        ]
+      }
+     ],
+    "functions": [
+      {
+        "name": "getAll",
+        "type": "function",
+//@        "description": "Gets the extension's current set of permissions.",
+        "description": "获得扩展程序当前拥有的所有权限。",
+        "parameters": [
+          {
+            "name": "callback",
+            "type": "function",
+            "parameters": [
+               {
+                "name": "permissions",
+                "$ref": "Permissions",
+//@                "description": "The extension's active permissions."
+                "description": "扩展程序的当前权限。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "contains",
+        "type": "function",
+//@        "description": "Checks if the extension has the specified permissions.",
+        "description": "检查扩展程序是否拥有指定权限。",
+        "parameters": [
+          {
+            "name": "permissions",
+            "$ref": "Permissions"
+          },
+          {
+            "name": "callback",
+            "type": "function",
+            "parameters": [
+              {
+                "name": "result",
+                "type": "boolean",
+//@                "description": "True if the extension has the specified permissions."
+                "description": "如果扩展程序拥有指定权限则为 true。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "request",
+        "type": "function",
+//@        "description": "Requests access to the specified permissions. These permissions must be defined in the optional_permissions field of the manifest. If there are any problems requesting the permissions, $ref:runtime.lastError will be set.",
+        "description": "请求访问指定的权限，这些权限必须已在清单文件中的 optional_permissions 字段中定义。如果请求权限过程中发生任何问题，将会设置 $ref:runtime.lastError。",
+        "parameters": [
+          {
+            "name": "permissions",
+            "$ref": "Permissions"
+          },
+          {
+            "name": "callback",
+            "type": "function",
+            "optional": true,
+            "parameters": [
+              {
+                "name": "granted",
+                "type": "boolean",
+//@                "description": "True if the user granted the specified permissions."
+                "description": "如果用户授予了指定权限则为 true。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "remove",
+        "type": "function",
+//@        "description": "Removes access to the specified permissions. If there are any problems removing the permissions, $ref:runtime.lastError will be set.",
+        "description": "移除指定权限的访问。如果移除权限过程中发生任何问题，将会设置 $ref:runtime.lastError。",
+        "parameters": [
+          {
+            "name": "permissions",
+            "$ref": "Permissions"
+          },
+          {
+            "name": "callback",
+            "type": "function",
+            "optional": true,
+            "parameters": [
+              {
+                "name": "removed",
+                "type": "boolean",
+//@                "description": "True if the permissions were removed."
+                "description": "如果权限已移除则为 true。"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

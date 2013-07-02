@@ -1,0 +1,117 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+[
+  {
+    "namespace":"fileBrowserHandler",
+//@    "description": "Use the <code>chrome.fileBrowserHandler</code> API to extend the Chrome OS file browser. For example, you can use this API to enable users to upload files to your website.",
+    "description": "使用 <code>chrome.fileBrowserHandler</code> API 扩展 Chrome OS 的文件浏览器。例如，您可以使用这一 API 让用户向您的网站上传文件。",
+    "platforms": ["chromeos"],
+    "types": [
+      {
+        "id": "FileHandlerExecuteEventDetails",
+        "type": "object",
+//@        "description": "Event details payload for fileBrowserHandler.onExecute event.",
+        "description": "$ref:fileBrowserHandler.onExecute 事件的详情。",
+        "properties": {
+          "entries": {
+            "type": "array",
+            "items": { "type": "any" },
+//@            "description": "Array of Entry instances representing files that are targets of this action (selected in ChromeOS file browser)."
+            "description": "Entry 实例的数组，代表这一操作的目标（Chrome OS 文件浏览器中的选定文件）。"
+          },
+          "tab_id" : {
+            "type": "integer",
+            "optional": true,
+//@            "description": "The ID of the tab that raised this event. Tab IDs are unique within a browser session."
+            "description": "产生这一事件的标签页标识符，标签页标识符在浏览器会话中唯一。"
+          }
+        }
+      }
+    ],
+
+    "events": [
+      {
+        "name": "onExecute",
+        "type": "function",
+//@        "description": "Fired when file system action is executed from ChromeOS file browser.",
+        "description": "当文件系统动作从 Chrome OS 文件浏览器中执行时发生。",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+//@            "description": "File browser action id as specified in the listener component's manifest."
+            "description": "文件浏览器动作的标识符，在监听器的清单文件中指定。"
+          },
+          {
+            "name": "details",
+            "$ref": "FileHandlerExecuteEventDetails",
+//@            "description": "File handler execute event details."
+            "description": "文件处理程序执行事件的详情。"
+          }
+        ]
+      }
+    ],
+
+    "functions": [
+      {
+        "name": "selectFile",
+        "type": "function",
+//@        "description": "Prompts user to select file path under which file should be saved. When the file is selected, file access permission required to use the file (read, write and create) are granted to the caller. The file will not actually get created during the function call, so function caller must ensure its existence before using it. The function has to be invoked with a user gesture.",
+        "description": "提示用户选择文件保存的路径。当文件选定后，需要使用文件（读、写和创建）的文件访问权限将授予给调用方。函数调用过程中不会真的创建文件，所以函数调用方在使用前必须确保它存在。该函数必须与用户的操作一起使用。",
+        "parameters": [
+          {
+            "name": "selectionParams",
+            "type": "object",
+//@            "description": "Parameters that will be used while selecting the file.",
+            "description": "用于选择文件的参数。",
+            "properties": {
+              "suggestedName": {
+                  "type": "string",
+//@                  "description": "Suggested name for the file."
+                  "description": "文件的推荐名称。"
+              },
+              "allowedFileExtensions": {
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "optional": true,
+//@                  "description": "List of file extensions that the selected file can have. The list is also used to specify what files to be shown in the select file dialog. Files with the listed extensions are only shown in the dialog. Extensions should not include the leading '.'. Example: ['jpg', 'png']"
+                  "description": "列出选定的文件可以包含的文件扩展名，该列表也用来指定选择文件对话框中显示哪些文件，对话框中只显示包含已列出扩展名的文件。扩展名不要包含前面的“.”。例如：['jpg', 'png']。"
+              }
+            }
+          },
+          {
+            "name": "callback",
+            "type": "function",
+//@            "description": "Function called upon completion.",
+            "description": "完成时调用的函数。",
+            "parameters": [
+              {
+                "name": "result",
+//@                "description": "Result of the method.",
+                "description": "方法的结果。",
+                "type": "object",
+                "properties": {
+                  "success": {
+                    "type": "boolean",
+//@                    "description": "Whether the file has been selected."
+                    "description": "是否选择了文件。"
+                  },
+                  "entry": {
+                    "type": "object",
+                    "constructor": "Entry",
+                    "additionalProperties": { "type": "any" },
+                    "optional": true,
+//@                    "description": "Selected file entry. It will be null if a file hasn't been selected."
+                    "description": "选定文件项，如果没有选择文件则为 null。"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

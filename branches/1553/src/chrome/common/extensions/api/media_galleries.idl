@@ -1,0 +1,79 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// <!--@Use the <code>chrome.mediaGalleries</code> API to access media files (images,
+// video, audio) from the user's local disks (with the user's consent).-->
+// 使用 <code>chrome.mediaGalleries</code> API
+// 从用户的本地磁盘（包含用户内容）中访问媒体文件（图片、视频、音频）。
+namespace mediaGalleries {
+
+  [inline_doc] enum GetMediaFileSystemsInteractivity {
+    // <!--@Do not act interactively.-->
+    // 不要交互式地进行。
+    no,
+    // <!--@Ask the user to manage permitted media galleries.-->
+    // 询问用户管理允许的媒体库。
+    yes,
+    // <!--@Ask the user to manage permitted galleries only if the return set would
+    // otherwise be empty.-->
+    // 只有当返回值会为空时才询问用户管理允许的媒体库。
+    if_needed
+  };
+
+  [inline_doc] dictionary MediaFileSystemsDetails {
+    // <!--@Whether to prompt the user for permission to additional media galleries
+    // before returning the permitted set. Default is silent.  If the value
+    // 'yes' is passed, or if the application has not been granted access to
+    // any media galleries and the value 'if_needed' is passed, then the
+    // media gallery configuration dialog will be displayed. A user
+    // gesture is required for the display of the dialog. (i.e. making the call
+    // in the context of a button press)-->
+    // 返回允许的内容前是否提示用户访问其他媒体库的权限，默认情况下不提示。如果传递了
+    // 'yes'，或者如果应用没有被授予访问任何媒体库的权限并且传递了
+    // 'if_needed'，则会显示媒体库配置对话框。显示对话框需要用户操作（即某个按钮按下时调用）。
+    GetMediaFileSystemsInteractivity? interactive;
+  };
+
+  callback MediaFileSystemsCallback =
+      void ([instanceOf=DOMFileSystem] optional object[] mediaFileSystems);
+
+  [inline_doc] dictionary MediaFileSystemMetadata {
+    // <!--@The name of the file system.-->
+    // 文件系统的名称。
+    DOMString name;
+
+    // <!--@A unique and persistent id for the media gallery.-->
+    // 媒体库的唯一持久标识符。
+    DOMString galleryId;
+
+    // <!--@If the media gallery is on a removable device, a unique id for the
+    // device.-->
+    // 如果媒体库位于可移动设备上则为设备的唯一标识符。
+    DOMString? deviceId;
+
+    // <!--@True if the media gallery is on a removable device.-->
+    // 如果媒体库在可移动设备上则为 true。
+    boolean isRemovable;
+
+    // <!--@True if the device the media gallery is on was detected as a media
+    // device.  i.e. a PTP or MTP device, or a DCIM directory is present.-->
+    // 如果检测到媒体库所在的设备是媒体设备（即 PTP 或 MTP
+    // 设备，或存在 DCIM 目录）则为 true。
+    boolean isMediaDevice;
+  };
+
+  interface Functions {
+    // <!--@Get the media galleries configured in this user agent. If none are
+    // configured or available, the callback will receive an empty array.-->
+    // 获取当前用户代理配置下的媒体库。如果没有配置或者没有可用的媒体库，回调函数将会接收空数组。
+    static void getMediaFileSystems(optional MediaFileSystemsDetails details,
+                                    MediaFileSystemsCallback callback);
+
+    // <!--@Get metadata about a specific media file system.-->
+    // 获取指定媒体文件系统的元数据。
+    [nocompile] static MediaFileSystemMetadata getMediaFileSystemMetadata(
+        [instanceOf=DOMFileSystem] object mediaFileSystem);
+  };
+
+};

@@ -1,0 +1,52 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// <!--@Use <code>chrome.pushMessaging</code> to enable apps and extensions to
+// receive message data sent through
+// <a href="cloudMessaging">Google Cloud Messaging</a>.-->
+// 使用 <code>chrome.pushMessaging</code> 使应用或扩展程序能够接收通过
+// <a href="cloudMessaging.html">Google 云消息服务</a>发送的消息数据。
+namespace pushMessaging {
+
+  dictionary Message {
+    // <!--@The subchannel the message was sent on;
+    // only values 0-3 are valid.-->
+    // 发送消息的子通道标识符，只有 0～3 之间的值有效。
+    long subchannelId;
+
+    // <!--@The payload associated with the message, if any. This should not contain
+    // any personally identifiable information.-->
+    // 与消息相关联的内容，如果有的话。不能包含任何个人识别信息。
+    DOMString payload;
+  };
+
+  dictionary ChannelIdResult {
+    // <!--@The channel ID for this app to use for push messaging.-->
+    // 该应用程序用于推送消息的通道标识符。
+    DOMString channelId;
+  };
+
+  callback ChannelIdCallback = void (ChannelIdResult channelId);
+
+  interface Functions {
+    // <!--@Retrieves the channel ID associated with this app or extension.
+    // Typically an app or extension will want to send this value
+    // to its application server so the server can use it
+    // to trigger push messages back to the app or extension.
+    // If the interactive flag is set, we will ask the user to log in
+    // when they are not already logged in.-->
+    // 接收与当前应用或扩展程序相关联的通道标识符。通常应用或扩展程序会将这一值发送至应用程序服务器，以便服务器使用它来触发发送回应用或扩展程序的推送消息。如果设置了
+    // interactive 标志并且还没有登录的话我们将要求用户登录。
+    static void getChannelId(optional boolean interactive,
+                             ChannelIdCallback callback);
+  };
+
+  interface Events {
+    // <!--@Fired when a push message has been received.-->
+    // 接收到推送消息时产生。
+    // |message| : <!--@The details associated with the message.-->
+    // 与消息相关联的详情。
+    static void onMessage(Message message);
+  };
+};

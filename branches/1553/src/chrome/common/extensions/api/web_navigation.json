@@ -1,0 +1,419 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+[
+  {
+    "namespace": "webNavigation",
+//@    "description": "Use the <code>chrome.webNavigation</code> API to receive notifications about the status of navigation requests in-flight.",
+    "description": "使用 <code>chrome.webNavigation</code> API 实时地接收有关导航请求状态的通知。",
+    "types": [],
+    "functions": [
+      {
+        "name": "getFrame",
+        "type": "function",
+//@        "description": "Retrieves information about the given frame. A frame refers to an &lt;iframe&gt; or a &lt;frame&gt; of a web page and is identified by a tab ID and a frame ID.",
+        "description": "获取指定框架的有关信息。框架指网页中的 &lt;iframe&gt; 或者 &lt;frame&gt; 元素，通过标签页标识符以及框架标识符指定。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "details",
+//@            "description": "Information about the frame to retrieve information about.",
+            "description": "要获取信息的框架的有关信息。",
+            "properties": {
+//@              "tabId": { "type": "integer", "minimum": 0, "description": "The ID of the tab in which the frame is." },
+              "tabId": { "type": "integer", "minimum": 0, "description": "框架所在的标签页标识符。" },
+//@              "processId": {"type": "integer", "description": "The ID of the process runs the renderer for this tab."},
+              "processId": {"type": "integer", "description": "该标签页的渲染器进程标识符。"},
+//@              "frameId": { "type": "integer", "minimum": 0, "description": "The ID of the frame in the given tab." }
+              "frameId": { "type": "integer", "minimum": 0, "description": "指定标签页中的框架标识符。" }
+            }
+          },
+          {
+            "type": "function", "name": "callback", "parameters": [
+              {
+                "type": "object",
+                "name": "details",
+                "optional": true,
+//@                "description": "Information about the requested frame, null if the specified frame ID and/or tab ID are invalid.",
+                "description": "请求框架的有关信息，如果框架标识符和/或标签页标识符无效则为 null。",
+                "properties": {
+                  "errorOccurred": {
+                    "type": "boolean",
+//@                    "description": "True if the last navigation in this frame was interrupted by an error, i.e. the onErrorOccurred event fired."
+                    "description": "如果该框架中的上一次导航由于错误（即产生了 onErrorOccurred 事件）而中断则为 true。"
+                  },
+                  "url": {
+                    "type": "string",
+//@                    "description": "The URL currently associated with this frame, if the frame identified by the frameId existed at one point in the given tab. The fact that an URL is associated with a given frameId does not imply that the corresponding frame still exists."
+                    "description": "如果在指定标签页中 frameId 指定的框架标识符在某一时刻曾经存在的话，则为当前与该框架相关联的 URL。URL 与给定的框架标识符相关联并不意味着相应的框架仍然存在。"
+                  },
+                  "parentFrameId": {
+                    "type": "integer",
+//@                    "description": "ID of frame that wraps the frame. Set to -1 of no parent frame exists."
+                    "description": "包含当前框架的父框架，如果不存在父框架则设为 -1。"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "getAllFrames",
+        "type": "function",
+//@        "description": "Retrieves information about all frames of a given tab.",
+        "description": "获取给定标签页中所有框架的有关信息。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "details",
+//@            "description": "Information about the tab to retrieve all frames from.",
+            "description": "要获取所有框架的标签页信息。",
+            "properties": {
+//@              "tabId": { "type": "integer", "minimum": 0, "description": "The ID of the tab." }
+              "tabId": { "type": "integer", "minimum": 0, "description": "标签页的标识符。" }
+            }
+          },
+          {
+            "type": "function", "name": "callback", "parameters": [
+              {
+                "name": "details",
+                "type": "array",
+//@                "description": "A list of frames in the given tab, null if the specified tab ID is invalid.",
+                "description": "指定标签页中的所有框架，若标签页标识符无效则为 null。",
+                "optional": true,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "errorOccurred": {
+                      "type": "boolean",
+//@                      "description": "True if the last navigation in this frame was interrupted by an error, i.e. the onErrorOccurred event fired."
+                      "description": "如果该框架中的上一次导航由于错误（即产生了 onErrorOccurred 事件）而中断则为 true。"
+                    },
+                    "processId": {
+                      "type": "integer",
+//@                      "description": "The ID of the process runs the renderer for this tab."
+                      "description": "该标签页的渲染器进程标识符。"
+                    },
+                    "frameId": {
+                      "type": "integer",
+//@                      "description": "The ID of the frame. 0 indicates that this is the main frame; a positive value indicates the ID of a subframe."
+                      "description": "框架标识符，0 表示主框架，正整数表示子框架标识符。"
+                    },
+                    "parentFrameId": {
+                      "type": "integer",
+//@                      "description": "ID of frame that wraps the frame. Set to -1 of no parent frame exists."
+                      "description": "包含当前框架的父框架，如果不存在父框架则设为 -1。"
+                    },
+                    "url": {
+                      "type": "string",
+//@                      "description": "The URL currently associated with this frame."
+                      "description": "当前与该框架相关联的URL。"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "onBeforeNavigate",
+        "type": "function",
+//@        "description": "Fired when a navigation is about to occur.",
+        "description": "当导航即将发生时产生。",
+        "filters": [
+          {
+            "name": "url",
+            "type": "array",
+            "items": { "$ref": "events.UrlFilter" },
+//@            "description": "Conditions that the URL being navigated to must satisfy. The 'schemes' and 'ports' fields of UrlFilter are ignored for this event."
+            "description": "正在导航的 URL 所需满足的条件。对于该事件，UrlFilter 的 schemes 和 ports 字段将忽略。"
+          }
+        ],
+        "parameters": [
+          {
+            "type": "object",
+            "name": "details",
+            "properties": {
+//@              "tabId": {"type": "integer", "description": "The ID of the tab in which the navigation is about to occur."},
+              "tabId": {"type": "integer", "description": "将要发生的导航所在的标签页标识符。"},
+              "url": {"type": "string"},
+//@              "processId": {"type": "integer", "description": "The ID of the process runs the renderer for this tab."},
+              "processId": {"type": "integer", "description": "渲染当前标签页的进程标识符。"},
+//@              "frameId": {"type": "integer", "description": "0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique for a given tab and process."},
+              "frameId": {"type": "integer", "description": "0 表示导航发生在标签页内容窗口中，正数表示导航发生在子框架中。框架标识符在给定标签页与进程中唯一。"},
+//@              "parentFrameId": {"type": "integer", "description": "ID of frame that wraps the frame. Set to -1 of no parent frame exists."},
+              "parentFrameId": {"type": "integer", "description": "包含当前框架的父框架，如果不存在父框架则设为 -1。"},
+//@              "timeStamp": {"type": "number", "description": "The time when the browser was about to start the navigation, in milliseconds since the epoch."}
+              "timeStamp": {"type": "number", "description": "浏览器将要开始导航的时间，表示为自 1970 年 1 月 1 日午夜开始所经过的毫秒数。"}
+            }
+          }
+        ]
+      },
+      {
+        "name": "onCommitted",
+        "type": "function",
+//@        "description": "Fired when a navigation is committed. The document (and the resources it refers to, such as images and subframes) might still be downloading, but at least part of the document has been received from the server and the browser has decided to switch to the new document.",
+        "description": "当一次导航提交时产生。文档（以及它引用的资源，例如图片与子框架）可能还在下载，但是至少文档的一部分已经从服务器接收到，并且浏览器已经决定切换到新文档。",
+        "filters": [
+          {
+            "name": "url",
+            "type": "array",
+            "items": { "$ref": "events.UrlFilter" },
+//@            "description": "Conditions that the URL being navigated to must satisfy. The 'schemes' and 'ports' fields of UrlFilter are ignored for this event."
+            "description": "正在导航的 URL 所需满足的条件。对于该事件，UrlFilter 的 schemes 和 ports 字段将忽略。"
+          }
+        ],
+        "parameters": [
+          {
+            "type": "object",
+            "name": "details",
+            "properties": {
+//@              "tabId": {"type": "integer", "description": "The ID of the tab in which the navigation occurs."},
+              "tabId": {"type": "integer", "description": "导航所在的标签页标识符。"},
+              "url": {"type": "string"},
+//@              "processId": {"type": "integer", "description": "The ID of the process runs the renderer for this tab."},
+              "processId": {"type": "integer", "description": "渲染当前标签页的进程标识符。"},
+//@              "frameId": {"type": "integer", "description": "0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique within a tab."},
+              "frameId": {"type": "integer", "description": "0 表示导航发生在标签页内容窗口中，正数表示导航发生在子框架中。框架标识符在标签页中唯一。"},
+//@              "transitionType": {"type": "string", "enum": ["link", "typed", "auto_bookmark", "auto_subframe", "manual_subframe", "generated", "start_page", "form_submit", "reload", "keyword", "keyword_generated"], "description": "Cause of the navigation. The same transition types as defined in the history API are used."},
+              "transitionType": {"type": "string", "enum": ["link", "typed", "auto_bookmark", "auto_subframe", "manual_subframe", "generated", "start_page", "form_submit", "reload", "keyword", "keyword_generated"], "description": "导航发生的原因，这些过渡类型与<a href='history.html'>历史记录API</a>中所定义的相同。"},
+//@              "transitionQualifiers": {"type": "array", "description": "A list of transition qualifiers.", "items": {"type": "string", "enum": ["client_redirect", "server_redirect", "forward_back", "from_address_bar"]}},
+              "transitionQualifiers": {"type": "array", "description": "过渡限定符列表。", "items": {"type": "string", "enum": ["client_redirect", "server_redirect", "forward_back", "from_address_bar"]}},
+//@              "timeStamp": {"type": "number", "description": "The time when the navigation was committed, in milliseconds since the epoch."}
+              "timeStamp": {"type": "number", "description": "导航提交的时间，表示为自 1970 年 1 月 1 日午夜开始所经过的毫秒数。"}
+            }
+          }
+        ]
+      },
+      {
+        "name": "onDOMContentLoaded",
+        "type": "function",
+//@        "description": "Fired when the page's DOM is fully constructed, but the referenced resources may not finish loading.",
+        "description": "当页面的 DOM 已完全构造时产生，但是此时引用的资源可能还未完成加载。",
+        "filters": [
+          {
+            "name": "url",
+            "type": "array",
+            "items": { "$ref": "events.UrlFilter" },
+//@            "description": "Conditions that the URL being navigated to must satisfy. The 'schemes' and 'ports' fields of UrlFilter are ignored for this event."
+            "description": "正在导航的 URL 所需满足的条件。对于该事件，UrlFilter 的 schemes 和 ports 字段将忽略。"
+          }
+        ],
+        "parameters": [
+          {
+            "type": "object",
+            "name": "details",
+            "properties": {
+//@              "tabId": {"type": "integer", "description": "The ID of the tab in which the navigation occurs."},
+              "tabId": {"type": "integer", "description": "导航所在的标签页标识符。"},
+              "url": {"type": "string"},
+//@              "processId": {"type": "integer", "description": "The ID of the process runs the renderer for this tab."},
+              "processId": {"type": "integer", "description": "渲染当前标签页的进程标识符。"},
+//@              "frameId": {"type": "integer", "description": "0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique within a tab."},
+              "frameId": {"type": "integer", "description": "0 表示导航发生在标签页内容窗口中，正数表示导航发生在子框架中。框架标识符在标签页中唯一。"},
+//@              "timeStamp": {"type": "number", "description": "The time when the page's DOM was fully constructed, in milliseconds since the epoch."}
+              "timeStamp": {"type": "number", "description": "页面 DOM 完全构造的时间，表示为自 1970 年 1 月 1 日午夜开始所经过的毫秒数。"}
+            }
+          }
+        ]
+      },
+      {
+        "name": "onCompleted",
+        "type": "function",
+//@        "description": "Fired when a document, including the resources it refers to, is completely loaded and initialized.",
+        "description": "当文档（包括它所引用的资源）已经完全加载并初始化完成时产生。",
+        "filters": [
+          {
+            "name": "url",
+            "type": "array",
+            "items": { "$ref": "events.UrlFilter" },
+//@            "description": "Conditions that the URL being navigated to must satisfy. The 'schemes' and 'ports' fields of UrlFilter are ignored for this event."
+            "description": "正在导航的 URL 所需满足的条件。对于该事件，UrlFilter 的 schemes 和 ports 字段将忽略。"
+          }
+        ],
+        "parameters": [
+          {
+            "type": "object",
+            "name": "details",
+            "properties": {
+//@              "tabId": {"type": "integer", "description": "The ID of the tab in which the navigation occurs."},
+              "tabId": {"type": "integer", "description": "导航所在的标签页标识符。"},
+              "url": {"type": "string"},
+//@              "processId": {"type": "integer", "description": "The ID of the process runs the renderer for this tab."},
+              "processId": {"type": "integer", "description": "渲染当前标签页的进程标识符。"},
+//@              "frameId": {"type": "integer", "description": "0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique within a tab."},
+              "frameId": {"type": "integer", "description": "0 表示导航发生在标签页内容窗口中，正数表示导航发生在子框架中。框架标识符在标签页中唯一。"},
+//@              "timeStamp": {"type": "number", "description": "The time when the document finished loading, in milliseconds since the epoch."}
+              "timeStamp": {"type": "number", "description": "文档加载完成的时间，表示为自 1970 年 1 月 1 日午夜开始所经过的毫秒数。"}
+            }
+          }
+        ]
+      },
+      {
+        "name": "onErrorOccurred",
+        "type": "function",
+//@        "description": "Fired when an error occurs and the navigation is aborted. This can happen if either a network error occurred, or the user aborted the navigation.",
+        "description": "当错误发生，导航终止时产生。无论网络错误还是用户终止导航都会产生这一事件。",
+        "filters": [
+          {
+            "name": "url",
+            "type": "array",
+            "items": { "$ref": "events.UrlFilter" },
+//@            "description": "Conditions that the URL being navigated to must satisfy. The 'schemes' and 'ports' fields of UrlFilter are ignored for this event."
+            "description": "正在导航的 URL 所需满足的条件。对于该事件，UrlFilter 的 schemes 和 ports 字段将忽略。"
+          }
+        ],
+        "parameters": [
+          {
+            "type": "object",
+            "name": "details",
+            "properties": {
+//@              "tabId": {"type": "integer", "description": "The ID of the tab in which the navigation occurs."},
+              "tabId": {"type": "integer", "description": "导航所在的标签页标识符。"},
+              "url": {"type": "string"},
+//@              "processId": {"type": "integer", "description": "The ID of the process runs the renderer for this tab."},
+              "processId": {"type": "integer", "description": "渲染当前标签页的进程标识符。"},
+//@              "frameId": {"type": "integer", "description": "0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique within a tab."},
+              "frameId": {"type": "integer", "description": "0 表示导航发生在标签页内容窗口中，正数表示导航发生在子框架中。框架标识符在标签页中唯一。"},
+//@              "error": {"type": "string", "description": "The error description."},
+              "error": {"type": "string", "description": "错误描述。"},
+//@              "timeStamp": {"type": "number", "description": "The time when the error occurred, in milliseconds since the epoch."}
+              "timeStamp": {"type": "number", "description": "发生错误的时间，表示为自 1970 年 1 月 1 日午夜开始所经过的毫秒数。"}
+            }
+          }
+        ]
+      },
+      {
+        "name": "onCreatedNavigationTarget",
+        "type": "function",
+//@        "description": "Fired when a new window, or a new tab in an existing window, is created to host a navigation.",
+        "description": "当用来进行导航的新窗口或现有窗口中的新标签页创建时产生。",
+        "filters": [
+          {
+            "name": "url",
+            "type": "array",
+            "items": { "$ref": "events.UrlFilter" },
+//@            "description": "Conditions that the URL being navigated to must satisfy. The 'schemes' and 'ports' fields of UrlFilter are ignored for this event."
+            "description": "正在导航的 URL 所需满足的条件。对于该事件，UrlFilter 的 schemes 和 ports 字段将忽略。"
+          }
+        ],
+        "parameters": [
+          {
+            "type": "object",
+            "name": "details",
+            "properties": {
+//@              "sourceTabId": {"type": "integer", "description": "The ID of the tab in which the navigation is triggered."},
+              "sourceTabId": {"type": "integer", "description": "触发这一导航的标签页标识符。"},
+//@              "sourceProcessId": {"type": "integer", "description": "The ID of the process runs the renderer for the source tab."},
+              "sourceProcessId": {"type": "integer", "description": "渲染来源标签页的进程标识符。"},
+//@              "sourceFrameId": {"type": "integer", "description": "The ID of the frame with sourceTabId in which the navigation is triggered. 0 indicates the main frame."},
+              "sourceFrameId": {"type": "integer", "description": "触发这一导航的框架标识符。0 表示主框架。"},
+//@              "url": {"type": "string", "description": "The URL to be opened in the new window."},
+              "url": {"type": "string", "description": "要在新窗口中打开的 URL。"},
+//@              "tabId": {"type": "integer", "description": "The ID of the tab in which the url is opened"},
+              "tabId": {"type": "integer", "description": "打开这一 URL 的标签页标识符。"},
+//@              "timeStamp": {"type": "number", "description": "The time when the browser was about to create a new view, in milliseconds since the epoch."}
+              "timeStamp": {"type": "number", "description": "浏览器将要创建新视图的时间，表示为自 1970 年 1 月 1 日午夜开始所经过的毫秒数。"}
+            }
+          }
+        ]
+      },
+      {
+        "name": "onReferenceFragmentUpdated",
+        "type": "function",
+//@        "description": "Fired when the reference fragment of a frame was updated. All future events for that frame will use the updated URL.",
+        "description": "当框架的引用片段更新时产生，该框架以后所有的事件都会使用更新的 URL。",
+        "filters": [
+          {
+            "name": "url",
+            "type": "array",
+            "items": { "$ref": "events.UrlFilter" },
+//@            "description": "Conditions that the URL being navigated to must satisfy. The 'schemes' and 'ports' fields of UrlFilter are ignored for this event."
+            "description": "正在导航的 URL 所需满足的条件。对于该事件，UrlFilter 的 schemes 和 ports 字段将忽略。"
+          }
+        ],
+        "parameters": [
+          {
+            "type": "object",
+            "name": "details",
+            "properties": {
+//@              "tabId": {"type": "integer", "description": "The ID of the tab in which the navigation occurs."},
+              "tabId": {"type": "integer", "description": "导航所在的标签页标识符。"},
+              "url": {"type": "string"},
+//@              "processId": {"type": "integer", "description": "The ID of the process runs the renderer for this tab."},
+              "processId": {"type": "integer", "description": "渲染当前标签页的进程标识符。"},
+//@              "frameId": {"type": "integer", "description": "0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique within a tab."},
+              "frameId": {"type": "integer", "description": "0 表示导航发生在标签页内容窗口中，正数表示导航发生在子框架中。框架标识符在标签页中唯一。"},
+//@              "transitionType": {"type": "string", "enum": ["link", "typed", "auto_bookmark", "auto_subframe", "manual_subframe", "generated", "start_page", "form_submit", "reload", "keyword", "keyword_generated"], "description": "Cause of the navigation. The same transition types as defined in the history API are used."},
+              "transitionType": {"type": "string", "enum": ["link", "typed", "auto_bookmark", "auto_subframe", "manual_subframe", "generated", "start_page", "form_submit", "reload", "keyword", "keyword_generated"], "description": "导航发生的原因，这些过渡类型与<a href='history.html'>历史记录API</a>中所定义的相同。"},
+//@              "transitionQualifiers": {"type": "array", "description": "A list of transition qualifiers.", "items": {"type": "string", "enum": ["client_redirect", "server_redirect", "forward_back", "from_address_bar"]}},
+              "transitionQualifiers": {"type": "array", "description": "过渡限定符列表。", "items": {"type": "string", "enum": ["client_redirect", "server_redirect", "forward_back", "from_address_bar"]}},
+//@              "timeStamp": {"type": "number", "description": "The time when the navigation was committed, in milliseconds since the epoch."}
+              "timeStamp": {"type": "number", "description": "导航提交的时间，表示为自 1970 年 1 月 1 日午夜开始所经过的毫秒数。"}
+            }
+          }
+        ]
+      },
+      {
+        "name": "onTabReplaced",
+        "type": "function",
+//@        "description": "Fired when the contents of the tab is replaced by a different (usually previously pre-rendered) tab.",
+        "description": "当标签页内容由另一个（通常时之前预呈现的）标签页替换时产生。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "details",
+            "properties": {
+//@              "replacedTabId": {"type": "integer", "description": "The ID of the tab that was replaced."},
+              "replacedTabId": {"type": "integer", "description": "被替换的标签页标识符。"},
+//@              "tabId": {"type": "integer", "description": "The ID of the tab that replaced the old tab."},
+              "tabId": {"type": "integer", "description": "替换旧标签页的标签页标识符。"},
+//@              "timeStamp": {"type": "number", "description": "The time when the replacement happened, in milliseconds since the epoch."}
+              "timeStamp": {"type": "number", "description": "替换发生的时间，表示为自 1970 年 1 月 1 日午夜开始所经过的毫秒数。"}
+            }
+          }
+        ]
+      },
+      {
+        "name": "onHistoryStateUpdated",
+        "type": "function",
+        "description": "当框架的历史记录更新为新的 URL 时产生，对应框架之后产生的所有事件都会使用已更新的 URL。",
+        "filters": [
+          {
+            "name": "url",
+            "type": "array",
+            "items": { "$ref": "events.UrlFilter" },
+//@            "description": "Conditions that the URL being navigated to must satisfy. The 'schemes' and 'ports' fields of UrlFilter are ignored for this event."
+            "description": "正在导航的 URL 所需满足的条件。对于该事件，UrlFilter 的 schemes 和 ports 字段将忽略。"
+          }
+        ],
+        "parameters": [
+          {
+            "type": "object",
+            "name": "details",
+            "properties": {
+//@              "tabId": {"type": "integer", "description": "The ID of the tab in which the navigation occurs."},
+              "tabId": {"type": "integer", "description": "导航所在的标签页标识符。"},
+              "url": {"type": "string"},
+//@              "processId": {"type": "integer", "description": "The ID of the process runs the renderer for this tab."},
+              "processId": {"type": "integer", "description": "渲染当前标签页的进程标识符。"},
+//@              "frameId": {"type": "integer", "description": "0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique within a tab."},
+              "frameId": {"type": "integer", "description": "0 表示导航发生在标签页内容窗口中，正数表示导航发生在子框架中。框架标识符在标签页中唯一。"},
+//@              "transitionType": {"type": "string", "enum": ["link", "typed", "auto_bookmark", "auto_subframe", "manual_subframe", "generated", "start_page", "form_submit", "reload", "keyword", "keyword_generated"], "description": "Cause of the navigation. The same transition types as defined in the history API are used."},
+              "transitionType": {"type": "string", "enum": ["link", "typed", "auto_bookmark", "auto_subframe", "manual_subframe", "generated", "start_page", "form_submit", "reload", "keyword", "keyword_generated"], "description": "导航发生的原因，这些过渡类型与<a href='history.html'>历史记录API</a>中所定义的相同。"},
+//@              "transitionQualifiers": {"type": "array", "description": "A list of transition qualifiers.", "items": {"type": "string", "enum": ["client_redirect", "server_redirect", "forward_back", "from_address_bar"]}},
+              "transitionQualifiers": {"type": "array", "description": "过渡限定符列表。", "items": {"type": "string", "enum": ["client_redirect", "server_redirect", "forward_back", "from_address_bar"]}},
+//@              "timeStamp": {"type": "number", "description": "The time when the navigation was committed, in milliseconds since the epoch."}
+              "timeStamp": {"type": "number", "description": "导航提交的时间，表示为自 1970 年 1 月 1 日午夜开始所经过的毫秒数。"}
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
