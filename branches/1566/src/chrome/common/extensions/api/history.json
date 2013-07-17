@@ -1,0 +1,213 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+[
+  {
+    "namespace": "history",
+//@    "description": "Use the <code>chrome.history</code> API to interact with the browser's record of visited pages. You can add, remove, and query for URLs in the browser's history. To override the history page with your own version, see <a href='override.html'>Override Pages</a>.",
+    "description": "使用 <code>chrome.history</code> API 与浏览器的历史记录交互，您可以添加、删除、通过 URL 查询浏览器的历史记录。如果您想要使用您自己的版本替换默认的历史记录页面，请参见<a href='override.html'>替代页面</a>。",
+    "types": [
+      {
+        "id": "HistoryItem",
+        "type": "object",
+//@        "description": "An object encapsulating one result of a history query.",
+        "description": "包含历史记录的一个查询结果的对象。",
+        "properties": {
+//@          "id": {"type": "string", "minimum": 0, "description": "The unique identifier for the item."},
+          "id": {"type": "string", "minimum": 0, "description": "该项目的唯一标识符。"},
+//@          "url": {"type": "string", "optional": true, "description": "The URL navigated to by a user."},
+          "url": {"type": "string", "optional": true, "description": "用户访问的 URL。"},
+//@          "title": {"type": "string", "optional": true, "description": "The title of the page when it was last loaded."},
+          "title": {"type": "string", "optional": true, "description": "上一次加载时该页面的标题。"},
+//@          "lastVisitTime": {"type": "number", "optional": true, "description": "When this page was last loaded, represented in milliseconds since the epoch."},
+          "lastVisitTime": {"type": "number", "optional": true, "description": "页面最后一次访问的时间，表示为从 1970 年 1 月 1 日午夜开始所经过的毫秒数。"},
+//@          "visitCount": {"type": "integer", "optional": true, "description": "The number of times the user has navigated to this page."},
+          "visitCount": {"type": "integer", "optional": true, "description": "用户访问此页面的次数。"},
+//@          "typedCount": {"type": "integer", "optional": true, "description": "The number of times the user has navigated to this page by typing in the address."}
+          "typedCount": {"type": "integer", "optional": true, "description": "用户通过在地址来中输入 URL 的方式访问此页面的次数。"}
+        }
+      },
+      {
+        "id": "VisitItem",
+        "type": "object",
+//@        "description": "An object encapsulating one visit to a URL.",
+        "description": "包含对一个 URL 的某一次访问的对象。",
+        "properties": {
+//@          "id": {"type": "string", "minimum": 0, "description": "The unique identifier for the item."},
+          "id": {"type": "string", "minimum": 0, "description": "该项目的唯一标识符。"},
+//@          "visitId": {"type": "string", "description": "The unique identifier for this visit."},
+          "visitId": {"type": "string", "description": "本次访问的唯一标识符。"},
+//@          "visitTime": {"type": "number", "optional": true, "description": "When this visit occurred, represented in milliseconds since the epoch."},
+          "visitTime": {"type": "number", "optional": true, "description": "访问时间，表示为从 1970 年 1 月 1 日午夜开始所经过的毫秒数。"},
+//@          "referringVisitId": {"type": "string", "description": "The visit ID of the referrer."},
+          "referringVisitId": {"type": "string", "description": "引用者的访问所对应的标识符。"},
+          "transition": {
+            "type": "string",
+            "enum": ["link", "typed", "auto_bookmark", "auto_subframe", "manual_subframe", "generated", "auto_toplevel", "form_submit", "reload", "keyword", "keyword_generated"],
+//@            "description": "The <a href='#transition_types'>transition type</a> for this visit from its referrer."
+            "description": "这一次访问相对引用者的<a href='#transition_types'>过渡类型</a>。"
+          }
+        }
+      }
+    ],
+    "functions": [
+      {
+        "name": "search",
+        "type": "function",
+//@        "description": "Searches the history for the last visit time of each page matching the query.",
+        "description": "搜索历史记录，找出所有匹配页面的最后一次访问记录。",
+        "parameters": [
+          {
+            "name": "query",
+            "type": "object",
+            "properties": {
+//@              "text": {"type": "string", "description": "A free-text query to the history service.  Leave empty to retrieve all pages."},
+              "text": {"type": "string", "description": "向历史记录服务发出的查询文本，如果为空则获取所有页面。"},
+//@              "startTime": {"type": "number", "optional": true, "description": "Limit results to those visited after this date, represented in milliseconds since the epoch."},
+              "startTime": {"type": "number", "optional": true, "description": "将结果限制为此日期之后的访问，表示为从 1970 年 1 月 1 日午夜开始所经过的毫秒数。"},
+//@              "endTime": {"type": "number", "optional": true, "description": "Limit results to those visited before this date, represented in milliseconds since the epoch."},
+              "endTime": {"type": "number", "optional": true, "description": "将结果限制为此日期之前的访问，表示为从 1970 年 1 月 1 日午夜开始所经过的毫秒数。"},
+//@              "maxResults": {"type": "integer", "optional": true, "minimum": 0, "description": "The maximum number of results to retrieve.  Defaults to 100."}
+              "maxResults": {"type": "integer", "optional": true, "minimum": 0, "description": "要获得的最大结果数目，默认为 100。"}
+            }
+          },
+          {
+            "name": "callback",
+            "type": "function",
+            "parameters": [
+              { "name": "results", "type": "array", "items": { "$ref": "HistoryItem"} }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "getVisits",
+        "type": "function",
+//@        "description": "Retrieves information about visits to a URL.",
+        "description": "获取有关某个 URL 的访问信息。",
+        "parameters": [
+          {
+            "name": "details",
+            "type": "object",
+            "properties": {
+//@              "url": {"type": "string", "description": "The URL for which to retrieve visit information.  It must be in the format as returned from a call to history.search."}
+              "url": {"type": "string", "description": "需要获取信息的 URL，必须与 $ref:history.search 调用的返回值具有相同的形式。"}
+            }
+          },
+          {
+            "name": "callback",
+            "type": "function",
+            "parameters": [
+              { "name": "results", "type": "array", "items": { "$ref": "VisitItem"} }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "addUrl",
+        "type": "function",
+//@        "description": "Adds a URL to the history at the current time with a <a href='#transition_types'>transition type</a> of \"link\".",
+        "description": "向历史记录中以当前时间添加 URL，<a href='#transition_types'>过渡类型</a>为 \"link\"。",
+        "parameters": [
+          {
+            "name": "details",
+            "type": "object",
+            "properties": {
+//@              "url": {"type": "string", "description": "The URL to add."}
+              "url": {"type": "string", "description": "要添加的 URL。"}
+            }
+          },
+          {
+            "name": "callback",
+            "type": "function",
+            "optional": true,
+            "parameters": []
+          }
+        ]
+      },
+      {
+        "name": "deleteUrl",
+        "type": "function",
+//@        "description": "Removes all occurrences of the given URL from the history.",
+        "description": "从历史记录中删除出现给定 URL 的所有内容。",
+        "parameters": [
+          {
+            "name": "details",
+            "type": "object",
+            "properties": {
+//@              "url": {"type": "string", "description": "The URL to remove."}
+              "url": {"type": "string", "description": "要删除的 URL。"}
+            }
+          },
+          {
+            "name": "callback",
+            "type": "function",
+            "optional": true,
+            "parameters": []
+          }
+        ]
+      },
+      {
+        "name": "deleteRange",
+        "type": "function",
+//@        "description": "Removes all items within the specified date range from the history.  Pages will not be removed from the history unless all visits fall within the range.",
+        "description": "删除指定日期范围内的所有历史记录，访问日期不在这一范围内的页面不会从历史记录中删除。",
+        "parameters": [
+          {
+            "name": "range",
+            "type": "object",
+            "properties": {
+//@              "startTime": { "type": "number", "description": "Items added to history after this date, represented in milliseconds since the epoch." },
+              "startTime": { "type": "number", "description": "删除这一时间之后的添加历史记录，表示为从 1970 年 1 月 1 日午夜开始所经过的毫秒数。" },
+//@              "endTime": { "type": "number", "description": "Items added to history before this date, represented in milliseconds since the epoch." }
+              "endTime": { "type": "number", "description": "删除这一时间之前的添加历史记录，表示为从 1970 年 1 月 1 日午夜开始所经过的毫秒数。" }
+            }
+          },
+          {
+            "name": "callback", "type": "function", "parameters": []
+          }
+        ]
+      },
+      {
+        "name": "deleteAll",
+        "type": "function",
+//@        "description": "Deletes all items from the history.",
+        "description": "删除历史记录中的所有项目。",
+        "parameters": [
+          {
+            "name": "callback", "type": "function", "parameters": []
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "onVisited",
+        "type": "function",
+//@        "description": "Fired when a URL is visited, providing the HistoryItem data for that URL.  This event fires before the page has loaded.",
+        "description": "当访问某个 URL 时产生，并提供该 URL 的 HistoryItem 数据。这一事件在页面加载完成前产生。",
+        "parameters": [
+          { "name": "result", "$ref": "HistoryItem"}
+        ]
+      },
+      {
+        "name": "onVisitRemoved",
+        "type": "function",
+//@        "description": "Fired when one or more URLs are removed from the history service.  When all visits have been removed the URL is purged from history.",
+        "description": "当一个或多个 URL 从历史记录服务删除时产生，当所有访问都删除时 URL 将从历史记录中清除。",
+        "parameters": [
+          {
+            "name": "removed",
+            "type": "object",
+            "properties": {
+//@              "allHistory": { "type": "boolean", "description": "True if all history was removed.  If true, then urls will be empty." },
+              "allHistory": { "type": "boolean", "description": "如果删除所有历史记录则为 true。如果为 true，urls 参数将为空。" },
+              "urls": { "type": "array", "items": { "type": "string" }, "optional": true}
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
