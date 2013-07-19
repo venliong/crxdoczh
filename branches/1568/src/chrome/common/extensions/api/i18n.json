@@ -1,0 +1,58 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+[
+  {
+    "namespace": "i18n",
+//@    "description": "Use the <code>chrome.i18n</code> infrastructure to implement internationalization across your whole app or extension.",
+    "description": "使用 <code>chrome.i18n</code> 架构为您的整个应用或扩展程序实现国际化支持。",
+    "types": [],
+    "functions": [
+      {
+        "name": "getAcceptLanguages",
+        "type": "function",
+//@        "description": "Gets the accept-languages of the browser. This is different from the locale used by the browser; to get the locale, use <code>window.navigator.language</code>.",
+        "description": "获取浏览器可接受的语言。这和浏览器使用的语言不同，要获取这一语言，请使用 <code>window.navigator.language</code>。",
+        "parameters": [
+          {
+            "type": "function",
+            "name": "callback",
+            "parameters": [
+//@              {"name": "languages", "type": "array", "items": {"type": "string"}, "description": "Array of the accept languages of the browser, such as en-US,en,zh-CN"}
+              {"name": "languages", "type": "array", "items": {"type": "string"}, "description": "包含浏览器可接受的所有语言的数组，例如en-US、en、zh-CN。"}
+            ]
+          }
+        ]
+      },
+      {
+        "name": "getMessage",
+        "nocompile": true,
+        "type": "function",
+//@        "description": "Gets the localized string for the specified message. If the message is missing, this method returns an empty string (''). If the format of the <code>getMessage()</code> call is wrong &mdash; for example, <em>messageName</em> is not a string or the <em>substitutions</em> array has more than 9 elements &mdash; this method returns <code>undefined</code>.",
+        "description": "获得指定消息的本地化字符串。如果消息不存在，该方法返回空字符串（\"\"）。如果 <code>getMessage()</code> 的调用格式不正确，例如，<em>messageName</em> 不是字符串或者 <em>substitutions</em> 数组为空或包含的元素超过 9 个，该方法返回 <code>undefined</code>。",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "messageName",
+//@            "description": "The name of the message, as specified in the <a href='i18n-messages.html'><code>messages.json</code></a> file."
+            "description": "消息的名称，与 <a href='i18n-messages.html'><code>messages.json</code></a> 文件中指定的一致。"
+          },
+          {
+            "type": "any",
+            "name": "substitutions",
+            "optional": true,
+//@            "description": "Up to 9 substitution strings, if the message requires any."
+            "description": "如果对应的消息需要的话，则包含最多 9 个替代字符串。"
+          }
+        ],
+        "returns": {
+          "type": "string",
+//@          "description": "Message localized for current locale."
+          "description": "用于当前语言的本地化消息。"
+        }
+      }
+    ],
+    "events": []
+  }
+]

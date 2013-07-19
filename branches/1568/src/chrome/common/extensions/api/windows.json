@@ -1,0 +1,325 @@
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+[
+  {
+    "namespace": "windows",
+//@    "description": "Use the <code>chrome.windows</code> API to interact with browser windows. You can use this API to create, modify, and rearrange windows in the browser.",
+    "description": "使用 <code>chrome.windows</code> API 与浏览器窗口交互。您可以使用该模块创建、修改和重新排列浏览器中的窗口。",
+    "compiler_options": {
+      "implemented_in": "chrome/browser/extensions/api/tabs/tabs_api.h"
+    },
+    "types": [
+      {
+        "id": "Window",
+        "type": "object",
+        "properties": {
+//@          "id": {"type": "integer", "optional": true, "minimum": 0, "description": "The ID of the window. Window IDs are unique within a browser session. Under some circumstances a Window may not be assigned an ID, for example when querying closed windows from the $ref:sessionRestore API."},
+          "id": {"type": "integer", "optional": true, "minimum": 0, "description": "窗口标识符，窗口标识符在浏览器会话中唯一。在某些情况下，例如当您使用 $ref:sessionRestore API查询关闭的窗口时，窗口可能没有标识符。"},
+//@          "focused": {"type": "boolean", "description": "Whether the window is currently the focused window."},
+          "focused": {"type": "boolean", "description": "是否为当前具有焦点的窗口。"},
+//@          "top": {"type": "integer", "optional": true, "description": "The offset of the window from the top edge of the screen in pixels. Under some circumstances a Window may not be assigned top property, for example when querying closed windows from the $ref:sessionRestore API."},
+          "top": {"type": "integer", "optional": true, "description": "窗口与屏幕顶部的距离，以像素为单位。在某些情况下，例如当您使用 $ref:sessionRestore API查询关闭的窗口时，窗口可能没有top属性。"},
+//@          "left": {"type": "integer", "optional": true, "description": "The offset of the window from the left edge of the screen in pixels. Under some circumstances a Window may not be assigned left property, for example when querying closed windows from the $ref:sessionRestore API."},
+          "left": {"type": "integer", "optional": true, "description": "窗口与屏幕左侧的距离，以像素为单位。在某些情况下，例如当您使用 $ref:sessionRestore API查询关闭的窗口时，窗口可能没有left属性。"},
+//@          "width": {"type": "integer", "optional": true, "description": "The width of the window, including the frame, in pixels. Under some circumstances a Window may not be assigned width property, for example when querying closed windows from the $ref:sessionRestore API."},
+          "width": {"type": "integer", "optional": true, "description": "窗口的宽度（包含边框），以像素为单位。在某些情况下，例如当您使用 $ref:sessionRestore API查询关闭的窗口时，窗口可能没有width属性。"},
+//@          "height": {"type": "integer", "optional": true, "description": "The height of the window, including the frame, in pixels. Under some circumstances a Window may not be assigned height property, for example when querying closed windows from the $ref:sessionRestore API."},
+          "height": {"type": "integer", "optional": true, "description": "窗口的高度（包含边框），以像素为单位。在某些情况下，例如当您使用 $ref:sessionRestore API查询关闭的窗口时，窗口可能没有height属性。"},
+//@          "tabs": {"type": "array", "items": { "$ref": "tabs.Tab" }, "optional": true, "description": "Array of $ref:tabs.Tab objects representing the current tabs in the window."},
+          "tabs": {"type": "array", "items": { "$ref": "tabs.Tab" }, "optional": true, "description": "表示窗口中所有标签页的 $ref:tabs.Tab 对象数组。"},
+//@          "incognito": {"type": "boolean", "description": "Whether the window is incognito."},
+          "incognito": {"type": "boolean", "description": "是否为隐身窗口。"},
+          "type": {
+            "type": "string",
+            "optional": true,
+//@            "description": "The type of browser window this is. Under some circumstances a Window may not be assigned type property, for example when querying closed windows from the $ref:sessionRestore API.",
+            "description": "浏览器窗口的类型。在某些情况下，例如当您使用 $ref:sessionRestore API查询关闭的窗口时，窗口可能没有type属性。",
+            "enum": ["normal", "popup", "panel", "app"]
+          },
+          "state": {
+            "type": "string",
+            "optional": true,
+//@            "description": "The state of this browser window. Under some circumstances a Window may not be assigned state property, for example when querying closed windows from the $ref:sessionRestore API.",
+            "description": "浏览器窗口的状态。在某些情况下，例如当您使用 $ref:sessionRestore API查询关闭的窗口时，窗口可能没有state属性。",
+            "enum": ["normal", "minimized", "maximized", "fullscreen"]
+          },
+//@          "alwaysOnTop": {"type": "boolean", "description": "Whether the window is set to be always on top."}
+          "alwaysOnTop": {"type": "boolean", "description": "窗口是否设置为前端显示。"}
+        }
+      }
+    ],
+    "properties": {
+      "WINDOW_ID_NONE": {
+        "value": -1,
+//@        "description": "The windowId value that represents the absence of a chrome browser window."
+        "description": "表示不存在Chrome浏览器窗口的windowId值。"
+      },
+      "WINDOW_ID_CURRENT": {
+        "value": -2,
+//@        "description": "The windowId value that represents the <a href='windows.html#current-window'>current window</a>."
+        "description": "代表<a href='windows.html#current-window'>当前窗口</a>的windowId值。"
+      }
+    },
+    "functions": [
+      {
+        "name": "get",
+        "type": "function",
+//@        "description": "Gets details about a window.",
+        "description": "获取一个窗口的有关详情。",
+        "parameters": [
+          {"type": "integer", "name": "windowId", "minimum": -2},
+          {
+            "type": "object",
+            "name": "getInfo",
+            "optional": true,
+            "description": "",
+            "properties": {
+//@              "populate": {"type": "boolean", "optional": true, "description": "If true, the window object will have a <var>tabs</var> property that contains a list of the $ref:tabs.Tab objects" }
+              "populate": {"type": "boolean", "optional": true, "description": "如果为true，窗口对象会包含<var>tabs</var>属性，包含该窗口的所有$ref:tabs.Tab对象。" }
+            }
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "parameters": [
+              {
+                "name": "window", "$ref": "Window"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "getCurrent",
+        "type": "function",
+//@        "description": "Gets the <a href='#current-window'>current window</a>.",
+        "description": "获取<a href='#current-window'>当前窗口</a>。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "getInfo",
+            "optional": true,
+            "description": "",
+            "properties": {
+//@              "populate": {"type": "boolean", "optional": true, "description": "If true, the window object will have a <var>tabs</var> property that contains a list of the $ref:tabs.Tab objects" }
+              "populate": {"type": "boolean", "optional": true, "description": "如果为true，窗口对象会包含<var>tabs</var>属性，包含该窗口的所有$ref:tabs.Tab对象。" }
+            }
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "parameters": [
+              {
+                "name": "window", "$ref": "Window"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "getLastFocused",
+        "type": "function",
+//@        "description": "Gets the window that was most recently focused &mdash; typically the window 'on top'.",
+        "description": "获得最近获得焦点的窗口，通常为顶层窗口。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "getInfo",
+            "optional": true,
+            "description": "",
+            "properties": {
+//@              "populate": {"type": "boolean", "optional": true, "description": "If true, the window object will have a <var>tabs</var> property that contains a list of the $ref:tabs.Tab objects" }
+              "populate": {"type": "boolean", "optional": true, "description": "如果为true，窗口对象会包含<var>tabs</var>属性，包含该窗口的所有$ref:tabs.Tab对象。" }
+            }
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "parameters": [
+              {
+                "name": "window", "$ref": "Window"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "getAll",
+        "type": "function",
+//@        "description": "Gets all windows.",
+        "description": "获取所有窗口。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "getInfo",
+            "optional": true,
+            "description": "",
+            "properties": {
+//@              "populate": {"type": "boolean", "optional": true, "description": "If true, each window object will have a <var>tabs</var> property that contains a list of the $ref:tabs.Tab objects for that window." }
+              "populate": {"type": "boolean", "optional": true, "description": "如果为true，每一个窗口对象都会包含<var>tabs</var>属性，包含该窗口的所有$ref:tabs.Tab对象。" }
+            }
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "parameters": [
+              {
+                "name": "windows", "type": "array", "items": { "$ref": "Window" }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "create",
+        "type": "function",
+//@        "description": "Creates (opens) a new browser with any optional sizing, position or default URL provided.",
+        "description": "创建（打开）一个新的浏览器窗口，可以提供大小、位置或默认 URL 等可选参数。",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "createData",
+            "properties": {
+              "url": {
+                "type": "string",
+//@                "description": "A URL or list of URLs to open as tabs in the window. Fully-qualified URLs must include a scheme (i.e. 'http://www.google.com', not 'www.google.com'). Relative URLs will be relative to the current page within the extension. Defaults to the New Tab Page.",
+                "description": "要在窗口中打开的一个 URL 或 URL 列表。完整的 URL 必须包含协议（即\"http://www.google.com\"，而不是\"www.google.com\"），而相对 URL 相对于扩展程序中的当前页面。默认为“打开新的标签页”页面。",
+                "optional": true,
+                "choices": [
+                  {"type": "string"},
+                  {"type": "array", "items": {"type": "string"}}
+                ]
+              },
+//@              "tabId": {"type": "integer", "minimum": 0, "optional": true, "description": "The id of the tab for which you want to adopt to the new window."},
+              "tabId": {"type": "integer", "minimum": 0, "optional": true, "description": "需要移动至新窗口的标签页标识符。"},
+//@              "left": {"type": "integer", "optional": true, "description": "The number of pixels to position the new window from the left edge of the screen. If not specified, the new window is offset naturally from the last focused window. This value is ignored for panels."},
+              "left": {"type": "integer", "optional": true, "description": "新窗口与屏幕左侧的距离，以像素为单位。如果未指定，新窗口将自然地与最后一个活动窗口偏离一定的距离。对于面板将忽略这一值。"},
+//@              "top": {"type": "integer", "optional": true, "description": "The number of pixels to position the new window from the top edge of the screen. If not specified, the new window is offset naturally from the last focused window. This value is ignored for panels."},
+              "top": {"type": "integer", "optional": true, "description": "新窗口与屏幕顶部的距离，以像素为单位。如果未指定，新窗口将自然地与最后一个活动窗口偏离一定的距离。对于面板将忽略这一值。"},
+//@              "width": {"type": "integer", "minimum": 0, "optional": true, "description": "The width in pixels of the new window, including the frame. If not specified defaults to a natural width."},
+              "width": {"type": "integer", "minimum": 0, "optional": true, "description": "新窗口的宽度（包含边框），以像素为单位，如果未指定则默认为自然宽度。"},
+//@              "height": {"type": "integer", "minimum": 0, "optional": true, "description": "The height in pixels of the new window, including the frame. If not specified defaults to a natural height."},
+              "height": {"type": "integer", "minimum": 0, "optional": true, "description": "新窗口的高度（包含边框），以像素为单位，如果未指定则默认为自然高度。"},
+//@              "focused": {"type": "boolean", "optional": true, "description": "If true, opens an active window. If false, opens an inactive window."},
+              "focused": {"type": "boolean", "optional": true, "description": "如果为true，则打开一个活动窗口；如果为false，则打开一个不活动窗口。"},
+//@              "incognito": {"type": "boolean", "optional": true, "description": "Whether the new window should be an incognito window."},
+              "incognito": {"type": "boolean", "optional": true, "description": "新窗口是否为隐身窗口。"},
+              "type": {
+                "type": "string",
+                "optional": true,
+//@                "description": "Specifies what type of browser window to create. The 'panel' and 'detached_panel' types create a popup unless the '--enable-panels' flag is set.",
+                "description": "指定要创建的浏览器窗口类型。除非设置了“--enable-panels”标志，\"panel\"与\"detatched_panel\"类型都会创建弹出窗口。",
+                "enum": ["normal", "popup", "panel", "detached_panel"]
+              }
+            },
+            "optional": true
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "optional": true,
+            "parameters": [
+              {
+//@                "name": "window", "$ref": "Window", "description": "Contains details about the created window.",
+                "name": "window", "$ref": "Window", "description": "包含已创建窗口的详情。",
+                "optional": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "update",
+        "type": "function",
+//@        "description": "Updates the properties of a window. Specify only the properties that you want to change; unspecified properties will be left unchanged.",
+        "description": "更新窗口属性。仅指定您需要更改的属性，未指定的属性不会更改。",
+        "parameters": [
+          {"type": "integer", "name": "windowId", "minimum": -2},
+          {
+            "type": "object",
+            "name": "updateInfo",
+            "properties": {
+//@              "left": {"type": "integer", "optional": true, "description": "The offset from the left edge of the screen to move the window to in pixels. This value is ignored for panels."},
+              "left": {"type": "integer", "optional": true, "description": "窗口与屏幕左侧的距离，以像素为单位。对于面板将忽略这一值。"},
+//@              "top": {"type": "integer", "optional": true, "description": "The offset from the top edge of the screen to move the window to in pixels. This value is ignored for panels."},
+              "top": {"type": "integer", "optional": true, "description": "窗口与屏幕顶部的距离，以像素为单位。对于面板将忽略这一值。"},
+//@              "width": {"type": "integer", "minimum": 0, "optional": true, "description": "The width to resize the window to in pixels. This value is ignored for panels."},
+              "width": {"type": "integer", "minimum": 0, "optional": true, "description": "窗口的宽度，以像素为单位。对于面板将忽略这一值。"},
+//@              "height": {"type": "integer", "minimum": 0, "optional": true, "description": "The height to resize the window to in pixels. This value is ignored for panels."},
+              "height": {"type": "integer", "minimum": 0, "optional": true, "description": "窗口的高度，以像素为单位。对于面板将忽略这一值。"},
+//@              "focused": {"type": "boolean", "optional": true, "description": "If true, brings the window to the front. If false, brings the next window in the z-order to the front."},
+              "focused": {"type": "boolean", "optional": true, "description": "如果为true，将窗口置于顶层；如果为false，将Z-顺序中的下一个窗口置于顶层。"},
+//@              "drawAttention": {"type": "boolean", "optional": true, "description": "If true, causes the window to be displayed in a manner that draws the user's attention to the window, without changing the focused window. The effect lasts until the user changes focus to the window. This option has no effect if the window already has focus. Set to false to cancel a previous draw attention request."},
+              "drawAttention": {"type": "boolean", "optional": true, "description": "如果为true，使窗口以吸引用户注意的方式显示，而不更改活动窗口，这一效果将一直持续到用户将焦点移至这一窗口。如果窗口已经获得焦点则该选项无效，将这一属性设置为false可以取消上一次的突出显示请求。"},
+              "state": {
+                "type": "string",
+                "optional": true,
+//@                "description": "The new state of the window. The 'minimized', 'maximized' and 'fullscreen' states cannot be combined with 'left', 'top', 'width' or 'height'.",
+                "description": "窗口的新状态。\"minimized\"（最小化）、\"maximized\"（最大化）与\"fullscreen\"（全屏）状态不能与left、top、width或height属性一起使用。",
+                "enum": ["normal", "minimized", "maximized", "fullscreen"]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "name": "callback",
+            "optional": true,
+            "parameters": [
+              {
+                "name": "window", "$ref": "Window"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "remove",
+        "type": "function",
+//@        "description": "Removes (closes) a window, and all the tabs inside it.",
+        "description": "移除（关闭）一个窗口以及其中的所有标签页。",
+        "parameters": [
+          {"type": "integer", "name": "windowId", "minimum": 0},
+          {"type": "function", "name": "callback", "optional": true, "parameters": []}
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "onCreated",
+        "type": "function",
+//@        "description": "Fired when a window is created.",
+        "description": "当窗口创建时产生。",
+        "parameters": [
+          {
+            "$ref": "Window",
+            "name": "window",
+//@            "description": "Details of the window that was created."
+            "description": "有关已创建窗口的详情。"
+          }
+        ]
+      },
+      {
+        "name": "onRemoved",
+        "type": "function",
+//@        "description": "Fired when a window is removed (closed).",
+        "description": "当窗口移除（关闭）时产生。",
+        "parameters": [
+//@          {"type": "integer", "name": "windowId", "minimum": 0, "description": "ID of the removed window."}
+          {"type": "integer", "name": "windowId", "minimum": 0, "description": "已移除窗口的标识符。"}
+        ]
+      },
+      {
+        "name": "onFocusChanged",
+        "type": "function",
+//@        "description": "Fired when the currently focused window changes. Will be chrome.windows.WINDOW_ID_NONE if all chrome windows have lost focus. Note: On some Linux window managers, WINDOW_ID_NONE will always be sent immediately preceding a switch from one chrome window to another.",
+        "description": "在当前具有焦点的窗口改变时产生，如果所有Chrome浏览器窗口都没有焦点则为 $ref:windows.WINDOW_ID_NONE。注意：在某些Linux窗口管理器中，从一个Chrome浏览器窗口切换到另一个之前总是会发送 $ref:windows.WINDOW_ID_NONE 的该事件。",
+        "parameters": [
+//@          {"type": "integer", "name": "windowId", "minimum": -1, "description": "ID of the newly focused window."}
+          {"type": "integer", "name": "windowId", "minimum": -1, "description": "获得焦点的新窗口的标识符。"}
+        ]
+      }
+    ]
+  }
+]
